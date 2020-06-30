@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smart.bracelet.dao.UserInfoDao">
+
+    <resultMap type="com.smart.bracelet.model.UserInfo" id="UserInfoMap">
+        <result property="userInfoId" column="user_info_id" jdbcType="INTEGER"/>
+        <result property="userAccount" column="user_account" jdbcType="VARCHAR"/>
+        <result property="userPwd" column="user_pwd" jdbcType="VARCHAR"/>
+        <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+        <result property="identificationNumber" column="identification_number" jdbcType="VARCHAR"/>
+        <result property="phoneNumber" column="phone_number" jdbcType="VARCHAR"/>
+        <result property="userBirthday" column="user_birthday" jdbcType="VARCHAR"/>
+        <result property="userAvatar" column="user_avatar" jdbcType="VARCHAR"/>
+        <result property="userSex" column="user_sex" jdbcType="VARCHAR"/>
+        <result property="userStatus" column="user_status" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="selectUserInfoAccount" resultMap="UserInfoMap">
+        SELECT
+        `user_info_id`,
+        `user_account`,
+        `user_pwd`,
+        `user_name`,
+        `identification_number`,
+        `phone_number`,
+        `user_birthday`,
+        `user_avatar`,
+        `user_sex`,
+        `user_status`,
+        `create_time`,
+        `update_time`,
+        `remarks`
+        FROM
+        `user_info`
+        WHERE `user_account`= #{userAccount,jdbcType=VARCHAR}
+    </select>
+
+</mapper>
