@@ -18,6 +18,93 @@
         <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
     </resultMap>
 
+    <insert id="addUserInfo"  parameterType="com.smart.bracelet.model.UserInfo">
+        insert into user_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userInfoId != null">
+                user_info_id,
+            </if>
+            <if test="userAccount != null">
+                user_account,
+            </if>
+            <if test="userPwd != null">
+                user_pwd,
+            </if>
+            <if test="userName != null">
+                user_name,
+            </if>
+            <if test="identificationNumber != null">
+                identification_number,
+            </if>
+            <if test="phoneNumber != null">
+                phone_number,
+            </if>
+            <if test="userBirthday != null">
+                user_birthday,
+            </if>
+            <if test="userAvatar != null">
+                user_avatar,
+            </if>
+            <if test="userSex != null">
+                user_sex,
+            </if>
+            <if test="userStatus != null">
+                user_status,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="remarks != null">
+                remarks,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userInfoId != null">
+                #{userInfoId,jdbcType=BIGINT},
+            </if>
+            <if test="userAccount != null">
+                #{userAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="userPwd != null">
+                #{userPwd,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="identificationNumber != null">
+                #{identificationNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="phoneNumber != null">
+                #{phoneNumber,jdbcType=CHAR},
+            </if>
+            <if test="userBirthday != null">
+                #{userBirthday,jdbcType=VARCHAR},
+            </if>
+            <if test="userAvatar != null">
+                #{userAvatar,jdbcType=VARCHAR},
+            </if>
+            <if test="userSex != null">
+                #{userSex,jdbcType=CHAR},
+            </if>
+            <if test="userStatus != null">
+                #{userStatus,jdbcType=CHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remarks != null">
+                #{remarks,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+
     <select id="selectUserInfoAccount" resultMap="UserInfoMap">
         SELECT
         `user_info_id`,

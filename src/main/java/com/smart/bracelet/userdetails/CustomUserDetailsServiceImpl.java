@@ -1,9 +1,7 @@
 package com.smart.bracelet.userdetails;
 
-import cn.hutool.core.util.StrUtil;
 import com.smart.bracelet.model.UserInfo;
 import com.smart.bracelet.service.UserInfoService;
-import com.smart.bracelet.utils.IdUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,7 +9,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -39,6 +36,7 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
         if (StringUtils.isEmpty(userInfo)){
             throw new UsernameNotFoundException("用户名不存在");
         }
+        //通过账号查询用户权限并存入authorities
         List<GrantedAuthority> authorities = new ArrayList<>();
         //获取菜单的权限，所有用户登陆后都拥有
         authorities.add(new SimpleGrantedAuthority("menuInfo:query:userInfoId"));

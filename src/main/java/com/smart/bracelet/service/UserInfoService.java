@@ -19,4 +19,11 @@ public interface UserInfoService extends IService<UserInfo> {
      * @return
      */
     UserInfo selectUserInfoAccount(String userAccount);
+
+
+
+    /**
+     * 新增用户信息
+     */
+    int addUserInfo(UserInfo userInfo) throws Exception;
 }

@@ -1,11 +1,14 @@
 package com.smart.bracelet.controller.user;
 
+import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.UserInfo;
 import com.smart.bracelet.service.UserInfoService;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 /**
  * 用户信息表(UserInfo)表控制层
@@ -23,7 +26,6 @@ public class UserInfoController {
     private UserInfoService userInfoService;
 
 
-
     /**
      * 通过主键查询单条数据
      *
@@ -34,6 +36,13 @@ public class UserInfoController {
     @GetMapping("selectOne")
     public UserInfo selectOne(Long id) {
         return this.userInfoService.getById(id);
+    }
+
+
+    @RequestMapping("/addUserInfo")
+    public Result addUserInfo(@Valid UserInfo userInfo) throws Exception {
+        int insert = userInfoService.addUserInfo(userInfo);
+        return Result.success(insert);
     }
 
 

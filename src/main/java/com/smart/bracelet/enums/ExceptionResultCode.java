@@ -1,7 +1,7 @@
 package com.smart.bracelet.enums;
 
 /**
- * @desc: 描述信息
+ * TODO: 描述信息
  *
  * @author junyunxiao
  * @version 1.0
@@ -9,14 +9,8 @@ package com.smart.bracelet.enums;
  */
 public enum ExceptionResultCode {
 
-    /**
-     * 参数校验异常
-     */
     VALID_EXCEPTION("405", "参数校验异常"),
 
-    /**
-     * 服务器异常
-     */
     SYS_EXCEPTION("500", "系统发生异常");
 
     private String code;
@@ -31,9 +25,15 @@ public enum ExceptionResultCode {
         return code;
     }
 
+    public void setCode(String code) {
+        this.code = code;
+    }
 
     public String getMessage() {
         return message;
     }
 
+    public void setMessage(String message) {
+        this.message = message;
+    }
 }
