@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.smart.bracelet.model.UserInfo;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * @author junyunxiao
  * @version 1.0
@@ -25,5 +27,12 @@ public interface UserInfoDao extends BaseMapper<UserInfo> {
      * 新增用户信息
      */
     int addUserInfo(UserInfo userInfo);
+
+    /**
+     * 通过用户账号查询权限
+     * @param userAccount
+     * @return
+     */
+    List<String> queryAuthoritys(String userAccount);
 
 }

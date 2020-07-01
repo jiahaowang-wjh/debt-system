@@ -124,5 +124,8 @@
         `user_info`
         WHERE `user_account`= #{userAccount,jdbcType=VARCHAR}
     </select>
+    <select id="queryAuthoritys" resultType="java.lang.String">
+
+    </select>
 
 </mapper>

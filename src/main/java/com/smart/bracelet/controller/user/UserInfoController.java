@@ -1,9 +1,9 @@
 package com.smart.bracelet.controller.user;
 
+import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.UserInfo;
 import com.smart.bracelet.service.UserInfoService;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 
@@ -40,12 +40,9 @@ public class UserInfoController {
 
 
     @RequestMapping("/addUserInfo")
-    public Result addUserInfo(@Valid UserInfo userInfo) throws Exception {
+    public Result addUserInfo(@Valid UserInfo userInfo) throws CustomerException {
         int insert = userInfoService.addUserInfo(userInfo);
         return Result.success(insert);
     }
-
-
-
 
 }
