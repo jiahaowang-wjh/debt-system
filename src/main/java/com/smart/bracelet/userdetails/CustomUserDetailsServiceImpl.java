@@ -37,11 +37,11 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("用户名不存在");
         }
         List<GrantedAuthority> authorities = new ArrayList<>();
-        List<String> list = userInfoService.queryAuthoritys(userAccount);
-        //将查询到的权限集合存入到authorities
-        for (String item: list) {
-            authorities.add(new SimpleGrantedAuthority(item));
-        }
+//        List<String> list = userInfoService.queryAuthoritys(userAccount);
+//        //将查询到的权限集合存入到authorities
+//        for (String item: list) {
+//            authorities.add(new SimpleGrantedAuthority(item));
+//        }
         //获取菜单的权限，所有用户登陆后都拥有
         authorities.add(new SimpleGrantedAuthority("menuInfo:query:userInfoId"));
         authorities.add(new SimpleGrantedAuthority("departmentInfo:queryCurrentUserDataScopeTree"));
