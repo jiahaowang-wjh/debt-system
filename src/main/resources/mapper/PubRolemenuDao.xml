@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smart.bracelet.dao.PubRolemenuDao">
+  <resultMap id="BaseResultMap" type="com.smart.bracelet.model.po.PubRolemenu">
+    <id column="rolemenu_id" jdbcType="BIGINT" property="rolemenuId" />
+    <result column="role_id" jdbcType="BIGINT" property="roleId" />
+    <result column="menu_id" jdbcType="BIGINT" property="menuId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    rolemenu_id, role_id, menu_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pub_rolemenu
+    where rolemenu_id = #{rolemenuId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from pub_rolemenu
+    where rolemenu_id = #{rolemenuId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.smart.bracelet.model.po.PubRolemenu">
+    insert into pub_rolemenu (rolemenu_id, role_id, menu_id
+      )
+    values (#{rolemenuId,jdbcType=BIGINT}, #{roleId,jdbcType=BIGINT}, #{menuId,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.PubRolemenu">
+    insert into pub_rolemenu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rolemenuId != null">
+        rolemenu_id,
+      </if>
+      <if test="roleId != null">
+        role_id,
+      </if>
+      <if test="menuId != null">
+        menu_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rolemenuId != null">
+        #{rolemenuId,jdbcType=BIGINT},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=BIGINT},
+      </if>
+      <if test="menuId != null">
+        #{menuId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.po.PubRolemenu">
+    update pub_rolemenu
+    <set>
+      <if test="roleId != null">
+        role_id = #{roleId,jdbcType=BIGINT},
+      </if>
+      <if test="menuId != null">
+        menu_id = #{menuId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where rolemenu_id = #{rolemenuId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.smart.bracelet.model.po.PubRolemenu">
+    update pub_rolemenu
+    set role_id = #{roleId,jdbcType=BIGINT},
+      menu_id = #{menuId,jdbcType=BIGINT}
+    where rolemenu_id = #{rolemenuId,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smart.bracelet.dao.PubRoleauthDao">
+  <resultMap id="BaseResultMap" type="com.smart.bracelet.model.po.PubRoleauth">
+    <id column="roleauth_id" jdbcType="BIGINT" property="roleauthId" />
+    <result column="role_id" jdbcType="BIGINT" property="roleId" />
+    <result column="auth_id" jdbcType="BIGINT" property="authId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    roleauth_id, role_id, auth_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pub_roleauth
+    where roleauth_id = #{roleauthId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from pub_roleauth
+    where roleauth_id = #{roleauthId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.smart.bracelet.model.po.PubRoleauth">
+    insert into pub_roleauth (roleauth_id, role_id, auth_id
+      )
+    values (#{roleauthId,jdbcType=BIGINT}, #{roleId,jdbcType=BIGINT}, #{authId,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.PubRoleauth">
+    insert into pub_roleauth
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="roleauthId != null">
+        roleauth_id,
+      </if>
+      <if test="roleId != null">
+        role_id,
+      </if>
+      <if test="authId != null">
+        auth_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="roleauthId != null">
+        #{roleauthId,jdbcType=BIGINT},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=BIGINT},
+      </if>
+      <if test="authId != null">
+        #{authId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.po.PubRoleauth">
+    update pub_roleauth
+    <set>
+      <if test="roleId != null">
+        role_id = #{roleId,jdbcType=BIGINT},
+      </if>
+      <if test="authId != null">
+        auth_id = #{authId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where roleauth_id = #{roleauthId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.smart.bracelet.model.po.PubRoleauth">
+    update pub_roleauth
+    set role_id = #{roleId,jdbcType=BIGINT},
+      auth_id = #{authId,jdbcType=BIGINT}
+    where roleauth_id = #{roleauthId,jdbcType=BIGINT}
+  </update>
+</mapper>

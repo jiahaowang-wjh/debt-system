@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smart.bracelet.dao.PubMenuDao">
+  <resultMap id="BaseResultMap" type="com.smart.bracelet.model.po.PubMenu">
+    <id column="menu_id" jdbcType="BIGINT" property="menuId" />
+    <result column="menuname" jdbcType="VARCHAR" property="menuname" />
+    <result column="menuurl" jdbcType="VARCHAR" property="menuurl" />
+    <result column="menuorder" jdbcType="INTEGER" property="menuorder" />
+    <result column="prant_id" jdbcType="BIGINT" property="prantId" />
+    <result column="isenable" jdbcType="VARCHAR" property="isenable" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    menu_id, menuname, menuurl, menuorder, prant_id, isenable, note
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pub_menu
+    where menu_id = #{menuId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from pub_menu
+    where menu_id = #{menuId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.smart.bracelet.model.po.PubMenu">
+    insert into pub_menu (menu_id, menuname, menuurl, 
+      menuorder, prant_id, isenable, 
+      note)
+    values (#{menuId,jdbcType=BIGINT}, #{menuname,jdbcType=VARCHAR}, #{menuurl,jdbcType=VARCHAR}, 
+      #{menuorder,jdbcType=INTEGER}, #{prantId,jdbcType=BIGINT}, #{isenable,jdbcType=VARCHAR}, 
+      #{note,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.PubMenu">
+    insert into pub_menu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="menuId != null">
+        menu_id,
+      </if>
+      <if test="menuname != null">
+        menuname,
+      </if>
+      <if test="menuurl != null">
+        menuurl,
+      </if>
+      <if test="menuorder != null">
+        menuorder,
+      </if>
+      <if test="prantId != null">
+        prant_id,
+      </if>
+      <if test="isenable != null">
+        isenable,
+      </if>
+      <if test="note != null">
+        note,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="menuId != null">
+        #{menuId,jdbcType=BIGINT},
+      </if>
+      <if test="menuname != null">
+        #{menuname,jdbcType=VARCHAR},
+      </if>
+      <if test="menuurl != null">
+        #{menuurl,jdbcType=VARCHAR},
+      </if>
+      <if test="menuorder != null">
+        #{menuorder,jdbcType=INTEGER},
+      </if>
+      <if test="prantId != null">
+        #{prantId,jdbcType=BIGINT},
+      </if>
+      <if test="isenable != null">
+        #{isenable,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null">
+        #{note,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.po.PubMenu">
+    update pub_menu
+    <set>
+      <if test="menuname != null">
+        menuname = #{menuname,jdbcType=VARCHAR},
+      </if>
+      <if test="menuurl != null">
+        menuurl = #{menuurl,jdbcType=VARCHAR},
+      </if>
+      <if test="menuorder != null">
+        menuorder = #{menuorder,jdbcType=INTEGER},
+      </if>
+      <if test="prantId != null">
+        prant_id = #{prantId,jdbcType=BIGINT},
+      </if>
+      <if test="isenable != null">
+        isenable = #{isenable,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null">
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where menu_id = #{menuId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.smart.bracelet.model.po.PubMenu">
+    update pub_menu
+    set menuname = #{menuname,jdbcType=VARCHAR},
+      menuurl = #{menuurl,jdbcType=VARCHAR},
+      menuorder = #{menuorder,jdbcType=INTEGER},
+      prant_id = #{prantId,jdbcType=BIGINT},
+      isenable = #{isenable,jdbcType=VARCHAR},
+      note = #{note,jdbcType=VARCHAR}
+    where menu_id = #{menuId,jdbcType=BIGINT}
+  </update>
+</mapper>

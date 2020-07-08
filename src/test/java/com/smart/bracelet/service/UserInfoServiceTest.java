@@ -4,6 +4,7 @@ import com.smart.bracelet.utils.IdUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,5 +26,4 @@ public class UserInfoServiceTest {
         //超时10分钟发送信息给管理员
        // redisTemplate.opsForSet().add(CacheConstants.CACHE_LABORATORY_RESERVE_TIME_OUT_REMIND_PREFIX+"_"+vo.getReserveInfoId(),vo.getUserInfoId(),timeOutToEpochSecond, TimeUnit.SECONDS);
     }
-
 }
