@@ -20,12 +20,7 @@
     delete from pub_auth
     where auth_id = #{authId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.smart.bracelet.model.po.PubAuth">
-    insert into pub_auth (auth_id, authname, interfacename, 
-      note)
-    values (#{authId,jdbcType=BIGINT}, #{authname,jdbcType=VARCHAR}, #{interfacename,jdbcType=VARCHAR}, 
-      #{note,jdbcType=VARCHAR})
-  </insert>
+
   <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.PubAuth">
     insert into pub_auth
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -72,11 +67,5 @@
     </set>
     where auth_id = #{authId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.smart.bracelet.model.po.PubAuth">
-    update pub_auth
-    set authname = #{authname,jdbcType=VARCHAR},
-      interfacename = #{interfacename,jdbcType=VARCHAR},
-      note = #{note,jdbcType=VARCHAR}
-    where auth_id = #{authId,jdbcType=BIGINT}
-  </update>
+
 </mapper>

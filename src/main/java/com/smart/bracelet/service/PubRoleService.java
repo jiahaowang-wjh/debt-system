@@ -1,33 +1,25 @@
-package com.smart.bracelet.dao;
+package com.smart.bracelet.service;
 
+import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.PubRole;
 import com.smart.bracelet.model.po.PubRoleauth;
 import com.smart.bracelet.model.vo.PubRoleVo;
-import org.springframework.stereotype.Repository;
 
-@Repository
-public interface PubRoleDao {
+public interface PubRoleService {
 
     /**
      * 通过ID删除角色信息
      * @param roleId
      * @return
      */
-    int deleteByPrimaryKey(Long roleId);
-
-    /**
-     * 通过ID删除角色权限信息
-     * @param roleId
-     * @return
-     */
-    int deleteRoleauthByPrimaryKey(Long roleId);
+    int deleteByPrimaryKey(Long roleId) throws CustomerException;
 
     /**
      * 新增角色信息
      * @param record
      * @return
      */
-    int insertSelective(PubRole record);
+    int insertSelective(PubRole record) throws CustomerException;
 
     /**
      * 通过Id查询角色信息
@@ -41,14 +33,12 @@ public interface PubRoleDao {
      * @param record
      * @return
      */
-    int updateByPrimaryKeySelective(PubRoleVo record);
+    int updateByPrimaryKeySelective(PubRoleVo record) throws CustomerException;
 
     /**
      * 给角色分配权限
      * @parampubRoleauth
      * @return
      */
-    int addRoleAuth(PubRoleauth pubRoleauth);
-
-
+    int addRoleAuth(PubRoleauth pubRoleauth) throws CustomerException;
 }

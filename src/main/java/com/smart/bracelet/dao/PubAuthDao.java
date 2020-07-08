@@ -5,9 +5,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PubAuthDao {
-    int deleteByPrimaryKey(Long authId);
 
-    int insert(PubAuth record);
+    int deleteByPrimaryKey(Long authId);
 
     int insertSelective(PubAuth record);
 
@@ -15,5 +14,4 @@ public interface PubAuthDao {
 
     int updateByPrimaryKeySelective(PubAuth record);
 
-    int updateByPrimaryKey(PubAuth record);
 }

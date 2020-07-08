@@ -2,6 +2,7 @@ package com.smart.bracelet.model.po;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
@@ -19,6 +20,7 @@ public class PubRole implements Serializable {
     /**
      * 角色名
      */
+    @NotBlank(message = "角色名不能为空")
     private String rolename;
 
     /**
@@ -30,6 +32,5 @@ public class PubRole implements Serializable {
      * 备注
      */
     private String note;
-
 
 }

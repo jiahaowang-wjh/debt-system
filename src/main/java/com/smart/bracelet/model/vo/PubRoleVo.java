@@ -2,6 +2,8 @@ package com.smart.bracelet.model.vo;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -15,6 +17,7 @@ public class PubRoleVo implements Serializable {
     /**
      * 角色ID
      */
+    @NotNull(message = "角色Id不能为空")
     private Long roleId;
 
     /**

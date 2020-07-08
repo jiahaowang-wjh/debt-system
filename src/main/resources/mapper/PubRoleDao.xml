@@ -20,63 +20,83 @@
     delete from pub_role
     where role_id = #{roleId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.smart.bracelet.model.po.PubRole">
-    insert into pub_role (role_id, rolename, isenable, 
-      note)
-    values (#{roleId,jdbcType=BIGINT}, #{rolename,jdbcType=VARCHAR}, #{isenable,jdbcType=VARCHAR}, 
-      #{note,jdbcType=VARCHAR})
-  </insert>
+  <delete id="deleteRoleauthByPrimaryKey">
+     delete from pub_roleauth
+    where role_id = #{roleId,jdbcType=BIGINT}
+  </delete>
   <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.PubRole">
     insert into pub_role
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="roleId != null">
+      <if test="roleId != null and roleId != ''">
         role_id,
       </if>
-      <if test="rolename != null">
+      <if test="rolename != null and rolename != ''">
         rolename,
       </if>
-      <if test="isenable != null">
+      <if test="isenable != null and isenable != ''">
         isenable,
       </if>
-      <if test="note != null">
+      <if test="note != null and note != ''">
         note,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="roleId != null">
+      <if test="roleId != null and roleId != ''">
         #{roleId,jdbcType=BIGINT},
       </if>
-      <if test="rolename != null">
+      <if test="rolename != null and rolename != ''">
         #{rolename,jdbcType=VARCHAR},
       </if>
-      <if test="isenable != null">
+      <if test="isenable != null and isenable != ''">
         #{isenable,jdbcType=VARCHAR},
       </if>
-      <if test="note != null">
+      <if test="note != null and note != ''">
         #{note,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.po.PubRole">
+  <insert id="addRoleAuth">
+    insert into pub_roleauth
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="roleauthId != null and roleauthId!= ''">
+        roleauth_id,
+      </if>
+      <if test="roleId != null and roleId!= ''">
+        role_id,
+      </if>
+      <if test="authId != null and authId!= ''">
+        auth_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="roleauthId != null and roleauthId!= ''">
+        #{roleauthId,jdbcType=BIGINT},
+      </if>
+      <if test="roleId != null and roleId!= ''">
+        #{roleId,jdbcType=BIGINT},
+      </if>
+      <if test="authId != null and authId!= ''">
+        #{authId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.vo.PubRoleVo">
     update pub_role
     <set>
-      <if test="rolename != null">
+      <if test="rolename != null and rolename != ''">
         rolename = #{rolename,jdbcType=VARCHAR},
       </if>
-      <if test="isenable != null">
+      <if test="isenable != null and isenable != ''">
         isenable = #{isenable,jdbcType=VARCHAR},
       </if>
-      <if test="note != null">
+      <if test="note != null and note != ''">
         note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null and roleId != ''">
+        role_id = #{roleId,jdbcType=VARCHAR},
       </if>
     </set>
     where role_id = #{roleId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.smart.bracelet.model.po.PubRole">
-    update pub_role
-    set rolename = #{rolename,jdbcType=VARCHAR},
-      isenable = #{isenable,jdbcType=VARCHAR},
-      note = #{note,jdbcType=VARCHAR}
-    where role_id = #{roleId,jdbcType=BIGINT}
-  </update>
+
 </mapper>
