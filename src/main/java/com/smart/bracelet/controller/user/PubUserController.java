@@ -2,9 +2,11 @@ package com.smart.bracelet.controller.user;
 
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
+import com.smart.bracelet.model.po.PubMenu;
 import com.smart.bracelet.model.po.PubUser;
 import com.smart.bracelet.model.vo.PubUserVo;
 import com.smart.bracelet.service.PubUserService;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
@@ -17,6 +19,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/pubUser/")
+@Validated
 public class PubUserController {
 
     /**
@@ -79,6 +82,17 @@ public class PubUserController {
     public Result<PubUser> selectByPrimaryKey(@NotNull(message = "用户Id不能为空")Long userId){
         PubUser pubUser = userInfoService.selectByPrimaryKey(userId);
         return Result.success(pubUser);
+    }
+
+    /**
+     * 通过用户Id查询菜单信息
+     * @param userId
+     * @return
+     */
+    @RequestMapping("/selectMenuByUserId")
+    public Result<List<PubMenu>> selectMenuByUserId(@NotNull(message = "用户Id不能为空") Long userId){
+        List<PubMenu> pubMenus = userInfoService.selectMenuByUserId(userId);
+        return Result.success(pubMenus);
     }
 
 }

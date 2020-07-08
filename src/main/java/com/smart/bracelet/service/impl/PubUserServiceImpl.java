@@ -2,6 +2,7 @@ package com.smart.bracelet.service.impl;
 
 import com.smart.bracelet.dao.PubUserDao;
 import com.smart.bracelet.exception.CustomerException;
+import com.smart.bracelet.model.po.PubMenu;
 import com.smart.bracelet.model.po.PubUser;
 import com.smart.bracelet.model.vo.PubUserVo;
 import com.smart.bracelet.service.PubUserService;
@@ -107,5 +108,15 @@ public class PubUserServiceImpl implements PubUserService {
     @Override
     public List<PubUser> queryUserList() {
         return pubUserDao.queryUserList();
+    }
+
+    /**
+     * 查询菜单信息
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<PubMenu> selectMenuByUserId(Long userId) {
+        return pubUserDao.selectMenuByUserId(userId);
     }
 }

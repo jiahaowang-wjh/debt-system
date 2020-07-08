@@ -2,6 +2,7 @@ package com.smart.bracelet.model.vo;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -14,22 +15,23 @@ public class PubMenuVo implements Serializable {
     /**
      * 菜单ID
      */
+    @NotNull(message = "菜单ID不能为空")
     private Long menuId;
 
     /**
      * 菜单名
      */
-    private String menuname;
+    private String menuName;
 
     /**
      * 菜单地址
      */
-    private String menuurl;
+    private String menuUrl;
 
     /**
      * 排序
      */
-    private Integer menuorder;
+    private Integer menuOrder;
 
     /**
      * 父级ID

@@ -1,5 +1,6 @@
 package com.smart.bracelet.dao;
 
+import com.smart.bracelet.model.po.PubMenu;
 import com.smart.bracelet.model.po.PubUser;
 import com.smart.bracelet.model.vo.PubUserVo;
 import org.springframework.stereotype.Repository;
@@ -58,5 +59,9 @@ public interface PubUserDao {
      */
     List<PubUser> queryUserList();
 
-
+    /**
+     * 通过用户ID查询菜单信息
+     * @return
+     */
+    List<PubMenu> selectMenuByUserId(Long userId);
 }

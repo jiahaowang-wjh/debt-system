@@ -1,19 +1,23 @@
 package com.smart.bracelet.dao;
 
 import com.smart.bracelet.model.po.PubMenu;
+import com.smart.bracelet.model.vo.PubMenuVo;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface PubMenuDao {
-    int deleteByPrimaryKey(Long menuId);
 
-    int insert(PubMenu record);
+    int deleteByPrimaryKey(Long menuId);
 
     int insertSelective(PubMenu record);
 
     PubMenu selectByPrimaryKey(Long menuId);
 
-    int updateByPrimaryKeySelective(PubMenu record);
+    int updateByPrimaryKeySelective(PubMenuVo record);
 
-    int updateByPrimaryKey(PubMenu record);
+    List<PubMenu> queryMenuList();
+
+
 }
