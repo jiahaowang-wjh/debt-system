@@ -2,6 +2,7 @@ package com.smart.bracelet.model.vo;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -14,6 +15,7 @@ public class PubExpVo implements Serializable {
     /**
      * 公式ID
      */
+    @NotNull(message = "公式ID不能为空")
     private Long expId;
 
     /**

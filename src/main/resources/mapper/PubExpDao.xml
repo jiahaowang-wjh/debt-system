@@ -21,12 +21,7 @@
     delete from pub_exp
     where exp_id = #{expId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.smart.bracelet.model.po.PubExp">
-    insert into pub_exp (exp_id, exp_type, exp_code, 
-      `exp`, paramter)
-    values (#{expId,jdbcType=BIGINT}, #{expType,jdbcType=VARCHAR}, #{expCode,jdbcType=VARCHAR}, 
-      #{exp,jdbcType=VARCHAR}, #{paramter,jdbcType=VARCHAR})
-  </insert>
+
   <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.PubExp">
     insert into pub_exp
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -64,7 +59,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.po.PubExp">
+  <update id="updateByPrimaryKeySelective">
     update pub_exp
     <set>
       <if test="expType != null">
@@ -80,14 +75,6 @@
         paramter = #{paramter,jdbcType=VARCHAR},
       </if>
     </set>
-    where exp_id = #{expId,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.smart.bracelet.model.po.PubExp">
-    update pub_exp
-    set exp_type = #{expType,jdbcType=VARCHAR},
-      exp_code = #{expCode,jdbcType=VARCHAR},
-      `exp` = #{exp,jdbcType=VARCHAR},
-      paramter = #{paramter,jdbcType=VARCHAR}
     where exp_id = #{expId,jdbcType=BIGINT}
   </update>
 </mapper>

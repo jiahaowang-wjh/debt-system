@@ -45,7 +45,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.po.PubDoc">
+  <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.vo.PubDocVo">
     update pub_doc
     <set>
       <if test="docPath != null">
