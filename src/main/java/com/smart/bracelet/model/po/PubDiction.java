@@ -2,6 +2,8 @@ package com.smart.bracelet.model.po;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -19,26 +21,31 @@ public class PubDiction implements Serializable {
     /**
      * 字典类型
      */
+    @NotBlank(message = "字典类型不能为空")
     private String dictionType;
 
     /**
      * 字典编码
      */
+    @NotBlank(message = "字典类型不能为空")
     private String dictionCode;
 
     /**
      * 字典编号
      */
+    @NotBlank(message = "字典类型不能为空")
     private String dictionNo;
 
     /**
      * 字典显示
      */
+    @NotBlank(message = "字典类型不能为空")
     private String dictionDis;
 
     /**
      * 排序
      */
+    @NotNull(message = "排序不能为空")
     private Long sort;
 
     /**

@@ -1,28 +1,23 @@
-package com.smart.bracelet.dao;
+package com.smart.bracelet.service;
 
+import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.PubDiction;
 import com.smart.bracelet.model.vo.PubDictionVo;
-import org.springframework.stereotype.Repository;
 
-/**
- * 字典表
- */
-@Repository
-public interface PubDictionDao {
-
+public interface PubDictionService {
     /**
      * 通过Id删除字典
      * @param dictionId
      * @return
      */
-    int deleteByPrimaryKey(Long dictionId);
+    int deleteByPrimaryKey(Long dictionId) throws CustomerException;
 
     /**
      * 新增字典
      * @param record
      * @return
      */
-    int insertSelective(PubDiction record);
+    int insertSelective(PubDiction record) throws CustomerException;
 
     /**
      * 通过Id查询字典
@@ -36,6 +31,6 @@ public interface PubDictionDao {
      * @param record
      * @return
      */
-    int updateByPrimaryKeySelective(PubDictionVo record);
+    int updateByPrimaryKeySelective(PubDictionVo record) throws CustomerException;
 
 }

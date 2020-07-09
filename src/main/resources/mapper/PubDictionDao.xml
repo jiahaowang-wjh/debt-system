@@ -23,14 +23,6 @@
     delete from pub_diction
     where diction_id = #{dictionId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.smart.bracelet.model.po.PubDiction">
-    insert into pub_diction (diction_id, diction_type, diction_code, 
-      diction_no, diction_dis, sort, 
-      note)
-    values (#{dictionId,jdbcType=BIGINT}, #{dictionType,jdbcType=VARCHAR}, #{dictionCode,jdbcType=VARCHAR}, 
-      #{dictionNo,jdbcType=VARCHAR}, #{dictionDis,jdbcType=VARCHAR}, #{sort,jdbcType=BIGINT}, 
-      #{note,jdbcType=VARCHAR})
-  </insert>
   <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.PubDiction">
     insert into pub_diction
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -102,16 +94,6 @@
         note = #{note,jdbcType=VARCHAR},
       </if>
     </set>
-    where diction_id = #{dictionId,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.smart.bracelet.model.po.PubDiction">
-    update pub_diction
-    set diction_type = #{dictionType,jdbcType=VARCHAR},
-      diction_code = #{dictionCode,jdbcType=VARCHAR},
-      diction_no = #{dictionNo,jdbcType=VARCHAR},
-      diction_dis = #{dictionDis,jdbcType=VARCHAR},
-      sort = #{sort,jdbcType=BIGINT},
-      note = #{note,jdbcType=VARCHAR}
     where diction_id = #{dictionId,jdbcType=BIGINT}
   </update>
 </mapper>
