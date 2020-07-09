@@ -14,6 +14,9 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+/**
+ * 菜单管理
+ */
 @RestController
 @RequestMapping("/api/pubMenu/")
 @Validated

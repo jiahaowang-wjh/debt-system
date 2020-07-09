@@ -3,6 +3,7 @@ package com.smart.bracelet.service;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.PubRole;
 import com.smart.bracelet.model.po.PubRoleauth;
+import com.smart.bracelet.model.po.PubRolemenu;
 import com.smart.bracelet.model.vo.PubRoleVo;
 
 public interface PubRoleService {
@@ -41,4 +42,11 @@ public interface PubRoleService {
      * @return
      */
     int addRoleAuth(PubRoleauth pubRoleauth) throws CustomerException;
+
+    /**
+     * 给角色添加菜单
+     * @param pubRolemenu
+     * @return
+     */
+    int addRoleMenu(PubRolemenu pubRolemenu) throws CustomerException;
 }

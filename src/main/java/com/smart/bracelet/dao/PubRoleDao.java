@@ -2,6 +2,7 @@ package com.smart.bracelet.dao;
 
 import com.smart.bracelet.model.po.PubRole;
 import com.smart.bracelet.model.po.PubRoleauth;
+import com.smart.bracelet.model.po.PubRolemenu;
 import com.smart.bracelet.model.vo.PubRoleVo;
 import org.springframework.stereotype.Repository;
 
@@ -50,5 +51,11 @@ public interface PubRoleDao {
      */
     int addRoleAuth(PubRoleauth pubRoleauth);
 
+    /**
+     * 给角色添加菜单
+     * @param pubRolemenu
+     * @return
+     */
+    int addRoleMenu(PubRolemenu pubRolemenu);
 
 }

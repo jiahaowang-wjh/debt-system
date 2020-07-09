@@ -4,6 +4,7 @@ import com.smart.bracelet.dao.PubRoleDao;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.PubRole;
 import com.smart.bracelet.model.po.PubRoleauth;
+import com.smart.bracelet.model.po.PubRolemenu;
 import com.smart.bracelet.model.vo.PubRoleVo;
 import com.smart.bracelet.service.PubRoleService;
 import com.smart.bracelet.utils.IdUtils;
@@ -96,11 +97,30 @@ public class PubRoleServiceImpl implements PubRoleService {
         try {
             pubRoleauth.setRoleauthId(IdUtils.nextId());
             int addRoleAuth = pubRoleDao.addRoleAuth(pubRoleauth);
-            log.info("角色权限分配成功");
+            log.info("角色权限分配成功,受影响行数:{}",addRoleAuth);
             return addRoleAuth;
         } catch (Exception e) {
             log.error("角色权限分配失败,异常信息:{}",e.getMessage());
             throw new CustomerException("角色权限分配失败");
+        }
+    }
+
+    /**
+     * 角色菜单添加
+     * @param pubRolemenu
+     * @return
+     * @throws CustomerException
+     */
+    @Override
+    public int addRoleMenu(PubRolemenu pubRolemenu) throws CustomerException {
+        try {
+            pubRolemenu.setRolemenuId(IdUtils.nextId());
+            int addRoleMenu = pubRoleDao.addRoleMenu(pubRolemenu);
+            log.info("菜单添加成功,受影响行数:{}",addRoleMenu);
+            return addRoleMenu;
+        } catch (Exception e) {
+            log.error("菜单添加失败,异常信息:{}",e.getMessage());
+            throw new CustomerException("菜单添加失败");
         }
     }
 }
