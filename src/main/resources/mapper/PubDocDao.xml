@@ -19,12 +19,7 @@
     delete from pub_doc
     where doc_id = #{docId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.smart.bracelet.model.po.PubDoc">
-    insert into pub_doc (doc_id, doc_path, note
-      )
-    values (#{docId,jdbcType=BIGINT}, #{docPath,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR}
-      )
-  </insert>
+
   <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.PubDoc">
     insert into pub_doc
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -62,10 +57,5 @@
     </set>
     where doc_id = #{docId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.smart.bracelet.model.po.PubDoc">
-    update pub_doc
-    set doc_path = #{docPath,jdbcType=VARCHAR},
-      note = #{note,jdbcType=VARCHAR}
-    where doc_id = #{docId,jdbcType=BIGINT}
-  </update>
+
 </mapper>

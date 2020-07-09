@@ -2,6 +2,7 @@ package com.smart.bracelet.model.po;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
@@ -19,6 +20,7 @@ public class PubDoc implements Serializable {
     /**
      * 文档路径
      */
+    @NotBlank(message = "文档路径不能为空")
     private String docPath;
 
     /**
