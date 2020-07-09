@@ -2,6 +2,7 @@ package com.smart.bracelet.model.po;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
@@ -19,11 +20,13 @@ public class PubAuth implements Serializable {
     /**
      * 权限名
      */
+    @NotBlank(message = "权限名不能为空")
     private String authname;
 
     /**
      * 接口名称
      */
+    @NotBlank(message = "接口名不能为空")
     private String interfacename;
 
     /**

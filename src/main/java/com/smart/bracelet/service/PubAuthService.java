@@ -1,38 +1,35 @@
-package com.smart.bracelet.dao;
+package com.smart.bracelet.service;
 
+import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.PubAuth;
 import com.smart.bracelet.model.vo.PubAuthVo;
-import org.springframework.stereotype.Repository;
 
-@Repository
-public interface PubAuthDao {
-
+public interface PubAuthService {
     /**
      * 删除权限信息
      * @param authId
      * @return
      */
-    int deleteByPrimaryKey(Long authId);
+    int deleteByPrimaryKey(Long authId) throws CustomerException;
 
     /**
      * 添加权限信息
      * @param record
      * @return
      */
-    int insertSelective(PubAuth record);
+    int insertSelective(PubAuth record) throws CustomerException;
 
     /**
-     * 通过ID查询菜单信息
+     * 通过ID查询权限信息
      * @param authId
      * @return
      */
     PubAuth selectByPrimaryKey(Long authId);
 
     /**
-     * 修改菜单信息
+     * 修改权限信息
      * @param record
      * @return
      */
-    int updateByPrimaryKeySelective(PubAuthVo record);
-
+    int updateByPrimaryKeySelective(PubAuthVo record) throws CustomerException;
 }

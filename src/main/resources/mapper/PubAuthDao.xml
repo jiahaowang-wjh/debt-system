@@ -52,16 +52,16 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.po.PubAuth">
+  <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.vo.PubAuthVo">
     update pub_auth
     <set>
-      <if test="authname != null">
+      <if test="authname != null and authname != ''">
         authname = #{authname,jdbcType=VARCHAR},
       </if>
-      <if test="interfacename != null">
+      <if test="interfacename != null and interfacename != ''">
         interfacename = #{interfacename,jdbcType=VARCHAR},
       </if>
-      <if test="note != null">
+      <if test="note != null and note != ''">
         note = #{note,jdbcType=VARCHAR},
       </if>
     </set>
