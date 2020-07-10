@@ -29,7 +29,10 @@ public class PubRoleServiceImpl implements PubRoleService {
         try {
             int deleteByPrimaryKey = pubRoleDao.deleteByPrimaryKey(roleId);
             if(deleteByPrimaryKey!=0){
+                //删除角色权限表
                 pubRoleDao.deleteRoleauthByPrimaryKey(roleId);
+                //删除角色菜单表
+                pubRoleDao.deleteRoleMenuByPrimaryKey(roleId);
             }
             log.info("删除角色信息成功");
             return deleteByPrimaryKey;

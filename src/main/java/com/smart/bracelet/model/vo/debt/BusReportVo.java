@@ -1,7 +1,11 @@
 package com.smart.bracelet.model.vo.debt;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -15,6 +19,7 @@ public class BusReportVo implements Serializable {
     /**
      * 报备ID
      */
+    @NotNull(message = "报备ID不能为空")
     private Long reportId;
 
     /**
@@ -120,6 +125,8 @@ public class BusReportVo implements Serializable {
     /**
      * 借款发生时间权
      */
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
     private Date obligatTime;
 
     /**
@@ -150,6 +157,8 @@ public class BusReportVo implements Serializable {
     /**
      * 借款发生时间务
      */
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
     private Date debtTime;
 
     /**
@@ -186,6 +195,27 @@ public class BusReportVo implements Serializable {
      * 阶段
      */
     private String stage;
+    /**
+     * 创建人Id
+     */
+    private Long createUserId;
 
+    /**
+     *更新人Id
+     */
+    private Long updateUserId;
+
+    /**
+     * 创建时间
+     */
+    private Date createTime;
+
+    /**
+     * 更新时间
+     */
+    @NotNull(message = "更新时间不能为空")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date updateTime;
 
 }

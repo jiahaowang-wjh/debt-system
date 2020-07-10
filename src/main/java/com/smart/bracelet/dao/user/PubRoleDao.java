@@ -24,6 +24,13 @@ public interface PubRoleDao {
     int deleteRoleauthByPrimaryKey(Long roleId);
 
     /**
+     * 通过ID删除角色菜单信息
+     * @param roleId
+     * @return
+     */
+    int deleteRoleMenuByPrimaryKey(Long roleId);
+
+    /**
      * 新增角色信息
      * @param record
      * @return
