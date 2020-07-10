@@ -22,14 +22,7 @@
     delete from pub_company
     where company_id = #{companyId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.smart.bracelet.model.po.user.PubCompany">
-    insert into pub_company (company_id, area_id, company_name, 
-      company_type, company_leperson, company_tel
-      )
-    values (#{companyId,jdbcType=BIGINT}, #{areaId,jdbcType=BIGINT}, #{companyName,jdbcType=VARCHAR}, 
-      #{companyType,jdbcType=VARCHAR}, #{companyLeperson,jdbcType=VARCHAR}, #{companyTel,jdbcType=VARCHAR}
-      )
-  </insert>
+
   <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.user.PubCompany">
     insert into pub_company
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -73,7 +66,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.po.user.PubCompany">
+  <update id="updateByPrimaryKeySelective">
     update pub_company
     <set>
       <if test="areaId != null">
@@ -94,13 +87,5 @@
     </set>
     where company_id = #{companyId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.smart.bracelet.model.po.user.PubCompany">
-    update pub_company
-    set area_id = #{areaId,jdbcType=BIGINT},
-      company_name = #{companyName,jdbcType=VARCHAR},
-      company_type = #{companyType,jdbcType=VARCHAR},
-      company_leperson = #{companyLeperson,jdbcType=VARCHAR},
-      company_tel = #{companyTel,jdbcType=VARCHAR}
-    where company_id = #{companyId,jdbcType=BIGINT}
-  </update>
+
 </mapper>

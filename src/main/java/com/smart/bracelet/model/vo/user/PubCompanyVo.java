@@ -2,6 +2,7 @@ package com.smart.bracelet.model.vo.user;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -14,6 +15,7 @@ public class PubCompanyVo implements Serializable {
     /**
      * 公司ID
      */
+    @NotNull(message = "公司ID不能为空")
     private Long companyId;
 
     /**
