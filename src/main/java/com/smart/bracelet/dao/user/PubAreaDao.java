@@ -1,19 +1,18 @@
 package com.smart.bracelet.dao.user;
 
 import com.smart.bracelet.model.po.user.PubArea;
+import com.smart.bracelet.model.vo.user.PubAreaVo;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PubAreaDao {
-    int deleteByPrimaryKey(Long areaId);
 
-    int insert(PubArea record);
+    int deleteByPrimaryKey(Long areaId);
 
     int insertSelective(PubArea record);
 
     PubArea selectByPrimaryKey(Long areaId);
 
-    int updateByPrimaryKeySelective(PubArea record);
+    int updateByPrimaryKeySelective(PubAreaVo record);
 
-    int updateByPrimaryKey(PubArea record);
 }

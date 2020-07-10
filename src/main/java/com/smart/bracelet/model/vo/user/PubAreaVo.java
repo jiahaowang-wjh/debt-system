@@ -2,6 +2,7 @@ package com.smart.bracelet.model.vo.user;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -14,6 +15,7 @@ public class PubAreaVo implements Serializable {
     /**
      * 区域id
      */
+    @NotNull(message = "区域id不能为空")
     private Long areaId;
 
     /**

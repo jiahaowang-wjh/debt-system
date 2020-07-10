@@ -2,6 +2,8 @@ package com.smart.bracelet.model.po.user;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -19,16 +21,19 @@ public class PubArea implements Serializable {
     /**
      * 区域名称
      */
+    @NotBlank(message = "区域名不能为空")
     private String areaName;
 
     /**
      * 区域编码
      */
+    @NotBlank(message = "区域编码不能为空")
     private String areaCode;
 
     /**
      * 父级节点
      */
+    @NotNull(message = "父级Id不能为空")
     private Long parentId;
 
     /**
