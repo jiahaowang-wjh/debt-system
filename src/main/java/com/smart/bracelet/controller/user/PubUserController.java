@@ -2,10 +2,10 @@ package com.smart.bracelet.controller.user;
 
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
-import com.smart.bracelet.model.po.PubMenu;
-import com.smart.bracelet.model.po.PubUser;
-import com.smart.bracelet.model.vo.PubUserVo;
-import com.smart.bracelet.service.PubUserService;
+import com.smart.bracelet.model.po.user.PubMenu;
+import com.smart.bracelet.model.po.user.PubUser;
+import com.smart.bracelet.model.vo.user.PubUserVo;
+import com.smart.bracelet.service.user.PubUserService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

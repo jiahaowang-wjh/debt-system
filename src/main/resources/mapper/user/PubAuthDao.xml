@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smart.bracelet.dao.user.PubAuthDao">
+  <resultMap id="BaseResultMap" type="com.smart.bracelet.model.po.user.PubAuth">
+    <id column="auth_id" jdbcType="BIGINT" property="authId" />
+    <result column="authname" jdbcType="VARCHAR" property="authname" />
+    <result column="interfacename" jdbcType="VARCHAR" property="interfacename" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    auth_id, authname, interfacename, note
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pub_auth
+    where auth_id = #{authId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from pub_auth
+    where auth_id = #{authId,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.user.PubAuth">
+    insert into pub_auth
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="authId != null">
+        auth_id,
+      </if>
+      <if test="authname != null">
+        authname,
+      </if>
+      <if test="interfacename != null">
+        interfacename,
+      </if>
+      <if test="note != null">
+        note,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="authId != null">
+        #{authId,jdbcType=BIGINT},
+      </if>
+      <if test="authname != null">
+        #{authname,jdbcType=VARCHAR},
+      </if>
+      <if test="interfacename != null">
+        #{interfacename,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null">
+        #{note,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.vo.user.PubAuthVo">
+    update pub_auth
+    <set>
+      <if test="authname != null and authname != ''">
+        authname = #{authname,jdbcType=VARCHAR},
+      </if>
+      <if test="interfacename != null and interfacename != ''">
+        interfacename = #{interfacename,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null and note != ''">
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where auth_id = #{authId,jdbcType=BIGINT}
+  </update>
+
+</mapper>

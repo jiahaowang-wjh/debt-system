@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smart.bracelet.dao.user.PubMenuDao">
+  <resultMap id="BaseResultMap" type="com.smart.bracelet.model.po.user.PubMenu">
+    <id column="menu_id" jdbcType="BIGINT" property="menuId" />
+    <result column="menuname" jdbcType="VARCHAR" property="menuName" />
+    <result column="menuurl" jdbcType="VARCHAR" property="menuUrl" />
+    <result column="menuorder" jdbcType="INTEGER" property="menuOrder" />
+    <result column="prant_id" jdbcType="BIGINT" property="prantId" />
+    <result column="isenable" jdbcType="VARCHAR" property="isenable" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    menu_id, menuname, menuurl, menuorder, prant_id, isenable, note
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pub_menu
+    where menu_id = #{menuId,jdbcType=BIGINT}
+  </select>
+  <select id="queryMenuList" resultType="com.smart.bracelet.model.po.user.PubMenu">
+    select
+    <include refid="Base_Column_List" />
+    from pub_menu
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from pub_menu
+    where menu_id = #{menuId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.user.PubMenu">
+    insert into pub_menu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="menuId != null and menuId != ''">
+        menu_id,
+      </if>
+      <if test="menuName != null and menuName != ''">
+        menuname,
+      </if>
+      <if test="menuUrl != null and menuUrl != ''">
+        menuurl,
+      </if>
+      <if test="menuOrder != null and menuOrder != ''">
+        menuorder,
+      </if>
+      <if test="prantId != null">
+        prant_id,
+      </if>
+      <if test="isenable != null and isenable != ''">
+        isenable,
+      </if>
+      <if test="note != null and note != ''">
+        note,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="menuId != null and menuId != ''">
+        #{menuId,jdbcType=BIGINT},
+      </if>
+      <if test="menuName != null and menuName != ''">
+        #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuUrl != null and menuUrl != ''">
+        #{menuUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="menuOrder != null and menuOrder != ''">
+        #{menuOrder,jdbcType=INTEGER},
+      </if>
+      <if test="prantId != null">
+        #{prantId,jdbcType=BIGINT},
+      </if>
+      <if test="isenable != null and isenable != ''">
+        #{isenable,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null and note != ''">
+        #{note,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.vo.user.PubMenuVo">
+    update pub_menu
+    <set>
+      <if test="menuName != null and menuName != ''">
+        menuname = #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuUrl != null and menuUrl != ''">
+        menuurl = #{menuUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="menuOrder != null and menuOrder != ''">
+        menuorder = #{menuOrder,jdbcType=INTEGER},
+      </if>
+      <if test="prantId != null">
+        prant_id = #{prantId,jdbcType=BIGINT},
+      </if>
+      <if test="isenable != null and isenable != ''">
+        isenable = #{isenable,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null and note != ''">
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="menuId != null and menuId != ''">
+        menu_id = #{menuId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where menu_id = #{menuId,jdbcType=BIGINT}
+  </update>
+
+</mapper>

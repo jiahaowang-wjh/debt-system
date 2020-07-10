@@ -1,7 +1,7 @@
 package com.smart.bracelet.userdetails;
 
-import com.smart.bracelet.model.po.PubUser;
-import com.smart.bracelet.service.PubUserService;
+import com.smart.bracelet.model.po.user.PubUser;
+import com.smart.bracelet.service.user.PubUserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

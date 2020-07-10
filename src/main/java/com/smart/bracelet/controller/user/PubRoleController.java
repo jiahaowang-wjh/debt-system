@@ -2,11 +2,11 @@ package com.smart.bracelet.controller.user;
 
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
-import com.smart.bracelet.model.po.PubRole;
-import com.smart.bracelet.model.po.PubRoleauth;
-import com.smart.bracelet.model.po.PubRolemenu;
-import com.smart.bracelet.model.vo.PubRoleVo;
-import com.smart.bracelet.service.PubRoleService;
+import com.smart.bracelet.model.po.user.PubRole;
+import com.smart.bracelet.model.po.user.PubRoleauth;
+import com.smart.bracelet.model.po.user.PubRolemenu;
+import com.smart.bracelet.model.vo.user.PubRoleVo;
+import com.smart.bracelet.service.user.PubRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -2,9 +2,9 @@ package com.smart.bracelet.controller.user;
 
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
-import com.smart.bracelet.model.po.PubAuth;
-import com.smart.bracelet.model.vo.PubAuthVo;
-import com.smart.bracelet.service.PubAuthService;
+import com.smart.bracelet.model.po.user.PubAuth;
+import com.smart.bracelet.model.vo.user.PubAuthVo;
+import com.smart.bracelet.service.user.PubAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
