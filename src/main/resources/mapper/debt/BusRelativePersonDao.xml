@@ -33,7 +33,7 @@
     <result column="upload_debt_certificate" jdbcType="VARCHAR" property="uploadDebtCertificate" />
     <result column="is_result" jdbcType="VARCHAR" property="isResult" />
     <result column="economics" jdbcType="VARCHAR" property="economics" />
-    <result column="usage" jdbcType="CHAR" property="usage" />
+    <result column="USAGE" jdbcType="CHAR" property="usage" />
     <result column="prject_manager" jdbcType="VARCHAR" property="prjectManager" />
     <result column="authname" jdbcType="VARCHAR" property="authname" />
     <result column="card" jdbcType="VARCHAR" property="card" />
@@ -41,13 +41,16 @@
     <result column="bank_card" jdbcType="VARCHAR" property="bankCard" />
     <result column="bank_tel" jdbcType="VARCHAR" property="bankTel" />
     <result column="tel_check" jdbcType="VARCHAR" property="telCheck" />
+    <result column="create_user_id" jdbcType="BIGINT" property="createUserId" />
+    <result column="update_user_id" jdbcType="BIGINT" property="updateUserId" />
   </resultMap>
   <sql id="Base_Column_List">
     relative_per_id, report_id, iscoordinate, report_type, report_propert, data1, data2, 
     data3, data4, data5, data6, data7, data8, data9, data10, data11, card_just, card_back, 
     obligat_right, obligat_right_no, obligat_time, capital, interest, interest_rate, 
     debt, debt_no, debt_time, debt_certificate, upload_debt_certificate, is_result, economics, 
-    `usage`, prject_manager, authname, card, bank, bank_card, bank_tel, tel_check
+    `USAGE`, prject_manager, authname, card, bank, bank_card, bank_tel, tel_check, create_user_id, 
+    update_user_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -59,36 +62,7 @@
     delete from bus_relative_person
     where relative_per_id = #{relativePerId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.smart.bracelet.model.po.debt.BusRelativePerson">
-    insert into bus_relative_person (relative_per_id, report_id, iscoordinate, 
-      report_type, report_propert, data1, 
-      data2, data3, data4, 
-      data5, data6, data7, 
-      data8, data9, data10, 
-      data11, card_just, card_back, 
-      obligat_right, obligat_right_no, obligat_time, 
-      capital, interest, interest_rate, 
-      debt, debt_no, debt_time, 
-      debt_certificate, upload_debt_certificate, 
-      is_result, economics, `usage`, 
-      prject_manager, authname, card, 
-      bank, bank_card, bank_tel, 
-      tel_check)
-    values (#{relativePerId,jdbcType=BIGINT}, #{reportId,jdbcType=BIGINT}, #{iscoordinate,jdbcType=VARCHAR}, 
-      #{reportType,jdbcType=VARCHAR}, #{reportPropert,jdbcType=VARCHAR}, #{data1,jdbcType=VARCHAR}, 
-      #{data2,jdbcType=VARCHAR}, #{data3,jdbcType=VARCHAR}, #{data4,jdbcType=VARCHAR}, 
-      #{data5,jdbcType=VARCHAR}, #{data6,jdbcType=VARCHAR}, #{data7,jdbcType=VARCHAR}, 
-      #{data8,jdbcType=VARCHAR}, #{data9,jdbcType=VARCHAR}, #{data10,jdbcType=VARCHAR}, 
-      #{data11,jdbcType=VARCHAR}, #{cardJust,jdbcType=VARCHAR}, #{cardBack,jdbcType=VARCHAR}, 
-      #{obligatRight,jdbcType=VARCHAR}, #{obligatRightNo,jdbcType=INTEGER}, #{obligatTime,jdbcType=TIMESTAMP}, 
-      #{capital,jdbcType=VARCHAR}, #{interest,jdbcType=VARCHAR}, #{interestRate,jdbcType=VARCHAR}, 
-      #{debt,jdbcType=VARCHAR}, #{debtNo,jdbcType=INTEGER}, #{debtTime,jdbcType=TIMESTAMP}, 
-      #{debtCertificate,jdbcType=VARCHAR}, #{uploadDebtCertificate,jdbcType=VARCHAR}, 
-      #{isResult,jdbcType=VARCHAR}, #{economics,jdbcType=VARCHAR}, #{usage,jdbcType=CHAR}, 
-      #{prjectManager,jdbcType=VARCHAR}, #{authname,jdbcType=VARCHAR}, #{card,jdbcType=VARCHAR}, 
-      #{bank,jdbcType=VARCHAR}, #{bankCard,jdbcType=VARCHAR}, #{bankTel,jdbcType=VARCHAR}, 
-      #{telCheck,jdbcType=VARCHAR})
-  </insert>
+
   <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.debt.BusRelativePerson">
     insert into bus_relative_person
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -186,7 +160,7 @@
         economics,
       </if>
       <if test="usage != null">
-        `usage`,
+        `USAGE`,
       </if>
       <if test="prjectManager != null">
         prject_manager,
@@ -209,6 +183,13 @@
       <if test="telCheck != null">
         tel_check,
       </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="updateUserId != null">
+        update_user_id,
+      </if>
+
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="relativePerId != null">
@@ -328,9 +309,16 @@
       <if test="telCheck != null">
         #{telCheck,jdbcType=VARCHAR},
       </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="updateUserId != null">
+        #{updateUserId,jdbcType=BIGINT},
+      </if>
+
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.po.debt.BusRelativePerson">
+  <update id="updateByPrimaryKeySelective">
     update bus_relative_person
     <set>
       <if test="reportId != null">
@@ -424,7 +412,7 @@
         economics = #{economics,jdbcType=VARCHAR},
       </if>
       <if test="usage != null">
-        `usage` = #{usage,jdbcType=CHAR},
+        `USAGE` = #{usage,jdbcType=CHAR},
       </if>
       <if test="prjectManager != null">
         prject_manager = #{prjectManager,jdbcType=VARCHAR},
@@ -447,49 +435,14 @@
       <if test="telCheck != null">
         tel_check = #{telCheck,jdbcType=VARCHAR},
       </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="updateUserId != null">
+        update_user_id = #{updateUserId,jdbcType=BIGINT},
+      </if>
     </set>
     where relative_per_id = #{relativePerId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.smart.bracelet.model.po.debt.BusRelativePerson">
-    update bus_relative_person
-    set report_id = #{reportId,jdbcType=BIGINT},
-      iscoordinate = #{iscoordinate,jdbcType=VARCHAR},
-      report_type = #{reportType,jdbcType=VARCHAR},
-      report_propert = #{reportPropert,jdbcType=VARCHAR},
-      data1 = #{data1,jdbcType=VARCHAR},
-      data2 = #{data2,jdbcType=VARCHAR},
-      data3 = #{data3,jdbcType=VARCHAR},
-      data4 = #{data4,jdbcType=VARCHAR},
-      data5 = #{data5,jdbcType=VARCHAR},
-      data6 = #{data6,jdbcType=VARCHAR},
-      data7 = #{data7,jdbcType=VARCHAR},
-      data8 = #{data8,jdbcType=VARCHAR},
-      data9 = #{data9,jdbcType=VARCHAR},
-      data10 = #{data10,jdbcType=VARCHAR},
-      data11 = #{data11,jdbcType=VARCHAR},
-      card_just = #{cardJust,jdbcType=VARCHAR},
-      card_back = #{cardBack,jdbcType=VARCHAR},
-      obligat_right = #{obligatRight,jdbcType=VARCHAR},
-      obligat_right_no = #{obligatRightNo,jdbcType=INTEGER},
-      obligat_time = #{obligatTime,jdbcType=TIMESTAMP},
-      capital = #{capital,jdbcType=VARCHAR},
-      interest = #{interest,jdbcType=VARCHAR},
-      interest_rate = #{interestRate,jdbcType=VARCHAR},
-      debt = #{debt,jdbcType=VARCHAR},
-      debt_no = #{debtNo,jdbcType=INTEGER},
-      debt_time = #{debtTime,jdbcType=TIMESTAMP},
-      debt_certificate = #{debtCertificate,jdbcType=VARCHAR},
-      upload_debt_certificate = #{uploadDebtCertificate,jdbcType=VARCHAR},
-      is_result = #{isResult,jdbcType=VARCHAR},
-      economics = #{economics,jdbcType=VARCHAR},
-      `usage` = #{usage,jdbcType=CHAR},
-      prject_manager = #{prjectManager,jdbcType=VARCHAR},
-      authname = #{authname,jdbcType=VARCHAR},
-      card = #{card,jdbcType=VARCHAR},
-      bank = #{bank,jdbcType=VARCHAR},
-      bank_card = #{bankCard,jdbcType=VARCHAR},
-      bank_tel = #{bankTel,jdbcType=VARCHAR},
-      tel_check = #{telCheck,jdbcType=VARCHAR}
-    where relative_per_id = #{relativePerId,jdbcType=BIGINT}
-  </update>
+
 </mapper>

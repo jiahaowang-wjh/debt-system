@@ -41,13 +41,18 @@
     <result column="bank_card" jdbcType="VARCHAR" property="bankCard" />
     <result column="bank_tel" jdbcType="VARCHAR" property="bankTel" />
     <result column="tel_check" jdbcType="VARCHAR" property="telCheck" />
+    <result column="create_user_id" jdbcType="BIGINT" property="createUserId" />
+    <result column="update_user_id" jdbcType="BIGINT" property="updateUserId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
     debt_id, report_id, iscoordinate, report_type, report_propert, data1, data2, data3, 
     data4, data5, data6, data7, data8, data9, data10, data11, card_just, card_back, obligat_right, 
     obligat_right_no, obligat_time, capital, interest, interest_rate, debt, debt_no, 
     debt_time, debt_certificate, upload_debt_certificate, is_result, economics, `USAGE`, 
-    prject_manager, authname, card, bank, bank_card, bank_tel, tel_check
+    prject_manager, authname, card, bank, bank_card, bank_tel, tel_check, create_user_id, 
+    update_user_id, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -73,7 +78,8 @@
       is_result, economics, `USAGE`, 
       prject_manager, authname, card, 
       bank, bank_card, bank_tel, 
-      tel_check)
+      tel_check, create_user_id, update_user_id, 
+      create_time, update_time)
     values (#{debtId,jdbcType=BIGINT}, #{reportId,jdbcType=BIGINT}, #{iscoordinate,jdbcType=VARCHAR}, 
       #{reportType,jdbcType=VARCHAR}, #{reportPropert,jdbcType=VARCHAR}, #{data1,jdbcType=VARCHAR}, 
       #{data2,jdbcType=VARCHAR}, #{data3,jdbcType=VARCHAR}, #{data4,jdbcType=VARCHAR}, 
@@ -87,7 +93,8 @@
       #{isResult,jdbcType=VARCHAR}, #{economics,jdbcType=VARCHAR}, #{usage,jdbcType=CHAR}, 
       #{prjectManager,jdbcType=VARCHAR}, #{authname,jdbcType=VARCHAR}, #{card,jdbcType=VARCHAR}, 
       #{bank,jdbcType=VARCHAR}, #{bankCard,jdbcType=VARCHAR}, #{bankTel,jdbcType=VARCHAR}, 
-      #{telCheck,jdbcType=VARCHAR})
+      #{telCheck,jdbcType=VARCHAR}, #{createUserId,jdbcType=BIGINT}, #{updateUserId,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.debt.PubDebt">
     insert into pub_debt
@@ -209,6 +216,18 @@
       <if test="telCheck != null">
         tel_check,
       </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="updateUserId != null">
+        update_user_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="debtId != null">
@@ -327,6 +346,18 @@
       </if>
       <if test="telCheck != null">
         #{telCheck,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="updateUserId != null">
+        #{updateUserId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -447,6 +478,18 @@
       <if test="telCheck != null">
         tel_check = #{telCheck,jdbcType=VARCHAR},
       </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="updateUserId != null">
+        update_user_id = #{updateUserId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where debt_id = #{debtId,jdbcType=BIGINT}
   </update>
@@ -489,7 +532,11 @@
       bank = #{bank,jdbcType=VARCHAR},
       bank_card = #{bankCard,jdbcType=VARCHAR},
       bank_tel = #{bankTel,jdbcType=VARCHAR},
-      tel_check = #{telCheck,jdbcType=VARCHAR}
+      tel_check = #{telCheck,jdbcType=VARCHAR},
+      create_user_id = #{createUserId,jdbcType=BIGINT},
+      update_user_id = #{updateUserId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
     where debt_id = #{debtId,jdbcType=BIGINT}
   </update>
 </mapper>

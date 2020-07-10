@@ -145,8 +145,7 @@ public class BusReport implements Serializable {
      * 借款发生时间权
      */
     @NotNull(message = "借款发生时间权不能为空")
-    @DateTimeFormat(pattern="yyyy-MM-dd")
-    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date obligatTime;
 
     /**
@@ -183,8 +182,7 @@ public class BusReport implements Serializable {
      * 借款发生时间务
      */
     @NotNull(message = "借款发生时间务不能为空")
-    @DateTimeFormat(pattern="yyyy-MM-dd")
-    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date debtTime;
 
     /**

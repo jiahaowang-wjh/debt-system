@@ -1,7 +1,9 @@
 package com.smart.bracelet.model.vo.debt;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -11,10 +13,10 @@ import java.util.Date;
  */
 @Data
 public class BusRelativePersonVo implements Serializable {
-    private static final long serialVersionUID = 2647714697015231825L;
     /**
      * 相对人ID
      */
+    @NotNull(message = "相对人ID不能为空")
     private Long relativePerId;
 
     /**
@@ -115,6 +117,7 @@ public class BusRelativePersonVo implements Serializable {
     /**
      * 借款发生时间权
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date obligatTime;
 
     /**
@@ -145,6 +148,7 @@ public class BusRelativePersonVo implements Serializable {
     /**
      * 借款发生时间务
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date debtTime;
 
     /**
@@ -207,6 +211,15 @@ public class BusRelativePersonVo implements Serializable {
      */
     private String telCheck;
 
+    /**
+     * 创建人
+     */
+    private Long createUserId;
+
+    /**
+     * 更新人
+     */
+    private Long updateUserId;
 
 
 }
