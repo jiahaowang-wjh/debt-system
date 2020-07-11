@@ -1,5 +1,6 @@
 package com.smart.bracelet.model.po.debt;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -139,6 +140,7 @@ public class BusRelativePerson implements Serializable {
      */
     @NotNull(message = "借款发生时间权不能为空")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
     private Date obligatTime;
 
     /**

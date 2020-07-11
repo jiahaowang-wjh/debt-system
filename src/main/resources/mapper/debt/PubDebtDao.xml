@@ -43,8 +43,7 @@
     <result column="tel_check" jdbcType="VARCHAR" property="telCheck" />
     <result column="create_user_id" jdbcType="BIGINT" property="createUserId" />
     <result column="update_user_id" jdbcType="BIGINT" property="updateUserId" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+
   </resultMap>
   <sql id="Base_Column_List">
     debt_id, report_id, iscoordinate, report_type, report_propert, data1, data2, data3, 
@@ -64,38 +63,6 @@
     delete from pub_debt
     where debt_id = #{debtId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.smart.bracelet.model.po.debt.PubDebt">
-    insert into pub_debt (debt_id, report_id, iscoordinate, 
-      report_type, report_propert, data1, 
-      data2, data3, data4, 
-      data5, data6, data7, 
-      data8, data9, data10, 
-      data11, card_just, card_back, 
-      obligat_right, obligat_right_no, obligat_time, 
-      capital, interest, interest_rate, 
-      debt, debt_no, debt_time, 
-      debt_certificate, upload_debt_certificate, 
-      is_result, economics, `USAGE`, 
-      prject_manager, authname, card, 
-      bank, bank_card, bank_tel, 
-      tel_check, create_user_id, update_user_id, 
-      create_time, update_time)
-    values (#{debtId,jdbcType=BIGINT}, #{reportId,jdbcType=BIGINT}, #{iscoordinate,jdbcType=VARCHAR}, 
-      #{reportType,jdbcType=VARCHAR}, #{reportPropert,jdbcType=VARCHAR}, #{data1,jdbcType=VARCHAR}, 
-      #{data2,jdbcType=VARCHAR}, #{data3,jdbcType=VARCHAR}, #{data4,jdbcType=VARCHAR}, 
-      #{data5,jdbcType=VARCHAR}, #{data6,jdbcType=VARCHAR}, #{data7,jdbcType=VARCHAR}, 
-      #{data8,jdbcType=VARCHAR}, #{data9,jdbcType=VARCHAR}, #{data10,jdbcType=VARCHAR}, 
-      #{data11,jdbcType=VARCHAR}, #{cardJust,jdbcType=VARCHAR}, #{cardBack,jdbcType=VARCHAR}, 
-      #{obligatRight,jdbcType=VARCHAR}, #{obligatRightNo,jdbcType=INTEGER}, #{obligatTime,jdbcType=TIMESTAMP}, 
-      #{capital,jdbcType=VARCHAR}, #{interest,jdbcType=VARCHAR}, #{interestRate,jdbcType=VARCHAR}, 
-      #{debt,jdbcType=VARCHAR}, #{debtNo,jdbcType=INTEGER}, #{debtTime,jdbcType=TIMESTAMP}, 
-      #{debtCertificate,jdbcType=VARCHAR}, #{uploadDebtCertificate,jdbcType=VARCHAR}, 
-      #{isResult,jdbcType=VARCHAR}, #{economics,jdbcType=VARCHAR}, #{usage,jdbcType=CHAR}, 
-      #{prjectManager,jdbcType=VARCHAR}, #{authname,jdbcType=VARCHAR}, #{card,jdbcType=VARCHAR}, 
-      #{bank,jdbcType=VARCHAR}, #{bankCard,jdbcType=VARCHAR}, #{bankTel,jdbcType=VARCHAR}, 
-      #{telCheck,jdbcType=VARCHAR}, #{createUserId,jdbcType=BIGINT}, #{updateUserId,jdbcType=BIGINT}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
-  </insert>
   <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.debt.PubDebt">
     insert into pub_debt
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -222,12 +189,7 @@
       <if test="updateUserId != null">
         update_user_id,
       </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
+
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="debtId != null">
@@ -353,15 +315,10 @@
       <if test="updateUserId != null">
         #{updateUserId,jdbcType=BIGINT},
       </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
+
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.po.debt.PubDebt">
+  <update id="updateByPrimaryKeySelective">
     update pub_debt
     <set>
       <if test="reportId != null">
@@ -484,59 +441,8 @@
       <if test="updateUserId != null">
         update_user_id = #{updateUserId,jdbcType=BIGINT},
       </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
+
     </set>
-    where debt_id = #{debtId,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.smart.bracelet.model.po.debt.PubDebt">
-    update pub_debt
-    set report_id = #{reportId,jdbcType=BIGINT},
-      iscoordinate = #{iscoordinate,jdbcType=VARCHAR},
-      report_type = #{reportType,jdbcType=VARCHAR},
-      report_propert = #{reportPropert,jdbcType=VARCHAR},
-      data1 = #{data1,jdbcType=VARCHAR},
-      data2 = #{data2,jdbcType=VARCHAR},
-      data3 = #{data3,jdbcType=VARCHAR},
-      data4 = #{data4,jdbcType=VARCHAR},
-      data5 = #{data5,jdbcType=VARCHAR},
-      data6 = #{data6,jdbcType=VARCHAR},
-      data7 = #{data7,jdbcType=VARCHAR},
-      data8 = #{data8,jdbcType=VARCHAR},
-      data9 = #{data9,jdbcType=VARCHAR},
-      data10 = #{data10,jdbcType=VARCHAR},
-      data11 = #{data11,jdbcType=VARCHAR},
-      card_just = #{cardJust,jdbcType=VARCHAR},
-      card_back = #{cardBack,jdbcType=VARCHAR},
-      obligat_right = #{obligatRight,jdbcType=VARCHAR},
-      obligat_right_no = #{obligatRightNo,jdbcType=INTEGER},
-      obligat_time = #{obligatTime,jdbcType=TIMESTAMP},
-      capital = #{capital,jdbcType=VARCHAR},
-      interest = #{interest,jdbcType=VARCHAR},
-      interest_rate = #{interestRate,jdbcType=VARCHAR},
-      debt = #{debt,jdbcType=VARCHAR},
-      debt_no = #{debtNo,jdbcType=INTEGER},
-      debt_time = #{debtTime,jdbcType=TIMESTAMP},
-      debt_certificate = #{debtCertificate,jdbcType=VARCHAR},
-      upload_debt_certificate = #{uploadDebtCertificate,jdbcType=VARCHAR},
-      is_result = #{isResult,jdbcType=VARCHAR},
-      economics = #{economics,jdbcType=VARCHAR},
-      `USAGE` = #{usage,jdbcType=CHAR},
-      prject_manager = #{prjectManager,jdbcType=VARCHAR},
-      authname = #{authname,jdbcType=VARCHAR},
-      card = #{card,jdbcType=VARCHAR},
-      bank = #{bank,jdbcType=VARCHAR},
-      bank_card = #{bankCard,jdbcType=VARCHAR},
-      bank_tel = #{bankTel,jdbcType=VARCHAR},
-      tel_check = #{telCheck,jdbcType=VARCHAR},
-      create_user_id = #{createUserId,jdbcType=BIGINT},
-      update_user_id = #{updateUserId,jdbcType=BIGINT},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
     where debt_id = #{debtId,jdbcType=BIGINT}
   </update>
 </mapper>
