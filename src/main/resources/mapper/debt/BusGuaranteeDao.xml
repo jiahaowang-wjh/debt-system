@@ -24,14 +24,6 @@
     delete from bus_guarantee
     where guarantee_id = #{guaranteeId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.smart.bracelet.model.po.debt.BusGuarantee">
-    insert into bus_guarantee (guarantee_id, debt_id, authname, 
-      card, bank, bank_card, 
-      bank_tel, tel_check)
-    values (#{guaranteeId,jdbcType=BIGINT}, #{debtId,jdbcType=BIGINT}, #{authname,jdbcType=VARCHAR}, 
-      #{card,jdbcType=VARCHAR}, #{bank,jdbcType=VARCHAR}, #{bankCard,jdbcType=VARCHAR}, 
-      #{bankTel,jdbcType=VARCHAR}, #{telCheck,jdbcType=VARCHAR})
-  </insert>
   <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.debt.BusGuarantee">
     insert into bus_guarantee
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -112,17 +104,6 @@
         tel_check = #{telCheck,jdbcType=VARCHAR},
       </if>
     </set>
-    where guarantee_id = #{guaranteeId,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.smart.bracelet.model.po.debt.BusGuarantee">
-    update bus_guarantee
-    set debt_id = #{debtId,jdbcType=BIGINT},
-      authname = #{authname,jdbcType=VARCHAR},
-      card = #{card,jdbcType=VARCHAR},
-      bank = #{bank,jdbcType=VARCHAR},
-      bank_card = #{bankCard,jdbcType=VARCHAR},
-      bank_tel = #{bankTel,jdbcType=VARCHAR},
-      tel_check = #{telCheck,jdbcType=VARCHAR}
     where guarantee_id = #{guaranteeId,jdbcType=BIGINT}
   </update>
 </mapper>

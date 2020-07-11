@@ -2,6 +2,7 @@ package com.smart.bracelet.model.vo.debt;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -14,6 +15,7 @@ public class BusGuaranteeVo implements Serializable {
     /**
      * 担保人ID
      */
+    @NotNull(message = "担保人ID不能为空")
     private Long guaranteeId;
 
     /**

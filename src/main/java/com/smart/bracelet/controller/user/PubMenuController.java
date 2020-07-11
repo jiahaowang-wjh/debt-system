@@ -66,7 +66,7 @@ public class PubMenuController {
      * @throws CustomerException
      */
     @RequestMapping("/updateByPrimaryKeySelective")
-    public Result updateByPrimaryKeySelective(PubMenuVo pubMenuVo) throws CustomerException {
+    public Result updateByPrimaryKeySelective(@Valid PubMenuVo pubMenuVo) throws CustomerException {
         int updateByPrimaryKeySelective = pubMenuService.updateByPrimaryKeySelective(pubMenuVo);
         return Result.success(updateByPrimaryKeySelective);
     }
