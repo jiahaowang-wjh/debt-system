@@ -43,7 +43,8 @@
     <result column="tel_check" jdbcType="VARCHAR" property="telCheck" />
     <result column="create_user_id" jdbcType="BIGINT" property="createUserId" />
     <result column="update_user_id" jdbcType="BIGINT" property="updateUserId" />
-
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    <result column="update_time" jdbcType="VARCHAR" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
     debt_id, report_id, iscoordinate, report_type, report_propert, data1, data2, data3, 

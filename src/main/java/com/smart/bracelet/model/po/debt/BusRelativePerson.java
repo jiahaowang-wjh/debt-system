@@ -264,7 +264,15 @@ public class BusRelativePerson implements Serializable {
     @NotNull(message = "更新人不能为空")
     private Long updateUserId;
 
+    /**
+     * 创建时间
+     */
+    private Date createTime;
 
+    /**
+     * 更新时间
+     */
+    private Date updateTime;
 
 
 }
