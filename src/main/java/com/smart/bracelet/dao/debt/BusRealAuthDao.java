@@ -1,6 +1,6 @@
-package com.smart.bracelet.dao.user;
+package com.smart.bracelet.dao.debt;
 
-import com.smart.bracelet.model.po.user.BusRealAuth;
+import com.smart.bracelet.model.po.debt.BusRealAuth;
 import org.springframework.stereotype.Repository;
 
 @Repository

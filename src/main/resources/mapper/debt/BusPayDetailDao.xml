@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.smart.bracelet.dao.user.BusPayDetailDao">
-  <resultMap id="BaseResultMap" type="com.smart.bracelet.model.po.user.BusPayDetail">
+<mapper namespace="com.smart.bracelet.dao.debt.BusPayDetailDao">
+  <resultMap id="BaseResultMap" type="com.smart.bracelet.model.po.debt.BusPayDetail">
     <id column="pay_id" jdbcType="BIGINT" property="payId" />
     <result column="report_id" jdbcType="BIGINT" property="reportId" />
     <result column="contract_name" jdbcType="VARCHAR" property="contractName" />
@@ -23,15 +23,7 @@
     delete from bus_pay_detail
     where pay_id = #{payId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.smart.bracelet.model.po.user.BusPayDetail">
-    insert into bus_pay_detail (pay_id, report_id, contract_name, 
-      payert_name, voucher, cost, 
-      flag)
-    values (#{payId,jdbcType=BIGINT}, #{reportId,jdbcType=BIGINT}, #{contractName,jdbcType=VARCHAR}, 
-      #{payertName,jdbcType=VARCHAR}, #{voucher,jdbcType=VARCHAR}, #{cost,jdbcType=VARCHAR}, 
-      #{flag,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.user.BusPayDetail">
+  <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.debt.BusPayDetail">
     insert into bus_pay_detail
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="payId != null">
@@ -80,7 +72,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.po.user.BusPayDetail">
+  <update id="updateByPrimaryKeySelective">
     update bus_pay_detail
     <set>
       <if test="reportId != null">
@@ -104,14 +96,5 @@
     </set>
     where pay_id = #{payId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.smart.bracelet.model.po.user.BusPayDetail">
-    update bus_pay_detail
-    set report_id = #{reportId,jdbcType=BIGINT},
-      contract_name = #{contractName,jdbcType=VARCHAR},
-      payert_name = #{payertName,jdbcType=VARCHAR},
-      voucher = #{voucher,jdbcType=VARCHAR},
-      cost = #{cost,jdbcType=VARCHAR},
-      flag = #{flag,jdbcType=VARCHAR}
-    where pay_id = #{payId,jdbcType=BIGINT}
-  </update>
+
 </mapper>

@@ -1,25 +1,25 @@
-package com.smart.bracelet.model.vo.user;
+package com.smart.bracelet.model.po.debt;
 
 import lombok.Data;
 
 import java.io.Serializable;
 
 /**
- * bus_real_auth
+ * bus_guarantee
  * @author 
  */
 @Data
-public class BusRealAuthVo implements Serializable {
-    private static final long serialVersionUID = 3778427708323786019L;
+public class BusGuarantee implements Serializable {
+    private static final long serialVersionUID = 8304093116495140342L;
     /**
-     * 实名ID
+     * 担保人ID
      */
-    private Long realId;
+    private Long guaranteeId;
 
     /**
-     * 报备ID
+     * 解债ID
      */
-    private Long reportId;
+    private Long debtId;
 
     /**
      * 姓名
@@ -50,6 +50,5 @@ public class BusRealAuthVo implements Serializable {
      * 手机验证码
      */
     private String telCheck;
-
 
 }

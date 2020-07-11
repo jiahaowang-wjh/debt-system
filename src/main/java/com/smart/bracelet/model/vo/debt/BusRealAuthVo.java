@@ -1,4 +1,4 @@
-package com.smart.bracelet.model.po.user;
+package com.smart.bracelet.model.vo.debt;
 
 import lombok.Data;
 
@@ -9,8 +9,8 @@ import java.io.Serializable;
  * @author 
  */
 @Data
-public class BusRealAuth implements Serializable {
-    private static final long serialVersionUID = -4616797975259664310L;
+public class BusRealAuthVo implements Serializable {
+    private static final long serialVersionUID = 3778427708323786019L;
     /**
      * 实名ID
      */

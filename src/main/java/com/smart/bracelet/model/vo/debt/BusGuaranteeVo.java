@@ -1,4 +1,4 @@
-package com.smart.bracelet.model.vo.user;
+package com.smart.bracelet.model.vo.debt;
 
 import lombok.Data;
 

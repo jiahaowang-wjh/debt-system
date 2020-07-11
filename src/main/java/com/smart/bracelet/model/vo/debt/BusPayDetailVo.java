@@ -1,7 +1,8 @@
-package com.smart.bracelet.model.po.user;
+package com.smart.bracelet.model.vo.debt;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -9,11 +10,12 @@ import java.io.Serializable;
  * @author 
  */
 @Data
-public class BusPayDetail implements Serializable {
-    private static final long serialVersionUID = 226682686868341733L;
+public class BusPayDetailVo implements Serializable {
+    private static final long serialVersionUID = -1201383858936745186L;
     /**
      * 支付ID
      */
+    @NotNull(message = "支付ID不能为空")
     private Long payId;
 
     /**
