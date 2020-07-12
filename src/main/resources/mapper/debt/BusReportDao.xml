@@ -60,6 +60,9 @@
         <include refid="Base_Column_List"/>
         from bus_report
     </select>
+    <select id="selectDaysCount" resultType="com.smart.bracelet.model.po.debt.DateAndDays">
+        SELECT DATE_FORMAT(create_time,'%Y-%m-%d') days,COUNT(*) COUNT FROM bus_report GROUP BY days;
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from bus_report
     where report_id = #{reportId,jdbcType=BIGINT}

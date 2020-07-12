@@ -1,8 +1,11 @@
 package com.smart.bracelet.dao.debt;
 
+import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.po.debt.PubDebt;
 import com.smart.bracelet.model.vo.debt.PubDebtVo;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface PubDebtDao {
@@ -15,4 +18,9 @@ public interface PubDebtDao {
 
     int updateByPrimaryKeySelective(PubDebtVo record);
 
+    /**
+     * 按照日期查询每日报备数量
+     * @return
+     */
+    List<DateAndDays> selectDaysCount();
 }

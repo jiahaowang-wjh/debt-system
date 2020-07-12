@@ -1,8 +1,11 @@
 package com.smart.bracelet.service.debt;
 
 import com.smart.bracelet.exception.CustomerException;
+import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.po.debt.PubDebt;
 import com.smart.bracelet.model.vo.debt.PubDebtVo;
+
+import java.util.List;
 
 public interface PubDebtService {
 
@@ -14,4 +17,9 @@ public interface PubDebtService {
 
     int updateByPrimaryKeySelective(PubDebtVo record) throws CustomerException;
 
+    /**
+     * 按照日期查询每日解债数量
+     * @return
+     */
+    List<DateAndDays> selectDaysCount();
 }

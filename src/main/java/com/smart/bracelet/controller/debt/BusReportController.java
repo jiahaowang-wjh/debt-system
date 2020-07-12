@@ -3,6 +3,7 @@ package com.smart.bracelet.controller.debt;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.debt.BusReport;
+import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.vo.debt.BusReportVo;
 import com.smart.bracelet.service.debt.BusReportService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,4 +83,13 @@ public class BusReportController {
         return Result.success(busReports);
     }
 
+    /**
+     * 按照日期查询每日报备数量
+     * @return
+     */
+    @RequestMapping("/selectDaysCount")
+    public Result<List<DateAndDays>> selectDaysCount(){
+        List<DateAndDays> busReports = busReportService.selectDaysCount();
+        return Result.success(busReports);
+    }
 }

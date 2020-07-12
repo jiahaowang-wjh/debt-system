@@ -3,6 +3,7 @@ package com.smart.bracelet.controller.debt;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.debt.BusCivil;
+import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.vo.debt.BusCivilVo;
 import com.smart.bracelet.service.debt.BusCivilService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/busCivilController/")
@@ -44,5 +46,13 @@ public class BusCivilController {
         BusCivil busCivil = busCivilService.selectByPrimaryKey(civilId);
         return Result.success(busCivil);
     }
-
+    /**
+     * 按照日期查询每日报备数量
+     * @return
+     */
+    @RequestMapping("/selectDaysCount")
+    public Result<List<DateAndDays>> selectDaysCount(){
+        List<DateAndDays> dateAndDays = busCivilService.selectDaysCount();
+        return Result.success(dateAndDays);
+    }
 }

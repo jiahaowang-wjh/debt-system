@@ -122,10 +122,10 @@ public class PubUserServiceImpl implements PubUserService {
 
     /**
      * 修改密码
-     * @param outPwd
-     * @param newPwdA
-     * @param newPwdB
-     * @param personId
+     * @param outPwd 旧密码
+     * @param newPwdA 新密码
+     * @param newPwdB 重复确认新密码
+     * @param personId 用户ID
      * @return
      * @throws CustomerException
      */

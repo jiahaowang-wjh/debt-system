@@ -3,12 +3,15 @@ package com.smart.bracelet.service.debt.impl;
 import com.smart.bracelet.dao.debt.BusCivilDao;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.debt.BusCivil;
+import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.vo.debt.BusCivilVo;
 import com.smart.bracelet.service.debt.BusCivilService;
 import com.smart.bracelet.utils.IdUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @Slf4j
@@ -57,5 +60,14 @@ public class BusCivilServiceImpl implements BusCivilService {
             log.error("更新民事调解信息失败,异常信息:{}",e.getMessage());
             throw new CustomerException("更新民事调解信息失败");
         }
+    }
+
+    /**
+     * 查询民事调节信息并按照日期分组
+     * @return
+     */
+    @Override
+    public List<DateAndDays> selectDaysCount() {
+        return busCivilDao.selectDaysCount();
     }
 }

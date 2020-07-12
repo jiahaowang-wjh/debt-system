@@ -2,6 +2,7 @@ package com.smart.bracelet.service.debt.impl;
 
 import com.smart.bracelet.dao.debt.PubDebtDao;
 import com.smart.bracelet.exception.CustomerException;
+import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.po.debt.PubDebt;
 import com.smart.bracelet.model.vo.debt.PubDebtVo;
 import com.smart.bracelet.service.debt.PubDebtService;
@@ -9,6 +10,8 @@ import com.smart.bracelet.utils.IdUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @Slf4j
@@ -57,5 +60,12 @@ public class PubDebtServiceImpl implements PubDebtService {
             log.error("更新解债信息失败,异常信息:{}",e.getMessage());
             throw new CustomerException("更新解债信息失败");
         }
+    }
+    /**
+     * 按照日期查询每日解债数量
+     */
+    @Override
+    public List<DateAndDays> selectDaysCount() {
+        return pubDebtDao.selectDaysCount();
     }
 }

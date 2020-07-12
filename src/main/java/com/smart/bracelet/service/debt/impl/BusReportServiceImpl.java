@@ -3,6 +3,7 @@ package com.smart.bracelet.service.debt.impl;
 import com.smart.bracelet.dao.debt.BusReportDao;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.debt.BusReport;
+import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.vo.debt.BusReportVo;
 import com.smart.bracelet.service.debt.BusReportService;
 import com.smart.bracelet.utils.IdUtils;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Slf4j
@@ -66,5 +68,10 @@ public class BusReportServiceImpl implements BusReportService {
     @Override
     public List<BusReport> queryBusReport() {
         return busReportDao.queryBusReport();
+    }
+
+    @Override
+    public List<DateAndDays> selectDaysCount() {
+        return busReportDao.selectDaysCount();
     }
 }

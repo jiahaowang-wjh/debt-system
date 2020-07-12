@@ -2,6 +2,7 @@ package com.smart.bracelet.controller.debt;
 
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
+import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.po.debt.PubDebt;
 import com.smart.bracelet.model.vo.debt.PubDebtVo;
 import com.smart.bracelet.service.debt.PubDebtService;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/pubDebtController/")
@@ -40,6 +42,14 @@ public class PubDebtController {
     public Result<PubDebt> selectByPrimaryKey(@NotNull(message = "解债信息Id不能为空")Long debtId){
         PubDebt pubDebt = pubDebtService.selectByPrimaryKey(debtId);
         return Result.success(pubDebt);
+    }
+    /**
+     * 按照日期查询每日解债数量
+     */
+    @RequestMapping("/selectDaysCount")
+    public Result<List<DateAndDays>> selectDaysCount(){
+        List<DateAndDays> dateAndDays = pubDebtService.selectDaysCount();
+        return Result.success(dateAndDays);
     }
 
 }
