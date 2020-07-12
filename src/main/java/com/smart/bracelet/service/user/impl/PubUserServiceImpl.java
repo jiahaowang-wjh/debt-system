@@ -119,4 +119,34 @@ public class PubUserServiceImpl implements PubUserService {
     public List<PubMenu> selectMenuByUserId(Long userId) {
         return pubUserDao.selectMenuByUserId(userId);
     }
+
+    /**
+     * 修改密码
+     * @param outPwd
+     * @param newPwdA
+     * @param newPwdB
+     * @param personId
+     * @return
+     * @throws CustomerException
+     */
+    @Override
+    public int updateUserPwd(String outPwd,String newPwdA,String newPwdB,Long personId) throws CustomerException {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        try {
+            PubUser pubUser = selectByPrimaryKey(personId);
+            outPwd = bCryptPasswordEncoder.encode(outPwd);
+            if(!bCryptPasswordEncoder.matches(pubUser.getPasswordMd5(),outPwd)){
+                System.out.println("原密码输入错误");
+            }
+            if(!newPwdA.equals(newPwdB)){
+                throw new CustomerException("两次密码不一致");
+            }
+            int updateUserPwd = pubUserDao.updateUserPwd(bCryptPasswordEncoder.encode(newPwdA), personId);
+            log.info("修改密码成功,受影响行数:{}",updateUserPwd);
+            return updateUserPwd;
+        } catch (Exception e) {
+            log.error("修改密码失败,异常信息:{}",e.getMessage());
+            throw new CustomerException("修改密码失败");
+        }
+    }
 }

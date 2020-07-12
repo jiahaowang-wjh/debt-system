@@ -63,4 +63,15 @@ public interface PubUserService {
      * @return
      */
     List<PubMenu> selectMenuByUserId(Long userId);
+
+    /**
+     * 修改密码
+     * @param outPwd
+     * @param newPwdA
+     * @param newPwdB
+     * @param personId
+     * @return
+     * @throws CustomerException
+     */
+    int updateUserPwd(String outPwd,String newPwdA,String newPwdB,Long personId) throws CustomerException;
 }

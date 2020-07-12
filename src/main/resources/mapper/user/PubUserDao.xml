@@ -145,4 +145,7 @@
         </set>
         where user_id = #{userId,jdbcType=BIGINT}
     </update>
+    <update id="updateUserPwd">
+         update pub_user set password_md5 = #{passWord,jdbcType=VARCHAR} where  user_id = #{personId,jdbcType=BIGINT}
+    </update>
 </mapper>

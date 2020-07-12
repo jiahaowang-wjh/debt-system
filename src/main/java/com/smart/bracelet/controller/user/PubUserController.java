@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -50,6 +51,8 @@ public class PubUserController {
         int updateByPrimaryKeySelective = userInfoService.updateByPrimaryKeySelective(record);
         return Result.success(updateByPrimaryKeySelective);
     }
+
+
 
     /**
      * 通过ID删除用户信息
@@ -93,6 +96,19 @@ public class PubUserController {
     public Result<List<PubMenu>> selectMenuByUserId(@NotNull(message = "用户Id不能为空") Long userId){
         List<PubMenu> pubMenus = userInfoService.selectMenuByUserId(userId);
         return Result.success(pubMenus);
+    }
+
+    /**
+     * 修改密码
+     * @return
+     */
+    @RequestMapping("/updatePwd")
+    public Result updatePwd(@NotBlank(message = "旧密码不能为空") String outPwd,
+                            @NotBlank(message = "新密码不能为空")String newPwdA,
+                            @NotBlank(message = "重复新密码不能为空")String newPwdB,
+                            @NotNull(message = "用户Id不能为空") Long personId ) throws CustomerException {
+        int updateUserPwd = userInfoService.updateUserPwd(outPwd, newPwdA,newPwdB, personId);
+        return Result.success(updateUserPwd);
     }
 
 }

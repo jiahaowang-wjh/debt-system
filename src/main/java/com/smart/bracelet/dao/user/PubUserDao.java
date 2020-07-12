@@ -64,4 +64,12 @@ public interface PubUserDao {
      * @return
      */
     List<PubMenu> selectMenuByUserId(Long userId);
+
+    /**
+     * 修改密码
+     * @param passWord
+     * @param personId
+     * @return
+     */
+    int updateUserPwd(String passWord,Long personId);
 }
