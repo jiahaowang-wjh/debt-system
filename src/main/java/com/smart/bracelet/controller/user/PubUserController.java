@@ -111,4 +111,13 @@ public class PubUserController {
         return Result.success(updateUserPwd);
     }
 
+    /**
+     * 批量删除用户
+     * @return
+     */
+    @RequestMapping("/delUserList")
+    public Result delUserList(@NotNull(message = "用户ID不能为空") Long[] userIds) throws CustomerException {
+        int delUserList = userInfoService.delUserList(userIds);
+        return Result.success(delUserList);
+    }
 }

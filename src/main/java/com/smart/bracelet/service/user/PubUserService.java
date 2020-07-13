@@ -74,4 +74,11 @@ public interface PubUserService {
      * @throws CustomerException
      */
     int updateUserPwd(String outPwd,String newPwdA,String newPwdB,Long personId) throws CustomerException;
+
+    /**
+     * 批量删除用户
+     * @param userIds
+     * @return
+     */
+    int delUserList(Long[] userIds) throws CustomerException;
 }

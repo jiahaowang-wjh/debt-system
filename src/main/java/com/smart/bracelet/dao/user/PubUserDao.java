@@ -72,4 +72,12 @@ public interface PubUserDao {
      * @return
      */
     int updateUserPwd(String passWord,Long personId);
+
+    /**
+     * 批量删除用户
+     * @param userIds
+     * @return
+     */
+    int delUserList(Long[] userIds);
+
 }

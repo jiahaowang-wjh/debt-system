@@ -35,7 +35,7 @@ public class PubUserServiceImpl implements PubUserService {
             log.info("删除用户信息成功,首映影响行数:{}",i);
             return i;
         } catch (Exception e) {
-            log.error("删除用户信息失败,异常信息",e.getMessage());
+            log.error("删除用户信息失败,异常信息:",e.getMessage());
             throw new CustomerException("删除用户信息失败");
         }
     }
@@ -146,6 +146,23 @@ public class PubUserServiceImpl implements PubUserService {
         } catch (CustomerException e) {
             log.error("修改密码失败,异常信息:{}",e.getMessage());
             throw new CustomerException("修改密码失败:"+e.getMessage());
+        }
+    }
+
+    /**
+     * 批量删除用户
+     * @param userIds
+     * @return
+     */
+    @Override
+    public int delUserList(Long[] userIds) throws CustomerException {
+        try {
+            int delUserList = pubUserDao.delUserList(userIds);
+            log.info("批量删除用户成功,受影响行数:",delUserList);
+            return delUserList;
+        } catch (Exception e) {
+            log.error("批量删除用户失败,异常信息:{}",e.getMessage());
+            throw new CustomerException("批量删除用户失败");
         }
     }
 }

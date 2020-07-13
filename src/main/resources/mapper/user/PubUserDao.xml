@@ -50,7 +50,13 @@
     delete from pub_user
     where user_id = #{userId,jdbcType=BIGINT}
   </delete>
-
+    <!--批量删除用户-->
+    <delete id="delUserList">
+        delete from pub_user where user_id in
+        <foreach item="item" collection="array" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
     <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.user.PubUser">
         insert into pub_user
         <trim prefix="(" suffix=")" suffixOverrides=",">
