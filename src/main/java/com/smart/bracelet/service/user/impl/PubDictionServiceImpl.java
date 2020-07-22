@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * 字典业务层
  */
@@ -83,6 +85,33 @@ public class PubDictionServiceImpl implements PubDictionService {
         } catch (Exception e) {
             log.error("更新字典成功,异常信息:{}",e.getMessage());
             throw new CustomerException("更新字典成功");
+        }
+    }
+
+    /**
+     * 查询所有字典
+     * @return
+     */
+    @Override
+    public List<PubDiction> queryDicList() {
+        return pubDictionDao.queryDicList();
+    }
+
+    /**
+     * 批量删除字典信息
+     * @param dictionIds
+     * @return
+     * @throws CustomerException
+     */
+    @Override
+    public int delDictionList(Long[] dictionIds) throws CustomerException {
+        try {
+            int delDictionList = pubDictionDao.delDictionList(dictionIds);
+            log.info("批量删除字典信息成功,受影响行数:{}",delDictionList);
+            return delDictionList;
+        } catch (Exception e) {
+            log.error("批量删除字典信息失败,异常信息:{}",e.getMessage());
+            throw new CustomerException("批量删除字典信息失败");
         }
     }
 }

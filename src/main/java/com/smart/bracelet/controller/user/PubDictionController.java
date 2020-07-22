@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * 字典管理
@@ -70,6 +71,28 @@ public class PubDictionController {
     public Result<PubDiction> selectByPrimaryKey(@NotNull(message = "字典信息Id不能为空") Long dictionId){
         PubDiction pubDiction = pubDictionService.selectByPrimaryKey(dictionId);
         return Result.success(pubDiction);
+    }
+
+    /**
+     * 查询所有字典
+     * @return
+     */
+        @RequestMapping("/queryDicList")
+    public Result<List<PubDiction>> queryDicList(){
+        List<PubDiction> pubDictions = pubDictionService.queryDicList();
+        return Result.success(pubDictions);
+    }
+
+    /**
+     * 批量删除字典信息
+     * @param dictionIds
+     * @return
+     * @throws CustomerException
+     */
+    @RequestMapping("/delDictionList")
+    public Result delDictionList(@NotNull(message = "字典信息Id不能为空")Long[] dictionIds) throws CustomerException {
+        int delDictionList = pubDictionService.delDictionList(dictionIds);
+        return Result.success(delDictionList);
     }
 
 }

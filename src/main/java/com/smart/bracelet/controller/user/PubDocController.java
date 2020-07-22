@@ -58,6 +58,11 @@ public class PubDocController {
         int delDocList = pubDocService.delDocList(docIds);
         return Result.success(delDocList);
     }
+
+    /**
+     *查询所有文档信息
+     * @return
+     */
     @RequestMapping("/queryDoc")
     public Result<List<PubDoc>> queryDoc(){
         List<PubDoc> pubDocs = pubDocService.queryDoc();

@@ -4,6 +4,8 @@ import com.smart.bracelet.model.po.user.PubDiction;
 import com.smart.bracelet.model.vo.user.PubDictionVo;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * 字典表
  */
@@ -37,5 +39,18 @@ public interface PubDictionDao {
      * @return
      */
     int updateByPrimaryKeySelective(PubDictionVo record);
+
+    /**
+     * 查询所有字典
+     * @return
+     */
+    List<PubDiction> queryDicList();
+
+    /**
+     * 批量删除字典
+     * @param dictionIds
+     * @return
+     */
+    int delDictionList(Long[] dictionIds);
 
 }

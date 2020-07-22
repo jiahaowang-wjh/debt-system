@@ -4,6 +4,8 @@ import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.user.PubDiction;
 import com.smart.bracelet.model.vo.user.PubDictionVo;
 
+import java.util.List;
+
 public interface PubDictionService {
     /**
      * 通过Id删除字典
@@ -32,5 +34,18 @@ public interface PubDictionService {
      * @return
      */
     int updateByPrimaryKeySelective(PubDictionVo record) throws CustomerException;
+
+    /**
+     * 查询所有字典
+     * @return
+     */
+    List<PubDiction> queryDicList();
+
+    /**
+     * 批量删除字典
+     * @param dictionIds
+     * @return
+     */
+    int delDictionList(Long[] dictionIds) throws CustomerException;
 
 }

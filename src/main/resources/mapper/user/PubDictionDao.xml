@@ -19,9 +19,20 @@
     from pub_diction
     where diction_id = #{dictionId,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <select id="queryDicList" resultType="com.smart.bracelet.model.po.user.PubDiction">
+      select
+      <include refid="Base_Column_List" />
+      from pub_diction
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from pub_diction
     where diction_id = #{dictionId,jdbcType=BIGINT}
+  </delete>
+  <delete id="delDictionList">
+    delete from pub_diction where diction_id in
+    <foreach item="item" collection="array" open="(" separator="," close=")">
+      #{item}
+    </foreach>
   </delete>
   <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.user.PubDiction">
     insert into pub_diction
