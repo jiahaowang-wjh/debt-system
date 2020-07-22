@@ -12,4 +12,10 @@ public interface PubDocService {
     PubDoc selectByPrimaryKey(Long docId);
 
     int updateByPrimaryKeySelective(PubDocVo record) throws CustomerException;
+    /**
+     * 批量删除文档
+     * @param docIds
+     * @return
+     */
+    int delDocList(Long[] docIds) throws CustomerException;
 }

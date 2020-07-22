@@ -18,4 +18,10 @@ public interface PubDocDao {
 
     int updateByPrimaryKeySelective(PubDocVo record);
 
+    /**
+     * 批量删除文档
+     * @param docIds
+     * @return
+     */
+    int delDocList(Long[] docIds);
 }

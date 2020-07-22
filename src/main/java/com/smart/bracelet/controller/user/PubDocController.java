@@ -45,5 +45,9 @@ public class PubDocController {
         PubDoc pubDoc = pubDocService.selectByPrimaryKey(docId);
         return Result.success(pubDoc);
     }
-
+    @RequestMapping("/delDocList")
+    public Result delDocList(@NotNull(message = "文档ID不能为空")Long[] docIds) throws CustomerException {
+        int delDocList = pubDocService.delDocList(docIds);
+        return Result.success(delDocList);
+    }
 }

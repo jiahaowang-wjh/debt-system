@@ -19,8 +19,14 @@
     delete from pub_doc
     where doc_id = #{docId,jdbcType=BIGINT}
   </delete>
+    <delete id="delDocList">
+      delete from pub_doc where doc_id in
+      <foreach item="item" collection="array" open="(" separator="," close=")">
+        #{item}
+      </foreach>
+    </delete>
 
-  <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.user.PubDoc">
+    <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.user.PubDoc">
     insert into pub_doc
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="docId != null">

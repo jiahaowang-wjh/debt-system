@@ -54,4 +54,21 @@ public class PubDocServiceImpl implements PubDocService {
             throw new CustomerException("更新文档失败");
         }
     }
+
+    /**
+     * 批量删除文档
+     * @param docIds
+     * @return
+     */
+    @Override
+    public int delDocList(Long[] docIds) throws CustomerException {
+        try {
+            int delDocList = pubDocDao.delDocList(docIds);
+            log.info("批量删除文档成功,受影响行数:{}",delDocList);
+            return delDocList;
+        } catch (Exception e) {
+            log.error("批量删除文档失败,异常信息:{}",e.getMessage());
+            throw new CustomerException("批量删除文档失败");
+        }
+    }
 }
