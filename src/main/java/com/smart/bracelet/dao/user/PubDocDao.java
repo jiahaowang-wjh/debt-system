@@ -4,6 +4,8 @@ import com.smart.bracelet.model.po.user.PubDoc;
 import com.smart.bracelet.model.vo.user.PubDocVo;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * 文档表
  */
@@ -24,4 +26,10 @@ public interface PubDocDao {
      * @return
      */
     int delDocList(Long[] docIds);
+
+    /**
+     *查询所有文档信息
+     * @return
+     */
+    List<PubDoc> queryDoc();
 }

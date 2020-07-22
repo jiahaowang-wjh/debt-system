@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * 文档管理
@@ -45,9 +46,22 @@ public class PubDocController {
         PubDoc pubDoc = pubDocService.selectByPrimaryKey(docId);
         return Result.success(pubDoc);
     }
+
+    /**
+     * 批量删除文档信息
+     * @param docIds
+     * @return
+     * @throws CustomerException
+     */
     @RequestMapping("/delDocList")
     public Result delDocList(@NotNull(message = "文档ID不能为空")Long[] docIds) throws CustomerException {
         int delDocList = pubDocService.delDocList(docIds);
         return Result.success(delDocList);
     }
+    @RequestMapping("/queryDoc")
+    public Result<List<PubDoc>> queryDoc(){
+        List<PubDoc> pubDocs = pubDocService.queryDoc();
+        return Result.success(pubDocs);
+    }
+
 }

@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Slf4j
 public class PubDocServiceImpl implements PubDocService {
@@ -70,5 +72,14 @@ public class PubDocServiceImpl implements PubDocService {
             log.error("批量删除文档失败,异常信息:{}",e.getMessage());
             throw new CustomerException("批量删除文档失败");
         }
+    }
+
+    /**
+     * 查询所有文档
+     * @return
+     */
+    @Override
+    public List<PubDoc> queryDoc() {
+        return pubDocDao.queryDoc();
     }
 }

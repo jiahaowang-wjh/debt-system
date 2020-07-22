@@ -4,6 +4,8 @@ import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.user.PubDoc;
 import com.smart.bracelet.model.vo.user.PubDocVo;
 
+import java.util.List;
+
 public interface PubDocService {
     int deleteByPrimaryKey(Long docId) throws CustomerException;
 
@@ -18,4 +20,9 @@ public interface PubDocService {
      * @return
      */
     int delDocList(Long[] docIds) throws CustomerException;
+    /**
+     *查询所有文档信息
+     * @return
+     */
+    List<PubDoc> queryDoc();
 }

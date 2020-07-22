@@ -15,6 +15,11 @@
     from pub_doc
     where doc_id = #{docId,jdbcType=BIGINT}
   </select>
+  <select id="queryDoc" resultType="com.smart.bracelet.model.po.user.PubDoc">
+    select
+    <include refid="Base_Column_List" />
+    from pub_doc
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from pub_doc
     where doc_id = #{docId,jdbcType=BIGINT}
