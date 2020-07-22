@@ -28,6 +28,12 @@
          delete from pub_rolemenu
          where role_id = #{roleId,jdbcType=BIGINT}
     </delete>
+    <delete id="delRoleList">
+        delete from pub_role where role_id in
+        <foreach item="item" collection="array" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
     <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.user.PubRole">
         insert into pub_role
         <trim prefix="(" suffix=")" suffixOverrides=",">

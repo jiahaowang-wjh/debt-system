@@ -65,4 +65,11 @@ public interface PubRoleDao {
      */
     int addRoleMenu(PubRolemenu pubRolemenu);
 
+    /**
+     * 批量删除角色
+     * @param roleIds
+     * @return
+     */
+    int delRoleList(Long[] roleIds);
+
 }

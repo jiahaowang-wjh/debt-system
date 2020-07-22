@@ -14,6 +14,8 @@ public interface PubAuthDao {
      */
     int deleteByPrimaryKey(Long authId);
 
+
+
     /**
      * 添加权限信息
      * @param record

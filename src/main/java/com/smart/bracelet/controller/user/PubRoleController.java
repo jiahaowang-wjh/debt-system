@@ -88,4 +88,16 @@ public class PubRoleController {
         int addRoleMenu = pubRoleService.addRoleMenu(pubRolemenu);
         return Result.success(addRoleMenu);
     }
+
+    /**
+     * 批量删除角色
+     * @param roleIds
+     * @return
+     * @throws CustomerException
+     */
+    @RequestMapping("/delRoleList")
+    public Result delRoleList(@NotNull(message = "角色Id不能为空")Long[] roleIds) throws CustomerException {
+        int delRoleList = pubRoleService.delRoleList(roleIds);
+        return Result.success(delRoleList);
+    }
 }

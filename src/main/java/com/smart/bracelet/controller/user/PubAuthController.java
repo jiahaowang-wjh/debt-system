@@ -45,6 +45,8 @@ public class PubAuthController {
         return Result.success(deleteByPrimaryKey);
     }
 
+
+
     /**
      * 修改权限信息
      * @param record

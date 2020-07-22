@@ -49,4 +49,11 @@ public interface PubRoleService {
      * @return
      */
     int addRoleMenu(PubRolemenu pubRolemenu) throws CustomerException;
+
+    /**
+     * 批量删除角色
+     * @param roleIds
+     * @return
+     */
+    int delRoleList(Long[] roleIds) throws CustomerException;
 }

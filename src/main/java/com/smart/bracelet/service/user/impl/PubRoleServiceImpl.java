@@ -126,4 +126,16 @@ public class PubRoleServiceImpl implements PubRoleService {
             throw new CustomerException("菜单添加失败");
         }
     }
+
+    @Override
+    public int delRoleList(Long[] roleIds) throws CustomerException {
+        try {
+            int delRoleList = pubRoleDao.delRoleList(roleIds);
+            log.info("批量删除角色成功,受影响行数:{}",delRoleList);
+            return delRoleList;
+        } catch (Exception e) {
+            log.error("批量删除角色失败,异常信息:{}",e.getMessage());
+            throw new CustomerException("批量删除角色失败");
+        }
+    }
 }
