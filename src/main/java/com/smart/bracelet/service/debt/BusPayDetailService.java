@@ -4,6 +4,8 @@ import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.debt.BusPayDetail;
 import com.smart.bracelet.model.vo.debt.BusPayDetailVo;
 
+import java.util.List;
+
 public interface BusPayDetailService {
 
     int deleteByPrimaryKey(Long payId) throws CustomerException;
@@ -13,5 +15,10 @@ public interface BusPayDetailService {
     BusPayDetail selectByPrimaryKey(Long payId);
 
     int updateByPrimaryKeySelective(BusPayDetailVo record) throws CustomerException;
-
+    /**
+     * 通过报备Id查询支付信息
+     * @param reportId
+     * @return
+     */
+    List<BusPayDetail> selectByReportId(Long reportId);
 }

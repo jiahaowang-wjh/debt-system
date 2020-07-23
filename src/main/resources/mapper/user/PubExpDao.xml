@@ -17,9 +17,20 @@
     from pub_exp
     where exp_id = #{expId,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <select id="queryExpList" resultType="com.smart.bracelet.model.po.user.PubExp">
+      select
+      <include refid="Base_Column_List" />
+      from pub_exp
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from pub_exp
     where exp_id = #{expId,jdbcType=BIGINT}
+  </delete>
+  <delete id="delExpList">
+    delete from pub_exp where exp_id in
+    <foreach item="item" collection="array" open="(" separator="," close=")">
+      #{item}
+    </foreach>
   </delete>
 
   <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.user.PubExp">

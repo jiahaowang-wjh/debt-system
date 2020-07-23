@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/busPayDetailController/")
@@ -37,9 +38,22 @@ public class BusPayDetailController {
         int updateByPrimaryKeySelective = busPayDetailService.updateByPrimaryKeySelective(record);
         return Result.success(updateByPrimaryKeySelective);
     }
-        @RequestMapping("/selectByPrimaryKey")
+
+    @RequestMapping("/selectByPrimaryKey")
     public Result<BusPayDetail> selectByPrimaryKey(Long payId){
         BusPayDetail busPayDetail = busPayDetailService.selectByPrimaryKey(payId);
         return Result.success(busPayDetail);
     }
+
+    /**
+     * 通过报备Id查询支付信息
+     * @param reportId
+     * @return
+     */
+    @RequestMapping("/selectByReportId")
+    public Result<List<BusPayDetail>> selectByReportId(@NotNull(message = "报备ID不能为空")Long reportId){
+        List<BusPayDetail> busPayDetails = busPayDetailService.selectByReportId(reportId);
+        return Result.success(busPayDetails);
+    }
+
 }

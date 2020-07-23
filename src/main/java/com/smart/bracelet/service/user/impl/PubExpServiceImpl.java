@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Slf4j
 public class PubExpServiceImpl implements PubExpService {
@@ -56,6 +58,29 @@ public class PubExpServiceImpl implements PubExpService {
         } catch (Exception e) {
             log.error("更新公式信息失败,异常信息:{}",e.getMessage());
             throw new CustomerException("更新公式信息失败");
+        }
+    }
+
+    @Override
+    public List<PubExp> queryExpList() {
+        return pubExpDao.queryExpList();
+    }
+
+    /**
+     * 批量删除公式信息
+     * @param expIds
+     * @return
+     * @throws CustomerException
+     */
+    @Override
+    public int delExpList(Long[] expIds) throws CustomerException {
+        try {
+            int delExpList = pubExpDao.delExpList(expIds);
+            log.info("批量删除公式信息成功,受影响行数:{}",delExpList);
+            return delExpList;
+        } catch (Exception e) {
+            log.error("批量删除公式信息失败,异常信息:{}",e.getMessage());
+            throw new CustomerException("批量删除公式信息失败");
         }
     }
 }

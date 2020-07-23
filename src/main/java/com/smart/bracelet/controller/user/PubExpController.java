@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * 公式信息管理
@@ -47,5 +48,24 @@ public class PubExpController {
         PubExp pubExp = pubExpService.selectByPrimaryKey(expId);
         return Result.success(pubExp);
     }
+    /**
+     * 查询所有公式
+     * @return
+     */
+    @RequestMapping("/queryExpList")
+    public Result<List<PubExp>> queryExpList(){
+        List<PubExp> pubExps = pubExpService.queryExpList();
+        return Result.success(pubExps);
+    }
 
+    /**
+     * 批量删除公式信息
+     * @param expIds
+     * @return
+     */
+    @RequestMapping("/delExpList")
+    public Result  delExpList(@NotNull(message = "公式ID不能为空")Long[] expIds) throws CustomerException {
+        int delExpList = pubExpService.delExpList(expIds);
+        return Result.success(delExpList);
+    }
 }
