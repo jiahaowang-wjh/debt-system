@@ -17,8 +17,6 @@
         <result column="data7" jdbcType="VARCHAR" property="data7"/>
         <result column="data8" jdbcType="VARCHAR" property="data8"/>
         <result column="data9" jdbcType="VARCHAR" property="data9"/>
-        <result column="data10" jdbcType="VARCHAR" property="data10"/>
-        <result column="data11" jdbcType="VARCHAR" property="data11"/>
         <result column="card_just" jdbcType="VARCHAR" property="cardJust"/>
         <result column="card_back" jdbcType="VARCHAR" property="cardBack"/>
         <result column="obligat_right" jdbcType="VARCHAR" property="obligatRight"/>
@@ -44,7 +42,7 @@
     </resultMap>
     <sql id="Base_Column_List">
     report_id, company_id, user_id, iscoordinate, report_type, report_propert, data1, 
-    data2, data3, data4, data5, data6, data7, data8, data9, data10, data11, card_just, 
+    data2, data3, data4, data5, data6, data7, data8, data9,card_just,
     card_back, obligat_right, obligat_right_no, obligat_time, capital, interest, interest_rate, 
     debt, debt_no, debt_time, debt_certificate, upload_debt_certificate, is_result, economics, 
     prject_manager, `status`, stage,create_user_id,update_user_id,create_time,update_time
@@ -114,12 +112,6 @@
             </if>
             <if test="data9 != null">
                 data9,
-            </if>
-            <if test="data10 != null">
-                data10,
-            </if>
-            <if test="data11 != null">
-                data11,
             </if>
             <if test="cardJust != null">
                 card_just,
@@ -228,12 +220,6 @@
             <if test="data9 != null">
                 #{data9,jdbcType=VARCHAR},
             </if>
-            <if test="data10 != null">
-                #{data10,jdbcType=VARCHAR},
-            </if>
-            <if test="data11 != null">
-                #{data11,jdbcType=VARCHAR},
-            </if>
             <if test="cardJust != null">
                 #{cardJust,jdbcType=VARCHAR},
             </if>
@@ -340,12 +326,6 @@
             </if>
             <if test="data9 != null">
                 data9 = #{data9,jdbcType=VARCHAR},
-            </if>
-            <if test="data10 != null">
-                data10 = #{data10,jdbcType=VARCHAR},
-            </if>
-            <if test="data11 != null">
-                data11 = #{data11,jdbcType=VARCHAR},
             </if>
             <if test="cardJust != null">
                 card_just = #{cardJust,jdbcType=VARCHAR},

@@ -4,13 +4,14 @@ import com.smart.bracelet.dao.debt.BusReportDao;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.debt.BusReport;
 import com.smart.bracelet.model.po.debt.DateAndDays;
-import com.smart.bracelet.model.vo.debt.BusReportVo;
+import com.smart.bracelet.model.vo.debt.*;
 import com.smart.bracelet.service.debt.BusReportService;
 import com.smart.bracelet.utils.IdUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -35,43 +36,300 @@ public class BusReportServiceImpl implements BusReportService {
     }
 
     @Override
-    public int insertSelective(BusReport record) throws CustomerException {
-        try {
-            record.setReportId(IdUtils.nextId());
-            int insertSelective = busReportDao.insertSelective(record);
-            log.info("新增报备信息成功,受影响行数:{}",insertSelective);
-            return insertSelective;
-        } catch (Exception e) {
-            log.error("新增报备信息失败,异常信息:{}",e.getMessage());
-            throw new CustomerException("新增报备信息失败");
+    public BusReportListVo selectByPrimaryKey(Long reportId) {
+        BusReport busReport = busReportDao.selectByPrimaryKey(reportId);
+        BusReportListVo busReportListVo = new BusReportListVo();
+        //将工共字段先赋值
+        busReportListVo.setReportId(busReport.getCompanyId());
+        busReportListVo.setCompanyId(busReport.getCompanyId());
+        busReportListVo.setUserId(busReport.getUserId());
+        busReportListVo.setIscoordinate(busReport.getIscoordinate());
+        busReportListVo.setReportType(busReport.getReportType());
+        busReportListVo.setReportPropert(busReport.getReportPropert());
+        busReportListVo.setCardBack(busReport.getCardBack());
+        busReportListVo.setObligatRight(busReport.getObligatRight());
+        busReportListVo.setObligatRightNo(busReport.getObligatRightNo());
+        busReportListVo.setObligatTime(busReport.getObligatTime());
+        busReportListVo.setCapital(busReport.getCapital());
+        busReportListVo.setInterest(busReport.getInterest());
+        busReportListVo.setInterestRate(busReport.getInterestRate());
+        busReportListVo.setDebt(busReport.getDebt());
+        busReportListVo.setDebtNo(busReport.getDebtNo());
+        busReportListVo.setDebtTime(busReport.getDebtTime());
+        busReportListVo.setDebtCertificate(busReport.getDebtCertificate());
+        busReportListVo.setUploadDebtCertificate(busReport.getUploadDebtCertificate());
+        busReportListVo.setIsResult(busReport.getIsResult());
+        busReportListVo.setEconomics(busReport.getEconomics());
+        busReportListVo.setPrjectManager(busReport.getPrjectManager());
+        busReportListVo.setStatus(busReport.getStatus());
+        busReportListVo.setStage(busReport.getStage());
+        busReportListVo.setCreateUserId(busReport.getCreateUserId());
+        busReportListVo.setUpdateUserId(busReport.getUpdateUserId());
+        busReportListVo.setCreateTime(busReport.getCreateTime());
+        busReportListVo.setUpdateTime(busReport.getUpdateTime());
+        //根据性质判断属于个人还是企业或银行
+        if (busReport.getReportPropert().equals("1")) {
+            busReportListVo.setPersonalName(busReport.getData1());
+            busReportListVo.setPhone(busReport.getData2());
+            busReportListVo.setIdCard(busReport.getData3());
+            busReportListVo.setSex(busReport.getData4());
+            busReportListVo.setArea(busReport.getData5());
+            busReportListVo.setEmail(busReport.getData6());
+            busReportListVo.setAssets(busReport.getData7());
+            busReportListVo.setAssetsNumber(busReport.getData8());
+            busReportListVo.setCirculationAssets(busReport.getData9());
+        } else {
+            busReportListVo.setCompanyName(busReport.getData1());
+            busReportListVo.setCreditCode(busReport.getData2());
+            busReportListVo.setIndustryAttributes(busReport.getData3());
+            busReportListVo.setLegalName(busReport.getData4());
+            busReportListVo.setLegalPhone(busReport.getData5());
+            busReportListVo.setLegalIdCard(busReport.getData6());
+            busReportListVo.setAddress(busReport.getData7());
+            busReportListVo.setContactPerson(busReport.getData8());
+            busReportListVo.setContactPhone(busReport.getData9());
         }
-
+        return busReportListVo;
     }
 
     @Override
-    public BusReport selectByPrimaryKey(Long reportId) {
-        return busReportDao.selectByPrimaryKey(reportId);
-    }
-
-    @Override
-    public int updateByPrimaryKeySelective(BusReportVo record) throws CustomerException {
+    public int updateByPrimaryKeySelective(BusReportListVo busReportListVo) throws CustomerException {
+        BusReportVo record = new BusReportVo();
         try {
+            record.setReportId(busReportListVo.getReportId());
+            record.setCompanyId(busReportListVo.getCompanyId());
+            record.setUserId(busReportListVo.getUserId());
+            record.setIscoordinate(busReportListVo.getIscoordinate());
+            record.setReportType(busReportListVo.getReportType());
+            record.setReportPropert(busReportListVo.getReportPropert());
+            record.setCardJust(busReportListVo.getCardJust());
+            record.setCardBack(busReportListVo.getCardBack());
+            record.setObligatRight(busReportListVo.getObligatRight());
+            record.setObligatRightNo(busReportListVo.getObligatRightNo());
+            record.setObligatTime(busReportListVo.getObligatTime());
+            record.setCapital(busReportListVo.getCapital());
+            record.setInterest(busReportListVo.getInterest());
+            record.setInterestRate(busReportListVo.getInterestRate());
+            record.setDebt(busReportListVo.getDebt());
+            record.setDebtNo(busReportListVo.getDebtNo());
+            record.setDebtTime(busReportListVo.getDebtTime());
+            record.setUploadDebtCertificate(busReportListVo.getUploadDebtCertificate());
+            record.setIsResult(busReportListVo.getIsResult());
+            record.setEconomics(busReportListVo.getEconomics());
+            record.setPrjectManager(busReportListVo.getPrjectManager());
+            record.setStatus(busReportListVo.getStatus());
+            record.setStage(busReportListVo.getStage());
+            record.setCreateUserId(busReportListVo.getCreateUserId());
+            record.setUpdateUserId(busReportListVo.getUpdateUserId());
+            record.setCreateTime(busReportListVo.getCreateTime());
+            record.setUpdateTime(busReportListVo.getUpdateTime());
+            //判断录入债事信息属于个人或企业银行
+            if (busReportListVo.getReportPropert().equals("1")) {
+                record.setData1(busReportListVo.getPersonalName());
+                record.setData2(busReportListVo.getPhone());
+                record.setData3(busReportListVo.getIdCard());
+                record.setData4(busReportListVo.getSex());
+                record.setData5(busReportListVo.getArea());
+                record.setData6(busReportListVo.getEmail());
+                record.setData7(busReportListVo.getAssets());
+                record.setData8(busReportListVo.getAssetsNumber());
+                record.setData9(busReportListVo.getCirculationAssets());
+            } else {
+                record.setData1(busReportListVo.getCompanyName());
+                record.setData2(busReportListVo.getCreditCode());
+                record.setData3(busReportListVo.getIndustryAttributes());
+                record.setData4(busReportListVo.getLegalName());
+                record.setData5(busReportListVo.getLegalPhone());
+                record.setData6(busReportListVo.getLegalIdCard());
+                record.setData7(busReportListVo.getAddress());
+                record.setData8(busReportListVo.getContactPerson());
+                record.setData9(busReportListVo.getContactPhone());
+            }
             int updateByPrimaryKeySelective = busReportDao.updateByPrimaryKeySelective(record);
-            log.info("更新报备信息成功,受影响行数:{}",updateByPrimaryKeySelective);
+            log.info("更新报备信息成功,受影响行数:{}", updateByPrimaryKeySelective);
             return updateByPrimaryKeySelective;
         } catch (Exception e) {
-            log.error("更新报备信息失败,异常信息:{}",e.getMessage());
+            log.error("更新报备信息失败,异常信息:{}", e.getMessage());
             throw new CustomerException("更新报备信息失败");
         }
     }
 
     @Override
-    public List<BusReport> queryBusReport() {
-        return busReportDao.queryBusReport();
+    public List<BusReportListVo> queryBusReport() {
+        List<BusReport> busReports = busReportDao.queryBusReport();
+        List<BusReportListVo> listVos = new ArrayList<>();
+        for (BusReport item : busReports) {
+            BusReportListVo busReportListVo = selectByPrimaryKey(item.getReportId());
+            listVos.add(busReportListVo);
+        }
+        return listVos;
     }
 
     @Override
     public List<DateAndDays> selectDaysCount() {
         return busReportDao.selectDaysCount();
+    }
+
+    /**
+     * 私人
+     *
+     * @param busPrivateReport
+     * @return
+     */
+    @Override
+    public int insertPrivateSelective(BusPrivateReport busPrivateReport) throws CustomerException {
+        BusReport busReport = new BusReport();
+        try {
+            busReport.setReportId(IdUtils.nextId());
+            busReport.setCompanyId(busPrivateReport.getCompanyId());
+            busReport.setUserId(busPrivateReport.getUserId());
+            busReport.setIscoordinate(busPrivateReport.getIscoordinate());
+            busReport.setReportType(busPrivateReport.getReportType());
+            busReport.setReportPropert("1");
+            busReport.setCardJust(busPrivateReport.getCardJust());
+            busReport.setCardBack(busPrivateReport.getCardBack());
+            busReport.setObligatRight(busPrivateReport.getObligatRight());
+            busReport.setObligatRightNo(busPrivateReport.getObligatRightNo());
+            busReport.setObligatTime(busPrivateReport.getObligatTime());
+            busReport.setCapital(busPrivateReport.getCapital());
+            busReport.setInterest(busPrivateReport.getInterest());
+            busReport.setInterestRate(busPrivateReport.getInterestRate());
+            busReport.setDebt(busPrivateReport.getDebt());
+            busReport.setDebtNo(busPrivateReport.getDebtNo());
+            busReport.setDebtTime(busPrivateReport.getDebtTime());
+            busReport.setUploadDebtCertificate(busPrivateReport.getUploadDebtCertificate());
+            busReport.setIsResult(busPrivateReport.getIsResult());
+            busReport.setEconomics(busPrivateReport.getEconomics());
+            busReport.setPrjectManager(busPrivateReport.getPrjectManager());
+            busReport.setStatus(busPrivateReport.getStatus());
+            busReport.setStage(busPrivateReport.getStage());
+            busReport.setCreateUserId(busPrivateReport.getCreateUserId());
+            busReport.setUpdateUserId(busPrivateReport.getUpdateUserId());
+            busReport.setCreateTime(busPrivateReport.getCreateTime());
+            busReport.setUpdateTime(busPrivateReport.getUpdateTime());
+            busReport.setData1(busPrivateReport.getPersonalName());
+            busReport.setData2(busPrivateReport.getPhone());
+            busReport.setData3(busPrivateReport.getIdCard());
+            busReport.setData4(busPrivateReport.getSex());
+            busReport.setData5(busPrivateReport.getArea());
+            busReport.setData6(busPrivateReport.getEmail());
+            busReport.setData7(busPrivateReport.getAssets());
+            busReport.setData8(busPrivateReport.getAssetsNumber());
+            busReport.setData9(busPrivateReport.getCirculationAssets());
+            int insertSelective = busReportDao.insertSelective(busReport);
+            log.info("新增私人报备信息成功,受影响行数:{}",insertSelective);
+            return insertSelective;
+        } catch (Exception e) {
+            log.error("新增私人报备信息失败,异常信息:{}",e.getMessage());
+            throw new CustomerException("新增私人报备信息失败");
+        }
+    }
+
+    /**
+     * 企业
+     *
+     * @param busEterpriseReport
+     * @return
+     */
+    @Override
+    public int insertEterpriseSelective(BusEterpriseReport busEterpriseReport) throws CustomerException {
+        BusReport busReport = new BusReport();
+        try {
+            busReport.setReportId(IdUtils.nextId());
+            busReport.setCompanyId(busEterpriseReport.getCompanyId());
+            busReport.setUserId(busEterpriseReport.getUserId());
+            busReport.setIscoordinate(busEterpriseReport.getIscoordinate());
+            busReport.setReportType(busEterpriseReport.getReportType());
+            busReport.setReportPropert("2");
+            busReport.setCardJust(busEterpriseReport.getCardJust());
+            busReport.setCardBack(busEterpriseReport.getCardBack());
+            busReport.setObligatRight(busEterpriseReport.getObligatRight());
+            busReport.setObligatRightNo(busEterpriseReport.getObligatRightNo());
+            busReport.setObligatTime(busEterpriseReport.getObligatTime());
+            busReport.setCapital(busEterpriseReport.getCapital());
+            busReport.setInterest(busEterpriseReport.getInterest());
+            busReport.setInterestRate(busEterpriseReport.getInterestRate());
+            busReport.setDebt(busEterpriseReport.getDebt());
+            busReport.setDebtNo(busEterpriseReport.getDebtNo());
+            busReport.setDebtTime(busEterpriseReport.getDebtTime());
+            busReport.setUploadDebtCertificate(busEterpriseReport.getUploadDebtCertificate());
+            busReport.setIsResult(busEterpriseReport.getIsResult());
+            busReport.setEconomics(busEterpriseReport.getEconomics());
+            busReport.setPrjectManager(busEterpriseReport.getPrjectManager());
+            busReport.setStatus(busEterpriseReport.getStatus());
+            busReport.setStage(busEterpriseReport.getStage());
+            busReport.setCreateUserId(busEterpriseReport.getCreateUserId());
+            busReport.setUpdateUserId(busEterpriseReport.getUpdateUserId());
+            busReport.setCreateTime(busEterpriseReport.getCreateTime());
+            busReport.setUpdateTime(busEterpriseReport.getUpdateTime());
+            busReport.setData1(busEterpriseReport.getCompanyName());
+            busReport.setData2(busEterpriseReport.getCreditCode());
+            busReport.setData3(busEterpriseReport.getIndustryAttributes());
+            busReport.setData4(busEterpriseReport.getLegalName());
+            busReport.setData5(busEterpriseReport.getLegalPhone());
+            busReport.setData6(busEterpriseReport.getLegalIdCard());
+            busReport.setData7(busEterpriseReport.getAddress());
+            busReport.setData8(busEterpriseReport.getContactPerson());
+            busReport.setData9(busEterpriseReport.getContactPhone());
+            int insertSelective = busReportDao.insertSelective(busReport);
+            log.info("新增企业报备信息成功,受影响行数:{}",insertSelective);
+            return insertSelective;
+        } catch (Exception e) {
+            log.error("新增企业报备信息失败,异常信息:{}",e.getMessage());
+            throw new CustomerException("新增企业报备信息失败");
+        }
+    }
+
+    /**
+     * 银行
+     *
+     * @param busBankReport
+     * @return
+     */
+    @Override
+    public int insertBankSelective(BusBankReport busBankReport) throws CustomerException {
+        BusReport busReport = new BusReport();
+        try {
+            busReport.setReportId(IdUtils.nextId());
+            busReport.setCompanyId(busBankReport.getCompanyId());
+            busReport.setUserId(busBankReport.getUserId());
+            busReport.setIscoordinate(busBankReport.getIscoordinate());
+            busReport.setReportType("1");
+            busReport.setReportPropert("3");
+            busReport.setObligatRight(busBankReport.getObligatRight());
+            busReport.setObligatRightNo(busBankReport.getObligatRightNo());
+            busReport.setObligatTime(busBankReport.getObligatTime());
+            busReport.setCapital(busBankReport.getCapital());
+            busReport.setInterest(busBankReport.getInterest());
+            busReport.setInterestRate(busBankReport.getInterestRate());
+            busReport.setDebt(busBankReport.getDebt());
+            busReport.setDebtNo(busBankReport.getDebtNo());
+            busReport.setDebtTime(busBankReport.getDebtTime());
+            busReport.setUploadDebtCertificate(busBankReport.getUploadDebtCertificate());
+            busReport.setIsResult(busBankReport.getIsResult());
+            busReport.setEconomics(busBankReport.getEconomics());
+            busReport.setPrjectManager(busBankReport.getPrjectManager());
+            busReport.setStatus(busBankReport.getStatus());
+            busReport.setStage(busBankReport.getStage());
+            busReport.setCreateUserId(busBankReport.getCreateUserId());
+            busReport.setUpdateUserId(busBankReport.getUpdateUserId());
+            busReport.setCreateTime(busBankReport.getCreateTime());
+            busReport.setUpdateTime(busBankReport.getUpdateTime());
+            busReport.setData1(busBankReport.getCompanyName());
+            busReport.setData2(busBankReport.getCreditCode());
+            busReport.setData3(busBankReport.getIndustryAttributes());
+            busReport.setData4(busBankReport.getLegalName());
+            busReport.setData5(busBankReport.getLegalPhone());
+            busReport.setData6(busBankReport.getLegalIdCard());
+            busReport.setData7(busBankReport.getAddress());
+            busReport.setData8(busBankReport.getContactPerson());
+            busReport.setData9(busBankReport.getContactPhone());
+            int insertSelective = busReportDao.insertSelective(busReport);
+            log.info("新增银行报备信息成功,受影响行数:{}",insertSelective);
+            return insertSelective;
+        } catch (Exception e) {
+            log.error("新增银行报备信息失败,异常信息:{}",e.getMessage());
+            throw new CustomerException("新增银行报备信息失败");
+        }
     }
 }

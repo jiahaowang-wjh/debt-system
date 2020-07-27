@@ -1,6 +1,5 @@
-package com.smart.bracelet.model.po.debt;
+package com.smart.bracelet.model.vo.debt;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -14,11 +13,12 @@ import java.util.Date;
  * @author 
  */
 @Data
-public class BusReport implements Serializable {
-    private static final long serialVersionUID = -3154792963958561818L;
+public class BusReportListVo implements Serializable {
+    private static final long serialVersionUID = -408763984101280244L;
     /**
      * 报备ID
      */
+    @NotNull(message = "报备ID不能为空")
     private Long reportId;
 
     /**
@@ -50,71 +50,100 @@ public class BusReport implements Serializable {
      */
     @NotBlank(message = "性质不能为空")
     private String reportPropert;
+//      <------私人----->
+    /**
+     * 姓名
+     */
+    private String personalName;
 
     /**
-     * 数据一
+     * 手机号码
      */
-    @NotBlank(message = "数据一不能为空")
-    private String data1;
+    private String phone;
 
     /**
-     * 数据二
+     * 身份证号码
      */
-    @NotBlank(message = "数据二不能为空")
-    private String data2;
+    private String IdCard;
 
     /**
-     * 数据三
+     * 性别
      */
-    @NotBlank(message = "数据三不能为空")
-    private String data3;
+    private String sex;
 
     /**
-     * 数据四
+     * 所在地区
      */
-    @NotBlank(message = "数据四不能为空")
-    private String data4;
+    private String Area;
 
     /**
-     * 数据五
+     * 电子邮箱
      */
-    @NotBlank(message = "数据五不能为空")
-    private String data5;
+    private String Email;
 
     /**
-     * 数据六
+     * 资产总价值 （元）
      */
-    @NotBlank(message = "数据六不能为空")
-    private String data6;
+    private String assets;
 
     /**
-     * 数据七
+     * 资产项数
      */
-    @NotBlank(message = "数据七不能为空")
-    private String data7;
+    private String assetsNumber ;
 
     /**
-     * 数据八
+     * 可流通资产价值（元）
      */
-    @NotBlank(message = "数据八不能为空")
-    private String data8;
+    private String CirculationAssets;
+
+//    <-----企业,银行---->
 
     /**
-     * 数据九
+     * 企业名称
      */
-    @NotBlank(message = "数据九不能为空")
-    private String data9;
+    private String CompanyName;
 
+    /**
+     * 社会统一信用代码
+     */
+    private String CreditCode;
+    /**
+     * 行业属性
+     */
+    private String industryAttributes;
+    /**
+     * 法定代表人名称
+     */
+    private String LegalName;
+    /**
+     * 法定代表人联系电话
+     */
+    private String LegalPhone;
+    /**
+     * 法定代表人身份证号
+     */
+    private String LegalIdCard;
+    /**
+     * 注册地址
+     */
+    private String address;
+    /**
+     * 企业联系人
+     */
+    private String ContactPerson;
+    /**
+     * 联系电话
+     */
+    private String ContactPhone;
+//<----工共属性--->
     /**
      * 身份证正
      */
-    @NotBlank(message = "身份证正面不能为空")
     private String cardJust;
 
     /**
      * 身份证反
      */
-    @NotBlank(message = "身份证反面不能为空")
     private String cardBack;
 
     /**
@@ -132,8 +161,8 @@ public class BusReport implements Serializable {
     /**
      * 借款发生时间权
      */
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @NotNull(message = "借款发生时间权不能为空")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date obligatTime;
 
     /**
@@ -169,8 +198,8 @@ public class BusReport implements Serializable {
     /**
      * 借款发生时间务
      */
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @NotNull(message = "借款发生时间务不能为空")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date debtTime;
 
     /**
@@ -214,7 +243,6 @@ public class BusReport implements Serializable {
      */
     @NotBlank(message = "阶段不能为空")
     private String stage;
-
     /**
      * 创建人Id
      */
@@ -224,20 +252,19 @@ public class BusReport implements Serializable {
     /**
      *更新人Id
      */
-    @NotNull(message = "更新人Id不能为空")
+    @NotNull(message = "不能为空")
     private Long updateUserId;
 
     /**
      * 创建时间
      */
-    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     /**
      * 更新时间
      */
-    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
-
 
 }
