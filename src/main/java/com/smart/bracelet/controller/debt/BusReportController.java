@@ -137,21 +137,42 @@ public class BusReportController {
     }
 
     /**
-     * 更新报备信息
-     *
-     * @param busReportListVo
+     * 更新个人报备信息
+     * @param busPrivateReportVo
      * @return
      * @throws CustomerException
      */
-    @RequestMapping("/updateByPrimaryKeySelective")
-    public Result updateByPrimaryKeySelective(@Valid BusReportListVo busReportListVo) throws CustomerException {
-        StringBuffer stringBuffer = PackageRep(busReportListVo);
-        if(stringBuffer.length()>0){
-            return Result.success(stringBuffer);
-        }
-        int updateByPrimaryKeySelective = busReportService.updateByPrimaryKeySelective(busReportListVo);
-        return Result.success(updateByPrimaryKeySelective);
+    @RequestMapping("/updatePrivateSelective")
+    public Result updatePrivateSelective(@Valid BusPrivateReportVo busPrivateReportVo) throws CustomerException {
+        int updatePrivateSelective = busReportService.updatePrivateSelective(busPrivateReportVo);
+        return Result.success(updatePrivateSelective);
     }
+
+
+    /**
+     * 更新个人报备信息
+     * @param busPrivateReportVo
+     * @return
+     * @throws CustomerException
+     */
+    @RequestMapping("/updateEterpriseSelective")
+    public Result updateEterpriseSelective(@Valid BusEterpriseReportVo busPrivateReportVo) throws CustomerException {
+        int updatePrivateSelective = busReportService.updateEterpriseSelective(busPrivateReportVo);
+        return Result.success(updatePrivateSelective);
+    }
+
+    /**
+     * 更新个人报备信息
+     * @param busPrivateReportVo
+     * @return
+     * @throws CustomerException
+     */
+    @RequestMapping("/updateBankSelective")
+    public Result updateBankSelective(@Valid BusBankReportVo busPrivateReportVo) throws CustomerException {
+        int updatePrivateSelective = busReportService.updateBankSelective(busPrivateReportVo);
+        return Result.success(updatePrivateSelective);
+    }
+
 
     /**
      * 通过Id查询报备信息

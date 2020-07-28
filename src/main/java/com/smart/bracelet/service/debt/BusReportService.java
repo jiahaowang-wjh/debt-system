@@ -13,7 +13,6 @@ public interface BusReportService {
 
     BusReportListVo selectByPrimaryKey(Long reportId);
 
-    int updateByPrimaryKeySelective(BusReportListVo record) throws CustomerException;
 
     List<BusReportListVo> queryBusReport();
 
@@ -31,6 +30,13 @@ public interface BusReportService {
     int insertPrivateSelective(BusPrivateReport busPrivateReport) throws CustomerException;
 
     /**
+     * 更新私人报备信息
+     * @param busPrivateReport
+     * @return
+     */
+    int updatePrivateSelective(BusPrivateReportVo busPrivateReport) throws CustomerException;
+
+    /**
      * 新增企业报备信息
      * @param busEterpriseReport
      * @return
@@ -38,9 +44,23 @@ public interface BusReportService {
     int insertEterpriseSelective(BusEterpriseReport busEterpriseReport) throws CustomerException;
 
     /**
+     * 更新企业报备信息
+     * @param busEterpriseReport
+     * @return
+     */
+    int updateEterpriseSelective(BusEterpriseReportVo busEterpriseReport) throws CustomerException;
+
+    /**
      * 新增银行报备信息
      * @param busBankReport
      * @return
      */
     int insertBankSelective(BusBankReport busBankReport) throws CustomerException;
+
+    /**
+     * 更新银行报备信息
+     * @param busBankReport
+     * @return
+     */
+    int updateBankSelective(BusBankReportVo busBankReport) throws CustomerException;
 }
