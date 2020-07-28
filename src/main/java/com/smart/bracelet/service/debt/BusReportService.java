@@ -11,10 +11,10 @@ public interface BusReportService {
 
     int deleteByPrimaryKey(Long reportId) throws CustomerException;
 
-    BusReportListVo selectByPrimaryKey(Long reportId);
+    BusReportListVo selectByPrimaryKey(Long reportId) throws CustomerException;
 
 
-    List<BusReportListVo> queryBusReport();
+    List<BusReportListVo> queryBusReport() throws CustomerException;
 
     /**
      * 按照日期查询每日报备数量

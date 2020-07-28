@@ -32,8 +32,62 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
 
 
     @Override
-    public BusRelativePerson selectByPrimaryKey(Long relativePerId) {
-        return busRelativePersonDao.selectByPrimaryKey(relativePerId);
+    public BusRelativePersonListVo selectByPrimaryKey(Long relativePerId) {
+        BusRelativePersonListVo busRelativePersonListVo = new BusRelativePersonListVo();
+        BusRelativePerson busRelativePerson = busRelativePersonDao.selectByPrimaryKey(relativePerId);
+        //封装工共属性
+        busRelativePersonListVo.setRelativePerId(busRelativePerson.getRelativePerId());
+        busRelativePersonListVo.setReportId(busRelativePerson.getReportId());
+        busRelativePersonListVo.setIscoordinate(busRelativePerson.getIscoordinate());
+        busRelativePersonListVo.setReportType(busRelativePerson.getReportType());
+        busRelativePersonListVo.setReportPropert(busRelativePerson.getReportPropert());
+        busRelativePersonListVo.setCardJust(busRelativePerson.getCardJust());
+        busRelativePersonListVo.setCardBack(busRelativePerson.getCardBack());
+        busRelativePersonListVo.setObligatRight(busRelativePerson.getObligatRight());
+        busRelativePersonListVo.setObligatRightNo(busRelativePerson.getObligatRightNo());
+        busRelativePersonListVo.setObligatTime(busRelativePerson.getObligatTime());
+        busRelativePersonListVo.setCapital(busRelativePerson.getCapital());
+        busRelativePersonListVo.setInterest(busRelativePerson.getInterest());
+        busRelativePersonListVo.setInterestRate(busRelativePerson.getInterestRate());
+        busRelativePersonListVo.setDebt(busRelativePerson.getDebt());
+        busRelativePersonListVo.setDebtNo(busRelativePerson.getDebtNo());
+        busRelativePersonListVo.setDebtTime(busRelativePerson.getDebtTime());
+        busRelativePersonListVo.setDebtCertificate(busRelativePerson.getDebtCertificate());
+        busRelativePersonListVo.setUploadDebtCertificate(busRelativePerson.getUploadDebtCertificate());
+        busRelativePersonListVo.setIsResult(busRelativePerson.getIsResult());
+        busRelativePersonListVo.setEconomics(busRelativePerson.getEconomics());
+        busRelativePersonListVo.setUsage(busRelativePerson.getUsage());
+        busRelativePersonListVo.setPrjectManager(busRelativePerson.getPrjectManager());
+        busRelativePersonListVo.setCreateUserId(busRelativePerson.getCreateUserId());
+        busRelativePersonListVo.setUpdateUserId(busRelativePerson.getUpdateUserId());
+        busRelativePersonListVo.setCreateTime(busRelativePerson.getCreateTime());
+        busRelativePersonListVo.setUpdateTime(busRelativePerson.getUpdateTime());
+        //判断性质在封装
+        if(busRelativePerson.getReportPropert().equals("1")){
+            //私人性质
+            busRelativePersonListVo.setPersonalName(busRelativePerson.getData1());
+            busRelativePersonListVo.setPhone(busRelativePerson.getData2());
+            busRelativePersonListVo.setIdCard(busRelativePerson.getData3());
+            busRelativePersonListVo.setSex(busRelativePerson.getData4());
+            busRelativePersonListVo.setArea(busRelativePerson.getData5());
+            busRelativePersonListVo.setEmail(busRelativePerson.getData6());
+            busRelativePersonListVo.setAssets(busRelativePerson.getData7());
+            busRelativePersonListVo.setAssetsNumber(busRelativePerson.getData8());
+            busRelativePersonListVo.setCirculationAssets(busRelativePerson.getData9());
+        }else{
+            busRelativePersonListVo.setCompanyName(busRelativePerson.getData1());
+            busRelativePersonListVo.setCreditCode(busRelativePerson.getData2());
+            busRelativePersonListVo.setIndustryAttributes(busRelativePerson.getData3());
+            busRelativePersonListVo.setLegalName(busRelativePerson.getData4());
+            busRelativePersonListVo.setLegalPhone(busRelativePerson.getData5());
+            busRelativePersonListVo.setLegalIdCard(busRelativePerson.getData6());
+            busRelativePersonListVo.setAddress(busRelativePerson.getData7());
+            busRelativePersonListVo.setContactPerson(busRelativePerson.getData8());
+            busRelativePersonListVo.setContactPhone(busRelativePerson.getData9());
+
+        }
+
+        return busRelativePersonListVo;
     }
 
 
@@ -83,16 +137,17 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
             busRelativePerson.setCreateTime(busRelativePersonPrivateVo.getCreateTime());
             busRelativePerson.setUpdateTime(busRelativePersonPrivateVo.getUpdateTime());
             int insertSelective = busRelativePersonDao.insertSelective(busRelativePerson);
-            log.info("新增私人相对人成功,受影响行数:{}",insertSelective);
+            log.info("新增私人相对人成功,受影响行数:{}", insertSelective);
             return insertSelective;
         } catch (Exception e) {
-            log.error("新增私人相对人失败,异常信息:{}",e.getMessage());
+            log.error("新增私人相对人失败,异常信息:{}", e.getMessage());
             throw new CustomerException("新增私人相对人失败");
         }
     }
 
     /**
      * 更新私人相对人
+     *
      * @param busRelativePersonPrivateVo
      * @return
      * @throws CustomerException
@@ -135,10 +190,10 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
             busRelativePerson.setCreateUserId(busRelativePersonPrivateVo.getCreateUserId());
             busRelativePerson.setUpdateUserId(busRelativePersonPrivateVo.getUpdateUserId());
             int updateByPrimaryKeySelective = busRelativePersonDao.updateByPrimaryKeySelective(busRelativePerson);
-            log.info("更新私人相对人成功,受影响行数:{}",updateByPrimaryKeySelective);
+            log.info("更新私人相对人成功,受影响行数:{}", updateByPrimaryKeySelective);
             return updateByPrimaryKeySelective;
         } catch (Exception e) {
-            log.error("更新私人相对人失败,异常信息:{}",e.getMessage());
+            log.error("更新私人相对人失败,异常信息:{}", e.getMessage());
             throw new CustomerException("更新私人相对人失败");
         }
     }
@@ -189,10 +244,10 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
             busRelativePerson.setCreateTime(busRelativePersonEnterpriseVo.getCreateTime());
             busRelativePerson.setUpdateTime(busRelativePersonEnterpriseVo.getUpdateTime());
             int insertSelective = busRelativePersonDao.insertSelective(busRelativePerson);
-            log.info("新增企业相对人成功,受影响行数:{}",insertSelective);
+            log.info("新增企业相对人成功,受影响行数:{}", insertSelective);
             return insertSelective;
         } catch (Exception e) {
-            log.error("新增企业相对人失败,异常信息:{}",e.getMessage());
+            log.error("新增企业相对人失败,异常信息:{}", e.getMessage());
             throw new CustomerException("新增企业相对人失败");
         }
     }
@@ -235,10 +290,10 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
             busRelativePerson.setCreateUserId(busRelativePersonEnterpriseVo.getCreateUserId());
             busRelativePerson.setUpdateUserId(busRelativePersonEnterpriseVo.getUpdateUserId());
             int updateByPrimaryKeySelective = busRelativePersonDao.updateByPrimaryKeySelective(busRelativePerson);
-            log.info("更新企业相对人成功,受影响行数:{}",updateByPrimaryKeySelective);
+            log.info("更新企业相对人成功,受影响行数:{}", updateByPrimaryKeySelective);
             return updateByPrimaryKeySelective;
         } catch (Exception e) {
-            log.error("更新企业相对人失败,异常信息:{}",e.getMessage());
+            log.error("更新企业相对人失败,异常信息:{}", e.getMessage());
             throw new CustomerException("更新企业相对人失败");
         }
     }
@@ -287,10 +342,10 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
             busRelativePerson.setCreateTime(busRelativePersonBankVo.getCreateTime());
             busRelativePerson.setUpdateTime(busRelativePersonBankVo.getUpdateTime());
             int insertSelective = busRelativePersonDao.insertSelective(busRelativePerson);
-            log.info("新增银行相对人成功,受影响行数:{}",insertSelective);
+            log.info("新增银行相对人成功,受影响行数:{}", insertSelective);
             return insertSelective;
         } catch (Exception e) {
-            log.error("新增银行相对人失败,异常信息:{}",e.getMessage());
+            log.error("新增银行相对人失败,异常信息:{}", e.getMessage());
             throw new CustomerException("新增银行相对人失败");
         }
     }
@@ -331,10 +386,10 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
             busRelativePerson.setCreateUserId(busRelativePersonBankVo.getCreateUserId());
             busRelativePerson.setUpdateUserId(busRelativePersonBankVo.getUpdateUserId());
             int updateByPrimaryKeySelective = busRelativePersonDao.updateByPrimaryKeySelective(busRelativePerson);
-            log.info("更新银行相对人成功,受影响行数:{}",updateByPrimaryKeySelective);
+            log.info("更新银行相对人成功,受影响行数:{}", updateByPrimaryKeySelective);
             return updateByPrimaryKeySelective;
         } catch (Exception e) {
-            log.error("更新银行相对人失败,异常信息:{}",e.getMessage());
+            log.error("更新银行相对人失败,异常信息:{}", e.getMessage());
             throw new CustomerException("更新银行相对人失败");
         }
     }

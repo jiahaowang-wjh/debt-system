@@ -181,7 +181,7 @@ public class BusReportController {
      * @return
      */
     @RequestMapping("/selectByPrimaryKey")
-    public Result<BusReportListVo> selectByPrimaryKey(@NotNull(message = "报备信息Id不能为空") Long reportId) {
+    public Result<BusReportListVo> selectByPrimaryKey(@NotNull(message = "报备信息Id不能为空") Long reportId) throws CustomerException {
         BusReportListVo busReportListVo = busReportService.selectByPrimaryKey(reportId);
         return Result.success(busReportListVo);
     }
@@ -192,7 +192,7 @@ public class BusReportController {
      * @return
      */
     @RequestMapping("/queryBusReport")
-    public Result<List<BusReportListVo>> queryBusReport() {
+    public Result<List<BusReportListVo>> queryBusReport() throws CustomerException {
         List<BusReportListVo> busReports = busReportService.queryBusReport();
         return Result.success(busReports);
     }

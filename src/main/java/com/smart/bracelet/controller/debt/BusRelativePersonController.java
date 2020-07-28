@@ -112,8 +112,8 @@ public class BusRelativePersonController {
      * @return
      */
     @RequestMapping("/selectByPrimaryKey")
-    public Result<BusRelativePerson> selectByPrimaryKey(@NotNull(message = "相对人信息ID不能为空")Long relativePerId){
-        BusRelativePerson busRelativePerson = busRelativePersonService.selectByPrimaryKey(relativePerId);
+    public Result<BusRelativePersonListVo> selectByPrimaryKey(@NotNull(message = "相对人信息ID不能为空")Long relativePerId){
+        BusRelativePersonListVo busRelativePerson = busRelativePersonService.selectByPrimaryKey(relativePerId);
         return Result.success(busRelativePerson);
     }
 }

@@ -7,7 +7,7 @@ import com.smart.bracelet.model.vo.debt.*;
 public interface BusRelativePersonService {
     int deleteByPrimaryKey(Long relativePerId) throws CustomerException;
 
-    BusRelativePerson selectByPrimaryKey(Long relativePerId);
+    BusRelativePersonListVo selectByPrimaryKey(Long relativePerId);
 
 
     /**
