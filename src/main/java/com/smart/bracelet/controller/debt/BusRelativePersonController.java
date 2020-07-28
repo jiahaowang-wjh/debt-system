@@ -3,10 +3,7 @@ package com.smart.bracelet.controller.debt;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.debt.BusRelativePerson;
-import com.smart.bracelet.model.vo.debt.BusRelativePersonBankVo;
-import com.smart.bracelet.model.vo.debt.BusRelativePersonEnterpriseVo;
-import com.smart.bracelet.model.vo.debt.BusRelativePersonPrivateVo;
-import com.smart.bracelet.model.vo.debt.BusRelativePersonVo;
+import com.smart.bracelet.model.vo.debt.*;
 import com.smart.bracelet.service.debt.BusRelativePersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -74,15 +71,39 @@ public class BusRelativePersonController {
     }
 
     /**
-     * 更新相对人信息
-     * @param record
+     * 更新私人相对人信息
+     * @param busRelativePersonPrivateUpdateVo
      * @return
      * @throws CustomerException
      */
-    @RequestMapping("/updateByPrimaryKeySelective")
-    public Result updateByPrimaryKeySelective(@Valid BusRelativePersonVo record) throws CustomerException{
-        int updateByPrimaryKeySelective = busRelativePersonService.updateByPrimaryKeySelective(record);
-        return Result.success(updateByPrimaryKeySelective);
+    @RequestMapping("/updatePrivate")
+    public Result updatePrivate(@Valid BusRelativePersonPrivateUpdateVo busRelativePersonPrivateUpdateVo) throws CustomerException{
+        int updatePrivate = busRelativePersonService.updatePrivate(busRelativePersonPrivateUpdateVo);
+        return Result.success(updatePrivate);
+    }
+
+    /**
+     * 更新企业相对人信息
+     * @param busRelativePersonEnterpriseUpdateVo
+     * @return
+     * @throws CustomerException
+     */
+    @RequestMapping("/updateEnterprise")
+    public Result updateEnterprise(@Valid BusRelativePersonEnterpriseUpdateVo busRelativePersonEnterpriseUpdateVo) throws CustomerException{
+        int updateEnterprise = busRelativePersonService.updateEnterprise(busRelativePersonEnterpriseUpdateVo);
+        return Result.success(updateEnterprise);
+    }
+
+    /**
+     * 更新银行相对人信息
+     * @param busRelativePersonBankUpdateVo
+     * @return
+     * @throws CustomerException
+     */
+    @RequestMapping("/updateBank")
+    public Result updateBank(@Valid BusRelativePersonBankUpdateVo busRelativePersonBankUpdateVo) throws CustomerException{
+        int updateBank = busRelativePersonService.updateBank(busRelativePersonBankUpdateVo);
+        return Result.success(updateBank);
     }
 
     /**
