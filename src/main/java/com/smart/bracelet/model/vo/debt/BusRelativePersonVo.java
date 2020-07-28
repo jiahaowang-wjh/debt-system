@@ -83,17 +83,6 @@ public class BusRelativePersonVo implements Serializable {
      * 数据九
      */
     private String data9;
-
-    /**
-     * 数据十
-     */
-    private String data10;
-
-    /**
-     * 数据十一
-     */
-    private String data11;
-
     /**
      * 身份证正
      */
@@ -180,36 +169,6 @@ public class BusRelativePersonVo implements Serializable {
      * 项目责任人
      */
     private String prjectManager;
-
-    /**
-     * 姓名
-     */
-    private String authname;
-
-    /**
-     * 身份证号码
-     */
-    private String card;
-
-    /**
-     * 选择银行
-     */
-    private String bank;
-
-    /**
-     * 银行卡号
-     */
-    private String bankCard;
-
-    /**
-     * 银行预留手机号
-     */
-    private String bankTel;
-
-    /**
-     * 手机验证码
-     */
-    private String telCheck;
 
     /**
      * 创建人

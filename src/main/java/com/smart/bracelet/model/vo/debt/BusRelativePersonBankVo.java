@@ -1,21 +1,17 @@
-package com.smart.bracelet.model.po.debt;
+package com.smart.bracelet.model.vo.debt;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.util.Date;
 
 /**
- * bus_relative_person
- * @author 
+ * 企业性质性质相对人
  */
 @Data
-public class BusRelativePerson implements Serializable {
-    private static final long serialVersionUID = -7710652267463054094L;
+public class BusRelativePersonBankVo {
     /**
      * 相对人ID
      */
@@ -42,75 +38,56 @@ public class BusRelativePerson implements Serializable {
     /**
      * 性质
      */
-    @NotBlank(message = "不能为空")
     private String reportPropert;
 
     /**
-     * 数据一
+     * 企业名称
      */
-    @NotBlank(message = "数据一不能为空")
-    private String data1;
+    @NotBlank(message = "企业名称不能为空")
+    private String CompanyName;
 
     /**
-     * 数据二
+     * 社会统一信用代码
      */
-    @NotBlank(message = "数据二不能为空")
-    private String data2;
+    @NotBlank(message = "社会统一信用代码不能为空")
+    private String CreditCode;
+    /**
+     * 行业属性
+     */
+    @NotBlank(message = "行业属性不能为空")
+    private String industryAttributes;
+    /**
+     * 法定代表人名称
+     */
+    @NotBlank(message = "法定代表人名称不能为空")
+    private String LegalName;
+    /**
+     * 法定代表人联系电话
+     */
+    @NotBlank(message = "法定代表人联系电话不能为空")
+    private String LegalPhone;
+    /**
+     * 法定代表人身份证号
+     */
+    @NotBlank(message = "法定代表人身份证号不能为空")
+    private String LegalIdCard;
+    /**
+     * 注册地址
+     */
+    @NotBlank(message = "注册地址不能为空")
+    private String address;
+    /**
+     * 企业联系人
+     */
+    @NotBlank(message = "企业联系人不能为空")
+    private String ContactPerson;
 
     /**
-     * 数据三
+     * 联系电话
      */
-    @NotBlank(message = "数据三不能为空")
-    private String data3;
+    @NotBlank(message = "联系电话不能为空")
+    private String ContactPhone;
 
-    /**
-     * 数据四
-     */
-    @NotBlank(message = "数据四不能为空")
-    private String data4;
-
-    /**
-     * 数据五
-     */
-    @NotBlank(message = "数据五不能为空")
-    private String data5;
-
-    /**
-     * 数据六
-     */
-    @NotBlank(message = "数据六不能为空")
-    private String data6;
-
-    /**
-     * 数据七
-     */
-    @NotBlank(message = "不能为空")
-    private String data7;
-
-    /**
-     * 数据八
-     */
-    @NotBlank(message = "数据八不能为空")
-    private String data8;
-
-    /**
-     * 数据九
-     */
-    @NotBlank(message = "数据九不能为空")
-    private String data9;
-
-
-    /**
-     * 身份证正
-     */
-    @NotBlank(message = "身份证正不能为空")
-    private String cardJust;
-
-    /**
-     * 身份证反
-     */
-    @NotBlank(message = "身份证反不能为空")
-    private String cardBack;
 
     /**
      * 债权
@@ -127,9 +104,8 @@ public class BusRelativePerson implements Serializable {
     /**
      * 借款发生时间权
      */
-    @NotNull(message = "借款发生时间权不能为空")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
+    @NotNull(message = "借款发生时间权不能为空")
     private Date obligatTime;
 
     /**
@@ -165,8 +141,8 @@ public class BusRelativePerson implements Serializable {
     /**
      * 借款发生时间务
      */
-    @NotNull(message = "借款发生时间务不能为空")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @NotNull(message = "借款发生时间务不能为空")
     private Date debtTime;
 
     /**
@@ -217,16 +193,15 @@ public class BusRelativePerson implements Serializable {
      */
     @NotNull(message = "更新人不能为空")
     private Long updateUserId;
-
     /**
      * 创建时间
      */
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     /**
      * 更新时间
      */
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
-
-
 }

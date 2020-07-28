@@ -3,6 +3,9 @@ package com.smart.bracelet.controller.debt;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.debt.BusRelativePerson;
+import com.smart.bracelet.model.vo.debt.BusRelativePersonBankVo;
+import com.smart.bracelet.model.vo.debt.BusRelativePersonEnterpriseVo;
+import com.smart.bracelet.model.vo.debt.BusRelativePersonPrivateVo;
 import com.smart.bracelet.model.vo.debt.BusRelativePersonVo;
 import com.smart.bracelet.service.debt.BusRelativePersonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,16 +25,41 @@ public class BusRelativePersonController {
     private BusRelativePersonService busRelativePersonService;
 
     /**
-     * 新增相对人信息
-     * @param record
+     * 新增私人相对人信息
+     * @param
      * @return
      * @throws CustomerException
      */
-    @RequestMapping("/insertSelective")
-    public Result insertSelective(@Valid BusRelativePerson record) throws CustomerException{
-        int insertSelective = busRelativePersonService.insertSelective(record);
-        return Result.success(insertSelective);
+    @RequestMapping("/insertPrivateSelective")
+    public Result insertPrivateSelective(@Valid BusRelativePersonPrivateVo busRelativePersonPrivateVo) throws CustomerException{
+        int insertPrivate = busRelativePersonService.insertPrivate(busRelativePersonPrivateVo);
+        return Result.success(insertPrivate);
     }
+
+    /**
+     * 新增企业相对人信息
+     * @param
+     * @return
+     * @throws CustomerException
+     */
+    @RequestMapping("/insertEnterprise")
+    public Result insertEnterprise(@Valid BusRelativePersonEnterpriseVo busRelativePersonEnterpriseVo) throws CustomerException{
+        int insertPrivate = busRelativePersonService.insertEnterprise(busRelativePersonEnterpriseVo);
+        return Result.success(insertPrivate);
+    }
+
+    /**
+     * 新增银行相对人信息
+     * @param
+     * @return
+     * @throws CustomerException
+     */
+    @RequestMapping("/insertBank")
+    public Result insertBank(@Valid BusRelativePersonBankVo busRelativePersonBankVo) throws CustomerException{
+        int insertPrivate = busRelativePersonService.insertBank(busRelativePersonBankVo);
+        return Result.success(insertPrivate);
+    }
+
 
     /**
      * 通过ID删除相对人信息
