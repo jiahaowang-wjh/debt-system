@@ -11,6 +11,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @Slf4j
 public class BusRelativePersonServiceImpl implements BusRelativePersonService {
@@ -30,7 +33,11 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
         }
     }
 
-
+    /**
+     * 通过ID查询相对人信息
+     * @param relativePerId
+     * @return
+     */
     @Override
     public BusRelativePersonListVo selectByPrimaryKey(Long relativePerId) {
         BusRelativePersonListVo busRelativePersonListVo = new BusRelativePersonListVo();
@@ -88,6 +95,17 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
         }
 
         return busRelativePersonListVo;
+    }
+
+    @Override
+    public List<BusRelativePersonListVo> queryListVo() {
+        List<BusRelativePerson> busRelativePeople = busRelativePersonDao.queryList();
+        List<BusRelativePersonListVo> listVos = new ArrayList<>();
+        for (BusRelativePerson item: busRelativePeople) {
+            BusRelativePersonListVo busRelativePersonListVo = selectByPrimaryKey(item.getRelativePerId());
+            listVos.add(busRelativePersonListVo);
+        }
+        return listVos;
     }
 
 

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/busRelativePersonController/")
@@ -116,4 +117,15 @@ public class BusRelativePersonController {
         BusRelativePersonListVo busRelativePerson = busRelativePersonService.selectByPrimaryKey(relativePerId);
         return Result.success(busRelativePerson);
     }
+
+    /**
+     * 查询所有相对人信息
+     * @return
+     */
+    @RequestMapping("/queryList")
+    public Result<List<BusRelativePersonListVo>> queryList(){
+        List<BusRelativePersonListVo> listVos = busRelativePersonService.queryListVo();
+        return Result.success(listVos);
+    }
+
 }

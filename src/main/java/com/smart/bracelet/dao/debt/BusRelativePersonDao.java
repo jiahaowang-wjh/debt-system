@@ -4,6 +4,8 @@ import com.smart.bracelet.model.po.debt.BusRelativePerson;
 import com.smart.bracelet.model.vo.debt.BusRelativePersonVo;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface BusRelativePersonDao {
 
@@ -15,4 +17,5 @@ public interface BusRelativePersonDao {
 
     int updateByPrimaryKeySelective(BusRelativePersonVo record);
 
+    List<BusRelativePerson> queryList();
 }

@@ -4,11 +4,14 @@ import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.debt.BusRelativePerson;
 import com.smart.bracelet.model.vo.debt.*;
 
+import java.util.List;
+
 public interface BusRelativePersonService {
     int deleteByPrimaryKey(Long relativePerId) throws CustomerException;
 
     BusRelativePersonListVo selectByPrimaryKey(Long relativePerId);
 
+    List<BusRelativePersonListVo> queryListVo();
 
     /**
      * 新增私人相对人
