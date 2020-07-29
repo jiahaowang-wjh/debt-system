@@ -9,11 +9,11 @@
         <result column="password_md5" jdbcType="VARCHAR" property="passwordMd5"/>
         <result column="isenable" jdbcType="VARCHAR" property="isenable"/>
         <result column="note" jdbcType="VARCHAR" property="note"/>
-        <result column="username" jdbcType="VARCHAR" property="userName"/>
-        <result column="useravatar" jdbcType="VARCHAR" property="userAvatar"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="user_avatar" jdbcType="VARCHAR" property="userAvatar"/>
     </resultMap>
     <sql id="Base_Column_List">
-    user_id, person_id, role_id, login_name, password_md5, isenable, note,username,useravatar
+    user_id, person_id, role_id, login_name, password_md5, isenable, note,user_name,user_avatar
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
@@ -46,6 +46,12 @@
      INNER JOIN pub_menu pm ON pro.`menu_id`=pm.`menu_id`
      WHERE pu.`user_id`=#{userId,jdbcType=BIGINT}
   </select>
+    <select id="queryList" resultType="com.smart.bracelet.model.vo.user.PersonOnUserOnComVo">
+        SELECT pu.user_id,pu.user_name,pp.person_id,pp.person_name,pp.age,pp.person_type,pp.tel,pc.company_id,pc.company_name,pc.company_type
+         FROM pub_user pu
+        INNER JOIN pub_person pp ON pu.person_id=pp.person_id
+        INNER JOIN pub_company pc ON pp.company_id = pc.company_id
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from pub_user
     where user_id = #{userId,jdbcType=BIGINT}
@@ -82,10 +88,10 @@
                 note,
             </if>
             <if test="userName != null and userName !='' ">
-                username,
+                user_name,
             </if>
             <if test="userAvatar != null and userAvatar !='' ">
-                useravatar,
+                user_avatar,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -140,10 +146,10 @@
                 note = #{note,jdbcType=VARCHAR},
             </if>
             <if test="userName != null and userName != ''">
-                username = #{userName,jdbcType=VARCHAR},
+                user_name = #{userName,jdbcType=VARCHAR},
             </if>
             <if test="userAvatar != null and userAvatar != ''">
-                useravatar = #{userAvatar,jdbcType=VARCHAR},
+                user_avatar = #{userAvatar,jdbcType=VARCHAR},
             </if>
             <if test="userId != null and userId != ''">
                 user_id = #{userId,jdbcType=VARCHAR},

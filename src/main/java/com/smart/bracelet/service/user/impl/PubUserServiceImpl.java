@@ -4,6 +4,7 @@ import com.smart.bracelet.dao.user.PubUserDao;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.user.PubMenu;
 import com.smart.bracelet.model.po.user.PubUser;
+import com.smart.bracelet.model.vo.user.PersonOnUserOnComVo;
 import com.smart.bracelet.model.vo.user.PubUserVo;
 import com.smart.bracelet.service.user.PubUserService;
 import com.smart.bracelet.utils.IdUtils;
@@ -164,5 +165,15 @@ public class PubUserServiceImpl implements PubUserService {
             log.error("批量删除用户失败,异常信息:{}",e.getMessage());
             throw new CustomerException("批量删除用户失败");
         }
+    }
+
+    /**
+     * 人员公司用户信息展示
+     * @return
+     */
+    @Override
+    public List<PersonOnUserOnComVo> queryList() {
+        List<PersonOnUserOnComVo> personOnUserOnComVos = pubUserDao.queryList();
+        return personOnUserOnComVos;
     }
 }

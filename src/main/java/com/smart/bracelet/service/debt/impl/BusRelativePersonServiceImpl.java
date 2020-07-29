@@ -368,6 +368,12 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
         }
     }
 
+    /**
+     * 银行相对人更新
+     * @param busRelativePersonBankVo
+     * @return
+     * @throws CustomerException
+     */
     @Override
     public int updateBank(BusRelativePersonBankUpdateVo busRelativePersonBankVo) throws CustomerException {
         try {

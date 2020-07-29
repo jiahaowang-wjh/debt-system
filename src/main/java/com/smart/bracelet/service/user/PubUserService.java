@@ -3,6 +3,7 @@ package com.smart.bracelet.service.user;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.user.PubMenu;
 import com.smart.bracelet.model.po.user.PubUser;
+import com.smart.bracelet.model.vo.user.PersonOnUserOnComVo;
 import com.smart.bracelet.model.vo.user.PubUserVo;
 
 import java.util.List;
@@ -81,4 +82,11 @@ public interface PubUserService {
      * @return
      */
     int delUserList(Long[] userIds) throws CustomerException;
+
+    /**
+     * 人员公司用户联查
+     * @return
+     */
+    List<PersonOnUserOnComVo> queryList();
+
 }

@@ -4,6 +4,7 @@ import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.user.PubMenu;
 import com.smart.bracelet.model.po.user.PubUser;
+import com.smart.bracelet.model.vo.user.PersonOnUserOnComVo;
 import com.smart.bracelet.model.vo.user.PubUserVo;
 import com.smart.bracelet.service.user.PubUserService;
 import org.springframework.validation.annotation.Validated;
@@ -120,4 +121,15 @@ public class PubUserController {
         int delUserList = userInfoService.delUserList(userIds);
         return Result.success(delUserList);
     }
+
+    /**
+     * 查询所有用户,人员,公司信息
+     * @return
+     */
+    @RequestMapping("/queryList")
+    public Result<List<PersonOnUserOnComVo>> queryList(){
+        List<PersonOnUserOnComVo> personOnUserOnComVos = userInfoService.queryList();
+        return Result.success(personOnUserOnComVos);
+    }
+
 }
