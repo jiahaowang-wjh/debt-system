@@ -52,4 +52,14 @@ public class PubDebtController {
         return Result.success(dateAndDays);
     }
 
+    /**
+     * 查询所有解债信息
+     * @return
+     */
+    @RequestMapping("/queryList")
+    public Result queryList(){
+        List<PubDebt> pubDebts = pubDebtService.queryList();
+        return Result.success(pubDebts);
+    }
+
 }

@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smart.bracelet.dao.debt.PubDebtDao">
+  <resultMap id="BaseResultMap" type="com.smart.bracelet.model.po.debt.PubDebt">
+    <id column="debt_id" jdbcType="BIGINT" property="debtId" />
+    <result column="report_id" jdbcType="BIGINT" property="reportId" />
+    <result column="amount_total" jdbcType="REAL" property="amountTotal" />
+    <result column="amount_cumulative" jdbcType="REAL" property="amountCumulative" />
+    <result column="amount_this" jdbcType="REAL" property="amountThis" />
+    <result column="debt_type" jdbcType="VARCHAR" property="debtType" />
+    <result column="debt_yaer" jdbcType="VARCHAR" property="debtYaer" />
+    <result column="is_pledge" jdbcType="VARCHAR" property="isPledge" />
+    <result column="service_plan" jdbcType="VARCHAR" property="servicePlan" />
+    <result column="partya_addr" jdbcType="VARCHAR" property="partyaAddr" />
+    <result column="partya_person" jdbcType="VARCHAR" property="partyaPerson" />
+    <result column="partya_tel" jdbcType="VARCHAR" property="partyaTel" />
+    <result column="partyb_addr" jdbcType="VARCHAR" property="partybAddr" />
+    <result column="partyb_person" jdbcType="VARCHAR" property="partybPerson" />
+    <result column="partyb_tel" jdbcType="VARCHAR" property="partybTel" />
+    <result column="service_principal" jdbcType="REAL" property="servicePrincipal" />
+    <result column="service_interest" jdbcType="REAL" property="serviceInterest" />
+    <result column="partya_deputy" jdbcType="VARCHAR" property="partyaDeputy" />
+    <result column="partya_seal" jdbcType="VARCHAR" property="partyaSeal" />
+    <result column="partya_date" jdbcType="DATE" property="partyaDate" />
+    <result column="partyb_deputy" jdbcType="VARCHAR" property="partybDeputy" />
+    <result column="partyb_seal" jdbcType="VARCHAR" property="partybSeal" />
+    <result column="partyb_date" jdbcType="DATE" property="partybDate" />
+    <result column="contract_place" jdbcType="VARCHAR" property="contractPlace" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="check_reason" jdbcType="VARCHAR" property="checkReason" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    debt_id, report_id, amount_total, amount_cumulative, amount_this, debt_type, debt_yaer, 
+    is_pledge, service_plan, partya_addr, partya_person, partya_tel, partyb_addr, partyb_person, 
+    partyb_tel, service_principal, service_interest, partya_deputy, partya_seal, partya_date, 
+    partyb_deputy, partyb_seal, partyb_date, contract_place, `status`, check_reason
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pub_debt
+    where debt_id = #{debtId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from pub_debt
+    where debt_id = #{debtId,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.debt.PubDebt">
+    insert into pub_debt
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="debtId != null">
+        debt_id,
+      </if>
+      <if test="reportId != null">
+        report_id,
+      </if>
+      <if test="amountTotal != null">
+        amount_total,
+      </if>
+      <if test="amountCumulative != null">
+        amount_cumulative,
+      </if>
+      <if test="amountThis != null">
+        amount_this,
+      </if>
+      <if test="debtType != null">
+        debt_type,
+      </if>
+      <if test="debtYaer != null">
+        debt_yaer,
+      </if>
+      <if test="isPledge != null">
+        is_pledge,
+      </if>
+      <if test="servicePlan != null">
+        service_plan,
+      </if>
+      <if test="partyaAddr != null">
+        partya_addr,
+      </if>
+      <if test="partyaPerson != null">
+        partya_person,
+      </if>
+      <if test="partyaTel != null">
+        partya_tel,
+      </if>
+      <if test="partybAddr != null">
+        partyb_addr,
+      </if>
+      <if test="partybPerson != null">
+        partyb_person,
+      </if>
+      <if test="partybTel != null">
+        partyb_tel,
+      </if>
+      <if test="servicePrincipal != null">
+        service_principal,
+      </if>
+      <if test="serviceInterest != null">
+        service_interest,
+      </if>
+      <if test="partyaDeputy != null">
+        partya_deputy,
+      </if>
+      <if test="partyaSeal != null">
+        partya_seal,
+      </if>
+      <if test="partyaDate != null">
+        partya_date,
+      </if>
+      <if test="partybDeputy != null">
+        partyb_deputy,
+      </if>
+      <if test="partybSeal != null">
+        partyb_seal,
+      </if>
+      <if test="partybDate != null">
+        partyb_date,
+      </if>
+      <if test="contractPlace != null">
+        contract_place,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="checkReason != null">
+        check_reason,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="debtId != null">
+        #{debtId,jdbcType=BIGINT},
+      </if>
+      <if test="reportId != null">
+        #{reportId,jdbcType=BIGINT},
+      </if>
+      <if test="amountTotal != null">
+        #{amountTotal,jdbcType=REAL},
+      </if>
+      <if test="amountCumulative != null">
+        #{amountCumulative,jdbcType=REAL},
+      </if>
+      <if test="amountThis != null">
+        #{amountThis,jdbcType=REAL},
+      </if>
+      <if test="debtType != null">
+        #{debtType,jdbcType=VARCHAR},
+      </if>
+      <if test="debtYaer != null">
+        #{debtYaer,jdbcType=VARCHAR},
+      </if>
+      <if test="isPledge != null">
+        #{isPledge,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePlan != null">
+        #{servicePlan,jdbcType=VARCHAR},
+      </if>
+      <if test="partyaAddr != null">
+        #{partyaAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="partyaPerson != null">
+        #{partyaPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="partyaTel != null">
+        #{partyaTel,jdbcType=VARCHAR},
+      </if>
+      <if test="partybAddr != null">
+        #{partybAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="partybPerson != null">
+        #{partybPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="partybTel != null">
+        #{partybTel,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePrincipal != null">
+        #{servicePrincipal,jdbcType=REAL},
+      </if>
+      <if test="serviceInterest != null">
+        #{serviceInterest,jdbcType=REAL},
+      </if>
+      <if test="partyaDeputy != null">
+        #{partyaDeputy,jdbcType=VARCHAR},
+      </if>
+      <if test="partyaSeal != null">
+        #{partyaSeal,jdbcType=VARCHAR},
+      </if>
+      <if test="partyaDate != null">
+        #{partyaDate,jdbcType=DATE},
+      </if>
+      <if test="partybDeputy != null">
+        #{partybDeputy,jdbcType=VARCHAR},
+      </if>
+      <if test="partybSeal != null">
+        #{partybSeal,jdbcType=VARCHAR},
+      </if>
+      <if test="partybDate != null">
+        #{partybDate,jdbcType=DATE},
+      </if>
+      <if test="contractPlace != null">
+        #{contractPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="checkReason != null">
+        #{checkReason,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.vo.debt.PubDebtVo">
+    update pub_debt
+    <set>
+      <if test="reportId != null">
+        report_id = #{reportId,jdbcType=BIGINT},
+      </if>
+      <if test="amountTotal != null">
+        amount_total = #{amountTotal,jdbcType=REAL},
+      </if>
+      <if test="amountCumulative != null">
+        amount_cumulative = #{amountCumulative,jdbcType=REAL},
+      </if>
+      <if test="amountThis != null">
+        amount_this = #{amountThis,jdbcType=REAL},
+      </if>
+      <if test="debtType != null">
+        debt_type = #{debtType,jdbcType=VARCHAR},
+      </if>
+      <if test="debtYaer != null">
+        debt_yaer = #{debtYaer,jdbcType=VARCHAR},
+      </if>
+      <if test="isPledge != null">
+        is_pledge = #{isPledge,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePlan != null">
+        service_plan = #{servicePlan,jdbcType=VARCHAR},
+      </if>
+      <if test="partyaAddr != null">
+        partya_addr = #{partyaAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="partyaPerson != null">
+        partya_person = #{partyaPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="partyaTel != null">
+        partya_tel = #{partyaTel,jdbcType=VARCHAR},
+      </if>
+      <if test="partybAddr != null">
+        partyb_addr = #{partybAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="partybPerson != null">
+        partyb_person = #{partybPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="partybTel != null">
+        partyb_tel = #{partybTel,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePrincipal != null">
+        service_principal = #{servicePrincipal,jdbcType=REAL},
+      </if>
+      <if test="serviceInterest != null">
+        service_interest = #{serviceInterest,jdbcType=REAL},
+      </if>
+      <if test="partyaDeputy != null">
+        partya_deputy = #{partyaDeputy,jdbcType=VARCHAR},
+      </if>
+      <if test="partyaSeal != null">
+        partya_seal = #{partyaSeal,jdbcType=VARCHAR},
+      </if>
+      <if test="partyaDate != null">
+        partya_date = #{partyaDate,jdbcType=DATE},
+      </if>
+      <if test="partybDeputy != null">
+        partyb_deputy = #{partybDeputy,jdbcType=VARCHAR},
+      </if>
+      <if test="partybSeal != null">
+        partyb_seal = #{partybSeal,jdbcType=VARCHAR},
+      </if>
+      <if test="partybDate != null">
+        partyb_date = #{partybDate,jdbcType=DATE},
+      </if>
+      <if test="contractPlace != null">
+        contract_place = #{contractPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="checkReason != null">
+        check_reason = #{checkReason,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where debt_id = #{debtId,jdbcType=BIGINT}
+  </update>
+  <select id="selectDaysCount" resultType="com.smart.bracelet.model.po.debt.DateAndDays">
+      SELECT DATE_FORMAT(create_time,'%Y-%m-%d') days,COUNT(*) COUNT FROM `pub_debt` GROUP BY days;
+  </select>
+  <select id="queryList" resultType="com.smart.bracelet.model.po.debt.PubDebt">
+    select
+    <include refid="Base_Column_List" />
+    from pub_debt
+  </select>
+</mapper>

@@ -1,30 +1,32 @@
-package com.smart.bracelet.service.debt;
+package com.smart.bracelet.dao.debt;
 
-import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.po.debt.PubDebt;
 import com.smart.bracelet.model.vo.debt.PubDebtVo;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface PubDebtService {
+@Repository
+public interface PubDebtDao {
+    int deleteByPrimaryKey(Long debtId);
 
-    int deleteByPrimaryKey(Long debtId) throws CustomerException;
-
-    int insertSelective(PubDebt record) throws CustomerException;
+    int insertSelective(PubDebt record);
 
     PubDebt selectByPrimaryKey(Long debtId);
 
-    int updateByPrimaryKeySelective(PubDebtVo record) throws CustomerException;
+    int updateByPrimaryKeySelective(PubDebtVo record);
 
     /**
-     * 按照日期查询每日解债数量
+     * 查询每日解债信息
      * @return
      */
     List<DateAndDays> selectDaysCount();
+
     /**
      * 查询所有借债信息
      * @return
      */
     List<PubDebt> queryList();
+
 }

@@ -68,4 +68,14 @@ public class PubDebtServiceImpl implements PubDebtService {
     public List<DateAndDays> selectDaysCount() {
         return pubDebtDao.selectDaysCount();
     }
+
+    /**
+     *查询所有解债信息
+     * @return
+     */
+    @Override
+    public List<PubDebt> queryList() {
+        List<PubDebt> pubDebts = pubDebtDao.queryList();
+        return pubDebts;
+    }
 }
