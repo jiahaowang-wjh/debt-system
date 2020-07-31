@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smart.bracelet.dao.debt.BusCivilDao">
+  <resultMap id="BaseResultMap" type="com.smart.bracelet.model.po.debt.BusCivil">
+    <id column="civil_id" jdbcType="BIGINT" property="civilId" />
+    <result column="report_id" jdbcType="BIGINT" property="reportId" />
+    <result column="relative_per_id" jdbcType="BIGINT" property="relativePerId" />
+    <result column="civilno" jdbcType="VARCHAR" property="civilno" />
+    <result column="solutions" jdbcType="VARCHAR" property="solutions" />
+    <result column="civil_type" jdbcType="VARCHAR" property="civilType" />
+    <result column="amount_total" jdbcType="REAL" property="amountTotal" />
+    <result column="amount_principal" jdbcType="REAL" property="amountPrincipal" />
+    <result column="amount_interest" jdbcType="REAL" property="amountInterest" />
+    <result column="amount_breach" jdbcType="REAL" property="amountBreach" />
+    <result column="month_interest" jdbcType="REAL" property="monthInterest" />
+    <result column="star_date" jdbcType="TIMESTAMP" property="starDate" />
+    <result column="end_date" jdbcType="TIMESTAMP" property="endDate" />
+    <result column="interest" jdbcType="REAL" property="interest" />
+    <result column="interest_payment" jdbcType="REAL" property="interestPayment" />
+    <result column="breach_date" jdbcType="TIMESTAMP" property="breachDate" />
+    <result column="breach_money" jdbcType="REAL" property="breachMoney" />
+    <result column="guarantee_meth" jdbcType="VARCHAR" property="guaranteeMeth" />
+    <result column="interest_all" jdbcType="REAL" property="interestAll" />
+    <result column="abandon_content" jdbcType="VARCHAR" property="abandonContent" />
+    <result column="treatment_method" jdbcType="VARCHAR" property="treatmentMethod" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="check_reason" jdbcType="VARCHAR" property="checkReason" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    civil_id, report_id, relative_per_id, civilno, solutions, civil_type, amount_total, 
+    amount_principal, amount_interest, amount_breach, month_interest, star_date, end_date, 
+    interest, interest_payment, breach_date, breach_money, guarantee_meth, interest_all, 
+    abandon_content, treatment_method, create_time, update_time, `status`, check_reason
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from bus_civil
+    where civil_id = #{civilId,jdbcType=BIGINT}
+  </select>
+  <select id="selectDaysCount" resultType="com.smart.bracelet.model.po.debt.DateAndDays">
+      SELECT DATE_FORMAT(create_time,'%Y-%m-%d') days,COUNT(*) COUNT FROM `bus_civil` GROUP BY days;
+  </select>
+  <select id="queryList" resultType="com.smart.bracelet.model.po.debt.BusCivil">
+    select
+    <include refid="Base_Column_List" />
+    from bus_civil
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from bus_civil
+    where civil_id = #{civilId,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.debt.BusCivil">
+    insert into bus_civil
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="civilId != null">
+        civil_id,
+      </if>
+      <if test="reportId != null">
+        report_id,
+      </if>
+      <if test="relativePerId != null">
+        relative_per_id,
+      </if>
+      <if test="civilno != null">
+        civilno,
+      </if>
+      <if test="solutions != null">
+        solutions,
+      </if>
+      <if test="civilType != null">
+        civil_type,
+      </if>
+      <if test="amountTotal != null">
+        amount_total,
+      </if>
+      <if test="amountPrincipal != null">
+        amount_principal,
+      </if>
+      <if test="amountInterest != null">
+        amount_interest,
+      </if>
+      <if test="amountBreach != null">
+        amount_breach,
+      </if>
+      <if test="monthInterest != null">
+        month_interest,
+      </if>
+      <if test="starDate != null">
+        star_date,
+      </if>
+      <if test="endDate != null">
+        end_date,
+      </if>
+      <if test="interest != null">
+        interest,
+      </if>
+      <if test="interestPayment != null">
+        interest_payment,
+      </if>
+      <if test="breachDate != null">
+        breach_date,
+      </if>
+      <if test="breachMoney != null">
+        breach_money,
+      </if>
+      <if test="guaranteeMeth != null">
+        guarantee_meth,
+      </if>
+      <if test="interestAll != null">
+        interest_all,
+      </if>
+      <if test="abandonContent != null">
+        abandon_content,
+      </if>
+      <if test="treatmentMethod != null">
+        treatment_method,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="checkReason != null">
+        check_reason,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="civilId != null">
+        #{civilId,jdbcType=BIGINT},
+      </if>
+      <if test="reportId != null">
+        #{reportId,jdbcType=BIGINT},
+      </if>
+      <if test="relativePerId != null">
+        #{relativePerId,jdbcType=BIGINT},
+      </if>
+      <if test="civilno != null">
+        #{civilno,jdbcType=VARCHAR},
+      </if>
+      <if test="solutions != null">
+        #{solutions,jdbcType=VARCHAR},
+      </if>
+      <if test="civilType != null">
+        #{civilType,jdbcType=VARCHAR},
+      </if>
+      <if test="amountTotal != null">
+        #{amountTotal,jdbcType=REAL},
+      </if>
+      <if test="amountPrincipal != null">
+        #{amountPrincipal,jdbcType=REAL},
+      </if>
+      <if test="amountInterest != null">
+        #{amountInterest,jdbcType=REAL},
+      </if>
+      <if test="amountBreach != null">
+        #{amountBreach,jdbcType=REAL},
+      </if>
+      <if test="monthInterest != null">
+        #{monthInterest,jdbcType=REAL},
+      </if>
+      <if test="starDate != null">
+        #{starDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null">
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="interest != null">
+        #{interest,jdbcType=REAL},
+      </if>
+      <if test="interestPayment != null">
+        #{interestPayment,jdbcType=REAL},
+      </if>
+      <if test="breachDate != null">
+        #{breachDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="breachMoney != null">
+        #{breachMoney,jdbcType=REAL},
+      </if>
+      <if test="guaranteeMeth != null">
+        #{guaranteeMeth,jdbcType=VARCHAR},
+      </if>
+      <if test="interestAll != null">
+        #{interestAll,jdbcType=REAL},
+      </if>
+      <if test="abandonContent != null">
+        #{abandonContent,jdbcType=VARCHAR},
+      </if>
+      <if test="treatmentMethod != null">
+        #{treatmentMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="checkReason != null">
+        #{checkReason,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.vo.debt.BusCivilVo">
+    update bus_civil
+    <set>
+      <if test="reportId != null">
+        report_id = #{reportId,jdbcType=BIGINT},
+      </if>
+      <if test="relativePerId != null">
+        relative_per_id = #{relativePerId,jdbcType=BIGINT},
+      </if>
+      <if test="civilno != null">
+        civilno = #{civilno,jdbcType=VARCHAR},
+      </if>
+      <if test="solutions != null">
+        solutions = #{solutions,jdbcType=VARCHAR},
+      </if>
+      <if test="civilType != null">
+        civil_type = #{civilType,jdbcType=VARCHAR},
+      </if>
+      <if test="amountTotal != null">
+        amount_total = #{amountTotal,jdbcType=REAL},
+      </if>
+      <if test="amountPrincipal != null">
+        amount_principal = #{amountPrincipal,jdbcType=REAL},
+      </if>
+      <if test="amountInterest != null">
+        amount_interest = #{amountInterest,jdbcType=REAL},
+      </if>
+      <if test="amountBreach != null">
+        amount_breach = #{amountBreach,jdbcType=REAL},
+      </if>
+      <if test="monthInterest != null">
+        month_interest = #{monthInterest,jdbcType=REAL},
+      </if>
+      <if test="starDate != null">
+        star_date = #{starDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null">
+        end_date = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="interest != null">
+        interest = #{interest,jdbcType=REAL},
+      </if>
+      <if test="interestPayment != null">
+        interest_payment = #{interestPayment,jdbcType=REAL},
+      </if>
+      <if test="breachDate != null">
+        breach_date = #{breachDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="breachMoney != null">
+        breach_money = #{breachMoney,jdbcType=REAL},
+      </if>
+      <if test="guaranteeMeth != null">
+        guarantee_meth = #{guaranteeMeth,jdbcType=VARCHAR},
+      </if>
+      <if test="interestAll != null">
+        interest_all = #{interestAll,jdbcType=REAL},
+      </if>
+      <if test="abandonContent != null">
+        abandon_content = #{abandonContent,jdbcType=VARCHAR},
+      </if>
+      <if test="treatmentMethod != null">
+        treatment_method = #{treatmentMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="checkReason != null">
+        check_reason = #{checkReason,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where civil_id = #{civilId,jdbcType=BIGINT}
+  </update>
+</mapper>
