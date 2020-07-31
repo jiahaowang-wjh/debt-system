@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smart.bracelet.dao.debt.BusPledgePropertyDao">
+  <resultMap id="BaseResultMap" type="com.smart.bracelet.model.po.debt.BusPledgeProperty">
+    <id column="pledge_property_id" jdbcType="BIGINT" property="pledgePropertyId" />
+    <result column="pledge_contract_id" jdbcType="BIGINT" property="pledgeContractId" />
+    <result column="debt_id" jdbcType="BIGINT" property="debtId" />
+    <result column="property_name" jdbcType="VARCHAR" property="propertyName" />
+    <result column="property_no" jdbcType="VARCHAR" property="propertyNo" />
+    <result column="specifications" jdbcType="VARCHAR" property="specifications" />
+    <result column="price" jdbcType="REAL" property="price" />
+    <result column="amount" jdbcType="REAL" property="amount" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    pledge_property_id, pledge_contract_id, debt_id, property_name, property_no, specifications, 
+    price, amount, note
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bus_pledge_property
+    where pledge_property_id = #{pledgePropertyId,jdbcType=BIGINT}
+  </select>
+  <select id="queryList" resultType="com.smart.bracelet.model.po.debt.BusPledgeProperty">
+    select
+    <include refid="Base_Column_List" />
+    from bus_pledge_property
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from bus_pledge_property
+    where pledge_property_id = #{pledgePropertyId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.debt.BusPledgeProperty">
+    insert into bus_pledge_property
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pledgePropertyId != null">
+        pledge_property_id,
+      </if>
+      <if test="pledgeContractId != null">
+        pledge_contract_id,
+      </if>
+      <if test="debtId != null">
+        debt_id,
+      </if>
+      <if test="propertyName != null">
+        property_name,
+      </if>
+      <if test="propertyNo != null">
+        property_no,
+      </if>
+      <if test="specifications != null">
+        specifications,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="note != null">
+        note,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pledgePropertyId != null">
+        #{pledgePropertyId,jdbcType=BIGINT},
+      </if>
+      <if test="pledgeContractId != null">
+        #{pledgeContractId,jdbcType=BIGINT},
+      </if>
+      <if test="debtId != null">
+        #{debtId,jdbcType=BIGINT},
+      </if>
+      <if test="propertyName != null">
+        #{propertyName,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyNo != null">
+        #{propertyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="specifications != null">
+        #{specifications,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=REAL},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=REAL},
+      </if>
+      <if test="note != null">
+        #{note,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.vo.debt.BusPledgePropertyVo">
+    update bus_pledge_property
+    <set>
+      <if test="pledgeContractId != null">
+        pledge_contract_id = #{pledgeContractId,jdbcType=BIGINT},
+      </if>
+      <if test="debtId != null">
+        debt_id = #{debtId,jdbcType=BIGINT},
+      </if>
+      <if test="propertyName != null">
+        property_name = #{propertyName,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyNo != null">
+        property_no = #{propertyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="specifications != null">
+        specifications = #{specifications,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=REAL},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=REAL},
+      </if>
+      <if test="note != null">
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pledge_property_id = #{pledgePropertyId,jdbcType=BIGINT}
+  </update>
+</mapper>
