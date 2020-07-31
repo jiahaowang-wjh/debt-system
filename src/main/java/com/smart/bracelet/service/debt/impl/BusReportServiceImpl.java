@@ -450,4 +450,35 @@ public class BusReportServiceImpl implements BusReportService {
             throw new CustomerException("更新银行报备信息失败");
         }
     }
+
+    /**
+     * 查询债事人债事链
+     *
+     * @param personIdCad
+     * @return
+     */
+    @Override
+    public List<DebtChain> queryListChain(String personIdCad) {
+        List<DebtChain> list = new ArrayList<>();
+        DebtChain debtChain;
+        int i = 0;
+        boolean ok = true;
+        while (ok) {
+            if(i==0){
+                 debtChain = busReportDao.queryLisyChain(personIdCad);
+                 i++;
+            }else{
+                debtChain = busReportDao.queryLisyChain(list.get(list.size() - 1).getRelativePersonIdCad());
+            }
+            if (debtChain != null) {
+                if (debtChain.getRelativePersonIdCad() != null && !debtChain.getRelativePersonIdCad().equals("")) {
+                    list.add(debtChain);
+                }
+            } else {
+                ok = false;
+            }
+        }
+        return list;
+    }
+
 }

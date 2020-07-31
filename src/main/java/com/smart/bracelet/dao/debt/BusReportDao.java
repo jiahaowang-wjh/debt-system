@@ -3,6 +3,7 @@ package com.smart.bracelet.dao.debt;
 import com.smart.bracelet.model.po.debt.BusReport;
 import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.vo.debt.BusReportVo;
+import com.smart.bracelet.model.vo.debt.DebtChain;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -25,5 +26,11 @@ public interface BusReportDao {
      * @return
      */
     List<DateAndDays> selectDaysCount();
+
+    /**
+     *查询债事人债事链
+     * @return
+     */
+    DebtChain queryLisyChain(String personIdCad);
 
 }

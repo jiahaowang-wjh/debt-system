@@ -3,222 +3,161 @@ package com.smart.bracelet.model.vo.debt;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.util.Date;
 
-/**
- * bus_civil
- * @author 
- */
 @Data
-public class BusCivilVo implements Serializable {
+public class BusCivilVo {
+
     /**
      * 民事调解ID
      */
-    @NotNull(message = "民事调解Id不能为空")
+    @NotNull(message = "民事调解ID不能为空")
     private Long civilId;
 
     /**
      * 报备ID
      */
+    @NotNull(message = "报备ID不能为空")
     private Long reportId;
 
     /**
-     * 是否配合
+     * 相对人ID
      */
-    private String iscoordinate;
+    @NotNull(message = "相对人ID不能为空")
+    private Long relativePerId;
 
     /**
-     * 类型
+     * 民事调解号
      */
-    private String reportType;
+    @NotBlank(message = "民事调解号不能为空")
+    private String civilno;
 
     /**
-     * 性质
+     * 化解方式
      */
-    private String reportPropert;
+    @NotBlank(message = "化解方式不能为空")
+    private String solutions;
 
     /**
-     * 数据一
+     * 债券债务类型
      */
-    private String data1;
+    @NotBlank(message = "债券债务类型不能为空")
+    private String civilType;
 
     /**
-     * 数据二
+     * 欠款总客额
      */
-    private String data2;
+    @NotNull(message = "欠款总客额不能为空")
+    private Float amountTotal;
 
     /**
-     * 数据三
+     * 欠款总客额本金
      */
-    private String data3;
+    @NotNull(message = "欠款总客额本金不能为空")
+    private Float amountPrincipal;
 
     /**
-     * 数据四
+     * 欠款总客额利息
      */
-    private String data4;
+    @NotNull(message = "欠款总客额利息不能为空")
+    private Float amountInterest;
 
     /**
-     * 数据五
+     * 欠款总客额违约
      */
-    private String data5;
+    @NotNull(message = "欠款总客额违约不能为空")
+    private Float amountBreach;
 
     /**
-     * 数据六
+     * 月利率
      */
-    private String data6;
+    @NotNull(message = "月利率不能为空")
+    private Float monthInterest;
 
     /**
-     * 数据七
+     * 时间段-开始
      */
-    private String data7;
-
-    /**
-     * 数据八
-     */
-    private String data8;
-
-    /**
-     * 数据九
-     */
-    private String data9;
-
-    /**
-     * 数据十
-     */
-    private String data10;
-
-    /**
-     * 数据十一
-     */
-    private String data11;
-
-    /**
-     * 身份证正
-     */
-    private String cardJust;
-
-    /**
-     * 身份证反
-     */
-    private String cardBack;
-
-    /**
-     * 债权
-     */
-    private String obligatRight;
-
-    /**
-     * 债权笔数
-     */
-    private Integer obligatRightNo;
-
-    /**
-     * 借款发生时间权
-     */
+    @NotNull(message = "时间段-开始不能为空")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date obligatTime;
+    private Date starDate;
 
     /**
-     * 本金
+     * 时间段-结束
      */
-    private String capital;
+    @NotNull(message = "时间段-结束不能为空")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date endDate;
 
     /**
      * 利息
      */
-    private String interest;
+    @NotNull(message = "利息不能为空")
+    private Float interest;
 
     /**
-     * 利率
+     * 已支付利息
      */
-    private String interestRate;
+    @NotNull(message = "已支付利息不能为空")
+    private Float interestPayment;
 
     /**
-     * 债务
+     * 违约截止时间
      */
-    private String debt;
-
-    /**
-     * 债务笔数
-     */
-    private Integer debtNo;
-
-    /**
-     * 借款发生时间务
-     */
+    @NotNull(message = "违约截止时间不能为空")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date debtTime;
+    private Date breachDate;
 
     /**
-     * 债事凭证
+     * 已支付违约金额
      */
-    private String debtCertificate;
+    @NotNull(message = "已支付违约金额不能为空")
+    private Float breachMoney;
 
     /**
-     * 上传债事凭证
+     * 担保方式
      */
-    private String uploadDebtCertificate;
+    @NotBlank(message = "担保方式不能为空")
+    private String guaranteeMeth;
 
     /**
-     * 是否诉讼及结果
+     * 本息金额合计
      */
-    private String isResult;
+    @NotNull(message = "本息金额合计不能为空")
+    private Float interestAll;
 
     /**
-     * 目前经济状况
+     * 债事人自愿放弃内容
      */
-    private String economics;
+    @NotBlank(message = "债事人自愿放弃内容不能为空")
+    private String abandonContent;
 
     /**
-     * 是负债经济使用用途
+     * 债务处理方式
      */
-    private String usage;
+    @NotBlank(message = "债务处理方式不能为空")
+    private String treatmentMethod;
 
     /**
-     * 项目责任人
+     * 创建时间
      */
-    private String prjectManager;
+    private Date createTime;
 
     /**
-     * 姓名
+     * 更新时间
      */
-    private String authname;
+    private Date updateTime;
 
     /**
-     * 身份证号码
+     * 状态
      */
-    private String card;
+    @NotBlank(message = "状态不能为空")
+    private String status;
 
     /**
-     * 选择银行
+     * 审核原因
      */
-    private String bank;
-
-    /**
-     * 银行卡号
-     */
-    private String bankCard;
-
-    /**
-     * 银行预留手机号
-     */
-    private String bankTel;
-
-    /**
-     * 手机验证码
-     */
-    private String telCheck;
-
-    /**
-     * 创建人
-     */
-    private Long createUserId;
-
-    /**
-     * 更新人
-     */
-    private Long updateUserId;
-
+    @NotBlank(message = "审核原因不能为空")
+    private String checkReason;
 }

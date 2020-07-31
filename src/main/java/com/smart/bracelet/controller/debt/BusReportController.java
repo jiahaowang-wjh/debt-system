@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -206,5 +207,16 @@ public class BusReportController {
     public Result<List<DateAndDays>> selectDaysCount() {
         List<DateAndDays> busReports = busReportService.selectDaysCount();
         return Result.success(busReports);
+    }
+
+    /**
+     * 债事链查询
+     * @param personIdCad
+     * @return
+     */
+    @RequestMapping("/queryListChain")
+    public Result<List<DebtChain>> queryListChain(@NotBlank(message = "身份证号码不能为空") String personIdCad){
+        List<DebtChain> list = busReportService.queryListChain(personIdCad);
+        return Result.success(list);
     }
 }

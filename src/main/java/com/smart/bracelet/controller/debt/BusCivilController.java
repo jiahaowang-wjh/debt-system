@@ -55,4 +55,15 @@ public class BusCivilController {
         List<DateAndDays> dateAndDays = busCivilService.selectDaysCount();
         return Result.success(dateAndDays);
     }
+
+
+    /**
+     * 查询所有民事调解信息
+     * @return
+     */
+    @RequestMapping("/queryList")
+    public Result<List<BusCivil>> queryList(){
+        List<BusCivil> busCivils = busCivilService.queryList();
+        return Result.success(busCivils);
+    }
 }

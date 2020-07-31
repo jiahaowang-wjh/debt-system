@@ -70,4 +70,13 @@ public class BusCivilServiceImpl implements BusCivilService {
     public List<DateAndDays> selectDaysCount() {
         return busCivilDao.selectDaysCount();
     }
+
+    /**
+     * 查询所有民事调解信息
+     * @return
+     */
+    @Override
+    public List<BusCivil> queryList() {
+        return busCivilDao.queryList();
+    }
 }

@@ -63,4 +63,11 @@ public interface BusReportService {
      * @return
      */
     int updateBankSelective(BusBankReportVo busBankReport) throws CustomerException;
+
+
+    /**
+     *查询债事人债事链
+     * @return
+     */
+    List<DebtChain> queryListChain(String personIdCad);
 }

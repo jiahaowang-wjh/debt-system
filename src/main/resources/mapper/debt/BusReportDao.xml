@@ -61,6 +61,11 @@
     <select id="selectDaysCount" resultType="com.smart.bracelet.model.po.debt.DateAndDays">
         SELECT DATE_FORMAT(create_time,'%Y-%m-%d') days,COUNT(*) COUNT FROM bus_report GROUP BY days;
     </select>
+    <select id="queryLisyChain" resultType="com.smart.bracelet.model.vo.debt.DebtChain">
+        SELECT br.data1 AS Report,brp.data1 AS RelativePerson,brp.data3 AS RelativePersonIdCad FROM bus_report br
+        INNER JOIN bus_relative_person brp ON br.report_id = brp.report_id
+        WHERE br.data3=#{personIdCad,jdbcType=VARCHAR}
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from bus_report
     where report_id = #{reportId,jdbcType=BIGINT}

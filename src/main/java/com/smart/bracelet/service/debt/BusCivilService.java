@@ -21,4 +21,11 @@ public interface BusCivilService {
      * @return
      */
     List<DateAndDays> selectDaysCount();
+
+
+    /**
+     * 查询所有民事调解信息
+     * @return
+     */
+    List<BusCivil> queryList();
 }
