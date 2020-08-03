@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smart.bracelet.dao.debt.BusPledgeContractDao">
+  <resultMap id="BaseResultMap" type="com.smart.bracelet.model.po.debt.BusPledgeContract">
+    <id column="pledge_contract_id" jdbcType="BIGINT" property="pledgeContractId" />
+    <result column="debt_id" jdbcType="BIGINT" property="debtId" />
+    <result column="contract_date" jdbcType="DATE" property="contractDate" />
+    <result column="contract_no" jdbcType="VARCHAR" property="contractNo" />
+    <result column="start_date" jdbcType="DATE" property="startDate" />
+    <result column="end_date" jdbcType="DATE" property="endDate" />
+    <result column="pledg_fax" jdbcType="VARCHAR" property="pledgFax" />
+    <result column="pledg_person" jdbcType="VARCHAR" property="pledgPerson" />
+    <result column="pledg_address" jdbcType="VARCHAR" property="pledgAddress" />
+    <result column="pledg_phone" jdbcType="VARCHAR" property="pledgPhone" />
+    <result column="partya_name" jdbcType="VARCHAR" property="partyaName" />
+    <result column="partya_Legal" jdbcType="VARCHAR" property="partyaLegal" />
+    <result column="partya_date" jdbcType="VARCHAR" property="partyaDate" />
+    <result column="pledger" jdbcType="VARCHAR" property="pledger" />
+    <result column="partya_deputy" jdbcType="VARCHAR" property="partyaDeputy" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    pledge_contract_id, debt_id, contract_date, contract_no, start_date, end_date, pledg_fax, 
+    pledg_person, pledg_address, pledg_phone, partya_name, partya_Legal, partya_date, 
+    pledger, partya_deputy
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bus_pledge_contract
+    where pledge_contract_id = #{pledgeContractId,jdbcType=BIGINT}
+  </select>
+  <select id="queryList" resultType="com.smart.bracelet.model.po.debt.BusPledgeContract">
+    select
+    <include refid="Base_Column_List" />
+    from bus_pledge_contract
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from bus_pledge_contract
+    where pledge_contract_id = #{pledgeContractId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.debt.BusPledgeContract">
+    insert into bus_pledge_contract
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pledgeContractId != null">
+        pledge_contract_id,
+      </if>
+      <if test="debtId != null">
+        debt_id,
+      </if>
+      <if test="contractDate != null">
+        contract_date,
+      </if>
+      <if test="contractNo != null">
+        contract_no,
+      </if>
+      <if test="startDate != null">
+        start_date,
+      </if>
+      <if test="endDate != null">
+        end_date,
+      </if>
+      <if test="pledgFax != null">
+        pledg_fax,
+      </if>
+      <if test="pledgPerson != null">
+        pledg_person,
+      </if>
+      <if test="pledgAddress != null">
+        pledg_address,
+      </if>
+      <if test="pledgPhone != null">
+        pledg_phone,
+      </if>
+      <if test="partyaName != null">
+        partya_name,
+      </if>
+      <if test="partyaLegal != null">
+        partya_Legal,
+      </if>
+      <if test="partyaDate != null">
+        partya_date,
+      </if>
+      <if test="pledger != null">
+        pledger,
+      </if>
+      <if test="partyaDeputy != null">
+        partya_deputy,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pledgeContractId != null">
+        #{pledgeContractId,jdbcType=BIGINT},
+      </if>
+      <if test="debtId != null">
+        #{debtId,jdbcType=BIGINT},
+      </if>
+      <if test="contractDate != null">
+        #{contractDate,jdbcType=DATE},
+      </if>
+      <if test="contractNo != null">
+        #{contractNo,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null">
+        #{startDate,jdbcType=DATE},
+      </if>
+      <if test="endDate != null">
+        #{endDate,jdbcType=DATE},
+      </if>
+      <if test="pledgFax != null">
+        #{pledgFax,jdbcType=VARCHAR},
+      </if>
+      <if test="pledgPerson != null">
+        #{pledgPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="pledgAddress != null">
+        #{pledgAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="pledgPhone != null">
+        #{pledgPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="partyaName != null">
+        #{partyaName,jdbcType=VARCHAR},
+      </if>
+      <if test="partyaLegal != null">
+        #{partyaLegal,jdbcType=VARCHAR},
+      </if>
+      <if test="partyaDate != null">
+        #{partyaDate,jdbcType=VARCHAR},
+      </if>
+      <if test="pledger != null">
+        #{pledger,jdbcType=VARCHAR},
+      </if>
+      <if test="partyaDeputy != null">
+        #{partyaDeputy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.vo.debt.BusPledgeContractVo">
+    update bus_pledge_contract
+    <set>
+      <if test="debtId != null">
+        debt_id = #{debtId,jdbcType=BIGINT},
+      </if>
+      <if test="contractDate != null">
+        contract_date = #{contractDate,jdbcType=DATE},
+      </if>
+      <if test="contractNo != null">
+        contract_no = #{contractNo,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null">
+        start_date = #{startDate,jdbcType=DATE},
+      </if>
+      <if test="endDate != null">
+        end_date = #{endDate,jdbcType=DATE},
+      </if>
+      <if test="pledgFax != null">
+        pledg_fax = #{pledgFax,jdbcType=VARCHAR},
+      </if>
+      <if test="pledgPerson != null">
+        pledg_person = #{pledgPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="pledgAddress != null">
+        pledg_address = #{pledgAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="pledgPhone != null">
+        pledg_phone = #{pledgPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="partyaName != null">
+        partya_name = #{partyaName,jdbcType=VARCHAR},
+      </if>
+      <if test="partyaLegal != null">
+        partya_Legal = #{partyaLegal,jdbcType=VARCHAR},
+      </if>
+      <if test="partyaDate != null">
+        partya_date = #{partyaDate,jdbcType=VARCHAR},
+      </if>
+      <if test="pledger != null">
+        pledger = #{pledger,jdbcType=VARCHAR},
+      </if>
+      <if test="partyaDeputy != null">
+        partya_deputy = #{partyaDeputy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pledge_contract_id = #{pledgeContractId,jdbcType=BIGINT}
+  </update>
+</mapper>
