@@ -8,6 +8,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 @SpringBootTest
@@ -24,4 +25,8 @@ public class UserInfoServiceTest {
        // redisTemplate.opsForSet().add(CacheConstants.CACHE_LABORATORY_RESERVE_TIME_OUT_REMIND_PREFIX+"_"+vo.getReserveInfoId(),vo.getUserInfoId(),timeOutToEpochSecond, TimeUnit.SECONDS);
     }
 
+    @Test
+    public void testA(){
+
+    }
 }

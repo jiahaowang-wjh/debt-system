@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/fileUploading/")
@@ -25,26 +26,25 @@ public class FileUploading {
     @PostMapping("/uploading")
     public @ResponseBody
     String uploading(@RequestParam("file")MultipartFile file,HttpServletRequest request) {
-        String filename = filePath+file.getOriginalFilename();
         try {
-            uploadFile(file.getBytes(), filePath, file.getOriginalFilename());
+            String filename = uploadFile(file.getBytes(), filePath, file.getOriginalFilename());
+            return filename;
         } catch (Exception e) {
             e.printStackTrace();
             return "文件上传失败";
         }
-        return filename;
     }
 
-    public void  uploadFile(byte[] file, String filePath, String fileName) throws Exception {
+    public String  uploadFile(byte[] file, String filePath, String fileName) throws Exception {
         File targetFile = new File(filePath);
         if(!targetFile.exists()){
             targetFile.mkdirs();
         }
-        FileOutputStream out = new FileOutputStream(filePath+fileName);
-        System.out.println(filePath+fileName);
+        String fileName2 = filePath+UUID.randomUUID().toString().toLowerCase().replace("-","")+".jpg";
+        FileOutputStream out = new FileOutputStream(fileName2);
         out.write(file);
         out.flush();
         out.close();
+        return fileName2;
     }
-
 }
