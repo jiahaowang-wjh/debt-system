@@ -11,7 +11,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotBlank;
@@ -24,7 +23,7 @@ import java.io.IOException;
 public class VerificationCode {
 
 
-    String verifyCodeName;
+    private String verifyCodeName;
 
     @ApiOperation(value = "验证码")
     @GetMapping("/verifyCode")
@@ -58,7 +57,7 @@ public class VerificationCode {
         if(!codeName.equalsIgnoreCase(verifyCodeName)){
            throw new CustomerException("验证码输入错误");
         }
-        return Result.success();
+        return Result.success("验证成功");
     }
 
 }
