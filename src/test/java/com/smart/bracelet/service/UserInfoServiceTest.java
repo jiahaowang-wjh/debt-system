@@ -1,5 +1,8 @@
 package com.smart.bracelet.service;
 
+import com.smart.bracelet.model.utilesBean.VerifyCode;
+import com.smart.bracelet.service.utilsService.IVerifyCodeGen;
+import com.smart.bracelet.service.utilsService.impl.SimpleCharVerifyCodeGenImpl;
 import com.smart.bracelet.utils.IdUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -8,6 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.io.IOException;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -26,7 +30,9 @@ public class UserInfoServiceTest {
     }
 
     @Test
-    public void testA(){
-
+    public void testA() throws IOException {
+        IVerifyCodeGen iVerifyCodeGen = new SimpleCharVerifyCodeGenImpl();
+        VerifyCode verifyCode = iVerifyCodeGen.generate(20,10);
+        System.out.println(verifyCode);
     }
 }

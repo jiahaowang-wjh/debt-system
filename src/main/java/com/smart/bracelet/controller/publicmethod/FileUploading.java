@@ -1,4 +1,4 @@
-package com.smart.bracelet.controller.utils;
+package com.smart.bracelet.controller.publicmethod;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.annotation.Validated;
