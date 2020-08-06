@@ -1,10 +1,10 @@
-package com.smart.bracelet.controller.debt;
+package com.smart.bracelet.controller.assets;
 
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
-import com.smart.bracelet.model.po.debt.BusAssignmentAgreement;
-import com.smart.bracelet.model.vo.debt.BusAssignmentAgreementVo;
-import com.smart.bracelet.service.debt.BusAssignmentAgreementService;
+import com.smart.bracelet.model.po.assets.BusAssignmentAgreement;
+import com.smart.bracelet.model.vo.assets.BusAssignmentAgreementVo;
+import com.smart.bracelet.service.assets.BusAssignmentAgreementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/BusAssignmentAgreementController/")
+@RequestMapping("/api/busAssignmentAgreementController/")
 @Validated
 public class BusAssignmentAgreementController {
 
@@ -23,9 +23,9 @@ public class BusAssignmentAgreementController {
     private BusAssignmentAgreementService busAssignmentAgreementService;
 
     @RequestMapping("/deleteByPrimaryKey")
-    public Result deleteByPrimaryKey(@NotNull(message = "转让协议ID不能为空") Long assignmentAgreementId) throws CustomerException {
-        int deleteByPrimaryKey = busAssignmentAgreementService.deleteByPrimaryKey(assignmentAgreementId);
-        return Result.success(deleteByPrimaryKey);
+    public Result deleteByPrimaryKey(@NotNull(message = "转让协议ID") Long assignmentAgreementId) throws CustomerException {
+        int i = busAssignmentAgreementService.deleteByPrimaryKey(assignmentAgreementId);
+        return Result.success(i);
     }
 
     @RequestMapping("/insertSelective")
@@ -35,7 +35,7 @@ public class BusAssignmentAgreementController {
     }
 
     @RequestMapping("/selectByPrimaryKey")
-    public Result selectByPrimaryKey(@NotNull(message = "转让协议ID不能为空")Long assignmentAgreementId) {
+    public Result<BusAssignmentAgreement> selectByPrimaryKey(@NotNull(message = "转让协议ID") Long assignmentAgreementId) {
         BusAssignmentAgreement busAssignmentAgreement = busAssignmentAgreementService.selectByPrimaryKey(assignmentAgreementId);
         return Result.success(busAssignmentAgreement);
     }
@@ -47,7 +47,7 @@ public class BusAssignmentAgreementController {
     }
 
     @RequestMapping("/queryList")
-    public Result<List<BusAssignmentAgreement>> queryList(){
+    public Result<List<BusAssignmentAgreement>> queryList() {
         List<BusAssignmentAgreement> busAssignmentAgreements = busAssignmentAgreementService.queryList();
         return Result.success(busAssignmentAgreements);
     }
