@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smart.bracelet.dao.assets.BusAssignmentConfirmDao">
+  <resultMap id="BaseResultMap" type="com.smart.bracelet.model.po.assets.BusAssignmentConfirm">
+    <id column="posse_confirmt_id" jdbcType="BIGINT" property="posseConfirmtId" />
+    <result column="propert_id" jdbcType="BIGINT" property="propertId" />
+    <result column="confirm_no" jdbcType="VARCHAR" property="confirmNo" />
+    <result column="creditor_name" jdbcType="VARCHAR" property="creditorName" />
+    <result column="creditor_sign" jdbcType="VARCHAR" property="creditorSign" />
+    <result column="no_code" jdbcType="VARCHAR" property="noCode" />
+    <result column="sign_date" jdbcType="DATE" property="signDate" />
+    <result column="guarantee" jdbcType="VARCHAR" property="guarantee" />
+    <result column="guarantee_no" jdbcType="VARCHAR" property="guaranteeNo" />
+    <result column="assets_company_name" jdbcType="VARCHAR" property="assetsCompanyName" />
+    <result column="assets_card" jdbcType="VARCHAR" property="assetsCard" />
+    <result column="assets_date" jdbcType="DATE" property="assetsDate" />
+    <result column="legal_represen" jdbcType="VARCHAR" property="legalRepresen" />
+    <result column="legal_represen_date" jdbcType="DATE" property="legalRepresenDate" />
+    <result column="obligor" jdbcType="VARCHAR" property="obligor" />
+    <result column="obligor_sign" jdbcType="VARCHAR" property="obligorSign" />
+    <result column="obligor_idcard" jdbcType="VARCHAR" property="obligorIdcard" />
+    <result column="obligor_date" jdbcType="DATE" property="obligorDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    posse_confirmt_id, propert_id, confirm_no, creditor_name, creditor_sign, no_code, 
+    sign_date, guarantee, guarantee_no, assets_company_name, assets_card, assets_date, 
+    legal_represen, legal_represen_date, obligor, obligor_sign, obligor_idcard, obligor_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bus_assignment_confirm
+    where posse_confirmt_id = #{posseConfirmtId,jdbcType=BIGINT}
+  </select>
+  <select id="queryList" resultType="com.smart.bracelet.model.po.assets.BusAssignmentConfirm">
+    select
+    <include refid="Base_Column_List" />
+    from bus_assignment_confirm
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from bus_assignment_confirm
+    where posse_confirmt_id = #{posseConfirmtId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.smart.bracelet.model.po.assets.BusAssignmentConfirm">
+    insert into bus_assignment_confirm (posse_confirmt_id, propert_id, confirm_no, 
+      creditor_name, creditor_sign, no_code, 
+      sign_date, guarantee, guarantee_no, 
+      assets_company_name, assets_card, assets_date, 
+      legal_represen, legal_represen_date, obligor, 
+      obligor_sign, obligor_idcard, obligor_date
+      )
+    values (#{posseConfirmtId,jdbcType=BIGINT}, #{propertId,jdbcType=BIGINT}, #{confirmNo,jdbcType=VARCHAR}, 
+      #{creditorName,jdbcType=VARCHAR}, #{creditorSign,jdbcType=VARCHAR}, #{noCode,jdbcType=VARCHAR}, 
+      #{signDate,jdbcType=DATE}, #{guarantee,jdbcType=VARCHAR}, #{guaranteeNo,jdbcType=VARCHAR}, 
+      #{assetsCompanyName,jdbcType=VARCHAR}, #{assetsCard,jdbcType=VARCHAR}, #{assetsDate,jdbcType=DATE}, 
+      #{legalRepresen,jdbcType=VARCHAR}, #{legalRepresenDate,jdbcType=DATE}, #{obligor,jdbcType=VARCHAR}, 
+      #{obligorSign,jdbcType=VARCHAR}, #{obligorIdcard,jdbcType=VARCHAR}, #{obligorDate,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.assets.BusAssignmentConfirm">
+    insert into bus_assignment_confirm
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="posseConfirmtId != null">
+        posse_confirmt_id,
+      </if>
+      <if test="propertId != null">
+        propert_id,
+      </if>
+      <if test="confirmNo != null">
+        confirm_no,
+      </if>
+      <if test="creditorName != null">
+        creditor_name,
+      </if>
+      <if test="creditorSign != null">
+        creditor_sign,
+      </if>
+      <if test="noCode != null">
+        no_code,
+      </if>
+      <if test="signDate != null">
+        sign_date,
+      </if>
+      <if test="guarantee != null">
+        guarantee,
+      </if>
+      <if test="guaranteeNo != null">
+        guarantee_no,
+      </if>
+      <if test="assetsCompanyName != null">
+        assets_company_name,
+      </if>
+      <if test="assetsCard != null">
+        assets_card,
+      </if>
+      <if test="assetsDate != null">
+        assets_date,
+      </if>
+      <if test="legalRepresen != null">
+        legal_represen,
+      </if>
+      <if test="legalRepresenDate != null">
+        legal_represen_date,
+      </if>
+      <if test="obligor != null">
+        obligor,
+      </if>
+      <if test="obligorSign != null">
+        obligor_sign,
+      </if>
+      <if test="obligorIdcard != null">
+        obligor_idcard,
+      </if>
+      <if test="obligorDate != null">
+        obligor_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="posseConfirmtId != null">
+        #{posseConfirmtId,jdbcType=BIGINT},
+      </if>
+      <if test="propertId != null">
+        #{propertId,jdbcType=BIGINT},
+      </if>
+      <if test="confirmNo != null">
+        #{confirmNo,jdbcType=VARCHAR},
+      </if>
+      <if test="creditorName != null">
+        #{creditorName,jdbcType=VARCHAR},
+      </if>
+      <if test="creditorSign != null">
+        #{creditorSign,jdbcType=VARCHAR},
+      </if>
+      <if test="noCode != null">
+        #{noCode,jdbcType=VARCHAR},
+      </if>
+      <if test="signDate != null">
+        #{signDate,jdbcType=DATE},
+      </if>
+      <if test="guarantee != null">
+        #{guarantee,jdbcType=VARCHAR},
+      </if>
+      <if test="guaranteeNo != null">
+        #{guaranteeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="assetsCompanyName != null">
+        #{assetsCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="assetsCard != null">
+        #{assetsCard,jdbcType=VARCHAR},
+      </if>
+      <if test="assetsDate != null">
+        #{assetsDate,jdbcType=DATE},
+      </if>
+      <if test="legalRepresen != null">
+        #{legalRepresen,jdbcType=VARCHAR},
+      </if>
+      <if test="legalRepresenDate != null">
+        #{legalRepresenDate,jdbcType=DATE},
+      </if>
+      <if test="obligor != null">
+        #{obligor,jdbcType=VARCHAR},
+      </if>
+      <if test="obligorSign != null">
+        #{obligorSign,jdbcType=VARCHAR},
+      </if>
+      <if test="obligorIdcard != null">
+        #{obligorIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="obligorDate != null">
+        #{obligorDate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective">
+    update bus_assignment_confirm
+    <set>
+      <if test="propertId != null">
+        propert_id = #{propertId,jdbcType=BIGINT},
+      </if>
+      <if test="confirmNo != null">
+        confirm_no = #{confirmNo,jdbcType=VARCHAR},
+      </if>
+      <if test="creditorName != null">
+        creditor_name = #{creditorName,jdbcType=VARCHAR},
+      </if>
+      <if test="creditorSign != null">
+        creditor_sign = #{creditorSign,jdbcType=VARCHAR},
+      </if>
+      <if test="noCode != null">
+        no_code = #{noCode,jdbcType=VARCHAR},
+      </if>
+      <if test="signDate != null">
+        sign_date = #{signDate,jdbcType=DATE},
+      </if>
+      <if test="guarantee != null">
+        guarantee = #{guarantee,jdbcType=VARCHAR},
+      </if>
+      <if test="guaranteeNo != null">
+        guarantee_no = #{guaranteeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="assetsCompanyName != null">
+        assets_company_name = #{assetsCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="assetsCard != null">
+        assets_card = #{assetsCard,jdbcType=VARCHAR},
+      </if>
+      <if test="assetsDate != null">
+        assets_date = #{assetsDate,jdbcType=DATE},
+      </if>
+      <if test="legalRepresen != null">
+        legal_represen = #{legalRepresen,jdbcType=VARCHAR},
+      </if>
+      <if test="legalRepresenDate != null">
+        legal_represen_date = #{legalRepresenDate,jdbcType=DATE},
+      </if>
+      <if test="obligor != null">
+        obligor = #{obligor,jdbcType=VARCHAR},
+      </if>
+      <if test="obligorSign != null">
+        obligor_sign = #{obligorSign,jdbcType=VARCHAR},
+      </if>
+      <if test="obligorIdcard != null">
+        obligor_idcard = #{obligorIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="obligorDate != null">
+        obligor_date = #{obligorDate,jdbcType=DATE},
+      </if>
+    </set>
+    where posse_confirmt_id = #{posseConfirmtId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.smart.bracelet.model.po.assets.BusAssignmentConfirm">
+    update bus_assignment_confirm
+    set propert_id = #{propertId,jdbcType=BIGINT},
+      confirm_no = #{confirmNo,jdbcType=VARCHAR},
+      creditor_name = #{creditorName,jdbcType=VARCHAR},
+      creditor_sign = #{creditorSign,jdbcType=VARCHAR},
+      no_code = #{noCode,jdbcType=VARCHAR},
+      sign_date = #{signDate,jdbcType=DATE},
+      guarantee = #{guarantee,jdbcType=VARCHAR},
+      guarantee_no = #{guaranteeNo,jdbcType=VARCHAR},
+      assets_company_name = #{assetsCompanyName,jdbcType=VARCHAR},
+      assets_card = #{assetsCard,jdbcType=VARCHAR},
+      assets_date = #{assetsDate,jdbcType=DATE},
+      legal_represen = #{legalRepresen,jdbcType=VARCHAR},
+      legal_represen_date = #{legalRepresenDate,jdbcType=DATE},
+      obligor = #{obligor,jdbcType=VARCHAR},
+      obligor_sign = #{obligorSign,jdbcType=VARCHAR},
+      obligor_idcard = #{obligorIdcard,jdbcType=VARCHAR},
+      obligor_date = #{obligorDate,jdbcType=DATE}
+    where posse_confirmt_id = #{posseConfirmtId,jdbcType=BIGINT}
+  </update>
+</mapper>
