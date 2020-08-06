@@ -6,6 +6,8 @@ import com.smart.bracelet.model.po.user.PubRolemenu;
 import com.smart.bracelet.model.vo.user.PubRoleVo;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface PubRoleDao {
 
@@ -57,6 +59,13 @@ public interface PubRoleDao {
      * @return
      */
     int addRoleAuth(PubRoleauth pubRoleauth);
+
+    /**
+     * 批量新增角色权限
+     * @param pubRoleauths
+     * @return
+     */
+    int addRoleAuthList(List<PubRoleauth> pubRoleauths);
 
     /**
      * 给角色添加菜单

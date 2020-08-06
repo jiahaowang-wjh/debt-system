@@ -6,6 +6,8 @@ import com.smart.bracelet.model.po.user.PubRoleauth;
 import com.smart.bracelet.model.po.user.PubRolemenu;
 import com.smart.bracelet.model.vo.user.PubRoleVo;
 
+import java.util.List;
+
 public interface PubRoleService {
 
     /**
@@ -56,4 +58,11 @@ public interface PubRoleService {
      * @return
      */
     int delRoleList(Long[] roleIds) throws CustomerException;
+
+    /**
+     * 批量新增角色权限
+     * @param pubRoleauths
+     * @return
+     */
+    int addRoleAuthList(String roleIds,Long authId) throws CustomerException;
 }

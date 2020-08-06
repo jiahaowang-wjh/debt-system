@@ -11,6 +11,11 @@ import com.smart.bracelet.utils.IdUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -136,6 +141,34 @@ public class PubRoleServiceImpl implements PubRoleService {
         } catch (Exception e) {
             log.error("批量删除角色失败,异常信息:{}",e.getMessage());
             throw new CustomerException("批量删除角色失败");
+        }
+    }
+
+    /**
+     * 给多个角色分配同一个权限(批量分配)
+     * @param roleIds
+     * @param authId
+     * @return
+     * @throws CustomerException
+     */
+    @Override
+    public int addRoleAuthList(String roleIds,Long authId) throws CustomerException {
+        List<PubRoleauth> pubRoleauths = new ArrayList<>();
+        try {
+            List<String> roleIdList = Arrays.asList(roleIds.split(","));
+            for (String item: roleIdList) {
+                PubRoleauth pubRoleauth = new PubRoleauth();
+                pubRoleauth.setRoleauthId(IdUtils.nextId());
+                pubRoleauth.setAuthId(authId);
+                pubRoleauth.setRoleId(Long.parseLong(item));
+                pubRoleauths.add(pubRoleauth);
+            }
+            int addRoleMenu = pubRoleDao.addRoleAuthList(pubRoleauths);
+            log.info("批量角色权限分配成功,受影响行数:{}",addRoleMenu);
+            return addRoleMenu;
+        } catch (Exception e) {
+            log.error("批量角色权限分配失败,异常信息:{}",e.getMessage());
+            throw new CustomerException("批量角色权限分配失败");
         }
     }
 }

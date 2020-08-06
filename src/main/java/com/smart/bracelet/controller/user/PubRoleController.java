@@ -10,10 +10,13 @@ import com.smart.bracelet.service.user.PubRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * 角色管理
@@ -28,6 +31,7 @@ public class PubRoleController {
 
     /**
      * 新增角色信息
+     *
      * @param pubRole
      * @return
      */
@@ -39,6 +43,7 @@ public class PubRoleController {
 
     /**
      * 通过ID删除角色信息
+     *
      * @param roleId
      * @return
      */
@@ -47,8 +52,10 @@ public class PubRoleController {
         int deleteByPrimaryKey = pubRoleService.deleteByPrimaryKey(roleId);
         return Result.success(deleteByPrimaryKey);
     }
+
     /**
      * 修改角色信息
+     *
      * @param record
      * @return
      */
@@ -57,8 +64,10 @@ public class PubRoleController {
         int updateByPrimaryKeySelective = pubRoleService.updateByPrimaryKeySelective(record);
         return Result.success(updateByPrimaryKeySelective);
     }
+
     /**
      * 通过Id查询角色信息
+     *
      * @param roleId
      * @return
      */
@@ -70,34 +79,52 @@ public class PubRoleController {
 
     /**
      * 给角色分配权限
-     * @parampubRoleauth
+     *
      * @return
+     * @parampubRoleauth
      */
     @RequestMapping("/addRoleAuth")
     public Result addRoleAuth(@Valid PubRoleauth pubRoleauth) throws CustomerException {
         int addRoleAuth = pubRoleService.addRoleAuth(pubRoleauth);
         return Result.success(addRoleAuth);
     }
+
     /**
      * 给角色添加菜单
+     *
      * @param pubRolemenu
      * @return
      */
     @RequestMapping("/addRoleMenu")
-    public Result addRoleMenu(@Valid PubRolemenu pubRolemenu) throws CustomerException{
+    public Result addRoleMenu(@Valid PubRolemenu pubRolemenu) throws CustomerException {
         int addRoleMenu = pubRoleService.addRoleMenu(pubRolemenu);
         return Result.success(addRoleMenu);
     }
 
     /**
      * 批量删除角色
+     *
      * @param roleIds
      * @return
      * @throws CustomerException
      */
     @RequestMapping("/delRoleList")
-    public Result delRoleList(@NotNull(message = "角色Id不能为空")Long[] roleIds) throws CustomerException {
+    public Result delRoleList(@NotNull(message = "角色Id不能为空") Long[] roleIds) throws CustomerException {
         int delRoleList = pubRoleService.delRoleList(roleIds);
         return Result.success(delRoleList);
     }
+
+    /**
+     * 批量分配角色权限
+     * @param roleIds
+     * @param authId
+     * @return
+     * @throws CustomerException
+     */
+    @RequestMapping("/addRoleAuthList")
+    public Result addRoleAuthList(@NotBlank(message = "角色权限不能为空") String roleIds, @NotNull(message = "权限ID不能为空") Long authId) throws CustomerException {
+        int addRoleAuthList = pubRoleService.addRoleAuthList(roleIds, authId);
+        return Result.success(addRoleAuthList);
+    }
+
 }

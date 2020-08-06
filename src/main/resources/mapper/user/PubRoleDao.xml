@@ -91,8 +91,15 @@
         </trim>
     </insert>
     <insert id="addRoleMenu">
-        insert into pub_rolemenu (rolemenu_id, role_id, menu_id)
-        values (#{rolemenuId,jdbcType=BIGINT}, #{roleId,jdbcType=BIGINT}, #{menuId,jdbcType=BIGINT})
+        insert into pub_rolemenu (roleauth_id, role_id, menu_id)
+        values (#{roleauthId,jdbcType=BIGINT}, #{roleId,jdbcType=BIGINT}, #{menuId,jdbcType=BIGINT})
+    </insert>
+    <insert id="addRoleAuthList">
+        insert into pub_roleauth (roleauth_id,role_id,auth_id)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.roleauthId,jdbcType=BIGINT},#{item.roleId,jdbcType=BIGINT},#{item.authId,jdbcType=BIGINT})
+        </foreach>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.vo.user.PubRoleVo">
         update pub_role
