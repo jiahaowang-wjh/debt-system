@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smart.bracelet.dao.assets.BusCompromiseAgreementDao">
+  <resultMap id="BaseResultMap" type="com.smart.bracelet.model.po.assets.BusCompromiseAgreement">
+    <id column="compromise_agreement_id" jdbcType="BIGINT" property="compromiseAgreementId" />
+    <result column="propert_id" jdbcType="BIGINT" property="propertId" />
+    <result column="partyb_mode" jdbcType="VARCHAR" property="partybMode" />
+    <result column="data1" jdbcType="BIGINT" property="data1" />
+    <result column="data2" jdbcType="REAL" property="data2" />
+    <result column="data3" jdbcType="BIGINT" property="data3" />
+    <result column="partya_subrogation" jdbcType="VARCHAR" property="partyaSubrogation" />
+    <result column="partya_date" jdbcType="DATE" property="partyaDate" />
+    <result column="partya_seal" jdbcType="VARCHAR" property="partyaSeal" />
+    <result column="partyb_seal" jdbcType="VARCHAR" property="partybSeal" />
+    <result column="partyb_subrogation" jdbcType="VARCHAR" property="partybSubrogation" />
+    <result column="partyb_date" jdbcType="DATE" property="partybDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    compromise_agreement_id, propert_id, partyb_mode, data1, data2, data3, partya_subrogation, 
+    partya_date, partya_seal, partyb_seal, partyb_subrogation, partyb_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bus_compromise_agreement
+    where compromise_agreement_id = #{compromiseAgreementId,jdbcType=BIGINT}
+  </select>
+  <select id="queryList" resultType="com.smart.bracelet.model.po.assets.BusCompromiseAgreement">
+    select
+    <include refid="Base_Column_List" />
+    from bus_compromise_agreement
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from bus_compromise_agreement
+    where compromise_agreement_id = #{compromiseAgreementId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.assets.BusCompromiseAgreement">
+    insert into bus_compromise_agreement
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="compromiseAgreementId != null">
+        compromise_agreement_id,
+      </if>
+      <if test="propertId != null">
+        propert_id,
+      </if>
+      <if test="partybMode != null">
+        partyb_mode,
+      </if>
+      <if test="data1 != null">
+        data1,
+      </if>
+      <if test="data2 != null">
+        data2,
+      </if>
+      <if test="data3 != null">
+        data3,
+      </if>
+      <if test="partyaSubrogation != null">
+        partya_subrogation,
+      </if>
+      <if test="partyaDate != null">
+        partya_date,
+      </if>
+      <if test="partyaSeal != null">
+        partya_seal,
+      </if>
+      <if test="partybSeal != null">
+        partyb_seal,
+      </if>
+      <if test="partybSubrogation != null">
+        partyb_subrogation,
+      </if>
+      <if test="partybDate != null">
+        partyb_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="compromiseAgreementId != null">
+        #{compromiseAgreementId,jdbcType=BIGINT},
+      </if>
+      <if test="propertId != null">
+        #{propertId,jdbcType=BIGINT},
+      </if>
+      <if test="partybMode != null">
+        #{partybMode,jdbcType=VARCHAR},
+      </if>
+      <if test="data1 != null">
+        #{data1,jdbcType=BIGINT},
+      </if>
+      <if test="data2 != null">
+        #{data2,jdbcType=REAL},
+      </if>
+      <if test="data3 != null">
+        #{data3,jdbcType=BIGINT},
+      </if>
+      <if test="partyaSubrogation != null">
+        #{partyaSubrogation,jdbcType=VARCHAR},
+      </if>
+      <if test="partyaDate != null">
+        #{partyaDate,jdbcType=DATE},
+      </if>
+      <if test="partyaSeal != null">
+        #{partyaSeal,jdbcType=VARCHAR},
+      </if>
+      <if test="partybSeal != null">
+        #{partybSeal,jdbcType=VARCHAR},
+      </if>
+      <if test="partybSubrogation != null">
+        #{partybSubrogation,jdbcType=VARCHAR},
+      </if>
+      <if test="partybDate != null">
+        #{partybDate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.po.assets.BusCompromiseAgreement">
+    update bus_compromise_agreement
+    <set>
+      <if test="propertId != null">
+        propert_id = #{propertId,jdbcType=BIGINT},
+      </if>
+      <if test="partybMode != null">
+        partyb_mode = #{partybMode,jdbcType=VARCHAR},
+      </if>
+      <if test="data1 != null">
+        data1 = #{data1,jdbcType=BIGINT},
+      </if>
+      <if test="data2 != null">
+        data2 = #{data2,jdbcType=REAL},
+      </if>
+      <if test="data3 != null">
+        data3 = #{data3,jdbcType=BIGINT},
+      </if>
+      <if test="partyaSubrogation != null">
+        partya_subrogation = #{partyaSubrogation,jdbcType=VARCHAR},
+      </if>
+      <if test="partyaDate != null">
+        partya_date = #{partyaDate,jdbcType=DATE},
+      </if>
+      <if test="partyaSeal != null">
+        partya_seal = #{partyaSeal,jdbcType=VARCHAR},
+      </if>
+      <if test="partybSeal != null">
+        partyb_seal = #{partybSeal,jdbcType=VARCHAR},
+      </if>
+      <if test="partybSubrogation != null">
+        partyb_subrogation = #{partybSubrogation,jdbcType=VARCHAR},
+      </if>
+      <if test="partybDate != null">
+        partyb_date = #{partybDate,jdbcType=DATE},
+      </if>
+    </set>
+    where compromise_agreement_id = #{compromiseAgreementId,jdbcType=BIGINT}
+  </update>
+
+</mapper>
