@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smart.bracelet.dao.assets.BusAssignmentNoticeDao">
+    <resultMap id="BaseResultMap" type="com.smart.bracelet.model.po.assets.BusAssignmentNotice">
+        <id column="assignment_notice_id" jdbcType="BIGINT" property="assignmentNoticeId"/>
+        <result column="propert_id" jdbcType="BIGINT" property="propertId"/>
+        <result column="notice_no" jdbcType="VARCHAR" property="noticeNo"/>
+        <result column="obligor_seal" jdbcType="VARCHAR" property="obligorSeal"/>
+        <result column="card_id" jdbcType="VARCHAR" property="cardId"/>
+        <result column="obligor_sign" jdbcType="VARCHAR" property="obligorSign"/>
+        <result column="obligor_date" jdbcType="DATE" property="obligorDate"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    assignment_notice_id, propert_id, notice_no, obligor_seal, card_id, obligor_sign, 
+    obligor_date
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from bus_assignment_notice
+        where assignment_notice_id = #{assignmentNoticeId,jdbcType=BIGINT}
+    </select>
+    <select id="queryList" resultType="com.smart.bracelet.model.po.assets.BusAssignmentNotice">
+        select
+        <include refid="Base_Column_List"/>
+        from bus_assignment_notice
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from bus_assignment_notice
+    where assignment_notice_id = #{assignmentNoticeId,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="com.smart.bracelet.model.po.assets.BusAssignmentNotice">
+    insert into bus_assignment_notice (assignment_notice_id, propert_id, notice_no, 
+      obligor_seal, card_id, obligor_sign, 
+      obligor_date)
+    values (#{assignmentNoticeId,jdbcType=BIGINT}, #{propertId,jdbcType=BIGINT}, #{noticeNo,jdbcType=VARCHAR}, 
+      #{obligorSeal,jdbcType=VARCHAR}, #{cardId,jdbcType=VARCHAR}, #{obligorSign,jdbcType=VARCHAR}, 
+      #{obligorDate,jdbcType=DATE})
+  </insert>
+    <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.assets.BusAssignmentNotice">
+        insert into bus_assignment_notice
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="assignmentNoticeId != null">
+                assignment_notice_id,
+            </if>
+            <if test="propertId != null">
+                propert_id,
+            </if>
+            <if test="noticeNo != null">
+                notice_no,
+            </if>
+            <if test="obligorSeal != null">
+                obligor_seal,
+            </if>
+            <if test="cardId != null">
+                card_id,
+            </if>
+            <if test="obligorSign != null">
+                obligor_sign,
+            </if>
+            <if test="obligorDate != null">
+                obligor_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="assignmentNoticeId != null">
+                #{assignmentNoticeId,jdbcType=BIGINT},
+            </if>
+            <if test="propertId != null">
+                #{propertId,jdbcType=BIGINT},
+            </if>
+            <if test="noticeNo != null">
+                #{noticeNo,jdbcType=VARCHAR},
+            </if>
+            <if test="obligorSeal != null">
+                #{obligorSeal,jdbcType=VARCHAR},
+            </if>
+            <if test="cardId != null">
+                #{cardId,jdbcType=VARCHAR},
+            </if>
+            <if test="obligorSign != null">
+                #{obligorSign,jdbcType=VARCHAR},
+            </if>
+            <if test="obligorDate != null">
+                #{obligorDate,jdbcType=DATE},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.po.assets.BusAssignmentNotice">
+        update bus_assignment_notice
+        <set>
+            <if test="propertId != null">
+                propert_id = #{propertId,jdbcType=BIGINT},
+            </if>
+            <if test="noticeNo != null">
+                notice_no = #{noticeNo,jdbcType=VARCHAR},
+            </if>
+            <if test="obligorSeal != null">
+                obligor_seal = #{obligorSeal,jdbcType=VARCHAR},
+            </if>
+            <if test="cardId != null">
+                card_id = #{cardId,jdbcType=VARCHAR},
+            </if>
+            <if test="obligorSign != null">
+                obligor_sign = #{obligorSign,jdbcType=VARCHAR},
+            </if>
+            <if test="obligorDate != null">
+                obligor_date = #{obligorDate,jdbcType=DATE},
+            </if>
+        </set>
+        where assignment_notice_id = #{assignmentNoticeId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.smart.bracelet.model.po.assets.BusAssignmentNotice">
+    update bus_assignment_notice
+    set propert_id = #{propertId,jdbcType=BIGINT},
+      notice_no = #{noticeNo,jdbcType=VARCHAR},
+      obligor_seal = #{obligorSeal,jdbcType=VARCHAR},
+      card_id = #{cardId,jdbcType=VARCHAR},
+      obligor_sign = #{obligorSign,jdbcType=VARCHAR},
+      obligor_date = #{obligorDate,jdbcType=DATE}
+    where assignment_notice_id = #{assignmentNoticeId,jdbcType=BIGINT}
+  </update>
+</mapper>
