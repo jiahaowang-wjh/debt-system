@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smart.bracelet.dao.assets.BusBankGuaranteDao">
+  <resultMap id="BaseResultMap" type="com.smart.bracelet.model.po.assets.BusBankGuarante">
+    <id column="bank_guarante_id" jdbcType="BIGINT" property="bankGuaranteId" />
+    <result column="propert_id" jdbcType="BIGINT" property="propertId" />
+    <result column="partya_sign" jdbcType="VARCHAR" property="partyaSign" />
+    <result column="partya_date" jdbcType="DATE" property="partyaDate" />
+    <result column="partya_seal" jdbcType="VARCHAR" property="partyaSeal" />
+    <result column="partyb_seal" jdbcType="VARCHAR" property="partybSeal" />
+    <result column="partyb_sign" jdbcType="VARCHAR" property="partybSign" />
+    <result column="partyb_date" jdbcType="DATE" property="partybDate" />
+    <result column="contract_place" jdbcType="VARCHAR" property="contractPlace" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    bank_guarante_id, propert_id, partya_sign, partya_date, partya_seal, partyb_seal, 
+    partyb_sign, partyb_date, contract_place
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bus_bank_guarante
+    where bank_guarante_id = #{bankGuaranteId,jdbcType=BIGINT}
+  </select>
+  <select id="queryList" resultType="com.smart.bracelet.model.po.assets.BusBankGuarante">
+    select
+    <include refid="Base_Column_List" />
+    from bus_bank_guarante
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from bus_bank_guarante
+    where bank_guarante_id = #{bankGuaranteId,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.assets.BusBankGuarante">
+    insert into bus_bank_guarante
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bankGuaranteId != null">
+        bank_guarante_id,
+      </if>
+      <if test="propertId != null">
+        propert_id,
+      </if>
+      <if test="partyaSign != null">
+        partya_sign,
+      </if>
+      <if test="partyaDate != null">
+        partya_date,
+      </if>
+      <if test="partyaSeal != null">
+        partya_seal,
+      </if>
+      <if test="partybSeal != null">
+        partyb_seal,
+      </if>
+      <if test="partybSign != null">
+        partyb_sign,
+      </if>
+      <if test="partybDate != null">
+        partyb_date,
+      </if>
+      <if test="contractPlace != null">
+        contract_place,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bankGuaranteId != null">
+        #{bankGuaranteId,jdbcType=BIGINT},
+      </if>
+      <if test="propertId != null">
+        #{propertId,jdbcType=BIGINT},
+      </if>
+      <if test="partyaSign != null">
+        #{partyaSign,jdbcType=VARCHAR},
+      </if>
+      <if test="partyaDate != null">
+        #{partyaDate,jdbcType=DATE},
+      </if>
+      <if test="partyaSeal != null">
+        #{partyaSeal,jdbcType=VARCHAR},
+      </if>
+      <if test="partybSeal != null">
+        #{partybSeal,jdbcType=VARCHAR},
+      </if>
+      <if test="partybSign != null">
+        #{partybSign,jdbcType=VARCHAR},
+      </if>
+      <if test="partybDate != null">
+        #{partybDate,jdbcType=DATE},
+      </if>
+      <if test="contractPlace != null">
+        #{contractPlace,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective">
+    update bus_bank_guarante
+    <set>
+      <if test="propertId != null">
+        propert_id = #{propertId,jdbcType=BIGINT},
+      </if>
+      <if test="partyaSign != null">
+        partya_sign = #{partyaSign,jdbcType=VARCHAR},
+      </if>
+      <if test="partyaDate != null">
+        partya_date = #{partyaDate,jdbcType=DATE},
+      </if>
+      <if test="partyaSeal != null">
+        partya_seal = #{partyaSeal,jdbcType=VARCHAR},
+      </if>
+      <if test="partybSeal != null">
+        partyb_seal = #{partybSeal,jdbcType=VARCHAR},
+      </if>
+      <if test="partybSign != null">
+        partyb_sign = #{partybSign,jdbcType=VARCHAR},
+      </if>
+      <if test="partybDate != null">
+        partyb_date = #{partybDate,jdbcType=DATE},
+      </if>
+      <if test="contractPlace != null">
+        contract_place = #{contractPlace,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where bank_guarante_id = #{bankGuaranteId,jdbcType=BIGINT}
+  </update>
+
+</mapper>
