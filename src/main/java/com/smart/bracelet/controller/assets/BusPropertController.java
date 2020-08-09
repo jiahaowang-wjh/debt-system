@@ -1,16 +1,17 @@
-package com.smart.bracelet.controller.debt;
+package com.smart.bracelet.controller.assets;
 
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.debt.BusPropert;
 import com.smart.bracelet.model.vo.debt.BusPropertVo;
-import com.smart.bracelet.service.debt.BusPropertService;
+import com.smart.bracelet.service.assets.BusPropertService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -53,5 +54,17 @@ public class BusPropertController {
         return Result.success(busProperts);
     }
 
+    /**
+     * 更新资产审批状态
+     * @param status
+     * @param propertId
+     * @return
+     * @throws CustomerException
+     */
+    @RequestMapping("/updateStatus")
+    public Result updateStatus(@NotBlank(message = "状态不能为空")String status, @NotNull(message = "资产ID不能为空")Long propertId) throws CustomerException{
+        int i = busPropertService.updateStatus(status, propertId);
+        return Result.success(i);
+    }
 
 }

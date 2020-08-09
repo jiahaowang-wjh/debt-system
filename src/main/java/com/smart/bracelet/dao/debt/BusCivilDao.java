@@ -25,4 +25,12 @@ public interface BusCivilDao {
      */
     List<BusCivil> queryList();
 
+    /**
+     * 更新审核状态
+     * @param status
+     * @param civilId
+     * @return
+     */
+    int updateStatus(String status,Long civilId);
+
 }

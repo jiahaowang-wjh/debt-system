@@ -288,4 +288,7 @@
     </set>
     where civil_id = #{civilId,jdbcType=BIGINT}
   </update>
+    <update id="updateStatus">
+      update bus_civil set  `status` = #{status,jdbcType=VARCHAR} where civil_id = #{civilId,jdbcType=BIGINT}
+    </update>
 </mapper>

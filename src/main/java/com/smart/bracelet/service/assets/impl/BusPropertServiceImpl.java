@@ -1,10 +1,10 @@
-package com.smart.bracelet.service.debt.impl;
+package com.smart.bracelet.service.assets.impl;
 
-import com.smart.bracelet.dao.debt.BusPropertDao;
+import com.smart.bracelet.dao.assets.BusPropertDao;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.debt.BusPropert;
 import com.smart.bracelet.model.vo.debt.BusPropertVo;
-import com.smart.bracelet.service.debt.BusPropertService;
+import com.smart.bracelet.service.assets.BusPropertService;
 import com.smart.bracelet.utils.IdUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,5 +64,17 @@ public class BusPropertServiceImpl implements BusPropertService {
     @Override
     public List<BusPropert> queryList() {
         return busPropertDao.queryList();
+    }
+
+    @Override
+    public int updateStatus(String status, Long propertId) throws CustomerException {
+        try {
+            int i = busPropertDao.updateStatus(status, propertId);
+            log.info("更新状态成功,受影响行数:{}",i);
+            return i;
+        } catch (Exception e) {
+            log.error("更新状态失败,异常信息:{}",e.getMessage());
+            throw new CustomerException("更新状态失败");
+        }
     }
 }

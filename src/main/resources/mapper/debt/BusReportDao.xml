@@ -395,5 +395,8 @@
         </set>
         where report_id = #{reportId,jdbcType=BIGINT}
     </update>
+    <update id="updateStatus">
+          update bus_report set  `status` = #{status,jdbcType=VARCHAR} where report_id = #{reportId,jdbcType=BIGINT}
+    </update>
 
 </mapper>

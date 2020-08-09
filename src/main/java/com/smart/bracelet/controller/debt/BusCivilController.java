@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -65,5 +66,18 @@ public class BusCivilController {
     public Result<List<BusCivil>> queryList(){
         List<BusCivil> busCivils = busCivilService.queryList();
         return Result.success(busCivils);
+    }
+
+    /**
+     * 更新民事调解状态
+     * @param status
+     * @param civilId
+     * @return
+     * @throws CustomerException
+     */
+    @RequestMapping("/updateStatus")
+    public Result updateStatus(@NotBlank(message = "民事调解状态不能为空")String status, @NotNull(message = "民事调解Id不能为空")Long civilId) throws CustomerException{
+        int i = busCivilService.updateStatus(status, civilId);
+        return Result.success(i);
     }
 }

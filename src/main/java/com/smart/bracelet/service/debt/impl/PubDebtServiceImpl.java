@@ -78,4 +78,16 @@ public class PubDebtServiceImpl implements PubDebtService {
         List<PubDebt> pubDebts = pubDebtDao.queryList();
         return pubDebts;
     }
+
+    @Override
+    public int updateStatus(String status, Long debtId) throws CustomerException {
+        try {
+            int i = pubDebtDao.updateStatus(status, debtId);
+            log.info("更新解债状态成功,受影响行数:{}",i);
+            return i;
+        } catch (Exception e) {
+            log.error("更新解债状态失败,异常信息:{}",e.getMessage());
+            throw new CustomerException("更新解债状态失败");
+        }
+    }
 }

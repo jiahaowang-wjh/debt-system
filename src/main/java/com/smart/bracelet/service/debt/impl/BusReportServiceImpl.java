@@ -481,4 +481,15 @@ public class BusReportServiceImpl implements BusReportService {
         return list;
     }
 
+    @Override
+    public int updateStatus(String status, Long reportId) throws CustomerException {
+        try {
+            int i = busReportDao.updateStatus(status, reportId);
+            log.info("更新审核状态成功,受影响行数:{}",i);
+            return i;
+        } catch (Exception e) {
+            log.error("更新审核状态失败,异常信息:{}",e.getMessage());
+            throw new CustomerException("更新审核状态失败");
+        }
+    }
 }

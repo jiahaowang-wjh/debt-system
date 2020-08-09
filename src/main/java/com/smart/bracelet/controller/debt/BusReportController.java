@@ -27,63 +27,6 @@ public class BusReportController {
     @Autowired
     private BusReportService busReportService;
 
-    /**
-     * 非空验证
-     * @param busReportListVo
-     * @return
-     */
-    public StringBuffer PackageRep(BusReportListVo busReportListVo){
-        StringBuffer stringBuffer = new StringBuffer();
-        if (busReportListVo.getReportPropert().equals("1")) {
-            if (busReportListVo.getPersonalName().equals("")) {
-                stringBuffer.append("姓名不能为空,");
-            } if (busReportListVo.getPhone().equals("")){
-                stringBuffer.append("手机号码不能为空,");
-            } if (busReportListVo.getIdCard().equals("")){
-                stringBuffer.append("身份证号码不能为空,");
-            } if (busReportListVo.getArea().equals("")){
-                stringBuffer.append("所在地区不能为空,");
-            } if (busReportListVo.getEmail().equals("")){
-                stringBuffer.append("电子邮箱不能为空,");
-            } if (busReportListVo.getAssets().equals("")){
-                stringBuffer.append("资产总价值不能为空,");
-            } if (busReportListVo.getSex().equals("")){
-                stringBuffer.append("性别不能为空,");
-            } if (busReportListVo.getAssetsNumber().equals("")){
-                stringBuffer.append("资产项数不能为空,");
-            } if (busReportListVo.getCirculationAssets().equals("")){
-                stringBuffer.append("可流通资产价值不能为空");
-            }
-            if(stringBuffer.length()>0) {
-                return stringBuffer;
-            }
-        }else if(busReportListVo.getReportPropert().equals("2")){
-            if (busReportListVo.getCompanyName().equals("")) {
-                stringBuffer.append("企业名称不能为空,");
-            } if (busReportListVo.getCreditCode().equals("")){
-                stringBuffer.append("社会统一信用代码不能为空,");
-            } if (busReportListVo.getIndustryAttributes().equals("")){
-                stringBuffer.append("行业属性不能为空,");
-            } if (busReportListVo.getLegalName().equals("")){
-                stringBuffer.append("法定代表人名称不能为空,");
-            } if (busReportListVo.getLegalPhone().equals("")){
-                stringBuffer.append("法定代表人联系电话不能为空");
-            } if (busReportListVo.getLegalIdCard().equals("")){
-                stringBuffer.append("法定代表人身份证号不能为空");
-            } if (busReportListVo.getAddress().equals("")){
-                stringBuffer.append("注册地址不能为空");
-            } if (busReportListVo.getContactPerson().equals("")){
-                stringBuffer.append("企业联系人不能为空");
-            } if (busReportListVo.getContactPhone().equals("")){
-                stringBuffer.append("联系电话不能为空");
-            }
-            if(stringBuffer.length()>0){
-                return stringBuffer;
-            }
-        }
-        return stringBuffer;
-    }
-
 
     /**
      * 新增私人报备信息
@@ -219,4 +162,18 @@ public class BusReportController {
         List<DebtChain> list = busReportService.queryListChain(personIdCad);
         return Result.success(list);
     }
+
+    /**
+     * 更新审核状态
+     * @param status
+     * @param reportId
+     * @return
+     * @throws CustomerException
+     */
+    @RequestMapping("/updateStatus")
+    public Result updateStatus(@NotBlank(message = "状态不能为空")String status,@NotNull(message = "报备Id不能为空")Long reportId) throws CustomerException{
+        int i = busReportService.updateStatus(status, reportId);
+        return Result.success(i);
+    }
+
 }

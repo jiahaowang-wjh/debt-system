@@ -1,4 +1,4 @@
-package com.smart.bracelet.dao.debt;
+package com.smart.bracelet.dao.assets;
 
 import com.smart.bracelet.model.po.debt.BusPropert;
 import com.smart.bracelet.model.vo.debt.BusPropertVo;
@@ -17,5 +17,13 @@ public interface BusPropertDao {
     int updateByPrimaryKeySelective(BusPropertVo record);
 
     List<BusPropert> queryList();
+
+    /**
+     * 更新资产状态
+     * @param status
+     * @param propertId
+     * @return
+     */
+    int updateStatus(String status,Long propertId);
 
 }

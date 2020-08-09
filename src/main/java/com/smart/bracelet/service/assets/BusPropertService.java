@@ -1,4 +1,4 @@
-package com.smart.bracelet.service.debt;
+package com.smart.bracelet.service.assets;
 
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.debt.BusPropert;
@@ -18,4 +18,11 @@ public interface BusPropertService {
 
     List<BusPropert> queryList();
 
+    /**
+     * 更新资产状态
+     * @param status
+     * @param propertId
+     * @return
+     */
+    int updateStatus(String status,Long propertId) throws CustomerException;
 }

@@ -290,7 +290,10 @@
     </set>
     where debt_id = #{debtId,jdbcType=BIGINT}
   </update>
-  <select id="selectDaysCount" resultType="com.smart.bracelet.model.po.debt.DateAndDays">
+    <update id="updateStatus">
+      update pub_debt set  `status` = #{status,jdbcType=VARCHAR} where debt_id = #{debtId,jdbcType=BIGINT}
+    </update>
+    <select id="selectDaysCount" resultType="com.smart.bracelet.model.po.debt.DateAndDays">
       SELECT DATE_FORMAT(create_time,'%Y-%m-%d') days,COUNT(*) COUNT FROM `pub_debt` GROUP BY days;
   </select>
   <select id="queryList" resultType="com.smart.bracelet.model.po.debt.PubDebt">

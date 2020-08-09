@@ -33,4 +33,12 @@ public interface BusReportDao {
      */
     DebtChain queryLisyChain(String personIdCad);
 
+    /**
+     * 更新审核状态
+     * @param status
+     * @param reportId
+     * @return
+     */
+    int updateStatus(String status,Long reportId);
+
 }

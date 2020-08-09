@@ -79,4 +79,16 @@ public class BusCivilServiceImpl implements BusCivilService {
     public List<BusCivil> queryList() {
         return busCivilDao.queryList();
     }
+
+    @Override
+    public int updateStatus(String status, Long civilId) throws CustomerException {
+        try {
+            int i = busCivilDao.updateStatus(status, civilId);
+            log.info("更新民事调解状态成功,受影响行数:{}",i);
+            return i;
+        } catch (Exception e) {
+            log.error("更新民事调解状态失败,异常信息:{}",e.getMessage());
+            throw new CustomerException("更新民事调解状态失败");
+        }
+    }
 }

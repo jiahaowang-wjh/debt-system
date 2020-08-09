@@ -70,4 +70,13 @@ public interface BusReportService {
      * @return
      */
     List<DebtChain> queryListChain(String personIdCad);
+
+    /**
+     * 更新审核状态
+     * @param status
+     * @param reportId
+     * @return
+     */
+    int updateStatus(String status,Long reportId) throws CustomerException;
+
 }

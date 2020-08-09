@@ -29,4 +29,12 @@ public interface PubDebtDao {
      */
     List<PubDebt> queryList();
 
+
+    /**
+     * 更新审核状态
+     * @param status
+     * @param debtId
+     * @return
+     */
+    int updateStatus(String status,Long debtId);
 }
