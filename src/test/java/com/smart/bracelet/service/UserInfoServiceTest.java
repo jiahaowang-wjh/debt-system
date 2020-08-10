@@ -32,7 +32,8 @@ public class UserInfoServiceTest {
     @Test
     public void testA() throws IOException {
         IVerifyCodeGen iVerifyCodeGen = new SimpleCharVerifyCodeGenImpl();
-        VerifyCode verifyCode = iVerifyCodeGen.generate(20,10);
-        System.out.println(verifyCode);
+        VerifyCode generate = iVerifyCodeGen.generate(80, 20);
+        String code = generate.getCode();
+        System.out.println(code);
     }
 }
