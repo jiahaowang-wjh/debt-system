@@ -6,6 +6,7 @@ import com.smart.bracelet.model.vo.debt.BusReportVo;
 import com.smart.bracelet.model.vo.debt.DebtChain;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigInteger;
 import java.util.List;
 
 @Repository
@@ -32,6 +33,18 @@ public interface BusReportDao {
      * @return
      */
     DebtChain queryLisyChain(String personIdCad);
+
+    /**
+     *查询债事人
+     * @return
+     */
+    DebtChain queryLisyDebtor(String personIdCad);
+
+    /**
+     *查询相对人
+     * @return
+     */
+    List<DebtChain> queryLisyRelativePerson(BigInteger personId);
 
     /**
      * 更新审核状态

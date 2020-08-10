@@ -69,7 +69,8 @@ public interface BusReportService {
      *查询债事人债事链
      * @return
      */
-    List<DebtChain> queryListChain(String personIdCad);
+   DebtChain queryListChain(String personIdCad);
+
 
     /**
      * 更新审核状态

@@ -458,27 +458,60 @@ public class BusReportServiceImpl implements BusReportService {
      * @return
      */
     @Override
-    public List<DebtChain> queryListChain(String personIdCad) {
-        List<DebtChain> list = new ArrayList<>();
+    public DebtChain queryListChain(String personIdCad) {
+//        List<DebtChain> list = new ArrayList<>();
+//        DebtChain debtChain;
+//        int i = 0;
+//        boolean ok = true;
+//        while (ok) {
+//            if(i==0){
+//                 debtChain = busReportDao.queryLisyChain(personIdCad);
+//                 i++;
+//            }else{
+//                debtChain = busReportDao.queryLisyChain(list.get(list.size() - 1).getRelativePersonIdCad());
+//            }
+//            if (debtChain != null) {
+//                if (debtChain.getRelativePersonIdCad() != null && !debtChain.getRelativePersonIdCad().equals("")) {
+//                    list.add(debtChain);
+//                }
+//            } else {
+//                ok = false;
+//            }
+//        }
+//        return list;
+        //查询债事人
         DebtChain debtChain;
-        int i = 0;
-        boolean ok = true;
-        while (ok) {
-            if(i==0){
-                 debtChain = busReportDao.queryLisyChain(personIdCad);
-                 i++;
-            }else{
-                debtChain = busReportDao.queryLisyChain(list.get(list.size() - 1).getRelativePersonIdCad());
-            }
-            if (debtChain != null) {
-                if (debtChain.getRelativePersonIdCad() != null && !debtChain.getRelativePersonIdCad().equals("")) {
-                    list.add(debtChain);
+        debtChain = busReportDao.queryLisyDebtor(personIdCad);
+        //查询相对人
+        List<DebtChain> list = new ArrayList<>();
+        list = busReportDao.queryLisyRelativePerson(debtChain.getFatherId());
+        if(list!=null&&list.size()>0){
+            debtChain.setDebtChain(list);
+            debtChain=lisyChain(debtChain);
+        }
+        return debtChain;
+    }
+
+    /**
+     * 债事链递归
+     * @param debtChain
+     */
+    public DebtChain lisyChain( DebtChain debtChain){
+        List<DebtChain> list = debtChain.getDebtChain();
+        for (int i = 0; i < list.size() ; i++) {
+            List<DebtChain> lista = new ArrayList<>();
+            DebtChain debtChain1 = list.get(i);
+            debtChain1 = busReportDao.queryLisyDebtor(debtChain1.getRelativePersonIdCad());
+            if(debtChain1!=null){
+                lista = busReportDao.queryLisyRelativePerson(debtChain1.getFatherId());
+                if(lista!=null&&lista.size()>0){
+                    debtChain.getDebtChain().get(i).setDebtChain(lista);
+                    debtChain1.setDebtChain(lista);
+                    lisyChain(debtChain1);
                 }
-            } else {
-                ok = false;
             }
         }
-        return list;
+        return debtChain;
     }
 
     @Override
