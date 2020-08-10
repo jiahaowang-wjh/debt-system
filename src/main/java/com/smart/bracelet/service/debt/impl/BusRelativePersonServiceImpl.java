@@ -73,8 +73,8 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
         if(busRelativePerson.getReportPropert().equals("1")){
             //私人性质
             busRelativePersonListVo.setPersonalName(busRelativePerson.getData1());
-            busRelativePersonListVo.setPhone(busRelativePerson.getData2());
-            busRelativePersonListVo.setIdCard(busRelativePerson.getData3());
+            busRelativePersonListVo.setPhone(busRelativePerson.getData3());
+            busRelativePersonListVo.setIdCard(busRelativePerson.getData2());
             busRelativePersonListVo.setSex(busRelativePerson.getData4());
             busRelativePersonListVo.setArea(busRelativePerson.getData5());
             busRelativePersonListVo.setEmail(busRelativePerson.getData6());
@@ -125,8 +125,8 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
             busRelativePerson.setReportType(busRelativePersonPrivateVo.getReportType());
             busRelativePerson.setReportPropert("1");
             busRelativePerson.setData1(busRelativePersonPrivateVo.getPersonalName());
-            busRelativePerson.setData2(busRelativePersonPrivateVo.getPhone());
-            busRelativePerson.setData3(busRelativePersonPrivateVo.getIdCard());
+            busRelativePerson.setData2(busRelativePersonPrivateVo.getIdCard());
+            busRelativePerson.setData3(busRelativePersonPrivateVo.getPhone());
             busRelativePerson.setData4(busRelativePersonPrivateVo.getSex());
             busRelativePerson.setData5(busRelativePersonPrivateVo.getArea());
             busRelativePerson.setData6(busRelativePersonPrivateVo.getEmail());
@@ -180,8 +180,8 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
             busRelativePerson.setReportType(busRelativePersonPrivateVo.getReportType());
             busRelativePerson.setReportPropert("1");
             busRelativePerson.setData1(busRelativePersonPrivateVo.getPersonalName());
-            busRelativePerson.setData2(busRelativePersonPrivateVo.getPhone());
-            busRelativePerson.setData3(busRelativePersonPrivateVo.getIdCard());
+            busRelativePerson.setData2(busRelativePersonPrivateVo.getIdCard());
+            busRelativePerson.setData3(busRelativePersonPrivateVo.getPhone());
             busRelativePerson.setData4(busRelativePersonPrivateVo.getSex());
             busRelativePerson.setData5(busRelativePersonPrivateVo.getArea());
             busRelativePerson.setData6(busRelativePersonPrivateVo.getEmail());

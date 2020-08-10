@@ -73,8 +73,8 @@ public class BusReportServiceImpl implements BusReportService {
             //根据性质判断属于个人还是企业或银行
             if (busReport.getReportPropert().equals("1")) {
                 busReportListVo.setPersonalName(busReport.getData1());
-                busReportListVo.setPhone(busReport.getData2());
-                busReportListVo.setIdCard(busReport.getData3());
+                busReportListVo.setPhone(busReport.getData3());
+                busReportListVo.setIdCard(busReport.getData2());
                 busReportListVo.setSex(busReport.getData4());
                 busReportListVo.setArea(busReport.getData5());
                 busReportListVo.setEmail(busReport.getData6());
@@ -158,8 +158,8 @@ public class BusReportServiceImpl implements BusReportService {
             busReport.setCreateTime(busPrivateReport.getCreateTime());
             busReport.setUpdateTime(busPrivateReport.getUpdateTime());
             busReport.setData1(busPrivateReport.getPersonalName());
-            busReport.setData2(busPrivateReport.getPhone());
-            busReport.setData3(busPrivateReport.getIdCard());
+            busReport.setData2(busPrivateReport.getIdCard());
+            busReport.setData3(busPrivateReport.getPhone());
             busReport.setData4(busPrivateReport.getSex());
             busReport.setData5(busPrivateReport.getArea());
             busReport.setData6(busPrivateReport.getEmail());
@@ -214,8 +214,8 @@ public class BusReportServiceImpl implements BusReportService {
             busReport.setCreateTime(busPrivateReport.getCreateTime());
             busReport.setUpdateTime(busPrivateReport.getUpdateTime());
             busReport.setData1(busPrivateReport.getPersonalName());
-            busReport.setData2(busPrivateReport.getPhone());
-            busReport.setData3(busPrivateReport.getIdCard());
+            busReport.setData2(busPrivateReport.getIdCard());
+            busReport.setData3(busPrivateReport.getPhone());
             busReport.setData4(busPrivateReport.getSex());
             busReport.setData5(busPrivateReport.getArea());
             busReport.setData6(busPrivateReport.getEmail());
