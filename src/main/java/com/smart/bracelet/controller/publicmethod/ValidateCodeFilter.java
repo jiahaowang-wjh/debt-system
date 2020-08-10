@@ -39,7 +39,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
                 //通过输入的验证码获取redis中的码值
                 String code = (String) redisTemplate.opsForValue().get(CacheConstants.DEFAULT_CODE_KEY +key);
                 //String parameterCode = httpServletRequest.getParameter("verificationCode");
-                if (key.equals("")) {
+                if (StringUtils.isBlank(key)) {
                     throw new ValidateCodeException("验证码不能为空");
                 }
                 if (StringUtils.isBlank(code)) {
