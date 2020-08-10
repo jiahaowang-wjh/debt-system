@@ -1,29 +1,30 @@
 package com.smart.bracelet.controller.publicmethod;
 
-import com.smart.bracelet.exception.CustomerException;
-import com.smart.bracelet.message.Result;
+import com.smart.bracelet.constant.CacheConstants;
 import com.smart.bracelet.model.utilesBean.VerifyCode;
 import com.smart.bracelet.service.utilsService.IVerifyCodeGen;
 import com.smart.bracelet.service.utilsService.impl.SimpleCharVerifyCodeGenImpl;
 import com.wordnik.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.constraints.NotBlank;
 import java.io.IOException;
 
 @Slf4j
 @RestController
 @Validated
-@RequestMapping("/api/verificationCode")
+@RequestMapping("/verificationCode")
 public class VerificationCode {
 
-
-    private String verifyCodeName;
+    @Autowired
+    RedisTemplate redisTemplate;
 
     @ApiOperation(value = "验证码")
     @GetMapping("/verifyCode")
@@ -33,7 +34,7 @@ public class VerificationCode {
             //设置长宽
             VerifyCode verifyCode = iVerifyCodeGen.generate(80, 28);
             String code = verifyCode.getCode();
-            verifyCodeName = code;
+            redisTemplate.opsForValue().set(CacheConstants.DEFAULT_CODE_KEY + code, code);
             log.info(code);
             //将VerifyCode绑定session
             request.getSession().setAttribute("VerifyCode", code);
@@ -51,13 +52,4 @@ public class VerificationCode {
             log.info("", e);
         }
     }
-
-    @RequestMapping("/codeCompare")
-    public Result codeCompare(@NotBlank(message = "验证码不能为空") String codeName) throws CustomerException {
-        if(!codeName.equalsIgnoreCase(verifyCodeName)){
-           throw new CustomerException("验证码输入错误");
-        }
-        return Result.success("验证成功");
-    }
-
 }

@@ -1,7 +1,9 @@
 package com.smart.bracelet.config;
 
 import com.smart.bracelet.constant.SecurityConstants;
+import com.smart.bracelet.controller.publicmethod.ValidateCodeFilter;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * TODO:
@@ -36,6 +39,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected AuthenticationFailureHandler authenticationFailureHandler;
 
     private UserDetailsService userDetailsService;
+
+    @Autowired
+    private ValidateCodeFilter validateCodeFilter;
 
 
     @Bean
@@ -66,7 +72,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
+        http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
                 .formLogin()
                 .loginPage(SecurityConstants.DEFAULT_UNAUTHENTICATION_URL)
                 .loginProcessingUrl(SecurityConstants.DEFAULT_SIGN_IN_PROCESSING_URL_FORM)
@@ -74,7 +80,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .failureHandler(authenticationFailureHandler)
                 .and()
                 .csrf().disable();
-
     }
 }
 
