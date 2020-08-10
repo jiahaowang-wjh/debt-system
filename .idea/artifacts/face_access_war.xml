@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="face-access:war">
+    <output-path>$PROJECT_DIR$/../face-access1/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>face-access</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="access.war">
+      <element id="artifact" artifact-name="face-access:war exploded" />
+    </root>
+  </artifact>
+</component>
