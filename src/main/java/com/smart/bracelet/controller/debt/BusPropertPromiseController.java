@@ -3,6 +3,7 @@ package com.smart.bracelet.controller.debt;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.debt.BusPropertPromise;
+import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.vo.debt.BusPropertPromiseVo;
 import com.smart.bracelet.service.debt.BusPropertPromiseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,5 +51,15 @@ public class BusPropertPromiseController {
     public Result<List<BusPropertPromise>> queryList() {
         List<BusPropertPromise> busPropertPromises = busPropertPromiseService.queryList();
         return Result.success(busPropertPromises);
+    }
+
+    /**
+     * 查询每日承诺书数量
+     * @return
+     */
+    @RequestMapping("/selectDaysCount")
+    public Result<List<DateAndDays>> selectDaysCount(){
+        List<DateAndDays> dateAndDays = busPropertPromiseService.selectDaysCount();
+        return Result.success(dateAndDays);
     }
 }

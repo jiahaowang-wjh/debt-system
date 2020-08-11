@@ -59,7 +59,7 @@
         from bus_report
     </select>
     <select id="selectDaysCount" resultType="com.smart.bracelet.model.po.debt.DateAndDays">
-        SELECT DATE_FORMAT(create_time,'%Y-%m-%d') days,COUNT(*) COUNT FROM bus_report GROUP BY days;
+        SELECT DATE_FORMAT(create_time,'%Y-%m-%d') days,COUNT(*) COUNT FROM bus_report GROUP BY days ORDER BY days DESC LIMIT 10;
     </select>
     <select id="queryLisyChain" resultType="com.smart.bracelet.model.vo.debt.DebtChain">
         SELECT br.data1 AS Report,brp.data1 AS RelativePerson,brp.data3 AS RelativePersonIdCad FROM bus_report br

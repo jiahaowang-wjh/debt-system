@@ -41,7 +41,7 @@
     where civil_id = #{civilId,jdbcType=BIGINT}
   </select>
   <select id="selectDaysCount" resultType="com.smart.bracelet.model.po.debt.DateAndDays">
-      SELECT DATE_FORMAT(create_time,'%Y-%m-%d') days,COUNT(*) COUNT FROM `bus_civil` GROUP BY days;
+      SELECT DATE_FORMAT(create_time,'%Y-%m-%d') days,COUNT(*) COUNT FROM bus_civil GROUP BY days ORDER BY days DESC LIMIT 10;
   </select>
   <select id="queryList" resultType="com.smart.bracelet.model.po.debt.BusCivil">
     select

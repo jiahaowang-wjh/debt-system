@@ -21,6 +21,9 @@
     promise_id, propert_id, `name`, sex, birth, card, debt_person, loan_amount, loan_interest, 
     loan_time, execute_person, execute_card, execute_date, `status`
   </sql>
+  <select id="selectDaysCount" resultType="com.smart.bracelet.model.po.debt.DateAndDays">
+    SELECT DATE_FORMAT(create_time,'%Y-%m-%d') days,COUNT(*) COUNT FROM bus_propert_promise GROUP BY days ORDER BY days DESC LIMIT 10;
+    </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

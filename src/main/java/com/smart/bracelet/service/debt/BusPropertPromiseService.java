@@ -2,6 +2,7 @@ package com.smart.bracelet.service.debt;
 
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.debt.BusPropertPromise;
+import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.vo.debt.BusPropertPromiseVo;
 import org.springframework.stereotype.Repository;
 
@@ -19,4 +20,6 @@ public interface BusPropertPromiseService {
     int updateByPrimaryKeySelective(BusPropertPromiseVo record) throws CustomerException;
 
     List<BusPropertPromise> queryList();
+
+    List<DateAndDays> selectDaysCount();
 }

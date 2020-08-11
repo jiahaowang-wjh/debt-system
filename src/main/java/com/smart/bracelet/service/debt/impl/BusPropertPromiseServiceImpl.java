@@ -3,6 +3,7 @@ package com.smart.bracelet.service.debt.impl;
 import com.smart.bracelet.dao.debt.BusPropertPromiseDao;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.debt.BusPropertPromise;
+import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.vo.debt.BusPropertPromiseVo;
 import com.smart.bracelet.service.debt.BusPropertPromiseService;
 import com.smart.bracelet.utils.IdUtils;
@@ -62,5 +63,10 @@ public class BusPropertPromiseServiceImpl implements BusPropertPromiseService {
     @Override
     public List<BusPropertPromise> queryList() {
         return busPropertPromiseDao.queryList();
+    }
+
+    @Override
+    public List<DateAndDays> selectDaysCount() {
+        return busPropertPromiseDao.selectDaysCount();
     }
 }

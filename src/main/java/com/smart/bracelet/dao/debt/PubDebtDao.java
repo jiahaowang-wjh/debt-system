@@ -9,6 +9,7 @@ import java.util.List;
 
 @Repository
 public interface PubDebtDao {
+
     int deleteByPrimaryKey(Long debtId);
 
     int insertSelective(PubDebt record);
@@ -22,6 +23,7 @@ public interface PubDebtDao {
      * @return
      */
     List<DateAndDays> selectDaysCount();
+
 
     /**
      * 查询所有借债信息
