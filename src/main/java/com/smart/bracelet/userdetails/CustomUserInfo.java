@@ -38,9 +38,21 @@ public class CustomUserInfo implements UserDetails, CredentialsContainer, Serial
 
     private final boolean accountNonLocked;
 
+    private final String roleId;
+
+    /**
+     * 人员ID
+     */
+    private final String personId;
+    /**
+     * 公司ID
+     */
+    private final String comId;
+
+
     private final Collection<? extends GrantedAuthority> authorities;
     
-    public CustomUserInfo(String userInfoId, String username, String name, String password, String userAvatar, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
+    public CustomUserInfo(String userInfoId, String username, String name, String password, String personId,String comId,String roleId,String userAvatar, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
         if (username != null && !"".equals(username) && password != null) {
         this.userInfoId = userInfoId;
         this.username = username;
@@ -52,6 +64,9 @@ public class CustomUserInfo implements UserDetails, CredentialsContainer, Serial
         this.credentialsNonExpired = credentialsNonExpired;
         this.accountNonLocked = accountNonLocked;
         this.authorities = authorities;
+        this.personId=personId;
+        this.comId = comId;
+        this.roleId = roleId;
         } else {
             throw new IllegalArgumentException("Cannot pass null or empty values to constructor");
         }
@@ -60,6 +75,18 @@ public class CustomUserInfo implements UserDetails, CredentialsContainer, Serial
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.authorities;
+    }
+
+    public String getRoleId() {
+        return roleId;
+    }
+
+    public String getComId() {
+        return comId;
+    }
+
+    public String getPersonId() {
+        return personId;
     }
 
     public String getName() {

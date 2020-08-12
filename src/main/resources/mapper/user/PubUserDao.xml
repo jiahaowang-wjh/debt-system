@@ -52,6 +52,12 @@
         INNER JOIN pub_person pp ON pu.person_id=pp.person_id
         INNER JOIN pub_company pc ON pp.company_id = pc.company_id
     </select>
+    <select id="selectUserComId" resultType="java.lang.Long">
+        SELECT  pc.`company_id` FROM pub_user pu
+        INNER JOIN pub_person pp ON pu.`person_id`=pp.`person_id`
+        INNER JOIN pub_company pc ON pp.`company_id`=pc.`company_id`
+        WHERE pu.`user_id` = #{userId,jdbcType=BIGINT}
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from pub_user
     where user_id = #{userId,jdbcType=BIGINT}

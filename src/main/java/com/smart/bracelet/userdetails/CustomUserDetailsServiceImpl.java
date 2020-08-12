@@ -35,6 +35,7 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String userAccount) throws UsernameNotFoundException {
         PubUser pubUser = pubUserService.selectUserInfoAccount(userAccount);
+        Long comId = pubUserService.selectUserComId(pubUser.getUserId());
         if (StringUtils.isEmpty(pubUser)) {
             throw new UsernameNotFoundException("用户名不存在");
         }
@@ -44,6 +45,6 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
             System.out.println(item);
             authorities.add(new SimpleGrantedAuthority(item));
         }
-        return new CustomUserInfo(pubUser.getUserId().toString(), pubUser.getLoginName(), pubUser.getUserName(), pubUser.getPasswordMd5(), pubUser.getUserAvatar(), true, true, true, true, authorities);
+        return new CustomUserInfo(pubUser.getUserId().toString(), pubUser.getLoginName(), pubUser.getUserName(), pubUser.getPasswordMd5(),pubUser.getPersonId().toString() ,comId.toString(),pubUser.getRoleId().toString(),pubUser.getUserAvatar(), true, true, true, true, authorities);
     }
 }

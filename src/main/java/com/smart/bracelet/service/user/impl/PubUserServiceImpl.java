@@ -25,6 +25,7 @@ public class PubUserServiceImpl implements PubUserService {
 
     /**
      * 通过ID删除用户信息
+     *
      * @param userId
      * @return
      * @throws CustomerException
@@ -33,16 +34,17 @@ public class PubUserServiceImpl implements PubUserService {
     public int deleteByPrimaryKey(Long userId) throws CustomerException {
         try {
             int i = pubUserDao.deleteByPrimaryKey(userId);
-            log.info("删除用户信息成功,首映影响行数:{}",i);
+            log.info("删除用户信息成功,首映影响行数:{}", i);
             return i;
         } catch (Exception e) {
-            log.error("删除用户信息失败,异常信息:",e.getMessage());
+            log.error("删除用户信息失败,异常信息:", e.getMessage());
             throw new CustomerException("删除用户信息失败");
         }
     }
 
     /**
      * 新增用户信息
+     *
      * @param record
      * @return
      * @throws CustomerException
@@ -55,16 +57,17 @@ public class PubUserServiceImpl implements PubUserService {
             //是否有效,0无效,1有效,默认有效
             record.setIsenable("1");
             int i = pubUserDao.insertSelective(record);
-            log.info("用户信息添加成功,受影响行数:{}",i);
+            log.info("用户信息添加成功,受影响行数:{}", i);
             return i;
         } catch (Exception e) {
-            log.error("用户信息添加失败,异常信息:{}",e.getMessage());
+            log.error("用户信息添加失败,异常信息:{}", e.getMessage());
             throw new CustomerException("用户信息添加失败");
         }
     }
 
     /**
      * 通过Id查询用户信息
+     *
      * @param userId
      * @return
      */
@@ -75,6 +78,7 @@ public class PubUserServiceImpl implements PubUserService {
 
     /**
      * 修改用户信息
+     *
      * @param record
      * @return
      * @throws CustomerException
@@ -83,10 +87,10 @@ public class PubUserServiceImpl implements PubUserService {
     public int updateByPrimaryKeySelective(PubUserVo record) throws CustomerException {
         try {
             int i = pubUserDao.updateByPrimaryKeySelective(record);
-            log.info("修改用户信息成功,受影响行数:{}",i);
+            log.info("修改用户信息成功,受影响行数:{}", i);
             return i;
         } catch (Exception e) {
-            log.error("修改用户信息失败,异常信息:{}",e.getMessage());
+            log.error("修改用户信息失败,异常信息:{}", e.getMessage());
             throw new CustomerException("修改用户信息失败");
         }
     }
@@ -98,6 +102,7 @@ public class PubUserServiceImpl implements PubUserService {
 
     /**
      * 查询用户权限
+     *
      * @param logName
      * @return
      */
@@ -113,6 +118,7 @@ public class PubUserServiceImpl implements PubUserService {
 
     /**
      * 查询菜单信息
+     *
      * @param userId
      * @return
      */
@@ -123,35 +129,37 @@ public class PubUserServiceImpl implements PubUserService {
 
     /**
      * 修改密码
-     * @param outPwd 旧密码
-     * @param newPwdA 新密码
-     * @param newPwdB 重复确认新密码
+     *
+     * @param outPwd   旧密码
+     * @param newPwdA  新密码
+     * @param newPwdB  重复确认新密码
      * @param personId 用户ID
      * @return
      * @throws CustomerException
      */
     @Override
-    public int updateUserPwd(String outPwd,String newPwdA,String newPwdB,Long personId) throws CustomerException {
+    public int updateUserPwd(String outPwd, String newPwdA, String newPwdB, Long personId) throws CustomerException {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         try {
             PubUser pubUser = selectByPrimaryKey(personId);
-            if(!bCryptPasswordEncoder.matches(outPwd,pubUser.getPasswordMd5())){
+            if (!bCryptPasswordEncoder.matches(outPwd, pubUser.getPasswordMd5())) {
                 throw new CustomerException("原密码输入错误");
             }
-            if(!newPwdA.equals(newPwdB)){
+            if (!newPwdA.equals(newPwdB)) {
                 throw new CustomerException("两次密码不一致");
             }
             int updateUserPwd = pubUserDao.updateUserPwd(bCryptPasswordEncoder.encode(newPwdA), personId);
-            log.info("修改密码成功,受影响行数:{}",updateUserPwd);
+            log.info("修改密码成功,受影响行数:{}", updateUserPwd);
             return updateUserPwd;
         } catch (CustomerException e) {
-            log.error("修改密码失败,异常信息:{}",e.getMessage());
-            throw new CustomerException("修改密码失败:"+e.getMessage());
+            log.error("修改密码失败,异常信息:{}", e.getMessage());
+            throw new CustomerException("修改密码失败:" + e.getMessage());
         }
     }
 
     /**
      * 批量删除用户
+     *
      * @param userIds
      * @return
      */
@@ -159,21 +167,28 @@ public class PubUserServiceImpl implements PubUserService {
     public int delUserList(Long[] userIds) throws CustomerException {
         try {
             int delUserList = pubUserDao.delUserList(userIds);
-            log.info("批量删除用户成功,受影响行数:",delUserList);
+            log.info("批量删除用户成功,受影响行数:", delUserList);
             return delUserList;
         } catch (Exception e) {
-            log.error("批量删除用户失败,异常信息:{}",e.getMessage());
+            log.error("批量删除用户失败,异常信息:{}", e.getMessage());
             throw new CustomerException("批量删除用户失败");
         }
     }
 
     /**
      * 人员公司用户信息展示
+     *
      * @return
      */
     @Override
     public List<PersonOnUserOnComVo> queryList() {
         List<PersonOnUserOnComVo> personOnUserOnComVos = pubUserDao.queryList();
         return personOnUserOnComVos;
+    }
+
+    @Override
+    public Long selectUserComId(Long userId) {
+        Long aLong = pubUserDao.selectUserComId(userId);
+        return aLong;
     }
 }

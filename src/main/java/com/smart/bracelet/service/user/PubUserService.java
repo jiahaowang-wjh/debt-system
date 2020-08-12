@@ -89,4 +89,11 @@ public interface PubUserService {
      */
     List<PersonOnUserOnComVo> queryList();
 
+    /**
+     * 查询用户公司Id
+     * @param userId
+     * @return
+     */
+    Long selectUserComId(Long userId);
+
 }
