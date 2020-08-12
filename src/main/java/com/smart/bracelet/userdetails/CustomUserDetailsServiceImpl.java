@@ -35,10 +35,10 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String userAccount) throws UsernameNotFoundException {
         PubUser pubUser = pubUserService.selectUserInfoAccount(userAccount);
-        Long comId = pubUserService.selectUserComId(pubUser.getUserId());
         if (StringUtils.isEmpty(pubUser)) {
             throw new UsernameNotFoundException("用户名不存在");
         }
+        Long comId = pubUserService.selectUserComId(pubUser.getUserId());
         List<GrantedAuthority> authorities = new ArrayList<>();
         List<String> list = pubUserService.selectUserAuth(userAccount);
         for (String item : list) {

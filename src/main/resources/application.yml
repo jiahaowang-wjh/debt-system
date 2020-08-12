@@ -38,6 +38,11 @@ mybatis:
   mapper-locations: classpath*:mapper/*.xml
   configuration:
     cache-enabled: true
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
 # security配置
 security:
   oauth2:
@@ -47,3 +52,4 @@ security:
     resource:
       user-info-uri: http://localhost:8888/api/oauth/checkToken
       prefer-token-info: false
+filePath: F:/upload/img/

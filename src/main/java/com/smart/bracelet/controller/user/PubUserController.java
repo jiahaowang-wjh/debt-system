@@ -1,5 +1,7 @@
 package com.smart.bracelet.controller.user;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.user.PubMenu;
@@ -72,9 +74,11 @@ public class PubUserController {
      * @return
      */
     @RequestMapping("/queryUserList")
-    public Result<List<PubUser>> queryUserList(){
+    public Result<PageInfo> queryUserList(){
+        PageHelper.startPage(1,5);
         List<PubUser> pubUsers = userInfoService.queryUserList();
-        return Result.success(pubUsers);
+        PageInfo pageInfo = new PageInfo<PubUser>(pubUsers);
+        return Result.success(pageInfo);
     }
 
     /**
@@ -123,13 +127,17 @@ public class PubUserController {
     }
 
     /**
-     * 查询所有用户,人员,公司信息
+     *  分页查询所有用户,人员,公司信息
+     * @param pageNum
+     * @param pageSize
      * @return
      */
     @RequestMapping("/queryList")
-    public Result<List<PersonOnUserOnComVo>> queryList(){
+    public Result<PageInfo> queryList(@NotNull(message = "页码不能为空") Integer pageNum,@NotNull(message = "当前显示条数不能为空") Integer pageSize){
+        PageHelper.startPage(pageNum,pageSize);
         List<PersonOnUserOnComVo> personOnUserOnComVos = userInfoService.queryList();
-        return Result.success(personOnUserOnComVos);
+        PageInfo pageInfo = new PageInfo<PersonOnUserOnComVo>(personOnUserOnComVos);
+        return Result.success(pageInfo);
     }
 
 }
