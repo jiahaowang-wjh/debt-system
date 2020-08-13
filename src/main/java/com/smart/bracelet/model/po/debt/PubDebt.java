@@ -144,7 +144,7 @@ public class PubDebt implements Serializable {
     /**
      * 审核时间
      */
-    @NotNull(message = "审核状态不能为空")
+    @NotNull(message = "审核时间不能为空")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date checkDate;
 

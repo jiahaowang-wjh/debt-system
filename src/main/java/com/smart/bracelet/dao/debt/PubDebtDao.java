@@ -3,6 +3,7 @@ package com.smart.bracelet.dao.debt;
 import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.po.debt.PubDebt;
 import com.smart.bracelet.model.vo.debt.DebtInfoShow;
+import com.smart.bracelet.model.vo.debt.PubDebtShowList;
 import com.smart.bracelet.model.vo.debt.PubDebtVo;
 import org.springframework.stereotype.Repository;
 
@@ -48,4 +49,8 @@ public interface PubDebtDao {
     String selectRepNo();
 
 
+    /**
+     * 页面解债信息展示
+     */
+    List<PubDebtShowList> queryListShow();
 }

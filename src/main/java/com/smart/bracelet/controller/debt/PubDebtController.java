@@ -5,6 +5,7 @@ import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.po.debt.PubDebt;
 import com.smart.bracelet.model.vo.debt.DebtInfoShow;
+import com.smart.bracelet.model.vo.debt.PubDebtShowList;
 import com.smart.bracelet.model.vo.debt.PubDebtVo;
 import com.smart.bracelet.service.debt.PubDebtService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,5 +83,10 @@ public class PubDebtController {
         return Result.success(i);
     }
 
+    @RequestMapping("/queryListShow")
+    public Result<List<PubDebtShowList>> queryListShow(){
+        List<PubDebtShowList> pubDebtShowLists = pubDebtService.queryListShow();
+        return Result.success(pubDebtShowLists);
+    }
 
 }
