@@ -19,7 +19,10 @@ public interface CacheConstants {
 	 * 验证码前缀
 	 */
 	String DEFAULT_CODE_KEY = "DEFAULT_CODE_KEY:";
-
+	/**
+	 * 短信验证码前缀
+	 */
+	String TEL_CODE_KEY = "TEL_CODE_KEY:";
 
 	/**
 	 * 菜单信息缓存

@@ -51,6 +51,18 @@ public enum FailResultCode {
     VALIDATE_CODE_ERR("400","验证码错误"),
 
     /**
+     * 身份认证错误
+     *
+     */
+    SAFRV_CODE_ERR("400","身份认证失败 "),
+    CODE_13053_CODE_ERR("13053","姓名证件号校验不匹配 "),
+    CODE_13054_CODE_ERR("13054","姓名证件号和⼿机不匹配 "),
+    CODE_13055_CODE_ERR("13055","证件号和⼿机不匹配 "),
+    CODE_13056_CODE_ERR("13056","姓名和⼿机不匹配 "),
+    CODE_13057_CODE_ERR("13057","⽆法准确校验 "),
+    CODE_13066_CODE_ERR("13066","验证不⼀致 "),
+
+    /**
      * 尚未进行注册
      */
     SIGN_UPD("419", "尚未进行用户注册"),
