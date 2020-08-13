@@ -537,6 +537,39 @@ public class BusReportServiceImpl implements BusReportService {
         }
     }
 
+
+    @Override
+    public List<DebtInfoListShow> queryListDebtShow() throws CustomerException {
+        try {
+            List<DebtInfoShow> debtInfoShows = busReportDao.queryListDebtShow();
+            List<DebtInfoListShow> debtInfoListShowList = new ArrayList<>();
+            for (DebtInfoShow item: debtInfoShows) {
+                DebtInfoListShow debtInfoListShow = new DebtInfoListShow();
+                DebtInfo debtInfo = new DebtInfo();
+                debtInfo.setReportId(item.getReportId());
+                debtInfo.setReportNo(item.getReportNo());
+                debtInfo.setDebtName(item.getDebtName());
+                debtInfo.setBusRelativeName(item.getBusRelativeName());
+                debtInfo.setInputUserName(item.getInputUserName());
+                debtInfo.setRecomName(item.getRecomName());
+                debtInfoListShow.setDebtInfo(debtInfo);
+                debtInfoListShow.setResolveCount(item.getResolveCount());
+                debtInfoListShow.setResolveNo(item.getResolveNo());
+                debtInfoListShow.setAmountCumulative(item.getAmountCumulative());
+                debtInfoListShow.setSubMitDate(item.getSubMitDate());
+                debtInfoListShow.setAuditDate(item.getAuditDate());
+                debtInfoListShow.setApprovalContent(item.getApprovalContent());
+                debtInfoListShow.setStatus(item.getStatus());
+                debtInfoListShowList.add(debtInfoListShow);
+            }
+            return debtInfoListShowList;
+        } catch (Exception e) {
+            log.error("异常信息:{}",e.getMessage());
+            throw new CustomerException("查询失败");
+        }
+
+    }
+
     /**
      * 编号生成方法
      * @return

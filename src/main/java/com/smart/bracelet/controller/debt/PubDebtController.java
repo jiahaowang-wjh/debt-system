@@ -4,6 +4,7 @@ import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.po.debt.PubDebt;
+import com.smart.bracelet.model.vo.debt.DebtInfoShow;
 import com.smart.bracelet.model.vo.debt.PubDebtVo;
 import com.smart.bracelet.service.debt.PubDebtService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,4 +81,6 @@ public class PubDebtController {
         int i = pubDebtService.updateStatus(status, debtId);
         return Result.success(i);
     }
+
+
 }

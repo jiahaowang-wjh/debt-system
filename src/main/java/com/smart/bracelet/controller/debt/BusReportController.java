@@ -175,4 +175,16 @@ public class BusReportController {
         return Result.success(i);
     }
 
+
+    /**
+     * 页面报备信息展示
+     * @return
+     * @throws CustomerException
+     */
+    @RequestMapping("/queryListDebtShow")
+    public Result<List<DebtInfoListShow>> queryListDebtShow() throws CustomerException{
+        List<DebtInfoListShow> debtInfoShows = busReportService.queryListDebtShow();
+        return Result.success(debtInfoShows);
+    }
+
 }

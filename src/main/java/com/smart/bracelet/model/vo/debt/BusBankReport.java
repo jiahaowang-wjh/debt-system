@@ -113,7 +113,7 @@ public class BusBankReport {
     /**
      * 借款发生时间权
      */
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     @NotNull(message = "借款发生时间权不能为空")
     private Date obligatTime;
 
@@ -150,7 +150,7 @@ public class BusBankReport {
     /**
      * 借款发生时间务
      */
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     @NotNull(message = "借款发生时间务不能为空")
     private Date debtTime;
 
@@ -210,13 +210,13 @@ public class BusBankReport {
     /**
      * 创建时间
      */
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date createTime;
 
     /**
      * 更新时间
      */
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date updateTime;
 
 }

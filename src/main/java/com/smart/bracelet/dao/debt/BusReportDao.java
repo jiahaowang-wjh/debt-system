@@ -4,6 +4,7 @@ import com.smart.bracelet.model.po.debt.BusReport;
 import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.vo.debt.BusReportVo;
 import com.smart.bracelet.model.vo.debt.DebtChain;
+import com.smart.bracelet.model.vo.debt.DebtInfoShow;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigInteger;
@@ -60,4 +61,9 @@ public interface BusReportDao {
      */
     String selectRepNo();
 
+    /**
+     * 页面展示报备信息
+     * @return
+     */
+    List<DebtInfoShow> queryListDebtShow();
 }

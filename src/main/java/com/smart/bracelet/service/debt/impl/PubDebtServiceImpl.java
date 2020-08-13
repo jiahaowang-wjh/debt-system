@@ -4,6 +4,7 @@ import com.smart.bracelet.dao.debt.PubDebtDao;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.po.debt.PubDebt;
+import com.smart.bracelet.model.vo.debt.DebtInfoShow;
 import com.smart.bracelet.model.vo.debt.PubDebtVo;
 import com.smart.bracelet.service.debt.PubDebtService;
 import com.smart.bracelet.utils.IdUtils;
@@ -11,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
 import java.util.List;
 
 @Service
@@ -32,10 +34,12 @@ public class PubDebtServiceImpl implements PubDebtService {
         }
     }
 
+
     @Override
     public int insertSelective(PubDebt record) throws CustomerException {
         try {
             record.setDebtId(IdUtils.nextId());
+            record.setDebtNo(createRepNo());
             int insertSelective = pubDebtDao.insertSelective(record);
             log.info("新增解债信息成功,受影响行数:{}",insertSelective);
             return insertSelective;
@@ -90,4 +94,40 @@ public class PubDebtServiceImpl implements PubDebtService {
             throw new CustomerException("更新解债状态失败");
         }
     }
+
+
+
+    /**
+     * 编号生成方法
+     * @return
+     */
+    public String createRepNo(){
+        String repNo;
+        int intXuhao;
+        String stringXuhao;
+        boolean ok=true;
+        Calendar ca = Calendar.getInstance();
+        int year = ca.get(Calendar.YEAR);//获取年份
+        String xuHao=null;
+        String aLong = pubDebtDao.selectRepNo();
+        if(aLong!=null) {
+            xuHao = aLong.substring(aLong.toString().indexOf("F") + 1);
+            intXuhao = Integer.parseInt(xuHao);
+            intXuhao = intXuhao+1;
+            stringXuhao = intXuhao+"";
+            while (ok){
+                if(stringXuhao.length()<6){
+                    stringXuhao = 0+stringXuhao;
+                }else{
+                    ok = false;
+                }
+            }
+            repNo = "TZ" + year + "JJF"+stringXuhao;
+            return repNo;
+        }else {
+            repNo = "TZ" + year + "JJF"+"000001";
+            return repNo;
+        }
+    }
+
 }

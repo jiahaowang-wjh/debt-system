@@ -2,6 +2,7 @@ package com.smart.bracelet.dao.debt;
 
 import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.po.debt.PubDebt;
+import com.smart.bracelet.model.vo.debt.DebtInfoShow;
 import com.smart.bracelet.model.vo.debt.PubDebtVo;
 import org.springframework.stereotype.Repository;
 
@@ -39,4 +40,12 @@ public interface PubDebtDao {
      * @return
      */
     int updateStatus(String status,Long debtId);
+
+    /**
+     * 查询最后一个解债编号
+     * @return
+     */
+    String selectRepNo();
+
+
 }

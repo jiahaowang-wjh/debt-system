@@ -23,6 +23,19 @@ public class PubDebtVo implements Serializable {
     private Long debtId;
 
     /**
+     * 解债编号
+     */
+    @NotNull(message = "解债编号不能为空")
+    private String debtNo;
+
+    /**
+     * 审核时间
+     */
+    @NotNull(message = "审核状态不能为空")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date checkDate;
+
+    /**
      * 报备ID
      */
     @NotNull(message = "报备ID不能为空")

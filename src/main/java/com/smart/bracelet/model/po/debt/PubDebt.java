@@ -22,6 +22,11 @@ public class PubDebt implements Serializable {
     private Long debtId;
 
     /**
+     * 解债编号
+     */
+    private String debtNo;
+
+    /**
      * 报备ID
      */
     @NotNull(message = "报备ID不能为空")
@@ -133,8 +138,15 @@ public class PubDebt implements Serializable {
      * 甲方签约日期
      */
     @NotNull(message = "甲方签约日期不能为空")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date partyaDate;
+
+    /**
+     * 审核时间
+     */
+    @NotNull(message = "审核状态不能为空")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date checkDate;
 
     /**
      * 乙方受权代表人
@@ -152,7 +164,7 @@ public class PubDebt implements Serializable {
      * 乙方签约日期
      */
     @NotNull(message = "乙方签约日期不能为空")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date partybDate;
 
     /**
