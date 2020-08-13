@@ -28,6 +28,11 @@ public class BusReportVo implements Serializable {
     private Long companyId;
 
     /**
+     * 报备号
+     */
+    private String reportNo;
+
+    /**
      * 推荐人ID
      */
     private Long userId;

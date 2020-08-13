@@ -30,6 +30,11 @@ public class BusPrivateReportVo {
      */
     @NotNull(message = "推荐人ID不能为空")
     private Long userId;
+    /**
+     * 报备号
+     */
+    @NotBlank(message = "报备号不能为空")
+    private String reportNo;
 
     /**
      * 是否配合
@@ -94,7 +99,7 @@ public class BusPrivateReportVo {
      * 资产项数
      */
     @NotBlank(message = "资产项数不能为空")
-    private String assetsNumber ;
+    private String assetsNumber;
 
     /**
      * 可流通资产价值（元）
@@ -129,7 +134,7 @@ public class BusPrivateReportVo {
     /**
      * 借款发生时间权
      */
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @NotNull(message = "借款发生时间权不能为空")
     private Date obligatTime;
 
@@ -166,7 +171,7 @@ public class BusPrivateReportVo {
     /**
      * 借款发生时间务
      */
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @NotNull(message = "借款发生时间务不能为空")
     private Date debtTime;
 
@@ -218,7 +223,7 @@ public class BusPrivateReportVo {
     private Long createUserId;
 
     /**
-     *更新人Id
+     * 更新人Id
      */
     @NotNull(message = "更新人Id不能为空")
     private Long updateUserId;
@@ -226,13 +231,13 @@ public class BusPrivateReportVo {
     /**
      * 创建时间
      */
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     /**
      * 更新时间
      */
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
 }

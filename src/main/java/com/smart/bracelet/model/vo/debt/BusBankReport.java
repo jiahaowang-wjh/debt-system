@@ -24,6 +24,11 @@ public class BusBankReport {
     private Long companyId;
 
     /**
+     * 报备号
+     */
+    private String reportNo;
+
+    /**
      * 推荐人ID
      */
     @NotNull(message = "推荐人ID不能为空")

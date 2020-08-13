@@ -22,6 +22,11 @@ public class BusReportListVo implements Serializable {
     private Long reportId;
 
     /**
+     * 报备号
+     */
+    private String reportNo;
+
+    /**
      * 所属公司ID
      */
     @NotNull(message = "所属公司ID不能为空")

@@ -39,13 +39,15 @@
         <result column="update_user_id" jdbcType="VARCHAR" property="updateUserId"/>
         <result column="create_time" jdbcType="VARCHAR" property="createTime"/>
         <result column="update_time" jdbcType="VARCHAR" property="updateTime"/>
+        <result column="report_no" jdbcType="VARCHAR" property="reportNo"/>
+
     </resultMap>
     <sql id="Base_Column_List">
     report_id, company_id, user_id, iscoordinate, report_type, report_propert, data1, 
     data2, data3, data4, data5, data6, data7, data8, data9,card_just,
     card_back, obligat_right, obligat_right_no, obligat_time, capital, interest, interest_rate, 
     debt, debt_no, debt_time, debt_certificate, upload_debt_certificate, is_result, economics, 
-    prject_manager, `status`, stage,create_user_id,update_user_id,create_time,update_time
+    prject_manager, `status`, stage,create_user_id,update_user_id,create_time,update_time,report_no
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
@@ -75,6 +77,9 @@
         SELECT brp.data1 AS Report,brp.data3 AS RelativePersonIdCad FROM  bus_relative_person brp
         WHERE brp.report_id=#{personId,jdbcType=BIGINT}
     </select>
+    <select id="selectRepNo" resultType="java.lang.String">
+        SELECT   bus_report.`report_no`  FROM   bus_report   ORDER   BY   bus_report.`report_id`   DESC   LIMIT   1
+    </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from bus_report
@@ -85,6 +90,9 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="reportId != null">
                 report_id,
+            </if>
+            <if test="reportNo != null">
+                report_no,
             </if>
             <if test="companyId != null">
                 company_id,
@@ -192,6 +200,9 @@
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="reportId != null">
                 #{reportId,jdbcType=BIGINT},
+            </if>
+            <if test="reportNo != null">
+                #{reportNo,jdbcType=VARCHAR},
             </if>
             <if test="companyId != null">
                 #{companyId,jdbcType=BIGINT},
@@ -401,6 +412,9 @@
             </if>
             <if test="updateUserId != null">
                 update_user_id = #{updateUserId,jdbcType=BIGINT},
+            </if>
+            <if test="reportNo != null">
+                report_no = #{reportNo,jdbcType=VARCHAR},
             </if>
         </set>
         where report_id = #{reportId,jdbcType=BIGINT}

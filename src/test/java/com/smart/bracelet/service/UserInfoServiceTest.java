@@ -11,6 +11,7 @@ import com.smart.bracelet.service.debt.BusReportService;
 import com.smart.bracelet.service.utilsService.IVerifyCodeGen;
 import com.smart.bracelet.service.utilsService.impl.SimpleCharVerifyCodeGenImpl;
 import com.smart.bracelet.utils.IdUtils;
+import javafx.scene.input.DataFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -18,9 +19,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import javax.xml.crypto.Data;
 import java.io.IOException;
-import java.util.List;
-import java.util.UUID;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @SpringBootTest
@@ -30,11 +33,10 @@ public class UserInfoServiceTest {
     @Autowired
     private BusReportService busReportDao;
 
+
     @Test
-    public void testA() throws CustomerException {
-        PageHelper.startPage(1,10);
-        List<BusReportListVo> listVos = busReportDao.queryBusReport();
-        PageInfo<BusReportListVo> busReportPageInfo = new PageInfo<>(listVos);
-        System.out.println(busReportPageInfo);
+    public void testA() {
+
     }
+
 }

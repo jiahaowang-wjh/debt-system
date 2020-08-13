@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 @Service
@@ -43,6 +44,7 @@ public class BusReportServiceImpl implements BusReportService {
             //将工共字段先赋值
             busReportListVo.setReportId(busReport.getCompanyId());
             busReportListVo.setCompanyId(busReport.getCompanyId());
+            busReportListVo.setReportNo(busReport.getReportNo());
             busReportListVo.setUserId(busReport.getUserId());
             busReportListVo.setIscoordinate(busReport.getIscoordinate());
             busReportListVo.setReportType(busReport.getReportType());
@@ -70,6 +72,7 @@ public class BusReportServiceImpl implements BusReportService {
             busReportListVo.setUpdateTime(busReport.getUpdateTime());
             busReportListVo.setCardJust(busReport.getCardJust());
             busReportListVo.setCardBack(busReport.getCardBack());
+
             //根据性质判断属于个人还是企业或银行
             if (busReport.getReportPropert().equals("1")) {
                 busReportListVo.setPersonalName(busReport.getData1());
@@ -130,6 +133,8 @@ public class BusReportServiceImpl implements BusReportService {
         BusReport busReport = new BusReport();
         try {
             busReport.setReportId(IdUtils.nextId());
+            //设置报备编号
+
             busReport.setCompanyId(busPrivateReport.getCompanyId());
             busReport.setUserId(busPrivateReport.getUserId());
             busReport.setIscoordinate(busPrivateReport.getIscoordinate());
@@ -166,6 +171,7 @@ public class BusReportServiceImpl implements BusReportService {
             busReport.setData7(busPrivateReport.getAssets());
             busReport.setData8(busPrivateReport.getAssetsNumber());
             busReport.setData9(busPrivateReport.getCirculationAssets());
+            busReport.setReportNo(createRepNo());
             int insertSelective = busReportDao.insertSelective(busReport);
             log.info("新增私人报备信息成功,受影响行数:{}", insertSelective);
             return insertSelective;
@@ -186,6 +192,7 @@ public class BusReportServiceImpl implements BusReportService {
     public int updatePrivateSelective(BusPrivateReportVo busPrivateReport) throws CustomerException {
         try {
             BusReportVo busReport = new BusReportVo();
+            busReport.setReportNo(busPrivateReport.getReportNo());
             busReport.setReportId(busPrivateReport.getReportId());
             busReport.setCompanyId(busPrivateReport.getCompanyId());
             busReport.setUserId(busPrivateReport.getUserId());
@@ -242,6 +249,7 @@ public class BusReportServiceImpl implements BusReportService {
         BusReport busReport = new BusReport();
         try {
             busReport.setReportId(IdUtils.nextId());
+            busReport.setReportNo(createRepNo());
             busReport.setCompanyId(busEterpriseReport.getCompanyId());
             busReport.setUserId(busEterpriseReport.getUserId());
             busReport.setIscoordinate(busEterpriseReport.getIscoordinate());
@@ -298,6 +306,7 @@ public class BusReportServiceImpl implements BusReportService {
     public int updateEterpriseSelective(BusEterpriseReportVo busEterpriseReport) throws CustomerException {
         try {
             BusReportVo busReport = new BusReportVo();
+            busReport.setReportNo(busEterpriseReport.getReportNo());
             busReport.setReportId(busEterpriseReport.getReportId());
             busReport.setCompanyId(busEterpriseReport.getCompanyId());
             busReport.setUserId(busEterpriseReport.getUserId());
@@ -354,6 +363,7 @@ public class BusReportServiceImpl implements BusReportService {
         BusReport busReport = new BusReport();
         try {
             busReport.setReportId(IdUtils.nextId());
+            busBankReport.setReportNo(createRepNo());
             busReport.setCompanyId(busBankReport.getCompanyId());
             busReport.setUserId(busBankReport.getUserId());
             busReport.setIscoordinate(busBankReport.getIscoordinate());
@@ -408,6 +418,7 @@ public class BusReportServiceImpl implements BusReportService {
     public int updateBankSelective(BusBankReportVo busBankReport) throws CustomerException {
         try {
             BusReportVo busReport = new BusReportVo();
+            busReport.setReportNo(busBankReport.getReportNo());
             busReport.setReportId(busBankReport.getReportId());
             busReport.setCompanyId(busBankReport.getCompanyId());
             busReport.setUserId(busBankReport.getUserId());
@@ -525,4 +536,39 @@ public class BusReportServiceImpl implements BusReportService {
             throw new CustomerException("更新审核状态失败");
         }
     }
+
+    /**
+     * 编号生成方法
+     * @return
+     */
+    public String createRepNo(){
+        String repNo;
+        int intXuhao;
+        String stringXuhao;
+        boolean ok=true;
+        Calendar ca = Calendar.getInstance();
+        int year = ca.get(Calendar.YEAR);//获取年份
+        String xuHao=null;
+        String aLong = busReportDao.selectRepNo();
+        if(aLong!=null) {
+            xuHao = aLong.substring(aLong.toString().indexOf("F") + 1);
+            intXuhao = Integer.parseInt(xuHao);
+            intXuhao = intXuhao+1;
+            stringXuhao = intXuhao+"";
+            while (ok){
+                if(stringXuhao.length()<6){
+                    stringXuhao = 0+stringXuhao;
+                }else{
+                    ok = false;
+                }
+            }
+            repNo = "TZ" + year + "BBF"+stringXuhao;
+            return repNo;
+        }else {
+            repNo = "TZ" + year + "BBF"+"000001";
+            return repNo;
+        }
+    }
+
+
 }

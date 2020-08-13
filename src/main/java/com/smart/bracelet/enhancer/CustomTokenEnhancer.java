@@ -22,11 +22,11 @@ public class CustomTokenEnhancer implements TokenEnhancer {
         final Map<String, Object> additionalInfo = new HashMap<>(8);
         CustomUserInfo customUserInfo = (CustomUserInfo) oAuth2Authentication.getPrincipal();
         additionalInfo.put("userInfoId", customUserInfo.getUserInfoId());
-        additionalInfo.put("登录名", customUserInfo.getUsername());
-        additionalInfo.put("登录图像", customUserInfo.getUserAvatar());
-        additionalInfo.put("人员ID",customUserInfo.getPersonId());
-        additionalInfo.put("公司ID",customUserInfo.getComId());
-        additionalInfo.put("角色Id",customUserInfo.getRoleId());
+        additionalInfo.put("userNickname", customUserInfo.getUsername());
+        additionalInfo.put("userAvatar", customUserInfo.getUserAvatar());
+        additionalInfo.put("personId",customUserInfo.getPersonId());
+        additionalInfo.put("companyId",customUserInfo.getComId());
+        additionalInfo.put("roleId",customUserInfo.getRoleId());
         ((DefaultOAuth2AccessToken) oAuth2AccessToken).setAdditionalInformation(additionalInfo);
         return oAuth2AccessToken;
     }

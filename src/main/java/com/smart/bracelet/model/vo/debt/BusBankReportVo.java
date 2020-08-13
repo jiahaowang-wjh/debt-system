@@ -18,6 +18,11 @@ public class BusBankReportVo {
      */
     @NotNull(message = "报备ID不能为空")
     private Long reportId;
+    /**
+     * 报备号
+     */
+    @NotBlank(message = "报备号不能为空")
+    private String reportNo;
 
     /**
      * 所属公司ID

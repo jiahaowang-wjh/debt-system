@@ -30,6 +30,11 @@ public class BusEterpriseReport {
     private Long userId;
 
     /**
+     * 报备号
+     */
+    private String reportNo;
+
+    /**
      * 是否配合
      */
     @NotBlank(message = "是否配合不能为空")

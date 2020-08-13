@@ -20,6 +20,11 @@ public class BusEterpriseReportVo {
     private Long reportId;
 
     /**
+     * 报备号
+     */
+    @NotBlank(message = "报备号不能为空")
+    private String reportNo;
+    /**
      * 所属公司ID
      */
     @NotNull(message = "所属公司ID不能为空")
