@@ -4,6 +4,7 @@ import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.po.debt.PubDebt;
 import com.smart.bracelet.model.vo.debt.DebtInfoShow;
+import com.smart.bracelet.model.vo.debt.PubDebtShowList;
 import com.smart.bracelet.model.vo.debt.PubDebtVo;
 
 import java.util.List;
@@ -37,7 +38,10 @@ public interface PubDebtService {
      * @return
      */
     int updateStatus(String status,Long debtId) throws CustomerException;
-
+    /**
+     * 页面解债信息展示
+     */
+    List<PubDebtShowList> queryListShow();
 
 
 }
