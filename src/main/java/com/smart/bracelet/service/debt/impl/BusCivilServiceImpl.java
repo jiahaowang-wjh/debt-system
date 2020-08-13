@@ -4,6 +4,7 @@ import com.smart.bracelet.dao.debt.BusCivilDao;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.debt.BusCivil;
 import com.smart.bracelet.model.po.debt.DateAndDays;
+import com.smart.bracelet.model.vo.debt.BusCivilShowList;
 import com.smart.bracelet.model.vo.debt.BusCivilVo;
 import com.smart.bracelet.service.debt.BusCivilService;
 import com.smart.bracelet.utils.IdUtils;
@@ -98,6 +99,11 @@ public class BusCivilServiceImpl implements BusCivilService {
             log.error("更新民事调解状态失败,异常信息:{}",e.getMessage());
             throw new CustomerException("更新民事调解状态失败");
         }
+    }
+
+    @Override
+    public List<BusCivilShowList> queryListShow() {
+        return busCivilDao.queryListShow();
     }
 
 

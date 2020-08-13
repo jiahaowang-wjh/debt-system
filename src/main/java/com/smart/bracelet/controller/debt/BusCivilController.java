@@ -4,6 +4,7 @@ import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.debt.BusCivil;
 import com.smart.bracelet.model.po.debt.DateAndDays;
+import com.smart.bracelet.model.vo.debt.BusCivilShowList;
 import com.smart.bracelet.model.vo.debt.BusCivilVo;
 import com.smart.bracelet.service.debt.BusCivilService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,4 +81,14 @@ public class BusCivilController {
         int i = busCivilService.updateStatus(status, civilId);
         return Result.success(i);
     }
+
+    /**
+     * 页面展示调节信息
+     */
+    @RequestMapping("/queryListShow")
+    public Result<List<BusCivilShowList>> queryListShow(){
+        List<BusCivilShowList> busCivilShowLists = busCivilService.queryListShow();
+        return Result.success(busCivilShowLists);
+    }
+
 }

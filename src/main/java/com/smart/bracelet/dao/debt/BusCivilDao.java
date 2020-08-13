@@ -2,6 +2,7 @@ package com.smart.bracelet.dao.debt;
 
 import com.smart.bracelet.model.po.debt.BusCivil;
 import com.smart.bracelet.model.po.debt.DateAndDays;
+import com.smart.bracelet.model.vo.debt.BusCivilShowList;
 import com.smart.bracelet.model.vo.debt.BusCivilVo;
 import org.springframework.stereotype.Repository;
 
@@ -38,5 +39,10 @@ public interface BusCivilDao {
      * @return
      */
     String selectRepNo();
+
+    /**
+     * 页面展示调节信息
+     */
+    List<BusCivilShowList> queryListShow();
 
 }

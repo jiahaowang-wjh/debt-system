@@ -3,6 +3,7 @@ package com.smart.bracelet.service.debt;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.debt.BusCivil;
 import com.smart.bracelet.model.po.debt.DateAndDays;
+import com.smart.bracelet.model.vo.debt.BusCivilShowList;
 import com.smart.bracelet.model.vo.debt.BusCivilVo;
 
 import java.util.List;
@@ -36,4 +37,8 @@ public interface BusCivilService {
      */
     int updateStatus(String status,Long civilId) throws CustomerException;
 
+    /**
+     * 页面展示调节信息
+     */
+    List<BusCivilShowList> queryListShow();
 }
