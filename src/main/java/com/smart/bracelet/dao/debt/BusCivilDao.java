@@ -33,4 +33,10 @@ public interface BusCivilDao {
      */
     int updateStatus(String status,Long civilId);
 
+    /**
+     * 查询最后一条数据编号
+     * @return
+     */
+    String selectRepNo();
+
 }

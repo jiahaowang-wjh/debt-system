@@ -15,7 +15,6 @@ public class BusCivilVo {
      */
     @NotNull(message = "民事调解ID不能为空")
     private Long civilId;
-
     /**
      * 报备ID
      */

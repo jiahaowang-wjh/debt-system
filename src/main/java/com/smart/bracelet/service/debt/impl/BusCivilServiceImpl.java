@@ -7,10 +7,12 @@ import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.vo.debt.BusCivilVo;
 import com.smart.bracelet.service.debt.BusCivilService;
 import com.smart.bracelet.utils.IdUtils;
+import com.smart.bracelet.utils.RepNoUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
 import java.util.List;
 
 @Service
@@ -19,6 +21,9 @@ public class BusCivilServiceImpl implements BusCivilService {
 
     @Autowired
     private BusCivilDao busCivilDao;
+
+    @Autowired
+    private RepNoUtils repNoUtils;
 
     @Override
     public int deleteByPrimaryKey(Long civilId) throws CustomerException {
@@ -35,7 +40,10 @@ public class BusCivilServiceImpl implements BusCivilService {
     @Override
     public int insertSelective(BusCivil record) throws CustomerException {
         try {
+            String s = busCivilDao.selectRepNo();
+            String mstzf = repNoUtils.createRepNo("MSTZF", s);
             record.setCivilId(IdUtils.nextId());
+            record.setCivilno(mstzf);
             int insertSelective = busCivilDao.insertSelective(record);
             log.info("新增民事调解信息成功,受影响行数:{}",insertSelective);
             return insertSelective;
@@ -91,4 +99,6 @@ public class BusCivilServiceImpl implements BusCivilService {
             throw new CustomerException("更新民事调解状态失败");
         }
     }
+
+
 }

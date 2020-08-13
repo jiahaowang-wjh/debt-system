@@ -40,6 +40,9 @@
     from bus_civil
     where civil_id = #{civilId,jdbcType=BIGINT}
   </select>
+  <select id="selectRepNo" resultType="java.lang.String">
+      SELECT  bus_civil.`civilno`  FROM   bus_civil   ORDER   BY    bus_civil.`civilno`   DESC   LIMIT   1
+    </select>
   <select id="selectDaysCount" resultType="com.smart.bracelet.model.po.debt.DateAndDays">
       SELECT DATE_FORMAT(create_time,'%Y-%m-%d') days,COUNT(*) COUNT FROM bus_civil GROUP BY days ORDER BY days DESC LIMIT 10;
   </select>
