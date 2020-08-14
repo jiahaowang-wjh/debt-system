@@ -457,11 +457,11 @@
             <if test="debtNo != null and debtNo!=''">
                 and br.debt_no = #{debtNo,jdbcType=VARCHAR}
             </if>
-            <if test="status != '' and status!=''">
+            <if test="status != null and status!=''">
                 and br.status = #{status,jdbcType=VARCHAR}
             </if>
-            <if test="beginDate != '' and endDate != null">
-                and  br.create_time  BETWEEN #{beginDate} AND #{endDate}
+            <if test="beginDate != null and endDate != ''">
+                and br.create_time BETWEEN #{beginDate} AND #{endDate}
             </if>
         </where>
     </select>

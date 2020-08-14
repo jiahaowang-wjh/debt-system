@@ -22,7 +22,7 @@ public class RepNoUtils {
         Calendar ca = Calendar.getInstance();
         int year = ca.get(Calendar.YEAR);//获取年份
         String xuHao=null;
-        if(StrUtil.isBlank(aLong)) {
+        if(!StrUtil.isBlank(aLong)) {
             xuHao = aLong.substring(aLong.toString().indexOf("F") + 1);
             intXuhao = Integer.parseInt(xuHao);
             intXuhao = intXuhao+1;

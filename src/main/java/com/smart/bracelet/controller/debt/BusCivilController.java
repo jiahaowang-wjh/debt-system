@@ -1,12 +1,17 @@
 package com.smart.bracelet.controller.debt;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.debt.BusCivil;
 import com.smart.bracelet.model.po.debt.DateAndDays;
+import com.smart.bracelet.model.vo.debt.BusCivilInfo;
 import com.smart.bracelet.model.vo.debt.BusCivilShowList;
 import com.smart.bracelet.model.vo.debt.BusCivilVo;
+import com.smart.bracelet.model.vo.debt.DebtInfoQuery;
 import com.smart.bracelet.service.debt.BusCivilService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -81,14 +86,23 @@ public class BusCivilController {
         int i = busCivilService.updateStatus(status, civilId);
         return Result.success(i);
     }
-
     /**
-     * 页面展示调节信息
+     * 页面展示民事调解信息
      */
-    @RequestMapping("/queryListShow")
-    public Result<List<BusCivilShowList>> queryListShow(){
-        List<BusCivilShowList> busCivilShowLists = busCivilService.queryListShow();
-        return Result.success(busCivilShowLists);
+    @RequestMapping("/selectBusList")
+    public Result<PageInfo> selectBusList(@NotNull(message = "页码不能为空") Integer pageNum,
+                                                    @NotNull(message = "当前显示条数不能为空") Integer pageSize,
+                                                    DebtInfoQuery debtInfoQuery){
+        PageHelper.startPage(pageNum,pageSize);
+        if (!StringUtils.isBlank(debtInfoQuery.getBeginDate())) {
+            debtInfoQuery.setBeginDate(debtInfoQuery.getBeginDate()+" 00:00:00");
+        }
+        if (!StringUtils.isBlank(debtInfoQuery.getEndDate())) {
+            debtInfoQuery.setEndDate(debtInfoQuery.getEndDate()+" 23:59:00");
+        }
+        List<BusCivilInfo> busCivilInfos = busCivilService.selectBusList(debtInfoQuery);
+        PageInfo<BusCivilInfo> busCivilInfoPageInfo = new PageInfo<>(busCivilInfos);
+        return Result.success(busCivilInfoPageInfo);
     }
 
 }

@@ -51,10 +51,22 @@
         <include refid="Base_Column_List"/>
         from bus_civil
     </select>
-    <select id="queryListShow" resultType="com.smart.bracelet.model.vo.debt.BusCivilShowList">
-    SELECT bc.civil_id,br.`report_id`,br.`report_no`,bc.`civilno`,br.`data1` AS 'debtName',bc.`status` FROM bus_civil bc
-    INNER JOIN bus_report br ON bc.`report_id`=br.`report_id`
-  </select>
+    <select id="selectBusList" resultType="com.smart.bracelet.model.vo.debt.BusCivilInfo">
+        SELECT bc.civil_id,br.`report_id`,br.`report_no`,bc.civilno,br.`data1` AS 'debtName',bc.status FROM bus_civil bc
+        LEFT JOIN bus_report br ON bc.report_id=br.report_id
+        <where>
+            <if test="debtNo != null and debtNo!=''">
+                and bc.civilno = #{debtNo,jdbcType=VARCHAR}
+            </if>
+            <if test="status != '' and status!=null">
+                and bc.status = #{status,jdbcType=VARCHAR}
+            </if>
+            <if test="beginDate != '' and endDate != null">
+                and bc.create_time BETWEEN #{beginDate} AND #{endDate}
+            </if>
+        </where>
+    </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from bus_civil
     where civil_id = #{civilId,jdbcType=BIGINT}
