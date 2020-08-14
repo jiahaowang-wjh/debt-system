@@ -1,8 +1,11 @@
 package com.smart.bracelet.dao.user;
 
 import com.smart.bracelet.model.po.user.PubPerson;
+import com.smart.bracelet.model.po.user.PubUser;
 import com.smart.bracelet.model.vo.user.PubPersonVo;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * 人员信息
@@ -17,5 +20,10 @@ public interface PubPersonDao {
     PubPerson selectByPrimaryKey(Long personId);
 
     int updateByPrimaryKeySelective(PubPersonVo record);
+
+    /**
+     * 查询用户推荐人
+     */
+    List<PubPerson> selectByType(String personType);
 
 }

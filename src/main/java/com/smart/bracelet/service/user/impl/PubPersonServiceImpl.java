@@ -3,12 +3,16 @@ package com.smart.bracelet.service.user.impl;
 import com.smart.bracelet.dao.user.PubPersonDao;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.user.PubPerson;
+import com.smart.bracelet.model.po.user.PubUser;
 import com.smart.bracelet.model.vo.user.PubPersonVo;
 import com.smart.bracelet.service.user.PubPersonService;
 import com.smart.bracelet.utils.IdUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+
 /**
  * 人员信息
  */
@@ -59,5 +63,10 @@ public class PubPersonServiceImpl implements PubPersonService {
             log.error("人员信息更新失败,异常信息:{}",e.getMessage());
             throw new CustomerException("人员信息更新失败");
         }
+    }
+
+    @Override
+    public List<PubPerson> selectByType(String personType) {
+        return pubPerson.selectByType(personType);
     }
 }

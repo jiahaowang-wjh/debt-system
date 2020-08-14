@@ -7,6 +7,7 @@ import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.vo.debt.*;
 import com.smart.bracelet.service.debt.BusReportService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -83,6 +84,7 @@ public class BusReportController {
 
     /**
      * 更新个人报备信息
+     *
      * @param busPrivateReportVo
      * @return
      * @throws CustomerException
@@ -96,6 +98,7 @@ public class BusReportController {
 
     /**
      * 更新个人报备信息
+     *
      * @param busPrivateReportVo
      * @return
      * @throws CustomerException
@@ -108,6 +111,7 @@ public class BusReportController {
 
     /**
      * 更新个人报备信息
+     *
      * @param busPrivateReportVo
      * @return
      * @throws CustomerException
@@ -155,24 +159,26 @@ public class BusReportController {
 
     /**
      * 债事链查询
+     *
      * @param personIdCad
      * @return
      */
     @RequestMapping("/queryListChain")
-    public Result<DebtChain> queryListChain(@NotBlank(message = "身份证号码不能为空") String personIdCad){
+    public Result<DebtChain> queryListChain(@NotBlank(message = "身份证号码不能为空") String personIdCad) {
         DebtChain list = busReportService.queryListChain(personIdCad);
         return Result.success(list);
     }
 
     /**
      * 更新审核状态
+     *
      * @param status
      * @param reportId
      * @return
      * @throws CustomerException
      */
     @RequestMapping("/updateStatus")
-    public Result updateStatus(@NotBlank(message = "状态不能为空")String status,@NotNull(message = "报备Id不能为空")Long reportId) throws CustomerException{
+    public Result updateStatus(@NotBlank(message = "状态不能为空") String status, @NotNull(message = "报备Id不能为空") Long reportId) throws CustomerException {
         int i = busReportService.updateStatus(status, reportId);
         return Result.success(i);
     }
@@ -183,9 +189,17 @@ public class BusReportController {
      */
     @RequestMapping("/selectDebtInfos")
     public Result<PageInfo> selectDebtInfos(@NotNull(message = "页码不能为空") Integer pageNum,
-                                                  @NotNull(message = "当前显示条数不能为空") Integer pageSize){
-        PageHelper.startPage(pageNum,pageSize);
-        List<DebtInfo> debtInfos = busReportService.selectDebtInfos();
+                                            @NotNull(message = "当前显示条数不能为空") Integer pageSize,
+                                            DebtInfoQuery debtInfoQuery) {
+        System.out.println("日期:"+debtInfoQuery.getBeginDate());
+        if (!StringUtils.isBlank(debtInfoQuery.getBeginDate())) {
+            debtInfoQuery.setBeginDate(debtInfoQuery.getBeginDate()+" 00:00:00");
+        }
+        if (!StringUtils.isBlank(debtInfoQuery.getEndDate())) {
+            debtInfoQuery.setEndDate(debtInfoQuery.getEndDate()+" 23:59:00");
+        }
+        PageHelper.startPage(pageNum, pageSize);
+        List<DebtInfo> debtInfos = busReportService.selectDebtInfos(debtInfoQuery);
         PageInfo pageInfo = new PageInfo<>(debtInfos);
         return Result.success(pageInfo);
     }

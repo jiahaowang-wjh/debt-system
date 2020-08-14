@@ -439,14 +439,30 @@
         br.check_reason,
         br.`status`
         FROM bus_report br
-        LEFT JOIN pub_user pu ON   br.user_id=pu.`user_id`
+        LEFT JOIN pub_user pu ON br.user_id=pu.`user_id`
         LEFT JOIN pub_person pp ON pu.`person_id`=pp.`person_id`
-        LEFT JOIN (SELECT report_id, COUNT(0) AS 'busRelativeCount' FROM bus_relative_person GROUP BY report_id ) froma ON br.report_id= froma.report_id
-        LEFT JOIN (SELECT report_id, COUNT(0) AS 'resolveCount',SUM(amount_cumulative) AS 'cumulativeSum' FROM pub_debt GROUP BY report_id) fromb ON fromb.report_id=br.report_id
+        LEFT JOIN (SELECT report_id, COUNT(0) AS 'busRelativeCount' FROM bus_relative_person GROUP BY report_id ) froma
+        ON br.report_id= froma.report_id
+        LEFT JOIN (SELECT report_id, COUNT(0) AS 'resolveCount',SUM(amount_cumulative) AS 'cumulativeSum' FROM pub_debt
+        GROUP BY report_id) fromb ON fromb.report_id=br.report_id
         LEFT JOIN (
         SELECT bus_report.`report_id`,pub_user.`user_id`,pub_person.`person_name` FROM bus_report
         LEFT JOIN pub_user ON pub_user.user_id= bus_report.`create_user_id`
         LEFT JOIN pub_person ON pub_person.`person_id`=pub_user.`person_id`
         ) fromc ON fromc.report_id=br.report_id
+        <where>
+            <if test="debtName != null and debtName!='' ">
+                and br.data1 = #{debtName,jdbcType=VARCHAR}
+            </if>
+            <if test="debtNo != null and debtNo!=''">
+                and br.debt_no = #{debtNo,jdbcType=VARCHAR}
+            </if>
+            <if test="status != '' and status!=''">
+                and br.status = #{status,jdbcType=VARCHAR}
+            </if>
+            <if test="beginDate != '' and endDate != null">
+                and  br.create_time  BETWEEN #{beginDate} AND #{endDate}
+            </if>
+        </where>
     </select>
 </mapper>

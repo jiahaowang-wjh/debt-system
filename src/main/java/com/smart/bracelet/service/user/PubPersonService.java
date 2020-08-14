@@ -2,7 +2,10 @@ package com.smart.bracelet.service.user;
 
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.user.PubPerson;
+import com.smart.bracelet.model.po.user.PubUser;
 import com.smart.bracelet.model.vo.user.PubPersonVo;
+
+import java.util.List;
 
 public interface PubPersonService {
     /**
@@ -33,4 +36,8 @@ public interface PubPersonService {
      */
     int updateByPrimaryKeySelective(PubPersonVo record) throws CustomerException;
 
+    /**
+     * 查询用户推荐人
+     */
+    List<PubPerson> selectByType(String personType);
 }

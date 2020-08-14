@@ -83,6 +83,6 @@ public interface BusReportService {
     /**
      * 页面报备信息展示
      */
-    List<DebtInfo> selectDebtInfos();
+    List<DebtInfo> selectDebtInfos(DebtInfoQuery debtInfoQuery);
 
 }

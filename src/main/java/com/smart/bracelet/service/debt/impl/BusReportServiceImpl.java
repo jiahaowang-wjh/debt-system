@@ -542,8 +542,8 @@ public class BusReportServiceImpl implements BusReportService {
      * @return
      */
     @Override
-    public List<DebtInfo> selectDebtInfos() {
-        return busReportDao.selectDebtInofs();
+    public List<DebtInfo> selectDebtInfos(DebtInfoQuery debtInfoQuery) {
+        return busReportDao.selectDebtInofs(debtInfoQuery);
     }
 
 
