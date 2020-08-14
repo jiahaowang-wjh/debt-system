@@ -128,4 +128,13 @@
   <select id="selectRepNo" resultType="java.lang.String">
     SELECT  bus_pay_detail.pay_no  FROM   bus_pay_detail   ORDER   BY   bus_pay_detail.pay_no    DESC   LIMIT   1
   </select>
+  <select id="selectPayInfoList" resultType="com.smart.bracelet.model.vo.debt.BusPayDetailInfo">
+    SELECT bpd.pay_id,br.`report_id`,br.`report_no`,bpd.payert_name,bpd.flag AS 'payType',bpd.pay_no,bpd.cost,bpd.voucher,bpd.status FROM bus_pay_detail bpd
+    LEFT JOIN bus_report br ON bpd.`report_id`=br.`report_id`
+    <where>
+      <if test="reportNo != '' and reportNo != null">
+        br.report_no = #{reportNo,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
 </mapper>

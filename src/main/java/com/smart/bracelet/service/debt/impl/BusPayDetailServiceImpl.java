@@ -3,6 +3,7 @@ package com.smart.bracelet.service.debt.impl;
 import com.smart.bracelet.dao.debt.BusPayDetailDao;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.debt.BusPayDetail;
+import com.smart.bracelet.model.vo.debt.BusPayDetailInfo;
 import com.smart.bracelet.model.vo.debt.BusPayDetailVo;
 import com.smart.bracelet.service.debt.BusPayDetailService;
 import com.smart.bracelet.utils.IdUtils;
@@ -38,6 +39,7 @@ public class BusPayDetailServiceImpl implements BusPayDetailService {
     @Override
     public int insertSelective(BusPayDetail record) throws CustomerException {
         try {
+
 //            String s = busPayDetailDao.selectRepNo();
 //            repNoUtils.createRepNo("",s);
             record.setPayId(IdUtils.nextId());
@@ -70,6 +72,11 @@ public class BusPayDetailServiceImpl implements BusPayDetailService {
     @Override
     public List<BusPayDetail> selectByReportId(Long reportId) {
         return busPayDetailDao.selectByReportId(reportId);
+    }
+
+    @Override
+    public List<BusPayDetailInfo> selectPayInfoList(String debtNo) {
+        return busPayDetailDao.selectPayInfoList(debtNo);
     }
 
 

@@ -1,9 +1,12 @@
 package com.smart.bracelet.controller.debt;
 
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.debt.BusPayDetail;
+import com.smart.bracelet.model.vo.debt.BusPayDetailInfo;
 import com.smart.bracelet.model.vo.debt.BusPayDetailVo;
 import com.smart.bracelet.service.debt.BusPayDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,4 +59,16 @@ public class BusPayDetailController {
         return Result.success(busPayDetails);
     }
 
+    /**
+     * 页面支付信息展示
+     */
+    @RequestMapping("/selectPayInfoList")
+    public Result<PageInfo> selectPayInfoList(@NotNull(message = "页码不能为空") Integer pageNum,
+                                                            @NotNull(message = "当前显示条数不能为空") Integer pageSize,
+                                                            String debtNo){
+        PageHelper.startPage(pageNum,pageSize);
+        List<BusPayDetailInfo> busPayDetailInfos = busPayDetailService.selectPayInfoList(debtNo);
+        PageInfo<BusPayDetailInfo> busPayDetailInfoPageInfo = new PageInfo<>(busPayDetailInfos);
+        return Result.success(busPayDetailInfoPageInfo);
+    }
 }

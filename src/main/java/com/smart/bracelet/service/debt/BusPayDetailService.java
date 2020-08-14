@@ -2,6 +2,7 @@ package com.smart.bracelet.service.debt;
 
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.debt.BusPayDetail;
+import com.smart.bracelet.model.vo.debt.BusPayDetailInfo;
 import com.smart.bracelet.model.vo.debt.BusPayDetailVo;
 
 import java.util.List;
@@ -22,4 +23,8 @@ public interface BusPayDetailService {
      */
     List<BusPayDetail> selectByReportId(Long reportId);
 
+    /**
+     * 页面支付信息展示
+     */
+    List<BusPayDetailInfo> selectPayInfoList(String debtNo);
 }

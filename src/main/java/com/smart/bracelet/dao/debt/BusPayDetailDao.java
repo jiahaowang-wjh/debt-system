@@ -1,6 +1,7 @@
 package com.smart.bracelet.dao.debt;
 
 import com.smart.bracelet.model.po.debt.BusPayDetail;
+import com.smart.bracelet.model.vo.debt.BusPayDetailInfo;
 import com.smart.bracelet.model.vo.debt.BusPayDetailVo;
 import org.springframework.stereotype.Repository;
 
@@ -31,6 +32,15 @@ public interface BusPayDetailDao {
      */
     int updateStatus(String status,Long reportId);
 
+    /**
+     * 查询最后一条编号
+     * @return
+     */
     String selectRepNo();
 
+    /**
+     * 页面支付信息展示
+     * @return reportNo
+     */
+    List<BusPayDetailInfo> selectPayInfoList(String reportNo);
 }
