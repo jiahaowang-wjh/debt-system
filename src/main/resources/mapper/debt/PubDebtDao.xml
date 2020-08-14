@@ -323,10 +323,18 @@
     <select id="selectRepNo" resultType="java.lang.String">
       SELECT  pub_debt.`debt_no`  FROM   pub_debt   ORDER   BY   pub_debt.`debt_no`   DESC   LIMIT   1
     </select>
-    <select id="queryListShow" resultType="com.smart.bracelet.model.vo.debt.PubDebtShowList">
-        SELECT br.`report_no`,bc.`civilno`,pd.`debt_no`,bc.`status`,br.`data1` AS 'debtName',pd.`report_id`,pd.`debt_id` FROM pub_debt pd
-        INNER JOIN `bus_report` br ON pd.`report_id`=br.`report_id`
-        INNER JOIN `bus_civil` bc ON br.`report_id`=bc.`report_id`
-    </select>
 
+    <select id="selectDebtListShow" resultType="com.smart.bracelet.model.vo.debt.PubDebtInfo">
+        SELECT br.`report_no`,bc.civilno,pd.debt_id,pd.debt_no,pd.status,br.`data1`AS 'debtName',br.`report_id` FROM pub_debt pd
+        LEFT JOIN bus_report br ON br.`report_id`=pd.report_id
+        LEFT JOIN bus_civil bc ON br.`report_id`=bc.report_id
+        <where>
+            <if test="debtNo != null and debtNo!=''">
+                and pd.debt_no = #{debtNo,jdbcType=VARCHAR}
+            </if>
+            <if test="debtId != null and debtId!=''">
+                and pd.debt_id = #{debtId,jdbcType=BIGINT}
+            </if>
+        </where>
+    </select>
 </mapper>

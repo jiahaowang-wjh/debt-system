@@ -1,12 +1,16 @@
 package com.smart.bracelet.controller.debt;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.po.debt.PubDebt;
-import com.smart.bracelet.model.vo.debt.PubDebtShowList;
+import com.smart.bracelet.model.vo.debt.DebtInfoQuery;
+import com.smart.bracelet.model.vo.debt.PubDebtInfo;
 import com.smart.bracelet.model.vo.debt.PubDebtVo;
 import com.smart.bracelet.service.debt.PubDebtService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -82,10 +86,18 @@ public class PubDebtController {
         return Result.success(i);
     }
 
-    @RequestMapping("/queryListShow")
-    public Result<List<PubDebtShowList>> queryListShow(){
-        List<PubDebtShowList> pubDebtShowLists = pubDebtService.queryListShow();
-        return Result.success(pubDebtShowLists);
+    /**
+     * 页面解债信息展示
+     */
+    @RequestMapping("/selectDebtListShow")
+    public Result<PageInfo> selectDebtListShow(@NotNull(message = "页码不能为空") Integer pageNum,
+                                                         @NotNull(message = "当前显示条数不能为空") Integer pageSize,
+                                               String debtNo,Long debtId){
+        PageHelper.startPage(pageNum,pageSize);
+        List<PubDebtInfo> pubDebtInfos = pubDebtService.selectDebtListShow(debtNo,debtId);
+        PageInfo<PubDebtInfo> pubDebtInfoPageInfo = new PageInfo<>(pubDebtInfos);
+        return Result.success(pubDebtInfoPageInfo);
     }
+
 
 }
