@@ -6,6 +6,7 @@ import com.smart.bracelet.model.po.debt.BusPayDetail;
 import com.smart.bracelet.model.vo.debt.BusPayDetailVo;
 import com.smart.bracelet.service.debt.BusPayDetailService;
 import com.smart.bracelet.utils.IdUtils;
+import com.smart.bracelet.utils.RepNoUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,9 @@ public class BusPayDetailServiceImpl implements BusPayDetailService {
 
     @Autowired
     private BusPayDetailDao busPayDetailDao;
+
+    @Autowired
+    private RepNoUtils repNoUtils;
 
     @Override
     public int deleteByPrimaryKey(Long payId) throws CustomerException {
@@ -34,6 +38,8 @@ public class BusPayDetailServiceImpl implements BusPayDetailService {
     @Override
     public int insertSelective(BusPayDetail record) throws CustomerException {
         try {
+//            String s = busPayDetailDao.selectRepNo();
+//            repNoUtils.createRepNo("",s);
             record.setPayId(IdUtils.nextId());
             int insertSelective = busPayDetailDao.insertSelective(record);
             log.info("新增支付信息成功,受影响行数:{}",insertSelective);
@@ -65,4 +71,6 @@ public class BusPayDetailServiceImpl implements BusPayDetailService {
     public List<BusPayDetail> selectByReportId(Long reportId) {
         return busPayDetailDao.selectByReportId(reportId);
     }
+
+
 }

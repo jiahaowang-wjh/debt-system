@@ -24,11 +24,13 @@ public interface BusPayDetailDao {
     List<BusPayDetail> selectByReportId(Long reportId);
 
     /**
-     *
+     *更新状态
      * @param status
      * @param reportId
      * @return
      */
     int updateStatus(String status,Long reportId);
+
+    String selectRepNo();
 
 }

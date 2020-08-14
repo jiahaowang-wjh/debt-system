@@ -21,4 +21,5 @@ public interface BusPayDetailService {
      * @return
      */
     List<BusPayDetail> selectByReportId(Long reportId);
+
 }

@@ -25,6 +25,11 @@ public class BusPayDetail implements Serializable {
     private Long reportId;
 
     /**
+     * 支付编号
+     */
+    private String payNo;
+
+    /**
      * 合同姓名
      */
     @NotBlank(message = "合同姓名不能为空")
@@ -53,5 +58,11 @@ public class BusPayDetail implements Serializable {
      */
     @NotBlank(message = "标志不能为空")
     private String flag;
+
+    /**
+     * 状态
+     */
+    @NotBlank(message = "状态不能为空")
+    private String status;
 
 }
