@@ -422,15 +422,31 @@
     <update id="updateStatus">
           update bus_report set  `status` = #{status,jdbcType=VARCHAR} where report_id = #{reportId,jdbcType=BIGINT}
     </update>
-    <select id="queryListDebtShow" resultType="com.smart.bracelet.model.vo.debt.DebtInfoShow">
-        SELECT br.report_id AS 'reportId',br.report_no AS 'reportNo',br.data1 AS 'debtName',brp.data1 AS 'busRelativeName',
-        (SELECT pub_person.`person_name` FROM pub_user INNER JOIN pub_person ON pub_user.`person_id`=pub_person.`person_id` WHERE pub_user.`user_id`= br.user_id) AS 'recomName',pp.`person_name` AS inputUserName,(SELECT COUNT(*) FROM pub_debt WHERE pub_debt.`report_id`=br.report_id) AS 'resolveCount',
-        pub_debt.`debt_no` AS 'resolveNo', pub_debt.`amount_cumulative` AS 'amountCumulative', br.create_time AS'subMitDate', br.`check_date` AS 'auditDate',
-        br.check_reason AS 'approvalContent',br.status AS 'status'
+
+    <!--页面报备信息展示-->
+    <select id="selectDebtInofs" resultType="com.smart.bracelet.model.vo.debt.DebtInfo">
+        #查询页面报备信息
+        SELECT br.report_id,
+        br.report_no,
+        br.data1 AS 'debtName',
+        froma.busRelativeCount,
+        fromc.person_name AS 'inputName',
+        pp.`person_name` AS 'recommendName',
+        fromb.resolveCount,
+        fromb.cumulativeSum,
+        br.create_time AS 'submitDate',
+        br.check_date,
+        br.check_reason,
+        br.`status`
         FROM bus_report br
-        INNER JOIN bus_relative_person brp ON br.report_id=brp.report_id
-        INNER JOIN pub_user pu ON pu.user_id = br.create_user_id
-        INNER JOIN pub_person pp ON pp.person_id=pu.`person_id`
-        INNER JOIN pub_debt ON pub_debt.`report_id` = br.report_id
+        LEFT JOIN pub_user pu ON   br.user_id=pu.`user_id`
+        LEFT JOIN pub_person pp ON pu.`person_id`=pp.`person_id`
+        LEFT JOIN (SELECT report_id, COUNT(0) AS 'busRelativeCount' FROM bus_relative_person GROUP BY report_id ) froma ON br.report_id= froma.report_id
+        LEFT JOIN (SELECT report_id, COUNT(0) AS 'resolveCount',SUM(amount_cumulative) AS 'cumulativeSum' FROM pub_debt GROUP BY report_id) fromb ON fromb.report_id=br.report_id
+        LEFT JOIN (
+        SELECT bus_report.`report_id`,pub_user.`user_id`,pub_person.`person_name` FROM bus_report
+        LEFT JOIN pub_user ON pub_user.user_id= bus_report.`create_user_id`
+        LEFT JOIN pub_person ON pub_person.`person_id`=pub_user.`person_id`
+        ) fromc ON fromc.report_id=br.report_id
     </select>
 </mapper>

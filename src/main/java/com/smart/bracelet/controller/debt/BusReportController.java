@@ -1,5 +1,7 @@
 package com.smart.bracelet.controller.debt;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.debt.DateAndDays;
@@ -178,13 +180,14 @@ public class BusReportController {
 
     /**
      * 页面报备信息展示
-     * @return
-     * @throws CustomerException
      */
-    @RequestMapping("/queryListDebtShow")
-    public Result<List<DebtInfoListShow>> queryListDebtShow() throws CustomerException{
-        List<DebtInfoListShow> debtInfoShows = busReportService.queryListDebtShow();
-        return Result.success(debtInfoShows);
+    @RequestMapping("/selectDebtInfos")
+    public Result<PageInfo> selectDebtInfos(@NotNull(message = "页码不能为空") Integer pageNum,
+                                                  @NotNull(message = "当前显示条数不能为空") Integer pageSize){
+        PageHelper.startPage(pageNum,pageSize);
+        List<DebtInfo> debtInfos = busReportService.selectDebtInfos();
+        PageInfo pageInfo = new PageInfo<>(debtInfos);
+        return Result.success(pageInfo);
     }
 
 }

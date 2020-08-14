@@ -537,7 +537,14 @@ public class BusReportServiceImpl implements BusReportService {
         }
     }
 
-
+    /**
+     * 页面报备信息展示
+     * @return
+     */
+    @Override
+    public List<DebtInfo> selectDebtInfos() {
+        return busReportDao.selectDebtInofs();
+    }
 
 
     /**

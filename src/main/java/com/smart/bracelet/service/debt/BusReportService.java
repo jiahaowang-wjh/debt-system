@@ -80,4 +80,9 @@ public interface BusReportService {
      */
     int updateStatus(String status,Long reportId) throws CustomerException;
 
+    /**
+     * 页面报备信息展示
+     */
+    List<DebtInfo> selectDebtInfos();
+
 }
