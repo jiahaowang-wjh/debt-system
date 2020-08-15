@@ -94,5 +94,11 @@ public interface PubUserDao {
      */
     Long selectUserComId(Long userId);
 
+    /**
+     * 批量删除人员
+     * @param ids
+     * @return
+     */
+    int delListPerson(Long[] ids);
 
 }

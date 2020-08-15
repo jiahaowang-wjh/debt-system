@@ -47,10 +47,9 @@
      WHERE pu.`user_id`=#{userId,jdbcType=BIGINT}
   </select>
     <select id="queryList" resultType="com.smart.bracelet.model.vo.user.PersonOnUserOnComVo">
-        SELECT pu.user_id,pu.user_name,pp.person_id,pp.person_name,pp.age,pp.person_type,pp.tel,pc.company_id,pc.company_name,pc.company_type
-         FROM pub_user pu
-        INNER JOIN pub_person pp ON pu.person_id=pp.person_id
-        INNER JOIN pub_company pc ON pp.company_id = pc.company_id
+        SELECT pp.note,pp.person_id,pp.person_name,pp.age,pp.person_type,pp.tel,pc.company_id,pc.company_name,pc.company_type,pp.sex
+        from pub_person pp
+        left JOIN pub_company pc ON pp.company_id = pc.company_id
     </select>
     <select id="selectUserComId" resultType="java.lang.Long">
         SELECT  pc.`company_id` FROM pub_user pu
@@ -65,6 +64,12 @@
     <!--批量删除用户-->
     <delete id="delUserList">
         delete from pub_user where user_id in
+        <foreach item="item" collection="array" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+    <delete id="delListPerson">
+        delete from  pub_person where person_id in
         <foreach item="item" collection="array" open="(" separator="," close=")">
             #{item}
         </foreach>

@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -190,5 +192,16 @@ public class PubUserServiceImpl implements PubUserService {
     public Long selectUserComId(Long userId) {
         Long aLong = pubUserDao.selectUserComId(userId);
         return aLong;
+    }
+
+    @Override
+    public int delListPerson(Long[] ids) throws CustomerException {
+        try {
+            int i = pubUserDao.delListPerson(ids);
+            return i;
+        } catch (Exception e) {
+            log.error("异常信息:{}",e.getMessage());
+           throw new CustomerException("批量删除失败");
+        }
     }
 }

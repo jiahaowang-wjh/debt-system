@@ -9,16 +9,6 @@ import javax.validation.constraints.NotNull;
  */
 @Data
 public class PersonOnUserOnComVo {
-    /**
-     * 用户ID
-     */
-    @NotNull(message = "用户ID不能为空")
-    private Long userId;
-
-    /**
-     * 用户姓名
-     */
-    private String userName;
 
     /**
      * 人员ID
@@ -26,10 +16,17 @@ public class PersonOnUserOnComVo {
     private Long personId;
 
     /**
+     * 备注
+     */
+    private String note;
+    /**
      * 人员名称
      */
     private String personName;
-
+    /**
+     * 人员性别
+     */
+    private String sex;
     /**
      * 人员类型
      */
@@ -56,7 +53,6 @@ public class PersonOnUserOnComVo {
      * 联系电话
      */
     private String tel;
-
 
 
 }

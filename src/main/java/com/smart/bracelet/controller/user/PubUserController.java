@@ -9,6 +9,7 @@ import com.smart.bracelet.model.po.user.PubUser;
 import com.smart.bracelet.model.vo.user.PersonOnUserOnComVo;
 import com.smart.bracelet.model.vo.user.PubUserVo;
 import com.smart.bracelet.service.user.PubUserService;
+import io.micrometer.core.instrument.Meter;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -138,6 +139,21 @@ public class PubUserController {
         List<PersonOnUserOnComVo> personOnUserOnComVos = userInfoService.queryList();
         PageInfo pageInfo = new PageInfo<PersonOnUserOnComVo>(personOnUserOnComVos);
         return Result.success(pageInfo);
+    }
+
+
+    /**
+     * 批量删除人员
+     * @param ids
+     * @return
+     */
+    @RequestMapping("/delListPerson")
+    public Result delListPerson(Long[] ids) throws CustomerException{
+        if(ids.length==0){
+            throw new CustomerException("Id不能为空");
+        }
+        int i = userInfoService.delListPerson(ids);
+        return Result.success(i);
     }
 
 }

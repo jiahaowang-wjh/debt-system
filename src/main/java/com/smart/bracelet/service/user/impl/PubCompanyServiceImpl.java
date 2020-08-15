@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Slf4j
 public class PubCompanyServiceImpl implements PubCompanyService {
@@ -57,5 +59,10 @@ public class PubCompanyServiceImpl implements PubCompanyService {
             log.error("更新公司信息失败,异常信息:{}",e.getMessage());
             throw new CustomerException("新更新公司信息失败");
         }
+    }
+
+    @Override
+    public List<PubCompany> queryList() {
+        return pubCompanyDao.queryList();
     }
 }

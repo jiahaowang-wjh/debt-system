@@ -1,6 +1,8 @@
 package com.smart.bracelet.controller.publicmethod;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +19,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/fileUploading/")
 @Validated
+@PropertySource("classpath:application.yml")
 public class FileUploading {
 
     @Value("${filePath}")

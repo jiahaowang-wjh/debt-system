@@ -4,6 +4,8 @@ import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.user.PubCompany;
 import com.smart.bracelet.model.vo.user.PubCompanyVo;
 
+import java.util.List;
+
 public interface PubCompanyService {
 
     int deleteByPrimaryKey(Long companyId) throws CustomerException;
@@ -14,4 +16,5 @@ public interface PubCompanyService {
 
     int updateByPrimaryKeySelective(PubCompanyVo record) throws CustomerException;
 
+    List<PubCompany> queryList();
 }

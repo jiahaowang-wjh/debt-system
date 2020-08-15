@@ -54,7 +54,10 @@ public class PubDocController {
      * @throws CustomerException
      */
     @RequestMapping("/delDocList")
-    public Result delDocList(@NotNull(message = "文档ID不能为空")Long[] docIds) throws CustomerException {
+    public Result delDocList(Long[] docIds) throws CustomerException {
+        if (docIds.length==0 || docIds==null ){
+          throw new CustomerException("请输入ID");
+        }
         int delDocList = pubDocService.delDocList(docIds);
         return Result.success(delDocList);
     }
