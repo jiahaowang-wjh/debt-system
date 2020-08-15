@@ -84,6 +84,7 @@ public class BusReportServiceImpl implements BusReportService {
                 busReportListVo.setAssets(busReport.getData7());
                 busReportListVo.setAssetsNumber(busReport.getData8());
                 busReportListVo.setCirculationAssets(busReport.getData9());
+                busReportListVo.setIfWork(busReport.getData10());
             } else {
                 busReportListVo.setCompanyName(busReport.getData1());
                 busReportListVo.setCreditCode(busReport.getData2());
@@ -171,6 +172,7 @@ public class BusReportServiceImpl implements BusReportService {
             busReport.setData7(busPrivateReport.getAssets());
             busReport.setData8(busPrivateReport.getAssetsNumber());
             busReport.setData9(busPrivateReport.getCirculationAssets());
+            busReport.setData10(busPrivateReport.getIfWork());
             busReport.setReportNo(createRepNo());
             int insertSelective = busReportDao.insertSelective(busReport);
             log.info("新增私人报备信息成功,受影响行数:{}", insertSelective);
@@ -229,6 +231,7 @@ public class BusReportServiceImpl implements BusReportService {
             busReport.setData7(busPrivateReport.getAssets());
             busReport.setData8(busPrivateReport.getAssetsNumber());
             busReport.setData9(busPrivateReport.getCirculationAssets());
+            busReport.setData10(busPrivateReport.getIfWork());
             int updateByPrimaryKeySelective = busReportDao.updateByPrimaryKeySelective(busReport);
             log.info("更新个人报备信息成功,受影响行数:{}", updateByPrimaryKeySelective);
             return updateByPrimaryKeySelective;

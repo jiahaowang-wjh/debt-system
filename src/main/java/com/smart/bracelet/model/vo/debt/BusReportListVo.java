@@ -92,6 +92,10 @@ public class BusReportListVo implements Serializable {
     private String assets;
 
     /**
+     * 是否从业
+     */
+    private String ifWork;
+    /**
      * 资产项数
      */
     private String assetsNumber ;

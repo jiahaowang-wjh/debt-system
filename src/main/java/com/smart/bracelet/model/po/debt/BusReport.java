@@ -111,6 +111,13 @@ public class BusReport implements Serializable {
     private String data9;
 
     /**
+     * 数据10
+     */
+    @NotBlank(message = "数据九不能为空")
+    private String data10;
+
+
+    /**
      * 身份证正
      */
     @NotBlank(message = "身份证正面不能为空")
