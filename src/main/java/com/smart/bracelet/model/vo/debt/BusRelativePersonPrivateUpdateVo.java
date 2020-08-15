@@ -42,7 +42,11 @@ public class BusRelativePersonPrivateUpdateVo {
      */
     @NotBlank(message = "姓名不能为空")
     private String personalName;
-
+    /**
+     * 是否从业
+     */
+    @NotBlank(message = "是否从业不能为空")
+    private String ifWork;
     /**
      * 手机号码
      */

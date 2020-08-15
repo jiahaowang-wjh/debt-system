@@ -83,6 +83,11 @@ public class BusRelativePersonVo implements Serializable {
      * 数据九
      */
     private String data9;
+
+    /**
+     * 数据十
+     */
+    private String data10;
     /**
      * 身份证正
      */

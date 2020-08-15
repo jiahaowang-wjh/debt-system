@@ -101,6 +101,12 @@ public class BusRelativePerson implements Serializable {
 
 
     /**
+     * 数据十
+     */
+    private String data10;
+
+
+    /**
      * 身份证正
      */
     @NotBlank(message = "身份证正不能为空")

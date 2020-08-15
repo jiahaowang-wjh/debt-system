@@ -30,6 +30,12 @@ public class BusRelativePersonPrivateVo {
     private String iscoordinate;
 
     /**
+     * 是否从业
+     */
+    @NotBlank(message = "是否从业不能为空")
+    private String ifWork;
+
+    /**
      * 类型
      */
     @NotBlank(message = "类型不能为空")

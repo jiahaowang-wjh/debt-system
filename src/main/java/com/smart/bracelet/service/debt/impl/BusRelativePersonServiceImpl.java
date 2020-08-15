@@ -133,6 +133,7 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
             busRelativePerson.setData7(busRelativePersonPrivateVo.getAssets());
             busRelativePerson.setData8(busRelativePersonPrivateVo.getAssetsNumber());
             busRelativePerson.setData9(busRelativePersonPrivateVo.getCirculationAssets());
+            busRelativePerson.setData10(busRelativePersonPrivateVo.getIfWork());
             busRelativePerson.setCardJust(busRelativePersonPrivateVo.getCardJust());
             busRelativePerson.setCardBack(busRelativePersonPrivateVo.getCardBack());
             busRelativePerson.setObligatRight(busRelativePersonPrivateVo.getObligatRight());
@@ -188,6 +189,7 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
             busRelativePerson.setData7(busRelativePersonPrivateVo.getAssets());
             busRelativePerson.setData8(busRelativePersonPrivateVo.getAssetsNumber());
             busRelativePerson.setData9(busRelativePersonPrivateVo.getCirculationAssets());
+            busRelativePerson.setData10(busRelativePersonPrivateVo.getIfWork());
             busRelativePerson.setCardJust(busRelativePersonPrivateVo.getCardJust());
             busRelativePerson.setCardBack(busRelativePersonPrivateVo.getCardBack());
             busRelativePerson.setObligatRight(busRelativePersonPrivateVo.getObligatRight());

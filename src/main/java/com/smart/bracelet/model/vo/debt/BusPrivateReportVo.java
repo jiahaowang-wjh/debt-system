@@ -58,6 +58,7 @@ public class BusPrivateReportVo {
      */
     @NotBlank(message = "姓名不能为空")
     private String personalName;
+
     /**
      * 是否从业
      */

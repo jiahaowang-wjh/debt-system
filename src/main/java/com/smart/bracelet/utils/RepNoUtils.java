@@ -14,7 +14,7 @@ public class RepNoUtils {
      * @param aLong 数据库中最后一条编号
      * @return
      */
-    public String createRepNo(String type,String aLong){
+    public static String createRepNo(String type,String aLong){
         String repNo;
         int intXuhao;
         String stringXuhao;
