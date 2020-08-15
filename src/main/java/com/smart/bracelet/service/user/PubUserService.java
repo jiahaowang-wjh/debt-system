@@ -3,6 +3,7 @@ package com.smart.bracelet.service.user;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.user.PubMenu;
 import com.smart.bracelet.model.po.user.PubUser;
+import com.smart.bracelet.model.po.user.PersonOnUserOnCom;
 import com.smart.bracelet.model.vo.user.PersonOnUserOnComVo;
 import com.smart.bracelet.model.vo.user.PubUserVo;
 
@@ -87,7 +88,7 @@ public interface PubUserService {
      * 人员公司用户联查
      * @return
      */
-    List<PersonOnUserOnComVo> queryList();
+    List<PersonOnUserOnCom> queryList();
 
     /**
      * 查询用户公司Id
@@ -103,4 +104,9 @@ public interface PubUserService {
      * @return
      */
     int delListPerson(Long[] ids) throws CustomerException;
+
+    /**
+     * 更新人员信息
+     */
+    int updatePerson(PersonOnUserOnComVo personOnUserOnComVo) throws CustomerException;
 }

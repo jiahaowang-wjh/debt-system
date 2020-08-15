@@ -6,10 +6,10 @@ import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.user.PubMenu;
 import com.smart.bracelet.model.po.user.PubUser;
+import com.smart.bracelet.model.po.user.PersonOnUserOnCom;
 import com.smart.bracelet.model.vo.user.PersonOnUserOnComVo;
 import com.smart.bracelet.model.vo.user.PubUserVo;
 import com.smart.bracelet.service.user.PubUserService;
-import io.micrometer.core.instrument.Meter;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -136,8 +136,8 @@ public class PubUserController {
     @RequestMapping("/queryList")
     public Result<PageInfo> queryList(@NotNull(message = "页码不能为空") Integer pageNum,@NotNull(message = "当前显示条数不能为空") Integer pageSize){
         PageHelper.startPage(pageNum,pageSize);
-        List<PersonOnUserOnComVo> personOnUserOnComVos = userInfoService.queryList();
-        PageInfo pageInfo = new PageInfo<PersonOnUserOnComVo>(personOnUserOnComVos);
+        List<PersonOnUserOnCom> personOnUserOnComVos = userInfoService.queryList();
+        PageInfo pageInfo = new PageInfo<PersonOnUserOnCom>(personOnUserOnComVos);
         return Result.success(pageInfo);
     }
 
@@ -155,5 +155,12 @@ public class PubUserController {
         int i = userInfoService.delListPerson(ids);
         return Result.success(i);
     }
-
+    /**
+     * 更新人员信息
+     */
+    @RequestMapping("/updatePerson")
+    public Result updatePerson(@Valid PersonOnUserOnComVo personOnUserOnComVo) throws CustomerException{
+        int i = userInfoService.updatePerson(personOnUserOnComVo);
+        return Result.success(i);
+    }
 }

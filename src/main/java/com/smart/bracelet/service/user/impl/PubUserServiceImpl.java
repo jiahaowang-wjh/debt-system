@@ -4,6 +4,7 @@ import com.smart.bracelet.dao.user.PubUserDao;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.user.PubMenu;
 import com.smart.bracelet.model.po.user.PubUser;
+import com.smart.bracelet.model.po.user.PersonOnUserOnCom;
 import com.smart.bracelet.model.vo.user.PersonOnUserOnComVo;
 import com.smart.bracelet.model.vo.user.PubUserVo;
 import com.smart.bracelet.service.user.PubUserService;
@@ -13,8 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -183,8 +182,8 @@ public class PubUserServiceImpl implements PubUserService {
      * @return
      */
     @Override
-    public List<PersonOnUserOnComVo> queryList() {
-        List<PersonOnUserOnComVo> personOnUserOnComVos = pubUserDao.queryList();
+    public List<PersonOnUserOnCom> queryList() {
+        List<PersonOnUserOnCom> personOnUserOnComVos = pubUserDao.queryList();
         return personOnUserOnComVos;
     }
 
@@ -202,6 +201,17 @@ public class PubUserServiceImpl implements PubUserService {
         } catch (Exception e) {
             log.error("异常信息:{}",e.getMessage());
            throw new CustomerException("批量删除失败");
+        }
+    }
+
+    @Override
+    public int updatePerson(PersonOnUserOnComVo personOnUserOnComVo) throws CustomerException {
+        try {
+            int i = pubUserDao.updatePerson(personOnUserOnComVo);
+            return i;
+        } catch (Exception e) {
+            log.error("异常信息:{}",e.getMessage());
+            throw new CustomerException("更新失败");
         }
     }
 }

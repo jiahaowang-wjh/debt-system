@@ -46,7 +46,7 @@
      INNER JOIN pub_menu pm ON pro.`menu_id`=pm.`menu_id`
      WHERE pu.`user_id`=#{userId,jdbcType=BIGINT}
   </select>
-    <select id="queryList" resultType="com.smart.bracelet.model.vo.user.PersonOnUserOnComVo">
+    <select id="queryList" resultType="com.smart.bracelet.model.po.user.PersonOnUserOnCom">
         SELECT pp.note,pp.person_id,pp.person_name,pp.age,pp.person_type,pp.tel,pc.company_id,pc.company_name,pc.company_type,pp.sex
         from pub_person pp
         left JOIN pub_company pc ON pp.company_id = pc.company_id
@@ -69,7 +69,7 @@
         </foreach>
     </delete>
     <delete id="delListPerson">
-        delete from  pub_person where person_id in
+        delete from pub_person where person_id in
         <foreach item="item" collection="array" open="(" separator="," close=")">
             #{item}
         </foreach>
@@ -170,5 +170,32 @@
     </update>
     <update id="updateUserPwd">
          update pub_user set password_md5 = #{passWord,jdbcType=VARCHAR} where  user_id = #{personId,jdbcType=BIGINT}
+    </update>
+    <update id="updatePerson">
+        update pub_person
+        <set>
+            <if test="companyId != null">
+                company_id = #{companyId,jdbcType=BIGINT},
+            </if>
+            <if test="personName != null">
+                person_name = #{personName,jdbcType=VARCHAR},
+            </if>
+            <if test="personType != null">
+                person_type = #{personType,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                sex = #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="age != null">
+                age = #{age,jdbcType=INTEGER},
+            </if>
+            <if test="tel != null">
+                tel = #{tel,jdbcType=VARCHAR},
+            </if>
+            <if test="note != null">
+                note = #{note,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where person_id = #{personId,jdbcType=BIGINT}
     </update>
 </mapper>

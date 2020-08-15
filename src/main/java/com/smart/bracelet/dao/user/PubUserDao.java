@@ -2,6 +2,7 @@ package com.smart.bracelet.dao.user;
 
 import com.smart.bracelet.model.po.user.PubMenu;
 import com.smart.bracelet.model.po.user.PubUser;
+import com.smart.bracelet.model.po.user.PersonOnUserOnCom;
 import com.smart.bracelet.model.vo.user.PersonOnUserOnComVo;
 import com.smart.bracelet.model.vo.user.PubUserVo;
 import org.springframework.stereotype.Repository;
@@ -85,7 +86,7 @@ public interface PubUserDao {
      * 人员公司用户联查
      * @return
      */
-    List<PersonOnUserOnComVo> queryList();
+    List<PersonOnUserOnCom> queryList();
 
     /**
      * 查询用户公司Id
@@ -100,5 +101,10 @@ public interface PubUserDao {
      * @return
      */
     int delListPerson(Long[] ids);
+
+    /**
+     * 更新人员信息
+     */
+    int updatePerson(PersonOnUserOnComVo personOnUserOnComVo);
 
 }
