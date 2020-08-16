@@ -40,6 +40,11 @@ public class PubDictionServiceImpl implements PubDictionService {
         }
     }
 
+    @Override
+    public List<PubDiction> selectByType(String dictionType) {
+        return pubDictionDao.selectByType(dictionType);
+    }
+
     /**
      * 新增字典
      *

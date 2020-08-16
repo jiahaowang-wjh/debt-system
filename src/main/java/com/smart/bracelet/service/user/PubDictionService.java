@@ -14,6 +14,14 @@ public interface PubDictionService {
      */
     int deleteByPrimaryKey(Long dictionId) throws CustomerException;
 
+
+    /**
+     * 通过类型查询字典
+     * @param dictionType
+     * @return
+     */
+    List<PubDiction> selectByType(String dictionType);
+
     /**
      * 新增字典
      * @param record

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -52,47 +53,64 @@ public class PubDictionController {
 
     /**
      * 更新字典
+     *
      * @param record
      * @return
      * @throws CustomerException
      */
     @RequestMapping("/updateByPrimaryKeySelective")
-    public Result updateByPrimaryKeySelective(@Valid PubDictionVo record) throws CustomerException{
+    public Result updateByPrimaryKeySelective(@Valid PubDictionVo record) throws CustomerException {
         int updateByPrimaryKeySelective = pubDictionService.updateByPrimaryKeySelective(record);
         return Result.success(updateByPrimaryKeySelective);
     }
 
     /**
      * 通过Id查询字典信息
+     *
      * @param dictionId
      * @return
      */
     @RequestMapping("/selectByPrimaryKey")
-    public Result<PubDiction> selectByPrimaryKey(@NotNull(message = "字典信息Id不能为空") Long dictionId){
+    public Result<PubDiction> selectByPrimaryKey(@NotNull(message = "字典信息Id不能为空") Long dictionId) {
         PubDiction pubDiction = pubDictionService.selectByPrimaryKey(dictionId);
         return Result.success(pubDiction);
     }
 
     /**
      * 查询所有字典
+     *
      * @return
      */
-        @RequestMapping("/queryDicList")
-    public Result<List<PubDiction>> queryDicList(){
+    @RequestMapping("/queryDicList")
+    public Result<List<PubDiction>> queryDicList() {
         List<PubDiction> pubDictions = pubDictionService.queryDicList();
         return Result.success(pubDictions);
     }
 
     /**
      * 批量删除字典信息
+     *
      * @param dictionIds
      * @return
      * @throws CustomerException
      */
     @RequestMapping("/delDictionList")
-    public Result delDictionList(@NotNull(message = "字典信息Id不能为空")Long[] dictionIds) throws CustomerException {
+    public Result delDictionList(@NotNull(message = "字典信息Id不能为空") Long[] dictionIds) throws CustomerException {
         int delDictionList = pubDictionService.delDictionList(dictionIds);
         return Result.success(delDictionList);
     }
+
+    /**
+     * 通过类型查询字典
+     *
+     * @param dictionType
+     * @return
+     */
+    @RequestMapping("/selectByType")
+    public Result<List<PubDiction>> selectByType(@NotBlank(message = "字典类型不能为空") String dictionType) {
+        List<PubDiction> pubDictions = pubDictionService.selectByType(dictionType);
+        return Result.success(pubDictions);
+    }
+
 
 }

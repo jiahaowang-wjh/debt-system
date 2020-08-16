@@ -34,6 +34,13 @@ public interface PubDictionDao {
     PubDiction selectByPrimaryKey(Long dictionId);
 
     /**
+     * 通过类型查询字典
+     * @param dictionType
+     * @return
+     */
+    List<PubDiction> selectByType(String dictionType);
+
+    /**
      * 更新字典
      * @param record
      * @return

@@ -24,6 +24,9 @@
       <include refid="Base_Column_List" />
       from pub_diction
     </select>
+    <select id="selectByType" resultType="com.smart.bracelet.model.po.user.PubDiction">
+      SELECT * FROM pub_diction WHERE diction_type = #{dictionType,jdbcType=VARCHAR}
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from pub_diction
     where diction_id = #{dictionId,jdbcType=BIGINT}
