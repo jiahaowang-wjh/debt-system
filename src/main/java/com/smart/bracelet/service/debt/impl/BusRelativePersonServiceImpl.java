@@ -419,4 +419,20 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
             throw new CustomerException("更新银行相对人失败");
         }
     }
+
+    @Override
+    public List<BusRelativePersonListVo> selectByreportId(Long reportId) {
+        List<BusRelativePerson> busRelativePeople = busRelativePersonDao.selectByreportId(reportId);
+        List<BusRelativePersonListVo> listVos = new ArrayList<>();
+        for (BusRelativePerson item: busRelativePeople) {
+            BusRelativePersonListVo busRelativePersonListVo = selectByPrimaryKey(item.getRelativePerId());
+            listVos.add(busRelativePersonListVo);
+        }
+        return listVos;
+    }
+
+    @Override
+    public ReportAndRelativePerson selectByRelativePerId(Long relativePerId) {
+        return busRelativePersonDao.selectByRelativePerId(relativePerId);
+    }
 }
