@@ -25,8 +25,6 @@ public class BusCivilServiceImpl implements BusCivilService {
     @Autowired
     private BusCivilDao busCivilDao;
 
-    @Autowired
-    private RepNoUtils repNoUtils;
 
     @Override
     public int deleteByPrimaryKey(Long civilId) throws CustomerException {
@@ -43,10 +41,10 @@ public class BusCivilServiceImpl implements BusCivilService {
     @Override
     public int insertSelective(BusCivil record) throws CustomerException {
         try {
-            String s = busCivilDao.selectRepNo();
-            String mstzf = repNoUtils.createRepNo("MSTZF", s);
+            String selectRepNo = busCivilDao.selectRepNo();
+            String repNo = RepNoUtils.createRepNo("TZ", "MSTJ", "");
             record.setCivilId(IdUtils.nextId());
-            record.setCivilno(mstzf);
+            record.setCivilno(repNo);
             int insertSelective = busCivilDao.insertSelective(record);
             log.info("新增民事调解信息成功,受影响行数:{}",insertSelective);
             return insertSelective;

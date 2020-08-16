@@ -11,6 +11,7 @@ import com.smart.bracelet.service.debt.BusReportService;
 import com.smart.bracelet.service.utilsService.IVerifyCodeGen;
 import com.smart.bracelet.service.utilsService.impl.SimpleCharVerifyCodeGenImpl;
 import com.smart.bracelet.utils.IdUtils;
+import com.smart.bracelet.utils.RepNoUtils;
 import javafx.scene.input.DataFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -34,8 +35,14 @@ public class UserInfoServiceTest {
     private BusReportService busReportDao;
 
 
+  //  String repNo = "TZ2020BBF000001";
+
     @Test
     public void testA() {
+        String repNo ="TZ2020MSTJ000001"; //RepNoUtils.createRepNo("TZ", "MSTJ", "TZ2020MSTJ000001");
+        int indexOf = repNo.indexOf("MSTJ");
+        String substring = repNo.substring(indexOf + 4);
+        System.out.println(substring);
 
     }
 

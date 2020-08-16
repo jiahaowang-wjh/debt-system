@@ -5,25 +5,26 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.util.Calendar;
-@Component
 public class RepNoUtils {
 
     /**
      * 编号生成方法
-     * @param stutas 编号类型
-     * @param aLong 数据库中最后一条编号
+     * @param headName
+     * @param type
+     * @param aLong
      * @return
      */
-    public static String createRepNo(String type,String aLong){
+    public static String createRepNo(String headName,String type,String aLong){
         String repNo;
         int intXuhao;
         String stringXuhao;
+        String xuHao=null;
         boolean ok=true;
         Calendar ca = Calendar.getInstance();
         int year = ca.get(Calendar.YEAR);//获取年份
-        String xuHao=null;
         if(!StrUtil.isBlank(aLong)) {
-            xuHao = aLong.substring(aLong.toString().indexOf(type) + 1);
+            int indexOf = aLong.indexOf(type);
+            xuHao = aLong.substring(indexOf + type.length());
             intXuhao = Integer.parseInt(xuHao);
             intXuhao = intXuhao+1;
             stringXuhao = intXuhao+"";
@@ -34,10 +35,10 @@ public class RepNoUtils {
                     ok = false;
                 }
             }
-            repNo = "TZ" + year + type+stringXuhao;
+            repNo = headName + year + type+stringXuhao;
             return repNo;
         }else {
-            repNo = "TZ" + year + type+"000001";
+            repNo = headName + year + type+"000001";
             return repNo;
         }
     }
