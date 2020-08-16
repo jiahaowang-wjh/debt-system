@@ -39,10 +39,11 @@ public class UserInfoServiceTest {
 
     @Test
     public void testA() {
-        String repNo ="TZ2020MSTJ000001"; //RepNoUtils.createRepNo("TZ", "MSTJ", "TZ2020MSTJ000001");
-        int indexOf = repNo.indexOf("MSTJ");
-        String substring = repNo.substring(indexOf + 4);
-        System.out.println(substring);
+        String repNo ="TZ2020BBFW000001"; //RepNoUtils.createRepNo("TZ", "MSTJ", "TZ2020MSTJ000001");
+        String substring = repNo.substring(0,6);
+        String substring1 = repNo.substring(10);
+        String substring3 = substring+"FWZIXUN"+substring1;
+        System.out.println(substring1);
 
     }
 

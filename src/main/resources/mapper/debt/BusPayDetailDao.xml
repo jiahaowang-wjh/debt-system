@@ -1,140 +1,141 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.smart.bracelet.dao.debt.BusPayDetailDao">
-  <resultMap id="BaseResultMap" type="com.smart.bracelet.model.po.debt.BusPayDetail">
-    <id column="pay_id" jdbcType="BIGINT" property="payId" />
-    <result column="report_id" jdbcType="BIGINT" property="reportId" />
-    <result column="contract_name" jdbcType="VARCHAR" property="contractName" />
-    <result column="payert_name" jdbcType="VARCHAR" property="payertName" />
-    <result column="voucher" jdbcType="VARCHAR" property="voucher" />
-    <result column="cost" jdbcType="VARCHAR" property="cost" />
-    <result column="flag" jdbcType="VARCHAR" property="flag" />
-    <result column="pay_no" jdbcType="VARCHAR" property="payNo"/>
-    <result column="status" jdbcType="VARCHAR" property="status" />
-  </resultMap>
-  <sql id="Base_Column_List">
+    <resultMap id="BaseResultMap" type="com.smart.bracelet.model.po.debt.BusPayDetail">
+        <id column="pay_id" jdbcType="BIGINT" property="payId"/>
+        <result column="report_id" jdbcType="BIGINT" property="reportId"/>
+        <result column="contract_name" jdbcType="VARCHAR" property="contractName"/>
+        <result column="payert_name" jdbcType="VARCHAR" property="payertName"/>
+        <result column="voucher" jdbcType="VARCHAR" property="voucher"/>
+        <result column="cost" jdbcType="VARCHAR" property="cost"/>
+        <result column="flag" jdbcType="VARCHAR" property="flag"/>
+        <result column="pay_no" jdbcType="VARCHAR" property="payNo"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     pay_id, report_id, contract_name, payert_name, voucher, cost, flag,pay_no,status
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from bus_pay_detail
-    where pay_id = #{payId,jdbcType=BIGINT}
-  </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from bus_pay_detail
+        where pay_id = #{payId,jdbcType=BIGINT}
+    </select>
     <select id="selectByReportId" resultType="com.smart.bracelet.model.po.debt.BusPayDetail">
-      select
-      <include refid="Base_Column_List" />
-      from bus_pay_detail
-      where report_id = #{reportId,jdbcType=BIGINT}
+        select
+        <include refid="Base_Column_List"/>
+        from bus_pay_detail
+        where report_id = #{reportId,jdbcType=BIGINT}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from bus_pay_detail
     where pay_id = #{payId,jdbcType=BIGINT}
   </delete>
-  <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.debt.BusPayDetail">
-    insert into bus_pay_detail
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="payId != null">
-        pay_id,
-      </if>
-      <if test="reportId != null">
-        report_id,
-      </if>
-      <if test="contractName != null">
-        contract_name,
-      </if>
-      <if test="payertName != null">
-        payert_name,
-      </if>
-      <if test="voucher != null">
-        voucher,
-      </if>
-      <if test="cost != null">
-        cost,
-      </if>
-      <if test="flag != null">
-        flag,
-      </if>
-      <if test="payNo != null">
-        pay_no
-      </if>
-      <if test="status != null">
-        status
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="payId != null">
-        #{payId,jdbcType=BIGINT},
-      </if>
-      <if test="reportId != null">
-        #{reportId,jdbcType=BIGINT},
-      </if>
-      <if test="contractName != null">
-        #{contractName,jdbcType=VARCHAR},
-      </if>
-      <if test="payertName != null">
-        #{payertName,jdbcType=VARCHAR},
-      </if>
-      <if test="voucher != null">
-        #{voucher,jdbcType=VARCHAR},
-      </if>
-      <if test="cost != null">
-        #{cost,jdbcType=VARCHAR},
-      </if>
-      <if test="flag != null">
-        #{flag,jdbcType=VARCHAR},
-      </if>
-      <if test="payNo != null">
-      #{payNo,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective">
-    update bus_pay_detail
-    <set>
-      <if test="reportId != null">
-        report_id = #{reportId,jdbcType=BIGINT},
-      </if>
-      <if test="contractName != null">
-        contract_name = #{contractName,jdbcType=VARCHAR},
-      </if>
-      <if test="payertName != null">
-        payert_name = #{payertName,jdbcType=VARCHAR},
-      </if>
-      <if test="voucher != null">
-        voucher = #{voucher,jdbcType=VARCHAR},
-      </if>
-      <if test="cost != null">
-        cost = #{cost,jdbcType=VARCHAR},
-      </if>
-      <if test="flag != null">
-        flag = #{flag,jdbcType=VARCHAR},
-      </if>
-      <if test="payNo != null">
-        pay_no = #{payNo,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-      status = #{status,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where pay_id = #{payId,jdbcType=BIGINT}
-  </update>
-  <update id="updateStatus">
+    <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.debt.BusPayDetail">
+        insert into bus_pay_detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="payId != null">
+                pay_id,
+            </if>
+            <if test="reportId != null">
+                report_id,
+            </if>
+            <if test="contractName != null">
+                contract_name,
+            </if>
+            <if test="payertName != null">
+                payert_name,
+            </if>
+            <if test="voucher != null">
+                voucher,
+            </if>
+            <if test="cost != null">
+                cost,
+            </if>
+            <if test="flag != null">
+                flag,
+            </if>
+            <if test="payNo != null">
+                pay_no,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="payId != null">
+                #{payId,jdbcType=BIGINT},
+            </if>
+            <if test="reportId != null">
+                #{reportId,jdbcType=BIGINT},
+            </if>
+            <if test="contractName != null">
+                #{contractName,jdbcType=VARCHAR},
+            </if>
+            <if test="payertName != null">
+                #{payertName,jdbcType=VARCHAR},
+            </if>
+            <if test="voucher != null">
+                #{voucher,jdbcType=VARCHAR},
+            </if>
+            <if test="cost != null">
+                #{cost,jdbcType=VARCHAR},
+            </if>
+            <if test="flag != null">
+                #{flag,jdbcType=VARCHAR},
+            </if>
+            <if test="payNo != null">
+                #{payNo,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective">
+        update bus_pay_detail
+        <set>
+            <if test="reportId != null">
+                report_id = #{reportId,jdbcType=BIGINT},
+            </if>
+            <if test="contractName != null">
+                contract_name = #{contractName,jdbcType=VARCHAR},
+            </if>
+            <if test="payertName != null">
+                payert_name = #{payertName,jdbcType=VARCHAR},
+            </if>
+            <if test="voucher != null">
+                voucher = #{voucher,jdbcType=VARCHAR},
+            </if>
+            <if test="cost != null">
+                cost = #{cost,jdbcType=VARCHAR},
+            </if>
+            <if test="flag != null">
+                flag = #{flag,jdbcType=VARCHAR},
+            </if>
+            <if test="payNo != null">
+                pay_no = #{payNo,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where pay_id = #{payId,jdbcType=BIGINT}
+    </update>
+    <update id="updateStatus">
 
-  </update>
-  <select id="selectRepNo" resultType="java.lang.String">
-    SELECT  bus_pay_detail.pay_no  FROM   bus_pay_detail   ORDER   BY   bus_pay_detail.pay_no    DESC   LIMIT   1
+    </update>
+    <select id="selectRepNo" resultType="java.lang.String">
+    SELECT  bus_pay_detail.pay_no  FROM   bus_pay_detail   ORDER   BY   bus_pay_detail.pay_id  DESC   LIMIT   1
   </select>
-  <select id="selectPayInfoList" resultType="com.smart.bracelet.model.vo.debt.BusPayDetailInfo">
-    SELECT bpd.pay_id,br.`report_id`,br.`report_no`,bpd.payert_name,bpd.flag AS 'payType',bpd.pay_no,bpd.cost,bpd.voucher,bpd.status FROM bus_pay_detail bpd
-    LEFT JOIN bus_report br ON bpd.`report_id`=br.`report_id`
-    <where>
-      <if test="reportNo != '' and reportNo != null">
-        br.report_no = #{reportNo,jdbcType=VARCHAR}
-      </if>
-    </where>
-  </select>
+    <select id="selectPayInfoList" resultType="com.smart.bracelet.model.vo.debt.BusPayDetailInfo">
+        SELECT bpd.pay_id,br.`report_id`,br.`report_no`,bpd.payert_name,bpd.flag AS
+        'payType',bpd.pay_no,bpd.cost,bpd.voucher,bpd.status FROM bus_pay_detail bpd
+        LEFT JOIN bus_report br ON bpd.`report_id`=br.`report_id`
+        <where>
+            <if test="reportNo != '' and reportNo != null">
+                br.report_no = #{reportNo,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
 </mapper>

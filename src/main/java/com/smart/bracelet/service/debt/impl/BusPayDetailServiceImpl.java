@@ -9,6 +9,7 @@ import com.smart.bracelet.service.debt.BusPayDetailService;
 import com.smart.bracelet.utils.IdUtils;
 import com.smart.bracelet.utils.RepNoUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,9 +21,6 @@ public class BusPayDetailServiceImpl implements BusPayDetailService {
 
     @Autowired
     private BusPayDetailDao busPayDetailDao;
-
-    @Autowired
-    private RepNoUtils repNoUtils;
 
     @Override
     public int deleteByPrimaryKey(Long payId) throws CustomerException {
@@ -36,12 +34,43 @@ public class BusPayDetailServiceImpl implements BusPayDetailService {
         }
     }
 
+    /**
+     * 组装编号
+     * @param name
+     * @return
+     */
+    public String buildUpNo(String name){
+        String selectRepNo = busPayDetailDao.selectRepNo();
+        String string3="";
+        if(!StringUtils.isBlank(selectRepNo)){
+            String substring1 = selectRepNo.substring(0, 6);
+            String substring2 = selectRepNo.substring(10);
+            string3 = substring1+name+substring2;
+        }
+        String repNo = RepNoUtils.createRepNo("TZ", name, string3);
+        return repNo;
+    }
+
     @Override
     public int insertSelective(BusPayDetail record) throws CustomerException {
         try {
-
-//            String s = busPayDetailDao.selectRepNo();
-//            repNoUtils.createRepNo("",s);
+            switch (record.getFlag()){
+                case "1":
+                    record.setPayNo(buildUpNo("BBFW"));
+                    break;
+                case "2":
+                    record.setPayNo(buildUpNo("TJFW"));
+                    break;
+                case "3":
+                    record.setPayNo(buildUpNo("ZXFW"));
+                    break;
+                case "4":
+                    record.setPayNo(buildUpNo("DKFW"));
+                    break;
+                case "5":
+                    record.setPayNo(buildUpNo("YHFW"));
+                    break;
+            }
             record.setPayId(IdUtils.nextId());
             int insertSelective = busPayDetailDao.insertSelective(record);
             log.info("新增支付信息成功,受影响行数:{}",insertSelective);
