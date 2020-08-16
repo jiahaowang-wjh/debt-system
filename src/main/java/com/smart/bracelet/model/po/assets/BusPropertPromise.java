@@ -1,6 +1,7 @@
-package com.smart.bracelet.model.po.debt;
+package com.smart.bracelet.model.po.assets;
 
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
@@ -19,6 +20,11 @@ public class BusPropertPromise implements Serializable {
      * 承诺书ID
      */
     private Long promiseId;
+
+    /**
+     * 承诺书编号
+     */
+    private String promiseNo;
 
     /**
      * 资产ID

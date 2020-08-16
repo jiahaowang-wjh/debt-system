@@ -1,10 +1,9 @@
-package com.smart.bracelet.service.debt;
+package com.smart.bracelet.service.assets;
 
 import com.smart.bracelet.exception.CustomerException;
-import com.smart.bracelet.model.po.debt.BusPropertPromise;
+import com.smart.bracelet.model.po.assets.BusPropertPromise;
 import com.smart.bracelet.model.po.debt.DateAndDays;
-import com.smart.bracelet.model.vo.debt.BusPropertPromiseVo;
-import org.springframework.stereotype.Repository;
+import com.smart.bracelet.model.vo.assets.BusPropertPromiseVo;
 
 import java.util.List;
 

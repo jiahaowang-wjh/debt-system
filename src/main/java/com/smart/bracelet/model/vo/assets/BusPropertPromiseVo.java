@@ -1,4 +1,4 @@
-package com.smart.bracelet.model.vo.debt;
+package com.smart.bracelet.model.vo.assets;
 
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -21,6 +21,11 @@ public class BusPropertPromiseVo implements Serializable {
     @NotNull(message = "承诺书ID不能为空")
     private Long promiseId;
 
+    /**
+     * 承诺书编号
+     */
+    @NotBlank(message = "承诺书编号不能为空")
+    private String promiseNo;
     /**
      * 资产ID
      */

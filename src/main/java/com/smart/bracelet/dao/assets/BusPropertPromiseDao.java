@@ -1,8 +1,8 @@
-package com.smart.bracelet.dao.debt;
+package com.smart.bracelet.dao.assets;
 
-import com.smart.bracelet.model.po.debt.BusPropertPromise;
+import com.smart.bracelet.model.po.assets.BusPropertPromise;
 import com.smart.bracelet.model.po.debt.DateAndDays;
-import com.smart.bracelet.model.vo.debt.BusPropertPromiseVo;
+import com.smart.bracelet.model.vo.assets.BusPropertPromiseVo;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -21,4 +21,10 @@ public interface BusPropertPromiseDao {
     List<DateAndDays> selectDaysCount();
 
     List<BusPropertPromise> queryList();
+
+    /**
+     * 查询最后一条编号
+     * @return
+     */
+    String selectNo();
 }

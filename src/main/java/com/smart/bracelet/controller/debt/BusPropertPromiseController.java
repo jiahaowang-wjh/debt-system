@@ -2,10 +2,10 @@ package com.smart.bracelet.controller.debt;
 
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
-import com.smart.bracelet.model.po.debt.BusPropertPromise;
+import com.smart.bracelet.model.po.assets.BusPropertPromise;
 import com.smart.bracelet.model.po.debt.DateAndDays;
-import com.smart.bracelet.model.vo.debt.BusPropertPromiseVo;
-import com.smart.bracelet.service.debt.BusPropertPromiseService;
+import com.smart.bracelet.model.vo.assets.BusPropertPromiseVo;
+import com.smart.bracelet.service.assets.BusPropertPromiseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;

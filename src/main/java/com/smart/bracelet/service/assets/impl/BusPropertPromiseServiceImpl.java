@@ -1,12 +1,13 @@
-package com.smart.bracelet.service.debt.impl;
+package com.smart.bracelet.service.assets.impl;
 
-import com.smart.bracelet.dao.debt.BusPropertPromiseDao;
+import com.smart.bracelet.dao.assets.BusPropertPromiseDao;
 import com.smart.bracelet.exception.CustomerException;
-import com.smart.bracelet.model.po.debt.BusPropertPromise;
+import com.smart.bracelet.model.po.assets.BusPropertPromise;
 import com.smart.bracelet.model.po.debt.DateAndDays;
-import com.smart.bracelet.model.vo.debt.BusPropertPromiseVo;
-import com.smart.bracelet.service.debt.BusPropertPromiseService;
+import com.smart.bracelet.model.vo.assets.BusPropertPromiseVo;
+import com.smart.bracelet.service.assets.BusPropertPromiseService;
 import com.smart.bracelet.utils.IdUtils;
+import com.smart.bracelet.utils.RepNoUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,9 @@ public class BusPropertPromiseServiceImpl implements BusPropertPromiseService {
     @Override
     public int insertSelective(BusPropertPromise record) throws CustomerException {
         try {
+            String selectNo = busPropertPromiseDao.selectNo();
+            String repNo = RepNoUtils.createRepNo("ZCGS", "CN", selectNo);
+            record.setPromiseNo(repNo);
             record.setPromiseId(IdUtils.nextId());
             int insertSelective = busPropertPromiseDao.insertSelective(record);
             return insertSelective;
