@@ -6,6 +6,7 @@ import com.smart.bracelet.model.po.assets.BusAssignmentAgreement;
 import com.smart.bracelet.model.vo.assets.BusAssignmentAgreementVo;
 import com.smart.bracelet.service.assets.BusAssignmentAgreementService;
 import com.smart.bracelet.utils.IdUtils;
+import com.smart.bracelet.utils.RepNoUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,10 @@ public class BusAssignmentAgreementServiceImpl implements BusAssignmentAgreement
     @Override
     public int insertSelective(BusAssignmentAgreement record) throws CustomerException {
         try {
+            String selectNo = busAssignmentAgreementDao.selectNo();
+            String repNo = RepNoUtils.createRepNo("ZCGS", "ZQZR", selectNo);
             record.setAssignmentAgreementId(IdUtils.nextId());
+            record.setAssignmentAgreementNo(repNo);
             int insertSelective = busAssignmentAgreementDao.insertSelective(record);
             log.info("新增资产债权转让协议成功,受影响行数:{}",insertSelective);
             return insertSelective;

@@ -19,4 +19,10 @@ public interface BusAssignmentAgreementDao {
 
     List<BusAssignmentAgreement> queryList();
 
+    /**
+     * 查询最后一条编号记录
+     * @return
+     */
+    String selectNo();
+
 }

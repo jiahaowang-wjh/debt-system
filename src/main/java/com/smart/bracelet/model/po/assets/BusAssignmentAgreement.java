@@ -21,6 +21,11 @@ public class BusAssignmentAgreement implements Serializable {
     private Long assignmentAgreementId;
 
     /**
+     * 转让协议编号
+     */
+    private String assignmentAgreementNo;
+
+    /**
      * 资产ID
      */
     @NotNull(message = "资产ID不能为空")

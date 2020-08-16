@@ -3,6 +3,7 @@
 <mapper namespace="com.smart.bracelet.dao.assets.BusAssignmentAgreementDao">
     <resultMap id="BaseResultMap" type="com.smart.bracelet.model.po.assets.BusAssignmentAgreement">
         <id column="assignment_agreement_id" jdbcType="BIGINT" property="assignmentAgreementId"/>
+        <result column="assignment_agreement_no" jdbcType="VARCHAR" property="assignmentAgreementNo"/>
         <result column="propert_id" jdbcType="BIGINT" property="propertId"/>
         <result column="defuse_way" jdbcType="VARCHAR" property="defuseWay"/>
         <result column="money_way" jdbcType="VARCHAR" property="moneyWay"/>
@@ -16,7 +17,7 @@
     </resultMap>
     <sql id="Base_Column_List">
     assignment_agreement_id, propert_id, defuse_way, money_way, agreement_date, agreement_date_end, 
-    partya_seal, partyb_seal, partya_signup_time, partyb_signup_time, signup_addr
+    partya_seal, partyb_seal, partya_signup_time, partyb_signup_time, signup_addr,assignment_agreement_no
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
@@ -26,6 +27,9 @@
     </select>
     <select id="queryList" resultType="com.smart.bracelet.model.po.assets.BusAssignmentAgreement">
        SELECT assignment_agreement_id, propert_id, defuse_way, money_way, agreement_date, agreement_date_end, partya_seal, partyb_seal, partya_signup_time, partyb_signup_time, signup_addr FROM bus_assignment_agreement
+    </select>
+    <select id="selectNo" resultType="java.lang.String">
+        SELECT  `bus_assignment_agreement`.assignment_agreement_no  FROM   `bus_assignment_agreement`   ORDER   BY   `bus_assignment_agreement`.assignment_agreement_id   DESC   LIMIT   1
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from bus_assignment_agreement
@@ -37,6 +41,9 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="assignmentAgreementId != null">
                 assignment_agreement_id,
+            </if>
+            <if test="assignmentAgreementNo != null">
+                assignment_agreement_no,
             </if>
             <if test="propertId != null">
                 propert_id,
@@ -72,6 +79,9 @@
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="assignmentAgreementId != null">
                 #{assignmentAgreementId,jdbcType=BIGINT},
+            </if>
+            <if test="assignmentAgreementNo != null">
+                #{assignmentAgreementNo,jdbcType=VARCHAR},
             </if>
             <if test="propertId != null">
                 #{propertId,jdbcType=BIGINT},
@@ -111,6 +121,9 @@
         <set>
             <if test="propertId != null">
                 propert_id = #{propertId,jdbcType=BIGINT},
+            </if>
+            <if test="assignmentAgreementNo != null">
+                assignment_agreement_no = #{assignmentAgreementNo,jdbcType=VARCHAR},
             </if>
             <if test="defuseWay != null">
                 defuse_way = #{defuseWay,jdbcType=VARCHAR},
