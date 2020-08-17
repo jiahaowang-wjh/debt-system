@@ -42,7 +42,7 @@ public class BusCivilServiceImpl implements BusCivilService {
     public int insertSelective(BusCivil record) throws CustomerException {
         try {
             String selectRepNo = busCivilDao.selectRepNo();
-            String repNo = RepNoUtils.createRepNo("TZ", "MSTJ", "");
+            String repNo = RepNoUtils.createRepNo("TZ", "MSTJ", selectRepNo);
             record.setCivilId(IdUtils.nextId());
             record.setCivilno(repNo);
             int insertSelective = busCivilDao.insertSelective(record);

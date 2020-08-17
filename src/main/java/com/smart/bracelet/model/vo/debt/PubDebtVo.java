@@ -42,6 +42,12 @@ public class PubDebtVo implements Serializable {
     private Long reportId;
 
     /**
+     * 相对人ID
+     */
+    @NotNull(message = "相对人ID不能为空")
+    private Long relativePerId;
+
+    /**
      * 债全总金额
      */
     @NotNull(message = "债全总金额不能为空")

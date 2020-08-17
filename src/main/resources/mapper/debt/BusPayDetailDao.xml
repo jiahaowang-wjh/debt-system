@@ -4,6 +4,7 @@
     <resultMap id="BaseResultMap" type="com.smart.bracelet.model.po.debt.BusPayDetail">
         <id column="pay_id" jdbcType="BIGINT" property="payId"/>
         <result column="report_id" jdbcType="BIGINT" property="reportId"/>
+        <result column="relative_per_id" jdbcType="BIGINT" property="relativePerId"/>
         <result column="contract_name" jdbcType="VARCHAR" property="contractName"/>
         <result column="payert_name" jdbcType="VARCHAR" property="payertName"/>
         <result column="voucher" jdbcType="VARCHAR" property="voucher"/>
@@ -13,7 +14,7 @@
         <result column="status" jdbcType="VARCHAR" property="status"/>
     </resultMap>
     <sql id="Base_Column_List">
-    pay_id, report_id, contract_name, payert_name, voucher, cost, flag,pay_no,status
+    pay_id, report_id,relative_per_id, contract_name, payert_name, voucher, cost, flag,pay_no,status
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
@@ -39,6 +40,9 @@
             </if>
             <if test="reportId != null">
                 report_id,
+            </if>
+            <if test="relativePerId != null">
+                relative_per_id,
             </if>
             <if test="contractName != null">
                 contract_name,
@@ -69,6 +73,9 @@
             <if test="reportId != null">
                 #{reportId,jdbcType=BIGINT},
             </if>
+            <if test="relativePerId != null">
+                #{relativePerId,jdbcType=BIGINT},
+            </if>
             <if test="contractName != null">
                 #{contractName,jdbcType=VARCHAR},
             </if>
@@ -97,6 +104,9 @@
         <set>
             <if test="reportId != null">
                 report_id = #{reportId,jdbcType=BIGINT},
+            </if>
+            <if test="relativePerId != null">
+                relative_per_id = #{relativePerId,jdbcType=BIGINT},
             </if>
             <if test="contractName != null">
                 contract_name = #{contractName,jdbcType=VARCHAR},

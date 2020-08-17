@@ -4,6 +4,7 @@
     <resultMap id="BaseResultMap" type="com.smart.bracelet.model.po.debt.PubDebt">
         <id column="debt_id" jdbcType="BIGINT" property="debtId"/>
         <result column="report_id" jdbcType="BIGINT" property="reportId"/>
+        <result column="relative_per_id" jdbcType="BIGINT" property="relativePerId"/>
         <result column="amount_total" jdbcType="REAL" property="amountTotal"/>
         <result column="amount_cumulative" jdbcType="REAL" property="amountCumulative"/>
         <result column="amount_this" jdbcType="REAL" property="amountThis"/>
@@ -31,7 +32,7 @@
         <result column="check_date" jdbcType="VARCHAR" property="checkDate"/>
     </resultMap>
     <sql id="Base_Column_List">
-    debt_id, report_id, amount_total, amount_cumulative, amount_this, debt_type, debt_yaer, 
+    debt_id, report_id,relative_per_id, amount_total, amount_cumulative, amount_this, debt_type, debt_yaer,
     is_pledge, service_plan, partya_addr, partya_person, partya_tel, partyb_addr, partyb_person, 
     partyb_tel, service_principal, service_interest, partya_deputy, partya_seal, partya_date, 
     partyb_deputy, partyb_seal, partyb_date, contract_place, `status`, check_reason,check_date
@@ -58,6 +59,9 @@
             </if>
             <if test="reportId != null">
                 report_id,
+            </if>
+            <if test="relativePerId != null">
+                relative_per_id,
             </if>
             <if test="amountTotal != null">
                 amount_total,
@@ -145,6 +149,9 @@
             <if test="reportId != null">
                 #{reportId,jdbcType=BIGINT},
             </if>
+            <if test="relativePerId != null">
+                #{relativePerId,jdbcType=BIGINT},
+            </if>
             <if test="amountTotal != null">
                 #{amountTotal,jdbcType=REAL},
             </if>
@@ -227,6 +234,9 @@
         <set>
             <if test="reportId != null">
                 report_id = #{reportId,jdbcType=BIGINT},
+            </if>
+            <if test="relativePerId != null">
+                relative_per_id = #{relativePerId,jdbcType=BIGINT},
             </if>
             <if test="debtNo != null">
                 debt_no = #{reportNo,jdbcType=BIGINT},

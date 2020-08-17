@@ -35,6 +35,7 @@ public class PubDebtController {
         return Result.success(insertSelective);
     }
 
+
     @RequestMapping("/deleteByPrimaryKey")
     public Result deleteByPrimaryKey(@NotNull(message = "解债信息Id不能为空") Long debtId) throws CustomerException {
         int deleteByPrimaryKey = pubDebtService.deleteByPrimaryKey(debtId);

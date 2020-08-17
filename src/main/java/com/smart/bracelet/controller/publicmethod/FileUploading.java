@@ -51,7 +51,7 @@ public class FileUploading {
         try {
             outputStream = response.getOutputStream();
             //这个路径为待下载文件的路径
-            bis = new BufferedInputStream(new FileInputStream(new File(fileImgPath + fileName )));
+            bis = new BufferedInputStream(new FileInputStream(new File("http://47.108.135.174:9000/" + fileName )));
             int read = bis.read(buff);
 
             //通过while循环写入到指定了的文件夹中

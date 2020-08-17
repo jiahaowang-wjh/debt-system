@@ -65,7 +65,7 @@ public class BusPayDetailServiceImpl implements BusPayDetailService {
                     record.setPayNo(buildUpNo("ZXFW"));
                     break;
                 case "4":
-                    record.setPayNo(buildUpNo("DKFW"));
+                    record.setPayNo(buildUpNo("HKFW"));
                     break;
                 case "5":
                     record.setPayNo(buildUpNo("YHFW"));

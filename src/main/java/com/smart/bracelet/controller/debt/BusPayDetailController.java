@@ -31,6 +31,7 @@ public class BusPayDetailController {
         int insertSelective = busPayDetailService.insertSelective(record);
         return Result.success(insertSelective);
     }
+
     @RequestMapping("/deleteByPrimaryKey")
     public Result deleteByPrimaryKey(@NotNull(message = "支付ID不能为空") Long payId) throws CustomerException{
         int deleteByPrimaryKey = busPayDetailService.deleteByPrimaryKey(payId);

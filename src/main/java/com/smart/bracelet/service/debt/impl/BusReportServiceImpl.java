@@ -366,7 +366,7 @@ public class BusReportServiceImpl implements BusReportService {
         BusReport busReport = new BusReport();
         try {
             busReport.setReportId(IdUtils.nextId());
-            busBankReport.setReportNo(createRepNo());
+            busReport.setReportNo(createRepNo());
             busReport.setCompanyId(busBankReport.getCompanyId());
             busReport.setUserId(busBankReport.getUserId());
             busReport.setIscoordinate(busBankReport.getIscoordinate());
