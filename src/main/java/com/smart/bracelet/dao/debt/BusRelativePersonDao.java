@@ -3,6 +3,7 @@ package com.smart.bracelet.dao.debt;
 import com.smart.bracelet.model.po.debt.BusRelativePerson;
 import com.smart.bracelet.model.vo.debt.BusRelativePersonVo;
 import com.smart.bracelet.model.vo.debt.ReportAndRelativePerson;
+import com.smart.bracelet.model.vo.debt.ReportAndRelativePersonShow;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

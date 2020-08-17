@@ -2,7 +2,6 @@ package com.smart.bracelet.controller.debt;
 
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
-import com.smart.bracelet.model.po.debt.BusRelativePerson;
 import com.smart.bracelet.model.vo.debt.*;
 import com.smart.bracelet.service.debt.BusRelativePersonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -153,8 +152,8 @@ public class BusRelativePersonController {
      * @return
      */
     @RequestMapping("/selectByRelativePerId")
-    public Result<ReportAndRelativePerson> selectByRelativePerId(@NotNull(message = "相对人不能为空")Long relativePerId) {
-        ReportAndRelativePerson reportAndRelativePerson = busRelativePersonService.selectByRelativePerId(relativePerId);
+    public Result<ReportAndRelativePersonShow> selectByRelativePerId(@NotNull(message = "相对人不能为空")Long relativePerId) throws CustomerException {
+        ReportAndRelativePersonShow reportAndRelativePerson = busRelativePersonService.selectByRelativePerId(relativePerId);
         return Result.success(reportAndRelativePerson);
     }
 

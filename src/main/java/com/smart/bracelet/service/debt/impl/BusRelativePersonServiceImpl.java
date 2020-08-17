@@ -6,7 +6,6 @@ import com.smart.bracelet.model.po.debt.BusRelativePerson;
 import com.smart.bracelet.model.vo.debt.*;
 import com.smart.bracelet.service.debt.BusRelativePersonService;
 import com.smart.bracelet.utils.IdUtils;
-import io.micrometer.core.instrument.Meter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -432,7 +431,43 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
     }
 
     @Override
-    public ReportAndRelativePerson selectByRelativePerId(Long relativePerId) {
-        return busRelativePersonDao.selectByRelativePerId(relativePerId);
+    public ReportAndRelativePersonShow selectByRelativePerId(Long relativePerId) throws CustomerException {
+        try{
+            ReportAndRelativePerson reportAndRelativePerson = busRelativePersonDao.selectByRelativePerId(relativePerId);
+            ReportAndRelativePersonShow show = new ReportAndRelativePersonShow();
+            show.setReportId(reportAndRelativePerson.getReportId());
+            show.setRelativeperId(reportAndRelativePerson.getRelativeperId());
+            if(reportAndRelativePerson.getReportPropert().equals("1")){
+                show.setDebtName(reportAndRelativePerson.getData1());
+                show.setDebtLegalName(reportAndRelativePerson.getData1());
+                show.setDebtIdCardCode(reportAndRelativePerson.getData2());
+                show.setDebtAdd(reportAndRelativePerson.getData5());
+                show.setDebtPhone(reportAndRelativePerson.getData3());
+            }else{
+                show.setDebtName(reportAndRelativePerson.getData1());
+                show.setDebtLegalName(reportAndRelativePerson.getData4());
+                show.setDebtIdCardCode(reportAndRelativePerson.getData2());
+                show.setDebtAdd(reportAndRelativePerson.getData7());
+                show.setDebtPhone(reportAndRelativePerson.getData9());
+            }
+            if(reportAndRelativePerson.getBrpReport().equals("1")){
+                show.setPersonalName(reportAndRelativePerson.getBrpdata1());
+                show.setPersonalLegalName(reportAndRelativePerson.getBrpdata1());
+                show.setPersonalIdCardCode(reportAndRelativePerson.getBrpdata2());
+                show.setPersonalAdd(reportAndRelativePerson.getBrpdata5());
+                show.setPersonalPhone(reportAndRelativePerson.getBrpdata3());
+            }else{
+                show.setPersonalName(reportAndRelativePerson.getBrpdata1());
+                show.setPersonalLegalName(reportAndRelativePerson.getBrpdata4());
+                show.setPersonalIdCardCode(reportAndRelativePerson.getBrpdata2());
+                show.setPersonalAdd(reportAndRelativePerson.getBrpdata7());
+                show.setPersonalPhone(reportAndRelativePerson.getBrpdata9());
+            }
+            return show;
+        }catch (Exception e){
+            log.error("异常信息:{}",e.getMessage());
+            throw new CustomerException("查询失败");
+        }
+
     }
 }

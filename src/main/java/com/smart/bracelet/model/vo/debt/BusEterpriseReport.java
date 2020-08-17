@@ -162,7 +162,7 @@ public class BusEterpriseReport {
     /**
      * 借款发生时间务
      */
-    @DateTimeFormat(pattern="yyyy-MM-dd=")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     @NotNull(message = "借款发生时间务不能为空")
     private Date debtTime;
 

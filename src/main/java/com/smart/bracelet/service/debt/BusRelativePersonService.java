@@ -1,7 +1,6 @@
 package com.smart.bracelet.service.debt;
 
 import com.smart.bracelet.exception.CustomerException;
-import com.smart.bracelet.model.po.debt.BusRelativePerson;
 import com.smart.bracelet.model.vo.debt.*;
 
 import java.util.List;
@@ -54,7 +53,7 @@ public interface BusRelativePersonService {
      * @param relativePerId
      * @return
      */
-    ReportAndRelativePerson selectByRelativePerId(Long relativePerId);
+    ReportAndRelativePersonShow selectByRelativePerId(Long relativePerId) throws CustomerException;
 
 
 }
