@@ -7,7 +7,7 @@ import lombok.Data;
  */
 @Data
 public class CiviIAndRepShow {
-    String reportId;
+    Long reportId;
     String reportNo;
     String civilno;
     String debtName;

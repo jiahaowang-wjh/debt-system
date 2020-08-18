@@ -6,6 +6,7 @@ import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.po.debt.PubDebt;
+import com.smart.bracelet.model.vo.debt.DebtAndRepAndCiviI;
 import com.smart.bracelet.model.vo.debt.DebtInfoQuery;
 import com.smart.bracelet.model.vo.debt.PubDebtInfo;
 import com.smart.bracelet.model.vo.debt.PubDebtVo;
@@ -100,5 +101,14 @@ public class PubDebtController {
         return Result.success(pubDebtInfoPageInfo);
     }
 
+
+    /**
+     * 解债信息填写更新展示
+     */
+    @RequestMapping("/selectDebtAndRepAndCiviI")
+    public Result<List<DebtAndRepAndCiviI>> selectDebtAndRepAndCiviI(){
+        List<DebtAndRepAndCiviI> debtAndRepAndCiviIS = pubDebtService.selectDebtAndRepAndCiviI();
+        return Result.success(debtAndRepAndCiviIS);
+    }
 
 }

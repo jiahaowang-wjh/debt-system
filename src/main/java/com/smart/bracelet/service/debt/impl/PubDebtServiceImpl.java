@@ -4,6 +4,7 @@ import com.smart.bracelet.dao.debt.PubDebtDao;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.po.debt.PubDebt;
+import com.smart.bracelet.model.vo.debt.DebtAndRepAndCiviI;
 import com.smart.bracelet.model.vo.debt.PubDebtInfo;
 import com.smart.bracelet.model.vo.debt.PubDebtVo;
 import com.smart.bracelet.service.debt.PubDebtService;
@@ -98,6 +99,11 @@ public class PubDebtServiceImpl implements PubDebtService {
     @Override
     public List<PubDebtInfo> selectDebtListShow(String debtNo,Long debtId) {
         return pubDebtDao.selectDebtListShow(debtNo,debtId);
+    }
+
+    @Override
+    public List<DebtAndRepAndCiviI> selectDebtAndRepAndCiviI() {
+        return pubDebtDao.selectDebtAndRepAndCiviI();
     }
 
 

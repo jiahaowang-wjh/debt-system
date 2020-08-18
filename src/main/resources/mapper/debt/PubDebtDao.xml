@@ -347,4 +347,9 @@
             </if>
         </where>
     </select>
+    <select id="selectDebtAndRepAndCiviI" resultType="com.smart.bracelet.model.vo.debt.DebtAndRepAndCiviI">
+        SELECT br.`report_id`,br.`report_no`,bc.civilno,pd.debt_id,pd.debt_no,br.`data1` AS 'debtName' FROM `bus_report` br
+        LEFT JOIN `pub_debt` pd ON br.`report_id`=pd.report_id
+        LEFT JOIN `bus_civil` bc ON bc.report_id = br.report_id
+    </select>
 </mapper>
