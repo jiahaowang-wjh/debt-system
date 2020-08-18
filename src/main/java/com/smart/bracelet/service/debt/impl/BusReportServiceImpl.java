@@ -529,9 +529,9 @@ public class BusReportServiceImpl implements BusReportService {
     }
 
     @Override
-    public int updateStatus(String status, Long reportId) throws CustomerException {
+    public int updateStatus(String status, Long reportId,String checkReason) throws CustomerException {
         try {
-            int i = busReportDao.updateStatus(status, reportId);
+            int i = busReportDao.updateStatus(status, reportId,checkReason);
             log.info("更新审核状态成功,受影响行数:{}",i);
             return i;
         } catch (Exception e) {

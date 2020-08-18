@@ -85,9 +85,9 @@ public class PubDebtServiceImpl implements PubDebtService {
     }
 
     @Override
-    public int updateStatus(String status, Long debtId) throws CustomerException {
+    public int updateStatus(String status, Long debtId,String checkReason) throws CustomerException {
         try {
-            int i = pubDebtDao.updateStatus(status, debtId);
+            int i = pubDebtDao.updateStatus(status, debtId,checkReason);
             log.info("更新解债状态成功,受影响行数:{}",i);
             return i;
         } catch (Exception e) {

@@ -79,8 +79,8 @@ public class BusCivilController {
      * @throws CustomerException
      */
     @RequestMapping("/updateStatus")
-    public Result updateStatus(@NotBlank(message = "民事调解状态不能为空")String status, @NotNull(message = "民事调解Id不能为空")Long civilId) throws CustomerException{
-        int i = busCivilService.updateStatus(status, civilId);
+    public Result updateStatus(@NotBlank(message = "民事调解状态不能为空")String status, @NotNull(message = "民事调解Id不能为空")Long civilId,@NotBlank(message = "审核原因不能为空") String checkReason) throws CustomerException{
+        int i = busCivilService.updateStatus(status, civilId,checkReason);
         return Result.success(i);
     }
     /**

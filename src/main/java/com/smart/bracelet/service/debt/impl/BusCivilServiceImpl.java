@@ -87,9 +87,9 @@ public class BusCivilServiceImpl implements BusCivilService {
     }
 
     @Override
-    public int updateStatus(String status, Long civilId) throws CustomerException {
+    public int updateStatus(String status, Long civilId,String checkReason) throws CustomerException {
         try {
-            int i = busCivilDao.updateStatus(status, civilId);
+            int i = busCivilDao.updateStatus(status, civilId,checkReason);
             log.info("更新民事调解状态成功,受影响行数:{}",i);
             return i;
         } catch (Exception e) {

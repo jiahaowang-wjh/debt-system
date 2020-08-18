@@ -178,8 +178,8 @@ public class BusReportController {
      * @throws CustomerException
      */
     @RequestMapping("/updateStatus")
-    public Result updateStatus(@NotBlank(message = "状态不能为空") String status, @NotNull(message = "报备Id不能为空") Long reportId) throws CustomerException {
-        int i = busReportService.updateStatus(status, reportId);
+    public Result updateStatus(@NotBlank(message = "状态不能为空") String status, @NotNull(message = "报备Id不能为空") Long reportId,@NotBlank(message = "审核原因不能为空") String checkReason) throws CustomerException {
+        int i = busReportService.updateStatus(status, reportId,checkReason);
         return Result.success(i);
     }
 

@@ -83,8 +83,8 @@ public class PubDebtController {
      * @throws CustomerException
      */
     @RequestMapping("/updateStatus")
-    public Result updateStatus(@NotBlank(message = "状态不能为空") String status, @NotNull(message = "解债信息Id不能为空")Long debtId) throws CustomerException{
-        int i = pubDebtService.updateStatus(status, debtId);
+    public Result updateStatus(@NotBlank(message = "状态不能为空") String status, @NotNull(message = "解债信息Id不能为空")Long debtId,@NotBlank(message = "审核原因不能为空") String checkReason) throws CustomerException{
+        int i = pubDebtService.updateStatus(status, debtId,checkReason);
         return Result.success(i);
     }
 

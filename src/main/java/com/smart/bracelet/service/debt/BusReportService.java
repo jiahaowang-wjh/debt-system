@@ -78,7 +78,7 @@ public interface BusReportService {
      * @param reportId
      * @return
      */
-    int updateStatus(String status,Long reportId) throws CustomerException;
+    int updateStatus(String status,Long reportId,String checkReason) throws CustomerException;
 
     /**
      * 页面报备信息展示

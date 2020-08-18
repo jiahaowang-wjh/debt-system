@@ -54,7 +54,7 @@ public interface BusReportDao {
      * @param reportId
      * @return
      */
-    int updateStatus(String status,Long reportId);
+    int updateStatus(String status,Long reportId,String checkReason);
 
     /**
      * 获取数据库中最后一条记录的编号

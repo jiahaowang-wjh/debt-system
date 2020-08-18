@@ -43,7 +43,7 @@ public interface PubDebtDao {
      * @param debtId
      * @return
      */
-    int updateStatus(String status, Long debtId);
+    int updateStatus(String status, Long debtId,String checkReason);
 
     /**
      * 查询最后一个解债编号

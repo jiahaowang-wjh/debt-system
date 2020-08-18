@@ -37,7 +37,7 @@ public interface PubDebtService {
      * @param debtId
      * @return
      */
-    int updateStatus(String status,Long debtId) throws CustomerException;
+    int updateStatus(String status,Long debtId,String checkReason) throws CustomerException;
 
 
     /**

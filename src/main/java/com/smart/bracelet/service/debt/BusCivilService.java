@@ -34,7 +34,7 @@ public interface BusCivilService {
      * @param civilId
      * @return
      */
-    int updateStatus(String status,Long civilId) throws CustomerException;
+    int updateStatus(String status,Long civilId,String checkReason) throws CustomerException;
 
     /**
      * 页面展示民事调解信息

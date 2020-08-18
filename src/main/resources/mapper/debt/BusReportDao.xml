@@ -430,7 +430,7 @@
         where report_id = #{reportId,jdbcType=BIGINT}
     </update>
     <update id="updateStatus">
-          update bus_report set  `status` = #{status,jdbcType=VARCHAR} where report_id = #{reportId,jdbcType=BIGINT}
+          update bus_report set  `status` = #{status,jdbcType=VARCHAR},check_reason=#{checkReason,jdbcType=VARCHAR} where report_id = #{reportId,jdbcType=BIGINT}
     </update>
 
     <!--页面报备信息展示-->
