@@ -22,6 +22,11 @@ public class BusCompromiseAgreement implements Serializable {
     private Long compromiseAgreementId;
 
     /**
+     * 和解协议编号
+     */
+    private String compromiseAgreementNo;
+
+    /**
      * 资产ID
      */
     @NotNull(message = "资产ID不能为空")

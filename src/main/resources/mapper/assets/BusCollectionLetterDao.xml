@@ -1,134 +1,129 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.smart.bracelet.dao.assets.BusCollectionLetterDao">
-  <resultMap id="BaseResultMap" type="com.smart.bracelet.model.po.assets.BusCollectionLetter">
-    <id column="collection_lettert_id" jdbcType="BIGINT" property="collectionLettertId" />
-    <result column="propert_id" jdbcType="BIGINT" property="propertId" />
-    <result column="partya_addr" jdbcType="VARCHAR" property="partyaAddr" />
-    <result column="partya_person" jdbcType="VARCHAR" property="partyaPerson" />
-    <result column="partya_tel" jdbcType="VARCHAR" property="partyaTel" />
-    <result column="partyb_addr" jdbcType="VARCHAR" property="partybAddr" />
-    <result column="partyb_person" jdbcType="VARCHAR" property="partybPerson" />
-    <result column="partyb_tel" jdbcType="VARCHAR" property="partybTel" />
-  </resultMap>
-  <sql id="Base_Column_List">
+    <resultMap id="BaseResultMap" type="com.smart.bracelet.model.po.assets.BusCollectionLetter">
+        <id column="collection_lettert_id" jdbcType="BIGINT" property="collectionLettertId"/>
+        <result column="propert_id" jdbcType="BIGINT" property="propertId"/>
+        <result column="partya_addr" jdbcType="VARCHAR" property="partyaAddr"/>
+        <result column="collection_lettert_no" jdbcType="VARCHAR" property="collectionLettertNo"/>
+        <result column="partya_person" jdbcType="VARCHAR" property="partyaPerson"/>
+        <result column="partya_tel" jdbcType="VARCHAR" property="partyaTel"/>
+        <result column="partyb_addr" jdbcType="VARCHAR" property="partybAddr"/>
+        <result column="partyb_person" jdbcType="VARCHAR" property="partybPerson"/>
+        <result column="partyb_tel" jdbcType="VARCHAR" property="partybTel"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     collection_lettert_id, propert_id, partya_addr, partya_person, partya_tel, partyb_addr, 
     partyb_person, partyb_tel
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from bus_collection_letter
-    where collection_lettert_id = #{collectionLettertId,jdbcType=BIGINT}
-  </select>
-  <select id="queryList" resultType="com.smart.bracelet.model.po.assets.BusCollectionLetter">
-    select
-    <include refid="Base_Column_List" />
-    from bus_collection_letter
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from bus_collection_letter
+        where collection_lettert_id = #{collectionLettertId,jdbcType=BIGINT}
+    </select>
+    <select id="queryList" resultType="com.smart.bracelet.model.po.assets.BusCollectionLetter">
+        select
+        <include refid="Base_Column_List"/>
+        from bus_collection_letter
+    </select>
+    <select id="selectNo" resultType="java.lang.String">
+      SELECT  bus_collection_letter.`collection_lettert_no`  FROM   `bus_collection_letter`   ORDER   BY  bus_collection_letter.`collection_lettert_id`    DESC   LIMIT   1
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from bus_collection_letter
     where collection_lettert_id = #{collectionLettertId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.smart.bracelet.model.po.assets.BusCollectionLetter">
-    insert into bus_collection_letter (collection_lettert_id, propert_id, partya_addr, 
-      partya_person, partya_tel, partyb_addr, 
-      partyb_person, partyb_tel)
-    values (#{collectionLettertId,jdbcType=BIGINT}, #{propertId,jdbcType=BIGINT}, #{partyaAddr,jdbcType=VARCHAR}, 
-      #{partyaPerson,jdbcType=VARCHAR}, #{partyaTel,jdbcType=VARCHAR}, #{partybAddr,jdbcType=VARCHAR}, 
-      #{partybPerson,jdbcType=VARCHAR}, #{partybTel,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.assets.BusCollectionLetter">
-    insert into bus_collection_letter
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="collectionLettertId != null">
-        collection_lettert_id,
-      </if>
-      <if test="propertId != null">
-        propert_id,
-      </if>
-      <if test="partyaAddr != null">
-        partya_addr,
-      </if>
-      <if test="partyaPerson != null">
-        partya_person,
-      </if>
-      <if test="partyaTel != null">
-        partya_tel,
-      </if>
-      <if test="partybAddr != null">
-        partyb_addr,
-      </if>
-      <if test="partybPerson != null">
-        partyb_person,
-      </if>
-      <if test="partybTel != null">
-        partyb_tel,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="collectionLettertId != null">
-        #{collectionLettertId,jdbcType=BIGINT},
-      </if>
-      <if test="propertId != null">
-        #{propertId,jdbcType=BIGINT},
-      </if>
-      <if test="partyaAddr != null">
-        #{partyaAddr,jdbcType=VARCHAR},
-      </if>
-      <if test="partyaPerson != null">
-        #{partyaPerson,jdbcType=VARCHAR},
-      </if>
-      <if test="partyaTel != null">
-        #{partyaTel,jdbcType=VARCHAR},
-      </if>
-      <if test="partybAddr != null">
-        #{partybAddr,jdbcType=VARCHAR},
-      </if>
-      <if test="partybPerson != null">
-        #{partybPerson,jdbcType=VARCHAR},
-      </if>
-      <if test="partybTel != null">
-        #{partybTel,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.po.assets.BusCollectionLetter">
-    update bus_collection_letter
-    <set>
-      <if test="propertId != null">
-        propert_id = #{propertId,jdbcType=BIGINT},
-      </if>
-      <if test="partyaAddr != null">
-        partya_addr = #{partyaAddr,jdbcType=VARCHAR},
-      </if>
-      <if test="partyaPerson != null">
-        partya_person = #{partyaPerson,jdbcType=VARCHAR},
-      </if>
-      <if test="partyaTel != null">
-        partya_tel = #{partyaTel,jdbcType=VARCHAR},
-      </if>
-      <if test="partybAddr != null">
-        partyb_addr = #{partybAddr,jdbcType=VARCHAR},
-      </if>
-      <if test="partybPerson != null">
-        partyb_person = #{partybPerson,jdbcType=VARCHAR},
-      </if>
-      <if test="partybTel != null">
-        partyb_tel = #{partybTel,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where collection_lettert_id = #{collectionLettertId,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.smart.bracelet.model.po.assets.BusCollectionLetter">
-    update bus_collection_letter
-    set propert_id = #{propertId,jdbcType=BIGINT},
-      partya_addr = #{partyaAddr,jdbcType=VARCHAR},
-      partya_person = #{partyaPerson,jdbcType=VARCHAR},
-      partya_tel = #{partyaTel,jdbcType=VARCHAR},
-      partyb_addr = #{partybAddr,jdbcType=VARCHAR},
-      partyb_person = #{partybPerson,jdbcType=VARCHAR},
-      partyb_tel = #{partybTel,jdbcType=VARCHAR}
-    where collection_lettert_id = #{collectionLettertId,jdbcType=BIGINT}
-  </update>
+
+    <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.assets.BusCollectionLetter">
+        insert into bus_collection_letter
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="collectionLettertId != null">
+                collection_lettert_id,
+            </if>
+            <if test="collectionLettertNo != null">
+                collection_lettert_no,
+            </if>
+            <if test="propertId != null">
+                propert_id,
+            </if>
+            <if test="partyaAddr != null">
+                partya_addr,
+            </if>
+            <if test="partyaPerson != null">
+                partya_person,
+            </if>
+            <if test="partyaTel != null">
+                partya_tel,
+            </if>
+            <if test="partybAddr != null">
+                partyb_addr,
+            </if>
+            <if test="partybPerson != null">
+                partyb_person,
+            </if>
+            <if test="partybTel != null">
+                partyb_tel,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="collectionLettertId != null">
+                #{collectionLettertId,jdbcType=BIGINT},
+            </if>
+            <if test="collectionLettertNo != null">
+                #{collectionLettertNo,jdbcType=BIGINT},
+            </if>
+            <if test="propertId != null">
+                #{propertId,jdbcType=BIGINT},
+            </if>
+            <if test="partyaAddr != null">
+                #{partyaAddr,jdbcType=VARCHAR},
+            </if>
+            <if test="partyaPerson != null">
+                #{partyaPerson,jdbcType=VARCHAR},
+            </if>
+            <if test="partyaTel != null">
+                #{partyaTel,jdbcType=VARCHAR},
+            </if>
+            <if test="partybAddr != null">
+                #{partybAddr,jdbcType=VARCHAR},
+            </if>
+            <if test="partybPerson != null">
+                #{partybPerson,jdbcType=VARCHAR},
+            </if>
+            <if test="partybTel != null">
+                #{partybTel,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.po.assets.BusCollectionLetter">
+        update bus_collection_letter
+        <set>
+            <if test="propertId != null">
+                propert_id = #{propertId,jdbcType=BIGINT},
+            </if>
+            <if test="collectionLettertNo != null">
+                collection_lettert_id = #{collectionLettertNo,jdbcType=VARCHAR},
+            </if>
+            <if test="partyaAddr != null">
+                partya_addr = #{partyaAddr,jdbcType=VARCHAR},
+            </if>
+            <if test="partyaPerson != null">
+                partya_person = #{partyaPerson,jdbcType=VARCHAR},
+            </if>
+            <if test="partyaTel != null">
+                partya_tel = #{partyaTel,jdbcType=VARCHAR},
+            </if>
+            <if test="partybAddr != null">
+                partyb_addr = #{partybAddr,jdbcType=VARCHAR},
+            </if>
+            <if test="partybPerson != null">
+                partyb_person = #{partybPerson,jdbcType=VARCHAR},
+            </if>
+            <if test="partybTel != null">
+                partyb_tel = #{partybTel,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where collection_lettert_id = #{collectionLettertId,jdbcType=BIGINT}
+    </update>
 </mapper>

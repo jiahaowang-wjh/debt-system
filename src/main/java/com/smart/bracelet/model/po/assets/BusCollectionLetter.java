@@ -20,6 +20,10 @@ public class BusCollectionLetter implements Serializable {
     private Long collectionLettertId;
 
     /**
+     * 编号
+     */
+    private String collectionLettertNo;
+    /**
      * 资产ID
      */
     @NotNull(message = "资产ID不能为空")

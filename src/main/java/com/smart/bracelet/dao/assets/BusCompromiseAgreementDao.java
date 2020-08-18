@@ -17,4 +17,8 @@ public interface BusCompromiseAgreementDao {
 
     List<BusCompromiseAgreement> queryList();
 
+    /**
+     * 查询最后一条编号
+     */
+    String selectNo();
 }

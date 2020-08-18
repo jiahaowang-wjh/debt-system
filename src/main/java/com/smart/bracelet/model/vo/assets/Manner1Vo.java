@@ -16,6 +16,12 @@ public class Manner1Vo {
     private Long compromiseAgreementId;
 
     /**
+     * 和解协议编号
+     */
+    @NotBlank(message = "和解协议编号不能为空")
+    private String compromiseAgreementNo;
+
+    /**
      * 资产ID
      */
     @NotNull(message = "资产ID不能为空")

@@ -49,6 +49,7 @@ public class BusCompromiseAgreementController {
         return Result.success(manner1AndManner2);
     }
 
+
     @RequestMapping("/updateByPrimaryKeySelectiveManner1Vo")
     public Result updateByPrimaryKeySelectiveManner1Vo(@Valid Manner1Vo record) throws CustomerException {
         int i = busCompromiseAgreementService.updateByPrimaryKeySelectiveManner1Vo(record);

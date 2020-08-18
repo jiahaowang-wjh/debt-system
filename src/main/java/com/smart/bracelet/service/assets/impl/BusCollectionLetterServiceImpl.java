@@ -6,6 +6,7 @@ import com.smart.bracelet.model.po.assets.BusCollectionLetter;
 import com.smart.bracelet.model.vo.assets.BusCollectionLetterVo;
 import com.smart.bracelet.service.assets.BusCollectionLetterService;
 import com.smart.bracelet.utils.IdUtils;
+import com.smart.bracelet.utils.RepNoUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,8 +34,11 @@ public class BusCollectionLetterServiceImpl implements BusCollectionLetterServic
 
     @Override
     public int insertSelective(BusCollectionLetter record) throws CustomerException {
+        String selectNo = busCollectionLetterDao.selectNo();
+        String repNo = RepNoUtils.createRepNo("ZCGS", "CKH", selectNo);
         try {
             record.setCollectionLettertId(IdUtils.nextId());
+            record.setCollectionLettertNo(repNo);
             int deleteByPrimaryKey = busCollectionLetterDao.insertSelective(record);
             log.info("新增资产催款函成功,受影响行数:{}",deleteByPrimaryKey);
             return deleteByPrimaryKey;

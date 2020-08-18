@@ -19,4 +19,8 @@ public interface BusCollectionLetterDao {
 
     List<BusCollectionLetter> queryList();
 
+    /**
+     * 查询最后一条编号
+     */
+    String selectNo();
 }

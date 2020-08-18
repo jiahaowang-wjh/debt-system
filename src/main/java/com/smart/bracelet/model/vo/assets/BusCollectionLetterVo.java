@@ -19,7 +19,11 @@ public class BusCollectionLetterVo implements Serializable {
      */
     @NotNull(message = "资催款函ID不能为空")
     private Long collectionLettertId;
-
+    /**
+     * 编号
+     */
+    @NotBlank(message = "编号不能为空")
+    private String collectionLettertNo;
     /**
      * 资产ID
      */
