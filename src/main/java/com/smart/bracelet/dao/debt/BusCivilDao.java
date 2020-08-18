@@ -2,10 +2,7 @@ package com.smart.bracelet.dao.debt;
 
 import com.smart.bracelet.model.po.debt.BusCivil;
 import com.smart.bracelet.model.po.debt.DateAndDays;
-import com.smart.bracelet.model.vo.debt.BusCivilInfo;
-import com.smart.bracelet.model.vo.debt.BusCivilShowList;
-import com.smart.bracelet.model.vo.debt.BusCivilVo;
-import com.smart.bracelet.model.vo.debt.DebtInfoQuery;
+import com.smart.bracelet.model.vo.debt.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -46,4 +43,9 @@ public interface BusCivilDao {
      * 页面展示民事调解信息
      */
     List<BusCivilInfo> selectBusList(DebtInfoQuery debtInfoQuery);
+
+    /**
+     * 民事调解信息填写页面更新信息
+     */
+    List<CiviIAndRepShow> selectCiviIAndRepShow();
 }

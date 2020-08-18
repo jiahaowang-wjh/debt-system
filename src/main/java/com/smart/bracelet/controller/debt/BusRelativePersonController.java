@@ -1,5 +1,7 @@
 package com.smart.bracelet.controller.debt;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.vo.debt.*;
@@ -152,9 +154,22 @@ public class BusRelativePersonController {
      * @return
      */
     @RequestMapping("/selectByRelativePerId")
-    public Result<ReportAndRelativePersonShow> selectByRelativePerId(@NotNull(message = "相对人不能为空")Long relativePerId) throws CustomerException {
+    public Result<ReportAndRelativePersonShow> selectByRelativePerId(@NotNull(message = "相对人不能为空") Long relativePerId) throws CustomerException {
         ReportAndRelativePersonShow reportAndRelativePerson = busRelativePersonService.selectByRelativePerId(relativePerId);
         return Result.success(reportAndRelativePerson);
     }
+
+    /**
+     * 辅助下载
+     */
+    @RequestMapping("/selectDow")
+    public Result<PageInfo> selectDow(@NotNull(message = "页码不能为空") Integer pageNum,
+                                                     @NotNull(message = "当前显示条数不能为空") Integer pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<AuxiliaryDownload> auxiliaryDownloads = busRelativePersonService.selectDow();
+        PageInfo<AuxiliaryDownload> auxiliaryDownloadPageInfo = new PageInfo<>(auxiliaryDownloads);
+        return Result.success(auxiliaryDownloadPageInfo);
+    }
+
 
 }

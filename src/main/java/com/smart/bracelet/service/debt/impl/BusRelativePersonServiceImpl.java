@@ -470,4 +470,9 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
         }
 
     }
+
+    @Override
+    public List<AuxiliaryDownload> selectDow() {
+        return busRelativePersonDao.selectDow();
+    }
 }

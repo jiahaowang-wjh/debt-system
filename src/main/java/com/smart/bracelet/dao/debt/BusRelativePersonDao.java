@@ -1,6 +1,7 @@
 package com.smart.bracelet.dao.debt;
 
 import com.smart.bracelet.model.po.debt.BusRelativePerson;
+import com.smart.bracelet.model.vo.debt.AuxiliaryDownload;
 import com.smart.bracelet.model.vo.debt.BusRelativePersonVo;
 import com.smart.bracelet.model.vo.debt.ReportAndRelativePerson;
 import com.smart.bracelet.model.vo.debt.ReportAndRelativePersonShow;
@@ -32,5 +33,11 @@ public interface BusRelativePersonDao {
      * @return
      */
     ReportAndRelativePerson selectByRelativePerId(Long relativePerId);
+
+    /**
+     * 辅助下载
+     */
+    List<AuxiliaryDownload> selectDow();
+
 
 }

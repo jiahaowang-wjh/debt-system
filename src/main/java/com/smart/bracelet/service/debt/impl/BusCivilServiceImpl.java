@@ -4,10 +4,7 @@ import com.smart.bracelet.dao.debt.BusCivilDao;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.debt.BusCivil;
 import com.smart.bracelet.model.po.debt.DateAndDays;
-import com.smart.bracelet.model.vo.debt.BusCivilInfo;
-import com.smart.bracelet.model.vo.debt.BusCivilShowList;
-import com.smart.bracelet.model.vo.debt.BusCivilVo;
-import com.smart.bracelet.model.vo.debt.DebtInfoQuery;
+import com.smart.bracelet.model.vo.debt.*;
 import com.smart.bracelet.service.debt.BusCivilService;
 import com.smart.bracelet.utils.IdUtils;
 import com.smart.bracelet.utils.RepNoUtils;
@@ -104,6 +101,11 @@ public class BusCivilServiceImpl implements BusCivilService {
     @Override
     public List<BusCivilInfo> selectBusList(DebtInfoQuery debtInfoQuery) {
         return busCivilDao.selectBusList(debtInfoQuery);
+    }
+
+    @Override
+    public List<CiviIAndRepShow> selectCiviIAndRepShow() {
+        return busCivilDao.selectCiviIAndRepShow();
     }
 
 

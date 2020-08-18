@@ -6,10 +6,7 @@ import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.debt.BusCivil;
 import com.smart.bracelet.model.po.debt.DateAndDays;
-import com.smart.bracelet.model.vo.debt.BusCivilInfo;
-import com.smart.bracelet.model.vo.debt.BusCivilShowList;
-import com.smart.bracelet.model.vo.debt.BusCivilVo;
-import com.smart.bracelet.model.vo.debt.DebtInfoQuery;
+import com.smart.bracelet.model.vo.debt.*;
 import com.smart.bracelet.service.debt.BusCivilService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,6 +100,15 @@ public class BusCivilController {
         List<BusCivilInfo> busCivilInfos = busCivilService.selectBusList(debtInfoQuery);
         PageInfo<BusCivilInfo> busCivilInfoPageInfo = new PageInfo<>(busCivilInfos);
         return Result.success(busCivilInfoPageInfo);
+    }
+
+    /**
+     * 民事调解信息填写页面更新信息
+     */
+    @RequestMapping("/selectCiviIAndRepShow")
+    public Result<List<CiviIAndRepShow>> selectCiviIAndRepShow(){
+        List<CiviIAndRepShow> civiIAndRepShows = busCivilService.selectCiviIAndRepShow();
+        return Result.success(civiIAndRepShows);
     }
 
 }

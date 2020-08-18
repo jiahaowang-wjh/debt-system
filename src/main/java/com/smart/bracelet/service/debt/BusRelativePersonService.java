@@ -55,5 +55,10 @@ public interface BusRelativePersonService {
      */
     ReportAndRelativePersonShow selectByRelativePerId(Long relativePerId) throws CustomerException;
 
+    /**
+     * 辅助下载
+     */
+    List<AuxiliaryDownload> selectDow();
+
 
 }

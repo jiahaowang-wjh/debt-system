@@ -7,6 +7,7 @@ import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.vo.debt.*;
 import com.smart.bracelet.service.debt.BusReportService;
 import com.smart.bracelet.utils.IdUtils;
+import com.smart.bracelet.utils.RepNoUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -135,7 +136,7 @@ public class BusReportServiceImpl implements BusReportService {
         try {
             busReport.setReportId(IdUtils.nextId());
             //设置报备编号
-
+            busReport.setReportNo(createRepNo());
             busReport.setCompanyId(busPrivateReport.getCompanyId());
             busReport.setUserId(busPrivateReport.getUserId());
             busReport.setIscoordinate(busPrivateReport.getIscoordinate());
@@ -173,7 +174,6 @@ public class BusReportServiceImpl implements BusReportService {
             busReport.setData8(busPrivateReport.getAssetsNumber());
             busReport.setData9(busPrivateReport.getCirculationAssets());
             busReport.setData10(busPrivateReport.getIfWork());
-            busReport.setReportNo(createRepNo());
             int insertSelective = busReportDao.insertSelective(busReport);
             log.info("新增私人报备信息成功,受影响行数:{}", insertSelective);
             return insertSelective;
@@ -555,32 +555,9 @@ public class BusReportServiceImpl implements BusReportService {
      * @return
      */
     public String createRepNo(){
-        String repNo;
-        int intXuhao;
-        String stringXuhao;
-        boolean ok=true;
-        Calendar ca = Calendar.getInstance();
-        int year = ca.get(Calendar.YEAR);//获取年份
-        String xuHao=null;
         String aLong = busReportDao.selectRepNo();
-        if(aLong!=null) {
-            xuHao = aLong.substring(aLong.toString().indexOf("F") + 1);
-            intXuhao = Integer.parseInt(xuHao);
-            intXuhao = intXuhao+1;
-            stringXuhao = intXuhao+"";
-            while (ok){
-                if(stringXuhao.length()<6){
-                    stringXuhao = 0+stringXuhao;
-                }else{
-                    ok = false;
-                }
-            }
-            repNo = "TZ" + year + "BBF"+stringXuhao;
-            return repNo;
-        }else {
-            repNo = "TZ" + year + "BBF"+"000001";
-            return repNo;
-        }
+        String repNo = RepNoUtils.createRepNo("TZ", "ZSBB", aLong);
+        return repNo;
     }
 
 

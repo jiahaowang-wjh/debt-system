@@ -66,6 +66,10 @@
             </if>
         </where>
     </select>
+    <select id="selectCiviIAndRepShow" resultType="com.smart.bracelet.model.vo.debt.CiviIAndRepShow">
+        SELECT br.`report_id`,br.`report_no`,bc.civilno,br.`data1` AS 'debtName',bc.status FROM `bus_civil` bc
+        LEFT JOIN `bus_report` br ON bc.`report_id` = br.`report_id`
+    </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from bus_civil
