@@ -1,0 +1,1410 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smart.bracelet.dao.debt.BusInvestigateReportDao">
+  <resultMap id="BaseResultMap" type="com.smart.bracelet.model.po.debt.BusInvestigateReport">
+    <id column="report_id" jdbcType="BIGINT" property="reportId" />
+    <result column="debt_id" jdbcType="BIGINT" property="debtId" />
+    <result column="unit_name" jdbcType="VARCHAR" property="unitName" />
+    <result column="account_manager" jdbcType="VARCHAR" property="accountManager" />
+    <result column="report_finash_date" jdbcType="DATE" property="reportFinashDate" />
+    <result column="account_name" jdbcType="VARCHAR" property="accountName" />
+    <result column="registered_capital" jdbcType="BIGINT" property="registeredCapital" />
+    <result column="found_time" jdbcType="DATE" property="foundTime" />
+    <result column="management_addr" jdbcType="VARCHAR" property="managementAddr" />
+    <result column="management" jdbcType="VARCHAR" property="management" />
+    <result column="business" jdbcType="VARCHAR" property="business" />
+    <result column="legalperson_name" jdbcType="VARCHAR" property="legalpersonName" />
+    <result column="legalperson_sex" jdbcType="VARCHAR" property="legalpersonSex" />
+    <result column="legalperson_edu" jdbcType="VARCHAR" property="legalpersonEdu" />
+    <result column="legalperson_mirr" jdbcType="VARCHAR" property="legalpersonMirr" />
+    <result column="legalperson_tel" jdbcType="VARCHAR" property="legalpersonTel" />
+    <result column="legalperson_stock" jdbcType="VARCHAR" property="legalpersonStock" />
+    <result column="stock_name" jdbcType="VARCHAR" property="stockName" />
+    <result column="stock_sex" jdbcType="VARCHAR" property="stockSex" />
+    <result column="stock_age" jdbcType="VARCHAR" property="stockAge" />
+    <result column="stock_edu" jdbcType="VARCHAR" property="stockEdu" />
+    <result column="stock_mirr" jdbcType="VARCHAR" property="stockMirr" />
+    <result column="stock_tel" jdbcType="VARCHAR" property="stockTel" />
+    <result column="stock_stock" jdbcType="VARCHAR" property="stockStock" />
+    <result column="stock1_name" jdbcType="VARCHAR" property="stock1Name" />
+    <result column="stock1_sex" jdbcType="VARCHAR" property="stock1Sex" />
+    <result column="stock1_age" jdbcType="VARCHAR" property="stock1Age" />
+    <result column="stock1_edu" jdbcType="VARCHAR" property="stock1Edu" />
+    <result column="stock1_mirr" jdbcType="VARCHAR" property="stock1Mirr" />
+    <result column="stock1_tel" jdbcType="VARCHAR" property="stock1Tel" />
+    <result column="stock1_stock" jdbcType="VARCHAR" property="stock1Stock" />
+    <result column="company_total_liab" jdbcType="VARCHAR" property="companyTotalLiab" />
+    <result column="total_liab_rate" jdbcType="VARCHAR" property="totalLiabRate" />
+    <result column="total_bank" jdbcType="VARCHAR" property="totalBank" />
+    <result column="bank1" jdbcType="VARCHAR" property="bank1" />
+    <result column="amount1" jdbcType="VARCHAR" property="amount1" />
+    <result column="bank2" jdbcType="VARCHAR" property="bank2" />
+    <result column="amount2" jdbcType="VARCHAR" property="amount2" />
+    <result column="bank3" jdbcType="VARCHAR" property="bank3" />
+    <result column="amount3" jdbcType="VARCHAR" property="amount3" />
+    <result column="private_finance" jdbcType="VARCHAR" property="privateFinance" />
+    <result column="small_company" jdbcType="REAL" property="smallCompany" />
+    <result column="guarantee_company" jdbcType="REAL" property="guaranteeCompany" />
+    <result column="fund_company" jdbcType="REAL" property="fundCompany" />
+    <result column="toloan_count" jdbcType="REAL" property="toloanCount" />
+    <result column="is_ill_fund" jdbcType="VARCHAR" property="isIllFund" />
+    <result column="fifty_thousand" jdbcType="INTEGER" property="fiftyThousand" />
+    <result column="two_hundred_thousand" jdbcType="INTEGER" property="twoHundredThousand" />
+    <result column="five_hundred_thousand" jdbcType="INTEGER" property="fiveHundredThousand" />
+    <result column="one_million" jdbcType="INTEGER" property="oneMillion" />
+    <result column="one_million_above" jdbcType="INTEGER" property="oneMillionAbove" />
+    <result column="project_arrears" jdbcType="VARCHAR" property="projectArrears" />
+    <result column="default_taxes" jdbcType="REAL" property="defaultTaxes" />
+    <result column="default_wages" jdbcType="REAL" property="defaultWages" />
+    <result column="default_socialsecurity" jdbcType="REAL" property="defaultSocialsecurity" />
+    <result column="receivable_account" jdbcType="REAL" property="receivableAccount" />
+    <result column="copewith" jdbcType="REAL" property="copewith" />
+    <result column="involving_justice" jdbcType="INTEGER" property="involvingJustice" />
+    <result column="stock_ispledge" jdbcType="VARCHAR" property="stockIspledge" />
+    <result column="manag_model" jdbcType="VARCHAR" property="managModel" />
+    <result column="manag_model_year1" jdbcType="INTEGER" property="managModelYear1" />
+    <result column="manag_model_money1" jdbcType="REAL" property="managModelMoney1" />
+    <result column="prodous_grossprofit1" jdbcType="INTEGER" property="prodousGrossprofit1" />
+    <result column="netprofit1" jdbcType="INTEGER" property="netprofit1" />
+    <result column="manag_model_year2" jdbcType="INTEGER" property="managModelYear2" />
+    <result column="manag_model_money2" jdbcType="REAL" property="managModelMoney2" />
+    <result column="prodous_grossprofit2" jdbcType="INTEGER" property="prodousGrossprofit2" />
+    <result column="netprofit2" jdbcType="INTEGER" property="netprofit2" />
+    <result column="sunrise_industry" jdbcType="VARCHAR" property="sunriseIndustry" />
+    <result column="sunset_industry" jdbcType="VARCHAR" property="sunsetIndustry" />
+    <result column="new_industry" jdbcType="VARCHAR" property="newIndustry" />
+    <result column="future_industry" jdbcType="VARCHAR" property="futureIndustry" />
+    <result column="surplus_industry" jdbcType="VARCHAR" property="surplusIndustry" />
+    <result column="elimination" jdbcType="VARCHAR" property="elimination" />
+    <result column="land" jdbcType="INTEGER" property="land" />
+    <result column="land_nature" jdbcType="VARCHAR" property="landNature" />
+    <result column="purchase_price" jdbcType="REAL" property="purchasePrice" />
+    <result column="price_access_value" jdbcType="REAL" property="priceAccessValue" />
+    <result column="price_ispledge" jdbcType="VARCHAR" property="priceIspledge" />
+    <result column="price_isjudicial" jdbcType="VARCHAR" property="priceIsjudicial" />
+    <result column="price_isSeizure" jdbcType="VARCHAR" property="priceIsseizure" />
+    <result column="price_addr" jdbcType="VARCHAR" property="priceAddr" />
+    <result column="house_property" jdbcType="VARCHAR" property="houseProperty" />
+    <result column="residence" jdbcType="VARCHAR" property="residence" />
+    <result column="busines" jdbcType="VARCHAR" property="busines" />
+    <result column="busines_service" jdbcType="VARCHAR" property="businesService" />
+    <result column="house_addr" jdbcType="VARCHAR" property="houseAddr" />
+    <result column="house_access_value" jdbcType="VARCHAR" property="houseAccessValue" />
+    <result column="house_ispledge" jdbcType="VARCHAR" property="houseIspledge" />
+    <result column="house_isjudicial" jdbcType="VARCHAR" property="houseIsjudicial" />
+    <result column="house_isSeizure" jdbcType="VARCHAR" property="houseIsseizure" />
+    <result column="residence1" jdbcType="INTEGER" property="residence1" />
+    <result column="residence_access_value" jdbcType="INTEGER" property="residenceAccessValue" />
+    <result column="residence_ispledge" jdbcType="VARCHAR" property="residenceIspledge" />
+    <result column="residence_isjudicial" jdbcType="VARCHAR" property="residenceIsjudicial" />
+    <result column="residence_isSeizure" jdbcType="VARCHAR" property="residenceIsseizure" />
+    <result column="busines1" jdbcType="INTEGER" property="busines1" />
+    <result column="busines_access_value" jdbcType="INTEGER" property="businesAccessValue" />
+    <result column="busines_ispledge" jdbcType="VARCHAR" property="businesIspledge" />
+    <result column="busines_isjudicial" jdbcType="VARCHAR" property="businesIsjudicial" />
+    <result column="busines_isSeizure" jdbcType="VARCHAR" property="businesIsseizure" />
+    <result column="workshop" jdbcType="INTEGER" property="workshop" />
+    <result column="workshop_access_value" jdbcType="INTEGER" property="workshopAccessValue" />
+    <result column="workshop_ispledge" jdbcType="VARCHAR" property="workshopIspledge" />
+    <result column="workshop_isjudicial" jdbcType="VARCHAR" property="workshopIsjudicial" />
+    <result column="workshop_isSeizure" jdbcType="VARCHAR" property="workshopIsseizure" />
+    <result column="device" jdbcType="INTEGER" property="device" />
+    <result column="device_access_value" jdbcType="INTEGER" property="deviceAccessValue" />
+    <result column="major_device" jdbcType="VARCHAR" property="majorDevice" />
+    <result column="common_device" jdbcType="INTEGER" property="commonDevice" />
+    <result column="oter_access_value" jdbcType="INTEGER" property="oterAccessValue" />
+    <result column="oter_ispledge" jdbcType="VARCHAR" property="oterIspledge" />
+    <result column="oter_isjudicial" jdbcType="VARCHAR" property="oterIsjudicial" />
+    <result column="oter_isSeizure" jdbcType="VARCHAR" property="oterIsseizure" />
+    <result column="build_useland_licence" jdbcType="VARCHAR" property="buildUselandLicence" />
+    <result column="build_engin_licence" jdbcType="VARCHAR" property="buildEnginLicence" />
+    <result column="engin_construc_licence" jdbcType="VARCHAR" property="enginConstrucLicence" />
+    <result column="investment_project_record" jdbcType="VARCHAR" property="investmentProjectRecord" />
+    <result column="project_prehouse_licence" jdbcType="VARCHAR" property="projectPrehouseLicence" />
+    <result column="project_build_contract" jdbcType="VARCHAR" property="projectBuildContract" />
+    <result column="project_build_company" jdbcType="VARCHAR" property="projectBuildCompany" />
+    <result column="business_license" jdbcType="VARCHAR" property="businessLicense" />
+    <result column="tax_declaration" jdbcType="VARCHAR" property="taxDeclaration" />
+    <result column="enterprise_bus_report" jdbcType="VARCHAR" property="enterpriseBusReport" />
+    <result column="enterprise_produc_prove" jdbcType="VARCHAR" property="enterpriseProducProve" />
+    <result column="project_advantage" jdbcType="VARCHAR" property="projectAdvantage" />
+    <result column="project_weakness" jdbcType="VARCHAR" property="projectWeakness" />
+    <result column="project_population" jdbcType="VARCHAR" property="projectPopulation" />
+    <result column="debtor_evaluate" jdbcType="VARCHAR" property="debtorEvaluate" />
+    <result column="other_supplement" jdbcType="VARCHAR" property="otherSupplement" />
+    <result column="investigation_conclusion" jdbcType="VARCHAR" property="investigationConclusion" />
+    <result column="investigation_person" jdbcType="VARCHAR" property="investigationPerson" />
+    <result column="investigation_date" jdbcType="DATE" property="investigationDate" />
+    <result column="project_ispopulation" jdbcType="VARCHAR" property="projectIspopulation" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.smart.bracelet.model.po.debt.BusInvestigateReport">
+    <result column="legalperson_age" jdbcType="BIGINT" property="legalpersonAge" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    report_id, debt_id, unit_name, account_manager, report_finash_date, account_name, 
+    registered_capital, found_time, management_addr, management, business, legalperson_name, 
+    legalperson_sex, legalperson_edu, legalperson_mirr, legalperson_tel, legalperson_stock, 
+    stock_name, stock_sex, stock_age, stock_edu, stock_mirr, stock_tel, stock_stock, 
+    stock1_name, stock1_sex, stock1_age, stock1_edu, stock1_mirr, stock1_tel, stock1_stock, 
+    company_total_liab, total_liab_rate, total_bank, bank1, amount1, bank2, amount2, 
+    bank3, amount3, private_finance, small_company, guarantee_company, fund_company, 
+    toloan_count, is_ill_fund, fifty_thousand, two_hundred_thousand, five_hundred_thousand, 
+    one_million, one_million_above, project_arrears, default_taxes, default_wages, default_socialsecurity, 
+    receivable_account, copewith, involving_justice, stock_ispledge, manag_model, manag_model_year1, 
+    manag_model_money1, prodous_grossprofit1, netprofit1, manag_model_year2, manag_model_money2, 
+    prodous_grossprofit2, netprofit2, sunrise_industry, sunset_industry, new_industry, 
+    future_industry, surplus_industry, elimination, land, land_nature, purchase_price, 
+    price_access_value, price_ispledge, price_isjudicial, price_isSeizure, price_addr, 
+    house_property, residence, busines, busines_service, house_addr, house_access_value, 
+    house_ispledge, house_isjudicial, house_isSeizure, residence1, residence_access_value, 
+    residence_ispledge, residence_isjudicial, residence_isSeizure, busines1, busines_access_value, 
+    busines_ispledge, busines_isjudicial, busines_isSeizure, workshop, workshop_access_value, 
+    workshop_ispledge, workshop_isjudicial, workshop_isSeizure, device, device_access_value, 
+    major_device, common_device, oter_access_value, oter_ispledge, oter_isjudicial, oter_isSeizure, 
+    build_useland_licence, build_engin_licence, engin_construc_licence, investment_project_record, 
+    project_prehouse_licence, project_build_contract, project_build_company, business_license, 
+    tax_declaration, enterprise_bus_report, enterprise_produc_prove, project_advantage, 
+    project_weakness, project_population, debtor_evaluate, other_supplement, investigation_conclusion, 
+    investigation_person, investigation_date, project_ispopulation
+  </sql>
+  <sql id="Blob_Column_List">
+    legalperson_age
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from bus_investigate_report
+    where report_id = #{reportId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from bus_investigate_report
+    where report_id = #{reportId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.debt.BusInvestigateReport">
+    insert into bus_investigate_report
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="reportId != null">
+        report_id,
+      </if>
+      <if test="debtId != null">
+        debt_id,
+      </if>
+      <if test="unitName != null">
+        unit_name,
+      </if>
+      <if test="accountManager != null">
+        account_manager,
+      </if>
+      <if test="reportFinashDate != null">
+        report_finash_date,
+      </if>
+      <if test="accountName != null">
+        account_name,
+      </if>
+      <if test="registeredCapital != null">
+        registered_capital,
+      </if>
+      <if test="foundTime != null">
+        found_time,
+      </if>
+      <if test="managementAddr != null">
+        management_addr,
+      </if>
+      <if test="management != null">
+        management,
+      </if>
+      <if test="business != null">
+        business,
+      </if>
+      <if test="legalpersonName != null">
+        legalperson_name,
+      </if>
+      <if test="legalpersonSex != null">
+        legalperson_sex,
+      </if>
+      <if test="legalpersonEdu != null">
+        legalperson_edu,
+      </if>
+      <if test="legalpersonMirr != null">
+        legalperson_mirr,
+      </if>
+      <if test="legalpersonTel != null">
+        legalperson_tel,
+      </if>
+      <if test="legalpersonStock != null">
+        legalperson_stock,
+      </if>
+      <if test="stockName != null">
+        stock_name,
+      </if>
+      <if test="stockSex != null">
+        stock_sex,
+      </if>
+      <if test="stockAge != null">
+        stock_age,
+      </if>
+      <if test="stockEdu != null">
+        stock_edu,
+      </if>
+      <if test="stockMirr != null">
+        stock_mirr,
+      </if>
+      <if test="stockTel != null">
+        stock_tel,
+      </if>
+      <if test="stockStock != null">
+        stock_stock,
+      </if>
+      <if test="stock1Name != null">
+        stock1_name,
+      </if>
+      <if test="stock1Sex != null">
+        stock1_sex,
+      </if>
+      <if test="stock1Age != null">
+        stock1_age,
+      </if>
+      <if test="stock1Edu != null">
+        stock1_edu,
+      </if>
+      <if test="stock1Mirr != null">
+        stock1_mirr,
+      </if>
+      <if test="stock1Tel != null">
+        stock1_tel,
+      </if>
+      <if test="stock1Stock != null">
+        stock1_stock,
+      </if>
+      <if test="companyTotalLiab != null">
+        company_total_liab,
+      </if>
+      <if test="totalLiabRate != null">
+        total_liab_rate,
+      </if>
+      <if test="totalBank != null">
+        total_bank,
+      </if>
+      <if test="bank1 != null">
+        bank1,
+      </if>
+      <if test="amount1 != null">
+        amount1,
+      </if>
+      <if test="bank2 != null">
+        bank2,
+      </if>
+      <if test="amount2 != null">
+        amount2,
+      </if>
+      <if test="bank3 != null">
+        bank3,
+      </if>
+      <if test="amount3 != null">
+        amount3,
+      </if>
+      <if test="privateFinance != null">
+        private_finance,
+      </if>
+      <if test="smallCompany != null">
+        small_company,
+      </if>
+      <if test="guaranteeCompany != null">
+        guarantee_company,
+      </if>
+      <if test="fundCompany != null">
+        fund_company,
+      </if>
+      <if test="toloanCount != null">
+        toloan_count,
+      </if>
+      <if test="isIllFund != null">
+        is_ill_fund,
+      </if>
+      <if test="fiftyThousand != null">
+        fifty_thousand,
+      </if>
+      <if test="twoHundredThousand != null">
+        two_hundred_thousand,
+      </if>
+      <if test="fiveHundredThousand != null">
+        five_hundred_thousand,
+      </if>
+      <if test="oneMillion != null">
+        one_million,
+      </if>
+      <if test="oneMillionAbove != null">
+        one_million_above,
+      </if>
+      <if test="projectArrears != null">
+        project_arrears,
+      </if>
+      <if test="defaultTaxes != null">
+        default_taxes,
+      </if>
+      <if test="defaultWages != null">
+        default_wages,
+      </if>
+      <if test="defaultSocialsecurity != null">
+        default_socialsecurity,
+      </if>
+      <if test="receivableAccount != null">
+        receivable_account,
+      </if>
+      <if test="copewith != null">
+        copewith,
+      </if>
+      <if test="involvingJustice != null">
+        involving_justice,
+      </if>
+      <if test="stockIspledge != null">
+        stock_ispledge,
+      </if>
+      <if test="managModel != null">
+        manag_model,
+      </if>
+      <if test="managModelYear1 != null">
+        manag_model_year1,
+      </if>
+      <if test="managModelMoney1 != null">
+        manag_model_money1,
+      </if>
+      <if test="prodousGrossprofit1 != null">
+        prodous_grossprofit1,
+      </if>
+      <if test="netprofit1 != null">
+        netprofit1,
+      </if>
+      <if test="managModelYear2 != null">
+        manag_model_year2,
+      </if>
+      <if test="managModelMoney2 != null">
+        manag_model_money2,
+      </if>
+      <if test="prodousGrossprofit2 != null">
+        prodous_grossprofit2,
+      </if>
+      <if test="netprofit2 != null">
+        netprofit2,
+      </if>
+      <if test="sunriseIndustry != null">
+        sunrise_industry,
+      </if>
+      <if test="sunsetIndustry != null">
+        sunset_industry,
+      </if>
+      <if test="newIndustry != null">
+        new_industry,
+      </if>
+      <if test="futureIndustry != null">
+        future_industry,
+      </if>
+      <if test="surplusIndustry != null">
+        surplus_industry,
+      </if>
+      <if test="elimination != null">
+        elimination,
+      </if>
+      <if test="land != null">
+        land,
+      </if>
+      <if test="landNature != null">
+        land_nature,
+      </if>
+      <if test="purchasePrice != null">
+        purchase_price,
+      </if>
+      <if test="priceAccessValue != null">
+        price_access_value,
+      </if>
+      <if test="priceIspledge != null">
+        price_ispledge,
+      </if>
+      <if test="priceIsjudicial != null">
+        price_isjudicial,
+      </if>
+      <if test="priceIsseizure != null">
+        price_isSeizure,
+      </if>
+      <if test="priceAddr != null">
+        price_addr,
+      </if>
+      <if test="houseProperty != null">
+        house_property,
+      </if>
+      <if test="residence != null">
+        residence,
+      </if>
+      <if test="busines != null">
+        busines,
+      </if>
+      <if test="businesService != null">
+        busines_service,
+      </if>
+      <if test="houseAddr != null">
+        house_addr,
+      </if>
+      <if test="houseAccessValue != null">
+        house_access_value,
+      </if>
+      <if test="houseIspledge != null">
+        house_ispledge,
+      </if>
+      <if test="houseIsjudicial != null">
+        house_isjudicial,
+      </if>
+      <if test="houseIsseizure != null">
+        house_isSeizure,
+      </if>
+      <if test="residence1 != null">
+        residence1,
+      </if>
+      <if test="residenceAccessValue != null">
+        residence_access_value,
+      </if>
+      <if test="residenceIspledge != null">
+        residence_ispledge,
+      </if>
+      <if test="residenceIsjudicial != null">
+        residence_isjudicial,
+      </if>
+      <if test="residenceIsseizure != null">
+        residence_isSeizure,
+      </if>
+      <if test="busines1 != null">
+        busines1,
+      </if>
+      <if test="businesAccessValue != null">
+        busines_access_value,
+      </if>
+      <if test="businesIspledge != null">
+        busines_ispledge,
+      </if>
+      <if test="businesIsjudicial != null">
+        busines_isjudicial,
+      </if>
+      <if test="businesIsseizure != null">
+        busines_isSeizure,
+      </if>
+      <if test="workshop != null">
+        workshop,
+      </if>
+      <if test="workshopAccessValue != null">
+        workshop_access_value,
+      </if>
+      <if test="workshopIspledge != null">
+        workshop_ispledge,
+      </if>
+      <if test="workshopIsjudicial != null">
+        workshop_isjudicial,
+      </if>
+      <if test="workshopIsseizure != null">
+        workshop_isSeizure,
+      </if>
+      <if test="device != null">
+        device,
+      </if>
+      <if test="deviceAccessValue != null">
+        device_access_value,
+      </if>
+      <if test="majorDevice != null">
+        major_device,
+      </if>
+      <if test="commonDevice != null">
+        common_device,
+      </if>
+      <if test="oterAccessValue != null">
+        oter_access_value,
+      </if>
+      <if test="oterIspledge != null">
+        oter_ispledge,
+      </if>
+      <if test="oterIsjudicial != null">
+        oter_isjudicial,
+      </if>
+      <if test="oterIsseizure != null">
+        oter_isSeizure,
+      </if>
+      <if test="buildUselandLicence != null">
+        build_useland_licence,
+      </if>
+      <if test="buildEnginLicence != null">
+        build_engin_licence,
+      </if>
+      <if test="enginConstrucLicence != null">
+        engin_construc_licence,
+      </if>
+      <if test="investmentProjectRecord != null">
+        investment_project_record,
+      </if>
+      <if test="projectPrehouseLicence != null">
+        project_prehouse_licence,
+      </if>
+      <if test="projectBuildContract != null">
+        project_build_contract,
+      </if>
+      <if test="projectBuildCompany != null">
+        project_build_company,
+      </if>
+      <if test="businessLicense != null">
+        business_license,
+      </if>
+      <if test="taxDeclaration != null">
+        tax_declaration,
+      </if>
+      <if test="enterpriseBusReport != null">
+        enterprise_bus_report,
+      </if>
+      <if test="enterpriseProducProve != null">
+        enterprise_produc_prove,
+      </if>
+      <if test="projectAdvantage != null">
+        project_advantage,
+      </if>
+      <if test="projectWeakness != null">
+        project_weakness,
+      </if>
+      <if test="projectPopulation != null">
+        project_population,
+      </if>
+      <if test="debtorEvaluate != null">
+        debtor_evaluate,
+      </if>
+      <if test="otherSupplement != null">
+        other_supplement,
+      </if>
+      <if test="investigationConclusion != null">
+        investigation_conclusion,
+      </if>
+      <if test="investigationPerson != null">
+        investigation_person,
+      </if>
+      <if test="investigationDate != null">
+        investigation_date,
+      </if>
+      <if test="projectIspopulation != null">
+        project_ispopulation,
+      </if>
+      <if test="legalpersonAge != null">
+        legalperson_age,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="reportId != null">
+        #{reportId,jdbcType=BIGINT},
+      </if>
+      <if test="debtId != null">
+        #{debtId,jdbcType=BIGINT},
+      </if>
+      <if test="unitName != null">
+        #{unitName,jdbcType=VARCHAR},
+      </if>
+      <if test="accountManager != null">
+        #{accountManager,jdbcType=VARCHAR},
+      </if>
+      <if test="reportFinashDate != null">
+        #{reportFinashDate,jdbcType=DATE},
+      </if>
+      <if test="accountName != null">
+        #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="registeredCapital != null">
+        #{registeredCapital,jdbcType=BIGINT},
+      </if>
+      <if test="foundTime != null">
+        #{foundTime,jdbcType=DATE},
+      </if>
+      <if test="managementAddr != null">
+        #{managementAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="management != null">
+        #{management,jdbcType=VARCHAR},
+      </if>
+      <if test="business != null">
+        #{business,jdbcType=VARCHAR},
+      </if>
+      <if test="legalpersonName != null">
+        #{legalpersonName,jdbcType=VARCHAR},
+      </if>
+      <if test="legalpersonSex != null">
+        #{legalpersonSex,jdbcType=VARCHAR},
+      </if>
+      <if test="legalpersonEdu != null">
+        #{legalpersonEdu,jdbcType=VARCHAR},
+      </if>
+      <if test="legalpersonMirr != null">
+        #{legalpersonMirr,jdbcType=VARCHAR},
+      </if>
+      <if test="legalpersonTel != null">
+        #{legalpersonTel,jdbcType=VARCHAR},
+      </if>
+      <if test="legalpersonStock != null">
+        #{legalpersonStock,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null">
+        #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="stockSex != null">
+        #{stockSex,jdbcType=VARCHAR},
+      </if>
+      <if test="stockAge != null">
+        #{stockAge,jdbcType=VARCHAR},
+      </if>
+      <if test="stockEdu != null">
+        #{stockEdu,jdbcType=VARCHAR},
+      </if>
+      <if test="stockMirr != null">
+        #{stockMirr,jdbcType=VARCHAR},
+      </if>
+      <if test="stockTel != null">
+        #{stockTel,jdbcType=VARCHAR},
+      </if>
+      <if test="stockStock != null">
+        #{stockStock,jdbcType=VARCHAR},
+      </if>
+      <if test="stock1Name != null">
+        #{stock1Name,jdbcType=VARCHAR},
+      </if>
+      <if test="stock1Sex != null">
+        #{stock1Sex,jdbcType=VARCHAR},
+      </if>
+      <if test="stock1Age != null">
+        #{stock1Age,jdbcType=VARCHAR},
+      </if>
+      <if test="stock1Edu != null">
+        #{stock1Edu,jdbcType=VARCHAR},
+      </if>
+      <if test="stock1Mirr != null">
+        #{stock1Mirr,jdbcType=VARCHAR},
+      </if>
+      <if test="stock1Tel != null">
+        #{stock1Tel,jdbcType=VARCHAR},
+      </if>
+      <if test="stock1Stock != null">
+        #{stock1Stock,jdbcType=VARCHAR},
+      </if>
+      <if test="companyTotalLiab != null">
+        #{companyTotalLiab,jdbcType=VARCHAR},
+      </if>
+      <if test="totalLiabRate != null">
+        #{totalLiabRate,jdbcType=VARCHAR},
+      </if>
+      <if test="totalBank != null">
+        #{totalBank,jdbcType=VARCHAR},
+      </if>
+      <if test="bank1 != null">
+        #{bank1,jdbcType=VARCHAR},
+      </if>
+      <if test="amount1 != null">
+        #{amount1,jdbcType=VARCHAR},
+      </if>
+      <if test="bank2 != null">
+        #{bank2,jdbcType=VARCHAR},
+      </if>
+      <if test="amount2 != null">
+        #{amount2,jdbcType=VARCHAR},
+      </if>
+      <if test="bank3 != null">
+        #{bank3,jdbcType=VARCHAR},
+      </if>
+      <if test="amount3 != null">
+        #{amount3,jdbcType=VARCHAR},
+      </if>
+      <if test="privateFinance != null">
+        #{privateFinance,jdbcType=VARCHAR},
+      </if>
+      <if test="smallCompany != null">
+        #{smallCompany,jdbcType=REAL},
+      </if>
+      <if test="guaranteeCompany != null">
+        #{guaranteeCompany,jdbcType=REAL},
+      </if>
+      <if test="fundCompany != null">
+        #{fundCompany,jdbcType=REAL},
+      </if>
+      <if test="toloanCount != null">
+        #{toloanCount,jdbcType=REAL},
+      </if>
+      <if test="isIllFund != null">
+        #{isIllFund,jdbcType=VARCHAR},
+      </if>
+      <if test="fiftyThousand != null">
+        #{fiftyThousand,jdbcType=INTEGER},
+      </if>
+      <if test="twoHundredThousand != null">
+        #{twoHundredThousand,jdbcType=INTEGER},
+      </if>
+      <if test="fiveHundredThousand != null">
+        #{fiveHundredThousand,jdbcType=INTEGER},
+      </if>
+      <if test="oneMillion != null">
+        #{oneMillion,jdbcType=INTEGER},
+      </if>
+      <if test="oneMillionAbove != null">
+        #{oneMillionAbove,jdbcType=INTEGER},
+      </if>
+      <if test="projectArrears != null">
+        #{projectArrears,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultTaxes != null">
+        #{defaultTaxes,jdbcType=REAL},
+      </if>
+      <if test="defaultWages != null">
+        #{defaultWages,jdbcType=REAL},
+      </if>
+      <if test="defaultSocialsecurity != null">
+        #{defaultSocialsecurity,jdbcType=REAL},
+      </if>
+      <if test="receivableAccount != null">
+        #{receivableAccount,jdbcType=REAL},
+      </if>
+      <if test="copewith != null">
+        #{copewith,jdbcType=REAL},
+      </if>
+      <if test="involvingJustice != null">
+        #{involvingJustice,jdbcType=INTEGER},
+      </if>
+      <if test="stockIspledge != null">
+        #{stockIspledge,jdbcType=VARCHAR},
+      </if>
+      <if test="managModel != null">
+        #{managModel,jdbcType=VARCHAR},
+      </if>
+      <if test="managModelYear1 != null">
+        #{managModelYear1,jdbcType=INTEGER},
+      </if>
+      <if test="managModelMoney1 != null">
+        #{managModelMoney1,jdbcType=REAL},
+      </if>
+      <if test="prodousGrossprofit1 != null">
+        #{prodousGrossprofit1,jdbcType=INTEGER},
+      </if>
+      <if test="netprofit1 != null">
+        #{netprofit1,jdbcType=INTEGER},
+      </if>
+      <if test="managModelYear2 != null">
+        #{managModelYear2,jdbcType=INTEGER},
+      </if>
+      <if test="managModelMoney2 != null">
+        #{managModelMoney2,jdbcType=REAL},
+      </if>
+      <if test="prodousGrossprofit2 != null">
+        #{prodousGrossprofit2,jdbcType=INTEGER},
+      </if>
+      <if test="netprofit2 != null">
+        #{netprofit2,jdbcType=INTEGER},
+      </if>
+      <if test="sunriseIndustry != null">
+        #{sunriseIndustry,jdbcType=VARCHAR},
+      </if>
+      <if test="sunsetIndustry != null">
+        #{sunsetIndustry,jdbcType=VARCHAR},
+      </if>
+      <if test="newIndustry != null">
+        #{newIndustry,jdbcType=VARCHAR},
+      </if>
+      <if test="futureIndustry != null">
+        #{futureIndustry,jdbcType=VARCHAR},
+      </if>
+      <if test="surplusIndustry != null">
+        #{surplusIndustry,jdbcType=VARCHAR},
+      </if>
+      <if test="elimination != null">
+        #{elimination,jdbcType=VARCHAR},
+      </if>
+      <if test="land != null">
+        #{land,jdbcType=INTEGER},
+      </if>
+      <if test="landNature != null">
+        #{landNature,jdbcType=VARCHAR},
+      </if>
+      <if test="purchasePrice != null">
+        #{purchasePrice,jdbcType=REAL},
+      </if>
+      <if test="priceAccessValue != null">
+        #{priceAccessValue,jdbcType=REAL},
+      </if>
+      <if test="priceIspledge != null">
+        #{priceIspledge,jdbcType=VARCHAR},
+      </if>
+      <if test="priceIsjudicial != null">
+        #{priceIsjudicial,jdbcType=VARCHAR},
+      </if>
+      <if test="priceIsseizure != null">
+        #{priceIsseizure,jdbcType=VARCHAR},
+      </if>
+      <if test="priceAddr != null">
+        #{priceAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="houseProperty != null">
+        #{houseProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="residence != null">
+        #{residence,jdbcType=VARCHAR},
+      </if>
+      <if test="busines != null">
+        #{busines,jdbcType=VARCHAR},
+      </if>
+      <if test="businesService != null">
+        #{businesService,jdbcType=VARCHAR},
+      </if>
+      <if test="houseAddr != null">
+        #{houseAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="houseAccessValue != null">
+        #{houseAccessValue,jdbcType=VARCHAR},
+      </if>
+      <if test="houseIspledge != null">
+        #{houseIspledge,jdbcType=VARCHAR},
+      </if>
+      <if test="houseIsjudicial != null">
+        #{houseIsjudicial,jdbcType=VARCHAR},
+      </if>
+      <if test="houseIsseizure != null">
+        #{houseIsseizure,jdbcType=VARCHAR},
+      </if>
+      <if test="residence1 != null">
+        #{residence1,jdbcType=INTEGER},
+      </if>
+      <if test="residenceAccessValue != null">
+        #{residenceAccessValue,jdbcType=INTEGER},
+      </if>
+      <if test="residenceIspledge != null">
+        #{residenceIspledge,jdbcType=VARCHAR},
+      </if>
+      <if test="residenceIsjudicial != null">
+        #{residenceIsjudicial,jdbcType=VARCHAR},
+      </if>
+      <if test="residenceIsseizure != null">
+        #{residenceIsseizure,jdbcType=VARCHAR},
+      </if>
+      <if test="busines1 != null">
+        #{busines1,jdbcType=INTEGER},
+      </if>
+      <if test="businesAccessValue != null">
+        #{businesAccessValue,jdbcType=INTEGER},
+      </if>
+      <if test="businesIspledge != null">
+        #{businesIspledge,jdbcType=VARCHAR},
+      </if>
+      <if test="businesIsjudicial != null">
+        #{businesIsjudicial,jdbcType=VARCHAR},
+      </if>
+      <if test="businesIsseizure != null">
+        #{businesIsseizure,jdbcType=VARCHAR},
+      </if>
+      <if test="workshop != null">
+        #{workshop,jdbcType=INTEGER},
+      </if>
+      <if test="workshopAccessValue != null">
+        #{workshopAccessValue,jdbcType=INTEGER},
+      </if>
+      <if test="workshopIspledge != null">
+        #{workshopIspledge,jdbcType=VARCHAR},
+      </if>
+      <if test="workshopIsjudicial != null">
+        #{workshopIsjudicial,jdbcType=VARCHAR},
+      </if>
+      <if test="workshopIsseizure != null">
+        #{workshopIsseizure,jdbcType=VARCHAR},
+      </if>
+      <if test="device != null">
+        #{device,jdbcType=INTEGER},
+      </if>
+      <if test="deviceAccessValue != null">
+        #{deviceAccessValue,jdbcType=INTEGER},
+      </if>
+      <if test="majorDevice != null">
+        #{majorDevice,jdbcType=VARCHAR},
+      </if>
+      <if test="commonDevice != null">
+        #{commonDevice,jdbcType=INTEGER},
+      </if>
+      <if test="oterAccessValue != null">
+        #{oterAccessValue,jdbcType=INTEGER},
+      </if>
+      <if test="oterIspledge != null">
+        #{oterIspledge,jdbcType=VARCHAR},
+      </if>
+      <if test="oterIsjudicial != null">
+        #{oterIsjudicial,jdbcType=VARCHAR},
+      </if>
+      <if test="oterIsseizure != null">
+        #{oterIsseizure,jdbcType=VARCHAR},
+      </if>
+      <if test="buildUselandLicence != null">
+        #{buildUselandLicence,jdbcType=VARCHAR},
+      </if>
+      <if test="buildEnginLicence != null">
+        #{buildEnginLicence,jdbcType=VARCHAR},
+      </if>
+      <if test="enginConstrucLicence != null">
+        #{enginConstrucLicence,jdbcType=VARCHAR},
+      </if>
+      <if test="investmentProjectRecord != null">
+        #{investmentProjectRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="projectPrehouseLicence != null">
+        #{projectPrehouseLicence,jdbcType=VARCHAR},
+      </if>
+      <if test="projectBuildContract != null">
+        #{projectBuildContract,jdbcType=VARCHAR},
+      </if>
+      <if test="projectBuildCompany != null">
+        #{projectBuildCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="businessLicense != null">
+        #{businessLicense,jdbcType=VARCHAR},
+      </if>
+      <if test="taxDeclaration != null">
+        #{taxDeclaration,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseBusReport != null">
+        #{enterpriseBusReport,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseProducProve != null">
+        #{enterpriseProducProve,jdbcType=VARCHAR},
+      </if>
+      <if test="projectAdvantage != null">
+        #{projectAdvantage,jdbcType=VARCHAR},
+      </if>
+      <if test="projectWeakness != null">
+        #{projectWeakness,jdbcType=VARCHAR},
+      </if>
+      <if test="projectPopulation != null">
+        #{projectPopulation,jdbcType=VARCHAR},
+      </if>
+      <if test="debtorEvaluate != null">
+        #{debtorEvaluate,jdbcType=VARCHAR},
+      </if>
+      <if test="otherSupplement != null">
+        #{otherSupplement,jdbcType=VARCHAR},
+      </if>
+      <if test="investigationConclusion != null">
+        #{investigationConclusion,jdbcType=VARCHAR},
+      </if>
+      <if test="investigationPerson != null">
+        #{investigationPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="investigationDate != null">
+        #{investigationDate,jdbcType=DATE},
+      </if>
+      <if test="projectIspopulation != null">BIGINT
+        #{projectIspopulation,jdbcType=VARCHAR},
+      </if>
+      <if test="legalpersonAge != null">
+        #{legalpersonAge,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.vo.debt.BusInvestigateReportVo">
+    update bus_investigate_report
+    <set>
+      <if test="debtId != null">
+        debt_id = #{debtId,jdbcType=BIGINT},
+      </if>
+      <if test="unitName != null">
+        unit_name = #{unitName,jdbcType=VARCHAR},
+      </if>
+      <if test="accountManager != null">
+        account_manager = #{accountManager,jdbcType=VARCHAR},
+      </if>
+      <if test="reportFinashDate != null">
+        report_finash_date = #{reportFinashDate,jdbcType=DATE},
+      </if>
+      <if test="accountName != null">
+        account_name = #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="registeredCapital != null">
+        registered_capital = #{registeredCapital,jdbcType=BIGINT},
+      </if>
+      <if test="foundTime != null">
+        found_time = #{foundTime,jdbcType=DATE},
+      </if>
+      <if test="managementAddr != null">
+        management_addr = #{managementAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="management != null">
+        management = #{management,jdbcType=VARCHAR},
+      </if>
+      <if test="business != null">
+        business = #{business,jdbcType=VARCHAR},
+      </if>
+      <if test="legalpersonName != null">
+        legalperson_name = #{legalpersonName,jdbcType=VARCHAR},
+      </if>
+      <if test="legalpersonSex != null">
+        legalperson_sex = #{legalpersonSex,jdbcType=VARCHAR},
+      </if>
+      <if test="legalpersonEdu != null">
+        legalperson_edu = #{legalpersonEdu,jdbcType=VARCHAR},
+      </if>
+      <if test="legalpersonMirr != null">
+        legalperson_mirr = #{legalpersonMirr,jdbcType=VARCHAR},
+      </if>
+      <if test="legalpersonTel != null">
+        legalperson_tel = #{legalpersonTel,jdbcType=VARCHAR},
+      </if>
+      <if test="legalpersonStock != null">
+        legalperson_stock = #{legalpersonStock,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null">
+        stock_name = #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="stockSex != null">
+        stock_sex = #{stockSex,jdbcType=VARCHAR},
+      </if>
+      <if test="stockAge != null">
+        stock_age = #{stockAge,jdbcType=VARCHAR},
+      </if>
+      <if test="stockEdu != null">
+        stock_edu = #{stockEdu,jdbcType=VARCHAR},
+      </if>
+      <if test="stockMirr != null">
+        stock_mirr = #{stockMirr,jdbcType=VARCHAR},
+      </if>
+      <if test="stockTel != null">
+        stock_tel = #{stockTel,jdbcType=VARCHAR},
+      </if>
+      <if test="stockStock != null">
+        stock_stock = #{stockStock,jdbcType=VARCHAR},
+      </if>
+      <if test="stock1Name != null">
+        stock1_name = #{stock1Name,jdbcType=VARCHAR},
+      </if>
+      <if test="stock1Sex != null">
+        stock1_sex = #{stock1Sex,jdbcType=VARCHAR},
+      </if>
+      <if test="stock1Age != null">
+        stock1_age = #{stock1Age,jdbcType=VARCHAR},
+      </if>
+      <if test="stock1Edu != null">
+        stock1_edu = #{stock1Edu,jdbcType=VARCHAR},
+      </if>
+      <if test="stock1Mirr != null">
+        stock1_mirr = #{stock1Mirr,jdbcType=VARCHAR},
+      </if>
+      <if test="stock1Tel != null">
+        stock1_tel = #{stock1Tel,jdbcType=VARCHAR},
+      </if>
+      <if test="stock1Stock != null">
+        stock1_stock = #{stock1Stock,jdbcType=VARCHAR},
+      </if>
+      <if test="companyTotalLiab != null">
+        company_total_liab = #{companyTotalLiab,jdbcType=VARCHAR},
+      </if>
+      <if test="totalLiabRate != null">
+        total_liab_rate = #{totalLiabRate,jdbcType=VARCHAR},
+      </if>
+      <if test="totalBank != null">
+        total_bank = #{totalBank,jdbcType=VARCHAR},
+      </if>
+      <if test="bank1 != null">
+        bank1 = #{bank1,jdbcType=VARCHAR},
+      </if>
+      <if test="amount1 != null">
+        amount1 = #{amount1,jdbcType=VARCHAR},
+      </if>
+      <if test="bank2 != null">
+        bank2 = #{bank2,jdbcType=VARCHAR},
+      </if>
+      <if test="amount2 != null">
+        amount2 = #{amount2,jdbcType=VARCHAR},
+      </if>
+      <if test="bank3 != null">
+        bank3 = #{bank3,jdbcType=VARCHAR},
+      </if>
+      <if test="amount3 != null">
+        amount3 = #{amount3,jdbcType=VARCHAR},
+      </if>
+      <if test="privateFinance != null">
+        private_finance = #{privateFinance,jdbcType=VARCHAR},
+      </if>
+      <if test="smallCompany != null">
+        small_company = #{smallCompany,jdbcType=REAL},
+      </if>
+      <if test="guaranteeCompany != null">
+        guarantee_company = #{guaranteeCompany,jdbcType=REAL},
+      </if>
+      <if test="fundCompany != null">
+        fund_company = #{fundCompany,jdbcType=REAL},
+      </if>
+      <if test="toloanCount != null">
+        toloan_count = #{toloanCount,jdbcType=REAL},
+      </if>
+      <if test="isIllFund != null">
+        is_ill_fund = #{isIllFund,jdbcType=VARCHAR},
+      </if>
+      <if test="fiftyThousand != null">
+        fifty_thousand = #{fiftyThousand,jdbcType=INTEGER},
+      </if>
+      <if test="twoHundredThousand != null">
+        two_hundred_thousand = #{twoHundredThousand,jdbcType=INTEGER},
+      </if>
+      <if test="fiveHundredThousand != null">
+        five_hundred_thousand = #{fiveHundredThousand,jdbcType=INTEGER},
+      </if>
+      <if test="oneMillion != null">
+        one_million = #{oneMillion,jdbcType=INTEGER},
+      </if>
+      <if test="oneMillionAbove != null">
+        one_million_above = #{oneMillionAbove,jdbcType=INTEGER},
+      </if>
+      <if test="projectArrears != null">
+        project_arrears = #{projectArrears,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultTaxes != null">
+        default_taxes = #{defaultTaxes,jdbcType=REAL},
+      </if>
+      <if test="defaultWages != null">
+        default_wages = #{defaultWages,jdbcType=REAL},
+      </if>
+      <if test="defaultSocialsecurity != null">
+        default_socialsecurity = #{defaultSocialsecurity,jdbcType=REAL},
+      </if>
+      <if test="receivableAccount != null">
+        receivable_account = #{receivableAccount,jdbcType=REAL},
+      </if>
+      <if test="copewith != null">
+        copewith = #{copewith,jdbcType=REAL},
+      </if>
+      <if test="involvingJustice != null">
+        involving_justice = #{involvingJustice,jdbcType=INTEGER},
+      </if>
+      <if test="stockIspledge != null">
+        stock_ispledge = #{stockIspledge,jdbcType=VARCHAR},
+      </if>
+      <if test="managModel != null">
+        manag_model = #{managModel,jdbcType=VARCHAR},
+      </if>
+      <if test="managModelYear1 != null">
+        manag_model_year1 = #{managModelYear1,jdbcType=INTEGER},
+      </if>
+      <if test="managModelMoney1 != null">
+        manag_model_money1 = #{managModelMoney1,jdbcType=REAL},
+      </if>
+      <if test="prodousGrossprofit1 != null">
+        prodous_grossprofit1 = #{prodousGrossprofit1,jdbcType=INTEGER},
+      </if>
+      <if test="netprofit1 != null">
+        netprofit1 = #{netprofit1,jdbcType=INTEGER},
+      </if>
+      <if test="managModelYear2 != null">
+        manag_model_year2 = #{managModelYear2,jdbcType=INTEGER},
+      </if>
+      <if test="managModelMoney2 != null">
+        manag_model_money2 = #{managModelMoney2,jdbcType=REAL},
+      </if>
+      <if test="prodousGrossprofit2 != null">
+        prodous_grossprofit2 = #{prodousGrossprofit2,jdbcType=INTEGER},
+      </if>
+      <if test="netprofit2 != null">
+        netprofit2 = #{netprofit2,jdbcType=INTEGER},
+      </if>
+      <if test="sunriseIndustry != null">
+        sunrise_industry = #{sunriseIndustry,jdbcType=VARCHAR},
+      </if>
+      <if test="sunsetIndustry != null">
+        sunset_industry = #{sunsetIndustry,jdbcType=VARCHAR},
+      </if>
+      <if test="newIndustry != null">
+        new_industry = #{newIndustry,jdbcType=VARCHAR},
+      </if>
+      <if test="futureIndustry != null">
+        future_industry = #{futureIndustry,jdbcType=VARCHAR},
+      </if>
+      <if test="surplusIndustry != null">
+        surplus_industry = #{surplusIndustry,jdbcType=VARCHAR},
+      </if>
+      <if test="elimination != null">
+        elimination = #{elimination,jdbcType=VARCHAR},
+      </if>
+      <if test="land != null">
+        land = #{land,jdbcType=INTEGER},
+      </if>
+      <if test="landNature != null">
+        land_nature = #{landNature,jdbcType=VARCHAR},
+      </if>
+      <if test="purchasePrice != null">
+        purchase_price = #{purchasePrice,jdbcType=REAL},
+      </if>
+      <if test="priceAccessValue != null">
+        price_access_value = #{priceAccessValue,jdbcType=REAL},
+      </if>
+      <if test="priceIspledge != null">
+        price_ispledge = #{priceIspledge,jdbcType=VARCHAR},
+      </if>
+      <if test="priceIsjudicial != null">
+        price_isjudicial = #{priceIsjudicial,jdbcType=VARCHAR},
+      </if>
+      <if test="priceIsseizure != null">
+        price_isSeizure = #{priceIsseizure,jdbcType=VARCHAR},
+      </if>
+      <if test="priceAddr != null">
+        price_addr = #{priceAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="houseProperty != null">
+        house_property = #{houseProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="residence != null">
+        residence = #{residence,jdbcType=VARCHAR},
+      </if>
+      <if test="busines != null">
+        busines = #{busines,jdbcType=VARCHAR},
+      </if>
+      <if test="businesService != null">
+        busines_service = #{businesService,jdbcType=VARCHAR},
+      </if>
+      <if test="houseAddr != null">
+        house_addr = #{houseAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="houseAccessValue != null">
+        house_access_value = #{houseAccessValue,jdbcType=VARCHAR},
+      </if>
+      <if test="houseIspledge != null">
+        house_ispledge = #{houseIspledge,jdbcType=VARCHAR},
+      </if>
+      <if test="houseIsjudicial != null">
+        house_isjudicial = #{houseIsjudicial,jdbcType=VARCHAR},
+      </if>
+      <if test="houseIsseizure != null">
+        house_isSeizure = #{houseIsseizure,jdbcType=VARCHAR},
+      </if>
+      <if test="residence1 != null">
+        residence1 = #{residence1,jdbcType=INTEGER},
+      </if>
+      <if test="residenceAccessValue != null">
+        residence_access_value = #{residenceAccessValue,jdbcType=INTEGER},
+      </if>
+      <if test="residenceIspledge != null">
+        residence_ispledge = #{residenceIspledge,jdbcType=VARCHAR},
+      </if>
+      <if test="residenceIsjudicial != null">
+        residence_isjudicial = #{residenceIsjudicial,jdbcType=VARCHAR},
+      </if>
+      <if test="residenceIsseizure != null">
+        residence_isSeizure = #{residenceIsseizure,jdbcType=VARCHAR},
+      </if>
+      <if test="busines1 != null">
+        busines1 = #{busines1,jdbcType=INTEGER},
+      </if>
+      <if test="businesAccessValue != null">
+        busines_access_value = #{businesAccessValue,jdbcType=INTEGER},
+      </if>
+      <if test="businesIspledge != null">
+        busines_ispledge = #{businesIspledge,jdbcType=VARCHAR},
+      </if>
+      <if test="businesIsjudicial != null">
+        busines_isjudicial = #{businesIsjudicial,jdbcType=VARCHAR},
+      </if>
+      <if test="businesIsseizure != null">
+        busines_isSeizure = #{businesIsseizure,jdbcType=VARCHAR},
+      </if>
+      <if test="workshop != null">
+        workshop = #{workshop,jdbcType=INTEGER},
+      </if>
+      <if test="workshopAccessValue != null">
+        workshop_access_value = #{workshopAccessValue,jdbcType=INTEGER},
+      </if>
+      <if test="workshopIspledge != null">
+        workshop_ispledge = #{workshopIspledge,jdbcType=VARCHAR},
+      </if>
+      <if test="workshopIsjudicial != null">
+        workshop_isjudicial = #{workshopIsjudicial,jdbcType=VARCHAR},
+      </if>
+      <if test="workshopIsseizure != null">
+        workshop_isSeizure = #{workshopIsseizure,jdbcType=VARCHAR},
+      </if>
+      <if test="device != null">
+        device = #{device,jdbcType=INTEGER},
+      </if>
+      <if test="deviceAccessValue != null">
+        device_access_value = #{deviceAccessValue,jdbcType=INTEGER},
+      </if>
+      <if test="majorDevice != null">
+        major_device = #{majorDevice,jdbcType=VARCHAR},
+      </if>
+      <if test="commonDevice != null">
+        common_device = #{commonDevice,jdbcType=INTEGER},
+      </if>
+      <if test="oterAccessValue != null">
+        oter_access_value = #{oterAccessValue,jdbcType=INTEGER},
+      </if>
+      <if test="oterIspledge != null">
+        oter_ispledge = #{oterIspledge,jdbcType=VARCHAR},
+      </if>
+      <if test="oterIsjudicial != null">
+        oter_isjudicial = #{oterIsjudicial,jdbcType=VARCHAR},
+      </if>
+      <if test="oterIsseizure != null">
+        oter_isSeizure = #{oterIsseizure,jdbcType=VARCHAR},
+      </if>
+      <if test="buildUselandLicence != null">
+        build_useland_licence = #{buildUselandLicence,jdbcType=VARCHAR},
+      </if>
+      <if test="buildEnginLicence != null">
+        build_engin_licence = #{buildEnginLicence,jdbcType=VARCHAR},
+      </if>
+      <if test="enginConstrucLicence != null">
+        engin_construc_licence = #{enginConstrucLicence,jdbcType=VARCHAR},
+      </if>
+      <if test="investmentProjectRecord != null">
+        investment_project_record = #{investmentProjectRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="projectPrehouseLicence != null">
+        project_prehouse_licence = #{projectPrehouseLicence,jdbcType=VARCHAR},
+      </if>
+      <if test="projectBuildContract != null">
+        project_build_contract = #{projectBuildContract,jdbcType=VARCHAR},
+      </if>
+      <if test="projectBuildCompany != null">
+        project_build_company = #{projectBuildCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="businessLicense != null">
+        business_license = #{businessLicense,jdbcType=VARCHAR},
+      </if>
+      <if test="taxDeclaration != null">
+        tax_declaration = #{taxDeclaration,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseBusReport != null">
+        enterprise_bus_report = #{enterpriseBusReport,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseProducProve != null">
+        enterprise_produc_prove = #{enterpriseProducProve,jdbcType=VARCHAR},
+      </if>
+      <if test="projectAdvantage != null">
+        project_advantage = #{projectAdvantage,jdbcType=VARCHAR},
+      </if>
+      <if test="projectWeakness != null">
+        project_weakness = #{projectWeakness,jdbcType=VARCHAR},
+      </if>
+      <if test="projectPopulation != null">
+        project_population = #{projectPopulation,jdbcType=VARCHAR},
+      </if>
+      <if test="debtorEvaluate != null">
+        debtor_evaluate = #{debtorEvaluate,jdbcType=VARCHAR},
+      </if>
+      <if test="otherSupplement != null">
+        other_supplement = #{otherSupplement,jdbcType=VARCHAR},
+      </if>
+      <if test="investigationConclusion != null">
+        investigation_conclusion = #{investigationConclusion,jdbcType=VARCHAR},
+      </if>
+      <if test="investigationPerson != null">
+        investigation_person = #{investigationPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="investigationDate != null">
+        investigation_date = #{investigationDate,jdbcType=DATE},
+      </if>
+      <if test="projectIspopulation != null">
+        project_ispopulation = #{projectIspopulation,jdbcType=VARCHAR},
+      </if>
+      <if test="legalpersonAge != null">
+        legalperson_age = #{legalpersonAge,jdbcType=BIGINT},
+      </if>
+    </set>
+    where report_id = #{reportId,jdbcType=BIGINT}
+  </update>
+</mapper>
