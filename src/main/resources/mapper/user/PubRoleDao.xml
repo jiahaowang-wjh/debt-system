@@ -77,6 +77,9 @@
             <if test="authId != null and authId!= ''">
                 auth_id,
             </if>
+            <if test="note != null and note!= ''">
+                note,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="roleauthId != null and roleauthId!= ''">
@@ -88,6 +91,9 @@
             <if test="authId != null and authId!= ''">
                 #{authId,jdbcType=BIGINT},
             </if>
+            <if test="note != null and note!= ''">
+                #{note,jdbcType=VARCHAR},
+            </if>
         </trim>
     </insert>
     <insert id="addRoleMenu">
@@ -95,10 +101,10 @@
         values (#{roleauthId,jdbcType=BIGINT}, #{roleId,jdbcType=BIGINT}, #{menuId,jdbcType=BIGINT})
     </insert>
     <insert id="addRoleAuthList">
-        insert into pub_roleauth (roleauth_id,role_id,auth_id)
+        insert into pub_roleauth (roleauth_id,role_id,auth_id,note)
         values
         <foreach collection="list" item="item" index="index" separator=",">
-            (#{item.roleauthId,jdbcType=BIGINT},#{item.roleId,jdbcType=BIGINT},#{item.authId,jdbcType=BIGINT})
+            (#{item.roleauthId,jdbcType=BIGINT},#{item.roleId,jdbcType=BIGINT},#{item.authId,jdbcType=BIGINT},#{item.note,jdbcType=VARCHAR})
         </foreach>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.vo.user.PubRoleVo">

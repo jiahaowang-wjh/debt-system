@@ -3,6 +3,7 @@
 <mapper namespace="com.smart.bracelet.dao.user.PubAuthDao">
   <resultMap id="BaseResultMap" type="com.smart.bracelet.model.po.user.PubAuth">
     <id column="auth_id" jdbcType="BIGINT" property="authId" />
+    <result column="menu_id" jdbcType="BIGINT" property="menuId" />
     <result column="authname" jdbcType="VARCHAR" property="authname" />
     <result column="interfacename" jdbcType="VARCHAR" property="interfacename" />
     <result column="note" jdbcType="VARCHAR" property="note" />
@@ -16,6 +17,7 @@
     from pub_auth
     where auth_id = #{authId,jdbcType=BIGINT}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from pub_auth
     where auth_id = #{authId,jdbcType=BIGINT}
@@ -26,6 +28,9 @@
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="authId != null">
         auth_id,
+      </if>
+      <if test="menuId != null">
+        menu_id,
       </if>
       <if test="authname != null">
         authname,
@@ -40,6 +45,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="authId != null">
         #{authId,jdbcType=BIGINT},
+      </if>
+      <if test="menuId != null">
+        #{menuId,jdbcType=BIGINT},
       </if>
       <if test="authname != null">
         #{authname,jdbcType=VARCHAR},
@@ -63,6 +71,9 @@
       </if>
       <if test="note != null and note != ''">
         note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="menuId != null and note != ''">
+        menu_id = #{menuId,jdbcType=BIGINT},
       </if>
     </set>
     where auth_id = #{authId,jdbcType=BIGINT}

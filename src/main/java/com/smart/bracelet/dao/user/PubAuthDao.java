@@ -4,6 +4,8 @@ import com.smart.bracelet.model.po.user.PubAuth;
 import com.smart.bracelet.model.vo.user.PubAuthVo;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface PubAuthDao {
 
@@ -36,5 +38,7 @@ public interface PubAuthDao {
      * @return
      */
     int updateByPrimaryKeySelective(PubAuthVo record);
+
+
 
 }

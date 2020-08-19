@@ -13,6 +13,7 @@
   <sql id="Base_Column_List">
     menu_id, menuname, menuurl, menuorder, prant_id, isenable, note
   </sql>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -23,6 +24,12 @@
     select
     <include refid="Base_Column_List" />
     from pub_menu
+  </select>
+  <select id="selcetListAuth" resultType="com.smart.bracelet.model.po.user.PubMenuShow">
+        SELECT * FROM `pub_menu`
+  </select>
+  <select id="selcetListAuthOne" resultType="com.smart.bracelet.model.po.user.PubMenuShow">
+   SELECT * FROM `pub_menu` WHERE prant_id = 0
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from pub_menu

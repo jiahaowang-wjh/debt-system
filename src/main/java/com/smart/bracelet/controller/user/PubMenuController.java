@@ -3,6 +3,7 @@ package com.smart.bracelet.controller.user;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.user.PubMenu;
+import com.smart.bracelet.model.po.user.PubMenuShow;
 import com.smart.bracelet.model.vo.user.PubMenuVo;
 import com.smart.bracelet.service.user.PubMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,5 +80,15 @@ public class PubMenuController {
     public Result<List<PubMenu>> queryMenuList(){
         List<PubMenu> pubMenus = pubMenuService.queryMenuList();
         return Result.success(pubMenus);
+    }
+
+
+    /**
+     * 树状图展示菜单
+     */
+    @RequestMapping("/selcetListAuth")
+    public Result<List<PubMenuShow>> selcetListAuth(){
+        List<PubMenuShow> list = pubMenuService.selcetListAuth();
+        return Result.success(list);
     }
 }

@@ -29,5 +29,8 @@ public class PubRoleauth implements Serializable {
     @NotNull(message = "权限ID不能为空")
     private Long authId;
 
-
+    /**
+     * 备注
+     */
+    private String note;
 }

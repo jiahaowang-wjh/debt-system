@@ -2,6 +2,7 @@ package com.smart.bracelet.service.user;
 
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.user.PubMenu;
+import com.smart.bracelet.model.po.user.PubMenuShow;
 import com.smart.bracelet.model.vo.user.PubMenuVo;
 
 import java.util.List;
@@ -18,4 +19,8 @@ public interface PubMenuService {
 
     List<PubMenu> queryMenuList();
 
+    /**
+     * 树状图展示菜单
+     */
+    List<PubMenuShow> selcetListAuth();
 }

@@ -3,13 +3,16 @@ package com.smart.bracelet.service.user.impl;
 import com.smart.bracelet.dao.user.PubMenuDao;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.user.PubMenu;
+import com.smart.bracelet.model.po.user.PubMenuShow;
 import com.smart.bracelet.model.vo.user.PubMenuVo;
 import com.smart.bracelet.service.user.PubMenuService;
 import com.smart.bracelet.utils.IdUtils;
+import com.smart.bracelet.utils.TreeToolUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -92,5 +95,25 @@ public class PubMenuServiceImpl implements PubMenuService {
     @Override
     public List<PubMenu> queryMenuList() {
         return pubMenuDao.queryMenuList();
+    }
+
+    @Override
+    public List<PubMenuShow> selcetListAuth() {
+        //存放根节点
+        ArrayList<PubMenuShow> arrayList = new ArrayList<>();
+        //存放子节点
+        ArrayList<PubMenuShow> arrayList1 = new ArrayList<>();
+        List<PubMenuShow> pubMenuShow = pubMenuDao.selcetListAuthOne();
+        for (PubMenuShow item: pubMenuShow) {
+            arrayList.add(item);
+        }
+
+        List<PubMenuShow> pubMenuShows = pubMenuDao.selcetListAuth();
+        for (PubMenuShow item: pubMenuShows) {
+            arrayList1.add(item);
+        }
+        TreeToolUtils treeToolUtils = new TreeToolUtils(arrayList,arrayList1);
+        List<PubMenuShow> list = treeToolUtils.getTree();
+        return list;
     }
 }
