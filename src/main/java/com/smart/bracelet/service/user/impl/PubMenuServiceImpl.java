@@ -107,7 +107,6 @@ public class PubMenuServiceImpl implements PubMenuService {
         for (PubMenuShow item: pubMenuShow) {
             arrayList.add(item);
         }
-
         List<PubMenuShow> pubMenuShows = pubMenuDao.selcetListAuth();
         for (PubMenuShow item: pubMenuShows) {
             arrayList1.add(item);

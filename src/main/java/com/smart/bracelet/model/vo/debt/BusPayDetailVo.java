@@ -25,11 +25,7 @@ public class BusPayDetailVo implements Serializable {
      */
     @NotNull(message = "报备ID不能为空")
     private Long reportId;
-    /**
-     * 相对人ID
-     */
-    @NotNull(message = "相对人ID不能为空")
-    private Long relativePerId;
+
     /**
      * 支付编号
      */

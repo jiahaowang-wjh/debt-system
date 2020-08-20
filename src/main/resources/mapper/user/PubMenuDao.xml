@@ -10,6 +10,20 @@
     <result column="isenable" jdbcType="VARCHAR" property="isenable" />
     <result column="note" jdbcType="VARCHAR" property="note" />
   </resultMap>
+
+  <resultMap id="BaseResultMapB" type="com.smart.bracelet.model.po.user.PubMenuShow">
+    <id column="menu_id" jdbcType="BIGINT" property="menuId" />
+    <result column="menuname" jdbcType="VARCHAR" property="menuName" />
+    <result column="menuurl" jdbcType="VARCHAR" property="menuUrl" />
+    <result column="menuorder" jdbcType="INTEGER" property="menuOrder" />
+    <result column="prant_id" jdbcType="BIGINT" property="prantId" />
+    <result column="isenable" jdbcType="VARCHAR" property="isenable" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+    <collection property="list" ofType="com.smart.bracelet.model.po.user.Auth">
+      <result column="auth_id" jdbcType="BIGINT" property="authId" />
+      <result column="authname" jdbcType="VARCHAR" property="authname" />
+    </collection>
+  </resultMap>
   <sql id="Base_Column_List">
     menu_id, menuname, menuurl, menuorder, prant_id, isenable, note
   </sql>
@@ -25,8 +39,9 @@
     <include refid="Base_Column_List" />
     from pub_menu
   </select>
-  <select id="selcetListAuth" resultType="com.smart.bracelet.model.po.user.PubMenuShow">
-        SELECT * FROM `pub_menu`
+  <select id="selcetListAuth" resultMap="BaseResultMapB">
+    SELECT pm.menu_id,pm.menuname,pm.prant_id,pm.menuurl,pm.menuorder,pm.isenable,pm.note,pa.auth_id,pa.authname FROM `pub_menu` pm
+    LEFT JOIN `pub_auth` pa ON pm.menu_id = pa.menu_id
   </select>
   <select id="selcetListAuthOne" resultType="com.smart.bracelet.model.po.user.PubMenuShow">
    SELECT * FROM `pub_menu` WHERE prant_id = 0

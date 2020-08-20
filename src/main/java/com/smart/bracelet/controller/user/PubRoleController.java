@@ -6,6 +6,7 @@ import com.smart.bracelet.model.po.user.PubRole;
 import com.smart.bracelet.model.po.user.PubRoleauth;
 import com.smart.bracelet.model.po.user.PubRolemenu;
 import com.smart.bracelet.model.vo.user.PubRoleVo;
+import com.smart.bracelet.service.debt.PubRolemenuService;
 import com.smart.bracelet.service.user.PubRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -116,15 +117,15 @@ public class PubRoleController {
 
     /**
      * 批量分配角色权限
-     * @param roleIds
+     * @param roleId
      * @param authId
      * @return
      * @throws CustomerException
      */
     @RequestMapping("/addRoleAuthList")
-    public Result addRoleAuthList(@NotBlank(message = "角色权限不能为空") String roleIds, @NotNull(message = "权限ID不能为空") Long authId) throws CustomerException {
-        int addRoleAuthList = pubRoleService.addRoleAuthList(roleIds, authId);
-        return Result.success(addRoleAuthList);
+    public Result addRoleAuthList(@NotBlank(message = "权限ID不能为空") String authId, @NotNull(message = "角色ID不能为空") Long roleId,@NotBlank(message = "菜单Id不能为空") String menuId ,String note) throws CustomerException {
+        int i = pubRoleService.addRoleAuthList(authId, roleId, menuId,note);
+        return Result.success(i);
     }
 
 }

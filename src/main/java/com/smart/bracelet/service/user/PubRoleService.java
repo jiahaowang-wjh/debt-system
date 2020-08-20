@@ -61,8 +61,8 @@ public interface PubRoleService {
 
     /**
      * 批量新增角色权限
-     * @param pubRoleauths
+     * @param
      * @return
      */
-    int addRoleAuthList(String roleIds,Long authId) throws CustomerException;
+    int addRoleAuthList(String roleIds,Long authId,String menuId,String note) throws CustomerException;
 }

@@ -1,11 +1,13 @@
 package com.smart.bracelet.service.user.impl;
 
+import com.smart.bracelet.dao.debt.PubRolemenuDao;
 import com.smart.bracelet.dao.user.PubRoleDao;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.user.PubRole;
 import com.smart.bracelet.model.po.user.PubRoleauth;
 import com.smart.bracelet.model.po.user.PubRolemenu;
 import com.smart.bracelet.model.vo.user.PubRoleVo;
+import com.smart.bracelet.service.debt.PubRolemenuService;
 import com.smart.bracelet.service.user.PubRoleService;
 import com.smart.bracelet.utils.IdUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +25,9 @@ public class PubRoleServiceImpl implements PubRoleService {
 
     @Autowired
     private PubRoleDao pubRoleDao;
+
+    @Autowired
+    private PubRolemenuService pubRolemenuService;
 
     /**
      * 通过Id删除角色信息
@@ -145,24 +150,28 @@ public class PubRoleServiceImpl implements PubRoleService {
     }
 
     /**
-     * 给多个角色分配同一个权限(批量分配)
-     * @param roleIds
-     * @param authId
+     * (批量分配权限)
+     * @param roleIds 角色ID
+     * @param authId 权限ID
      * @return
      * @throws CustomerException
      */
     @Override
-    public int addRoleAuthList(String roleIds,Long authId) throws CustomerException {
+    public int addRoleAuthList(String authId,Long roleId,String menuId,String note) throws CustomerException {
+        System.out.println("菜单ID:"+menuId);
         List<PubRoleauth> pubRoleauths = new ArrayList<>();
         try {
-            List<String> roleIdList = Arrays.asList(roleIds.split(","));
-            for (String item: roleIdList) {
+            List<String> authIdList = Arrays.asList(authId.split(","));
+            //获取单个权限ID并添加
+            for (String item: authIdList) {
                 PubRoleauth pubRoleauth = new PubRoleauth();
                 pubRoleauth.setRoleauthId(IdUtils.nextId());
-                pubRoleauth.setAuthId(authId);
-                pubRoleauth.setRoleId(Long.parseLong(item));
+                pubRoleauth.setAuthId(Long.parseLong(item));
+                pubRoleauth.setRoleId(roleId);
+                pubRoleauth.setNote(note);
                 pubRoleauths.add(pubRoleauth);
             }
+            pubRolemenuService.addListRolemenu(menuId,roleId);
             int addRoleMenu = pubRoleDao.addRoleAuthList(pubRoleauths);
             log.info("批量角色权限分配成功,受影响行数:{}",addRoleMenu);
             return addRoleMenu;

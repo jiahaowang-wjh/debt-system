@@ -104,7 +104,12 @@
         insert into pub_roleauth (roleauth_id,role_id,auth_id,note)
         values
         <foreach collection="list" item="item" index="index" separator=",">
-            (#{item.roleauthId,jdbcType=BIGINT},#{item.roleId,jdbcType=BIGINT},#{item.authId,jdbcType=BIGINT},#{item.note,jdbcType=VARCHAR})
+            (
+            #{item.roleauthId,jdbcType=BIGINT},
+            #{item.roleId,jdbcType=BIGINT},
+            #{item.authId,jdbcType=BIGINT},
+            #{item.note,jdbcType=VARCHAR}
+            )
         </foreach>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.vo.user.PubRoleVo">

@@ -9,7 +9,8 @@ import java.util.List;
 
 /**
  * pub_menu
- * @author 
+ *
+ * @author
  */
 @Data
 public class PubMenuShow implements Serializable {
@@ -48,6 +49,12 @@ public class PubMenuShow implements Serializable {
      * 备注
      */
     private String note;
+
+    /**
+     * 权限名
+     */
+    List<Auth> list;
+
 
     List<PubMenuShow> childTreeDto;
 

@@ -7,6 +7,9 @@ import com.smart.bracelet.model.po.user.PubMenuShow;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 树状图工具
+ */
 public class TreeToolUtils {
 
     //根节点对象存放到这里
