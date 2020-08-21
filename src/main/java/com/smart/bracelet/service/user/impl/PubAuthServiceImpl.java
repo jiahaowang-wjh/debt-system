@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Slf4j
 public class PubAuthServiceImpl implements PubAuthService {
@@ -78,5 +80,10 @@ public class PubAuthServiceImpl implements PubAuthService {
             log.error("修改权限信息失败,异常信息:{}",e.getMessage());
             throw new CustomerException("修改权限信息失败");
         }
+    }
+
+    @Override
+    public List<PubAuth> selectPageAuth() {
+        return pubAuthDao.selectPageAuth();
     }
 }

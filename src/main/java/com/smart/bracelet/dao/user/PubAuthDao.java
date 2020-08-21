@@ -40,5 +40,11 @@ public interface PubAuthDao {
     int updateByPrimaryKeySelective(PubAuthVo record);
 
 
+    /**
+     * 权限信息查询分页
+     * @return
+     */
+    List<PubAuth> selectPageAuth();
+
 
 }

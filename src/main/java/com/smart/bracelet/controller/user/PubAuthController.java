@@ -1,5 +1,7 @@
 package com.smart.bracelet.controller.user;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.user.PubAuth;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/pubAuthController/")
@@ -68,6 +71,18 @@ public class PubAuthController {
     public Result<PubAuth> selectByPrimaryKey(@NotNull(message = "权限Id不能为空") Long authId){
         PubAuth pubAuth = pubAuthService.selectByPrimaryKey(authId);
         return Result.success(pubAuth);
+    }
+
+    /**
+     * 权限信息分页
+     * @return
+     */
+    @RequestMapping("/selectAuthPage")
+    public Result<PageInfo> selectAuthPage(@NotNull(message = "页码不能为空") Integer pageNum,@NotNull(message = "当前显示条数不能为空") Integer pageSize){
+        PageHelper.startPage(pageNum,pageSize);
+        List<PubAuth> pubAuths = pubAuthService.selectPageAuth();
+        PageInfo<PubAuth> pubAuthPageInfo = new PageInfo<>(pubAuths);
+        return Result.success(pubAuthPageInfo);
     }
 
 }

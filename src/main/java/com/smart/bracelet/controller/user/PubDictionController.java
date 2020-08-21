@@ -1,5 +1,7 @@
 package com.smart.bracelet.controller.user;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.user.PubDiction;
@@ -77,14 +79,16 @@ public class PubDictionController {
     }
 
     /**
-     * 查询所有字典
+     * 查询所有字典分页
      *
      * @return
      */
     @RequestMapping("/queryDicList")
-    public Result<List<PubDiction>> queryDicList() {
+    public Result<PageInfo> queryDicList(@NotNull(message = "页码不能为空") Integer pageNum,@NotNull(message = "当前显示条数不能为空") Integer pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
         List<PubDiction> pubDictions = pubDictionService.queryDicList();
-        return Result.success(pubDictions);
+        PageInfo<PubDiction> pubDictionPageInfo = new PageInfo<>(pubDictions);
+        return Result.success(pubDictionPageInfo);
     }
 
     /**

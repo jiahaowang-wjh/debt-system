@@ -4,6 +4,8 @@ import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.user.PubAuth;
 import com.smart.bracelet.model.vo.user.PubAuthVo;
 
+import java.util.List;
+
 public interface PubAuthService {
     /**
      * 删除权限信息
@@ -32,4 +34,12 @@ public interface PubAuthService {
      * @return
      */
     int updateByPrimaryKeySelective(PubAuthVo record) throws CustomerException;
+
+
+    /**
+     * 权限信息查询分页
+     * @return
+     */
+    List<PubAuth> selectPageAuth();
+
 }

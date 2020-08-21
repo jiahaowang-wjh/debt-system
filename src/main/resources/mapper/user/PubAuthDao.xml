@@ -17,6 +17,11 @@
     from pub_auth
     where auth_id = #{authId,jdbcType=BIGINT}
   </select>
+  <select id="selectPageAuth" resultType="com.smart.bracelet.model.po.user.PubAuth">
+    select
+    <include refid="Base_Column_List" />
+    from pub_auth
+  </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from pub_auth
