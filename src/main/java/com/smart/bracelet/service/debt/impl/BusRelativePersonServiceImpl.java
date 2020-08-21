@@ -419,6 +419,11 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
         }
     }
 
+    /**
+     * 通过报备Id查询相对人信息
+     * @param reportId
+     * @return
+     */
     @Override
     public List<BusRelativePersonListVo> selectByreportId(Long reportId) {
         List<BusRelativePerson> busRelativePeople = busRelativePersonDao.selectByreportId(reportId);
@@ -429,6 +434,8 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
         }
         return listVos;
     }
+
+
 
     @Override
     public ReportAndRelativePersonShow selectByRelativePerId(Long relativePerId) throws CustomerException {
@@ -451,17 +458,17 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
                 show.setDebtPhone(reportAndRelativePerson.getData9());
             }
             if(reportAndRelativePerson.getBrpReport().equals("1")){
-                show.setPersonalName(reportAndRelativePerson.getBrpdata1());
-                show.setPersonalLegalName(reportAndRelativePerson.getBrpdata1());
-                show.setPersonalIdCardCode(reportAndRelativePerson.getBrpdata2());
-                show.setPersonalAdd(reportAndRelativePerson.getBrpdata5());
-                show.setPersonalPhone(reportAndRelativePerson.getBrpdata3());
+                show.setPersonalName(reportAndRelativePerson.getBrpData1());
+                show.setPersonalLegalName(reportAndRelativePerson.getBrpData1());
+                show.setPersonalIdCardCode(reportAndRelativePerson.getBrpData2());
+                show.setPersonalAdd(reportAndRelativePerson.getBrpData5());
+                show.setPersonalPhone(reportAndRelativePerson.getBrpData3());
             }else{
-                show.setPersonalName(reportAndRelativePerson.getBrpdata1());
-                show.setPersonalLegalName(reportAndRelativePerson.getBrpdata4());
-                show.setPersonalIdCardCode(reportAndRelativePerson.getBrpdata2());
-                show.setPersonalAdd(reportAndRelativePerson.getBrpdata7());
-                show.setPersonalPhone(reportAndRelativePerson.getBrpdata9());
+                show.setPersonalName(reportAndRelativePerson.getBrpData1());
+                show.setPersonalLegalName(reportAndRelativePerson.getBrpData4());
+                show.setPersonalIdCardCode(reportAndRelativePerson.getBrpData2());
+                show.setPersonalAdd(reportAndRelativePerson.getBrpData7());
+                show.setPersonalPhone(reportAndRelativePerson.getBrpData9());
             }
             return show;
         }catch (Exception e){

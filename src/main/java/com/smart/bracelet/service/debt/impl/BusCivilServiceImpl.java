@@ -9,6 +9,7 @@ import com.smart.bracelet.service.debt.BusCivilService;
 import com.smart.bracelet.utils.IdUtils;
 import com.smart.bracelet.utils.RepNoUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -109,4 +110,37 @@ public class BusCivilServiceImpl implements BusCivilService {
     }
 
 
+    /**
+     * 民事调解身份信息验证
+     * @param relativePerId
+     * @return
+     * @throws CustomerException
+     */
+    @Override
+    public boolean verification(Long relativePerId) throws CustomerException {
+        try {
+            //1.获取债事相对人身份信息
+            DebtAndPerson debtAndPerson = busCivilDao.selectDebtAndPer(relativePerId);
+            //2.通过相对人信息去债事人表中验证,若有此人则获取当前报备ID
+            Long aLong = busCivilDao.selectReportId(debtAndPerson.getPersonIdcard());
+            if(aLong!=null){
+                //3.通过获取的报备Id去相对人表中查询
+                String card = busCivilDao.selectPersonIdCardByPrId(aLong);
+                //4.验证获取到相对人身份信息是否与第一步获取的债事人身份信息吻合
+                if(!StringUtils.isBlank(card)){
+                    if(card.equals(debtAndPerson.getDebtIdcard())){
+                        return true;
+                    }else {
+                        throw new CustomerException("民事调解失败,债事人与相对人不达成相互成立关系");
+                    }
+                }else{
+                    throw new CustomerException("民事调解失败,债事人与相对人不达成相互成立关系");
+                }
+            }else {
+                throw new CustomerException("民事调解失败,债事人与相对人不达成相互成立关系");
+            }
+        } catch (CustomerException e) {
+            throw new CustomerException(e.getMessage());
+        }
+    }
 }

@@ -67,4 +67,11 @@ public interface BusReportDao {
      */
     List<DebtInfo> selectDebtInofs(DebtInfoQuery debtInfoQuery);
 
+    /**
+     * 更新报备调解阶段
+     * @return
+     */
+    int updateDebtStage(String stage,Long reportId);
+
+
 }

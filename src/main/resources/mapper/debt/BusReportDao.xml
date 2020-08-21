@@ -432,6 +432,9 @@
     <update id="updateStatus">
           update bus_report set  `status` = #{status,jdbcType=VARCHAR},check_reason=#{checkReason,jdbcType=VARCHAR} where report_id = #{reportId,jdbcType=BIGINT}
     </update>
+    <update id="updateDebtStage">
+        update bus_report set stage = #{stage,jdbcType=VARCHAR} where report_id = #{reportId,jdbcType=BIGINT}
+    </update>
 
     <!--页面报备信息展示-->
     <select id="selectDebtInofs" resultType="com.smart.bracelet.model.vo.debt.DebtInfo">

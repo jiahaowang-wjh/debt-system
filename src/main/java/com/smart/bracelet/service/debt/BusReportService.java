@@ -85,4 +85,11 @@ public interface BusReportService {
      */
     List<DebtInfo> selectDebtInfos(DebtInfoQuery debtInfoQuery);
 
+
+
+    /**
+     * 更新报备调解阶段
+     * @return
+     */
+    int updateDebtStage(String stage,Long repId) throws CustomerException;
 }

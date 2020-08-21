@@ -46,4 +46,11 @@ public interface BusCivilService {
      */
     List<CiviIAndRepShow> selectCiviIAndRepShow();
 
+    /**
+     * 民事调解身份验证
+     * @param relativePerId
+     * @return
+     * @throws CustomerException
+     */
+    boolean verification(Long relativePerId) throws CustomerException ;
 }

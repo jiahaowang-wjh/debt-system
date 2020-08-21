@@ -203,4 +203,14 @@ public class BusReportController {
         return Result.success(pageInfo);
     }
 
+    /**
+     * 更新报备调解阶段
+     * @return
+     */
+    @RequestMapping("/updateDebtStage")
+    public Result updateDebtStage(@NotBlank(message = "阶段不能为空") String stage,@NotNull(message = "报备信息Id不能为空") Long reportId) throws CustomerException{
+        int i = busReportService.updateDebtStage(stage,reportId);
+        return Result.success(i);
+    }
+
 }

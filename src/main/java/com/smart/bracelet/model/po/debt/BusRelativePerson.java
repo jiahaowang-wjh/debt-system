@@ -135,7 +135,7 @@ public class BusRelativePerson implements Serializable {
      */
     @NotNull(message = "借款发生时间权不能为空")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
     private Date obligatTime;
 
     /**
@@ -172,7 +172,7 @@ public class BusRelativePerson implements Serializable {
      * 借款发生时间务
      */
     @NotNull(message = "借款发生时间务不能为空")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date debtTime;
 
     /**

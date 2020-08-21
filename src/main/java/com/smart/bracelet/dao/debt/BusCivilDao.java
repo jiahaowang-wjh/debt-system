@@ -48,4 +48,21 @@ public interface BusCivilDao {
      * 民事调解信息填写页面更新信息
      */
     List<CiviIAndRepShow> selectCiviIAndRepShow();
+
+
+    /**
+     * 通过相对人ID查询债事人相对人身份信息
+     */
+    DebtAndPerson selectDebtAndPer(Long relativePerId);
+
+    /**
+     * 通过身份信息获取相对人作为债事人的报备ID
+     * @return
+     */
+    Long selectReportId(String personIdcard);
+
+    /**
+     * 通过相对人作为债事人的报备ID查询相对人
+     */
+    String selectPersonIdCardByPrId(Long reportId);
 }

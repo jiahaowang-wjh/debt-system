@@ -111,4 +111,15 @@ public class BusCivilController {
         return Result.success(civiIAndRepShows);
     }
 
+    /**
+     * 民事调解身份验证
+     * @param relativePerId
+     * @return
+     * @throws CustomerException
+     */
+    @RequestMapping("/verification")
+    public Result verification(@NotNull(message = "相对人ID不能为空") Long relativePerId) throws CustomerException {
+        boolean verification = busCivilService.verification(relativePerId);
+        return Result.success(verification);
+    }
 }

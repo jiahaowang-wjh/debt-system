@@ -70,11 +70,25 @@
         SELECT br.`report_id`,br.`report_no`,bc.civilno,br.`data1` AS 'debtName',bc.status FROM `bus_civil` bc
         LEFT JOIN `bus_report` br ON bc.`report_id` = br.`report_id`
     </select>
+    <select id="selectDebtAndPer" resultType="com.smart.bracelet.model.vo.debt.DebtAndPerson">
+        SELECT br.`data2` AS 'debt_idcard',brp.data2 AS 'person_idcard' FROM bus_report br
+        LEFT JOIN bus_relative_person brp ON br.`report_id` = brp.report_id
+        WHERE brp.`relative_per_id` = #{relativePerId,jdbcType=BIGINT}
+    </select>
+    <select id="selectReportId" resultType="java.lang.Long">
+        SELECT bus_report.`report_id` FROM bus_report
+        WHERE bus_report.data2 = #{personIdcard,jdbcType=BIGINT} and bus_report.`stage` = '2'
+    </select>
+
+    <select id="selectPersonIdCardByPrId" resultType="java.lang.String">
+        SELECT bus_relative_person.`data2` FROM bus_relative_person
+        WHERE bus_relative_person.`report_id` = #{reportId,jdbcType=BIGINT}
+    </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from bus_civil
     where civil_id = #{civilId,jdbcType=BIGINT}
-  </delete>
+    </delete>
 
     <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.debt.BusCivil">
         insert into bus_civil

@@ -39,14 +39,14 @@ public class ReportAndRelativePerson {
     /**
      * 相对人信息
      */
-    String brpdata1;
-    String brpdata2;
-    String brpdata3;
-    String brpdata4;
-    String brpdata5;
-    String brpdata6;
-    String brpdata7;
-    String brpdata8;
-    String brpdata9;
-    String brpdata10;
+    String brpData1;
+    String brpData2;
+    String brpData3;
+    String brpData4;
+    String brpData5;
+    String brpData6;
+    String brpData7;
+    String brpData8;
+    String brpData9;
+    String brpData10;
 }

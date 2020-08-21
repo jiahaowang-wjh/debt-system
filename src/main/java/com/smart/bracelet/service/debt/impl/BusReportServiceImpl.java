@@ -549,6 +549,17 @@ public class BusReportServiceImpl implements BusReportService {
         return busReportDao.selectDebtInofs(debtInfoQuery);
     }
 
+    @Override
+    public int updateDebtStage(String stage,Long repId) throws CustomerException {
+        try {
+            int i = busReportDao.updateDebtStage(stage,repId);
+            return i;
+        } catch (Exception e) {
+            log.error("更新失败,异常信息:{}",e.getMessage());
+            throw new CustomerException("更新失败");
+        }
+    }
+
 
     /**
      * 编号生成方法

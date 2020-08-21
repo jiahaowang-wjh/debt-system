@@ -123,7 +123,7 @@ public class BusRelativePersonPrivateUpdateVo {
     /**
      * 借款发生时间权
      */
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "借款发生时间权不能为空")
     private Date obligatTime;
 
@@ -160,7 +160,7 @@ public class BusRelativePersonPrivateUpdateVo {
     /**
      * 借款发生时间务
      */
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "借款发生时间务不能为空")
     private Date debtTime;
 
