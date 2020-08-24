@@ -108,5 +108,16 @@ public class BusPayDetailServiceImpl implements BusPayDetailService {
         return busPayDetailDao.selectPayInfoList(debtNo);
     }
 
+    @Override
+    public int updateStatus(String status, Long payId) throws CustomerException {
+        try {
+            int i = busPayDetailDao.updateStatus(status, payId);
+            return i;
+        } catch (Exception e) {
+            log.error("更新支付信息失败,异常信息:{}",e.getMessage());
+            throw new CustomerException("更新状态失败");
+        }
+    }
+
 
 }

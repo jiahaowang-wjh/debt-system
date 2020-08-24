@@ -3,6 +3,7 @@ package com.smart.bracelet.model.vo.debt;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
@@ -18,7 +19,11 @@ public class BusRelativePersonVo implements Serializable {
      */
     @NotNull(message = "相对人ID不能为空")
     private Long relativePerId;
-
+    /**
+     * 暨尽调协议编号
+     */
+    @NotBlank(message = "暨尽调协议编号不能为空")
+    private String agreementNo;
     /**
      * 报备ID
      */

@@ -154,6 +154,7 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
             busRelativePerson.setUpdateUserId(busRelativePersonPrivateVo.getUpdateUserId());
             busRelativePerson.setCreateTime(busRelativePersonPrivateVo.getCreateTime());
             busRelativePerson.setUpdateTime(busRelativePersonPrivateVo.getUpdateTime());
+            busRelativePerson.setAgreementNo(busRelativePersonPrivateVo.getAgreementNo());
             int insertSelective = busRelativePersonDao.insertSelective(busRelativePerson);
             log.info("新增私人相对人成功,受影响行数:{}", insertSelective);
             return insertSelective;
@@ -208,6 +209,7 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
             busRelativePerson.setPrjectManager(busRelativePersonPrivateVo.getPrjectManager());
             busRelativePerson.setCreateUserId(busRelativePersonPrivateVo.getCreateUserId());
             busRelativePerson.setUpdateUserId(busRelativePersonPrivateVo.getUpdateUserId());
+            busRelativePerson.setAgreementNo(busRelativePersonPrivateVo.getAgreementNo());
             int updateByPrimaryKeySelective = busRelativePersonDao.updateByPrimaryKeySelective(busRelativePerson);
             log.info("更新私人相对人成功,受影响行数:{}", updateByPrimaryKeySelective);
             return updateByPrimaryKeySelective;
@@ -262,6 +264,7 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
             busRelativePerson.setUpdateUserId(busRelativePersonEnterpriseVo.getUpdateUserId());
             busRelativePerson.setCreateTime(busRelativePersonEnterpriseVo.getCreateTime());
             busRelativePerson.setUpdateTime(busRelativePersonEnterpriseVo.getUpdateTime());
+            busRelativePerson.setAgreementNo(busRelativePersonEnterpriseVo.getAgreementNo());
             int insertSelective = busRelativePersonDao.insertSelective(busRelativePerson);
             log.info("新增企业相对人成功,受影响行数:{}", insertSelective);
             return insertSelective;
@@ -308,6 +311,7 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
             busRelativePerson.setPrjectManager(busRelativePersonEnterpriseVo.getPrjectManager());
             busRelativePerson.setCreateUserId(busRelativePersonEnterpriseVo.getCreateUserId());
             busRelativePerson.setUpdateUserId(busRelativePersonEnterpriseVo.getUpdateUserId());
+            busRelativePerson.setAgreementNo(busRelativePersonEnterpriseVo.getAgreementNo());
             int updateByPrimaryKeySelective = busRelativePersonDao.updateByPrimaryKeySelective(busRelativePerson);
             log.info("更新企业相对人成功,受影响行数:{}", updateByPrimaryKeySelective);
             return updateByPrimaryKeySelective;
@@ -360,6 +364,7 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
             busRelativePerson.setUpdateUserId(busRelativePersonBankVo.getUpdateUserId());
             busRelativePerson.setCreateTime(busRelativePersonBankVo.getCreateTime());
             busRelativePerson.setUpdateTime(busRelativePersonBankVo.getUpdateTime());
+            busRelativePerson.setAgreementNo(busRelativePersonBankVo.getAgreementNo());
             int insertSelective = busRelativePersonDao.insertSelective(busRelativePerson);
             log.info("新增银行相对人成功,受影响行数:{}", insertSelective);
             return insertSelective;
@@ -410,6 +415,7 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
             busRelativePerson.setPrjectManager(busRelativePersonBankVo.getPrjectManager());
             busRelativePerson.setCreateUserId(busRelativePersonBankVo.getCreateUserId());
             busRelativePerson.setUpdateUserId(busRelativePersonBankVo.getUpdateUserId());
+            busRelativePerson.setAgreementNo(busRelativePersonBankVo.getAgreementNo());
             int updateByPrimaryKeySelective = busRelativePersonDao.updateByPrimaryKeySelective(busRelativePerson);
             log.info("更新银行相对人成功,受影响行数:{}", updateByPrimaryKeySelective);
             return updateByPrimaryKeySelective;

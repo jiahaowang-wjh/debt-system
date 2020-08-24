@@ -28,7 +28,11 @@ public class BusRelativePersonPrivateVo {
      */
     @NotBlank(message = "是否配合不能为空")
     private String iscoordinate;
-
+    /**
+     * 暨尽调协议编号
+     */
+    @NotBlank(message = "暨尽调协议编号不能为空")
+    private String agreementNo;
     /**
      * 是否从业
      */
@@ -128,7 +132,7 @@ public class BusRelativePersonPrivateVo {
     /**
      * 借款发生时间权
      */
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "借款发生时间权不能为空")
     private Date obligatTime;
 

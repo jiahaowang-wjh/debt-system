@@ -27,4 +27,12 @@ public interface BusPayDetailService {
      * 页面支付信息展示
      */
     List<BusPayDetailInfo> selectPayInfoList(String debtNo);
+
+    /**
+     *更新状态
+     * @param status
+     * @param payId
+     * @return
+     */
+    int updateStatus(String status,Long payId) throws CustomerException;
 }

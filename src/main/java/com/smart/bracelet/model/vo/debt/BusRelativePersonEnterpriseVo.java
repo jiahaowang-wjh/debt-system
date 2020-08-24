@@ -16,7 +16,11 @@ public class BusRelativePersonEnterpriseVo {
      * 相对人ID
      */
     private Long relativePerId;
-
+    /**
+     * 暨尽调协议编号
+     */
+    @NotBlank(message = "暨尽调协议编号不能为空")
+    private String agreementNo;
     /**
      * 报备ID
      */

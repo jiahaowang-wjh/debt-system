@@ -127,7 +127,7 @@
         where pay_id = #{payId,jdbcType=BIGINT}
     </update>
     <update id="updateStatus">
-
+        update bus_pay_detail set status = #{status,jdbcType = VARCHAR} where pay_id = #{payId,jdbcType=BIGINT}
     </update>
     <select id="selectRepNo" resultType="java.lang.String">
     SELECT  bus_pay_detail.pay_no  FROM   bus_pay_detail   ORDER   BY   bus_pay_detail.pay_id  DESC   LIMIT   1

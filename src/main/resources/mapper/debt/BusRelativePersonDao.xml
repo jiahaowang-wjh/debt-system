@@ -32,6 +32,7 @@
     <result column="upload_debt_certificate" jdbcType="VARCHAR" property="uploadDebtCertificate" />
     <result column="is_result" jdbcType="VARCHAR" property="isResult" />
     <result column="economics" jdbcType="VARCHAR" property="economics" />
+    <result column="agreement_no" jdbcType="VARCHAR" property="agreementNo" />
     <result column="USAGE" jdbcType="CHAR" property="usage" />
     <result column="prject_manager" jdbcType="VARCHAR" property="prjectManager" />
     <result column="create_user_id" jdbcType="BIGINT" property="createUserId" />
@@ -44,7 +45,7 @@
     data3, data4, data5, data6, data7, data8, data9,data10, card_just, card_back,
     obligat_right, obligat_right_no, obligat_time, capital, interest, interest_rate, 
     debt, debt_no, debt_time, debt_certificate, upload_debt_certificate, is_result, economics, 
-    `USAGE`, prject_manager, create_user_id,
+    `USAGE`, prject_manager, create_user_id,agreement_no,
     update_user_id,create_time,update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
@@ -108,6 +109,9 @@ LEFT JOIN pub_company pc ON pc.company_id = br.company_id
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="relativePerId != null">
         relative_per_id,
+      </if>
+      <if test="agreementNo != null">
+        agreement_no,
       </if>
       <if test="reportId != null">
         report_id,
@@ -213,6 +217,9 @@ LEFT JOIN pub_company pc ON pc.company_id = br.company_id
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="relativePerId != null">
         #{relativePerId,jdbcType=BIGINT},
+      </if>
+      <if test="agreementNo != null">
+        #{agreementNo,jdbcType=BIGINT},
       </if>
       <if test="reportId != null">
         #{reportId,jdbcType=BIGINT},
@@ -321,6 +328,9 @@ LEFT JOIN pub_company pc ON pc.company_id = br.company_id
     <set>
       <if test="reportId != null">
         report_id = #{reportId,jdbcType=BIGINT},
+      </if>
+      <if test="agreementNo != null">
+        agreement_no = #{agreementNo,jdbcType=BIGINT},
       </if>
       <if test="iscoordinate != null">
         iscoordinate = #{iscoordinate,jdbcType=VARCHAR},

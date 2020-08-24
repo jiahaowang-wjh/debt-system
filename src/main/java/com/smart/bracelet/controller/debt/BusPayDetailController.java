@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -72,4 +73,16 @@ public class BusPayDetailController {
         PageInfo<BusPayDetailInfo> busPayDetailInfoPageInfo = new PageInfo<>(busPayDetailInfos);
         return Result.success(busPayDetailInfoPageInfo);
     }
+    /**
+     *更新状态
+     * @param status
+     * @param payId
+     * @return
+     */
+    @RequestMapping("/updateStatus")
+    public Result updateStatus(@NotBlank(message = "状态不能为空") String status,@NotNull(message = "支付ID不能为空") Long payId) throws CustomerException{
+        int updateStatus = busPayDetailService.updateStatus(status, payId);
+        return Result.success(updateStatus);
+    }
+
 }

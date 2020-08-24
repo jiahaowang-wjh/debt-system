@@ -36,6 +36,7 @@ public class BusRelativePersonController {
         return Result.success(insertPrivate);
     }
 
+
     /**
      * 新增企业相对人信息
      *
