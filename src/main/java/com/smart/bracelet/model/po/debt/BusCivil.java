@@ -89,7 +89,7 @@ public class BusCivil implements Serializable {
      * 时间段-结束
      */
     @NotNull(message = "时间段-结束不能为空")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date endDate;
 
     /**
@@ -108,7 +108,7 @@ public class BusCivil implements Serializable {
      * 违约截止时间
      */
     @NotNull(message = "违约截止时间不能为空")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date breachDate;
 
     /**
