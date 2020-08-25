@@ -70,9 +70,7 @@
             <if test="reportId != null">
                 #{reportId,jdbcType=BIGINT},
             </if>
-            <if test="relativePerId != null">
-                #{relativePerId,jdbcType=BIGINT},
-            </if>
+
             <if test="contractName != null">
                 #{contractName,jdbcType=VARCHAR},
             </if>

@@ -234,12 +234,6 @@ public class BusReport implements Serializable {
     private Long createUserId;
 
     /**
-     *更新人Id
-     */
-    @NotNull(message = "更新人Id不能为空")
-    private Long updateUserId;
-
-    /**
      * 创建时间
      */
     @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")

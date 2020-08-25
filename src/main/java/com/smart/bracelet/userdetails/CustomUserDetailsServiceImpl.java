@@ -45,6 +45,6 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
             System.out.println(item);
             authorities.add(new SimpleGrantedAuthority(item));
         }
-        return new CustomUserInfo(pubUser.getUserId().toString(), pubUser.getLoginName(), pubUser.getUserName(), pubUser.getPasswordMd5(),pubUser.getPersonId().toString() ,comId.toString(),pubUser.getRoleId().toString(),pubUser.getUserAvatar(), true, true, true, true, authorities);
+        return new CustomUserInfo(pubUser.getUserId().toString(), pubUser.getLoginName(),userAccount, pubUser.getPasswordMd5(),pubUser.getPersonId().toString() ,comId.toString(),pubUser.getRoleId().toString(),null, true, true, true, true, authorities);
     }
 }

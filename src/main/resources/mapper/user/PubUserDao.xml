@@ -9,11 +9,9 @@
         <result column="password_md5" jdbcType="VARCHAR" property="passwordMd5"/>
         <result column="isenable" jdbcType="VARCHAR" property="isenable"/>
         <result column="note" jdbcType="VARCHAR" property="note"/>
-        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
-        <result column="user_avatar" jdbcType="VARCHAR" property="userAvatar"/>
     </resultMap>
     <sql id="Base_Column_List">
-    user_id, person_id, role_id, login_name, password_md5, isenable, note,user_name,user_avatar
+    user_id, person_id, role_id, login_name, password_md5, isenable, note
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
@@ -98,12 +96,7 @@
             <if test="note != null and note !='' ">
                 note,
             </if>
-            <if test="userName != null and userName !='' ">
-                user_name,
-            </if>
-            <if test="userAvatar != null and userAvatar !='' ">
-                user_avatar,
-            </if>
+
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="userId != null and userId !='' ">
@@ -127,12 +120,7 @@
             <if test="note != null and note !='' ">
                 #{note,jdbcType=VARCHAR},
             </if>
-            <if test="userName != null and userName !='' ">
-                #{userName,jdbcType=VARCHAR},
-            </if>
-            <if test="userAvatar != null and userAvatar !='' ">
-                #{userAvatar,jdbcType=VARCHAR},
-            </if>
+
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.vo.user.PubUserVo">
@@ -156,12 +144,7 @@
             <if test="note != null and note != ''">
                 note = #{note,jdbcType=VARCHAR},
             </if>
-            <if test="userName != null and userName != ''">
-                user_name = #{userName,jdbcType=VARCHAR},
-            </if>
-            <if test="userAvatar != null and userAvatar != ''">
-                user_avatar = #{userAvatar,jdbcType=VARCHAR},
-            </if>
+
             <if test="userId != null and userId != ''">
                 user_id = #{userId,jdbcType=VARCHAR},
             </if>

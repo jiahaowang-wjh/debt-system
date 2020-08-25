@@ -16,6 +16,7 @@ import javafx.scene.input.DataFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,12 +40,13 @@ public class UserInfoServiceTest {
 
     @Test
     public void testA() {
-        String repNo ="TZ2020BBFW000001"; //RepNoUtils.createRepNo("TZ", "MSTJ", "TZ2020MSTJ000001");
-        String substring = repNo.substring(0,6);
-        String substring1 = repNo.substring(10);
-        String substring3 = substring+"FWZIXUN"+substring1;
-        System.out.println(substring1);
-
+//        String repNo ="TZ2020BBFW000001"; //RepNoUtils.createRepNo("TZ", "MSTJ", "TZ2020MSTJ000001");
+//        String substring = repNo.substring(0,6);
+//        String substring1 = repNo.substring(10);
+//        String substring3 = substring+"FWZIXUN"+substring1;
+//        System.out.println(substring1);
+        String encode = new BCryptPasswordEncoder().encode("1234567");
+        System.out.println(encode);
     }
 
 }

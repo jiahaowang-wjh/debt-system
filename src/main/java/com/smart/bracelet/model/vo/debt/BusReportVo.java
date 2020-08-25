@@ -203,10 +203,6 @@ public class BusReportVo implements Serializable {
      */
     private Long createUserId;
 
-    /**
-     *更新人Id
-     */
-    private Long updateUserId;
 
     /**
      * 创建时间

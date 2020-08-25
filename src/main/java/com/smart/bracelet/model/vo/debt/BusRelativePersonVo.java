@@ -185,10 +185,6 @@ public class BusRelativePersonVo implements Serializable {
      */
     private Long createUserId;
 
-    /**
-     * 更新人
-     */
-    private Long updateUserId;
 
 
 }

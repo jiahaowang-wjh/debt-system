@@ -2,6 +2,7 @@ package com.smart.bracelet.model.vo.debt;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
@@ -19,9 +20,9 @@ public class BusGuaranteeVo implements Serializable {
     private Long guaranteeId;
 
     /**
-     * 解债ID
+     * 民事调解ID
      */
-    private Long debtId;
+    private Long civilId;
 
     /**
      * 姓名
@@ -34,23 +35,16 @@ public class BusGuaranteeVo implements Serializable {
     private String card;
 
     /**
-     * 选择银行
+     * 单位类型
      */
-    private String bank;
-
+    String unitType;
     /**
-     * 银行卡号
+     * 联系电话
      */
-    private String bankCard;
-
+    String tel;
     /**
-     * 银行预留手机号
+     * 地址
      */
-    private String bankTel;
-
-    /**
-     * 手机验证码
-     */
-    private String telCheck;
+    String address;
 
 }

@@ -25,4 +25,9 @@ public interface BusAssignmentAgreementDao {
      */
     String selectNo();
 
+    /**
+     * 页面初始化数据
+     */
+
+
 }

@@ -30,13 +30,10 @@
     <result column="debt_time" jdbcType="TIMESTAMP" property="debtTime" />
     <result column="debt_certificate" jdbcType="VARCHAR" property="debtCertificate" />
     <result column="upload_debt_certificate" jdbcType="VARCHAR" property="uploadDebtCertificate" />
-    <result column="is_result" jdbcType="VARCHAR" property="isResult" />
     <result column="economics" jdbcType="VARCHAR" property="economics" />
     <result column="agreement_no" jdbcType="VARCHAR" property="agreementNo" />
     <result column="USAGE" jdbcType="CHAR" property="usage" />
     <result column="prject_manager" jdbcType="VARCHAR" property="prjectManager" />
-    <result column="create_user_id" jdbcType="BIGINT" property="createUserId" />
-    <result column="update_user_id" jdbcType="BIGINT" property="updateUserId" />
     <result column="create_time" jdbcType="VARCHAR" property="createTime" />
     <result column="update_time" jdbcType="VARCHAR" property="updateTime" />
   </resultMap>
@@ -44,9 +41,9 @@
     relative_per_id, report_id, iscoordinate, report_type, report_propert, data1, data2, 
     data3, data4, data5, data6, data7, data8, data9,data10, card_just, card_back,
     obligat_right, obligat_right_no, obligat_time, capital, interest, interest_rate, 
-    debt, debt_no, debt_time, debt_certificate, upload_debt_certificate, is_result, economics, 
-    `USAGE`, prject_manager, create_user_id,agreement_no,
-    update_user_id,create_time,update_time
+    debt, debt_no, debt_time, debt_certificate, upload_debt_certificate, economics,
+    `USAGE`, prject_manager,agreement_no,
+    create_time,update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -194,9 +191,7 @@ LEFT JOIN pub_company pc ON pc.company_id = br.company_id
       <if test="uploadDebtCertificate != null">
         upload_debt_certificate,
       </if>
-      <if test="isResult != null">
-        is_result,
-      </if>
+
       <if test="economics != null">
         economics,
       </if>
@@ -205,12 +200,6 @@ LEFT JOIN pub_company pc ON pc.company_id = br.company_id
       </if>
       <if test="prjectManager != null">
         prject_manager,
-      </if>
-      <if test="createUserId != null">
-        create_user_id,
-      </if>
-      <if test="updateUserId != null">
-        update_user_id,
       </if>
 
     </trim>
@@ -302,9 +291,7 @@ LEFT JOIN pub_company pc ON pc.company_id = br.company_id
       <if test="uploadDebtCertificate != null">
         #{uploadDebtCertificate,jdbcType=VARCHAR},
       </if>
-      <if test="isResult != null">
-        #{isResult,jdbcType=VARCHAR},
-      </if>
+
       <if test="economics != null">
         #{economics,jdbcType=VARCHAR},
       </if>
@@ -314,12 +301,9 @@ LEFT JOIN pub_company pc ON pc.company_id = br.company_id
       <if test="prjectManager != null">
         #{prjectManager,jdbcType=VARCHAR},
       </if>
-      <if test="createUserId != null">
-        #{createUserId,jdbcType=BIGINT},
-      </if>
-      <if test="updateUserId != null">
-        #{updateUserId,jdbcType=BIGINT},
-      </if>
+
+
+
 
     </trim>
   </insert>
@@ -410,9 +394,7 @@ LEFT JOIN pub_company pc ON pc.company_id = br.company_id
       <if test="uploadDebtCertificate != null">
         upload_debt_certificate = #{uploadDebtCertificate,jdbcType=VARCHAR},
       </if>
-      <if test="isResult != null">
-        is_result = #{isResult,jdbcType=VARCHAR},
-      </if>
+
       <if test="economics != null">
         economics = #{economics,jdbcType=VARCHAR},
       </if>
@@ -422,12 +404,9 @@ LEFT JOIN pub_company pc ON pc.company_id = br.company_id
       <if test="prjectManager != null">
         prject_manager = #{prjectManager,jdbcType=VARCHAR},
       </if>
-      <if test="createUserId != null">
-        create_user_id = #{createUserId,jdbcType=BIGINT},
-      </if>
-      <if test="updateUserId != null">
-        update_user_id = #{updateUserId,jdbcType=BIGINT},
-      </if>
+
+
+
     </set>
     where relative_per_id = #{relativePerId,jdbcType=BIGINT}
   </update>

@@ -169,11 +169,7 @@ public class BusRelativePersonEnterpriseUpdateVo {
     @NotBlank(message = "上传债事凭证不能为空")
     private String uploadDebtCertificate;
 
-    /**
-     * 是否诉讼及结果
-     */
-    @NotBlank(message = "是否诉讼及结果不能为空")
-    private String isResult;
+
 
     /**
      * 目前经济状况
@@ -193,17 +189,7 @@ public class BusRelativePersonEnterpriseUpdateVo {
     @NotBlank(message = "项目责任人不能为空")
     private String prjectManager;
 
-    /**
-     * 创建人
-     */
-    @NotNull(message = "创建人不能为空")
-    private Long createUserId;
 
-    /**
-     * 更新人
-     */
-    @NotNull(message = "更新人不能为空")
-    private Long updateUserId;
     /**
      * 创建时间
      */

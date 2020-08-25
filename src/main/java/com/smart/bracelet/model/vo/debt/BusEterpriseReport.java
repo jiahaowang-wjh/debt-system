@@ -213,11 +213,7 @@ public class BusEterpriseReport {
     @NotNull(message = "创建人Id不能为空")
     private Long createUserId;
 
-    /**
-     *更新人Id
-     */
-    @NotNull(message = "更新人Id不能为空")
-    private Long updateUserId;
+
 
     /**
      * 创建时间

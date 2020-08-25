@@ -34,7 +34,6 @@ public class BusCivil implements Serializable {
     /**
      * 民事调解号
      */
-    @NotBlank(message = "民事调解号不能为空")
     private String civilno;
 
     /**

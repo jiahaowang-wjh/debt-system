@@ -68,7 +68,6 @@ public class BusReportServiceImpl implements BusReportService {
             busReportListVo.setStatus(busReport.getStatus());
             busReportListVo.setStage(busReport.getStage());
             busReportListVo.setCreateUserId(busReport.getCreateUserId());
-            busReportListVo.setUpdateUserId(busReport.getUpdateUserId());
             busReportListVo.setCreateTime(busReport.getCreateTime());
             busReportListVo.setUpdateTime(busReport.getUpdateTime());
             busReportListVo.setCardJust(busReport.getCardJust());
@@ -161,7 +160,6 @@ public class BusReportServiceImpl implements BusReportService {
             busReport.setStatus(busPrivateReport.getStatus());
             busReport.setStage(busPrivateReport.getStage());
             busReport.setCreateUserId(busPrivateReport.getCreateUserId());
-            busReport.setUpdateUserId(busPrivateReport.getUpdateUserId());
             busReport.setCreateTime(busPrivateReport.getCreateTime());
             busReport.setUpdateTime(busPrivateReport.getUpdateTime());
             busReport.setData1(busPrivateReport.getPersonalName());
@@ -174,6 +172,7 @@ public class BusReportServiceImpl implements BusReportService {
             busReport.setData8(busPrivateReport.getAssetsNumber());
             busReport.setData9(busPrivateReport.getCirculationAssets());
             busReport.setData10(busPrivateReport.getIfWork());
+            System.out.println(busReport.toString());
             int insertSelective = busReportDao.insertSelective(busReport);
             log.info("新增私人报备信息成功,受影响行数:{}", insertSelective);
             return insertSelective;
@@ -219,7 +218,6 @@ public class BusReportServiceImpl implements BusReportService {
             busReport.setStatus(busPrivateReport.getStatus());
             busReport.setStage(busPrivateReport.getStage());
             busReport.setCreateUserId(busPrivateReport.getCreateUserId());
-            busReport.setUpdateUserId(busPrivateReport.getUpdateUserId());
             busReport.setCreateTime(busPrivateReport.getCreateTime());
             busReport.setUpdateTime(busPrivateReport.getUpdateTime());
             busReport.setData1(busPrivateReport.getPersonalName());
@@ -277,7 +275,6 @@ public class BusReportServiceImpl implements BusReportService {
             busReport.setStatus(busEterpriseReport.getStatus());
             busReport.setStage(busEterpriseReport.getStage());
             busReport.setCreateUserId(busEterpriseReport.getCreateUserId());
-            busReport.setUpdateUserId(busEterpriseReport.getUpdateUserId());
             busReport.setCreateTime(busEterpriseReport.getCreateTime());
             busReport.setUpdateTime(busEterpriseReport.getUpdateTime());
             busReport.setData1(busEterpriseReport.getCompanyName());
@@ -334,7 +331,6 @@ public class BusReportServiceImpl implements BusReportService {
             busReport.setStatus(busEterpriseReport.getStatus());
             busReport.setStage(busEterpriseReport.getStage());
             busReport.setCreateUserId(busEterpriseReport.getCreateUserId());
-            busReport.setUpdateUserId(busEterpriseReport.getUpdateUserId());
             busReport.setCreateTime(busEterpriseReport.getCreateTime());
             busReport.setUpdateTime(busEterpriseReport.getUpdateTime());
             busReport.setData1(busEterpriseReport.getCompanyName());
@@ -389,7 +385,6 @@ public class BusReportServiceImpl implements BusReportService {
             busReport.setStatus(busBankReport.getStatus());
             busReport.setStage(busBankReport.getStage());
             busReport.setCreateUserId(busBankReport.getCreateUserId());
-            busReport.setUpdateUserId(busBankReport.getUpdateUserId());
             busReport.setCreateTime(busBankReport.getCreateTime());
             busReport.setUpdateTime(busBankReport.getUpdateTime());
             busReport.setData1(busBankReport.getCompanyName());
@@ -444,7 +439,6 @@ public class BusReportServiceImpl implements BusReportService {
             busReport.setStatus(busBankReport.getStatus());
             busReport.setStage(busBankReport.getStage());
             busReport.setCreateUserId(busBankReport.getCreateUserId());
-            busReport.setUpdateUserId(busBankReport.getUpdateUserId());
             busReport.setCreateTime(busBankReport.getCreateTime());
             busReport.setUpdateTime(busBankReport.getUpdateTime());
             busReport.setData1(busBankReport.getCompanyName());

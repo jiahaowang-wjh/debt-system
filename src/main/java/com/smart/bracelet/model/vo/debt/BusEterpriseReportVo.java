@@ -216,12 +216,6 @@ public class BusEterpriseReportVo {
     private Long createUserId;
 
     /**
-     *更新人Id
-     */
-    @NotNull(message = "更新人Id不能为空")
-    private Long updateUserId;
-
-    /**
      * 创建时间
      */
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")

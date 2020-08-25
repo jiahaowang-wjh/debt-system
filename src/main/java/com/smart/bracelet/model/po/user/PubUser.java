@@ -18,11 +18,6 @@ public class PubUser implements Serializable {
      */
     private Long userId;
 
-    /**
-     * 用户姓名
-     */
-    @NotBlank(message = "用户姓名不能为空")
-    private String userName;
 
     /**
      * 人员ID
@@ -48,10 +43,6 @@ public class PubUser implements Serializable {
     @NotBlank(message = "密码不能为空")
     private String passwordMd5;
 
-    /**
-     * 用户图像
-     */
-    private String userAvatar;
 
     /**
      * 是否有效

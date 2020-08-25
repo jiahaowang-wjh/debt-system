@@ -37,7 +37,6 @@
         <result column="status" jdbcType="VARCHAR" property="status"/>
         <result column="stage" jdbcType="VARCHAR" property="stage"/>
         <result column="create_user_id" jdbcType="VARCHAR" property="createUserId"/>
-        <result column="update_user_id" jdbcType="VARCHAR" property="updateUserId"/>
         <result column="create_time" jdbcType="VARCHAR" property="createTime"/>
         <result column="update_time" jdbcType="VARCHAR" property="updateTime"/>
         <result column="report_no" jdbcType="VARCHAR" property="reportNo"/>
@@ -48,7 +47,7 @@
     data2, data3, data4, data5, data6, data7, data8, data9,data10,card_just,
     card_back, obligat_right, obligat_right_no, obligat_time, capital, interest, interest_rate, 
     debt, debt_no, debt_time, debt_certificate, upload_debt_certificate, is_result, economics, 
-    prject_manager, `status`, stage,create_user_id,update_user_id,create_time,update_time,report_no
+    prject_manager, `status`, stage,create_user_id,create_time,update_time,report_no
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
@@ -197,9 +196,6 @@
             <if test="createUserId != null">
                 create_user_id,
             </if>
-            <if test="updateUserId != null">
-                update_user_id,
-            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="reportId != null">
@@ -257,7 +253,7 @@
                 #{cardJust,jdbcType=VARCHAR},
             </if>
             <if test="cardBack != null">
-                #{cardBack,jdbcType=VARCHAR},
+                    #{cardBack,jdbcType=VARCHAR},
             </if>
             <if test="obligatRight != null">
                 #{obligatRight,jdbcType=VARCHAR},
@@ -309,9 +305,6 @@
             </if>
             <if test="createUserId != null">
                 #{createUserId,jdbcType=BIGINT},
-            </if>
-            <if test="updateUserId != null">
-                #{updateUserId,jdbcType=BIGINT},
             </if>
         </trim>
     </insert>
@@ -420,9 +413,8 @@
             <if test="createUserId != null">
                 create_user_id = #{createUserId,jdbcType=BIGINT},
             </if>
-            <if test="updateUserId != null">
-                update_user_id = #{updateUserId,jdbcType=BIGINT},
-            </if>
+
+
             <if test="reportNo != null">
                 report_no = #{reportNo,jdbcType=VARCHAR},
             </if>

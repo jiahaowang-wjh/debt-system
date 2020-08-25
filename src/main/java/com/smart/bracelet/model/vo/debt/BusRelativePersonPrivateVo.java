@@ -169,7 +169,7 @@ public class BusRelativePersonPrivateVo {
     /**
      * 借款发生时间务
      */
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "借款发生时间务不能为空")
     private Date debtTime;
 
@@ -185,11 +185,7 @@ public class BusRelativePersonPrivateVo {
     @NotBlank(message = "上传债事凭证不能为空")
     private String uploadDebtCertificate;
 
-    /**
-     * 是否诉讼及结果
-     */
-    @NotBlank(message = "是否诉讼及结果不能为空")
-    private String isResult;
+
 
     /**
      * 目前经济状况
@@ -210,26 +206,18 @@ public class BusRelativePersonPrivateVo {
     private String prjectManager;
 
 
-    /**
-     * 创建人
-     */
-    @NotNull(message = "创建人不能为空")
-    private Long createUserId;
 
-    /**
-     * 更新人
-     */
-    @NotNull(message = "更新人不能为空")
-    private Long updateUserId;
+
+
     /**
      * 创建时间
      */
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date createTime;
 
     /**
      * 更新时间
      */
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date updateTime;
 }

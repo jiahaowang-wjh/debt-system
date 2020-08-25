@@ -8,7 +8,8 @@ import java.io.Serializable;
 
 /**
  * bus_guarantee
- * @author 
+ *
+ * @author
  */
 @Data
 public class BusGuarantee implements Serializable {
@@ -19,10 +20,10 @@ public class BusGuarantee implements Serializable {
     private Long guaranteeId;
 
     /**
-     * 解债ID
+     * 民事调解ID
      */
-    @NotNull(message = "解债ID不能为空")
-    private Long debtId;
+    @NotNull(message = "民事调解ID不能为空")
+    private Long civilId;
 
     /**
      * 姓名
@@ -37,27 +38,18 @@ public class BusGuarantee implements Serializable {
     private String card;
 
     /**
-     * 选择银行
+     * 单位类型
      */
-    @NotBlank(message = "选择银行不能为空")
-    private String bank;
-
+    @NotBlank(message = "单位类型不能为空")
+    String unitType;
     /**
-     * 银行卡号
+     * 联系电话
      */
-    @NotBlank(message = "银行卡号不能为空")
-    private String bankCard;
-
+    @NotBlank(message = "联系电话不能为空")
+    String tel;
     /**
-     * 银行预留手机号
+     * 地址
      */
-    @NotBlank(message = "银行预留手机号不能为空")
-    private String bankTel;
-
-    /**
-     * 手机验证码
-     */
-    @NotBlank(message = "手机验证码不能为空")
-    private String telCheck;
-
+    @NotBlank(message = "地址不能为空")
+    String address;
 }
