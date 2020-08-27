@@ -31,6 +31,14 @@
     <select id="selectNo" resultType="java.lang.String">
         SELECT  `bus_assignment_agreement`.assignment_agreement_no  FROM   `bus_assignment_agreement`   ORDER   BY   `bus_assignment_agreement`.assignment_agreement_id   DESC   LIMIT   1
     </select>
+    <select id="initialize" resultType="com.smart.bracelet.model.vo.assets.BusAssignmentAgreementShow">
+        SELECT pd.service_principal,pd.service_interest,br.`report_propert`,pd.`debt_yaer`,brp.`data1` AS 'personName',br.`report_id`,br.obligat_time,br.`data1` AS 'debtName',br.`data2` AS 'idCard',br.data5 AS 'priAdd',br.`data7` AS 'corBankAdd',br.`data3` AS 'priPhone',br.`data9` AS 'corBankPhone',
+        pd.amount_this
+        FROM bus_report br
+        LEFT JOIN bus_relative_person brp ON brp.`report_id` = br.`report_id`
+        LEFT JOIN pub_debt pd ON br.`report_id` = pd.`report_id`
+        WHERE br.`report_id` = #{reportId,jdbcType=BIGINT}
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from bus_assignment_agreement
     where assignment_agreement_id = #{assignmentAgreementId,jdbcType=BIGINT}

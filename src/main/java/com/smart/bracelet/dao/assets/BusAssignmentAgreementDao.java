@@ -1,6 +1,7 @@
 package com.smart.bracelet.dao.assets;
 
 import com.smart.bracelet.model.po.assets.BusAssignmentAgreement;
+import com.smart.bracelet.model.vo.assets.BusAssignmentAgreementShow;
 import com.smart.bracelet.model.vo.assets.BusAssignmentAgreementVo;
 import org.springframework.stereotype.Repository;
 
@@ -27,7 +28,9 @@ public interface BusAssignmentAgreementDao {
 
     /**
      * 页面初始化数据
+     * @param reportId  报备ID
+     * @return
      */
-
+    BusAssignmentAgreementShow initialize(Long reportId);
 
 }

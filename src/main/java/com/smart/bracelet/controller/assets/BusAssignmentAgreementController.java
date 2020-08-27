@@ -3,6 +3,7 @@ package com.smart.bracelet.controller.assets;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.assets.BusAssignmentAgreement;
+import com.smart.bracelet.model.vo.assets.BusAssignmentAgreementShow;
 import com.smart.bracelet.model.vo.assets.BusAssignmentAgreementVo;
 import com.smart.bracelet.service.assets.BusAssignmentAgreementService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -51,4 +53,17 @@ public class BusAssignmentAgreementController {
         List<BusAssignmentAgreement> busAssignmentAgreements = busAssignmentAgreementService.queryList();
         return Result.success(busAssignmentAgreements);
     }
+
+    /**
+     * 页面初始化数据
+     * @param reportId  报备ID
+     * @return
+     */
+    @RequestMapping("/initialize")
+    public Result<BusAssignmentAgreementShow> initialize(@NotNull(message = "报备ID不能为空") Long reportId) throws CustomerException {
+        BusAssignmentAgreementShow initialize = busAssignmentAgreementService.initialize(reportId);
+        return Result.success(initialize);
+    }
+
+
 }

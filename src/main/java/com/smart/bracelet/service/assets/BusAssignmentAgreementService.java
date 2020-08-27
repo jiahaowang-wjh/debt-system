@@ -2,6 +2,7 @@ package com.smart.bracelet.service.assets;
 
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.assets.BusAssignmentAgreement;
+import com.smart.bracelet.model.vo.assets.BusAssignmentAgreementShow;
 import com.smart.bracelet.model.vo.assets.BusAssignmentAgreementVo;
 import org.springframework.stereotype.Repository;
 
@@ -20,4 +21,10 @@ public interface BusAssignmentAgreementService {
 
     List<BusAssignmentAgreement> queryList();
 
+    /**
+     * 页面初始化数据
+     * @param reportId  报备ID
+     * @return
+     */
+    BusAssignmentAgreementShow initialize(Long reportId) throws CustomerException;
 }
