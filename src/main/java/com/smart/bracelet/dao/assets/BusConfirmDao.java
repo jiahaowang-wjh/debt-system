@@ -1,6 +1,7 @@
 package com.smart.bracelet.dao.assets;
 
 import com.smart.bracelet.model.po.assets.BusConfirm;
+import com.smart.bracelet.model.vo.assets.BusConfirmShow;
 import com.smart.bracelet.model.vo.assets.BusConfirmVo;
 import org.springframework.stereotype.Repository;
 
@@ -18,4 +19,11 @@ public interface BusConfirmDao {
     int updateByPrimaryKeySelective(BusConfirmVo record);
 
     List<BusConfirm> queryList();
+
+    /**
+     * 资产债权确认页面初始化
+     * @param reportId
+     * @return
+     */
+    BusConfirmShow initialize(Long reportId);
 }

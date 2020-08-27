@@ -8,25 +8,23 @@ import lombok.Data;
 @Data
 public class BusCollectionLetterShow {
 
-
     /**
      * 债务人姓名
      */
-
+    String personName;
     /**
      *债权人姓名
      */
-
+    String debtName;
     /**
      *债权转让协议编号
      */
-
+    String assignmentAgreementNo;
     /**
-     *解债金额大写
+     *解债金额
      */
-
+    Float amountThis;
     /**
      *解债金额小写
      */
-
 }

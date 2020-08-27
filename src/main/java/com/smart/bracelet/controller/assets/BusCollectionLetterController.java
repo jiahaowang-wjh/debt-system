@@ -3,6 +3,7 @@ package com.smart.bracelet.controller.assets;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.assets.BusCollectionLetter;
+import com.smart.bracelet.model.vo.assets.BusCollectionLetterShow;
 import com.smart.bracelet.model.vo.assets.BusCollectionLetterVo;
 import com.smart.bracelet.service.assets.BusCollectionLetterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,5 +53,15 @@ public class BusCollectionLetterController {
         return Result.success(busCollectionLetters);
     }
 
+    /**
+     * 资产债权确认页面初始化
+     * @param reportId
+     * @return
+     */
+    @RequestMapping("/initialize")
+    public Result<BusCollectionLetterShow> initialize(@NotNull(message = "报备ID不能为空") Long reportId){
+        BusCollectionLetterShow initialize = busCollectionLetterService.initialize(reportId);
+        return Result.success(initialize);
+    }
 
 }

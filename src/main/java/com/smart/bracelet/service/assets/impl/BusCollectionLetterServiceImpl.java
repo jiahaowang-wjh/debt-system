@@ -3,7 +3,9 @@ package com.smart.bracelet.service.assets.impl;
 import com.smart.bracelet.dao.assets.BusCollectionLetterDao;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.assets.BusCollectionLetter;
+import com.smart.bracelet.model.vo.assets.BusCollectionLetterShow;
 import com.smart.bracelet.model.vo.assets.BusCollectionLetterVo;
+import com.smart.bracelet.model.vo.assets.BusConfirmShow;
 import com.smart.bracelet.service.assets.BusCollectionLetterService;
 import com.smart.bracelet.utils.IdUtils;
 import com.smart.bracelet.utils.RepNoUtils;
@@ -68,5 +70,15 @@ public class BusCollectionLetterServiceImpl implements BusCollectionLetterServic
     @Override
     public List<BusCollectionLetter> queryList() {
         return busCollectionLetterDao.queryList();
+    }
+
+    /**
+     * 催款函页面初始化
+     * @param reportId
+     * @return
+     */
+    @Override
+    public BusCollectionLetterShow initialize(Long reportId) {
+        return busCollectionLetterDao.initialize(reportId);
     }
 }

@@ -28,6 +28,15 @@
       <include refid="Base_Column_List" />
       from bus_confirm
     </select>
+    <select id="initialize" resultType="com.smart.bracelet.model.vo.assets.BusConfirmShow">
+      SELECT br.`data1` AS 'debtName',brp.`data1` AS 'personName',baa.assignment_agreement_no,pd.`create_time`,pd.service_principal,pd.service_interest FROM bus_report br
+      LEFT JOIN bus_relative_person brp ON br.`report_id` = brp.`report_id`
+      LEFT JOIN bus_propert bp ON br.`report_id` = bp.report_id
+      LEFT JOIN bus_assignment_agreement baa ON bp.propert_id = baa.propert_id
+      LEFT JOIN pub_debt pd ON br.`report_id` = pd.`report_id`
+      WHERE br.`report_id` = #{reportId,jdbcType=BIGINT}
+
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from bus_confirm
     where confirmt_id = #{confirmtId,jdbcType=BIGINT}

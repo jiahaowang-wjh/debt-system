@@ -3,6 +3,7 @@ package com.smart.bracelet.service.assets.impl;
 import com.smart.bracelet.dao.assets.BusConfirmDao;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.assets.BusConfirm;
+import com.smart.bracelet.model.vo.assets.BusConfirmShow;
 import com.smart.bracelet.model.vo.assets.BusConfirmVo;
 import com.smart.bracelet.service.assets.BusConfirmService;
 import com.smart.bracelet.utils.IdUtils;
@@ -64,5 +65,10 @@ public class BusConfirmServiceImpl implements BusConfirmService {
     @Override
     public List<BusConfirm> queryList() {
         return busConfirmDao.queryList();
+    }
+
+    @Override
+    public BusConfirmShow initialize(Long reportId) {
+        return busConfirmDao.initialize(reportId);
     }
 }

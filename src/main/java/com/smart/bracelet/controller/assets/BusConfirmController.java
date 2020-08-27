@@ -3,6 +3,7 @@ package com.smart.bracelet.controller.assets;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.assets.BusConfirm;
+import com.smart.bracelet.model.vo.assets.BusConfirmShow;
 import com.smart.bracelet.model.vo.assets.BusConfirmVo;
 import com.smart.bracelet.service.assets.BusConfirmService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,5 +47,16 @@ public class BusConfirmController {
     public Result<List<BusConfirm>> queryList(){
         List<BusConfirm> busConfirms = busConfirmService.queryList();
         return Result.success(busConfirms);
+    }
+
+    /**
+     * 资产债权确认页面初始化
+     * @param reportId
+     * @return
+     */
+    @RequestMapping("/initialize")
+    public Result<BusConfirmShow> initialize(@NotNull(message = "报备ID不能为空") Long reportId){
+        BusConfirmShow initialize = busConfirmService.initialize(reportId);
+        return Result.success(initialize);
     }
 }

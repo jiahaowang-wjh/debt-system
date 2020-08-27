@@ -1,6 +1,7 @@
 package com.smart.bracelet.dao.assets;
 
 import com.smart.bracelet.model.po.assets.BusCollectionLetter;
+import com.smart.bracelet.model.vo.assets.BusCollectionLetterShow;
 import com.smart.bracelet.model.vo.assets.BusCollectionLetterVo;
 import org.springframework.stereotype.Repository;
 
@@ -23,4 +24,11 @@ public interface BusCollectionLetterDao {
      * 查询最后一条编号
      */
     String selectNo();
+
+    /**
+     * 催款函页面初始化
+     * @param reportId
+     * @return
+     */
+    BusCollectionLetterShow initialize(Long reportId);
 }

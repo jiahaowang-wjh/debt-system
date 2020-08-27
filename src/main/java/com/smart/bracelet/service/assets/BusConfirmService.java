@@ -2,6 +2,7 @@ package com.smart.bracelet.service.assets;
 
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.assets.BusConfirm;
+import com.smart.bracelet.model.vo.assets.BusConfirmShow;
 import com.smart.bracelet.model.vo.assets.BusConfirmVo;
 
 import java.util.List;
@@ -17,4 +18,13 @@ public interface BusConfirmService {
     int updateByPrimaryKeySelective(BusConfirmVo record) throws CustomerException;
 
     List<BusConfirm> queryList();
+
+
+    /**
+     * 资产债权确认页面初始化
+     *
+     * @param reportId
+     * @return
+     */
+    BusConfirmShow initialize(Long reportId);
 }
