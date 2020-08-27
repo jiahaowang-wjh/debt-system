@@ -1,6 +1,7 @@
 package com.smart.bracelet.dao.assets;
 
 import com.smart.bracelet.model.po.assets.BusAssignmentConfirm;
+import com.smart.bracelet.model.vo.assets.BusAssignmentConfirmShow;
 import com.smart.bracelet.model.vo.assets.BusAssignmentConfirmVo;
 import org.springframework.stereotype.Repository;
 
@@ -23,4 +24,10 @@ public interface BusAssignmentConfirmDao {
      * @return
      */
     String selectNo();
+
+    /**
+     * 初始化资产债权转让确认页面
+     * @return
+     */
+    BusAssignmentConfirmShow initialize(Long reportId);
 }

@@ -3,6 +3,7 @@ package com.smart.bracelet.controller.assets;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.assets.BusAssignmentConfirm;
+import com.smart.bracelet.model.vo.assets.BusAssignmentConfirmShow;
 import com.smart.bracelet.model.vo.assets.BusAssignmentConfirmVo;
 import com.smart.bracelet.service.assets.BusAssignmentConfirmService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,4 +52,14 @@ public class BusAssignmentConfirmController {
         List<BusAssignmentConfirm> busAssignmentConfirms = busAssignmentConfirmService.queryList();
         return Result.success(busAssignmentConfirms);
     }
+    /**
+     * 初始化资产债权转让确认页面
+     * @return
+     */
+    @RequestMapping("/initialize")
+    public Result<BusAssignmentConfirmShow> initialize(@NotNull(message = "报备ID不能为空") Long reportId){
+        BusAssignmentConfirmShow initialize = busAssignmentConfirmService.initialize(reportId);
+        return Result.success(initialize);
+    }
+
 }

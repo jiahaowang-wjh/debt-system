@@ -3,6 +3,7 @@ package com.smart.bracelet.service.assets.impl;
 import com.smart.bracelet.dao.assets.BusAssignmentConfirmDao;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.assets.BusAssignmentConfirm;
+import com.smart.bracelet.model.vo.assets.BusAssignmentConfirmShow;
 import com.smart.bracelet.model.vo.assets.BusAssignmentConfirmVo;
 import com.smart.bracelet.service.assets.BusAssignmentConfirmService;
 import com.smart.bracelet.utils.IdUtils;
@@ -12,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 @Service
 @Slf4j
@@ -68,5 +71,12 @@ public class BusAssignmentConfirmServiceImpl implements BusAssignmentConfirmServ
     @Override
     public List<BusAssignmentConfirm> queryList() {
         return busAssignmentConfirmDao.queryList();
+    }
+
+    @Override
+    public BusAssignmentConfirmShow initialize(Long reportId) {
+        BusAssignmentConfirmShow initialize = busAssignmentConfirmDao.initialize(reportId);
+        initialize.setThisTime(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+        return initialize;
     }
 }
