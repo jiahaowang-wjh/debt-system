@@ -3,6 +3,7 @@ package com.smart.bracelet.service.assets.impl;
 import com.smart.bracelet.dao.assets.BusAssignmentNoticeDao;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.assets.BusAssignmentNotice;
+import com.smart.bracelet.model.vo.assets.BusAssignmentNoticeShow;
 import com.smart.bracelet.model.vo.assets.BusAssignmentNoticeVo;
 import com.smart.bracelet.service.assets.BusAssignmentNoticeService;
 import com.smart.bracelet.utils.IdUtils;
@@ -64,5 +65,10 @@ public class BusAssignmentNoticeServiceImpl implements BusAssignmentNoticeServic
     @Override
     public List<BusAssignmentNotice> queryList() {
         return busAssignmentNoticeDao.queryList();
+    }
+
+    @Override
+    public BusAssignmentNoticeShow initialize(Long reportId) {
+        return busAssignmentNoticeDao.initialize(reportId);
     }
 }

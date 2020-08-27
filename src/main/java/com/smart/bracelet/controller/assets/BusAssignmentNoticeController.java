@@ -3,6 +3,7 @@ package com.smart.bracelet.controller.assets;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.assets.BusAssignmentNotice;
+import com.smart.bracelet.model.vo.assets.BusAssignmentNoticeShow;
 import com.smart.bracelet.model.vo.assets.BusAssignmentNoticeVo;
 import com.smart.bracelet.service.assets.BusAssignmentNoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
-    @RequestMapping("/api/busAssignmentNoticeController/")
+@RequestMapping("/api/busAssignmentNoticeController/")
 @Validated
 public class BusAssignmentNoticeController {
 
@@ -51,4 +52,18 @@ public class BusAssignmentNoticeController {
         List<BusAssignmentNotice> busAssignmentNotices = busAssignmentNoticeService.queryList();
         return Result.success(busAssignmentNotices);
     }
+
+
+    /**
+     * 初始化资产债权转让通知书
+     *
+     * @param reportId
+     * @return
+     */
+    @RequestMapping("/initialize")
+    public Result<BusAssignmentNoticeShow> initialize(@NotNull(message = "报备Id不能为空") Long reportId) {
+        BusAssignmentNoticeShow initialize = busAssignmentNoticeService.initialize(reportId);
+        return Result.success(initialize);
+    }
+
 }

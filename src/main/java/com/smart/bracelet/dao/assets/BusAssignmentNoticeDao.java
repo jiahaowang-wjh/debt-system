@@ -1,6 +1,7 @@
 package com.smart.bracelet.dao.assets;
 
 import com.smart.bracelet.model.po.assets.BusAssignmentNotice;
+import com.smart.bracelet.model.vo.assets.BusAssignmentNoticeShow;
 import com.smart.bracelet.model.vo.assets.BusAssignmentNoticeVo;
 import org.springframework.stereotype.Repository;
 
@@ -18,4 +19,11 @@ public interface BusAssignmentNoticeDao {
     int updateByPrimaryKeySelective(BusAssignmentNoticeVo record);
 
     List<BusAssignmentNotice> queryList();
+
+    /**
+     * 初始化资产债权转让通知书
+     * @param reportId
+     * @return
+     */
+    BusAssignmentNoticeShow initialize(Long reportId);
 }

@@ -2,6 +2,7 @@ package com.smart.bracelet.service.assets;
 
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.assets.BusAssignmentNotice;
+import com.smart.bracelet.model.vo.assets.BusAssignmentNoticeShow;
 import com.smart.bracelet.model.vo.assets.BusAssignmentNoticeVo;
 
 import java.util.List;
@@ -18,4 +19,10 @@ public interface BusAssignmentNoticeService {
 
     List<BusAssignmentNotice> queryList();
 
+    /**
+     * 初始化资产债权转让通知书
+     * @param reportId
+     * @return
+     */
+    BusAssignmentNoticeShow initialize(Long reportId);
 }
