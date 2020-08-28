@@ -52,7 +52,7 @@ public class BusAgentSalesContractController {
      * @return
      */
     @RequestMapping("/initialize")
-    public Result<BusAgentSalesContractShow> initialize(@NotNull(message = "报备ID不能为空") Long reportId){
+    public Result<BusAgentSalesContractShow> initialize(@NotNull(message = "报备ID不能为空") Long reportId) throws CustomerException {
         BusAgentSalesContractShow initialize = busAgentSalesContractService.initialize(reportId);
         return Result.success(initialize);
     }

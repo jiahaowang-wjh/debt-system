@@ -6,11 +6,16 @@ import com.smart.bracelet.model.po.assets.BusAgentSalesContract;
 import com.smart.bracelet.model.vo.assets.BusAgentSalesContractShow;
 import com.smart.bracelet.model.vo.assets.BusAgentSalesContractVo;
 import com.smart.bracelet.service.assets.BusAgentSalesContractService;
+import com.smart.bracelet.utils.ConvertUpMoney;
 import com.smart.bracelet.utils.IdUtils;
 import com.smart.bracelet.utils.RepNoUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 @Service
 @Slf4j
@@ -59,13 +64,31 @@ public class BusAgentSalesContractServiceImpl implements BusAgentSalesContractSe
     }
 
     @Override
-    public BusAgentSalesContractShow initialize(Long reportId) {
-        BusAgentSalesContractShow initialize = busAgentSalesContractDao.initialize(reportId);
-        if(initialize.getReportPropert().equals("1")){
-            initialize.setCorBankPhone(null);
-        }else {
-            initialize.setPriPhone(null);
+    public BusAgentSalesContractShow initialize(Long reportId) throws CustomerException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            BusAgentSalesContractShow initialize = busAgentSalesContractDao.initialize(reportId);
+            Date createTime = initialize.getCreateTime();
+            String format1 = simpleDateFormat.format(createTime);
+            Date parse = simpleDateFormat.parse(format1);
+            Calendar rightNow = Calendar.getInstance();
+            rightNow.setTime(parse);
+            rightNow.add(Calendar.YEAR,+Integer.parseInt(initialize.getDebtYaer()));
+            Date date = rightNow.getTime();
+            String format = simpleDateFormat.format(date);
+            initialize.setEndTime(format);
+            initialize.setAmountThisMax(ConvertUpMoney.toChinese(initialize.getAmountThis().toString()));
+            if(initialize.getReportPropert().equals("1")){
+                initialize.setCorBankPhone(null);
+                initialize.setCorBankAdd(null);
+            }else {
+                initialize.setPriPhone(null);
+                initialize.setPriAdd(null);
+            }
+            return initialize;
+        } catch (Exception e) {
+            log.error("异常信息:{}",e.getMessage());
+            throw new CustomerException("初始化失败");
         }
-        return initialize;
     }
 }

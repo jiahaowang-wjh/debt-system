@@ -20,5 +20,5 @@ public interface BusAgentSalesContractService {
      * @param reportId
      * @return
      */
-    BusAgentSalesContractShow initialize(Long reportId);
+    BusAgentSalesContractShow initialize(Long reportId) throws CustomerException;
 }

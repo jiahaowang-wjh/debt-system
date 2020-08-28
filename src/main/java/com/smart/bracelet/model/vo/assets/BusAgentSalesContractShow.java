@@ -1,6 +1,9 @@
 package com.smart.bracelet.model.vo.assets;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+
+import java.util.Date;
 
 /**
  * 页面资产委托代理销售合同初始化实体
@@ -16,21 +19,43 @@ public class BusAgentSalesContractShow {
      * 债权人身份证号
      */
     String debtIdCard;
+
     /**
-     *债权人身份证地址
+     * 债权人身份证地址(私人)
      */
+    String priAdd;
+
+    /**
+     * 债权人身份证地址(企业/银行)
+     */
+    String corBankAdd;
 
     /**
      * 债权人电话(私人性质)
      */
     String priPhone;
+
     /**
      * 债权人电话(企业或银行性质)
      */
     String corBankPhone;
+
     /**
-     *解债期限
+     * 解债年份
      */
+
+    String debtYaer;
+
+    /**
+     *解债开始日期
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    Date createTime;
+
+    /**
+     *截至日期
+     */
+    String  endTime;
 
     /**
      * 解债金额
