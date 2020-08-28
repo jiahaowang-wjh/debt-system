@@ -39,7 +39,7 @@ public class BusReportController {
      */
     @RequestMapping("/insertPrivateSelective")
     public Result insertPrivateSelective(@Valid BusPrivateReport busPrivateReport) throws CustomerException {
-        int insertPrivateSelective = busReportService.insertPrivateSelective(busPrivateReport);
+        Long insertPrivateSelective = busReportService.insertPrivateSelective(busPrivateReport);
         return Result.success(insertPrivateSelective);
     }
 
@@ -52,7 +52,7 @@ public class BusReportController {
      */
     @RequestMapping("/insertEterpriseSelective")
     public Result insertEterpriseSelective(@Valid BusEterpriseReport busEterpriseReport) throws CustomerException {
-        int insertEterpriseSelective = busReportService.insertEterpriseSelective(busEterpriseReport);
+        Long insertEterpriseSelective = busReportService.insertEterpriseSelective(busEterpriseReport);
         return Result.success(insertEterpriseSelective);
     }
 
@@ -66,7 +66,7 @@ public class BusReportController {
      */
     @RequestMapping("/insertBankSelective")
     public Result insertBankSelective(@Valid BusBankReport busBankReport) throws CustomerException {
-        int insertBankSelective = busReportService.insertBankSelective(busBankReport);
+        Long insertBankSelective = busReportService.insertBankSelective(busBankReport);
         return Result.success(insertBankSelective);
     }
 

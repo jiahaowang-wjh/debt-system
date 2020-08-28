@@ -1,8 +1,11 @@
 package com.smart.bracelet.dao.assets;
 
 import com.smart.bracelet.model.po.assets.BusAssessment;
+import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.vo.assets.BusAssessmentVo;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface BusAssessmentDao {
@@ -19,4 +22,7 @@ public interface BusAssessmentDao {
      * @return
      */
     String selectNo();
+
+    List<DateAndDays> selectDaysCount();
+
 }

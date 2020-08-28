@@ -5,8 +5,8 @@ import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.assets.BusCollectionLetter;
 import com.smart.bracelet.model.vo.assets.BusCollectionLetterShow;
 import com.smart.bracelet.model.vo.assets.BusCollectionLetterVo;
-import com.smart.bracelet.model.vo.assets.BusConfirmShow;
 import com.smart.bracelet.service.assets.BusCollectionLetterService;
+import com.smart.bracelet.utils.ConvertUpMoney;
 import com.smart.bracelet.utils.IdUtils;
 import com.smart.bracelet.utils.RepNoUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -79,6 +79,10 @@ public class BusCollectionLetterServiceImpl implements BusCollectionLetterServic
      */
     @Override
     public BusCollectionLetterShow initialize(Long reportId) {
-        return busCollectionLetterDao.initialize(reportId);
+        BusCollectionLetterShow initialize = busCollectionLetterDao.initialize(reportId);
+        initialize.setMoneyMax(ConvertUpMoney.toChinese(initialize.getAmountThis().toString()));
+        return initialize;
     }
+
+
 }

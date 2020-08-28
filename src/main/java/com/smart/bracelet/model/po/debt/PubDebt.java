@@ -42,19 +42,19 @@ public class PubDebt implements Serializable {
      * 债全总金额
      */
     @NotNull(message = "债全总金额不能为空")
-    private Float amountTotal;
+    private float amountTotal;
 
     /**
      * 累计化解金额
      */
     @NotNull(message = "累计化解金额不能为空")
-    private Float amountCumulative;
+    private float amountCumulative;
 
     /**
      * 本次化解金额
      */
     @NotNull(message = "本次化解金额不能为空")
-    private Float amountThis;
+    private float amountThis;
 
     /**
      * 解债类型

@@ -28,7 +28,10 @@
   <select id="selectNo" resultType="java.lang.String">
     SELECT  bus_assessment.`assessment_no`  FROM   bus_assessment   ORDER   BY   bus_assessment.`assessment_id`    DESC   LIMIT   1
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <select id="selectDaysCount" resultType="com.smart.bracelet.model.po.debt.DateAndDays">
+      SELECT DATE_FORMAT(create_time,'%Y-%m-%d') days,COUNT(*) COUNT FROM bus_assessment GROUP BY days ORDER BY days DESC LIMIT 10;
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from bus_assessment
     where assessment_id = #{assessmentId,jdbcType=BIGINT}
   </delete>

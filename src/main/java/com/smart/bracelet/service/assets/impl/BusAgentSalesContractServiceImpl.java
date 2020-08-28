@@ -3,6 +3,7 @@ package com.smart.bracelet.service.assets.impl;
 import com.smart.bracelet.dao.assets.BusAgentSalesContractDao;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.assets.BusAgentSalesContract;
+import com.smart.bracelet.model.vo.assets.BusAgentSalesContractShow;
 import com.smart.bracelet.model.vo.assets.BusAgentSalesContractVo;
 import com.smart.bracelet.service.assets.BusAgentSalesContractService;
 import com.smart.bracelet.utils.IdUtils;
@@ -55,5 +56,16 @@ public class BusAgentSalesContractServiceImpl implements BusAgentSalesContractSe
             log.error("更新失败,异常信息:{}",e.getMessage());
             throw new CustomerException("更新失败");
         }
+    }
+
+    @Override
+    public BusAgentSalesContractShow initialize(Long reportId) {
+        BusAgentSalesContractShow initialize = busAgentSalesContractDao.initialize(reportId);
+        if(initialize.getReportPropert().equals("1")){
+            initialize.setCorBankPhone(null);
+        }else {
+            initialize.setPriPhone(null);
+        }
+        return initialize;
     }
 }

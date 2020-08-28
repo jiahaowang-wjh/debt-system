@@ -3,6 +3,7 @@ package com.smart.bracelet.controller.assets;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.assets.BusAgentSalesContract;
+import com.smart.bracelet.model.vo.assets.BusAgentSalesContractShow;
 import com.smart.bracelet.model.vo.assets.BusAgentSalesContractVo;
 import com.smart.bracelet.service.assets.BusAgentSalesContractService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,17 @@ public class BusAgentSalesContractController {
     public Result updateByPrimaryKeySelective(@Valid BusAgentSalesContractVo record) throws CustomerException {
         int i = busAgentSalesContractService.updateByPrimaryKeySelective(record);
         return Result.success(i);
+    }
+
+    /**
+     * 委托代理销售合同初始化
+     * @param reportId
+     * @return
+     */
+    @RequestMapping("/initialize")
+    public Result<BusAgentSalesContractShow> initialize(@NotNull(message = "报备ID不能为空") Long reportId){
+        BusAgentSalesContractShow initialize = busAgentSalesContractService.initialize(reportId);
+        return Result.success(initialize);
     }
 
 }

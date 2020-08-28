@@ -25,6 +25,7 @@ public class BusCollectionLetterShow {
      */
     Float amountThis;
     /**
-     *解债金额小写
+     *解债金额大写
      */
+    String moneyMax;
 }

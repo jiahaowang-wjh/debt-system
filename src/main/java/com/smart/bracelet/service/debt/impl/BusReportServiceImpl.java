@@ -130,10 +130,11 @@ public class BusReportServiceImpl implements BusReportService {
      * @return
      */
     @Override
-    public int insertPrivateSelective(BusPrivateReport busPrivateReport) throws CustomerException {
+    public Long insertPrivateSelective(BusPrivateReport busPrivateReport) throws CustomerException {
         BusReport busReport = new BusReport();
+        long l = IdUtils.nextId();
         try {
-            busReport.setReportId(IdUtils.nextId());
+            busReport.setReportId(l);
             //设置报备编号
             busReport.setReportNo(createRepNo());
             busReport.setCompanyId(busPrivateReport.getCompanyId());
@@ -175,7 +176,7 @@ public class BusReportServiceImpl implements BusReportService {
             System.out.println(busReport.toString());
             int insertSelective = busReportDao.insertSelective(busReport);
             log.info("新增私人报备信息成功,受影响行数:{}", insertSelective);
-            return insertSelective;
+            return l;
         } catch (Exception e) {
             log.error("新增私人报备信息失败,异常信息:{}", e.getMessage());
             throw new CustomerException("新增私人报备信息失败");
@@ -246,10 +247,11 @@ public class BusReportServiceImpl implements BusReportService {
      * @return
      */
     @Override
-    public int insertEterpriseSelective(BusEterpriseReport busEterpriseReport) throws CustomerException {
+    public Long insertEterpriseSelective(BusEterpriseReport busEterpriseReport) throws CustomerException {
         BusReport busReport = new BusReport();
+        long l = IdUtils.nextId();
         try {
-            busReport.setReportId(IdUtils.nextId());
+            busReport.setReportId(l);
             busReport.setReportNo(createRepNo());
             busReport.setCompanyId(busEterpriseReport.getCompanyId());
             busReport.setUserId(busEterpriseReport.getUserId());
@@ -288,7 +290,7 @@ public class BusReportServiceImpl implements BusReportService {
             busReport.setData9(busEterpriseReport.getContactPhone());
             int insertSelective = busReportDao.insertSelective(busReport);
             log.info("新增企业报备信息成功,受影响行数:{}", insertSelective);
-            return insertSelective;
+            return l;
         } catch (Exception e) {
             log.error("新增企业报备信息失败,异常信息:{}", e.getMessage());
             throw new CustomerException("新增企业报备信息失败");
@@ -358,10 +360,11 @@ public class BusReportServiceImpl implements BusReportService {
      * @return
      */
     @Override
-    public int insertBankSelective(BusBankReport busBankReport) throws CustomerException {
+    public Long insertBankSelective(BusBankReport busBankReport) throws CustomerException {
         BusReport busReport = new BusReport();
+        long l = IdUtils.nextId();
         try {
-            busReport.setReportId(IdUtils.nextId());
+            busReport.setReportId(l);
             busReport.setReportNo(createRepNo());
             busReport.setCompanyId(busBankReport.getCompanyId());
             busReport.setUserId(busBankReport.getUserId());
@@ -398,7 +401,7 @@ public class BusReportServiceImpl implements BusReportService {
             busReport.setData9(busBankReport.getContactPhone());
             int insertSelective = busReportDao.insertSelective(busReport);
             log.info("新增银行报备信息成功,受影响行数:{}", insertSelective);
-            return insertSelective;
+            return l;
         } catch (Exception e) {
             log.error("新增银行报备信息失败,异常信息:{}", e.getMessage());
             throw new CustomerException("新增银行报备信息失败");

@@ -71,7 +71,7 @@
 
     <select id="queryLisyDebtor" resultType="com.smart.bracelet.model.vo.debt.DebtChain">
         SELECT br.report_id AS father_Id,br.data1 AS Report,br.data3 AS RelativePersonIdCad FROM bus_report br
-        WHERE br.data3=#{personIdCad,jdbcType=VARCHAR}
+        WHERE br.data2=#{personIdCad,jdbcType=VARCHAR}
     </select>
     <select id="queryLisyRelativePerson" resultType="com.smart.bracelet.model.vo.debt.DebtChain">
         SELECT brp.data1 AS Report,brp.data3 AS RelativePersonIdCad FROM  bus_relative_person brp

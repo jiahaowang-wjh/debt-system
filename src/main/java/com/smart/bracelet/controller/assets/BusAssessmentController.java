@@ -3,6 +3,7 @@ package com.smart.bracelet.controller.assets;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.assets.BusAssessment;
+import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.vo.assets.BusAssessmentVo;
 import com.smart.bracelet.service.assets.BusAssessmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @RestController
 @Validated
@@ -44,4 +46,15 @@ public class BusAssessmentController {
         int i = busAssessmentService.updateByPrimaryKeySelective(record);
         return Result.success(i);
     }
+
+    /**
+     * 按照日期展示每日数据
+     * @return
+     */
+    @RequestMapping("/selectDaysCount")
+    public Result<List<DateAndDays>> selectDaysCount(){
+        List<DateAndDays> dateAndDays = busAssessmentService.selectDaysCount();
+        return Result.success(dateAndDays);
+    }
+
 }

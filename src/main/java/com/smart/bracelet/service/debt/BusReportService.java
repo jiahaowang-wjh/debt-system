@@ -27,7 +27,7 @@ public interface BusReportService {
      * @param busPrivateReport
      * @return
      */
-    int insertPrivateSelective(BusPrivateReport busPrivateReport) throws CustomerException;
+    Long insertPrivateSelective(BusPrivateReport busPrivateReport) throws CustomerException;
 
     /**
      * 更新私人报备信息
@@ -41,7 +41,7 @@ public interface BusReportService {
      * @param busEterpriseReport
      * @return
      */
-    int insertEterpriseSelective(BusEterpriseReport busEterpriseReport) throws CustomerException;
+    Long insertEterpriseSelective(BusEterpriseReport busEterpriseReport) throws CustomerException;
 
     /**
      * 更新企业报备信息
@@ -55,7 +55,7 @@ public interface BusReportService {
      * @param busBankReport
      * @return
      */
-    int insertBankSelective(BusBankReport busBankReport) throws CustomerException;
+    Long insertBankSelective(BusBankReport busBankReport) throws CustomerException;
 
     /**
      * 更新银行报备信息
