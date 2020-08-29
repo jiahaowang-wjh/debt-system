@@ -53,4 +53,9 @@ public interface BusCivilService {
      * @throws CustomerException
      */
     boolean verification(Long relativePerId) throws CustomerException ;
+
+    /**
+     * 尽调协议初始化
+     */
+    AgreementInfoShow initialize(Long reportId);
 }

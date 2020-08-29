@@ -65,4 +65,9 @@ public interface BusCivilDao {
      * 通过相对人作为债事人的报备ID查询相对人
      */
     String selectPersonIdCardByPrId(Long reportId);
+
+    /**
+     * 尽调协议初始化
+     */
+    AgreementInfoShow initialize(Long reportId);
 }

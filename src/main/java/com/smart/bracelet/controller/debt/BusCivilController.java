@@ -122,4 +122,14 @@ public class BusCivilController {
         boolean verification = busCivilService.verification(relativePerId);
         return Result.success(verification);
     }
+
+    /**
+     * 尽调协议初始化
+     */
+    @RequestMapping("/initialize")
+    public Result<AgreementInfoShow> initialize(@NotNull(message = "报备ID不能为空") Long reportId){
+        AgreementInfoShow initialize = busCivilService.initialize(reportId);
+        return Result.success(initialize);
+    }
+
 }

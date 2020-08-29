@@ -143,4 +143,9 @@ public class BusCivilServiceImpl implements BusCivilService {
             throw new CustomerException(e.getMessage());
         }
     }
+
+    @Override
+    public AgreementInfoShow initialize(Long reportId) {
+        return busCivilDao.initialize(reportId);
+    }
 }

@@ -84,6 +84,11 @@
         SELECT bus_relative_person.`data2` FROM bus_relative_person
         WHERE bus_relative_person.`report_id` = #{reportId,jdbcType=BIGINT}
     </select>
+    <select id="initialize" resultType="com.smart.bracelet.model.vo.debt.AgreementInfoShow">
+        SELECT br.`data1` AS 'debtName',br.`data2` AS 'idCard', brp.`agreement_no` FROM bus_report br
+        LEFT JOIN bus_relative_person brp ON br.`report_id` = brp.`report_id`
+        WHERE br.`report_id` = #{reportId,jdbcType=BIGINT}
+    </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from bus_civil
