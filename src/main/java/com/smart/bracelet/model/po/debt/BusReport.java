@@ -151,25 +151,25 @@ public class BusReport implements Serializable {
     /**
      * 本金
      */
-    @NotBlank(message = "本金不能为空")
-    private String capital;
+    @NotNull(message = "本金不能为空")
+    private Float capital;
 
     /**
      * 利息
      */
-    @NotBlank(message = "利息不能为空")
-    private String interest;
+    @NotNull(message = "利息不能为空")
+    private Float interest;
 
     /**
      * 利率
      */
-    @NotBlank(message = "利率不能为空")
-    private String interestRate;
+    @NotNull(message = "利率不能为空")
+    private Float interestRate;
 
     /**
      * 债务
      */
-    @NotBlank(message = "债务不能为空")
+    @NotNull(message = "债务不能为空")
     private String debt;
 
     /**
@@ -182,7 +182,7 @@ public class BusReport implements Serializable {
      * 借款发生时间务
      */
     @NotNull(message = "借款发生时间务不能为空")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date debtTime;
 
     /**

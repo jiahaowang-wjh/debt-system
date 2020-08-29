@@ -136,17 +136,17 @@ public class BusReportVo implements Serializable {
     /**
      * 本金
      */
-    private String capital;
+    private Float capital;
 
     /**
      * 利息
      */
-    private String interest;
+    private Float interest;
 
     /**
      * 利率
      */
-    private String interestRate;
+    private Float interestRate;
 
     /**
      * 债务

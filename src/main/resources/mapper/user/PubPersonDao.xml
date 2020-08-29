@@ -21,10 +21,9 @@
     where person_id = #{personId,jdbcType=BIGINT}
   </select>
     <select id="selectByType" resultType="com.smart.bracelet.model.po.user.PubPerson">
-      select
-      <include refid="Base_Column_List" />
-      from pub_person
-      where person_type = #{personType,jdbcType=VARCHAR}
+    SELECT pu.user_id,pp.person_name FROM pub_user pu
+    LEFT JOIN pub_person pp ON pu.person_id = pp.person_id
+    WHERE pp.person_type = #{personType,jdbcType=VARCHAR}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from pub_person

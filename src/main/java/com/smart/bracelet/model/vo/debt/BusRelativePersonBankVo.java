@@ -115,20 +115,20 @@ public class BusRelativePersonBankVo {
     /**
      * 本金
      */
-    @NotBlank(message = "本金不能为空")
-    private String capital;
+    @NotNull(message = "本金不能为空")
+    private Float capital;
 
     /**
      * 利息
      */
-    @NotBlank(message = "利息不能为空")
-    private String interest;
+    @NotNull(message = "利息不能为空")
+    private Float interest;
 
     /**
      * 利率
      */
-    @NotBlank(message = "利率不能为空")
-    private String interestRate;
+    @NotNull(message = "利率不能为空")
+    private Float interestRate;
 
     /**
      * 债务

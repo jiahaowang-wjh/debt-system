@@ -78,14 +78,14 @@ public class BusCivilVo {
      * 时间段-开始
      */
     @NotNull(message = "时间段-开始不能为空")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date starDate;
 
     /**
      * 时间段-结束
      */
     @NotNull(message = "时间段-结束不能为空")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date endDate;
 
     /**

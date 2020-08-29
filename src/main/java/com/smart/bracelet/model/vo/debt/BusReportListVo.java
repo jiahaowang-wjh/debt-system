@@ -170,27 +170,27 @@ public class BusReportListVo implements Serializable {
     /**
      * 借款发生时间权
      */
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     @NotNull(message = "借款发生时间权不能为空")
     private Date obligatTime;
 
     /**
      * 本金
      */
-    @NotBlank(message = "本金不能为空")
-    private String capital;
+    @NotNull(message = "本金不能为空")
+    private Float capital;
 
     /**
      * 利息
      */
-    @NotBlank(message = "利息不能为空")
-    private String interest;
+    @NotNull(message = "利息不能为空")
+    private Float interest;
 
     /**
      * 利率
      */
-    @NotBlank(message = "利率不能为空")
-    private String interestRate;
+    @NotNull(message = "利率不能为空")
+    private Float interestRate;
 
     /**
      * 债务
@@ -207,7 +207,7 @@ public class BusReportListVo implements Serializable {
     /**
      * 借款发生时间务
      */
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     @NotNull(message = "借款发生时间务不能为空")
     private Date debtTime;
 

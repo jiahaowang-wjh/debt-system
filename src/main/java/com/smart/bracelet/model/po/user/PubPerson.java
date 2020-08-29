@@ -8,7 +8,8 @@ import java.io.Serializable;
 
 /**
  * pub_person
- * @author 
+ *
+ * @author
  */
 @Data
 public class PubPerson implements Serializable {
@@ -59,5 +60,9 @@ public class PubPerson implements Serializable {
      */
     private String note;
 
+    /**
+     * 用户ID
+     */
+    Long userId;
 
 }

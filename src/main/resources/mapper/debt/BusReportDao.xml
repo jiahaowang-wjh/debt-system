@@ -23,9 +23,9 @@
         <result column="obligat_right" jdbcType="VARCHAR" property="obligatRight"/>
         <result column="obligat_right_no" jdbcType="INTEGER" property="obligatRightNo"/>
         <result column="obligat_time" jdbcType="TIMESTAMP" property="obligatTime"/>
-        <result column="capital" jdbcType="VARCHAR" property="capital"/>
-        <result column="interest" jdbcType="VARCHAR" property="interest"/>
-        <result column="interest_rate" jdbcType="VARCHAR" property="interestRate"/>
+        <result column="capital" jdbcType="REAL" property="capital"/>
+        <result column="interest" jdbcType="REAL" property="interest"/>
+        <result column="interest_rate" jdbcType="REAL" property="interestRate"/>
         <result column="debt" jdbcType="VARCHAR" property="debt"/>
         <result column="debt_no" jdbcType="INTEGER" property="debtNo"/>
         <result column="debt_time" jdbcType="TIMESTAMP" property="debtTime"/>
@@ -265,13 +265,13 @@
                 #{obligatTime,jdbcType=TIMESTAMP},
             </if>
             <if test="capital != null">
-                #{capital,jdbcType=VARCHAR},
+                #{capital,jdbcType=REAL},
             </if>
             <if test="interest != null">
-                #{interest,jdbcType=VARCHAR},
+                #{interest,jdbcType=REAL},
             </if>
             <if test="interestRate != null">
-                #{interestRate,jdbcType=VARCHAR},
+                #{interestRate,jdbcType=REAL},
             </if>
             <if test="debt != null">
                 #{debt,jdbcType=VARCHAR},
@@ -372,13 +372,13 @@
                 obligat_time = #{obligatTime,jdbcType=TIMESTAMP},
             </if>
             <if test="capital != null">
-                capital = #{capital,jdbcType=VARCHAR},
+                capital = #{capital,jdbcType=REAL},
             </if>
             <if test="interest != null">
-                interest = #{interest,jdbcType=VARCHAR},
+                interest = #{interest,jdbcType=REAL},
             </if>
             <if test="interestRate != null">
-                interest_rate = #{interestRate,jdbcType=VARCHAR},
+                interest_rate = #{interestRate,jdbcType=REAL},
             </if>
             <if test="debt != null">
                 debt = #{debt,jdbcType=VARCHAR},
