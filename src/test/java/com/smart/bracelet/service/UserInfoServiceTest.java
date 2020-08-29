@@ -43,10 +43,10 @@ public class UserInfoServiceTest {
 //        Date date = rightNow.getTime();
 //        String format = sdf.format(date);
 //        System.out.println(format);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        BusAgentSalesContractShow initialize = busAgentSalesContractDao.initialize(798648698420856422L);
-        String format1 = simpleDateFormat.format(initialize.getCreateTime());
-        System.out.println(format1);
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date());
+        System.out.println("当前年份是"+c.get(Calendar.DAY_OF_MONTH));
+
     }
 
 }

@@ -5,6 +5,7 @@ import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.assets.Manner1;
 import com.smart.bracelet.model.po.assets.Manner1AndManner2;
 import com.smart.bracelet.model.po.assets.Manner2;
+import com.smart.bracelet.model.vo.assets.BusCompromiseAgreementShow;
 import com.smart.bracelet.model.vo.assets.Manner1Vo;
 import com.smart.bracelet.model.vo.assets.Manner2Vo;
 import com.smart.bracelet.service.assets.BusCompromiseAgreementService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -67,5 +69,14 @@ public class BusCompromiseAgreementController {
         List<Manner1AndManner2> manner1AndManner2s = busCompromiseAgreementService.queryList();
         return Result.success(manner1AndManner2s);
     }
-
+    /**
+     * 初始化和解协议页面
+     * @param reportId
+     * @return
+     */
+    @RequestMapping("/initialize")
+    public Result<BusCompromiseAgreementShow> initialize(@NotNull(message = "报备ID不能为空") Long reportId) throws ParseException {
+        BusCompromiseAgreementShow initialize = busCompromiseAgreementService.initialize(reportId);
+        return Result.success(initialize);
+    }
 }

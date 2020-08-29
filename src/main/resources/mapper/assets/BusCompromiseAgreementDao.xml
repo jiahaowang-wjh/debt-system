@@ -34,6 +34,12 @@
     <select id="selectNo" resultType="java.lang.String">
       SELECT  bus_compromise_agreement.compromise_agreement_no  FROM   `bus_compromise_agreement`   ORDER   BY  bus_compromise_agreement.compromise_agreement_id  DESC   LIMIT   1
     </select>
+    <select id="initialize" resultType="com.smart.bracelet.model.vo.assets.BusCompromiseAgreementShow">
+        SELECT br.`data1` AS 'debtName',brp.`data1` AS 'personName',pd.`amount_this`,pd.`create_time` FROM bus_report br
+        LEFT JOIN bus_relative_person brp ON br.`report_id`=brp.`report_id`
+        LEFT JOIN pub_debt pd ON br.`report_id` = pd.`report_id`
+        WHERE br.`report_id` =  #{reportId,jdbcType=BIGINT}
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from bus_compromise_agreement
     where compromise_agreement_id = #{compromiseAgreementId,jdbcType=BIGINT}

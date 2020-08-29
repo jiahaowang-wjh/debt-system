@@ -1,6 +1,7 @@
 package com.smart.bracelet.dao.assets;
 
 import com.smart.bracelet.model.po.assets.BusCompromiseAgreement;
+import com.smart.bracelet.model.vo.assets.BusCompromiseAgreementShow;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -21,4 +22,11 @@ public interface BusCompromiseAgreementDao {
      * 查询最后一条编号
      */
     String selectNo();
+
+    /**
+     * 初始化和解协议页面
+     * @param reportId
+     * @return
+     */
+    BusCompromiseAgreementShow initialize(Long reportId);
 }

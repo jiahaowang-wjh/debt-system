@@ -5,9 +5,11 @@ import com.smart.bracelet.model.po.assets.BusCompromiseAgreement;
 import com.smart.bracelet.model.po.assets.Manner1;
 import com.smart.bracelet.model.po.assets.Manner1AndManner2;
 import com.smart.bracelet.model.po.assets.Manner2;
+import com.smart.bracelet.model.vo.assets.BusCompromiseAgreementShow;
 import com.smart.bracelet.model.vo.assets.Manner1Vo;
 import com.smart.bracelet.model.vo.assets.Manner2Vo;
 
+import java.text.ParseException;
 import java.util.List;
 
 public interface BusCompromiseAgreementService {
@@ -25,5 +27,12 @@ public interface BusCompromiseAgreementService {
     int updateByPrimaryKeySelectiveManner2Vo(Manner2Vo record) throws CustomerException;
 
     List<Manner1AndManner2> queryList() throws CustomerException;
+
+    /**
+     * 初始化和解协议页面
+     * @param reportId
+     * @return
+     */
+    BusCompromiseAgreementShow initialize(Long reportId) throws ParseException;
 
 }

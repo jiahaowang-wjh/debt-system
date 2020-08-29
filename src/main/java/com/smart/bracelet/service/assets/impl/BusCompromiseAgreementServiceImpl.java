@@ -6,6 +6,7 @@ import com.smart.bracelet.model.po.assets.BusCompromiseAgreement;
 import com.smart.bracelet.model.po.assets.Manner1;
 import com.smart.bracelet.model.po.assets.Manner1AndManner2;
 import com.smart.bracelet.model.po.assets.Manner2;
+import com.smart.bracelet.model.vo.assets.BusCompromiseAgreementShow;
 import com.smart.bracelet.model.vo.assets.Manner1Vo;
 import com.smart.bracelet.model.vo.assets.Manner2Vo;
 import com.smart.bracelet.service.assets.BusCompromiseAgreementService;
@@ -15,7 +16,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -201,5 +206,17 @@ public class BusCompromiseAgreementServiceImpl implements BusCompromiseAgreement
             list.add(manner1VoAndManner2Vo);
         }
         return list;
+    }
+
+    @Override
+    public BusCompromiseAgreementShow initialize(Long reportId) throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        BusCompromiseAgreementShow initialize = busCompromiseAgreementDao.initialize(reportId);
+        String format = simpleDateFormat.format(initialize.getCreateTime());
+        Date parse = simpleDateFormat.parse(format);
+        Calendar c = Calendar.getInstance();
+        c.setTime(parse);
+        initialize.setDay(c.get(Calendar.DAY_OF_MONTH)+"");
+        return initialize;
     }
 }
