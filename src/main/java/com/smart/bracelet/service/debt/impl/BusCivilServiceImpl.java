@@ -6,6 +6,7 @@ import com.smart.bracelet.model.po.debt.BusCivil;
 import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.vo.debt.*;
 import com.smart.bracelet.service.debt.BusCivilService;
+import com.smart.bracelet.utils.ConvertUpMoney;
 import com.smart.bracelet.utils.IdUtils;
 import com.smart.bracelet.utils.RepNoUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -147,5 +148,26 @@ public class BusCivilServiceImpl implements BusCivilService {
     @Override
     public AgreementInfoShow initialize(Long reportId) {
         return busCivilDao.initialize(reportId);
+    }
+    @Override
+    public PlanServiceInfo initializePlan(Long reportId) throws CustomerException {
+        try {
+            PlanServiceInfo initialize = busCivilDao.initializePlan(reportId);
+            Float monry = initialize.getAmountThis()*0.1f;
+            initialize.setPlanMoney(monry);
+            initialize.setPlanMoneyMax(ConvertUpMoney.toChinese(monry.toString()));
+            initialize.setAmountThisMax(ConvertUpMoney.toChinese(initialize.getAmountThis().toString()));
+            if(initialize.getReportPropert().equals("1")){
+                initialize.setCorBankAdd(null);
+                initialize.setCorBankPhone(null);
+            }else {
+                initialize.setPriAdd(null);
+                initialize.setPriPhone(null);
+            }
+            return initialize;
+        } catch (Exception e) {
+            log.error("异常信息:{}",e.getMessage());
+            throw new CustomerException("查询异常");
+        }
     }
 }

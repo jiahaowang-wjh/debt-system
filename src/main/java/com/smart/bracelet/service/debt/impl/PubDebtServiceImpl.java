@@ -5,10 +5,12 @@ import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.po.debt.PubDebt;
 import com.smart.bracelet.model.vo.debt.DebtAndRepAndCiviI;
+import com.smart.bracelet.model.vo.debt.PlanServiceInfo;
 import com.smart.bracelet.model.vo.debt.PubDebtInfo;
 import com.smart.bracelet.model.vo.debt.PubDebtVo;
 import com.smart.bracelet.service.debt.PubDebtService;
 import com.smart.bracelet.utils.IdUtils;
+import com.smart.bracelet.utils.RepNoUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,8 +41,11 @@ public class PubDebtServiceImpl implements PubDebtService {
     @Override
     public int insertSelective(PubDebt record) throws CustomerException {
         try {
+            String selectNo = pubDebtDao.selectNo();
+            String repNo = RepNoUtils.createRepNo("TZ", "ZLGS", selectNo);
             record.setDebtId(IdUtils.nextId());
             record.setDebtNo(createRepNo());
+            record.setServiceNo(repNo);
             int insertSelective = pubDebtDao.insertSelective(record);
             log.info("新增解债信息成功,受影响行数:{}",insertSelective);
             return insertSelective;
@@ -105,6 +110,8 @@ public class PubDebtServiceImpl implements PubDebtService {
     public List<DebtAndRepAndCiviI> selectDebtAndRepAndCiviI() {
         return pubDebtDao.selectDebtAndRepAndCiviI();
     }
+
+
 
 
     /**

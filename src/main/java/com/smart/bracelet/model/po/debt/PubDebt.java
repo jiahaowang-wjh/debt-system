@@ -26,6 +26,7 @@ public class PubDebt implements Serializable {
      */
     private String debtNo;
 
+
     /**
      * 报备ID
      */
@@ -127,6 +128,12 @@ public class PubDebt implements Serializable {
      */
     @NotNull(message = "策划方案服务利息不能为空")
     private Float serviceInterest;
+
+
+    /**
+     *策划方案服务编号
+     */
+    String serviceNo;
 
     /**
      * 甲方受权代表人

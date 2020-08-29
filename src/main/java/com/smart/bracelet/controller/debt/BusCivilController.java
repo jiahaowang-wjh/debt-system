@@ -132,4 +132,12 @@ public class BusCivilController {
         return Result.success(initialize);
     }
 
+    /**
+     * 策划方案服务协议初始化
+     */
+    @RequestMapping("/initializePlan")
+    public Result< PlanServiceInfo> initializePlan(@NotNull(message = "报备ID不能为空") Long reportId) throws CustomerException{
+        PlanServiceInfo initialize = busCivilService.initializePlan(reportId);
+        return Result.success(initialize);
+    }
 }

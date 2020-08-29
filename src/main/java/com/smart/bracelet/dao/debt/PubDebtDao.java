@@ -3,6 +3,7 @@ package com.smart.bracelet.dao.debt;
 import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.po.debt.PubDebt;
 import com.smart.bracelet.model.vo.debt.DebtAndRepAndCiviI;
+import com.smart.bracelet.model.vo.debt.PlanServiceInfo;
 import com.smart.bracelet.model.vo.debt.PubDebtInfo;
 import com.smart.bracelet.model.vo.debt.PubDebtVo;
 import org.springframework.stereotype.Repository;
@@ -20,6 +21,10 @@ public interface PubDebtDao {
 
     int updateByPrimaryKeySelective(PubDebtVo record);
 
+    /**
+     * 获取最后一条编号
+     */
+    String selectNo();
     /**
      * 查询每日解债信息
      *
@@ -61,4 +66,6 @@ public interface PubDebtDao {
      * 解债信息填写更新展示
      */
     List<DebtAndRepAndCiviI> selectDebtAndRepAndCiviI();
+
+
 }

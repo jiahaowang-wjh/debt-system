@@ -432,6 +432,7 @@
     <select id="selectDebtInofs" resultType="com.smart.bracelet.model.vo.debt.DebtInfo">
         #查询页面报备信息
         SELECT br.report_id,
+        br.stage,
         br.report_no,
         br.data1 AS 'debtName',
         froma.busRelativeCount,

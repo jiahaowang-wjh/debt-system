@@ -89,6 +89,13 @@
         LEFT JOIN bus_relative_person brp ON br.`report_id` = brp.`report_id`
         WHERE br.`report_id` = #{reportId,jdbcType=BIGINT}
     </select>
+    <select id="initializePlan" resultType="com.smart.bracelet.model.vo.debt.PlanServiceInfo">
+        SELECT br.`report_propert`,br.`data1` AS 'debtName',br.`data2` AS 'personName',br.`data5` AS 'priAdd',br.`data7` AS 'corBankAdd',br.data3 AS 'priPhone',br.`data9` AS 'corBankPhone',
+        pd.`amount_this`,pd.partyb_seal
+        FROM bus_report br
+        LEFT JOIN pub_debt pd ON br.`report_id` = pd.`report_id`
+        WHERE br.`report_id` =  #{reportId,jdbcType=BIGINT}
+    </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from bus_civil

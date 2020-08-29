@@ -30,6 +30,7 @@
         <result column="status" jdbcType="VARCHAR" property="status"/>
         <result column="check_reason" jdbcType="VARCHAR" property="checkReason"/>
         <result column="check_date" jdbcType="VARCHAR" property="checkDate"/>
+        <result column="service_no" jdbcType="VARCHAR" property="serviceNo"/>
     </resultMap>
     <sql id="Base_Column_List">
     debt_id, report_id,relative_per_id, amount_total, amount_cumulative, amount_this, debt_type, debt_yaer,
@@ -56,6 +57,9 @@
             </if>
             <if test="debtNo != null">
                 debt_no,
+            </if>
+            <if test="serviceNo != null">
+                service_no,
             </if>
             <if test="reportId != null">
                 report_id,
@@ -145,6 +149,9 @@
             </if>
             <if test="debtNo != null">
                 #{debtNo,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceNo != null">
+                #{serviceNo,jdbcType=VARCHAR},
             </if>
             <if test="reportId != null">
                 #{reportId,jdbcType=BIGINT},
@@ -239,7 +246,10 @@
                 relative_per_id = #{relativePerId,jdbcType=BIGINT},
             </if>
             <if test="debtNo != null">
-                debt_no = #{reportNo,jdbcType=BIGINT},
+                debt_no = #{reportNo,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceNo != null">
+                service_no = #{serviceNo,jdbcType=VARCHAR},
             </if>
             <if test="amountTotal != null">
                 amount_total = #{amountTotal,jdbcType=REAL},
@@ -353,4 +363,8 @@
         LEFT JOIN `pub_debt` pd ON br.`report_id`=pd.report_id
         LEFT JOIN `bus_civil` bc ON bc.report_id = br.report_id
     </select>
+    <select id="selectNo" resultType="java.lang.String">
+         SELECT pub_debt.`service_no`  FROM   `pub_debt`   ORDER   BY  pub_debt.`debt_id`    DESC   LIMIT   1
+    </select>
+
 </mapper>

@@ -58,4 +58,8 @@ public interface BusCivilService {
      * 尽调协议初始化
      */
     AgreementInfoShow initialize(Long reportId);
+    /**
+     * 策划方案服务协议初始化
+     */
+    PlanServiceInfo initializePlan(Long reportId) throws CustomerException;
 }

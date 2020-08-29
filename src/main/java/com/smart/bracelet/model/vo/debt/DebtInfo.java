@@ -58,4 +58,8 @@ public class DebtInfo {
      */
     String status;
 
+    /**
+     * 阶段
+     */
+    String stage;
 }
