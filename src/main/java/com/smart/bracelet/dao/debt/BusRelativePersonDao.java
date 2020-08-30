@@ -39,5 +39,5 @@ public interface BusRelativePersonDao {
      */
     List<AuxiliaryDownload> selectDow();
 
-
+    String selectNo();
 }

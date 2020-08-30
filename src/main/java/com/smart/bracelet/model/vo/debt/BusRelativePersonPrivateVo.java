@@ -31,7 +31,6 @@ public class BusRelativePersonPrivateVo {
     /**
      * 暨尽调协议编号
      */
-    @NotBlank(message = "暨尽调协议编号不能为空")
     private String agreementNo;
     /**
      * 是否从业

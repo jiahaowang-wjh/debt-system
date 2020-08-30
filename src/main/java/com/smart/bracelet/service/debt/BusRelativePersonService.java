@@ -15,7 +15,7 @@ public interface BusRelativePersonService {
     /**
      * 新增私人相对人
      */
-    int insertPrivate(BusRelativePersonPrivateVo busRelativePersonPrivateVo) throws CustomerException;
+    Long insertPrivate(BusRelativePersonPrivateVo busRelativePersonPrivateVo) throws CustomerException;
 
     /**
      * 更新私人相对人
@@ -26,7 +26,7 @@ public interface BusRelativePersonService {
     /**
      * 新增企业相对人
      */
-    int insertEnterprise(BusRelativePersonEnterpriseVo busRelativePersonEnterpriseVo) throws CustomerException;
+    Long insertEnterprise(BusRelativePersonEnterpriseVo busRelativePersonEnterpriseVo) throws CustomerException;
 
     /**
      * 更新企业相对人
@@ -36,7 +36,7 @@ public interface BusRelativePersonService {
     /**
      * 新增银行相对人
      */
-    int insertBank(BusRelativePersonBankVo busRelativePersonBankVo) throws CustomerException;
+    Long insertBank(BusRelativePersonBankVo busRelativePersonBankVo) throws CustomerException;
 
     /**
      * 更新银行相对人

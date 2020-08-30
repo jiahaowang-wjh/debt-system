@@ -430,7 +430,6 @@
 
     <!--页面报备信息展示-->
     <select id="selectDebtInofs" resultType="com.smart.bracelet.model.vo.debt.DebtInfo">
-        #查询页面报备信息
         SELECT br.report_id,
         br.stage,
         br.report_no,
@@ -460,8 +459,8 @@
             <if test="debtName != null and debtName!='' ">
                 and br.data1 = #{debtName,jdbcType=VARCHAR}
             </if>
-            <if test="debtNo != null and debtNo!=''">
-                and br.debt_no = #{debtNo,jdbcType=VARCHAR}
+            <if test="reportNo != null and reportNo!=''">
+                and br.report_no = #{reportNo,jdbcType=VARCHAR}
             </if>
             <if test="status != null and status!=''">
                 and br.status = #{status,jdbcType=VARCHAR}

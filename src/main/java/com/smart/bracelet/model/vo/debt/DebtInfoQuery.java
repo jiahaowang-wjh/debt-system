@@ -15,7 +15,7 @@ public class DebtInfoQuery {
     /**
      * 报备编号
      */
-    String debtNo;
+    String reportNo;
     /**
      * 审核状态
      */

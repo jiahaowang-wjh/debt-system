@@ -6,6 +6,7 @@ import com.smart.bracelet.model.po.debt.BusRelativePerson;
 import com.smart.bracelet.model.vo.debt.*;
 import com.smart.bracelet.service.debt.BusRelativePersonService;
 import com.smart.bracelet.utils.IdUtils;
+import com.smart.bracelet.utils.RepNoUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -105,6 +106,15 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
         return listVos;
     }
 
+    /**
+     * 生成编号
+     * @return
+     */
+    String createRepNo(){
+        String selectNo = busRelativePersonDao.selectNo();
+        String repNo = RepNoUtils.createRepNo("TZ", "ZLGS", selectNo);
+        return repNo;
+    }
 
     /**
      * 私人相对人
@@ -113,10 +123,12 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
      * @return
      */
     @Override
-    public int insertPrivate(BusRelativePersonPrivateVo busRelativePersonPrivateVo) throws CustomerException {
+    public Long insertPrivate(BusRelativePersonPrivateVo busRelativePersonPrivateVo) throws CustomerException {
         try {
+            long nextId = IdUtils.nextId();
             BusRelativePerson busRelativePerson = new BusRelativePerson();
-            busRelativePerson.setRelativePerId(IdUtils.nextId());
+            busRelativePerson.setAgreementNo(createRepNo());
+            busRelativePerson.setRelativePerId(nextId);
             busRelativePerson.setReportId(busRelativePersonPrivateVo.getReportId());
             busRelativePerson.setIscoordinate(busRelativePersonPrivateVo.getIscoordinate());
             busRelativePerson.setReportType(busRelativePersonPrivateVo.getReportType());
@@ -149,10 +161,10 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
             busRelativePerson.setPrjectManager(busRelativePersonPrivateVo.getPrjectManager());
             busRelativePerson.setCreateTime(busRelativePersonPrivateVo.getCreateTime());
             busRelativePerson.setUpdateTime(busRelativePersonPrivateVo.getUpdateTime());
-            busRelativePerson.setAgreementNo(busRelativePersonPrivateVo.getAgreementNo());
+
             int insertSelective = busRelativePersonDao.insertSelective(busRelativePerson);
             log.info("新增私人相对人成功,受影响行数:{}", insertSelective);
-            return insertSelective;
+            return nextId;
         } catch (Exception e) {
             log.error("新增私人相对人失败,异常信息:{}", e.getMessage());
             throw new CustomerException("新增私人相对人失败");
@@ -218,10 +230,11 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
      * @return
      */
     @Override
-    public int insertEnterprise(BusRelativePersonEnterpriseVo busRelativePersonEnterpriseVo) throws CustomerException {
+    public Long insertEnterprise(BusRelativePersonEnterpriseVo busRelativePersonEnterpriseVo) throws CustomerException {
         try {
+            long l = IdUtils.nextId();
             BusRelativePerson busRelativePerson = new BusRelativePerson();
-            busRelativePerson.setRelativePerId(IdUtils.nextId());
+            busRelativePerson.setRelativePerId(l);
             busRelativePerson.setReportId(busRelativePersonEnterpriseVo.getReportId());
             busRelativePerson.setIscoordinate(busRelativePersonEnterpriseVo.getIscoordinate());
             busRelativePerson.setReportType(busRelativePersonEnterpriseVo.getReportType());
@@ -253,10 +266,10 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
             busRelativePerson.setPrjectManager(busRelativePersonEnterpriseVo.getPrjectManager());
             busRelativePerson.setCreateTime(busRelativePersonEnterpriseVo.getCreateTime());
             busRelativePerson.setUpdateTime(busRelativePersonEnterpriseVo.getUpdateTime());
-            busRelativePerson.setAgreementNo(busRelativePersonEnterpriseVo.getAgreementNo());
+            busRelativePerson.setAgreementNo(createRepNo());
             int insertSelective = busRelativePersonDao.insertSelective(busRelativePerson);
             log.info("新增企业相对人成功,受影响行数:{}", insertSelective);
-            return insertSelective;
+            return l;
         } catch (Exception e) {
             log.error("新增企业相对人失败,异常信息:{}", e.getMessage());
             throw new CustomerException("新增企业相对人失败");
@@ -314,10 +327,11 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
      * @return
      */
     @Override
-    public int insertBank(BusRelativePersonBankVo busRelativePersonBankVo) throws CustomerException {
+    public Long insertBank(BusRelativePersonBankVo busRelativePersonBankVo) throws CustomerException {
         try {
+            long l = IdUtils.nextId();
             BusRelativePerson busRelativePerson = new BusRelativePerson();
-            busRelativePerson.setRelativePerId(IdUtils.nextId());
+            busRelativePerson.setRelativePerId(l);
             busRelativePerson.setReportId(busRelativePersonBankVo.getReportId());
             busRelativePerson.setIscoordinate(busRelativePersonBankVo.getIscoordinate());
             busRelativePerson.setReportType(busRelativePersonBankVo.getReportType());
@@ -347,10 +361,10 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
             busRelativePerson.setPrjectManager(busRelativePersonBankVo.getPrjectManager());
             busRelativePerson.setCreateTime(busRelativePersonBankVo.getCreateTime());
             busRelativePerson.setUpdateTime(busRelativePersonBankVo.getUpdateTime());
-            busRelativePerson.setAgreementNo(busRelativePersonBankVo.getAgreementNo());
+            busRelativePerson.setAgreementNo(createRepNo());
             int insertSelective = busRelativePersonDao.insertSelective(busRelativePerson);
             log.info("新增银行相对人成功,受影响行数:{}", insertSelective);
-            return insertSelective;
+            return l;
         } catch (Exception e) {
             log.error("新增银行相对人失败,异常信息:{}", e.getMessage());
             throw new CustomerException("新增银行相对人失败");

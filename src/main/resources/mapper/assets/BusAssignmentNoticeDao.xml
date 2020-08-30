@@ -26,7 +26,7 @@
         from bus_assignment_notice
     </select>
     <select id="initialize" resultType="com.smart.bracelet.model.vo.assets.BusAssignmentNoticeShow">
-            SELECT br.`data1` AS 'debtName',brp.`data1` AS 'personName',pd.`amount_this`,brp.`data2` AS 'idCard',baa.assignment_agreement_no FROM bus_report br
+            SELECT brp.`usage` AS 'personReason',br.`data1` AS 'debtName',brp.`data1` AS 'personName',pd.`amount_this`,brp.`data2` AS 'idCard',baa.assignment_agreement_no FROM bus_report br
             LEFT JOIN bus_relative_person brp ON br.`report_id` = brp.`report_id`
             LEFT JOIN pub_debt pd ON br.`report_id` = pd.`report_id`
             LEFT JOIN bus_propert bp ON br.`report_id` = bp.report_id

@@ -32,7 +32,7 @@ public class BusRelativePersonController {
      */
     @RequestMapping("/insertPrivateSelective")
     public Result insertPrivateSelective(@Valid BusRelativePersonPrivateVo busRelativePersonPrivateVo) throws CustomerException {
-        int insertPrivate = busRelativePersonService.insertPrivate(busRelativePersonPrivateVo);
+        Long insertPrivate = busRelativePersonService.insertPrivate(busRelativePersonPrivateVo);
         return Result.success(insertPrivate);
     }
 
@@ -47,7 +47,7 @@ public class BusRelativePersonController {
      */
     @RequestMapping("/insertEnterprise")
     public Result insertEnterprise(@Valid BusRelativePersonEnterpriseVo busRelativePersonEnterpriseVo) throws CustomerException {
-        int insertPrivate = busRelativePersonService.insertEnterprise(busRelativePersonEnterpriseVo);
+        Long insertPrivate = busRelativePersonService.insertEnterprise(busRelativePersonEnterpriseVo);
         return Result.success(insertPrivate);
     }
 
@@ -60,7 +60,7 @@ public class BusRelativePersonController {
      */
     @RequestMapping("/insertBank")
     public Result insertBank(@Valid BusRelativePersonBankVo busRelativePersonBankVo) throws CustomerException {
-        int insertPrivate = busRelativePersonService.insertBank(busRelativePersonBankVo);
+        Long insertPrivate = busRelativePersonService.insertBank(busRelativePersonBankVo);
         return Result.success(insertPrivate);
     }
 

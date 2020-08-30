@@ -69,7 +69,6 @@
           WHERE brp.relative_per_id = #{relativePerId,jdbcType=BIGINT}
   </select>
   <select id="selectDow" resultType="com.smart.bracelet.model.vo.debt.AuxiliaryDownload">
-    #辅助下载
 SELECT br.`report_id`,brp.relative_per_id,brp.`create_time`,br.`data1` AS 'debtName',brp.data1 AS 'personName',froma.assignment_agreement_no
 ,fromb.cost AS 'bb_cost',fromc.cost AS 'zx_cost',fromd.cost AS 'hc_cost',
 pd.amount_cumulative,pd.debt_yaer,pd.debt_type,pc.company_name
@@ -94,6 +93,10 @@ SELECT bus_pay_detail.`report_id`,bus_pay_detail.`cost` FROM  bus_pay_detail WHE
 ) fromd ON fromd.report_id = brp.report_id
 LEFT JOIN pub_debt pd ON brp.relative_per_id = pd.relative_per_id
 LEFT JOIN pub_company pc ON pc.company_id = br.company_id
+  </select>
+
+  <select id="selectNo" resultType="java.lang.String">
+     SELECT  bus_relative_person.`agreement_no` FROM  `bus_relative_person`   ORDER   BY  bus_relative_person.`relative_per_id`   DESC   LIMIT   1
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
