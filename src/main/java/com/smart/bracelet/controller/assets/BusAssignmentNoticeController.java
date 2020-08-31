@@ -57,12 +57,12 @@ public class BusAssignmentNoticeController {
     /**
      * 初始化资产债权转让通知书
      *
-     * @param reportId
+     * @param relativePerId
      * @return
      */
     @RequestMapping("/initialize")
-    public Result<BusAssignmentNoticeShow> initialize(@NotNull(message = "报备Id不能为空") Long reportId) {
-        BusAssignmentNoticeShow initialize = busAssignmentNoticeService.initialize(reportId);
+    public Result<BusAssignmentNoticeShow> initialize(@NotNull(message = "相对人Id不能为空") Long relativePerId) {
+        BusAssignmentNoticeShow initialize = busAssignmentNoticeService.initialize(relativePerId);
         return Result.success(initialize);
     }
 

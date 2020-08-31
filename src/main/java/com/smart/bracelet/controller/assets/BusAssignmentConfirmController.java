@@ -57,8 +57,8 @@ public class BusAssignmentConfirmController {
      * @return
      */
     @RequestMapping("/initialize")
-    public Result<BusAssignmentConfirmShow> initialize(@NotNull(message = "报备ID不能为空") Long reportId){
-        BusAssignmentConfirmShow initialize = busAssignmentConfirmService.initialize(reportId);
+    public Result<BusAssignmentConfirmShow> initialize(@NotNull(message = "相对人ID不能为空") Long relativePerId){
+        BusAssignmentConfirmShow initialize = busAssignmentConfirmService.initialize(relativePerId);
         return Result.success(initialize);
     }
 

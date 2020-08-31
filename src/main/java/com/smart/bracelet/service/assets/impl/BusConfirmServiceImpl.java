@@ -68,7 +68,7 @@ public class BusConfirmServiceImpl implements BusConfirmService {
     }
 
     @Override
-    public BusConfirmShow initialize(Long reportId) {
-        return busConfirmDao.initialize(reportId);
+    public BusConfirmShow initialize(Long relativePerId) {
+        return busConfirmDao.initialize(relativePerId);
     }
 }

@@ -74,8 +74,8 @@ public class BusAssignmentConfirmServiceImpl implements BusAssignmentConfirmServ
     }
 
     @Override
-    public BusAssignmentConfirmShow initialize(Long reportId) {
-        BusAssignmentConfirmShow initialize = busAssignmentConfirmDao.initialize(reportId);
+    public BusAssignmentConfirmShow initialize(Long relativePerId) {
+        BusAssignmentConfirmShow initialize = busAssignmentConfirmDao.initialize(relativePerId);
         initialize.setThisTime(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
         return initialize;
     }

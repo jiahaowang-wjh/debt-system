@@ -1,5 +1,7 @@
 package com.smart.bracelet.model.vo.debt;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -13,12 +15,14 @@ public class BusRelativePersonListVo {
     /**
      * 相对人ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     @NotNull(message = "相对人Id不能为空")
     private Long relativePerId;
 
     /**
      * 报备ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     @NotNull(message = "报备ID不能为空")
     private Long reportId;
 
@@ -85,7 +89,7 @@ public class BusRelativePersonListVo {
      * 资产项数
      */
     @NotBlank(message = "资产项数不能为空")
-    private String assetsNumber ;
+    private String assetsNumber;
 
     /**
      * 可流通资产价值（元）
@@ -220,7 +224,6 @@ public class BusRelativePersonListVo {
     private String uploadDebtCertificate;
 
 
-
     /**
      * 目前经济状况
      */
@@ -254,13 +257,13 @@ public class BusRelativePersonListVo {
     /**
      * 创建时间
      */
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     /**
      * 更新时间
      */
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
 }

@@ -22,7 +22,7 @@ public class BusMediatePersonController {
     @Autowired
     private BusMediatePersonService busMediatePersonService;
 
-        @RequestMapping("/deleteByPrimaryKey")
+    @RequestMapping("/deleteByPrimaryKey")
     public Result deleteByPrimaryKey(@NotNull(message = "担保人ID不能为空") Long mediatePersonId) throws CustomerException {
         int deleteByPrimaryKey = busMediatePersonService.deleteByPrimaryKey(mediatePersonId);
         return Result.success(deleteByPrimaryKey);

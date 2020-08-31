@@ -1,5 +1,7 @@
 package com.smart.bracelet.model.po.user;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -8,7 +10,8 @@ import java.io.Serializable;
 
 /**
  * pub_diction
- * @author 
+ *
+ * @author
  */
 @Data
 public class PubDiction implements Serializable {
@@ -16,6 +19,7 @@ public class PubDiction implements Serializable {
     /**
      * 字典ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long dictionId;
 
     /**
@@ -45,6 +49,7 @@ public class PubDiction implements Serializable {
     /**
      * 排序
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     @NotNull(message = "排序不能为空")
     private Long sort;
 

@@ -209,9 +209,9 @@ public class BusCompromiseAgreementServiceImpl implements BusCompromiseAgreement
     }
 
     @Override
-    public BusCompromiseAgreementShow initialize(Long reportId) throws ParseException {
+    public BusCompromiseAgreementShow initialize(Long relativePerId) throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        BusCompromiseAgreementShow initialize = busCompromiseAgreementDao.initialize(reportId);
+        BusCompromiseAgreementShow initialize = busCompromiseAgreementDao.initialize(relativePerId);
         String format = simpleDateFormat.format(initialize.getCreateTime());
         Date parse = simpleDateFormat.parse(format);
         Calendar c = Calendar.getInstance();

@@ -1,5 +1,7 @@
 package com.smart.bracelet.model.po.debt;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -18,11 +20,13 @@ public class BusPledgeContract implements Serializable {
     /**
      * 质押合同ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long pledgeContractId;
 
     /**
      * 解债ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     @NotNull(message = "解债ID不能为空")
     private Long debtId;
 

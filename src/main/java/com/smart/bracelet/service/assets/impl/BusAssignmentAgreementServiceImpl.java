@@ -74,13 +74,13 @@ public class BusAssignmentAgreementServiceImpl implements BusAssignmentAgreement
 
     /**
      * 页面初始化
-     * @param reportId      报备ID
+     * @param relativePerId     相对人Id
      * @return
      */
     @Override
-    public BusAssignmentAgreementShow initialize(Long reportId) throws CustomerException {
+    public BusAssignmentAgreementShow initialize(Long relativePerId) throws CustomerException {
         try {
-            BusAssignmentAgreementShow agreementShow = busAssignmentAgreementDao.initialize(reportId);
+            BusAssignmentAgreementShow agreementShow = busAssignmentAgreementDao.initialize(relativePerId);
             int debtYaer = Integer.parseInt(agreementShow.getDebtYaer());
             switch (debtYaer) {
                 case 1:

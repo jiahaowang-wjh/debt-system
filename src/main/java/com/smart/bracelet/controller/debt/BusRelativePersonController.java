@@ -1,5 +1,7 @@
 package com.smart.bracelet.controller.debt;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.smart.bracelet.exception.CustomerException;
@@ -33,9 +35,8 @@ public class BusRelativePersonController {
     @RequestMapping("/insertPrivateSelective")
     public Result insertPrivateSelective(@Valid BusRelativePersonPrivateVo busRelativePersonPrivateVo) throws CustomerException {
         Long insertPrivate = busRelativePersonService.insertPrivate(busRelativePersonPrivateVo);
-        return Result.success(insertPrivate);
+        return Result.success(insertPrivate+"");
     }
-
 
 
     /**
@@ -48,7 +49,7 @@ public class BusRelativePersonController {
     @RequestMapping("/insertEnterprise")
     public Result insertEnterprise(@Valid BusRelativePersonEnterpriseVo busRelativePersonEnterpriseVo) throws CustomerException {
         Long insertPrivate = busRelativePersonService.insertEnterprise(busRelativePersonEnterpriseVo);
-        return Result.success(insertPrivate);
+        return Result.success(insertPrivate+"");
     }
 
     /**
@@ -173,5 +174,13 @@ public class BusRelativePersonController {
         return Result.success(auxiliaryDownloadPageInfo);
     }
 
+    /**
+     * 提交暨尽调协议生成编号
+     */
+    @RequestMapping("/addAgreementNo")
+    public Result addAgreementNo(@NotNull(message = "相对人Id不能为空") Long relativePerId) throws CustomerException{
+        int i = busRelativePersonService.addAgreementNo(relativePerId);
+        return Result.success(i);
+    }
 
 }

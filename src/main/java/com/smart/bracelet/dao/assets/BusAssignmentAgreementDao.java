@@ -31,6 +31,6 @@ public interface BusAssignmentAgreementDao {
      * @param reportId  报备ID
      * @return
      */
-    BusAssignmentAgreementShow initialize(Long reportId);
+    BusAssignmentAgreementShow initialize(Long relativePerId);
 
 }

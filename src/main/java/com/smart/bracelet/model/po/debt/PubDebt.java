@@ -1,5 +1,7 @@
 package com.smart.bracelet.model.po.debt;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -19,6 +21,7 @@ public class PubDebt implements Serializable {
     /**
      * 解债ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long debtId;
 
     /**
@@ -36,6 +39,7 @@ public class PubDebt implements Serializable {
     /**
      * 相对人ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     @NotNull(message = "相对人ID不能为空")
     private Long relativePerId;
 
@@ -131,7 +135,7 @@ public class PubDebt implements Serializable {
 
 
     /**
-     *策划方案服务编号
+     * 策划方案服务编号
      */
     String serviceNo;
 

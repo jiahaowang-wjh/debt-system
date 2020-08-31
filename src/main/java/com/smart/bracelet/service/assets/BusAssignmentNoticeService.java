@@ -21,8 +21,8 @@ public interface BusAssignmentNoticeService {
 
     /**
      * 初始化资产债权转让通知书
-     * @param reportId
+     * @param relativePerId
      * @return
      */
-    BusAssignmentNoticeShow initialize(Long reportId);
+    BusAssignmentNoticeShow initialize(Long relativePerId);
 }

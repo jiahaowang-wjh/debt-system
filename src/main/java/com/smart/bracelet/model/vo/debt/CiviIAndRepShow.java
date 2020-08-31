@@ -1,5 +1,7 @@
 package com.smart.bracelet.model.vo.debt;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 /**
@@ -7,6 +9,7 @@ import lombok.Data;
  */
 @Data
 public class CiviIAndRepShow {
+    @JsonSerialize(using = ToStringSerializer.class)
     Long reportId;
     String reportNo;
     String civilno;

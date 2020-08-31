@@ -29,5 +29,5 @@ public interface BusAssignmentConfirmDao {
      * 初始化资产债权转让确认页面
      * @return
      */
-    BusAssignmentConfirmShow initialize(Long reportId);
+    BusAssignmentConfirmShow initialize(Long relativePerId);
 }

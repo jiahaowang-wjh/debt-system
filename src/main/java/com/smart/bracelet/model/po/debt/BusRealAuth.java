@@ -1,5 +1,7 @@
 package com.smart.bracelet.model.po.debt;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -8,7 +10,8 @@ import java.io.Serializable;
 
 /**
  * bus_real_auth
- * @author 
+ *
+ * @author
  */
 @Data
 public class BusRealAuth implements Serializable {
@@ -16,11 +19,13 @@ public class BusRealAuth implements Serializable {
     /**
      * 实名ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long realId;
 
     /**
      * 报备ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     @NotNull(message = "报备ID不能为空")
     private Long reportId;
 

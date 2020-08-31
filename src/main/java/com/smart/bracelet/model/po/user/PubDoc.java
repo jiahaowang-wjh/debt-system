@@ -1,5 +1,7 @@
 package com.smart.bracelet.model.po.user;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -7,7 +9,8 @@ import java.io.Serializable;
 
 /**
  * pub_doc
- * @author 
+ *
+ * @author
  */
 @Data
 public class PubDoc implements Serializable {
@@ -15,6 +18,7 @@ public class PubDoc implements Serializable {
     /**
      * 文档ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long docId;
 
     /**

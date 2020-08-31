@@ -68,7 +68,7 @@ public class BusAssignmentNoticeServiceImpl implements BusAssignmentNoticeServic
     }
 
     @Override
-    public BusAssignmentNoticeShow initialize(Long reportId) {
-        return busAssignmentNoticeDao.initialize(reportId);
+    public BusAssignmentNoticeShow initialize(Long relativePerId) {
+        return busAssignmentNoticeDao.initialize(relativePerId);
     }
 }

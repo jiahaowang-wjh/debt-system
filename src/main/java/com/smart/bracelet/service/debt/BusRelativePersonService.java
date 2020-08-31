@@ -60,5 +60,9 @@ public interface BusRelativePersonService {
      */
     List<AuxiliaryDownload> selectDow();
 
+    /**
+     * 提交暨尽调协议生成编号
+     */
+    int addAgreementNo(Long relativePerId) throws CustomerException;
 
 }

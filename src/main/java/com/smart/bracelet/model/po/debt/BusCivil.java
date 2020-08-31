@@ -1,5 +1,7 @@
 package com.smart.bracelet.model.po.debt;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -10,24 +12,28 @@ import java.util.Date;
 
 /**
  * bus_civil
- * @author 
+ *
+ * @author
  */
 @Data
 public class BusCivil implements Serializable {
     /**
      * 民事调解ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long civilId;
 
     /**
      * 报备ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     @NotNull(message = "报备ID不能为空")
     private Long reportId;
 
     /**
      * 相对人ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     @NotNull(message = "相对人ID不能为空")
     private Long relativePerId;
 

@@ -1,5 +1,7 @@
 package com.smart.bracelet.model.vo.debt;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 @Data
@@ -9,27 +11,29 @@ public class PubDebtInfo {
      */
     String reportNo;
     /**
-     *民事调解编号
+     * 民事调解编号
      */
     String civilno;
     /**
-     *报备Id
+     * 报备Id
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     Long debtId;
     /**
-     *解债编号
+     * 解债编号
      */
     String debtNo;
     /**
-     *解债状态
+     * 解债状态
      */
     String status;
     /**
-     *债事人
+     * 债事人
      */
     String debtName;
     /**
-     *报备Id
+     * 报备Id
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     Long reportId;
 }

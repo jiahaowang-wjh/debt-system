@@ -25,8 +25,8 @@ public interface BusCompromiseAgreementDao {
 
     /**
      * 初始化和解协议页面
-     * @param reportId
+     * @param relativePerId
      * @return
      */
-    BusCompromiseAgreementShow initialize(Long reportId);
+    BusCompromiseAgreementShow initialize(Long relativePerId);
 }

@@ -1,5 +1,7 @@
 package com.smart.bracelet.model.vo.assets;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -19,12 +21,14 @@ public class BusAssignmentConfirmVo implements Serializable {
      * 确认ID
      */
     @NotNull(message = "确认ID不能为空")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long posseConfirmtId;
 
     /**
      * 资产ID
      */
     @NotNull(message = "资产ID不能为空")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long propertId;
 
     /**

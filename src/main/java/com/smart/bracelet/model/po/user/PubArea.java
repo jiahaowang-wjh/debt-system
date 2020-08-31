@@ -1,5 +1,7 @@
 package com.smart.bracelet.model.po.user;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -8,7 +10,8 @@ import java.io.Serializable;
 
 /**
  * pub_area
- * @author 
+ *
+ * @author
  */
 @Data
 public class PubArea implements Serializable {
@@ -16,6 +19,7 @@ public class PubArea implements Serializable {
     /**
      * 区域id
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long areaId;
 
     /**
@@ -33,6 +37,7 @@ public class PubArea implements Serializable {
     /**
      * 父级节点
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     @NotNull(message = "父级Id不能为空")
     private Long parentId;
 

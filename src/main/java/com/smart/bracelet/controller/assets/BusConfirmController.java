@@ -51,12 +51,12 @@ public class BusConfirmController {
 
     /**
      * 资产债权确认页面初始化
-     * @param reportId
+     * @param relativePerId
      * @return
      */
     @RequestMapping("/initialize")
-    public Result<BusConfirmShow> initialize(@NotNull(message = "报备ID不能为空") Long reportId){
-        BusConfirmShow initialize = busConfirmService.initialize(reportId);
+    public Result<BusConfirmShow> initialize(@NotNull(message = "相对人ID不能为空") Long relativePerId){
+        BusConfirmShow initialize = busConfirmService.initialize(relativePerId);
         return Result.success(initialize);
     }
 }

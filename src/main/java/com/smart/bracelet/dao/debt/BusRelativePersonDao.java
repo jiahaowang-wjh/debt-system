@@ -40,4 +40,9 @@ public interface BusRelativePersonDao {
     List<AuxiliaryDownload> selectDow();
 
     String selectNo();
+
+    /**
+     * 新增暨尽协议编号
+     */
+    int addAgreementAo(String agreementNo,Long relativePerId);
 }

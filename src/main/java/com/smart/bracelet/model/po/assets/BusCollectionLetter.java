@@ -1,5 +1,7 @@
 package com.smart.bracelet.model.po.assets;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -17,6 +19,7 @@ public class BusCollectionLetter implements Serializable {
     /**
      * 催款函ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long collectionLettertId;
 
     /**
@@ -26,6 +29,7 @@ public class BusCollectionLetter implements Serializable {
     /**
      * 资产ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     @NotNull(message = "资产ID不能为空")
     private Long propertId;
 

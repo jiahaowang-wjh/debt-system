@@ -1,5 +1,7 @@
 package com.smart.bracelet.model.po.debt;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -17,11 +19,13 @@ public class BusInvestigateReport {
     /**
      * 报告ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long reportId;
 
     /**
      * 解债ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     @NotNull(message = "解债ID不能为空")
     private Long debtId;
 
@@ -52,6 +56,7 @@ public class BusInvestigateReport {
     /**
      * 注册资金
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     @NotNull(message = "注册资金不能为空")
     private Long registeredCapital;
 

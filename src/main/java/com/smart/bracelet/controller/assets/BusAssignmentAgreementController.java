@@ -56,12 +56,12 @@ public class BusAssignmentAgreementController {
 
     /**
      * 页面初始化数据
-     * @param reportId  报备ID
+     * @param relativePerId  报备ID
      * @return
      */
     @RequestMapping("/initialize")
-    public Result<BusAssignmentAgreementShow> initialize(@NotNull(message = "报备ID不能为空") Long reportId) throws CustomerException {
-        BusAssignmentAgreementShow initialize = busAssignmentAgreementService.initialize(reportId);
+    public Result<BusAssignmentAgreementShow> initialize(@NotNull(message = "相对人ID不能为空") Long relativePerId) throws CustomerException {
+        BusAssignmentAgreementShow initialize = busAssignmentAgreementService.initialize(relativePerId);
         return Result.success(initialize);
     }
 

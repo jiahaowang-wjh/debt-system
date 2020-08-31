@@ -1,5 +1,7 @@
 package com.smart.bracelet.model.po.assets;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -17,11 +19,13 @@ public class BusAgentSalesContractModity implements Serializable {
     /**
      * 代理销售合同商品ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long salesContractModityId;
 
     /**
      * 代理销售合同ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     @NotNull(message = "代理销售合同ID不能为空")
     private Long salesContractId;
 

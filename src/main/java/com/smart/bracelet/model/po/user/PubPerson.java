@@ -1,5 +1,7 @@
 package com.smart.bracelet.model.po.user;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -17,11 +19,13 @@ public class PubPerson implements Serializable {
     /**
      * 人员ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long personId;
 
     /**
      * 公司ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     @NotNull(message = "公司ID不能为空")
     private Long companyId;
 
@@ -63,6 +67,7 @@ public class PubPerson implements Serializable {
     /**
      * 用户ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     Long userId;
 
 }

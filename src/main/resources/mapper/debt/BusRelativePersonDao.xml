@@ -96,8 +96,8 @@ LEFT JOIN pub_company pc ON pc.company_id = br.company_id
   </select>
 
   <select id="selectNo" resultType="java.lang.String">
-     SELECT  bus_relative_person.`agreement_no` FROM  `bus_relative_person`   ORDER   BY  bus_relative_person.`relative_per_id`   DESC   LIMIT   1
-  </select>
+  SELECT bus_relative_person.`agreement_no` FROM bus_relative_person ORDER BY bus_relative_person.`relative_per_id` DESC LIMIT 1,1;
+</select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from bus_relative_person
@@ -407,11 +407,11 @@ LEFT JOIN pub_company pc ON pc.company_id = br.company_id
       <if test="prjectManager != null">
         prject_manager = #{prjectManager,jdbcType=VARCHAR},
       </if>
-
-
-
     </set>
     where relative_per_id = #{relativePerId,jdbcType=BIGINT}
+  </update>
+  <update id="addAgreementAo">
+    update bus_relative_person set  agreement_no = #{agreementNo,jdbcType=BIGINT} where  relative_per_id = #{relativePerId,jdbcType=BIGINT}
   </update>
 
 </mapper>

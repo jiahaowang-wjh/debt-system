@@ -22,9 +22,9 @@ public interface BusCollectionLetterService {
 
     /**
      * 资产债权确认页面初始化
-     * @param reportId
+     * @param relativePerId
      * @return
      */
-    BusCollectionLetterShow initialize(Long reportId);
+    BusCollectionLetterShow initialize(Long relativePerId);
 
 }

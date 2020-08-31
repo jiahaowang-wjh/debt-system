@@ -55,12 +55,12 @@ public class BusCollectionLetterController {
 
     /**
      * 资产债权确认页面初始化
-     * @param reportId
+     * @param relativePerId
      * @return
      */
     @RequestMapping("/initialize")
-    public Result<BusCollectionLetterShow> initialize(@NotNull(message = "报备ID不能为空") Long reportId){
-        BusCollectionLetterShow initialize = busCollectionLetterService.initialize(reportId);
+    public Result<BusCollectionLetterShow> initialize(@NotNull(message = "相对人ID不能为空") Long relativePerId){
+        BusCollectionLetterShow initialize = busCollectionLetterService.initialize(relativePerId);
         return Result.success(initialize);
     }
 

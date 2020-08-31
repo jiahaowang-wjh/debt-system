@@ -74,12 +74,12 @@ public class BusCollectionLetterServiceImpl implements BusCollectionLetterServic
 
     /**
      * 催款函页面初始化
-     * @param reportId
+     * @param relativePerId
      * @return
      */
     @Override
-    public BusCollectionLetterShow initialize(Long reportId) {
-        BusCollectionLetterShow initialize = busCollectionLetterDao.initialize(reportId);
+    public BusCollectionLetterShow initialize(Long relativePerId) {
+        BusCollectionLetterShow initialize = busCollectionLetterDao.initialize(relativePerId);
         initialize.setMoneyMax(ConvertUpMoney.toChinese(initialize.getAmountThis().toString()));
         return initialize;
     }

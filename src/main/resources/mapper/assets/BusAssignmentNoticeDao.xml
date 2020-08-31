@@ -31,7 +31,7 @@
             LEFT JOIN pub_debt pd ON br.`report_id` = pd.`report_id`
             LEFT JOIN bus_propert bp ON br.`report_id` = bp.report_id
             LEFT JOIN bus_assignment_agreement baa ON bp.propert_id = baa.propert_id
-            WHERE br.`report_id` =  #{reportId,jdbcType=BIGINT}
+            WHERE brp.relative_per_id =  #{relativePerId,jdbcType=BIGINT}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from bus_assignment_notice

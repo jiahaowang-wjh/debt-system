@@ -35,6 +35,7 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
 
     /**
      * 通过ID查询相对人信息
+     *
      * @param relativePerId
      * @return
      */
@@ -68,7 +69,7 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
         busRelativePersonListVo.setCreateTime(busRelativePerson.getCreateTime());
         busRelativePersonListVo.setUpdateTime(busRelativePerson.getUpdateTime());
         //判断性质在封装
-        if(busRelativePerson.getReportPropert().equals("1")){
+        if (busRelativePerson.getReportPropert().equals("1")) {
             //私人性质
             busRelativePersonListVo.setPersonalName(busRelativePerson.getData1());
             busRelativePersonListVo.setPhone(busRelativePerson.getData3());
@@ -79,7 +80,7 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
             busRelativePersonListVo.setAssets(busRelativePerson.getData7());
             busRelativePersonListVo.setAssetsNumber(busRelativePerson.getData8());
             busRelativePersonListVo.setCirculationAssets(busRelativePerson.getData9());
-        }else{
+        } else {
             busRelativePersonListVo.setCompanyName(busRelativePerson.getData1());
             busRelativePersonListVo.setCreditCode(busRelativePerson.getData2());
             busRelativePersonListVo.setIndustryAttributes(busRelativePerson.getData3());
@@ -99,22 +100,13 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
     public List<BusRelativePersonListVo> queryListVo() {
         List<BusRelativePerson> busRelativePeople = busRelativePersonDao.queryList();
         List<BusRelativePersonListVo> listVos = new ArrayList<>();
-        for (BusRelativePerson item: busRelativePeople) {
+        for (BusRelativePerson item : busRelativePeople) {
             BusRelativePersonListVo busRelativePersonListVo = selectByPrimaryKey(item.getRelativePerId());
             listVos.add(busRelativePersonListVo);
         }
         return listVos;
     }
 
-    /**
-     * 生成编号
-     * @return
-     */
-    String createRepNo(){
-        String selectNo = busRelativePersonDao.selectNo();
-        String repNo = RepNoUtils.createRepNo("TZ", "ZLGS", selectNo);
-        return repNo;
-    }
 
     /**
      * 私人相对人
@@ -127,7 +119,6 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
         try {
             long nextId = IdUtils.nextId();
             BusRelativePerson busRelativePerson = new BusRelativePerson();
-            busRelativePerson.setAgreementNo(createRepNo());
             busRelativePerson.setRelativePerId(nextId);
             busRelativePerson.setReportId(busRelativePersonPrivateVo.getReportId());
             busRelativePerson.setIscoordinate(busRelativePersonPrivateVo.getIscoordinate());
@@ -182,7 +173,6 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
     public int updatePrivate(BusRelativePersonPrivateUpdateVo busRelativePersonPrivateVo) throws CustomerException {
         try {
             BusRelativePersonVo busRelativePerson = new BusRelativePersonVo();
-            busRelativePerson.setRelativePerId(busRelativePersonPrivateVo.getRelativePerId());
             busRelativePerson.setReportId(busRelativePersonPrivateVo.getReportId());
             busRelativePerson.setIscoordinate(busRelativePersonPrivateVo.getIscoordinate());
             busRelativePerson.setReportType(busRelativePersonPrivateVo.getReportType());
@@ -213,7 +203,6 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
             busRelativePerson.setEconomics(busRelativePersonPrivateVo.getEconomics());
             busRelativePerson.setUsage(busRelativePersonPrivateVo.getUsage());
             busRelativePerson.setPrjectManager(busRelativePersonPrivateVo.getPrjectManager());
-            busRelativePerson.setAgreementNo(busRelativePersonPrivateVo.getAgreementNo());
             int updateByPrimaryKeySelective = busRelativePersonDao.updateByPrimaryKeySelective(busRelativePerson);
             log.info("更新私人相对人成功,受影响行数:{}", updateByPrimaryKeySelective);
             return updateByPrimaryKeySelective;
@@ -266,7 +255,6 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
             busRelativePerson.setPrjectManager(busRelativePersonEnterpriseVo.getPrjectManager());
             busRelativePerson.setCreateTime(busRelativePersonEnterpriseVo.getCreateTime());
             busRelativePerson.setUpdateTime(busRelativePersonEnterpriseVo.getUpdateTime());
-            busRelativePerson.setAgreementNo(createRepNo());
             int insertSelective = busRelativePersonDao.insertSelective(busRelativePerson);
             log.info("新增企业相对人成功,受影响行数:{}", insertSelective);
             return l;
@@ -310,7 +298,6 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
             busRelativePerson.setEconomics(busRelativePersonEnterpriseVo.getEconomics());
             busRelativePerson.setUsage(busRelativePersonEnterpriseVo.getUsage());
             busRelativePerson.setPrjectManager(busRelativePersonEnterpriseVo.getPrjectManager());
-            busRelativePerson.setAgreementNo(busRelativePersonEnterpriseVo.getAgreementNo());
             int updateByPrimaryKeySelective = busRelativePersonDao.updateByPrimaryKeySelective(busRelativePerson);
             log.info("更新企业相对人成功,受影响行数:{}", updateByPrimaryKeySelective);
             return updateByPrimaryKeySelective;
@@ -361,7 +348,6 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
             busRelativePerson.setPrjectManager(busRelativePersonBankVo.getPrjectManager());
             busRelativePerson.setCreateTime(busRelativePersonBankVo.getCreateTime());
             busRelativePerson.setUpdateTime(busRelativePersonBankVo.getUpdateTime());
-            busRelativePerson.setAgreementNo(createRepNo());
             int insertSelective = busRelativePersonDao.insertSelective(busRelativePerson);
             log.info("新增银行相对人成功,受影响行数:{}", insertSelective);
             return l;
@@ -373,6 +359,7 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
 
     /**
      * 银行相对人更新
+     *
      * @param busRelativePersonBankVo
      * @return
      * @throws CustomerException
@@ -409,7 +396,6 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
             busRelativePerson.setEconomics(busRelativePersonBankVo.getEconomics());
             busRelativePerson.setUsage(busRelativePersonBankVo.getUsage());
             busRelativePerson.setPrjectManager(busRelativePersonBankVo.getPrjectManager());
-            busRelativePerson.setAgreementNo(busRelativePersonBankVo.getAgreementNo());
             int updateByPrimaryKeySelective = busRelativePersonDao.updateByPrimaryKeySelective(busRelativePerson);
             log.info("更新银行相对人成功,受影响行数:{}", updateByPrimaryKeySelective);
             return updateByPrimaryKeySelective;
@@ -421,6 +407,7 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
 
     /**
      * 通过报备Id查询相对人信息
+     *
      * @param reportId
      * @return
      */
@@ -428,7 +415,7 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
     public List<BusRelativePersonListVo> selectByreportId(Long reportId) {
         List<BusRelativePerson> busRelativePeople = busRelativePersonDao.selectByreportId(reportId);
         List<BusRelativePersonListVo> listVos = new ArrayList<>();
-        for (BusRelativePerson item: busRelativePeople) {
+        for (BusRelativePerson item : busRelativePeople) {
             BusRelativePersonListVo busRelativePersonListVo = selectByPrimaryKey(item.getRelativePerId());
             listVos.add(busRelativePersonListVo);
         }
@@ -436,34 +423,33 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
     }
 
 
-
     @Override
     public ReportAndRelativePersonShow selectByRelativePerId(Long relativePerId) throws CustomerException {
-        try{
+        try {
             ReportAndRelativePerson reportAndRelativePerson = busRelativePersonDao.selectByRelativePerId(relativePerId);
             ReportAndRelativePersonShow show = new ReportAndRelativePersonShow();
             show.setReportId(reportAndRelativePerson.getReportId());
             show.setRelativeperId(reportAndRelativePerson.getRelativeperId());
-            if(reportAndRelativePerson.getReportPropert().equals("1")){
+            if (reportAndRelativePerson.getReportPropert().equals("1")) {
                 show.setDebtName(reportAndRelativePerson.getData1());
                 show.setDebtLegalName(reportAndRelativePerson.getData1());
                 show.setDebtIdCardCode(reportAndRelativePerson.getData2());
                 show.setDebtAdd(reportAndRelativePerson.getData5());
                 show.setDebtPhone(reportAndRelativePerson.getData3());
-            }else{
+            } else {
                 show.setDebtName(reportAndRelativePerson.getData1());
                 show.setDebtLegalName(reportAndRelativePerson.getData4());
                 show.setDebtIdCardCode(reportAndRelativePerson.getData2());
                 show.setDebtAdd(reportAndRelativePerson.getData7());
                 show.setDebtPhone(reportAndRelativePerson.getData9());
             }
-            if(reportAndRelativePerson.getBrpReport().equals("1")){
+            if (reportAndRelativePerson.getBrpReport().equals("1")) {
                 show.setPersonalName(reportAndRelativePerson.getBrpData1());
                 show.setPersonalLegalName(reportAndRelativePerson.getBrpData1());
                 show.setPersonalIdCardCode(reportAndRelativePerson.getBrpData2());
                 show.setPersonalAdd(reportAndRelativePerson.getBrpData5());
                 show.setPersonalPhone(reportAndRelativePerson.getBrpData3());
-            }else{
+            } else {
                 show.setPersonalName(reportAndRelativePerson.getBrpData1());
                 show.setPersonalLegalName(reportAndRelativePerson.getBrpData4());
                 show.setPersonalIdCardCode(reportAndRelativePerson.getBrpData2());
@@ -471,8 +457,8 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
                 show.setPersonalPhone(reportAndRelativePerson.getBrpData9());
             }
             return show;
-        }catch (Exception e){
-            log.error("异常信息:{}",e.getMessage());
+        } catch (Exception e) {
+            log.error("异常信息:{}", e.getMessage());
             throw new CustomerException("查询失败");
         }
 
@@ -481,5 +467,26 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
     @Override
     public List<AuxiliaryDownload> selectDow() {
         return busRelativePersonDao.selectDow();
+    }
+
+    /**
+     * 生成编号
+     *
+     * @return
+     */
+    String createRepNo() {
+        String selectNo = busRelativePersonDao.selectNo();
+        String repNo = RepNoUtils.createRepNo("TZ", "ZLGS", selectNo);
+        return repNo;
+    }
+
+    @Override
+    public int addAgreementNo(Long relativePerId) throws CustomerException {
+        try {
+            return busRelativePersonDao.addAgreementAo(createRepNo(),relativePerId);
+        } catch (Exception e) {
+            log.error("异常信息:{}",e.getMessage());
+            throw new CustomerException("新增失败");
+        }
     }
 }

@@ -23,8 +23,8 @@ public interface BusConfirmService {
     /**
      * 资产债权确认页面初始化
      *
-     * @param reportId
+     * @param relativePerId
      * @return
      */
-    BusConfirmShow initialize(Long reportId);
+    BusConfirmShow initialize(Long relativePerId);
 }
