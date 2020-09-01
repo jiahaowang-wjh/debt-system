@@ -52,7 +52,8 @@ public class BusPayDetailServiceImpl implements BusPayDetailService {
     }
 
     @Override
-    public int insertSelective(BusPayDetail record) throws CustomerException {
+    public Long insertSelective(BusPayDetail record) throws CustomerException {
+        long l = IdUtils.nextId();
         try {
             switch (record.getFlag()){
                 case "1":
@@ -71,10 +72,10 @@ public class BusPayDetailServiceImpl implements BusPayDetailService {
                     record.setPayNo(buildUpNo("YHFW"));
                     break;
             }
-            record.setPayId(IdUtils.nextId());
+            record.setPayId(l);
             int insertSelective = busPayDetailDao.insertSelective(record);
             log.info("新增支付信息成功,受影响行数:{}",insertSelective);
-            return insertSelective;
+            return l;
         } catch (Exception e) {
             log.error("新增支付信息失败,异常信息:{}",e.getMessage());
             throw new CustomerException("新增支付信息失败");

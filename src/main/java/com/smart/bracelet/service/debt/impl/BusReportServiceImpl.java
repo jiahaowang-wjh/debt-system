@@ -568,5 +568,24 @@ public class BusReportServiceImpl implements BusReportService {
         return repNo;
     }
 
+    /**
+     * 生成编号
+     *
+     * @return
+     */
+    String agreementNo() {
+        String s = busReportDao.selectANO();
+        String repNo = RepNoUtils.createRepNo("TZ", "ZLGS", s);
+        return repNo;
+    }
 
+    @Override
+    public int addAgreementNo(Long reportId) throws CustomerException {
+        try {
+            return busReportDao.addANO(agreementNo(), reportId);
+        } catch (Exception e) {
+            log.error("异常信息:{}",e.getMessage());
+            throw new CustomerException("新增失败");
+        }
+    }
 }

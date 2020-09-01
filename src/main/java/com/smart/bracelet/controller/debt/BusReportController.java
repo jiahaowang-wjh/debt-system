@@ -40,7 +40,7 @@ public class BusReportController {
     @RequestMapping("/insertPrivateSelective")
     public Result insertPrivateSelective(@Valid BusPrivateReport busPrivateReport) throws CustomerException {
         Long insertPrivateSelective = busReportService.insertPrivateSelective(busPrivateReport);
-        return Result.success(insertPrivateSelective);
+        return Result.success(insertPrivateSelective+"");
     }
 
     /**
@@ -53,7 +53,7 @@ public class BusReportController {
     @RequestMapping("/insertEterpriseSelective")
     public Result insertEterpriseSelective(@Valid BusEterpriseReport busEterpriseReport) throws CustomerException {
         Long insertEterpriseSelective = busReportService.insertEterpriseSelective(busEterpriseReport);
-        return Result.success(insertEterpriseSelective);
+        return Result.success(insertEterpriseSelective+"");
     }
 
 
@@ -67,7 +67,7 @@ public class BusReportController {
     @RequestMapping("/insertBankSelective")
     public Result insertBankSelective(@Valid BusBankReport busBankReport) throws CustomerException {
         Long insertBankSelective = busReportService.insertBankSelective(busBankReport);
-        return Result.success(insertBankSelective);
+        return Result.success(insertBankSelective+"");
     }
 
     /**
@@ -179,7 +179,7 @@ public class BusReportController {
      * @throws CustomerException
      */
     @RequestMapping("/updateStatus")
-    public Result updateStatus(@NotBlank(message = "状态不能为空") String status, @NotNull(message = "报备Id不能为空") Long reportId,@NotBlank(message = "审核原因不能为空") String checkReason) throws CustomerException {
+    public Result updateStatus(@NotBlank(message = "状态不能为空") String status, @NotNull(message = "报备Id不能为空") Long reportId, String checkReason) throws CustomerException {
         int i = busReportService.updateStatus(status, reportId,checkReason);
         return Result.success(i);
     }
@@ -213,5 +213,12 @@ public class BusReportController {
         int i = busReportService.updateDebtStage(stage,reportId);
         return Result.success(i);
     }
-
+    /**
+     * 提交暨尽调协议生成编号
+     */
+    @RequestMapping("/addAgreementNo")
+    public Result addAgreementNo(@NotNull(message = "报备ID不能为空") Long reportId) throws CustomerException{
+        int a = busReportService.addAgreementNo(reportId);
+        return Result.success(a);
+    }
 }

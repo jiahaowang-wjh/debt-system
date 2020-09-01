@@ -4,6 +4,7 @@ import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.debt.BusReport;
 import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.vo.debt.*;
+import com.smart.bracelet.utils.RepNoUtils;
 
 import java.util.List;
 
@@ -92,4 +93,12 @@ public interface BusReportService {
      * @return
      */
     int updateDebtStage(String stage,Long repId) throws CustomerException;
+
+
+    /**
+     * 提交暨尽调协议生成编号
+     */
+    int addAgreementNo(Long reportId) throws CustomerException;
+
+
 }

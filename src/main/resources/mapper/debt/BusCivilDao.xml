@@ -85,8 +85,7 @@
         WHERE bus_relative_person.`report_id` = #{reportId,jdbcType=BIGINT}
     </select>
     <select id="initialize" resultType="com.smart.bracelet.model.vo.debt.AgreementInfoShow">
-        SELECT br.`data1` AS 'debtName',br.`data2` AS 'idCard', brp.`agreement_no` FROM bus_report br
-        LEFT JOIN bus_relative_person brp ON br.`report_id` = brp.`report_id`
+        SELECT br.`data1` AS 'debtName',br.`data2` AS 'idCard', br.`agreement_no` FROM bus_report br
         WHERE br.`report_id` = #{reportId,jdbcType=BIGINT}
     </select>
     <select id="initializePlan" resultType="com.smart.bracelet.model.vo.debt.PlanServiceInfo">

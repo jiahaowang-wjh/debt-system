@@ -11,7 +11,7 @@ public interface BusPayDetailService {
 
     int deleteByPrimaryKey(Long payId) throws CustomerException;
 
-    int insertSelective(BusPayDetail record) throws CustomerException;
+    Long insertSelective(BusPayDetail record) throws CustomerException;
 
     BusPayDetail selectByPrimaryKey(Long payId);
 

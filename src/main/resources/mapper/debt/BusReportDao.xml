@@ -308,6 +308,10 @@
             </if>
         </trim>
     </insert>
+
+    <update id="addANO">
+        update bus_report set agreement_no = #{agreementNo,jdbcType=VARCHAR} where report_id = #{reportId,jdbcType=BIGINT}
+    </update>
     <update id="updateByPrimaryKeySelective">
         update bus_report
         <set>
@@ -413,8 +417,6 @@
             <if test="createUserId != null">
                 create_user_id = #{createUserId,jdbcType=BIGINT},
             </if>
-
-
             <if test="reportNo != null">
                 report_no = #{reportNo,jdbcType=VARCHAR},
             </if>
@@ -422,7 +424,16 @@
         where report_id = #{reportId,jdbcType=BIGINT}
     </update>
     <update id="updateStatus">
-          update bus_report set  `status` = #{status,jdbcType=VARCHAR},check_reason=#{checkReason,jdbcType=VARCHAR} where report_id = #{reportId,jdbcType=BIGINT}
+        update bus_report
+        <set>
+            <if test="status != null and status != ''">
+                `status` = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="checkReason != null and checkReason1= ''">
+                check_reason=#{checkReason,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where report_id = #{reportId,jdbcType=BIGINT}
     </update>
     <update id="updateDebtStage">
         update bus_report set stage = #{stage,jdbcType=VARCHAR} where report_id = #{reportId,jdbcType=BIGINT}
@@ -469,5 +480,8 @@
                 and br.create_time BETWEEN #{beginDate} AND #{endDate}
             </if>
         </where>
+    </select>
+    <select id="selectANO" resultType="java.lang.String">
+          SELECT bus_report.`agreement_no` FROM `bus_report` ORDER BY bus_report.`report_id` DESC LIMIT 1,1;
     </select>
 </mapper>

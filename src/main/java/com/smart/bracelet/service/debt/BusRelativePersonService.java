@@ -2,6 +2,7 @@ package com.smart.bracelet.service.debt;
 
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.vo.debt.*;
+import com.smart.bracelet.utils.RepNoUtils;
 
 import java.util.List;
 
@@ -60,9 +61,5 @@ public interface BusRelativePersonService {
      */
     List<AuxiliaryDownload> selectDow();
 
-    /**
-     * 提交暨尽调协议生成编号
-     */
-    int addAgreementNo(Long relativePerId) throws CustomerException;
 
 }

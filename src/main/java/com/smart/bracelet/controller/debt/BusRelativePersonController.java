@@ -62,7 +62,7 @@ public class BusRelativePersonController {
     @RequestMapping("/insertBank")
     public Result insertBank(@Valid BusRelativePersonBankVo busRelativePersonBankVo) throws CustomerException {
         Long insertPrivate = busRelativePersonService.insertBank(busRelativePersonBankVo);
-        return Result.success(insertPrivate);
+        return Result.success(insertPrivate+"");
     }
 
 
@@ -174,13 +174,6 @@ public class BusRelativePersonController {
         return Result.success(auxiliaryDownloadPageInfo);
     }
 
-    /**
-     * 提交暨尽调协议生成编号
-     */
-    @RequestMapping("/addAgreementNo")
-    public Result addAgreementNo(@NotNull(message = "相对人Id不能为空") Long relativePerId) throws CustomerException{
-        int i = busRelativePersonService.addAgreementNo(relativePerId);
-        return Result.success(i);
-    }
+
 
 }

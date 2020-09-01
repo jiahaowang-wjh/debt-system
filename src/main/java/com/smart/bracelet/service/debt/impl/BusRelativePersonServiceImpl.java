@@ -152,7 +152,6 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
             busRelativePerson.setPrjectManager(busRelativePersonPrivateVo.getPrjectManager());
             busRelativePerson.setCreateTime(busRelativePersonPrivateVo.getCreateTime());
             busRelativePerson.setUpdateTime(busRelativePersonPrivateVo.getUpdateTime());
-
             int insertSelective = busRelativePersonDao.insertSelective(busRelativePerson);
             log.info("新增私人相对人成功,受影响行数:{}", insertSelective);
             return nextId;
@@ -469,24 +468,5 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
         return busRelativePersonDao.selectDow();
     }
 
-    /**
-     * 生成编号
-     *
-     * @return
-     */
-    String createRepNo() {
-        String selectNo = busRelativePersonDao.selectNo();
-        String repNo = RepNoUtils.createRepNo("TZ", "ZLGS", selectNo);
-        return repNo;
-    }
 
-    @Override
-    public int addAgreementNo(Long relativePerId) throws CustomerException {
-        try {
-            return busRelativePersonDao.addAgreementAo(createRepNo(),relativePerId);
-        } catch (Exception e) {
-            log.error("异常信息:{}",e.getMessage());
-            throw new CustomerException("新增失败");
-        }
-    }
 }

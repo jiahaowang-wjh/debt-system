@@ -73,5 +73,13 @@ public interface BusReportDao {
      */
     int updateDebtStage(String stage,Long reportId);
 
+    /**
+     * 查询最后一条暨尽编号
+     */
+    String selectANO();
 
+    /**
+     * 新增暨尽编号
+     */
+    int addANO(String agreementNo,Long reportId);
 }

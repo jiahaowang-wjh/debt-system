@@ -29,8 +29,8 @@ public class BusPayDetailController {
 
     @RequestMapping("/insertSelective")
     public Result insertSelective(@Valid BusPayDetail record) throws CustomerException{
-        int insertSelective = busPayDetailService.insertSelective(record);
-        return Result.success(insertSelective);
+        Long insertSelective = busPayDetailService.insertSelective(record);
+        return Result.success(insertSelective+"");
     }
 
     @RequestMapping("/deleteByPrimaryKey")
