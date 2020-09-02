@@ -5,7 +5,7 @@ spring:
   main:
     allow-bean-definition-overriding: true
   datasource:
-#    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://47.108.135.174:3306/debt?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
     password: 123456
@@ -19,7 +19,7 @@ spring:
       max-lifetime: 1800000
       connection-timeout: 1800000
       connection-test-query: SELECT 1
-    driver-class-name: com.mysql.jdbc.Driver
+   # driver-class-name: com.mysql.jdbc.Driver
   #redis配置
   redis:
     database: 0

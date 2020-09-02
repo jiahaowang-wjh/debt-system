@@ -27,6 +27,11 @@ public class BusReport implements Serializable {
     String reportNo;
 
     /**
+     * 暨尽协议编号
+     */
+    String agreementNo;
+
+    /**
      * 所属公司ID
      */
     @NotNull(message = "所属公司ID不能为空")

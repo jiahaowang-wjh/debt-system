@@ -82,6 +82,31 @@ public class BusEterpriseReport {
      */
     @NotBlank(message = "法定代表人身份证号不能为空")
     private String LegalIdCard;
+
+    /**
+     * 选择银行
+     */
+    @NotBlank(message = "银行不能为空")
+    private String bank;
+
+    /**
+     * 法定代表人银行卡号
+     */
+    @NotBlank(message = "银行卡号不能为空")
+    private String bankCard;
+
+    /**
+     * 银行预留手机号
+     */
+    @NotBlank(message = "银行预留手机号不能为空")
+    private String bankTel;
+
+    /**
+     * 手机验证码
+     */
+    @NotBlank(message = "手机验证码不能为空")
+    private String telCheck;
+
     /**
      * 注册地址
      */

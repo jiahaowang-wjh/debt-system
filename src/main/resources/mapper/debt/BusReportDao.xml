@@ -40,14 +40,14 @@
         <result column="create_time" jdbcType="VARCHAR" property="createTime"/>
         <result column="update_time" jdbcType="VARCHAR" property="updateTime"/>
         <result column="report_no" jdbcType="VARCHAR" property="reportNo"/>
-
+        <result column="agreement_no" jdbcType="VARCHAR" property="agreementNo"/>
     </resultMap>
     <sql id="Base_Column_List">
     report_id, company_id, user_id, iscoordinate, report_type, report_propert, data1, 
     data2, data3, data4, data5, data6, data7, data8, data9,data10,card_just,
     card_back, obligat_right, obligat_right_no, obligat_time, capital, interest, interest_rate, 
     debt, debt_no, debt_time, debt_certificate, upload_debt_certificate, is_result, economics, 
-    prject_manager, `status`, stage,create_user_id,create_time,update_time,report_no
+    prject_manager, `status`, stage,create_user_id,create_time,update_time,report_no,agreement_no
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select

@@ -42,7 +42,6 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
         List<GrantedAuthority> authorities = new ArrayList<>();
         List<String> list = pubUserService.selectUserAuth(userAccount);
         for (String item : list) {
-            System.out.println(item);
             authorities.add(new SimpleGrantedAuthority(item));
         }
         return new CustomUserInfo(pubUser.getUserId().toString(), pubUser.getLoginName(),userAccount, pubUser.getPasswordMd5(),pubUser.getPersonId().toString() ,comId.toString(),pubUser.getRoleId().toString(),null, true, true, true, true, authorities);

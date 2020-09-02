@@ -42,7 +42,7 @@
     data3, data4, data5, data6, data7, data8, data9,data10, card_just, card_back,
     obligat_right, obligat_right_no, obligat_time, capital, interest, interest_rate, 
     debt, debt_no, debt_time, debt_certificate, upload_debt_certificate, economics,
-    `USAGE`, prject_manager,agreement_no,
+    `USAGE`, prject_manager,
     create_time,update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
@@ -95,9 +95,7 @@ LEFT JOIN pub_debt pd ON brp.relative_per_id = pd.relative_per_id
 LEFT JOIN pub_company pc ON pc.company_id = br.company_id
   </select>
 
-  <select id="selectNo" resultType="java.lang.String">
-  SELECT bus_relative_person.`agreement_no` FROM bus_relative_person ORDER BY bus_relative_person.`relative_per_id` DESC LIMIT 1,1;
-</select>
+
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from bus_relative_person
@@ -109,9 +107,6 @@ LEFT JOIN pub_company pc ON pc.company_id = br.company_id
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="relativePerId != null">
         relative_per_id,
-      </if>
-      <if test="agreementNo != null">
-        agreement_no,
       </if>
       <if test="reportId != null">
         report_id,
@@ -316,9 +311,6 @@ LEFT JOIN pub_company pc ON pc.company_id = br.company_id
       <if test="reportId != null">
         report_id = #{reportId,jdbcType=BIGINT},
       </if>
-      <if test="agreementNo != null">
-        agreement_no = #{agreementNo,jdbcType=BIGINT},
-      </if>
       <if test="iscoordinate != null">
         iscoordinate = #{iscoordinate,jdbcType=VARCHAR},
       </if>
@@ -410,8 +402,6 @@ LEFT JOIN pub_company pc ON pc.company_id = br.company_id
     </set>
     where relative_per_id = #{relativePerId,jdbcType=BIGINT}
   </update>
-  <update id="addAgreementAo">
-    update bus_relative_person set  agreement_no = #{agreementNo,jdbcType=BIGINT} where  relative_per_id = #{relativePerId,jdbcType=BIGINT}
-  </update>
+
 
 </mapper>

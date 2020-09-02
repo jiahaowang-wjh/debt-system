@@ -158,7 +158,6 @@ public class PubRoleServiceImpl implements PubRoleService {
      */
     @Override
     public int addRoleAuthList(String authId,Long roleId,String menuId,String note) throws CustomerException {
-        System.out.println("菜单ID:"+menuId);
         List<PubRoleauth> pubRoleauths = new ArrayList<>();
         try {
             List<String> authIdList = Arrays.asList(authId.split(","));
