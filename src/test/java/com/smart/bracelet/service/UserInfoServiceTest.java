@@ -1,6 +1,8 @@
 package com.smart.bracelet.service;
 
 import com.smart.bracelet.dao.assets.BusAgentSalesContractDao;
+import com.smart.bracelet.dao.debt.BusRelativePersonDao;
+import com.smart.bracelet.model.po.debt.BusRelativePerson;
 import com.smart.bracelet.model.vo.assets.BusAgentSalesContractShow;
 import com.smart.bracelet.service.debt.BusReportService;
 import com.smart.bracelet.utils.ConvertUpMoney;
@@ -12,8 +14,7 @@ import org.junit.runner.RunWith;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -23,30 +24,16 @@ public class UserInfoServiceTest {
     private BusReportService busReportDao;
     @Autowired
     private BusAgentSalesContractDao busAgentSalesContractDao;
-
-  //  String repNo = "TZ2020BBF000001";
+    BusRelativePersonDao busRelativePersonDao;
+    //  String repNo = "TZ2020BBF000001";
 
     @Test
-    public void testA() throws ParseException {
-//        String repNo ="TZ2020BBFW000001"; //RepNoUtils.createRepNo("TZ", "MSTJ", "TZ2020MSTJ000001");
-//        String substring = repNo.substring(0,6);
-//        String substring1 = repNo.substring(10);
-//        String substring3 = substring+"FWZIXUN"+substring1;
-//        System.out.println(substring1);
+    public void testA() {
 
-//        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-//        String str="2011-08-23";
-//        Date dt=sdf.parse(str);
-//        Calendar rightNow = Calendar.getInstance();
-//        rightNow.setTime(dt);
-//        rightNow.add(Calendar.YEAR,+1);//日期减1年
-//        Date date = rightNow.getTime();
-//        String format = sdf.format(date);
-//        System.out.println(format);
-        Calendar c = Calendar.getInstance();
-        c.setTime(new Date());
-        System.out.println("当前年份是"+c.get(Calendar.DAY_OF_MONTH));
-
+        List<BusRelativePerson> busRelativePeople = busRelativePersonDao.selectByreportId(7989721034286727168L);
+        for (BusRelativePerson item : busRelativePeople) {
+            System.out.println(item.toString());
+        }
     }
 
 }

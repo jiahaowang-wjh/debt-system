@@ -6,10 +6,7 @@ import com.smart.bracelet.dao.debt.BusRealAuthDao;
 import com.smart.bracelet.dao.debt.BusReportDao;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
-import com.smart.bracelet.model.po.debt.BusPayDetail;
-import com.smart.bracelet.model.po.debt.BusRealAuth;
-import com.smart.bracelet.model.po.debt.BusReport;
-import com.smart.bracelet.model.po.debt.DateAndDays;
+import com.smart.bracelet.model.po.debt.*;
 import com.smart.bracelet.model.vo.debt.*;
 import com.smart.bracelet.service.debt.BusReportService;
 import com.smart.bracelet.utils.IdUtils;
@@ -53,7 +50,7 @@ public class BusReportServiceImpl implements BusReportService {
             BusReport busReport = busReportDao.selectByPrimaryKey(reportId);
             BusReportListVo busReportListVo = new BusReportListVo();
             //将工共字段先赋值
-            busReportListVo.setReportId(busReport.getCompanyId());
+            busReportListVo.setReportId(busReport.getReportId());
             busReportListVo.setCompanyId(busReport.getCompanyId());
             busReportListVo.setReportNo(busReport.getReportNo());
             busReportListVo.setUserId(busReport.getUserId());
@@ -143,7 +140,7 @@ public class BusReportServiceImpl implements BusReportService {
     public Long insertPrivateSelective(BusPrivateReport busPrivateReport) throws CustomerException {
         BusReport busReport = new BusReport();
         BusRealAuth busRealAuth = new BusRealAuth();
-        long l = IdUtils.nextId();
+        Long l = IdUtils.nextId();
         try {
             busReport.setReportId(l);
             //设置报备编号
@@ -184,22 +181,20 @@ public class BusReportServiceImpl implements BusReportService {
             busReport.setData8(busPrivateReport.getAssetsNumber());
             busReport.setData9(busPrivateReport.getCirculationAssets());
             busReport.setData10(busPrivateReport.getIfWork());
-            //实名认证
-            Result result = comSafrvController.safrvCheck(busPrivateReport.getIdCard(),busPrivateReport.getPhone(),busPrivateReport.getPersonalName(),busPrivateReport.getBankCard());
-            if(result.getResultCode().equals("200")){
-                busRealAuth.setRealId(IdUtils.nextId());
-                busRealAuth.setReportId(l);
-                busRealAuth.setAuthname(busPrivateReport.getPersonalName());
-                busRealAuth.setCard(busPrivateReport.getIdCard());
-                busRealAuth.setBank(busPrivateReport.getBank());
-                busRealAuth.setBankCard(busPrivateReport.getBankCard());
-                busRealAuth.setBankTel(busPrivateReport.getBankTel());
-                busRealAuth.setTelCheck(busPrivateReport.getTelCheck());
-            }
+
+            busRealAuth.setRealId(IdUtils.nextId());
+            busRealAuth.setReportId(l);
+            busRealAuth.setAuthname(busPrivateReport.getPersonalName());
+            busRealAuth.setCard(busPrivateReport.getIdCard());
+            busRealAuth.setBank(busPrivateReport.getBank());
+            busRealAuth.setBankCard(busPrivateReport.getBankCard());
+            busRealAuth.setBankTel(busPrivateReport.getBankTel());
+            busRealAuth.setTelCheck(busPrivateReport.getTelCheck());
+
             int insertSelective = busReportDao.insertSelective(busReport);
             log.info("新增私人报备信息成功,受影响行数:{}", insertSelective);
             int insertSelective1 = busRealAuthDao.insertSelective(busRealAuth);
-            log.info("新增实名认证成功，受影响行数：{}",insertSelective1);
+            log.info("新增实名认证成功，受影响行数：{}", insertSelective1);
             return l;
         } catch (Exception e) {
             log.error("新增私人报备信息失败,异常信息:{}", e.getMessage());
@@ -274,7 +269,7 @@ public class BusReportServiceImpl implements BusReportService {
     public Long insertEterpriseSelective(BusEterpriseReport busEterpriseReport) throws CustomerException {
         BusReport busReport = new BusReport();
         BusRealAuth busRealAuth = new BusRealAuth();
-        long l = IdUtils.nextId();
+        Long l = IdUtils.nextId();
         try {
             busReport.setReportId(l);
             busReport.setReportNo(createRepNo());
@@ -313,22 +308,19 @@ public class BusReportServiceImpl implements BusReportService {
             busReport.setData7(busEterpriseReport.getAddress());
             busReport.setData8(busEterpriseReport.getContactPerson());
             busReport.setData9(busEterpriseReport.getContactPhone());
-            //实名认证
-            Result result = comSafrvController.safrvCheck(busEterpriseReport.getLegalIdCard(),busEterpriseReport.getLegalPhone(),busEterpriseReport.getLegalName(),busEterpriseReport.getBankCard());
-            if(result.getResultCode().equals("200")){
-                busRealAuth.setRealId(IdUtils.nextId());
-                busRealAuth.setReportId(l);
-                busRealAuth.setAuthname(busEterpriseReport.getLegalName());
-                busRealAuth.setCard(busEterpriseReport.getLegalIdCard());
-                busRealAuth.setBank(busEterpriseReport.getBank());
-                busRealAuth.setBankCard(busEterpriseReport.getBankCard());
-                busRealAuth.setBankTel(busEterpriseReport.getBankTel());
-                busRealAuth.setTelCheck(busEterpriseReport.getTelCheck());
-            }
+
+            busRealAuth.setRealId(IdUtils.nextId());
+            busRealAuth.setReportId(l);
+            busRealAuth.setAuthname(busEterpriseReport.getLegalName());
+            busRealAuth.setCard(busEterpriseReport.getLegalIdCard());
+            busRealAuth.setBank(busEterpriseReport.getBank());
+            busRealAuth.setBankCard(busEterpriseReport.getBankCard());
+            busRealAuth.setBankTel(busEterpriseReport.getBankTel());
+            busRealAuth.setTelCheck(busEterpriseReport.getTelCheck());
             int insertSelective = busReportDao.insertSelective(busReport);
             log.info("新增企业报备信息成功,受影响行数:{}", insertSelective);
             int insertSelective1 = busRealAuthDao.insertSelective(busRealAuth);
-            log.info("新增企业实名认证成功，受影响行数：{}",insertSelective1);
+            log.info("新增企业实名认证成功，受影响行数：{}", insertSelective1);
             return l;
         } catch (Exception e) {
             log.error("新增企业报备信息失败,异常信息:{}", e.getMessage());
@@ -401,7 +393,7 @@ public class BusReportServiceImpl implements BusReportService {
     @Override
     public Long insertBankSelective(BusBankReport busBankReport) throws CustomerException {
         BusReport busReport = new BusReport();
-        long l = IdUtils.nextId();
+        Long l = IdUtils.nextId();
         try {
             busReport.setReportId(l);
             busReport.setReportNo(createRepNo());
@@ -535,26 +527,27 @@ public class BusReportServiceImpl implements BusReportService {
         //查询相对人
         List<DebtChain> list = new ArrayList<>();
         list = busReportDao.queryLisyRelativePerson(debtChain.getFatherId());
-        if(list!=null&&list.size()>0){
+        if (list != null && list.size() > 0) {
             debtChain.setDebtChain(list);
-            debtChain=lisyChain(debtChain);
+            debtChain = lisyChain(debtChain);
         }
         return debtChain;
     }
 
     /**
      * 债事链递归
+     *
      * @param debtChain
      */
-    public DebtChain lisyChain( DebtChain debtChain){
+    public DebtChain lisyChain(DebtChain debtChain) {
         List<DebtChain> list = debtChain.getDebtChain();
-        for (int i = 0; i < list.size() ; i++) {
+        for (int i = 0; i < list.size(); i++) {
             List<DebtChain> lista = new ArrayList<>();
             DebtChain debtChain1 = list.get(i);
             debtChain1 = busReportDao.queryLisyDebtor(debtChain1.getRelativePersonIdCad());
-            if(debtChain1!=null){
+            if (debtChain1 != null) {
                 lista = busReportDao.queryLisyRelativePerson(debtChain1.getFatherId());
-                if(lista!=null&&lista.size()>0){
+                if (lista != null && lista.size() > 0) {
                     debtChain.getDebtChain().get(i).setDebtChain(lista);
                     debtChain1.setDebtChain(lista);
                     lisyChain(debtChain1);
@@ -565,19 +558,20 @@ public class BusReportServiceImpl implements BusReportService {
     }
 
     @Override
-    public int updateStatus(String status, Long reportId,String checkReason) throws CustomerException {
+    public int updateStatus(String status, Long reportId, String checkReason) throws CustomerException {
         try {
-            int i = busReportDao.updateStatus(status, reportId,checkReason);
-            log.info("更新审核状态成功,受影响行数:{}",i);
+            int i = busReportDao.updateStatus(status, reportId, checkReason);
+            log.info("更新审核状态成功,受影响行数:{}", i);
             return i;
         } catch (Exception e) {
-            log.error("更新审核状态失败,异常信息:{}",e.getMessage());
+            log.error("更新审核状态失败,异常信息:{}", e.getMessage());
             throw new CustomerException("更新审核状态失败");
         }
     }
 
     /**
      * 页面报备信息展示
+     *
      * @return
      */
     @Override
@@ -586,12 +580,12 @@ public class BusReportServiceImpl implements BusReportService {
     }
 
     @Override
-    public int updateDebtStage(String stage,Long repId) throws CustomerException {
+    public int updateDebtStage(String stage, Long repId) throws CustomerException {
         try {
-            int i = busReportDao.updateDebtStage(stage,repId);
+            int i = busReportDao.updateDebtStage(stage, repId);
             return i;
         } catch (Exception e) {
-            log.error("更新失败,异常信息:{}",e.getMessage());
+            log.error("更新失败,异常信息:{}", e.getMessage());
             throw new CustomerException("更新失败");
         }
     }
@@ -599,9 +593,10 @@ public class BusReportServiceImpl implements BusReportService {
 
     /**
      * 编号生成方法
+     *
      * @return
      */
-    public String createRepNo(){
+    public String createRepNo() {
         String aLong = busReportDao.selectRepNo();
         String repNo = RepNoUtils.createRepNo("TZ", "ZSBB", aLong);
         return repNo;
@@ -623,8 +618,9 @@ public class BusReportServiceImpl implements BusReportService {
         try {
             return busReportDao.addANO(agreementNo(), reportId);
         } catch (Exception e) {
-            log.error("异常信息:{}",e.getMessage());
+            log.error("异常信息:{}", e.getMessage());
             throw new CustomerException("新增失败");
         }
     }
+
 }

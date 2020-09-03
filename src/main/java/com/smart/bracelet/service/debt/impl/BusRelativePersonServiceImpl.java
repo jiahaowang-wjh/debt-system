@@ -4,14 +4,17 @@ import com.smart.bracelet.dao.debt.BusRelativePersonDao;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.debt.BusRelativePerson;
 import com.smart.bracelet.model.vo.debt.*;
+import com.smart.bracelet.service.debt.BusCivilService;
 import com.smart.bracelet.service.debt.BusRelativePersonService;
 import com.smart.bracelet.utils.IdUtils;
 import com.smart.bracelet.utils.RepNoUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -20,6 +23,9 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
 
     @Autowired
     private BusRelativePersonDao busRelativePersonDao;
+
+    @Autowired
+    private BusCivilService busCivilService;
 
     @Override
     public int deleteByPrimaryKey(Long relativePerId) throws CustomerException {
@@ -80,7 +86,8 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
             busRelativePersonListVo.setAssets(busRelativePerson.getData7());
             busRelativePersonListVo.setAssetsNumber(busRelativePerson.getData8());
             busRelativePersonListVo.setCirculationAssets(busRelativePerson.getData9());
-        } else {
+        }
+        if(busRelativePerson.getReportPropert().equals("2") || busRelativePerson.getReportPropert().equals("3")){
             busRelativePersonListVo.setCompanyName(busRelativePerson.getData1());
             busRelativePersonListVo.setCreditCode(busRelativePerson.getData2());
             busRelativePersonListVo.setIndustryAttributes(busRelativePerson.getData3());
@@ -117,7 +124,7 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
     @Override
     public Long insertPrivate(BusRelativePersonPrivateVo busRelativePersonPrivateVo) throws CustomerException {
         try {
-            long nextId = IdUtils.nextId();
+            Long nextId = IdUtils.nextId();
             BusRelativePerson busRelativePerson = new BusRelativePerson();
             busRelativePerson.setRelativePerId(nextId);
             busRelativePerson.setReportId(busRelativePersonPrivateVo.getReportId());
@@ -220,7 +227,7 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
     @Override
     public Long insertEnterprise(BusRelativePersonEnterpriseVo busRelativePersonEnterpriseVo) throws CustomerException {
         try {
-            long l = IdUtils.nextId();
+            Long l = IdUtils.nextId();
             BusRelativePerson busRelativePerson = new BusRelativePerson();
             busRelativePerson.setRelativePerId(l);
             busRelativePerson.setReportId(busRelativePersonEnterpriseVo.getReportId());
@@ -315,7 +322,7 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
     @Override
     public Long insertBank(BusRelativePersonBankVo busRelativePersonBankVo) throws CustomerException {
         try {
-            long l = IdUtils.nextId();
+            Long l = IdUtils.nextId();
             BusRelativePerson busRelativePerson = new BusRelativePerson();
             busRelativePerson.setRelativePerId(l);
             busRelativePerson.setReportId(busRelativePersonBankVo.getReportId());
@@ -404,17 +411,38 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
         }
     }
 
+
+
     /**
-     * 通过报备Id查询相对人信息
+     * 通过报备Id查询相对人信息(并判断是否达成民事调解关系)
      *
      * @param reportId
      * @return
      */
     @Override
-    public List<BusRelativePersonListVo> selectByreportId(Long reportId) {
+    public List<BusRelativePersonListVo> selectByreportId(Long reportId) throws CustomerException {
+        try {
+            List<BusRelativePerson> busRelativePeople = busRelativePersonDao.selectByreportId(reportId);
+            List<BusRelativePersonListVo> listVos = new ArrayList<>();
+            for (BusRelativePerson item: busRelativePeople) {
+                Boolean verification = busCivilService.verification(item.getRelativePerId());
+                if(verification){
+                    BusRelativePersonListVo busRelativePersonListVo = selectByPrimaryKey(item.getRelativePerId());
+                    listVos.add(busRelativePersonListVo);
+                }
+            }
+            return listVos;
+        } catch (Exception e) {
+            log.error("异常信息：{}", e.getMessage());
+            throw new CustomerException("查询失败");
+        }
+    }
+
+    @Override
+    public List<BusRelativePersonListVo> selectByRepId(Long reportId) throws CustomerException {
         List<BusRelativePerson> busRelativePeople = busRelativePersonDao.selectByreportId(reportId);
         List<BusRelativePersonListVo> listVos = new ArrayList<>();
-        for (BusRelativePerson item : busRelativePeople) {
+        for (BusRelativePerson item: busRelativePeople) {
             BusRelativePersonListVo busRelativePersonListVo = selectByPrimaryKey(item.getRelativePerId());
             listVos.add(busRelativePersonListVo);
         }

@@ -45,10 +45,15 @@ public interface BusRelativePersonService {
     int updateBank(BusRelativePersonBankUpdateVo busRelativePersonBankVo) throws CustomerException;
 
     /**
+     * 根据报备ID查询相对人信息并验证
+     */
+    List<BusRelativePersonListVo> selectByreportId(Long reportId) throws CustomerException;
+
+
+    /**
      * 根据报备ID查询相对人信息
      */
-    List<BusRelativePersonListVo> selectByreportId(Long reportId);
-
+    List<BusRelativePersonListVo> selectByRepId(Long reportId) throws CustomerException;
     /**
      * 通过相对人ID查询相对人债事人信息
      * @param relativePerId

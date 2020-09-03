@@ -2,9 +2,11 @@ package com.smart.bracelet.service.debt;
 
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.debt.BusCivil;
+import com.smart.bracelet.model.po.debt.BusRelativePerson;
 import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.vo.debt.*;
 
+import java.security.cert.CertStoreException;
 import java.util.List;
 
 public interface BusCivilService {
@@ -52,7 +54,7 @@ public interface BusCivilService {
      * @return
      * @throws CustomerException
      */
-    boolean verification(Long relativePerId) throws CustomerException ;
+    Boolean  verification(Long relativePerId) throws CustomerException;
 
     /**
      * 尽调协议初始化

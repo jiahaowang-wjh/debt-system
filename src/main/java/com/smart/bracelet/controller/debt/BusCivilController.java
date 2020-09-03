@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.debt.BusCivil;
+import com.smart.bracelet.model.po.debt.BusRelativePerson;
 import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.vo.debt.*;
 import com.smart.bracelet.service.debt.BusCivilService;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.security.cert.CertStoreException;
 import java.util.List;
 
 @RestController
@@ -119,7 +121,7 @@ public class BusCivilController {
      */
     @RequestMapping("/verification")
     public Result verification(@NotNull(message = "相对人ID不能为空") Long relativePerId) throws CustomerException {
-        boolean verification = busCivilService.verification(relativePerId);
+        Boolean verification = busCivilService.verification(relativePerId);
         return Result.success(verification);
     }
 

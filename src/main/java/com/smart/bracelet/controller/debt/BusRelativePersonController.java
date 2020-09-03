@@ -145,7 +145,7 @@ public class BusRelativePersonController {
      * 根据报备ID查询相对人信息
      */
     @RequestMapping("/selectByreportId")
-    public Result<List<BusRelativePersonListVo>> selectByreportId(@NotNull(message = "报备ID不能为空") Long reportId) {
+    public Result<List<BusRelativePersonListVo>> selectByreportId(@NotNull(message = "报备ID不能为空") Long reportId) throws CustomerException {
         List<BusRelativePersonListVo> busRelativePeople = busRelativePersonService.selectByreportId(reportId);
         return Result.success(busRelativePeople);
     }
@@ -160,6 +160,14 @@ public class BusRelativePersonController {
     public Result<ReportAndRelativePersonShow> selectByRelativePerId(@NotNull(message = "相对人不能为空") Long relativePerId) throws CustomerException {
         ReportAndRelativePersonShow reportAndRelativePerson = busRelativePersonService.selectByRelativePerId(relativePerId);
         return Result.success(reportAndRelativePerson);
+    }
+    /**
+     * 根据报备ID查询相对人信息
+     */
+    @RequestMapping("/selectByRepId")
+    public Result<List<BusRelativePersonListVo>> selectByRepId(@NotNull(message = "报备ID不能为空") Long reportId) throws CustomerException{
+        List<BusRelativePersonListVo> listVos = busRelativePersonService.selectByRepId(reportId);
+        return Result.success(listVos);
     }
 
     /**

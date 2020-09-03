@@ -1,5 +1,6 @@
 package com.smart.bracelet.dao.debt;
 
+import com.smart.bracelet.model.po.debt.BusRelativePerson;
 import com.smart.bracelet.model.po.debt.BusReport;
 import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.vo.debt.BusReportVo;
@@ -82,4 +83,8 @@ public interface BusReportDao {
      * 新增暨尽编号
      */
     int addANO(String agreementNo,Long reportId);
+
+
+
+
 }

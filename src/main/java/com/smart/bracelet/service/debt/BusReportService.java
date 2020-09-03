@@ -1,6 +1,7 @@
 package com.smart.bracelet.service.debt;
 
 import com.smart.bracelet.exception.CustomerException;
+import com.smart.bracelet.model.po.debt.BusRelativePerson;
 import com.smart.bracelet.model.po.debt.BusReport;
 import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.vo.debt.*;
@@ -99,6 +100,7 @@ public interface BusReportService {
      * 提交暨尽调协议生成编号
      */
     int addAgreementNo(Long reportId) throws CustomerException;
+
 
 
 }

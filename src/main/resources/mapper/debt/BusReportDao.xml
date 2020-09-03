@@ -484,4 +484,8 @@
     <select id="selectANO" resultType="java.lang.String">
           SELECT bus_report.`agreement_no` FROM `bus_report` ORDER BY bus_report.`report_id` DESC LIMIT 1,1;
     </select>
+    <select id="selectByreportId" resultType="com.smart.bracelet.model.po.debt.BusRelativePerson"
+            parameterType="java.lang.Long">
+        SELECT * FROM bus_relative_person WHERE bus_relative_person.`report_id`=#{reportId,jdbcType=BIGINT}
+    </select>
 </mapper>
