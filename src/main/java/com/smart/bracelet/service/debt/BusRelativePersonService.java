@@ -1,6 +1,7 @@
 package com.smart.bracelet.service.debt;
 
 import com.smart.bracelet.exception.CustomerException;
+import com.smart.bracelet.model.po.debt.BusRelativePerson;
 import com.smart.bracelet.model.vo.debt.*;
 import com.smart.bracelet.utils.RepNoUtils;
 
@@ -45,7 +46,7 @@ public interface BusRelativePersonService {
     int updateBank(BusRelativePersonBankUpdateVo busRelativePersonBankVo) throws CustomerException;
 
     /**
-     * 根据报备ID查询相对人信息并验证
+     * 根据报备ID查询相对人信息并验证符合民事调解
      */
     List<BusRelativePersonListVo> selectByreportId(Long reportId) throws CustomerException;
 
@@ -65,6 +66,11 @@ public interface BusRelativePersonService {
      * 辅助下载
      */
     List<AuxiliaryDownload> selectDow();
+
+    /**
+     * 根据报备ID查询相对人信息并验证是否符合解债申请
+     */
+    List<BusRelativePersonListVo> selectByreportIdAndDebt(Long reportId) throws CustomerException;
 
 
 }

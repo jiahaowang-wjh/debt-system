@@ -211,4 +211,34 @@ public class PubDebt implements Serializable {
      * 更新时间
      */
     private Date updateTime;
+
+    /**
+     * 甲方身份
+     */
+    @NotBlank(message = "甲方身份不能为空")
+    String partyaIdentity;
+    /**
+     * 乙方身份
+     */
+    @NotBlank(message = "乙方身份不能为空")
+    String partybIdentity;
+
+    /**
+     * 甲方地址
+     */
+    @NotBlank(message = "甲方地址不能为空")
+    String partyaAddrInfo;
+
+    /**
+     * 甲方联系人
+     */
+    @NotBlank(message = "甲方联系人不能为空")
+    String partyaPersonInfo;
+
+    /**
+     * 甲方联系电话
+     */
+    @NotBlank(message = "甲方联系电话不能为空")
+    String partyaTelInfo;
+
 }

@@ -23,10 +23,14 @@ public interface BusRelativePersonDao {
     List<BusRelativePerson> queryList();
 
     /**
-     * 根据报备ID查询相对人信息并验证
+     * 根据报备ID查询相对人信息并验证符合民事调解
      */
     List<BusRelativePerson> selectByreportId(Long reportId);
 
+    /**
+     * 根据报备ID查询相对人信息并验证符合解债申请
+     */
+    List<Long> selectByreportIdAndDebt(Long reportId);
 
     /**
      * 通过相对人ID查询相对人债事人信息

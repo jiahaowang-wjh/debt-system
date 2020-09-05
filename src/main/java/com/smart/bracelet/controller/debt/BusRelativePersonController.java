@@ -33,7 +33,7 @@ public class BusRelativePersonController {
     @RequestMapping("/insertPrivateSelective")
     public Result insertPrivateSelective(@Valid BusRelativePersonPrivateVo busRelativePersonPrivateVo) throws CustomerException {
         Long insertPrivate = busRelativePersonService.insertPrivate(busRelativePersonPrivateVo);
-        return Result.success(insertPrivate+"");
+        return Result.success(insertPrivate + "");
     }
 
 
@@ -47,7 +47,7 @@ public class BusRelativePersonController {
     @RequestMapping("/insertEnterprise")
     public Result insertEnterprise(@Valid BusRelativePersonEnterpriseVo busRelativePersonEnterpriseVo) throws CustomerException {
         Long insertPrivate = busRelativePersonService.insertEnterprise(busRelativePersonEnterpriseVo);
-        return Result.success(insertPrivate+"");
+        return Result.success(insertPrivate + "");
     }
 
     /**
@@ -60,7 +60,7 @@ public class BusRelativePersonController {
     @RequestMapping("/insertBank")
     public Result insertBank(@Valid BusRelativePersonBankVo busRelativePersonBankVo) throws CustomerException {
         Long insertPrivate = busRelativePersonService.insertBank(busRelativePersonBankVo);
-        return Result.success(insertPrivate+"");
+        return Result.success(insertPrivate + "");
     }
 
 
@@ -159,11 +159,12 @@ public class BusRelativePersonController {
         ReportAndRelativePersonShow reportAndRelativePerson = busRelativePersonService.selectByRelativePerId(relativePerId);
         return Result.success(reportAndRelativePerson);
     }
+
     /**
      * 根据报备ID查询相对人信息
      */
     @RequestMapping("/selectByRepId")
-    public Result<List<BusRelativePersonListVo>> selectByRepId(@NotNull(message = "报备ID不能为空") Long reportId) throws CustomerException{
+    public Result<List<BusRelativePersonListVo>> selectByRepId(@NotNull(message = "报备ID不能为空") Long reportId) throws CustomerException {
         List<BusRelativePersonListVo> listVos = busRelativePersonService.selectByRepId(reportId);
         return Result.success(listVos);
     }
@@ -173,13 +174,20 @@ public class BusRelativePersonController {
      */
     @RequestMapping("/selectDow")
     public Result<PageInfo> selectDow(@NotNull(message = "页码不能为空") Integer pageNum,
-                                                     @NotNull(message = "当前显示条数不能为空") Integer pageSize) {
-        PageHelper.startPage(pageNum,pageSize);
+                                      @NotNull(message = "当前显示条数不能为空") Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         List<AuxiliaryDownload> auxiliaryDownloads = busRelativePersonService.selectDow();
         PageInfo<AuxiliaryDownload> auxiliaryDownloadPageInfo = new PageInfo<>(auxiliaryDownloads);
         return Result.success(auxiliaryDownloadPageInfo);
     }
 
-
+    /**
+     * 根据报备ID查询相对人信息并验证是否符合解债申请
+     */
+    @RequestMapping("/selectByreportIdAndDebt")
+    public Result<List<BusRelativePersonListVo>> selectByreportIdAndDebt(@NotNull(message = "报备ID不能为空") Long reportId) throws CustomerException {
+        List<BusRelativePersonListVo> listVos = busRelativePersonService.selectByreportIdAndDebt(reportId);
+        return Result.success(listVos);
+    }
 
 }

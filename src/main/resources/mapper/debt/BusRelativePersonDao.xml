@@ -1,43 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.smart.bracelet.dao.debt.BusRelativePersonDao">
-  <resultMap id="BaseResultMap" type="com.smart.bracelet.model.po.debt.BusRelativePerson">
-    <id column="relative_per_id" jdbcType="BIGINT" property="relativePerId" />
-    <result column="report_id" jdbcType="BIGINT" property="reportId" />
-    <result column="iscoordinate" jdbcType="VARCHAR" property="iscoordinate" />
-    <result column="report_type" jdbcType="VARCHAR" property="reportType" />
-    <result column="report_propert" jdbcType="VARCHAR" property="reportPropert" />
-    <result column="data1" jdbcType="VARCHAR" property="data1" />
-    <result column="data2" jdbcType="VARCHAR" property="data2" />
-    <result column="data3" jdbcType="VARCHAR" property="data3" />
-    <result column="data4" jdbcType="VARCHAR" property="data4" />
-    <result column="data5" jdbcType="VARCHAR" property="data5" />
-    <result column="data6" jdbcType="VARCHAR" property="data6" />
-    <result column="data7" jdbcType="VARCHAR" property="data7" />
-    <result column="data8" jdbcType="VARCHAR" property="data8" />
-    <result column="data9" jdbcType="VARCHAR" property="data9" />
-    <result column="data10" jdbcType="VARCHAR" property="data10" />
-    <result column="card_just" jdbcType="VARCHAR" property="cardJust" />
-    <result column="card_back" jdbcType="VARCHAR" property="cardBack" />
-    <result column="obligat_right" jdbcType="VARCHAR" property="obligatRight" />
-    <result column="obligat_right_no" jdbcType="INTEGER" property="obligatRightNo" />
-    <result column="obligat_time" jdbcType="TIMESTAMP" property="obligatTime" />
-    <result column="capital" jdbcType="VARCHAR" property="capital" />
-    <result column="interest" jdbcType="VARCHAR" property="interest" />
-    <result column="interest_rate" jdbcType="VARCHAR" property="interestRate" />
-    <result column="debt" jdbcType="VARCHAR" property="debt" />
-    <result column="debt_no" jdbcType="INTEGER" property="debtNo" />
-    <result column="debt_time" jdbcType="TIMESTAMP" property="debtTime" />
-    <result column="debt_certificate" jdbcType="VARCHAR" property="debtCertificate" />
-    <result column="upload_debt_certificate" jdbcType="VARCHAR" property="uploadDebtCertificate" />
-    <result column="economics" jdbcType="VARCHAR" property="economics" />
-    <result column="agreement_no" jdbcType="VARCHAR" property="agreementNo" />
-    <result column="USAGE" jdbcType="CHAR" property="usage" />
-    <result column="prject_manager" jdbcType="VARCHAR" property="prjectManager" />
-    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
-    <result column="update_time" jdbcType="VARCHAR" property="updateTime" />
-  </resultMap>
-  <sql id="Base_Column_List">
+    <resultMap id="BaseResultMap" type="com.smart.bracelet.model.po.debt.BusRelativePerson">
+        <id column="relative_per_id" jdbcType="BIGINT" property="relativePerId"/>
+        <result column="report_id" jdbcType="BIGINT" property="reportId"/>
+        <result column="iscoordinate" jdbcType="VARCHAR" property="iscoordinate"/>
+        <result column="report_type" jdbcType="VARCHAR" property="reportType"/>
+        <result column="report_propert" jdbcType="VARCHAR" property="reportPropert"/>
+        <result column="data1" jdbcType="VARCHAR" property="data1"/>
+        <result column="data2" jdbcType="VARCHAR" property="data2"/>
+        <result column="data3" jdbcType="VARCHAR" property="data3"/>
+        <result column="data4" jdbcType="VARCHAR" property="data4"/>
+        <result column="data5" jdbcType="VARCHAR" property="data5"/>
+        <result column="data6" jdbcType="VARCHAR" property="data6"/>
+        <result column="data7" jdbcType="VARCHAR" property="data7"/>
+        <result column="data8" jdbcType="VARCHAR" property="data8"/>
+        <result column="data9" jdbcType="VARCHAR" property="data9"/>
+        <result column="data10" jdbcType="VARCHAR" property="data10"/>
+        <result column="card_just" jdbcType="VARCHAR" property="cardJust"/>
+        <result column="card_back" jdbcType="VARCHAR" property="cardBack"/>
+        <result column="obligat_right" jdbcType="VARCHAR" property="obligatRight"/>
+        <result column="obligat_right_no" jdbcType="INTEGER" property="obligatRightNo"/>
+        <result column="obligat_time" jdbcType="TIMESTAMP" property="obligatTime"/>
+        <result column="capital" jdbcType="VARCHAR" property="capital"/>
+        <result column="interest" jdbcType="VARCHAR" property="interest"/>
+        <result column="interest_rate" jdbcType="VARCHAR" property="interestRate"/>
+        <result column="debt" jdbcType="VARCHAR" property="debt"/>
+        <result column="debt_no" jdbcType="INTEGER" property="debtNo"/>
+        <result column="debt_time" jdbcType="TIMESTAMP" property="debtTime"/>
+        <result column="debt_certificate" jdbcType="VARCHAR" property="debtCertificate"/>
+        <result column="upload_debt_certificate" jdbcType="VARCHAR" property="uploadDebtCertificate"/>
+        <result column="economics" jdbcType="VARCHAR" property="economics"/>
+        <result column="agreement_no" jdbcType="VARCHAR" property="agreementNo"/>
+        <result column="USAGE" jdbcType="CHAR" property="usage"/>
+        <result column="prject_manager" jdbcType="VARCHAR" property="prjectManager"/>
+        <result column="create_time" jdbcType="VARCHAR" property="createTime"/>
+        <result column="update_time" jdbcType="VARCHAR" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     relative_per_id, report_id, iscoordinate, report_type, report_propert, data1, data2, 
     data3, data4, data5, data6, data7, data8, data9,data10, card_just, card_back,
     obligat_right, obligat_right_no, obligat_time, capital, interest, interest_rate, 
@@ -45,19 +45,19 @@
     `USAGE`, prject_manager,
     create_time,update_time
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from bus_relative_person
-    where relative_per_id = #{relativePerId,jdbcType=BIGINT}
-  </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from bus_relative_person
+        where relative_per_id = #{relativePerId,jdbcType=BIGINT}
+    </select>
     <select id="queryList" resultType="com.smart.bracelet.model.po.debt.BusRelativePerson">
-      select
-      <include refid="Base_Column_List" />
-      from bus_relative_person
+        select
+        <include refid="Base_Column_List"/>
+        from bus_relative_person
     </select>
 
-  <select id="selectByRelativePerId" resultType="com.smart.bracelet.model.vo.debt.ReportAndRelativePerson">
+    <select id="selectByRelativePerId" resultType="com.smart.bracelet.model.vo.debt.ReportAndRelativePerson">
           SELECT br.`report_id`,br.report_propert,brp.relative_per_id,brp.report_propert AS 'brpReport',
           br.`data1`,br.`data2`,br.`data3`,br.`data4`,br.`data5`,br.`data6`,br.`data7`,br.`data8`,br.`data9`,br.`data10`,
           brp.data1 AS 'brpdata1',brp.data2 AS 'brpdata2',brp.data3 AS 'brpdata3',brp.data4 AS 'brpdata4',brp.data5 AS 'brpdata5',
@@ -66,7 +66,7 @@
           LEFT JOIN bus_report br ON brp.report_id = br.`report_id`
           WHERE brp.relative_per_id = #{relativePerId,jdbcType=BIGINT}
   </select>
-  <select id="selectDow" resultType="com.smart.bracelet.model.vo.debt.AuxiliaryDownload">
+    <select id="selectDow" resultType="com.smart.bracelet.model.vo.debt.AuxiliaryDownload">
 SELECT br.`report_id`,brp.relative_per_id,brp.`create_time`,br.`data1` AS 'debtName',brp.data1 AS 'personName',froma.assignment_agreement_no
 ,fromb.cost AS 'bb_cost',fromc.cost AS 'zx_cost',fromd.cost AS 'hc_cost',
 pd.amount_cumulative,pd.debt_yaer,pd.debt_type,pc.company_name
@@ -92,318 +92,322 @@ SELECT bus_pay_detail.`report_id`,bus_pay_detail.`cost` FROM  bus_pay_detail WHE
 LEFT JOIN pub_debt pd ON brp.relative_per_id = pd.relative_per_id
 LEFT JOIN pub_company pc ON pc.company_id = br.company_id
   </select>
-  <select id="selectByreportId" resultType="com.smart.bracelet.model.po.debt.BusRelativePerson"
-          parameterType="java.lang.Long">
+    <select id="selectByreportId" resultType="com.smart.bracelet.model.po.debt.BusRelativePerson"
+            parameterType="java.lang.Long">
     SELECT * FROM bus_relative_person WHERE bus_relative_person.`report_id`=#{reportId,jdbcType=BIGINT}
   </select>
+    <select id="selectByreportIdAndDebt" resultType="java.lang.Long"
+            parameterType="java.lang.Long">
+        SELECT brp.relative_per_id FROM bus_report br
+        LEFT JOIN bus_relative_person brp ON br.report_id = brp.report_id
+        LEFT JOIN bus_civil bc ON bc.`report_id` = br.`report_id`
+        WHERE br.report_id = #{reportId,jdbcType=BIGINT} AND br.`stage` = '2' AND bc.`status` = '2'
+    </select>
 
 
-
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from bus_relative_person
     where relative_per_id = #{relativePerId,jdbcType=BIGINT}
   </delete>
 
-  <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.debt.BusRelativePerson">
-    insert into bus_relative_person
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="relativePerId != null">
-        relative_per_id,
-      </if>
-      <if test="reportId != null">
-        report_id,
-      </if>
-      <if test="iscoordinate != null">
-        iscoordinate,
-      </if>
-      <if test="reportType != null">
-        report_type,
-      </if>
-      <if test="reportPropert != null">
-        report_propert,
-      </if>
-      <if test="data1 != null">
-        data1,
-      </if>
-      <if test="data2 != null">
-        data2,
-      </if>
-      <if test="data3 != null">
-        data3,
-      </if>
-      <if test="data4 != null">
-        data4,
-      </if>
-      <if test="data5 != null">
-        data5,
-      </if>
-      <if test="data6 != null">
-        data6,
-      </if>
-      <if test="data7 != null">
-        data7,
-      </if>
-      <if test="data8 != null">
-        data8,
-      </if>
-      <if test="data9 != null">
-        data9,
-      </if>
-      <if test="data10 != null">
-        data10,
-      </if>
-      <if test="cardJust != null">
-        card_just,
-      </if>
-      <if test="cardBack != null">
-        card_back,
-      </if>
-      <if test="obligatRight != null">
-        obligat_right,
-      </if>
-      <if test="obligatRightNo != null">
-        obligat_right_no,
-      </if>
-      <if test="obligatTime != null">
-        obligat_time,
-      </if>
-      <if test="capital != null">
-        capital,
-      </if>
-      <if test="interest != null">
-        interest,
-      </if>
-      <if test="interestRate != null">
-        interest_rate,
-      </if>
-      <if test="debt != null">
-        debt,
-      </if>
-      <if test="debtNo != null">
-        debt_no,
-      </if>
-      <if test="debtTime != null">
-        debt_time,
-      </if>
-      <if test="debtCertificate != null">
-        debt_certificate,
-      </if>
-      <if test="uploadDebtCertificate != null">
-        upload_debt_certificate,
-      </if>
+    <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.debt.BusRelativePerson">
+        insert into bus_relative_person
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="relativePerId != null">
+                relative_per_id,
+            </if>
+            <if test="reportId != null">
+                report_id,
+            </if>
+            <if test="iscoordinate != null">
+                iscoordinate,
+            </if>
+            <if test="reportType != null">
+                report_type,
+            </if>
+            <if test="reportPropert != null">
+                report_propert,
+            </if>
+            <if test="data1 != null">
+                data1,
+            </if>
+            <if test="data2 != null">
+                data2,
+            </if>
+            <if test="data3 != null">
+                data3,
+            </if>
+            <if test="data4 != null">
+                data4,
+            </if>
+            <if test="data5 != null">
+                data5,
+            </if>
+            <if test="data6 != null">
+                data6,
+            </if>
+            <if test="data7 != null">
+                data7,
+            </if>
+            <if test="data8 != null">
+                data8,
+            </if>
+            <if test="data9 != null">
+                data9,
+            </if>
+            <if test="data10 != null">
+                data10,
+            </if>
+            <if test="cardJust != null">
+                card_just,
+            </if>
+            <if test="cardBack != null">
+                card_back,
+            </if>
+            <if test="obligatRight != null">
+                obligat_right,
+            </if>
+            <if test="obligatRightNo != null">
+                obligat_right_no,
+            </if>
+            <if test="obligatTime != null">
+                obligat_time,
+            </if>
+            <if test="capital != null">
+                capital,
+            </if>
+            <if test="interest != null">
+                interest,
+            </if>
+            <if test="interestRate != null">
+                interest_rate,
+            </if>
+            <if test="debt != null">
+                debt,
+            </if>
+            <if test="debtNo != null">
+                debt_no,
+            </if>
+            <if test="debtTime != null">
+                debt_time,
+            </if>
+            <if test="debtCertificate != null">
+                debt_certificate,
+            </if>
+            <if test="uploadDebtCertificate != null">
+                upload_debt_certificate,
+            </if>
 
-      <if test="economics != null">
-        economics,
-      </if>
-      <if test="usage != null">
-        `USAGE`,
-      </if>
-      <if test="prjectManager != null">
-        prject_manager,
-      </if>
+            <if test="economics != null">
+                economics,
+            </if>
+            <if test="usage != null">
+                `USAGE`,
+            </if>
+            <if test="prjectManager != null">
+                prject_manager,
+            </if>
 
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="relativePerId != null">
-        #{relativePerId,jdbcType=BIGINT},
-      </if>
-      <if test="agreementNo != null">
-        #{agreementNo,jdbcType=BIGINT},
-      </if>
-      <if test="reportId != null">
-        #{reportId,jdbcType=BIGINT},
-      </if>
-      <if test="iscoordinate != null">
-        #{iscoordinate,jdbcType=VARCHAR},
-      </if>
-      <if test="reportType != null">
-        #{reportType,jdbcType=VARCHAR},
-      </if>
-      <if test="reportPropert != null">
-        #{reportPropert,jdbcType=VARCHAR},
-      </if>
-      <if test="data1 != null">
-        #{data1,jdbcType=VARCHAR},
-      </if>
-      <if test="data2 != null">
-        #{data2,jdbcType=VARCHAR},
-      </if>
-      <if test="data3 != null">
-        #{data3,jdbcType=VARCHAR},
-      </if>
-      <if test="data4 != null">
-        #{data4,jdbcType=VARCHAR},
-      </if>
-      <if test="data5 != null">
-        #{data5,jdbcType=VARCHAR},
-      </if>
-      <if test="data6 != null">
-        #{data6,jdbcType=VARCHAR},
-      </if>
-      <if test="data7 != null">
-        #{data7,jdbcType=VARCHAR},
-      </if>
-      <if test="data8 != null">
-        #{data8,jdbcType=VARCHAR},
-      </if>
-      <if test="data9 != null">
-        #{data9,jdbcType=VARCHAR},
-      </if>
-      <if test="data10 != null">
-        #{data10,jdbcType=VARCHAR},
-      </if>
-      <if test="cardJust != null">
-        #{cardJust,jdbcType=VARCHAR},
-      </if>
-      <if test="cardBack != null">
-        #{cardBack,jdbcType=VARCHAR},
-      </if>
-      <if test="obligatRight != null">
-        #{obligatRight,jdbcType=VARCHAR},
-      </if>
-      <if test="obligatRightNo != null">
-        #{obligatRightNo,jdbcType=INTEGER},
-      </if>
-      <if test="obligatTime != null">
-        #{obligatTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="capital != null">
-        #{capital,jdbcType=VARCHAR},
-      </if>
-      <if test="interest != null">
-        #{interest,jdbcType=VARCHAR},
-      </if>
-      <if test="interestRate != null">
-        #{interestRate,jdbcType=VARCHAR},
-      </if>
-      <if test="debt != null">
-        #{debt,jdbcType=VARCHAR},
-      </if>
-      <if test="debtNo != null">
-        #{debtNo,jdbcType=INTEGER},
-      </if>
-      <if test="debtTime != null">
-        #{debtTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="debtCertificate != null">
-        #{debtCertificate,jdbcType=VARCHAR},
-      </if>
-      <if test="uploadDebtCertificate != null">
-        #{uploadDebtCertificate,jdbcType=VARCHAR},
-      </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="relativePerId != null">
+                #{relativePerId,jdbcType=BIGINT},
+            </if>
+            <if test="agreementNo != null">
+                #{agreementNo,jdbcType=BIGINT},
+            </if>
+            <if test="reportId != null">
+                #{reportId,jdbcType=BIGINT},
+            </if>
+            <if test="iscoordinate != null">
+                #{iscoordinate,jdbcType=VARCHAR},
+            </if>
+            <if test="reportType != null">
+                #{reportType,jdbcType=VARCHAR},
+            </if>
+            <if test="reportPropert != null">
+                #{reportPropert,jdbcType=VARCHAR},
+            </if>
+            <if test="data1 != null">
+                #{data1,jdbcType=VARCHAR},
+            </if>
+            <if test="data2 != null">
+                #{data2,jdbcType=VARCHAR},
+            </if>
+            <if test="data3 != null">
+                #{data3,jdbcType=VARCHAR},
+            </if>
+            <if test="data4 != null">
+                #{data4,jdbcType=VARCHAR},
+            </if>
+            <if test="data5 != null">
+                #{data5,jdbcType=VARCHAR},
+            </if>
+            <if test="data6 != null">
+                #{data6,jdbcType=VARCHAR},
+            </if>
+            <if test="data7 != null">
+                #{data7,jdbcType=VARCHAR},
+            </if>
+            <if test="data8 != null">
+                #{data8,jdbcType=VARCHAR},
+            </if>
+            <if test="data9 != null">
+                #{data9,jdbcType=VARCHAR},
+            </if>
+            <if test="data10 != null">
+                #{data10,jdbcType=VARCHAR},
+            </if>
+            <if test="cardJust != null">
+                #{cardJust,jdbcType=VARCHAR},
+            </if>
+            <if test="cardBack != null">
+                #{cardBack,jdbcType=VARCHAR},
+            </if>
+            <if test="obligatRight != null">
+                #{obligatRight,jdbcType=VARCHAR},
+            </if>
+            <if test="obligatRightNo != null">
+                #{obligatRightNo,jdbcType=INTEGER},
+            </if>
+            <if test="obligatTime != null">
+                #{obligatTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="capital != null">
+                #{capital,jdbcType=VARCHAR},
+            </if>
+            <if test="interest != null">
+                #{interest,jdbcType=VARCHAR},
+            </if>
+            <if test="interestRate != null">
+                #{interestRate,jdbcType=VARCHAR},
+            </if>
+            <if test="debt != null">
+                #{debt,jdbcType=VARCHAR},
+            </if>
+            <if test="debtNo != null">
+                #{debtNo,jdbcType=INTEGER},
+            </if>
+            <if test="debtTime != null">
+                #{debtTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="debtCertificate != null">
+                #{debtCertificate,jdbcType=VARCHAR},
+            </if>
+            <if test="uploadDebtCertificate != null">
+                #{uploadDebtCertificate,jdbcType=VARCHAR},
+            </if>
 
-      <if test="economics != null">
-        #{economics,jdbcType=VARCHAR},
-      </if>
-      <if test="usage != null">
-        #{usage,jdbcType=CHAR},
-      </if>
-      <if test="prjectManager != null">
-        #{prjectManager,jdbcType=VARCHAR},
-      </if>
-
-
+            <if test="economics != null">
+                #{economics,jdbcType=VARCHAR},
+            </if>
+            <if test="usage != null">
+                #{usage,jdbcType=CHAR},
+            </if>
+            <if test="prjectManager != null">
+                #{prjectManager,jdbcType=VARCHAR},
+            </if>
 
 
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective">
-    update bus_relative_person
-    <set>
-      <if test="reportId != null">
-        report_id = #{reportId,jdbcType=BIGINT},
-      </if>
-      <if test="iscoordinate != null">
-        iscoordinate = #{iscoordinate,jdbcType=VARCHAR},
-      </if>
-      <if test="reportType != null">
-        report_type = #{reportType,jdbcType=VARCHAR},
-      </if>
-      <if test="reportPropert != null">
-        report_propert = #{reportPropert,jdbcType=VARCHAR},
-      </if>
-      <if test="data1 != null">
-        data1 = #{data1,jdbcType=VARCHAR},
-      </if>
-      <if test="data2 != null">
-        data2 = #{data2,jdbcType=VARCHAR},
-      </if>
-      <if test="data3 != null">
-        data3 = #{data3,jdbcType=VARCHAR},
-      </if>
-      <if test="data4 != null">
-        data4 = #{data4,jdbcType=VARCHAR},
-      </if>
-      <if test="data5 != null">
-        data5 = #{data5,jdbcType=VARCHAR},
-      </if>
-      <if test="data6 != null">
-        data6 = #{data6,jdbcType=VARCHAR},
-      </if>
-      <if test="data7 != null">
-        data7 = #{data7,jdbcType=VARCHAR},
-      </if>
-      <if test="data8 != null">
-        data8 = #{data8,jdbcType=VARCHAR},
-      </if>
-      <if test="data9 != null">
-        data9 = #{data9,jdbcType=VARCHAR},
-      </if>
-      <if test="data10 != null">
-        data10 = #{data10,jdbcType=VARCHAR},
-      </if>
-      <if test="cardJust != null">
-        card_just = #{cardJust,jdbcType=VARCHAR},
-      </if>
-      <if test="cardBack != null">
-        card_back = #{cardBack,jdbcType=VARCHAR},
-      </if>
-      <if test="obligatRight != null">
-        obligat_right = #{obligatRight,jdbcType=VARCHAR},
-      </if>
-      <if test="obligatRightNo != null">
-        obligat_right_no = #{obligatRightNo,jdbcType=INTEGER},
-      </if>
-      <if test="obligatTime != null">
-        obligat_time = #{obligatTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="capital != null">
-        capital = #{capital,jdbcType=VARCHAR},
-      </if>
-      <if test="interest != null">
-        interest = #{interest,jdbcType=VARCHAR},
-      </if>
-      <if test="interestRate != null">
-        interest_rate = #{interestRate,jdbcType=VARCHAR},
-      </if>
-      <if test="debt != null">
-        debt = #{debt,jdbcType=VARCHAR},
-      </if>
-      <if test="debtNo != null">
-        debt_no = #{debtNo,jdbcType=INTEGER},
-      </if>
-      <if test="debtTime != null">
-        debt_time = #{debtTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="debtCertificate != null">
-        debt_certificate = #{debtCertificate,jdbcType=VARCHAR},
-      </if>
-      <if test="uploadDebtCertificate != null">
-        upload_debt_certificate = #{uploadDebtCertificate,jdbcType=VARCHAR},
-      </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective">
+        update bus_relative_person
+        <set>
+            <if test="reportId != null">
+                report_id = #{reportId,jdbcType=BIGINT},
+            </if>
+            <if test="iscoordinate != null">
+                iscoordinate = #{iscoordinate,jdbcType=VARCHAR},
+            </if>
+            <if test="reportType != null">
+                report_type = #{reportType,jdbcType=VARCHAR},
+            </if>
+            <if test="reportPropert != null">
+                report_propert = #{reportPropert,jdbcType=VARCHAR},
+            </if>
+            <if test="data1 != null">
+                data1 = #{data1,jdbcType=VARCHAR},
+            </if>
+            <if test="data2 != null">
+                data2 = #{data2,jdbcType=VARCHAR},
+            </if>
+            <if test="data3 != null">
+                data3 = #{data3,jdbcType=VARCHAR},
+            </if>
+            <if test="data4 != null">
+                data4 = #{data4,jdbcType=VARCHAR},
+            </if>
+            <if test="data5 != null">
+                data5 = #{data5,jdbcType=VARCHAR},
+            </if>
+            <if test="data6 != null">
+                data6 = #{data6,jdbcType=VARCHAR},
+            </if>
+            <if test="data7 != null">
+                data7 = #{data7,jdbcType=VARCHAR},
+            </if>
+            <if test="data8 != null">
+                data8 = #{data8,jdbcType=VARCHAR},
+            </if>
+            <if test="data9 != null">
+                data9 = #{data9,jdbcType=VARCHAR},
+            </if>
+            <if test="data10 != null">
+                data10 = #{data10,jdbcType=VARCHAR},
+            </if>
+            <if test="cardJust != null">
+                card_just = #{cardJust,jdbcType=VARCHAR},
+            </if>
+            <if test="cardBack != null">
+                card_back = #{cardBack,jdbcType=VARCHAR},
+            </if>
+            <if test="obligatRight != null">
+                obligat_right = #{obligatRight,jdbcType=VARCHAR},
+            </if>
+            <if test="obligatRightNo != null">
+                obligat_right_no = #{obligatRightNo,jdbcType=INTEGER},
+            </if>
+            <if test="obligatTime != null">
+                obligat_time = #{obligatTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="capital != null">
+                capital = #{capital,jdbcType=VARCHAR},
+            </if>
+            <if test="interest != null">
+                interest = #{interest,jdbcType=VARCHAR},
+            </if>
+            <if test="interestRate != null">
+                interest_rate = #{interestRate,jdbcType=VARCHAR},
+            </if>
+            <if test="debt != null">
+                debt = #{debt,jdbcType=VARCHAR},
+            </if>
+            <if test="debtNo != null">
+                debt_no = #{debtNo,jdbcType=INTEGER},
+            </if>
+            <if test="debtTime != null">
+                debt_time = #{debtTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="debtCertificate != null">
+                debt_certificate = #{debtCertificate,jdbcType=VARCHAR},
+            </if>
+            <if test="uploadDebtCertificate != null">
+                upload_debt_certificate = #{uploadDebtCertificate,jdbcType=VARCHAR},
+            </if>
 
-      <if test="economics != null">
-        economics = #{economics,jdbcType=VARCHAR},
-      </if>
-      <if test="usage != null">
-        `USAGE` = #{usage,jdbcType=CHAR},
-      </if>
-      <if test="prjectManager != null">
-        prject_manager = #{prjectManager,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where relative_per_id = #{relativePerId,jdbcType=BIGINT}
-  </update>
+            <if test="economics != null">
+                economics = #{economics,jdbcType=VARCHAR},
+            </if>
+            <if test="usage != null">
+                `USAGE` = #{usage,jdbcType=CHAR},
+            </if>
+            <if test="prjectManager != null">
+                prject_manager = #{prjectManager,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where relative_per_id = #{relativePerId,jdbcType=BIGINT}
+    </update>
 
 
 </mapper>

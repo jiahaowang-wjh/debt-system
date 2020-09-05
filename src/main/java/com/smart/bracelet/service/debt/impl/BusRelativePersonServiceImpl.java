@@ -497,5 +497,21 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
         return busRelativePersonDao.selectDow();
     }
 
+    @Override
+    public List<BusRelativePersonListVo> selectByreportIdAndDebt(Long reportId) throws CustomerException {
+        try {
+            List<BusRelativePersonListVo> listVos = new ArrayList<>();
+            List<Long> longs = busRelativePersonDao.selectByreportIdAndDebt(reportId);
+            for (Long item: longs) {
+                BusRelativePersonListVo busRelativePersonListVo = selectByPrimaryKey(item);
+                listVos.add(busRelativePersonListVo);
+            }
+            return listVos;
+        } catch (Exception e) {
+            log.error("异常信息：{}",e.getMessage());
+            throw new CustomerException("查询失败");
+        }
+    }
+
 
 }

@@ -31,12 +31,19 @@
         <result column="check_reason" jdbcType="VARCHAR" property="checkReason"/>
         <result column="check_date" jdbcType="VARCHAR" property="checkDate"/>
         <result column="service_no" jdbcType="VARCHAR" property="serviceNo"/>
+        <result column="partya_identity" jdbcType="VARCHAR" property="partyaIdentity"/>
+        <result column="partyb_identity" jdbcType="VARCHAR" property="partybIdentity"/>
+
+        <result column="partya_addr_info" jdbcType="VARCHAR" property="partyaAddrInfo"/>
+        <result column="partya_person_info" jdbcType="VARCHAR" property="partyaPersonInfo"/>
+        <result column="partya_tel_info" jdbcType="VARCHAR" property="partyaTelInfo"/>
+
     </resultMap>
     <sql id="Base_Column_List">
     debt_id, report_id,relative_per_id, amount_total, amount_cumulative, amount_this, debt_type, debt_yaer,
     is_pledge, service_plan, partya_addr, partya_person, partya_tel, partyb_addr, partyb_person, 
     partyb_tel, service_principal, service_interest, partya_deputy, partya_seal, partya_date, 
-    partyb_deputy, partyb_seal, partyb_date, contract_place, `status`, check_reason,check_date
+    partyb_deputy, partyb_seal, partyb_date, contract_place, `status`, check_reason,check_date,partya_identity,partyb_identity,partya_addr_info,partya_person_info,partya_tel_info
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
@@ -142,6 +149,21 @@
             <if test="checkDate != null">
                 check_date,
             </if>
+            <if test="partyaIdentity != null">
+                partya_identity,
+            </if>
+            <if test="partybIdentity != null">
+                partyb_identity,
+            </if>
+            <if test="partyaAddrInfo != null">
+                partya_addr_info,
+            </if>
+            <if test="partyaPersonInfo != null">
+                partya_person_info,
+            </if>
+            <if test="partyaTelInfo != null">
+                partya_tel_info,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="debtId != null">
@@ -232,7 +254,22 @@
                 #{checkReason,jdbcType=VARCHAR},
             </if>
             <if test="checkDate != null">
-                #{checkDate,jdbcType=DATE}
+                #{checkDate,jdbcType=DATE},
+            </if>
+            <if test="partyaIdentity != null">
+                #{partyaIdentity,jdbcType=VARCHAR},
+            </if>
+            <if test="partybIdentity != null">
+                #{partybIdentity,jdbcType=VARCHAR},
+            </if>
+            <if test="partyaAddrInfo != null">
+                #{partyaAddrInfo,jdbcType=VARCHAR},
+            </if>
+            <if test="partyaPersonInfo != null">
+                #{partyaPersonInfo,jdbcType=VARCHAR},
+            </if>
+            <if test="partyaTelInfo != null">
+                #{partyaTelInfo,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -324,8 +361,24 @@
                 check_reason = #{checkReason,jdbcType=VARCHAR},
             </if>
             <if test="checkDate != null">
-                check_date= #{checkDate,jdbcType=DATE}
+                check_date= #{checkDate,jdbcType=DATE},
             </if>
+            <if test="partyaIdentity != null">
+                partya_identity= #{partyaIdentity,jdbcType=DATE},
+            </if>
+            <if test="partybIdentity != null">
+                partyb_identity= #{partybIdentity,jdbcType=DATE},
+            </if>
+            <if test="partyaAddrInfo != null">
+                partya_addr_info = #{partyaAddrInfo,jdbcType=VARCHAR},
+            </if>
+            <if test="partyaPersonInfo != null">
+                partya_person_info = #{partyaPersonInfo,jdbcType=VARCHAR},
+            </if>
+            <if test="partyaTelInfo != null">
+                partya_tel_info = #{partyaTelInfo,jdbcType=VARCHAR},
+            </if>
+
         </set>
         where debt_id = #{debtId,jdbcType=BIGINT}
     </update>
