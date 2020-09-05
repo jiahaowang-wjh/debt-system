@@ -12,7 +12,7 @@ import java.util.List;
 public interface BusCivilService {
     int deleteByPrimaryKey(Long civilId) throws CustomerException;
 
-    int insertSelective(BusCivil record) throws CustomerException;
+    Long insertSelective(BusCivil record) throws CustomerException;
 
     BusCivil selectByPrimaryKey(Long civilId);
 

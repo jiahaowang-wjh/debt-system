@@ -77,7 +77,7 @@
     </select>
     <select id="selectReportId" resultType="java.lang.Long">
         SELECT bus_report.`report_id` FROM bus_report
-        WHERE bus_report.data2 = #{personIdcard,jdbcType=BIGINT} and bus_report.`stage` = '2'
+        WHERE bus_report.data2 = #{personIdcard,jdbcType=BIGINT} AND bus_report.`stage` = '1' AND bus_report.`status` = '5'
     </select>
 
     <select id="selectPersonIdCardByPrId" resultType="java.lang.String">
@@ -337,6 +337,15 @@
         where civil_id = #{civilId,jdbcType=BIGINT}
     </update>
     <update id="updateStatus">
-      update bus_civil set  `status` = #{status,jdbcType=VARCHAR},check_reason=#{checkReason,jdbcType=VARCHAR} where civil_id = #{civilId,jdbcType=BIGINT}
+        update bus_civil
+        <set>
+            <if test="status != null and status != ''">
+                `status` = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="checkReason != null and checkReason= ''">
+                check_reason=#{checkReason,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where civil_id = #{civilId,jdbcType=BIGINT}
     </update>
 </mapper>

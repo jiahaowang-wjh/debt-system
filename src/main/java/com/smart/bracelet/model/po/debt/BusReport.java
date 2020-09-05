@@ -150,7 +150,7 @@ public class BusReport implements Serializable {
      * 借款发生时间权
      */
     @NotNull(message = "借款发生时间权不能为空")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date obligatTime;
 
     /**

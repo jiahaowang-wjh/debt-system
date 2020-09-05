@@ -66,4 +66,14 @@ public class DebtInfo {
      * 阶段
      */
     String stage;
+
+    /**
+     * 民事调解状态
+     */
+    String ciStatus;
+    /**
+     * 解债状态
+     */
+    String puStatus;
+
 }

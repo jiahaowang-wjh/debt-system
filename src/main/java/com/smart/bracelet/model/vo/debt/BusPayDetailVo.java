@@ -67,4 +67,14 @@ public class BusPayDetailVo implements Serializable {
      */
     @NotBlank(message = "状态不能为空")
     private String status;
+
+    /**
+     * 解借Id
+     */
+    private Long debtId;
+
+    /**
+     * 资产ID
+     */
+    private Long propertId;
 }

@@ -14,7 +14,7 @@ public interface PubDebtService {
 
     int deleteByPrimaryKey(Long debtId) throws CustomerException;
 
-    int insertSelective(PubDebt record) throws CustomerException;
+    Long insertSelective(PubDebt record) throws CustomerException;
 
     PubDebt selectByPrimaryKey(Long debtId);
 

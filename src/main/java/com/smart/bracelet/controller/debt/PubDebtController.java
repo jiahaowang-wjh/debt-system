@@ -32,8 +32,8 @@ public class PubDebtController {
 
     @RequestMapping("/insertSelective")
     public Result insertSelective(@Valid PubDebt record) throws CustomerException {
-        int insertSelective = pubDebtService.insertSelective(record);
-        return Result.success(insertSelective);
+        Long insertSelective = pubDebtService.insertSelective(record);
+        return Result.success(insertSelective+"");
     }
 
 

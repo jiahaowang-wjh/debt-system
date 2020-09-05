@@ -35,4 +35,18 @@ public interface BusPayDetailService {
      * @return
      */
     int updateStatus(String status,Long payId) throws CustomerException;
+
+    /**
+     *通过报备Id和解债id查询支付信息
+     * @param reportId
+     * @return
+     */
+    List<BusPayDetail> selectByReportIdAndDebtId(Long reportId,Long debtId);
+
+    /**
+     *通过报备Id和解债id查询支付信息
+     * @param reportId
+     * @return
+     */
+    List<BusPayDetail> selectByReportIdAndPropertId(Long reportId,Long propertId);
 }

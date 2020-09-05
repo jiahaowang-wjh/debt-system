@@ -86,6 +86,7 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
             busRelativePersonListVo.setAssets(busRelativePerson.getData7());
             busRelativePersonListVo.setAssetsNumber(busRelativePerson.getData8());
             busRelativePersonListVo.setCirculationAssets(busRelativePerson.getData9());
+            busRelativePersonListVo.setIfWork(busRelativePerson.getData10());
         }
         if(busRelativePerson.getReportPropert().equals("2") || busRelativePerson.getReportPropert().equals("3")){
             busRelativePersonListVo.setCompanyName(busRelativePerson.getData1());
@@ -97,7 +98,6 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
             busRelativePersonListVo.setAddress(busRelativePerson.getData7());
             busRelativePersonListVo.setContactPerson(busRelativePerson.getData8());
             busRelativePersonListVo.setContactPhone(busRelativePerson.getData9());
-
         }
 
         return busRelativePersonListVo;
@@ -425,6 +425,7 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
             List<BusRelativePerson> busRelativePeople = busRelativePersonDao.selectByreportId(reportId);
             List<BusRelativePersonListVo> listVos = new ArrayList<>();
             for (BusRelativePerson item: busRelativePeople) {
+                //判断是否符合民事调解关系
                 Boolean verification = busCivilService.verification(item.getRelativePerId());
                 if(verification){
                     BusRelativePersonListVo busRelativePersonListVo = selectByPrimaryKey(item.getRelativePerId());

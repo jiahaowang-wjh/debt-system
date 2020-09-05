@@ -266,4 +266,8 @@ public class BusRelativePersonListVo {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
+    /**
+     * 是否从业
+     */
+    String ifWork;
 }

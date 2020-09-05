@@ -30,10 +30,11 @@ public class UserInfoServiceTest {
     @Test
     public void testA() {
 
-        List<BusRelativePerson> busRelativePeople = busRelativePersonDao.selectByreportId(7989721034286727168L);
-        for (BusRelativePerson item : busRelativePeople) {
-            System.out.println(item.toString());
-        }
+        String s = "http://113.204.236.218:8989/8298dfafdde24a7aa739a99c122f6448.jpg";
+        String ss = "8989/";
+        int i = s.indexOf(ss);
+        String substring = s.substring(i+ss.length());
+        System.out.println(substring);
     }
 
 }

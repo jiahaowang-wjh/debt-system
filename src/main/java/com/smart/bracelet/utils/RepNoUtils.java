@@ -18,7 +18,7 @@ public class RepNoUtils {
         String repNo;
         int intXuhao;
         String stringXuhao;
-        String xuHao=null;
+        String xuHao;
         boolean ok=true;
         Calendar ca = Calendar.getInstance();
         int year = ca.get(Calendar.YEAR);//获取年份

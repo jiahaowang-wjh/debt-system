@@ -31,9 +31,8 @@ public class BusPropertController {
 
     @RequestMapping("/insertSelective")
     public Result insertSelective(@Valid BusPropert record) throws CustomerException {
-        int insertSelective = busPropertService.insertSelective(record);
-        return Result.success(insertSelective);
-
+        Long insertSelective = busPropertService.insertSelective(record);
+        return Result.success(insertSelective+"");
     }
 
     @RequestMapping("/selectByPrimaryKey")

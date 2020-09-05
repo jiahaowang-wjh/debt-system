@@ -10,7 +10,7 @@ import java.util.List;
 public interface BusPropertService {
     int deleteByPrimaryKey(Long propertId) throws CustomerException;
 
-    int insertSelective(BusPropert record) throws CustomerException;
+    Long insertSelective(BusPropert record) throws CustomerException;
 
     BusPropert selectByPrimaryKey(Long propertId);
 

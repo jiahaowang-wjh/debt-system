@@ -39,16 +39,17 @@ public class PubDebtServiceImpl implements PubDebtService {
 
 
     @Override
-    public int insertSelective(PubDebt record) throws CustomerException {
+    public Long insertSelective(PubDebt record) throws CustomerException {
         try {
+            Long l = IdUtils.nextId();
             String selectNo = pubDebtDao.selectNo();
             String repNo = RepNoUtils.createRepNo("TZ", "ZLGS", selectNo);
-            record.setDebtId(IdUtils.nextId());
+            record.setDebtId(l);
             record.setDebtNo(createRepNo());
             record.setServiceNo(repNo);
             int insertSelective = pubDebtDao.insertSelective(record);
             log.info("新增解债信息成功,受影响行数:{}",insertSelective);
-            return insertSelective;
+            return l;
         } catch (Exception e) {
             log.error("新增解债信息失败,异常信息:{}",e.getMessage());
             throw new CustomerException("新增解债信息失败");

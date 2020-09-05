@@ -32,12 +32,13 @@ public class BusPropertServiceImpl implements BusPropertService {
     }
 
     @Override
-    public int insertSelective(BusPropert record) throws CustomerException {
+    public Long insertSelective(BusPropert record) throws CustomerException {
         try {
-            record.setPropertId(IdUtils.nextId());
+            Long l = IdUtils.nextId();
+            record.setPropertId(l);
             int insertSelective = busPropertDao.insertSelective(record);
             log.info("新增资产信息成功,受影响行数:{}",insertSelective);
-            return insertSelective;
+            return l;
         } catch (Exception e) {
             log.error("新增资产信息失败,异常信息:{}", e.getMessage());
             throw new CustomerException("新增资产信息失败");

@@ -43,4 +43,20 @@ public interface BusPayDetailDao {
      * @return reportNo
      */
     List<BusPayDetailInfo> selectPayInfoList(String reportNo);
+
+
+    /**
+     *通过报备Id和解债id查询支付信息
+     * @param reportId
+     * @return
+     */
+    List<BusPayDetail> selectByReportIdAndDebtId(Long reportId,Long debtId);
+
+    /**
+     *通过报备Id和资产id查询支付信息
+     * @param reportId
+     * @return
+     */
+    List<BusPayDetail> selectByReportIdAndPropertId(Long reportId,Long propertId);
+
 }

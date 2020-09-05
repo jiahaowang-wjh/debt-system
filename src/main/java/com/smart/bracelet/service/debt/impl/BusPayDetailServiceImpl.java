@@ -120,5 +120,15 @@ public class BusPayDetailServiceImpl implements BusPayDetailService {
         }
     }
 
+    @Override
+    public List<BusPayDetail> selectByReportIdAndDebtId(Long reportId, Long debtId) {
+        return busPayDetailDao.selectByReportIdAndDebtId(reportId,debtId);
+    }
+
+    @Override
+    public List<BusPayDetail> selectByReportIdAndPropertId(Long reportId, Long propertId) {
+        return busPayDetailDao.selectByReportIdAndPropertId(reportId,propertId);
+    }
+
 
 }

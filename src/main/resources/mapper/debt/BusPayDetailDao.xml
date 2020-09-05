@@ -11,9 +11,11 @@
         <result column="flag" jdbcType="VARCHAR" property="flag"/>
         <result column="pay_no" jdbcType="VARCHAR" property="payNo"/>
         <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="debt_id" jdbcType="BIGINT" property="debtId"/>
+        <result column="propert_id" jdbcType="BIGINT" property="propertId"/>
     </resultMap>
     <sql id="Base_Column_List">
-    pay_id, report_id, contract_name, payert_name, voucher, cost, flag,pay_no,status
+    pay_id, report_id, contract_name, payert_name, voucher, cost, flag,pay_no,status,debt_id,propert_id
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
@@ -62,6 +64,12 @@
             <if test="status != null">
                 status,
             </if>
+            <if test="debtId != null">
+                debt_id,
+            </if>
+            <if test="propertId != null">
+                propert_id,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="payId != null">
@@ -70,7 +78,6 @@
             <if test="reportId != null">
                 #{reportId,jdbcType=BIGINT},
             </if>
-
             <if test="contractName != null">
                 #{contractName,jdbcType=VARCHAR},
             </if>
@@ -91,6 +98,12 @@
             </if>
             <if test="status != null">
                 #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="debtId != null">
+                #{debtId,jdbcType=BIGINT},
+            </if>
+            <if test="propertId != null">
+                #{propertId,jdbcType=BIGINT},
             </if>
         </trim>
     </insert>
@@ -121,6 +134,12 @@
             <if test="status != null">
                 status = #{status,jdbcType=VARCHAR},
             </if>
+            <if test="debtId != null">
+                debt_id = #{debtId,jdbcType=VARCHAR},
+            </if>
+            <if test="propertId != null">
+                propert_id = #{propertId,jdbcType=VARCHAR},
+            </if>
         </set>
         where pay_id = #{payId,jdbcType=BIGINT}
     </update>
@@ -139,5 +158,17 @@
                 br.report_no = #{reportNo,jdbcType=VARCHAR}
             </if>
         </where>
+    </select>
+    <select id="selectByReportIdAndDebtId" resultType="com.smart.bracelet.model.po.debt.BusPayDetail">
+        select
+        <include refid="Base_Column_List"/>
+        from bus_pay_detail
+        where report_id = #{reportId,jdbcType=BIGINT} and debt_id = #{debtId,jdbcType=BIGINT}
+    </select>
+    <select id="selectByReportIdAndPropertId" resultType="com.smart.bracelet.model.po.debt.BusPayDetail">
+        select
+        <include refid="Base_Column_List"/>
+        from bus_pay_detail
+        where report_id = #{reportId,jdbcType=BIGINT} and propert_id = #{propertId,jdbcType=BIGINT}
     </select>
 </mapper>

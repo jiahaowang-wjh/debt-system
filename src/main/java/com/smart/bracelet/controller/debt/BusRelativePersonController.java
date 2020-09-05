@@ -1,7 +1,5 @@
 package com.smart.bracelet.controller.debt;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.smart.bracelet.exception.CustomerException;
@@ -142,7 +140,7 @@ public class BusRelativePersonController {
     }
 
     /**
-     * 根据报备ID查询相对人信息
+     * 根据报备ID查询相对人信息并验证符合民事调解关系
      */
     @RequestMapping("/selectByreportId")
     public Result<List<BusRelativePersonListVo>> selectByreportId(@NotNull(message = "报备ID不能为空") Long reportId) throws CustomerException {

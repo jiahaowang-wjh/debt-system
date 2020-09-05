@@ -38,15 +38,16 @@ public class BusCivilServiceImpl implements BusCivilService {
     }
 
     @Override
-    public int insertSelective(BusCivil record) throws CustomerException {
+    public Long insertSelective(BusCivil record) throws CustomerException {
         try {
+            Long l = IdUtils.nextId();
             String selectRepNo = busCivilDao.selectRepNo();
             String repNo = RepNoUtils.createRepNo("TZ", "MSTJ", selectRepNo);
-            record.setCivilId(IdUtils.nextId());
+            record.setCivilId(l);
             record.setCivilno(repNo);
             int insertSelective = busCivilDao.insertSelective(record);
             log.info("新增民事调解信息成功,受影响行数:{}", insertSelective);
-            return insertSelective;
+            return l;
         } catch (Exception e) {
             log.error("新增民事调解信息失败,异常信息:{}", e.getMessage());
             throw new CustomerException("新增民事调解信息失败");
@@ -122,12 +123,12 @@ public class BusCivilServiceImpl implements BusCivilService {
      */
     @Override
     public Boolean verification(Long relativePerId) {
-        Boolean ok =true;
+        Boolean ok = false;
         //1.通过相对人ID获取债事人相对人身份信息
         DebtAndPerson debtAndPerson = busCivilDao.selectDebtAndPer(relativePerId);
         //2.通过相对人信息去债事人表中验证,若有此人则获取当前报备ID
         Long aLong = busCivilDao.selectReportId(debtAndPerson.getPersonIdcard());
-        //查询结果是否有数据
+        //查询相对人是否债事报备
         if (org.springframework.util.StringUtils.isEmpty(aLong)) {
              ok = false;
         }
