@@ -11,6 +11,10 @@ public class BusCivilInfo {
      */
     @JsonSerialize(using = ToStringSerializer.class)
     Long civilId;
+
+
+    @JsonSerialize(using = ToStringSerializer.class)
+    Long relativePerId;
     /**
      * 报备ID
      */

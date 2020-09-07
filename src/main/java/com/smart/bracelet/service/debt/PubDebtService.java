@@ -3,10 +3,7 @@ package com.smart.bracelet.service.debt;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.po.debt.PubDebt;
-import com.smart.bracelet.model.vo.debt.DebtAndRepAndCiviI;
-import com.smart.bracelet.model.vo.debt.PlanServiceInfo;
-import com.smart.bracelet.model.vo.debt.PubDebtInfo;
-import com.smart.bracelet.model.vo.debt.PubDebtVo;
+import com.smart.bracelet.model.vo.debt.*;
 
 import java.util.List;
 
@@ -44,7 +41,7 @@ public interface PubDebtService {
     /**
      * 页面解债信息展示
      */
-    List<PubDebtInfo> selectDebtListShow(String debtNo,Long debtId);
+    List<PubDebtInfo> selectDebtListShow(QueryDebtVo queryDebtVo);
 
 
     /**

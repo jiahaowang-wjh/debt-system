@@ -142,4 +142,16 @@ public class BusCivilController {
         PlanServiceInfo initialize = busCivilService.initializePlan(reportId);
         return Result.success(initialize);
     }
+
+    /**
+     * 通过报备ID查询民事调解协议
+     * @param reportId
+     * @return
+     */
+    @RequestMapping("/selectByReportId")
+    public Result<List<BusCivil>> selectByReportId(@NotNull(message = "报备Id不能为空") Long reportId){
+        List<BusCivil> busCivils = busCivilService.selectByReportId(reportId);
+        return Result.success(busCivils);
+    }
+
 }

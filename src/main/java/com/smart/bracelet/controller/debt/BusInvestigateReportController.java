@@ -29,8 +29,8 @@ public class BusInvestigateReportController {
 
     @RequestMapping("/insertSelective")
     public Result insertSelective(@Valid BusInvestigateReport record) throws CustomerException {
-        int i = busInvestigateReportService.insertSelective(record);
-        return Result.success(i);
+        Long i = busInvestigateReportService.insertSelective(record);
+        return Result.success(i+"");
     }
 
     @RequestMapping("/selectByPrimaryKey")

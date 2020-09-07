@@ -172,4 +172,9 @@ public class BusCivilServiceImpl implements BusCivilService {
             throw new CustomerException("查询异常");
         }
     }
+
+    @Override
+    public List<BusCivil> selectByReportId(Long reportId) {
+        return busCivilDao.selectByReportId(reportId);
+    }
 }

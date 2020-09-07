@@ -28,5 +28,9 @@ public class DebtInfoQuery {
      * 截至日期
      */
     String endDate;
+    /**
+     * 民事调解编号
+     */
+    String civilno;
 
 }

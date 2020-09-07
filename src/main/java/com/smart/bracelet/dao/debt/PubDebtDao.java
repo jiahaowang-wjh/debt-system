@@ -2,10 +2,7 @@ package com.smart.bracelet.dao.debt;
 
 import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.po.debt.PubDebt;
-import com.smart.bracelet.model.vo.debt.DebtAndRepAndCiviI;
-import com.smart.bracelet.model.vo.debt.PlanServiceInfo;
-import com.smart.bracelet.model.vo.debt.PubDebtInfo;
-import com.smart.bracelet.model.vo.debt.PubDebtVo;
+import com.smart.bracelet.model.vo.debt.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -60,7 +57,7 @@ public interface PubDebtDao {
     /**
      * 页面解债信息展示
      */
-    List<PubDebtInfo> selectDebtListShow(String debtNo,Long debtId);
+    List<PubDebtInfo> selectDebtListShow(QueryDebtVo queryDebtVo);
 
     /**
      * 解债信息填写更新展示

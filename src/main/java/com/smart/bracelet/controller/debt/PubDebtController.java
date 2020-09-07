@@ -6,10 +6,7 @@ import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.po.debt.PubDebt;
-import com.smart.bracelet.model.vo.debt.DebtAndRepAndCiviI;
-import com.smart.bracelet.model.vo.debt.DebtInfoQuery;
-import com.smart.bracelet.model.vo.debt.PubDebtInfo;
-import com.smart.bracelet.model.vo.debt.PubDebtVo;
+import com.smart.bracelet.model.vo.debt.*;
 import com.smart.bracelet.service.debt.PubDebtService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,7 +80,7 @@ public class PubDebtController {
      * @throws CustomerException
      */
     @RequestMapping("/updateStatus")
-    public Result updateStatus(@NotBlank(message = "状态不能为空") String status, @NotNull(message = "解债信息Id不能为空")Long debtId,@NotBlank(message = "审核原因不能为空") String checkReason) throws CustomerException{
+    public Result updateStatus(@NotBlank(message = "状态不能为空") String status, @NotNull(message = "解债信息Id不能为空")Long debtId,String checkReason) throws CustomerException{
         int i = pubDebtService.updateStatus(status, debtId,checkReason);
         return Result.success(i);
     }
@@ -93,10 +90,18 @@ public class PubDebtController {
      */
     @RequestMapping("/selectDebtListShow")
     public Result<PageInfo> selectDebtListShow(@NotNull(message = "页码不能为空") Integer pageNum,
-                                                         @NotNull(message = "当前显示条数不能为空") Integer pageSize,
-                                               String debtNo,Long debtId){
+                                               @NotNull(message = "当前显示条数不能为空") Integer pageSize,
+                                               QueryDebtVo queryDebtVo){
+
+        if (!StringUtils.isBlank(queryDebtVo.getBeginDate())) {
+            queryDebtVo.setBeginDate(queryDebtVo.getBeginDate()+" 00:00:00");
+        }
+        if (!StringUtils.isBlank(queryDebtVo.getEndDate())) {
+            queryDebtVo.setEndDate(queryDebtVo.getEndDate()+" 23:59:00");
+        }
+
         PageHelper.startPage(pageNum,pageSize);
-        List<PubDebtInfo> pubDebtInfos = pubDebtService.selectDebtListShow(debtNo,debtId);
+        List<PubDebtInfo> pubDebtInfos = pubDebtService.selectDebtListShow(queryDebtVo);
         PageInfo<PubDebtInfo> pubDebtInfoPageInfo = new PageInfo<>(pubDebtInfos);
         return Result.success(pubDebtInfoPageInfo);
     }

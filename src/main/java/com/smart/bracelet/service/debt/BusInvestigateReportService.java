@@ -8,7 +8,7 @@ public interface BusInvestigateReportService {
 
     int deleteByPrimaryKey(Long reportId) throws CustomerException;
 
-    int insertSelective(BusInvestigateReport record) throws CustomerException;
+    Long insertSelective(BusInvestigateReport record) throws CustomerException;
 
     BusInvestigateReport selectByPrimaryKey(Long reportId);
 

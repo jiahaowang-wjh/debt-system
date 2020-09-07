@@ -15,7 +15,7 @@ public class PlanServiceInfo {
     /**
      * 债事人身份证
      */
-    String personName;
+    String personCard;
     /**
      * 债事人地址(私人)
      */

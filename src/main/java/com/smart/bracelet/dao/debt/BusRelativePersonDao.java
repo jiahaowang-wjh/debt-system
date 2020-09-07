@@ -32,6 +32,9 @@ public interface BusRelativePersonDao {
      */
     List<Long> selectByreportIdAndDebt(Long reportId);
 
+
+
+
     /**
      * 通过相对人ID查询相对人债事人信息
      * @param relativePerId

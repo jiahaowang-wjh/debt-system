@@ -75,4 +75,12 @@ public interface BusCivilDao {
      * 策划方案服务协议初始化
      */
     PlanServiceInfo initializePlan(Long reportId);
+
+    /**
+     * 通过报备ID查询民事调解协议
+     * @param reportId
+     * @return
+     */
+    List<BusCivil> selectByReportId(Long reportId);
+
 }

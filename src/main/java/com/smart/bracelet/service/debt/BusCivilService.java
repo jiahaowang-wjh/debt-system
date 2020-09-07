@@ -64,4 +64,12 @@ public interface BusCivilService {
      * 策划方案服务协议初始化
      */
     PlanServiceInfo initializePlan(Long reportId) throws CustomerException;
+
+    /**
+     * 通过报备ID查询民事调解协议
+     * @param reportId
+     * @return
+     */
+    List<BusCivil> selectByReportId(Long reportId);
+
 }

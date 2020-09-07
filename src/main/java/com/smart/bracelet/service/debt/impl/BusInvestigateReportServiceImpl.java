@@ -28,10 +28,11 @@ public class BusInvestigateReportServiceImpl implements BusInvestigateReportServ
     }
 
     @Override
-    public int insertSelective(BusInvestigateReport record) throws CustomerException {
+    public Long insertSelective(BusInvestigateReport record) throws CustomerException {
         try {
-            record.setReportId(IdUtils.nextId());
-            return busInvestigateReportDao.insertSelective(record);
+            Long l = IdUtils.nextId();
+            record.setReportId(l);
+            return l;
         } catch (Exception e) {
             log.error("异常信息:{}",e.getMessage());
             throw new CustomerException("新增失败");

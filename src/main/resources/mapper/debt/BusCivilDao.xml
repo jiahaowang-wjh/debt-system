@@ -52,11 +52,12 @@
         from bus_civil
     </select>
     <select id="selectBusList" resultType="com.smart.bracelet.model.vo.debt.BusCivilInfo">
-        SELECT bc.civil_id,br.`report_id`,br.`report_no`,bc.civilno,br.`data1` AS 'debtName',bc.status FROM bus_civil bc
-        LEFT JOIN bus_report br ON bc.report_id=br.report_id
+        SELECT br.`report_id`,bc.civil_id,brp.`relative_per_id`,br.`report_no`,bc.civilno,br.`data1` AS 'debtName',bc.status FROM bus_relative_person brp
+        LEFT JOIN bus_civil bc ON brp.`relative_per_id`=bc.`relative_per_id`
+        LEFT JOIN bus_report br ON brp.`report_id` = br.`report_id`
         <where>
-            <if test="debtNo != null and debtNo!=''">
-                and bc.civilno = #{debtNo,jdbcType=VARCHAR}
+            <if test="civilno != null and civilno!=''">
+                and bc.civilno = #{civilno,jdbcType=VARCHAR}
             </if>
             <if test="status != '' and status!=null">
                 and bc.status = #{status,jdbcType=VARCHAR}
@@ -65,6 +66,7 @@
                 and bc.create_time BETWEEN #{beginDate} AND #{endDate}
             </if>
         </where>
+        ORDER BY br.`report_id` desc
     </select>
     <select id="selectCiviIAndRepShow" resultType="com.smart.bracelet.model.vo.debt.CiviIAndRepShow">
         SELECT br.`report_id`,br.`report_no`,bc.civilno,br.`data1` AS 'debtName',bc.status FROM `bus_civil` bc
@@ -89,11 +91,18 @@
         WHERE br.`report_id` = #{reportId,jdbcType=BIGINT}
     </select>
     <select id="initializePlan" resultType="com.smart.bracelet.model.vo.debt.PlanServiceInfo">
-        SELECT br.`report_propert`,br.`data1` AS 'debtName',br.`data2` AS 'personName',br.`data5` AS 'priAdd',br.`data7` AS 'corBankAdd',br.data3 AS 'priPhone',br.`data9` AS 'corBankPhone',
+        SELECT br.`report_propert`,br.`data1` AS 'debtName',br.`data2` AS 'personCard',br.`data5` AS 'priAdd',br.`data7` AS 'corBankAdd',br.data3 AS 'priPhone',br.`data9` AS 'corBankPhone',
         pd.`amount_this`,pd.partyb_seal
         FROM bus_report br
         LEFT JOIN pub_debt pd ON br.`report_id` = pd.`report_id`
         WHERE br.`report_id` =  #{reportId,jdbcType=BIGINT}
+    </select>
+    <select id="selectByReportId" resultType="com.smart.bracelet.model.po.debt.BusCivil"
+            parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from bus_civil
+        where report_id =#{reportId,jdbcType=BIGINT}
     </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
