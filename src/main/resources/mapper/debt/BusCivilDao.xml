@@ -267,6 +267,15 @@
             </if>
         </trim>
     </insert>
+    <insert id="inertList" parameterType="com.smart.bracelet.model.po.debt.BusMediatePerson">
+        insert into bus_mediate_person(mediate_person_id,civil_id,user_id)
+        values
+        <foreach collection ="list" item="info" separator="," >
+            (#{info.mediatePersonId},#{info.civilId},#{info.userId})
+        </foreach>
+    </insert>
+
+
     <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.vo.debt.BusCivilVo">
         update bus_civil
         <set>

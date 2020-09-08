@@ -9,6 +9,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * bus_civil
@@ -168,4 +169,16 @@ public class BusCivil implements Serializable {
      */
     @NotBlank(message = "审核原因不能为空")
     private String checkReason;
+
+    /**
+     * 担保人集合
+     */
+    List<BusGuarantee> busGuarantee;
+
+    /**
+     * 用户Id
+     */
+    Long[] longs;
+
+
 }

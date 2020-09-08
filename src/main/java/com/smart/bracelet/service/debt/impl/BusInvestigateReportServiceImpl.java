@@ -3,7 +3,6 @@ package com.smart.bracelet.service.debt.impl;
 import com.smart.bracelet.dao.debt.BusInvestigateReportDao;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.debt.BusInvestigateReport;
-import com.smart.bracelet.model.vo.debt.BusInvestigateReportVo;
 import com.smart.bracelet.service.debt.BusInvestigateReportService;
 import com.smart.bracelet.utils.IdUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -18,25 +17,27 @@ public class BusInvestigateReportServiceImpl implements BusInvestigateReportServ
     private BusInvestigateReportDao busInvestigateReportDao;
 
     @Override
-    public int deleteByPrimaryKey(Long reportId) throws CustomerException {
+    public int deleteByPrimaryKey(Long reportId) {
+        return 0;
+    }
+
+    @Override
+    public Long insert(BusInvestigateReport record) throws CustomerException {
         try {
-            return  busInvestigateReportDao.deleteByPrimaryKey(reportId);
+            Long l = IdUtils.nextId();
+            record.setReportId(l);
+            int insert = busInvestigateReportDao.insert(record);
+            log.info("新增调查报告成功，受影响行数：{}",insert);
+            return l;
         } catch (Exception e) {
-            log.error("异常信息:{}", e.getMessage());
-            throw new CustomerException("删除失败");
+            log.error("新增调查报告失败,异常信息：{}",e.getMessage());
+            throw new CustomerException("新增调查报告失败");
         }
     }
 
     @Override
-    public Long insertSelective(BusInvestigateReport record) throws CustomerException {
-        try {
-            Long l = IdUtils.nextId();
-            record.setReportId(l);
-            return l;
-        } catch (Exception e) {
-            log.error("异常信息:{}",e.getMessage());
-            throw new CustomerException("新增失败");
-        }
+    public int insertSelective(BusInvestigateReport record) {
+        return 0;
     }
 
     @Override
@@ -45,12 +46,12 @@ public class BusInvestigateReportServiceImpl implements BusInvestigateReportServ
     }
 
     @Override
-    public int updateByPrimaryKeySelective(BusInvestigateReportVo record) throws CustomerException {
-        try {
-            return busInvestigateReportDao.updateByPrimaryKeySelective(record);
-        } catch (Exception e) {
-            log.error("异常信息:{}",e.getMessage());
-            throw new CustomerException("更新失败");
-        }
+    public int updateByPrimaryKeySelective(BusInvestigateReport record) {
+        return 0;
+    }
+
+    @Override
+    public int updateByPrimaryKey(BusInvestigateReport record) {
+        return 0;
     }
 }

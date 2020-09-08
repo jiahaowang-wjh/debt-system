@@ -1,6 +1,7 @@
 package com.smart.bracelet.service.debt.impl;
 
 import com.smart.bracelet.dao.debt.BusCivilDao;
+import com.smart.bracelet.dao.debt.BusGuaranteeDao;
 import com.smart.bracelet.dao.debt.BusRelativePersonDao;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.debt.*;
@@ -10,9 +11,11 @@ import com.smart.bracelet.utils.ConvertUpMoney;
 import com.smart.bracelet.utils.IdUtils;
 import com.smart.bracelet.utils.RepNoUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,7 +26,11 @@ public class BusCivilServiceImpl implements BusCivilService {
     private BusCivilDao busCivilDao;
 
     @Autowired
+    private BusGuaranteeDao busGuaranteeDao;
+
+    @Autowired
     private BusRelativePersonDao busRelativePersonDao;
+
 
     @Override
     public int deleteByPrimaryKey(Long civilId) throws CustomerException {
@@ -40,17 +47,49 @@ public class BusCivilServiceImpl implements BusCivilService {
     @Override
     public Long insertSelective(BusCivil record) throws CustomerException {
         try {
-            Long l = IdUtils.nextId();
+            //民事调解ID
+            Long CiID = IdUtils.nextId();
             String selectRepNo = busCivilDao.selectRepNo();
             String repNo = RepNoUtils.createRepNo("TZ", "MSTJ", selectRepNo);
-            record.setCivilId(l);
+            record.setCivilId(CiID);
             record.setCivilno(repNo);
+            List<BusGuarantee> busGuarantee = record.getBusGuarantee();
+            if(busGuarantee==null){
+                throw new CustomerException("担保人信息不能为空");
+            }
+            Long[] longs = record.getLongs();
+            if(longs.length==0){
+                throw new CustomerException("调解员id不能为空");
+            }
             int insertSelective = busCivilDao.insertSelective(record);
             log.info("新增民事调解信息成功,受影响行数:{}", insertSelective);
-            return l;
+            if(insertSelective!=0){
+                for (BusGuarantee item:busGuarantee) {
+                    if(!StringUtils.isBlank(item.getAuthname())){
+                        item.setCivilId(CiID);
+                        item.setGuaranteeId(IdUtils.nextId());
+                    }
+                }
+                record.setBusGuarantee(busGuarantee);
+                //批量新增担保人
+                int i = busGuaranteeDao.insertList(record.getBusGuarantee());
+                log.info("新增担保人成功受影响行数：{}",i);
+                //新增调解员
+                List<BusMediatePerson> list = new ArrayList<>();
+                for (Long item: longs) {
+                    BusMediatePerson busMediatePerson = new BusMediatePerson();
+                    busMediatePerson.setMediatePersonId(IdUtils.nextId());
+                    busMediatePerson.setCivilId(CiID);
+                    busMediatePerson.setUserId(item);
+                    list.add(busMediatePerson);
+                }
+                int i1 = busCivilDao.inertList(list);
+                log.info("批量新增调解员成功，受影响行数：{}",i1);
+            }
+            return CiID;
         } catch (Exception e) {
             log.error("新增民事调解信息失败,异常信息:{}", e.getMessage());
-            throw new CustomerException("新增民事调解信息失败");
+            throw new CustomerException("新增民事调解信息失败"+e.getMessage());
         }
     }
 

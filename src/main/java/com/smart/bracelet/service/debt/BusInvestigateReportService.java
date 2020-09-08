@@ -2,16 +2,18 @@ package com.smart.bracelet.service.debt;
 
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.debt.BusInvestigateReport;
-import com.smart.bracelet.model.vo.debt.BusInvestigateReportVo;
 
 public interface BusInvestigateReportService {
 
-    int deleteByPrimaryKey(Long reportId) throws CustomerException;
+    int deleteByPrimaryKey(Long reportId);
 
-    Long insertSelective(BusInvestigateReport record) throws CustomerException;
+    Long insert(BusInvestigateReport record) throws CustomerException;
+
+    int insertSelective(BusInvestigateReport record);
 
     BusInvestigateReport selectByPrimaryKey(Long reportId);
 
-    int updateByPrimaryKeySelective(BusInvestigateReportVo record) throws CustomerException;
+    int updateByPrimaryKeySelective(BusInvestigateReport record);
 
+    int updateByPrimaryKey(BusInvestigateReport record);
 }

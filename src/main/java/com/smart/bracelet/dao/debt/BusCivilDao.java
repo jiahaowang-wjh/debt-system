@@ -1,8 +1,11 @@
 package com.smart.bracelet.dao.debt;
 
 import com.smart.bracelet.model.po.debt.BusCivil;
+import com.smart.bracelet.model.po.debt.BusGuarantee;
+import com.smart.bracelet.model.po.debt.BusMediatePerson;
 import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.vo.debt.*;
+import org.omg.PortableInterceptor.LOCATION_FORWARD;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -83,4 +86,8 @@ public interface BusCivilDao {
      */
     List<BusCivil> selectByReportId(Long reportId);
 
+    /**
+     * 批量新增调解参与人信息表
+     */
+    int inertList(List<BusMediatePerson> busMediatePerson);
 }

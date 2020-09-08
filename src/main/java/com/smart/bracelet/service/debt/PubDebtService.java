@@ -49,6 +49,9 @@ public interface PubDebtService {
      */
     List<DebtAndRepAndCiviI> selectDebtAndRepAndCiviI();
 
-
+    /**
+     * 通过报备Id查询解债信息
+     */
+    List<PubDebt> selectByreportId(Long reportId);
 
 }

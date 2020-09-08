@@ -15,6 +15,7 @@
     <result column="business" jdbcType="VARCHAR" property="business" />
     <result column="legalperson_name" jdbcType="VARCHAR" property="legalpersonName" />
     <result column="legalperson_sex" jdbcType="VARCHAR" property="legalpersonSex" />
+    <result column="legalperson_age" jdbcType="VARCHAR" property="legalpersonAge" />
     <result column="legalperson_edu" jdbcType="VARCHAR" property="legalpersonEdu" />
     <result column="legalperson_mirr" jdbcType="VARCHAR" property="legalpersonMirr" />
     <result column="legalperson_tel" jdbcType="VARCHAR" property="legalpersonTel" />
@@ -43,9 +44,9 @@
     <result column="bank3" jdbcType="VARCHAR" property="bank3" />
     <result column="amount3" jdbcType="VARCHAR" property="amount3" />
     <result column="private_finance" jdbcType="VARCHAR" property="privateFinance" />
-    <result column="small_company" jdbcType="REAL" property="smallCompany" />
-    <result column="guarantee_company" jdbcType="REAL" property="guaranteeCompany" />
-    <result column="fund_company" jdbcType="REAL" property="fundCompany" />
+    <result column="small_company" jdbcType="VARCHAR" property="smallCompany" />
+    <result column="guarantee_company" jdbcType="VARCHAR" property="guaranteeCompany" />
+    <result column="fund_company" jdbcType="VARCHAR" property="fundCompany" />
     <result column="toloan_count" jdbcType="REAL" property="toloanCount" />
     <result column="is_ill_fund" jdbcType="VARCHAR" property="isIllFund" />
     <result column="fifty_thousand" jdbcType="INTEGER" property="fiftyThousand" />
@@ -53,30 +54,30 @@
     <result column="five_hundred_thousand" jdbcType="INTEGER" property="fiveHundredThousand" />
     <result column="one_million" jdbcType="INTEGER" property="oneMillion" />
     <result column="one_million_above" jdbcType="INTEGER" property="oneMillionAbove" />
-    <result column="project_arrears" jdbcType="VARCHAR" property="projectArrears" />
+    <result column="project_arrears" jdbcType="REAL" property="projectArrears" />
     <result column="default_taxes" jdbcType="REAL" property="defaultTaxes" />
     <result column="default_wages" jdbcType="REAL" property="defaultWages" />
     <result column="default_socialsecurity" jdbcType="REAL" property="defaultSocialsecurity" />
     <result column="receivable_account" jdbcType="REAL" property="receivableAccount" />
     <result column="copewith" jdbcType="REAL" property="copewith" />
-    <result column="involving_justice" jdbcType="INTEGER" property="involvingJustice" />
+    <result column="involving_justice" jdbcType="VARCHAR" property="involvingJustice" />
     <result column="stock_ispledge" jdbcType="VARCHAR" property="stockIspledge" />
     <result column="manag_model" jdbcType="VARCHAR" property="managModel" />
     <result column="manag_model_year1" jdbcType="INTEGER" property="managModelYear1" />
     <result column="manag_model_money1" jdbcType="REAL" property="managModelMoney1" />
-    <result column="prodous_grossprofit1" jdbcType="INTEGER" property="prodousGrossprofit1" />
-    <result column="netprofit1" jdbcType="INTEGER" property="netprofit1" />
+    <result column="prodous_grossprofit1" jdbcType="REAL" property="prodousGrossprofit1" />
+    <result column="netprofit1" jdbcType="REAL" property="netprofit1" />
     <result column="manag_model_year2" jdbcType="INTEGER" property="managModelYear2" />
     <result column="manag_model_money2" jdbcType="REAL" property="managModelMoney2" />
-    <result column="prodous_grossprofit2" jdbcType="INTEGER" property="prodousGrossprofit2" />
-    <result column="netprofit2" jdbcType="INTEGER" property="netprofit2" />
+    <result column="prodous_grossprofit2" jdbcType="REAL" property="prodousGrossprofit2" />
+    <result column="netprofit2" jdbcType="REAL" property="netprofit2" />
     <result column="sunrise_industry" jdbcType="VARCHAR" property="sunriseIndustry" />
     <result column="sunset_industry" jdbcType="VARCHAR" property="sunsetIndustry" />
     <result column="new_industry" jdbcType="VARCHAR" property="newIndustry" />
     <result column="future_industry" jdbcType="VARCHAR" property="futureIndustry" />
     <result column="surplus_industry" jdbcType="VARCHAR" property="surplusIndustry" />
     <result column="elimination" jdbcType="VARCHAR" property="elimination" />
-    <result column="land" jdbcType="INTEGER" property="land" />
+    <result column="land" jdbcType="VARCHAR" property="land" />
     <result column="land_nature" jdbcType="VARCHAR" property="landNature" />
     <result column="purchase_price" jdbcType="REAL" property="purchasePrice" />
     <result column="price_access_value" jdbcType="REAL" property="priceAccessValue" />
@@ -89,30 +90,30 @@
     <result column="busines" jdbcType="VARCHAR" property="busines" />
     <result column="busines_service" jdbcType="VARCHAR" property="businesService" />
     <result column="house_addr" jdbcType="VARCHAR" property="houseAddr" />
-    <result column="house_access_value" jdbcType="VARCHAR" property="houseAccessValue" />
+    <result column="house_access_value" jdbcType="REAL" property="houseAccessValue" />
     <result column="house_ispledge" jdbcType="VARCHAR" property="houseIspledge" />
     <result column="house_isjudicial" jdbcType="VARCHAR" property="houseIsjudicial" />
     <result column="house_isSeizure" jdbcType="VARCHAR" property="houseIsseizure" />
-    <result column="residence1" jdbcType="INTEGER" property="residence1" />
-    <result column="residence_access_value" jdbcType="INTEGER" property="residenceAccessValue" />
+    <result column="residence1" jdbcType="VARCHAR" property="residence1" />
+    <result column="residence_access_value" jdbcType="VARCHAR" property="residenceAccessValue" />
     <result column="residence_ispledge" jdbcType="VARCHAR" property="residenceIspledge" />
     <result column="residence_isjudicial" jdbcType="VARCHAR" property="residenceIsjudicial" />
     <result column="residence_isSeizure" jdbcType="VARCHAR" property="residenceIsseizure" />
-    <result column="busines1" jdbcType="INTEGER" property="busines1" />
-    <result column="busines_access_value" jdbcType="INTEGER" property="businesAccessValue" />
+    <result column="busines1" jdbcType="VARCHAR" property="busines1" />
+    <result column="busines_access_value" jdbcType="VARCHAR" property="businesAccessValue" />
     <result column="busines_ispledge" jdbcType="VARCHAR" property="businesIspledge" />
     <result column="busines_isjudicial" jdbcType="VARCHAR" property="businesIsjudicial" />
     <result column="busines_isSeizure" jdbcType="VARCHAR" property="businesIsseizure" />
-    <result column="workshop" jdbcType="INTEGER" property="workshop" />
-    <result column="workshop_access_value" jdbcType="INTEGER" property="workshopAccessValue" />
+    <result column="workshop" jdbcType="VARCHAR" property="workshop" />
+    <result column="workshop_access_value" jdbcType="VARCHAR" property="workshopAccessValue" />
     <result column="workshop_ispledge" jdbcType="VARCHAR" property="workshopIspledge" />
     <result column="workshop_isjudicial" jdbcType="VARCHAR" property="workshopIsjudicial" />
     <result column="workshop_isSeizure" jdbcType="VARCHAR" property="workshopIsseizure" />
-    <result column="device" jdbcType="INTEGER" property="device" />
-    <result column="device_access_value" jdbcType="INTEGER" property="deviceAccessValue" />
+    <result column="device" jdbcType="VARCHAR" property="device" />
+    <result column="device_access_value" jdbcType="VARCHAR" property="deviceAccessValue" />
     <result column="major_device" jdbcType="VARCHAR" property="majorDevice" />
-    <result column="common_device" jdbcType="INTEGER" property="commonDevice" />
-    <result column="oter_access_value" jdbcType="INTEGER" property="oterAccessValue" />
+    <result column="common_device" jdbcType="VARCHAR" property="commonDevice" />
+    <result column="oter_access_value" jdbcType="VARCHAR" property="oterAccessValue" />
     <result column="oter_ispledge" jdbcType="VARCHAR" property="oterIspledge" />
     <result column="oter_isjudicial" jdbcType="VARCHAR" property="oterIsjudicial" />
     <result column="oter_isSeizure" jdbcType="VARCHAR" property="oterIsseizure" />
@@ -134,20 +135,17 @@
     <result column="other_supplement" jdbcType="VARCHAR" property="otherSupplement" />
     <result column="investigation_conclusion" jdbcType="VARCHAR" property="investigationConclusion" />
     <result column="investigation_person" jdbcType="VARCHAR" property="investigationPerson" />
-    <result column="investigation_date" jdbcType="DATE" property="investigationDate" />
+    <result column="investigation_date" jdbcType="TIMESTAMP" property="investigationDate" />
     <result column="project_ispopulation" jdbcType="VARCHAR" property="projectIspopulation" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.smart.bracelet.model.po.debt.BusInvestigateReport">
-    <result column="legalperson_age" jdbcType="BIGINT" property="legalpersonAge" />
   </resultMap>
   <sql id="Base_Column_List">
     report_id, debt_id, unit_name, account_manager, report_finash_date, account_name, 
     registered_capital, found_time, management_addr, management, business, legalperson_name, 
-    legalperson_sex, legalperson_edu, legalperson_mirr, legalperson_tel, legalperson_stock, 
-    stock_name, stock_sex, stock_age, stock_edu, stock_mirr, stock_tel, stock_stock, 
-    stock1_name, stock1_sex, stock1_age, stock1_edu, stock1_mirr, stock1_tel, stock1_stock, 
-    company_total_liab, total_liab_rate, total_bank, bank1, amount1, bank2, amount2, 
-    bank3, amount3, private_finance, small_company, guarantee_company, fund_company, 
+    legalperson_sex, legalperson_age, legalperson_edu, legalperson_mirr, legalperson_tel, 
+    legalperson_stock, stock_name, stock_sex, stock_age, stock_edu, stock_mirr, stock_tel, 
+    stock_stock, stock1_name, stock1_sex, stock1_age, stock1_edu, stock1_mirr, stock1_tel, 
+    stock1_stock, company_total_liab, total_liab_rate, total_bank, bank1, amount1, bank2, 
+    amount2, bank3, amount3, private_finance, small_company, guarantee_company, fund_company, 
     toloan_count, is_ill_fund, fifty_thousand, two_hundred_thousand, five_hundred_thousand, 
     one_million, one_million_above, project_arrears, default_taxes, default_wages, default_socialsecurity, 
     receivable_account, copewith, involving_justice, stock_ispledge, manag_model, manag_model_year1, 
@@ -167,14 +165,9 @@
     project_weakness, project_population, debtor_evaluate, other_supplement, investigation_conclusion, 
     investigation_person, investigation_date, project_ispopulation
   </sql>
-  <sql id="Blob_Column_List">
-    legalperson_age
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from bus_investigate_report
     where report_id = #{reportId,jdbcType=BIGINT}
   </select>
@@ -182,6 +175,106 @@
     delete from bus_investigate_report
     where report_id = #{reportId,jdbcType=BIGINT}
   </delete>
+  <insert id="insert" parameterType="com.smart.bracelet.model.po.debt.BusInvestigateReport">
+    insert into bus_investigate_report (report_id, debt_id, unit_name, 
+      account_manager, report_finash_date, account_name, 
+      registered_capital, found_time, management_addr, 
+      management, business, legalperson_name, 
+      legalperson_sex, legalperson_age, legalperson_edu, 
+      legalperson_mirr, legalperson_tel, legalperson_stock, 
+      stock_name, stock_sex, stock_age, 
+      stock_edu, stock_mirr, stock_tel, 
+      stock_stock, stock1_name, stock1_sex, 
+      stock1_age, stock1_edu, stock1_mirr, 
+      stock1_tel, stock1_stock, company_total_liab, 
+      total_liab_rate, total_bank, bank1, 
+      amount1, bank2, amount2, 
+      bank3, amount3, private_finance, 
+      small_company, guarantee_company, fund_company, 
+      toloan_count, is_ill_fund, fifty_thousand, 
+      two_hundred_thousand, five_hundred_thousand, 
+      one_million, one_million_above, project_arrears, 
+      default_taxes, default_wages, default_socialsecurity, 
+      receivable_account, copewith, involving_justice, 
+      stock_ispledge, manag_model, manag_model_year1, 
+      manag_model_money1, prodous_grossprofit1, netprofit1, 
+      manag_model_year2, manag_model_money2, prodous_grossprofit2, 
+      netprofit2, sunrise_industry, sunset_industry, 
+      new_industry, future_industry, surplus_industry, 
+      elimination, land, land_nature, 
+      purchase_price, price_access_value, price_ispledge, 
+      price_isjudicial, price_isSeizure, price_addr, 
+      house_property, residence, busines, 
+      busines_service, house_addr, house_access_value, 
+      house_ispledge, house_isjudicial, house_isSeizure, 
+      residence1, residence_access_value, residence_ispledge, 
+      residence_isjudicial, residence_isSeizure, 
+      busines1, busines_access_value, busines_ispledge, 
+      busines_isjudicial, busines_isSeizure, workshop, 
+      workshop_access_value, workshop_ispledge, 
+      workshop_isjudicial, workshop_isSeizure, 
+      device, device_access_value, major_device, 
+      common_device, oter_access_value, oter_ispledge, 
+      oter_isjudicial, oter_isSeizure, build_useland_licence, 
+      build_engin_licence, engin_construc_licence, 
+      investment_project_record, project_prehouse_licence, 
+      project_build_contract, project_build_company, 
+      business_license, tax_declaration, enterprise_bus_report, 
+      enterprise_produc_prove, project_advantage, 
+      project_weakness, project_population, debtor_evaluate, 
+      other_supplement, investigation_conclusion, 
+      investigation_person, investigation_date, 
+      project_ispopulation)
+    values (#{reportId,jdbcType=BIGINT}, #{debtId,jdbcType=BIGINT}, #{unitName,jdbcType=VARCHAR}, 
+      #{accountManager,jdbcType=VARCHAR}, #{reportFinashDate,jdbcType=DATE}, #{accountName,jdbcType=VARCHAR}, 
+      #{registeredCapital,jdbcType=BIGINT}, #{foundTime,jdbcType=DATE}, #{managementAddr,jdbcType=VARCHAR}, 
+      #{management,jdbcType=VARCHAR}, #{business,jdbcType=VARCHAR}, #{legalpersonName,jdbcType=VARCHAR}, 
+      #{legalpersonSex,jdbcType=VARCHAR}, #{legalpersonAge,jdbcType=VARCHAR}, #{legalpersonEdu,jdbcType=VARCHAR}, 
+      #{legalpersonMirr,jdbcType=VARCHAR}, #{legalpersonTel,jdbcType=VARCHAR}, #{legalpersonStock,jdbcType=VARCHAR}, 
+      #{stockName,jdbcType=VARCHAR}, #{stockSex,jdbcType=VARCHAR}, #{stockAge,jdbcType=VARCHAR}, 
+      #{stockEdu,jdbcType=VARCHAR}, #{stockMirr,jdbcType=VARCHAR}, #{stockTel,jdbcType=VARCHAR}, 
+      #{stockStock,jdbcType=VARCHAR}, #{stock1Name,jdbcType=VARCHAR}, #{stock1Sex,jdbcType=VARCHAR}, 
+      #{stock1Age,jdbcType=VARCHAR}, #{stock1Edu,jdbcType=VARCHAR}, #{stock1Mirr,jdbcType=VARCHAR}, 
+      #{stock1Tel,jdbcType=VARCHAR}, #{stock1Stock,jdbcType=VARCHAR}, #{companyTotalLiab,jdbcType=VARCHAR}, 
+      #{totalLiabRate,jdbcType=VARCHAR}, #{totalBank,jdbcType=VARCHAR}, #{bank1,jdbcType=VARCHAR}, 
+      #{amount1,jdbcType=VARCHAR}, #{bank2,jdbcType=VARCHAR}, #{amount2,jdbcType=VARCHAR}, 
+      #{bank3,jdbcType=VARCHAR}, #{amount3,jdbcType=VARCHAR}, #{privateFinance,jdbcType=VARCHAR}, 
+      #{smallCompany,jdbcType=REAL}, #{guaranteeCompany,jdbcType=VARCHAR}, #{fundCompany,jdbcType=VARCHAR},
+      #{toloanCount,jdbcType=REAL}, #{isIllFund,jdbcType=VARCHAR}, #{fiftyThousand,jdbcType=INTEGER}, 
+      #{twoHundredThousand,jdbcType=INTEGER}, #{fiveHundredThousand,jdbcType=INTEGER}, 
+      #{oneMillion,jdbcType=INTEGER}, #{oneMillionAbove,jdbcType=INTEGER}, #{projectArrears,jdbcType=REAL}, 
+      #{defaultTaxes,jdbcType=REAL}, #{defaultWages,jdbcType=REAL}, #{defaultSocialsecurity,jdbcType=REAL}, 
+      #{receivableAccount,jdbcType=REAL}, #{copewith,jdbcType=REAL}, #{involvingJustice,jdbcType=VARCHAR}, 
+      #{stockIspledge,jdbcType=VARCHAR}, #{managModel,jdbcType=VARCHAR}, #{managModelYear1,jdbcType=INTEGER}, 
+      #{managModelMoney1,jdbcType=REAL}, #{prodousGrossprofit1,jdbcType=REAL}, #{netprofit1,jdbcType=REAL},
+      #{managModelYear2,jdbcType=INTEGER}, #{managModelMoney2,jdbcType=REAL}, #{prodousGrossprofit2,jdbcType=REAL},
+      #{netprofit2,jdbcType=REAL}, #{sunriseIndustry,jdbcType=VARCHAR}, #{sunsetIndustry,jdbcType=VARCHAR}, 
+      #{newIndustry,jdbcType=VARCHAR}, #{futureIndustry,jdbcType=VARCHAR}, #{surplusIndustry,jdbcType=VARCHAR}, 
+      #{elimination,jdbcType=VARCHAR}, #{land,jdbcType=VARCHAR}, #{landNature,jdbcType=VARCHAR}, 
+      #{purchasePrice,jdbcType=REAL}, #{priceAccessValue,jdbcType=REAL}, #{priceIspledge,jdbcType=VARCHAR}, 
+      #{priceIsjudicial,jdbcType=VARCHAR}, #{priceIsseizure,jdbcType=VARCHAR}, #{priceAddr,jdbcType=VARCHAR}, 
+      #{houseProperty,jdbcType=VARCHAR}, #{residence,jdbcType=VARCHAR}, #{busines,jdbcType=VARCHAR}, 
+      #{businesService,jdbcType=VARCHAR}, #{houseAddr,jdbcType=VARCHAR}, #{houseAccessValue,jdbcType=REAL}, 
+      #{houseIspledge,jdbcType=VARCHAR}, #{houseIsjudicial,jdbcType=VARCHAR}, #{houseIsseizure,jdbcType=VARCHAR}, 
+      #{residence1,jdbcType=VARCHAR}, #{residenceAccessValue,jdbcType=VARCHAR}, #{residenceIspledge,jdbcType=VARCHAR}, 
+      #{residenceIsjudicial,jdbcType=VARCHAR}, #{residenceIsseizure,jdbcType=VARCHAR}, 
+      #{busines1,jdbcType=VARCHAR}, #{businesAccessValue,jdbcType=VARCHAR}, #{businesIspledge,jdbcType=VARCHAR}, 
+      #{businesIsjudicial,jdbcType=VARCHAR}, #{businesIsseizure,jdbcType=VARCHAR}, #{workshop,jdbcType=VARCHAR}, 
+      #{workshopAccessValue,jdbcType=VARCHAR}, #{workshopIspledge,jdbcType=VARCHAR}, 
+      #{workshopIsjudicial,jdbcType=VARCHAR}, #{workshopIsseizure,jdbcType=VARCHAR}, 
+      #{device,jdbcType=VARCHAR}, #{deviceAccessValue,jdbcType=VARCHAR}, #{majorDevice,jdbcType=VARCHAR}, 
+      #{commonDevice,jdbcType=VARCHAR}, #{oterAccessValue,jdbcType=VARCHAR}, #{oterIspledge,jdbcType=VARCHAR}, 
+      #{oterIsjudicial,jdbcType=VARCHAR}, #{oterIsseizure,jdbcType=VARCHAR}, #{buildUselandLicence,jdbcType=VARCHAR}, 
+      #{buildEnginLicence,jdbcType=VARCHAR}, #{enginConstrucLicence,jdbcType=VARCHAR}, 
+      #{investmentProjectRecord,jdbcType=VARCHAR}, #{projectPrehouseLicence,jdbcType=VARCHAR}, 
+      #{projectBuildContract,jdbcType=VARCHAR}, #{projectBuildCompany,jdbcType=VARCHAR}, 
+      #{businessLicense,jdbcType=VARCHAR}, #{taxDeclaration,jdbcType=VARCHAR}, #{enterpriseBusReport,jdbcType=VARCHAR}, 
+      #{enterpriseProducProve,jdbcType=VARCHAR}, #{projectAdvantage,jdbcType=VARCHAR}, 
+      #{projectWeakness,jdbcType=VARCHAR}, #{projectPopulation,jdbcType=VARCHAR}, #{debtorEvaluate,jdbcType=VARCHAR}, 
+      #{otherSupplement,jdbcType=VARCHAR}, #{investigationConclusion,jdbcType=VARCHAR}, 
+      #{investigationPerson,jdbcType=VARCHAR}, #{investigationDate,jdbcType=TIMESTAMP}, 
+      #{projectIspopulation,jdbcType=VARCHAR})
+  </insert>
   <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.debt.BusInvestigateReport">
     insert into bus_investigate_report
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -223,6 +316,9 @@
       </if>
       <if test="legalpersonSex != null">
         legalperson_sex,
+      </if>
+      <if test="legalpersonAge != null">
+        legalperson_age,
       </if>
       <if test="legalpersonEdu != null">
         legalperson_edu,
@@ -587,9 +683,6 @@
       <if test="projectIspopulation != null">
         project_ispopulation,
       </if>
-      <if test="legalpersonAge != null">
-        legalperson_age,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="reportId != null">
@@ -630,6 +723,9 @@
       </if>
       <if test="legalpersonSex != null">
         #{legalpersonSex,jdbcType=VARCHAR},
+      </if>
+      <if test="legalpersonAge != null">
+        #{legalpersonAge,jdbcType=VARCHAR},
       </if>
       <if test="legalpersonEdu != null">
         #{legalpersonEdu,jdbcType=VARCHAR},
@@ -719,10 +815,10 @@
         #{smallCompany,jdbcType=REAL},
       </if>
       <if test="guaranteeCompany != null">
-        #{guaranteeCompany,jdbcType=REAL},
+        #{guaranteeCompany,jdbcType=VARCHAR},
       </if>
       <if test="fundCompany != null">
-        #{fundCompany,jdbcType=REAL},
+        #{fundCompany,jdbcType=VARCHAR},
       </if>
       <if test="toloanCount != null">
         #{toloanCount,jdbcType=REAL},
@@ -746,7 +842,7 @@
         #{oneMillionAbove,jdbcType=INTEGER},
       </if>
       <if test="projectArrears != null">
-        #{projectArrears,jdbcType=VARCHAR},
+        #{projectArrears,jdbcType=REAL},
       </if>
       <if test="defaultTaxes != null">
         #{defaultTaxes,jdbcType=REAL},
@@ -764,7 +860,7 @@
         #{copewith,jdbcType=REAL},
       </if>
       <if test="involvingJustice != null">
-        #{involvingJustice,jdbcType=INTEGER},
+        #{involvingJustice,jdbcType=VARCHAR},
       </if>
       <if test="stockIspledge != null">
         #{stockIspledge,jdbcType=VARCHAR},
@@ -779,10 +875,10 @@
         #{managModelMoney1,jdbcType=REAL},
       </if>
       <if test="prodousGrossprofit1 != null">
-        #{prodousGrossprofit1,jdbcType=INTEGER},
+        #{prodousGrossprofit1,jdbcType=REAL},
       </if>
       <if test="netprofit1 != null">
-        #{netprofit1,jdbcType=INTEGER},
+        #{netprofit1,jdbcType=REAL},
       </if>
       <if test="managModelYear2 != null">
         #{managModelYear2,jdbcType=INTEGER},
@@ -791,10 +887,10 @@
         #{managModelMoney2,jdbcType=REAL},
       </if>
       <if test="prodousGrossprofit2 != null">
-        #{prodousGrossprofit2,jdbcType=INTEGER},
+        #{prodousGrossprofit2,jdbcType=REAL},
       </if>
       <if test="netprofit2 != null">
-        #{netprofit2,jdbcType=INTEGER},
+        #{netprofit2,jdbcType=REAL},
       </if>
       <if test="sunriseIndustry != null">
         #{sunriseIndustry,jdbcType=VARCHAR},
@@ -815,7 +911,7 @@
         #{elimination,jdbcType=VARCHAR},
       </if>
       <if test="land != null">
-        #{land,jdbcType=INTEGER},
+        #{land,jdbcType=VARCHAR},
       </if>
       <if test="landNature != null">
         #{landNature,jdbcType=VARCHAR},
@@ -854,7 +950,7 @@
         #{houseAddr,jdbcType=VARCHAR},
       </if>
       <if test="houseAccessValue != null">
-        #{houseAccessValue,jdbcType=VARCHAR},
+        #{houseAccessValue,jdbcType=REAL},
       </if>
       <if test="houseIspledge != null">
         #{houseIspledge,jdbcType=VARCHAR},
@@ -866,10 +962,10 @@
         #{houseIsseizure,jdbcType=VARCHAR},
       </if>
       <if test="residence1 != null">
-        #{residence1,jdbcType=INTEGER},
+        #{residence1,jdbcType=VARCHAR},
       </if>
       <if test="residenceAccessValue != null">
-        #{residenceAccessValue,jdbcType=INTEGER},
+        #{residenceAccessValue,jdbcType=VARCHAR},
       </if>
       <if test="residenceIspledge != null">
         #{residenceIspledge,jdbcType=VARCHAR},
@@ -881,10 +977,10 @@
         #{residenceIsseizure,jdbcType=VARCHAR},
       </if>
       <if test="busines1 != null">
-        #{busines1,jdbcType=INTEGER},
+        #{busines1,jdbcType=VARCHAR},
       </if>
       <if test="businesAccessValue != null">
-        #{businesAccessValue,jdbcType=INTEGER},
+        #{businesAccessValue,jdbcType=VARCHAR},
       </if>
       <if test="businesIspledge != null">
         #{businesIspledge,jdbcType=VARCHAR},
@@ -896,10 +992,10 @@
         #{businesIsseizure,jdbcType=VARCHAR},
       </if>
       <if test="workshop != null">
-        #{workshop,jdbcType=INTEGER},
+        #{workshop,jdbcType=VARCHAR},
       </if>
       <if test="workshopAccessValue != null">
-        #{workshopAccessValue,jdbcType=INTEGER},
+        #{workshopAccessValue,jdbcType=VARCHAR},
       </if>
       <if test="workshopIspledge != null">
         #{workshopIspledge,jdbcType=VARCHAR},
@@ -911,19 +1007,19 @@
         #{workshopIsseizure,jdbcType=VARCHAR},
       </if>
       <if test="device != null">
-        #{device,jdbcType=INTEGER},
+        #{device,jdbcType=VARCHAR},
       </if>
       <if test="deviceAccessValue != null">
-        #{deviceAccessValue,jdbcType=INTEGER},
+        #{deviceAccessValue,jdbcType=VARCHAR},
       </if>
       <if test="majorDevice != null">
         #{majorDevice,jdbcType=VARCHAR},
       </if>
       <if test="commonDevice != null">
-        #{commonDevice,jdbcType=INTEGER},
+        #{commonDevice,jdbcType=VARCHAR},
       </if>
       <if test="oterAccessValue != null">
-        #{oterAccessValue,jdbcType=INTEGER},
+        #{oterAccessValue,jdbcType=VARCHAR},
       </if>
       <if test="oterIspledge != null">
         #{oterIspledge,jdbcType=VARCHAR},
@@ -989,17 +1085,14 @@
         #{investigationPerson,jdbcType=VARCHAR},
       </if>
       <if test="investigationDate != null">
-        #{investigationDate,jdbcType=DATE},
+        #{investigationDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="projectIspopulation != null">BIGINT
+      <if test="projectIspopulation != null">
         #{projectIspopulation,jdbcType=VARCHAR},
-      </if>
-      <if test="legalpersonAge != null">
-        #{legalpersonAge,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.vo.debt.BusInvestigateReportVo">
+  <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.po.debt.BusInvestigateReport">
     update bus_investigate_report
     <set>
       <if test="debtId != null">
@@ -1037,6 +1130,9 @@
       </if>
       <if test="legalpersonSex != null">
         legalperson_sex = #{legalpersonSex,jdbcType=VARCHAR},
+      </if>
+      <if test="legalpersonAge != null">
+        legalperson_age = #{legalpersonAge,jdbcType=VARCHAR},
       </if>
       <if test="legalpersonEdu != null">
         legalperson_edu = #{legalpersonEdu,jdbcType=VARCHAR},
@@ -1123,13 +1219,13 @@
         private_finance = #{privateFinance,jdbcType=VARCHAR},
       </if>
       <if test="smallCompany != null">
-        small_company = #{smallCompany,jdbcType=REAL},
+        small_company = #{smallCompany,jdbcType=VARCHAR},
       </if>
       <if test="guaranteeCompany != null">
-        guarantee_company = #{guaranteeCompany,jdbcType=REAL},
+        guarantee_company = #{guaranteeCompany,jdbcType=VARCHAR},
       </if>
       <if test="fundCompany != null">
-        fund_company = #{fundCompany,jdbcType=REAL},
+        fund_company = #{fundCompany,jdbcType=VARCHAR},
       </if>
       <if test="toloanCount != null">
         toloan_count = #{toloanCount,jdbcType=REAL},
@@ -1153,7 +1249,7 @@
         one_million_above = #{oneMillionAbove,jdbcType=INTEGER},
       </if>
       <if test="projectArrears != null">
-        project_arrears = #{projectArrears,jdbcType=VARCHAR},
+        project_arrears = #{projectArrears,jdbcType=REAL},
       </if>
       <if test="defaultTaxes != null">
         default_taxes = #{defaultTaxes,jdbcType=REAL},
@@ -1171,7 +1267,7 @@
         copewith = #{copewith,jdbcType=REAL},
       </if>
       <if test="involvingJustice != null">
-        involving_justice = #{involvingJustice,jdbcType=INTEGER},
+        involving_justice = #{involvingJustice,jdbcType=VARCHAR},
       </if>
       <if test="stockIspledge != null">
         stock_ispledge = #{stockIspledge,jdbcType=VARCHAR},
@@ -1186,10 +1282,10 @@
         manag_model_money1 = #{managModelMoney1,jdbcType=REAL},
       </if>
       <if test="prodousGrossprofit1 != null">
-        prodous_grossprofit1 = #{prodousGrossprofit1,jdbcType=INTEGER},
+        prodous_grossprofit1 = #{prodousGrossprofit1,jdbcType=REAL},
       </if>
       <if test="netprofit1 != null">
-        netprofit1 = #{netprofit1,jdbcType=INTEGER},
+        netprofit1 = #{netprofit1,jdbcType=REAL},
       </if>
       <if test="managModelYear2 != null">
         manag_model_year2 = #{managModelYear2,jdbcType=INTEGER},
@@ -1198,10 +1294,10 @@
         manag_model_money2 = #{managModelMoney2,jdbcType=REAL},
       </if>
       <if test="prodousGrossprofit2 != null">
-        prodous_grossprofit2 = #{prodousGrossprofit2,jdbcType=INTEGER},
+        prodous_grossprofit2 = #{prodousGrossprofit2,jdbcType=REAL},
       </if>
       <if test="netprofit2 != null">
-        netprofit2 = #{netprofit2,jdbcType=INTEGER},
+        netprofit2 = #{netprofit2,jdbcType=REAL},
       </if>
       <if test="sunriseIndustry != null">
         sunrise_industry = #{sunriseIndustry,jdbcType=VARCHAR},
@@ -1222,7 +1318,7 @@
         elimination = #{elimination,jdbcType=VARCHAR},
       </if>
       <if test="land != null">
-        land = #{land,jdbcType=INTEGER},
+        land = #{land,jdbcType=VARCHAR},
       </if>
       <if test="landNature != null">
         land_nature = #{landNature,jdbcType=VARCHAR},
@@ -1261,7 +1357,7 @@
         house_addr = #{houseAddr,jdbcType=VARCHAR},
       </if>
       <if test="houseAccessValue != null">
-        house_access_value = #{houseAccessValue,jdbcType=VARCHAR},
+        house_access_value = #{houseAccessValue,jdbcType=REAL},
       </if>
       <if test="houseIspledge != null">
         house_ispledge = #{houseIspledge,jdbcType=VARCHAR},
@@ -1273,10 +1369,10 @@
         house_isSeizure = #{houseIsseizure,jdbcType=VARCHAR},
       </if>
       <if test="residence1 != null">
-        residence1 = #{residence1,jdbcType=INTEGER},
+        residence1 = #{residence1,jdbcType=VARCHAR},
       </if>
       <if test="residenceAccessValue != null">
-        residence_access_value = #{residenceAccessValue,jdbcType=INTEGER},
+        residence_access_value = #{residenceAccessValue,jdbcType=VARCHAR},
       </if>
       <if test="residenceIspledge != null">
         residence_ispledge = #{residenceIspledge,jdbcType=VARCHAR},
@@ -1288,10 +1384,10 @@
         residence_isSeizure = #{residenceIsseizure,jdbcType=VARCHAR},
       </if>
       <if test="busines1 != null">
-        busines1 = #{busines1,jdbcType=INTEGER},
+        busines1 = #{busines1,jdbcType=VARCHAR},
       </if>
       <if test="businesAccessValue != null">
-        busines_access_value = #{businesAccessValue,jdbcType=INTEGER},
+        busines_access_value = #{businesAccessValue,jdbcType=VARCHAR},
       </if>
       <if test="businesIspledge != null">
         busines_ispledge = #{businesIspledge,jdbcType=VARCHAR},
@@ -1303,10 +1399,10 @@
         busines_isSeizure = #{businesIsseizure,jdbcType=VARCHAR},
       </if>
       <if test="workshop != null">
-        workshop = #{workshop,jdbcType=INTEGER},
+        workshop = #{workshop,jdbcType=VARCHAR},
       </if>
       <if test="workshopAccessValue != null">
-        workshop_access_value = #{workshopAccessValue,jdbcType=INTEGER},
+        workshop_access_value = #{workshopAccessValue,jdbcType=VARCHAR},
       </if>
       <if test="workshopIspledge != null">
         workshop_ispledge = #{workshopIspledge,jdbcType=VARCHAR},
@@ -1318,19 +1414,19 @@
         workshop_isSeizure = #{workshopIsseizure,jdbcType=VARCHAR},
       </if>
       <if test="device != null">
-        device = #{device,jdbcType=INTEGER},
+        device = #{device,jdbcType=VARCHAR},
       </if>
       <if test="deviceAccessValue != null">
-        device_access_value = #{deviceAccessValue,jdbcType=INTEGER},
+        device_access_value = #{deviceAccessValue,jdbcType=VARCHAR},
       </if>
       <if test="majorDevice != null">
         major_device = #{majorDevice,jdbcType=VARCHAR},
       </if>
       <if test="commonDevice != null">
-        common_device = #{commonDevice,jdbcType=INTEGER},
+        common_device = #{commonDevice,jdbcType=VARCHAR},
       </if>
       <if test="oterAccessValue != null">
-        oter_access_value = #{oterAccessValue,jdbcType=INTEGER},
+        oter_access_value = #{oterAccessValue,jdbcType=VARCHAR},
       </if>
       <if test="oterIspledge != null">
         oter_ispledge = #{oterIspledge,jdbcType=VARCHAR},
@@ -1396,15 +1492,150 @@
         investigation_person = #{investigationPerson,jdbcType=VARCHAR},
       </if>
       <if test="investigationDate != null">
-        investigation_date = #{investigationDate,jdbcType=DATE},
+        investigation_date = #{investigationDate,jdbcType=TIMESTAMP},
       </if>
       <if test="projectIspopulation != null">
         project_ispopulation = #{projectIspopulation,jdbcType=VARCHAR},
       </if>
-      <if test="legalpersonAge != null">
-        legalperson_age = #{legalpersonAge,jdbcType=BIGINT},
-      </if>
     </set>
+    where report_id = #{reportId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.smart.bracelet.model.po.debt.BusInvestigateReport">
+    update bus_investigate_report
+    set debt_id = #{debtId,jdbcType=BIGINT},
+      unit_name = #{unitName,jdbcType=VARCHAR},
+      account_manager = #{accountManager,jdbcType=VARCHAR},
+      report_finash_date = #{reportFinashDate,jdbcType=DATE},
+      account_name = #{accountName,jdbcType=VARCHAR},
+      registered_capital = #{registeredCapital,jdbcType=BIGINT},
+      found_time = #{foundTime,jdbcType=DATE},
+      management_addr = #{managementAddr,jdbcType=VARCHAR},
+      management = #{management,jdbcType=VARCHAR},
+      business = #{business,jdbcType=VARCHAR},
+      legalperson_name = #{legalpersonName,jdbcType=VARCHAR},
+      legalperson_sex = #{legalpersonSex,jdbcType=VARCHAR},
+      legalperson_age = #{legalpersonAge,jdbcType=VARCHAR},
+      legalperson_edu = #{legalpersonEdu,jdbcType=VARCHAR},
+      legalperson_mirr = #{legalpersonMirr,jdbcType=VARCHAR},
+      legalperson_tel = #{legalpersonTel,jdbcType=VARCHAR},
+      legalperson_stock = #{legalpersonStock,jdbcType=VARCHAR},
+      stock_name = #{stockName,jdbcType=VARCHAR},
+      stock_sex = #{stockSex,jdbcType=VARCHAR},
+      stock_age = #{stockAge,jdbcType=VARCHAR},
+      stock_edu = #{stockEdu,jdbcType=VARCHAR},
+      stock_mirr = #{stockMirr,jdbcType=VARCHAR},
+      stock_tel = #{stockTel,jdbcType=VARCHAR},
+      stock_stock = #{stockStock,jdbcType=VARCHAR},
+      stock1_name = #{stock1Name,jdbcType=VARCHAR},
+      stock1_sex = #{stock1Sex,jdbcType=VARCHAR},
+      stock1_age = #{stock1Age,jdbcType=VARCHAR},
+      stock1_edu = #{stock1Edu,jdbcType=VARCHAR},
+      stock1_mirr = #{stock1Mirr,jdbcType=VARCHAR},
+      stock1_tel = #{stock1Tel,jdbcType=VARCHAR},
+      stock1_stock = #{stock1Stock,jdbcType=VARCHAR},
+      company_total_liab = #{companyTotalLiab,jdbcType=VARCHAR},
+      total_liab_rate = #{totalLiabRate,jdbcType=VARCHAR},
+      total_bank = #{totalBank,jdbcType=VARCHAR},
+      bank1 = #{bank1,jdbcType=VARCHAR},
+      amount1 = #{amount1,jdbcType=VARCHAR},
+      bank2 = #{bank2,jdbcType=VARCHAR},
+      amount2 = #{amount2,jdbcType=VARCHAR},
+      bank3 = #{bank3,jdbcType=VARCHAR},
+      amount3 = #{amount3,jdbcType=VARCHAR},
+      private_finance = #{privateFinance,jdbcType=VARCHAR},
+      small_company = #{smallCompany,jdbcType=VARCHAR},
+      guarantee_company = #{guaranteeCompany,jdbcType=VARCHAR},
+      fund_company = #{fundCompany,jdbcType=VARCHAR},
+      toloan_count = #{toloanCount,jdbcType=REAL},
+      is_ill_fund = #{isIllFund,jdbcType=VARCHAR},
+      fifty_thousand = #{fiftyThousand,jdbcType=INTEGER},
+      two_hundred_thousand = #{twoHundredThousand,jdbcType=INTEGER},
+      five_hundred_thousand = #{fiveHundredThousand,jdbcType=INTEGER},
+      one_million = #{oneMillion,jdbcType=INTEGER},
+      one_million_above = #{oneMillionAbove,jdbcType=INTEGER},
+      project_arrears = #{projectArrears,jdbcType=REAL},
+      default_taxes = #{defaultTaxes,jdbcType=REAL},
+      default_wages = #{defaultWages,jdbcType=REAL},
+      default_socialsecurity = #{defaultSocialsecurity,jdbcType=REAL},
+      receivable_account = #{receivableAccount,jdbcType=REAL},
+      copewith = #{copewith,jdbcType=REAL},
+      involving_justice = #{involvingJustice,jdbcType=VARCHAR},
+      stock_ispledge = #{stockIspledge,jdbcType=VARCHAR},
+      manag_model = #{managModel,jdbcType=VARCHAR},
+      manag_model_year1 = #{managModelYear1,jdbcType=INTEGER},
+      manag_model_money1 = #{managModelMoney1,jdbcType=REAL},
+      prodous_grossprofit1 = #{prodousGrossprofit1,jdbcType=REAL},
+      netprofit1 = #{netprofit1,jdbcType=REAL},
+      manag_model_year2 = #{managModelYear2,jdbcType=INTEGER},
+      manag_model_money2 = #{managModelMoney2,jdbcType=REAL},
+      prodous_grossprofit2 = #{prodousGrossprofit2,jdbcType=REAL},
+      netprofit2 = #{netprofit2,jdbcType=REAL},
+      sunrise_industry = #{sunriseIndustry,jdbcType=VARCHAR},
+      sunset_industry = #{sunsetIndustry,jdbcType=VARCHAR},
+      new_industry = #{newIndustry,jdbcType=VARCHAR},
+      future_industry = #{futureIndustry,jdbcType=VARCHAR},
+      surplus_industry = #{surplusIndustry,jdbcType=VARCHAR},
+      elimination = #{elimination,jdbcType=VARCHAR},
+      land = #{land,jdbcType=VARCHAR},
+      land_nature = #{landNature,jdbcType=VARCHAR},
+      purchase_price = #{purchasePrice,jdbcType=REAL},
+      price_access_value = #{priceAccessValue,jdbcType=REAL},
+      price_ispledge = #{priceIspledge,jdbcType=VARCHAR},
+      price_isjudicial = #{priceIsjudicial,jdbcType=VARCHAR},
+      price_isSeizure = #{priceIsseizure,jdbcType=VARCHAR},
+      price_addr = #{priceAddr,jdbcType=VARCHAR},
+      house_property = #{houseProperty,jdbcType=VARCHAR},
+      residence = #{residence,jdbcType=VARCHAR},
+      busines = #{busines,jdbcType=VARCHAR},
+      busines_service = #{businesService,jdbcType=VARCHAR},
+      house_addr = #{houseAddr,jdbcType=VARCHAR},
+      house_access_value = #{houseAccessValue,jdbcType=REAL},
+      house_ispledge = #{houseIspledge,jdbcType=VARCHAR},
+      house_isjudicial = #{houseIsjudicial,jdbcType=VARCHAR},
+      house_isSeizure = #{houseIsseizure,jdbcType=VARCHAR},
+      residence1 = #{residence1,jdbcType=VARCHAR},
+      residence_access_value = #{residenceAccessValue,jdbcType=VARCHAR},
+      residence_ispledge = #{residenceIspledge,jdbcType=VARCHAR},
+      residence_isjudicial = #{residenceIsjudicial,jdbcType=VARCHAR},
+      residence_isSeizure = #{residenceIsseizure,jdbcType=VARCHAR},
+      busines1 = #{busines1,jdbcType=VARCHAR},
+      busines_access_value = #{businesAccessValue,jdbcType=VARCHAR},
+      busines_ispledge = #{businesIspledge,jdbcType=VARCHAR},
+      busines_isjudicial = #{businesIsjudicial,jdbcType=VARCHAR},
+      busines_isSeizure = #{businesIsseizure,jdbcType=VARCHAR},
+      workshop = #{workshop,jdbcType=VARCHAR},
+      workshop_access_value = #{workshopAccessValue,jdbcType=VARCHAR},
+      workshop_ispledge = #{workshopIspledge,jdbcType=VARCHAR},
+      workshop_isjudicial = #{workshopIsjudicial,jdbcType=VARCHAR},
+      workshop_isSeizure = #{workshopIsseizure,jdbcType=VARCHAR},
+      device = #{device,jdbcType=VARCHAR},
+      device_access_value = #{deviceAccessValue,jdbcType=VARCHAR},
+      major_device = #{majorDevice,jdbcType=VARCHAR},
+      common_device = #{commonDevice,jdbcType=VARCHAR},
+      oter_access_value = #{oterAccessValue,jdbcType=VARCHAR},
+      oter_ispledge = #{oterIspledge,jdbcType=VARCHAR},
+      oter_isjudicial = #{oterIsjudicial,jdbcType=VARCHAR},
+      oter_isSeizure = #{oterIsseizure,jdbcType=VARCHAR},
+      build_useland_licence = #{buildUselandLicence,jdbcType=VARCHAR},
+      build_engin_licence = #{buildEnginLicence,jdbcType=VARCHAR},
+      engin_construc_licence = #{enginConstrucLicence,jdbcType=VARCHAR},
+      investment_project_record = #{investmentProjectRecord,jdbcType=VARCHAR},
+      project_prehouse_licence = #{projectPrehouseLicence,jdbcType=VARCHAR},
+      project_build_contract = #{projectBuildContract,jdbcType=VARCHAR},
+      project_build_company = #{projectBuildCompany,jdbcType=VARCHAR},
+      business_license = #{businessLicense,jdbcType=VARCHAR},
+      tax_declaration = #{taxDeclaration,jdbcType=VARCHAR},
+      enterprise_bus_report = #{enterpriseBusReport,jdbcType=VARCHAR},
+      enterprise_produc_prove = #{enterpriseProducProve,jdbcType=VARCHAR},
+      project_advantage = #{projectAdvantage,jdbcType=VARCHAR},
+      project_weakness = #{projectWeakness,jdbcType=VARCHAR},
+      project_population = #{projectPopulation,jdbcType=VARCHAR},
+      debtor_evaluate = #{debtorEvaluate,jdbcType=VARCHAR},
+      other_supplement = #{otherSupplement,jdbcType=VARCHAR},
+      investigation_conclusion = #{investigationConclusion,jdbcType=VARCHAR},
+      investigation_person = #{investigationPerson,jdbcType=VARCHAR},
+      investigation_date = #{investigationDate,jdbcType=TIMESTAMP},
+      project_ispopulation = #{projectIspopulation,jdbcType=VARCHAR}
     where report_id = #{reportId,jdbcType=BIGINT}
   </update>
 </mapper>

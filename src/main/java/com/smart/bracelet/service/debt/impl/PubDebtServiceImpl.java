@@ -109,7 +109,10 @@ public class PubDebtServiceImpl implements PubDebtService {
         return pubDebtDao.selectDebtAndRepAndCiviI();
     }
 
-
+    @Override
+    public List<PubDebt> selectByreportId(Long reportId) {
+        return pubDebtDao.selectByreportId(reportId);
+    }
 
 
     /**

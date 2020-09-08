@@ -1,5 +1,6 @@
 package com.smart.bracelet.config;
 
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 
@@ -15,6 +16,7 @@ import java.io.IOException;
  * @version 1.0
  * @date 2020-06-18 8:05
  */
+@Configuration
 public class CorsConfig implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {

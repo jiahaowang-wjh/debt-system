@@ -11,7 +11,7 @@
     <result column="address" jdbcType="VARCHAR" property="address" />
   </resultMap>
   <sql id="Base_Column_List">
-    guarantee_id, civil_id, authname, card, bank, bank_card, bank_tel, tel_check
+    guarantee_id, civil_id, authname, card, unit_type,tel, address
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -71,6 +71,13 @@
         #{address,jdbcType=VARCHAR},
       </if>
     </trim>
+  </insert>
+  <insert id="insertList" parameterType="com.smart.bracelet.model.po.debt.BusGuarantee">
+      insert into bus_guarantee(guarantee_id, civil_id, authname, card, unit_type,tel, address)
+      values
+      <foreach collection ="list" item="info" separator="," >
+        (#{info.guaranteeId},#{info.civilId},#{info.authname},#{info.card},#{info.unitType},#{info.tel},#{info.address})
+      </foreach>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.po.debt.BusGuarantee">
     update bus_guarantee

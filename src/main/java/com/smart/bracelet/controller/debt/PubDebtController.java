@@ -30,7 +30,7 @@ public class PubDebtController {
     @RequestMapping("/insertSelective")
     public Result insertSelective(@Valid PubDebt record) throws CustomerException {
         Long insertSelective = pubDebtService.insertSelective(record);
-        return Result.success(insertSelective+"");
+        return Result.success(insertSelective + "");
     }
 
 
@@ -74,14 +74,15 @@ public class PubDebtController {
 
     /**
      * 更新解债审批状态
+     *
      * @param status
      * @param debtId
      * @return
      * @throws CustomerException
      */
     @RequestMapping("/updateStatus")
-    public Result updateStatus(@NotBlank(message = "状态不能为空") String status, @NotNull(message = "解债信息Id不能为空")Long debtId,String checkReason) throws CustomerException{
-        int i = pubDebtService.updateStatus(status, debtId,checkReason);
+    public Result updateStatus(@NotBlank(message = "状态不能为空") String status, @NotNull(message = "解债信息Id不能为空") Long debtId, String checkReason) throws CustomerException {
+        int i = pubDebtService.updateStatus(status, debtId, checkReason);
         return Result.success(i);
     }
 
@@ -91,16 +92,16 @@ public class PubDebtController {
     @RequestMapping("/selectDebtListShow")
     public Result<PageInfo> selectDebtListShow(@NotNull(message = "页码不能为空") Integer pageNum,
                                                @NotNull(message = "当前显示条数不能为空") Integer pageSize,
-                                               QueryDebtVo queryDebtVo){
+                                               QueryDebtVo queryDebtVo) {
 
         if (!StringUtils.isBlank(queryDebtVo.getBeginDate())) {
-            queryDebtVo.setBeginDate(queryDebtVo.getBeginDate()+" 00:00:00");
+            queryDebtVo.setBeginDate(queryDebtVo.getBeginDate() + " 00:00:00");
         }
         if (!StringUtils.isBlank(queryDebtVo.getEndDate())) {
-            queryDebtVo.setEndDate(queryDebtVo.getEndDate()+" 23:59:00");
+            queryDebtVo.setEndDate(queryDebtVo.getEndDate() + " 23:59:00");
         }
 
-        PageHelper.startPage(pageNum,pageSize);
+        PageHelper.startPage(pageNum, pageSize);
         List<PubDebtInfo> pubDebtInfos = pubDebtService.selectDebtListShow(queryDebtVo);
         PageInfo<PubDebtInfo> pubDebtInfoPageInfo = new PageInfo<>(pubDebtInfos);
         return Result.success(pubDebtInfoPageInfo);
@@ -111,9 +112,19 @@ public class PubDebtController {
      * 解债信息填写更新展示
      */
     @RequestMapping("/selectDebtAndRepAndCiviI")
-    public Result<List<DebtAndRepAndCiviI>> selectDebtAndRepAndCiviI(){
+    public Result<List<DebtAndRepAndCiviI>> selectDebtAndRepAndCiviI() {
         List<DebtAndRepAndCiviI> debtAndRepAndCiviIS = pubDebtService.selectDebtAndRepAndCiviI();
         return Result.success(debtAndRepAndCiviIS);
+    }
+
+
+    /**
+     * 通过报备Id查询解债信息
+     */
+    @RequestMapping("/selectByreportId")
+    public Result<List<PubDebt>> selectByreportId(@NotNull(message = "报备Id不能为空") Long reportId) {
+        List<PubDebt> pubDebts = pubDebtService.selectByreportId(reportId);
+        return Result.success(pubDebts);
     }
 
 }

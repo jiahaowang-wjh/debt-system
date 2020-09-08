@@ -4,6 +4,7 @@ import com.smart.bracelet.dao.assets.BusAssessmentDao;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.assets.BusAssessment;
 import com.smart.bracelet.model.po.debt.DateAndDays;
+import com.smart.bracelet.model.vo.assets.BusAssessmentInit;
 import com.smart.bracelet.model.vo.assets.BusAssessmentVo;
 import com.smart.bracelet.service.assets.BusAssessmentService;
 import com.smart.bracelet.utils.IdUtils;
@@ -66,5 +67,18 @@ public class BusAssessmentServiceImpl implements BusAssessmentService {
     @Override
     public List<DateAndDays> selectDaysCount() {
         return busAssessmentDao.selectDaysCount();
+    }
+
+    @Override
+    public BusAssessmentInit initialize(Long relativePerId) {
+        BusAssessmentInit initialize = busAssessmentDao.initialize(relativePerId);
+        if(initialize.getReportType().equals("1")){
+            initialize.setDebtCorPhone(null);
+            initialize.setPersonCorPhone(null);
+        }else{
+            initialize.setDebtPhnoe(null);
+            initialize.setPersonPhnoe(null);
+        }
+        return initialize;
     }
 }

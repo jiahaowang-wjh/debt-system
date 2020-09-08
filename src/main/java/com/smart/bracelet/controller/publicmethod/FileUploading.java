@@ -1,5 +1,6 @@
 package com.smart.bracelet.controller.publicmethod;
 
+import com.smart.bracelet.message.Result;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ui.Model;
@@ -25,21 +26,19 @@ public class FileUploading {
     //处理文件上传
     @PostMapping("/uploading")
     public @ResponseBody
-    String uploading(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
+    Result uploading(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
         try {
             String filename = uploadFile(file.getBytes(), fileImgPath, file.getOriginalFilename());
-            return filename;
+            return Result.success(filename);
         } catch (Exception e) {
-            e.printStackTrace();
-            return "文件上传失败";
+            return Result.success("文件上传失败，"+e.getMessage());
         }
     }
 
 
-
     @PostMapping("/download")
-    public String  testDownload(HttpServletResponse response,String fileName) throws UnsupportedEncodingException {
-        String subName = fileName.substring(fileName.indexOf(".")+1);
+    public String testDownload(HttpServletResponse response, String fileName) throws UnsupportedEncodingException {
+        String subName = fileName.substring(fileName.indexOf(".") + 1);
         response.setHeader("content-type", subName);
         response.setContentType("application/octet-stream");
         response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
@@ -51,7 +50,7 @@ public class FileUploading {
         try {
             outputStream = response.getOutputStream();
             //这个路径为待下载文件的路径
-            bis = new BufferedInputStream(new FileInputStream(new File("http://47.108.135.174:9000/" + fileName )));
+            bis = new BufferedInputStream(new FileInputStream(new File("http://47.108.135.174:9000/" + fileName)));
             int read = bis.read(buff);
 
             //通过while循环写入到指定了的文件夹中
@@ -60,7 +59,7 @@ public class FileUploading {
                 outputStream.flush();
                 read = bis.read(buff);
             }
-        } catch ( IOException e ) {
+        } catch (IOException e) {
             e.printStackTrace();
             //出现异常返回给页面失败的信息
             return "下载失败";
@@ -82,8 +81,6 @@ public class FileUploading {
         }
         return "下载成功";
     }
-
-
 
 
     public String uploadFile(byte[] file, String filePath, String fileName) throws Exception {

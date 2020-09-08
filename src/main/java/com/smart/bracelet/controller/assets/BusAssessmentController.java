@@ -4,6 +4,7 @@ import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.assets.BusAssessment;
 import com.smart.bracelet.model.po.debt.DateAndDays;
+import com.smart.bracelet.model.vo.assets.BusAssessmentInit;
 import com.smart.bracelet.model.vo.assets.BusAssessmentVo;
 import com.smart.bracelet.service.assets.BusAssessmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +56,15 @@ public class BusAssessmentController {
     public Result<List<DateAndDays>> selectDaysCount(){
         List<DateAndDays> dateAndDays = busAssessmentService.selectDaysCount();
         return Result.success(dateAndDays);
+    }
+
+    /**
+     * 资产评估页面初始化
+     */
+    @RequestMapping("/initialize")
+    public  Result<BusAssessmentInit> initialize(@NotNull(message = "相对人ID不能为空") Long relativePerId){
+        BusAssessmentInit initialize = busAssessmentService.initialize(relativePerId);
+        return Result.success(initialize);
     }
 
 }

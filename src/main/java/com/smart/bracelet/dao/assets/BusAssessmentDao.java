@@ -2,6 +2,7 @@ package com.smart.bracelet.dao.assets;
 
 import com.smart.bracelet.model.po.assets.BusAssessment;
 import com.smart.bracelet.model.po.debt.DateAndDays;
+import com.smart.bracelet.model.vo.assets.BusAssessmentInit;
 import com.smart.bracelet.model.vo.assets.BusAssessmentVo;
 import org.springframework.stereotype.Repository;
 
@@ -25,4 +26,8 @@ public interface BusAssessmentDao {
 
     List<DateAndDays> selectDaysCount();
 
+    /**
+     * 资产评估页面初始化
+     */
+    BusAssessmentInit initialize(Long relativePerId);
 }
