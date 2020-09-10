@@ -36,9 +36,16 @@
         LEFT JOIN bus_real_auth bra ON br.`report_id` = bra.report_id
         WHERE br.`report_id` =   #{reportId,jdbcType=BIGINT}
     </select>
+    <select id="selectByPropertId" resultType="com.smart.bracelet.model.po.assets.BusAgentSalesContract"
+            parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from bus_agent_sales_contract
+        where sales_contract_id = #{salesContractId,jdbcType=BIGINT}
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from bus_agent_sales_contract
-    where sales_contract_id = #{salesContractId,jdbcType=BIGINT}
+    where propert_id = #{propertId,jdbcType=BIGINT}
   </delete>
     <insert id="insert" parameterType="com.smart.bracelet.model.po.assets.BusAgentSalesContract">
     insert into bus_agent_sales_contract (sales_contract_id, propert_id, date_start, 

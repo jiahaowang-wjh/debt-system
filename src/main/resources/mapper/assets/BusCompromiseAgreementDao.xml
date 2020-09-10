@@ -4,7 +4,7 @@
     <resultMap id="BaseResultMap" type="com.smart.bracelet.model.po.assets.BusCompromiseAgreement">
         <id column="compromise_agreement_id" jdbcType="BIGINT" property="compromiseAgreementId"/>
         <result column="propert_id" jdbcType="BIGINT" property="propertId"/>
-        <result column="compromise_agreement_no" jdbcType="BIGINT" property="compromiseAgreementNo"/>
+        <result column="compromise_agreement_no" jdbcType="VARCHAR" property="compromiseAgreementNo"/>
         <result column="partyb_mode" jdbcType="VARCHAR" property="partybMode"/>
         <result column="data1" jdbcType="BIGINT" property="data1"/>
         <result column="data2" jdbcType="REAL" property="data2"/>
@@ -39,6 +39,13 @@
         LEFT JOIN bus_relative_person brp ON br.`report_id`=brp.`report_id`
         LEFT JOIN pub_debt pd ON br.`report_id` = pd.`report_id`
         WHERE brp.`relative_per_id` =  #{relativePerId,jdbcType=BIGINT}
+    </select>
+    <select id="selectByPropertId" resultType="com.smart.bracelet.model.po.assets.BusCompromiseAgreement"
+            parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from bus_compromise_agreement
+        where propert_id = #{propertId,jdbcType=BIGINT}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from bus_compromise_agreement

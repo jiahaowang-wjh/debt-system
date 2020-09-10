@@ -84,5 +84,10 @@ public class BusCollectionLetterServiceImpl implements BusCollectionLetterServic
         return initialize;
     }
 
+    @Override
+    public BusCollectionLetter selectByPropertId(Long propertId) {
+        return busCollectionLetterDao.selectByPropertId(propertId);
+    }
+
 
 }

@@ -26,5 +26,10 @@ public interface BusCollectionLetterService {
      * @return
      */
     BusCollectionLetterShow initialize(Long relativePerId);
-
+    /**
+     * 通过资产Id查询催款函
+     * @param propertId
+     * @return
+     */
+    BusCollectionLetter selectByPropertId(Long propertId);
 }

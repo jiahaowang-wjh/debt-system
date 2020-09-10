@@ -26,4 +26,12 @@ public interface BusConfirmDao {
      * @return
      */
     BusConfirmShow initialize(Long relativePerId);
+
+    /**
+     * 通过资产ID查询资产债权确认
+     * @param propertId
+     * @return
+     */
+    BusConfirm selectByPropertId(Long propertId);
+
 }

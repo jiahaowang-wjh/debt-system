@@ -11,7 +11,7 @@ import java.util.List;
 public interface BusAssessmentService {
     int deleteByPrimaryKey(Long assessmentId) throws CustomerException;
 
-    int insertSelective(BusAssessment record) throws CustomerException;
+    Long insertSelective(BusAssessment record) throws CustomerException;
 
     BusAssessment selectByPrimaryKey(Long assessmentId);
 
@@ -24,4 +24,9 @@ public interface BusAssessmentService {
      * 资产评估页面初始化
      */
     BusAssessmentInit initialize(Long relativePerId);
+
+    /**
+     * 通过资产id获取资产评估信息
+     */
+    BusAssessment selectByPropertId(Long propertId);
 }

@@ -31,12 +31,13 @@ public class BusBankGuaranteServiceImpl implements BusBankGuaranteService {
     }
 
     @Override
-    public int insertSelective(BusBankGuarante record) throws CustomerException {
+    public Long insertSelective(BusBankGuarante record) throws CustomerException {
         try {
-            record.setBankGuaranteId(IdUtils.nextId());
+            long l = IdUtils.nextId();
+            record.setBankGuaranteId(l);
             int deleteByPrimaryKey = busBankGuaranteDao.insertSelective(record);
             log.info("新增资产银行保函协议成功,受影响行数:{}",deleteByPrimaryKey);
-            return deleteByPrimaryKey;
+            return l;
         } catch (Exception e) {
             log.error("新增资产银行保函协议失败,异常信息:{}",e.getMessage());
             throw new CustomerException("新增资产银行保函协议失败");

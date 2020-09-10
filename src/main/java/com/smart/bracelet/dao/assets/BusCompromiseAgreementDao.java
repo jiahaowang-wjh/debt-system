@@ -29,4 +29,11 @@ public interface BusCompromiseAgreementDao {
      * @return
      */
     BusCompromiseAgreementShow initialize(Long relativePerId);
+
+    /**
+     * 通过资产Id查询解协议
+     * @param propertId
+     * @return
+     */
+    BusCompromiseAgreement selectByPropertId(Long propertId);
 }

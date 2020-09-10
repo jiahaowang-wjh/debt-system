@@ -34,13 +34,14 @@ public class BusAssessmentServiceImpl implements BusAssessmentService {
     }
 
     @Override
-    public int insertSelective(BusAssessment record) throws CustomerException {
+    public Long insertSelective(BusAssessment record) throws CustomerException {
         try {
-            record.setAssessmentId(IdUtils.nextId());
+            long nextId = IdUtils.nextId();
+            record.setAssessmentId(nextId);
             String selectNo = busAssessmentDao.selectNo();
             record.setAssessmentNo(RepNoUtils.createRepNo("TZ","ZCPG",selectNo));
             int i = busAssessmentDao.insertSelective(record);
-            return i;
+            return nextId;
         } catch (Exception e) {
             log.error("新增资产评估失败,异常信息:{}",e.getMessage());
             throw new CustomerException("新增资产评估失败");
@@ -72,13 +73,18 @@ public class BusAssessmentServiceImpl implements BusAssessmentService {
     @Override
     public BusAssessmentInit initialize(Long relativePerId) {
         BusAssessmentInit initialize = busAssessmentDao.initialize(relativePerId);
-        if(initialize.getReportType().equals("1")){
+        if(initialize.getReportPropert().equals("1")){
             initialize.setDebtCorPhone(null);
             initialize.setPersonCorPhone(null);
         }else{
-            initialize.setDebtPhnoe(null);
             initialize.setPersonPhnoe(null);
+            initialize.setDebtPhnoe(null);
         }
         return initialize;
+    }
+
+    @Override
+    public BusAssessment selectByPropertId(Long propertId) {
+        return busAssessmentDao.selectByPropertId(propertId);
     }
 }

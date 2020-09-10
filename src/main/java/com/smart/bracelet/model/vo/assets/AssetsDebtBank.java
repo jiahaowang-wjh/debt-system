@@ -15,6 +15,17 @@ public class AssetsDebtBank {
      */
     @JsonSerialize(using = ToStringSerializer.class)
     Long relativePerId;
+
+    /**
+     * 债务人姓名
+     */
+    String personName;
+
+    /**
+     * 债权人
+     */
+    String debtName;
+
     /**
      * 资产ID
      */

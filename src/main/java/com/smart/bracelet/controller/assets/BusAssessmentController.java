@@ -32,8 +32,8 @@ public class BusAssessmentController {
 
     @RequestMapping("/insertSelective")
     public Result insertSelective(@Valid BusAssessment record) throws CustomerException {
-        int i = busAssessmentService.insertSelective(record);
-        return Result.success(i);
+        Long i = busAssessmentService.insertSelective(record);
+        return Result.success(i+"");
     }
 
     @RequestMapping("/selectByPrimaryKey")
@@ -65,6 +65,15 @@ public class BusAssessmentController {
     public  Result<BusAssessmentInit> initialize(@NotNull(message = "相对人ID不能为空") Long relativePerId){
         BusAssessmentInit initialize = busAssessmentService.initialize(relativePerId);
         return Result.success(initialize);
+    }
+
+    /**
+     * 通过资产id获取资产评估信息
+     */
+    @RequestMapping("/selectByPropertId")
+    public Result<BusAssessment> selectByPropertId(@NotNull(message = "资产ID不能为空") Long propertId){
+        BusAssessment busAssessment = busAssessmentService.selectByPropertId(propertId);
+        return Result.success(busAssessment);
     }
 
 }

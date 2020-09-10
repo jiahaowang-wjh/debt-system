@@ -59,4 +59,16 @@ public class BusConfirmController {
         BusConfirmShow initialize = busConfirmService.initialize(relativePerId);
         return Result.success(initialize);
     }
+
+
+    /**
+     * 通过资产ID查询资产债权确认
+     * @param propertId
+     * @return
+     */
+    @RequestMapping("/selectByPropertId")
+    public Result<BusConfirm> selectByPropertId(@NotNull(message = "资产ID不能为空") Long propertId){
+        BusConfirm busConfirm = busConfirmService.selectByPropertId(propertId);
+        return Result.success(busConfirm);
+    }
 }

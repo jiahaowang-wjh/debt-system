@@ -30,8 +30,8 @@ public class BusBankGuaranteController {
 
     @RequestMapping("/insertSelective")
     public Result insertSelective(@Valid BusBankGuarante record) throws CustomerException {
-        int insertSelective = busBankGuaranteService.insertSelective(record);
-        return Result.success(insertSelective);
+        Long insertSelective = busBankGuaranteService.insertSelective(record);
+        return Result.success(insertSelective+"");
     }
 
     @RequestMapping("/selectByPrimaryKey")

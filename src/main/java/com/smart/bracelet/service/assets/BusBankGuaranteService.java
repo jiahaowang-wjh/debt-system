@@ -9,7 +9,7 @@ import java.util.List;
 public interface BusBankGuaranteService {
     int deleteByPrimaryKey(Long bankGuaranteId) throws CustomerException;
 
-    int insertSelective(BusBankGuarante record) throws CustomerException;
+    Long insertSelective(BusBankGuarante record) throws CustomerException;
 
     BusBankGuarante selectByPrimaryKey(Long bankGuaranteId);
 

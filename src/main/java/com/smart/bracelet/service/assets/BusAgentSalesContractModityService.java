@@ -9,7 +9,7 @@ public interface BusAgentSalesContractModityService {
 
     int deleteByPrimaryKey(Long salesContractModityId) throws CustomerException;
 
-    int insertSelective(BusAgentSalesContractModity record) throws CustomerException;
+    Long insertSelective(BusAgentSalesContractModity record) throws CustomerException;
 
     BusAgentSalesContractModity selectByPrimaryKey(Long salesContractModityId);
 

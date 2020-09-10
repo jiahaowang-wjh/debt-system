@@ -26,4 +26,11 @@ public interface BusAssignmentNoticeDao {
      * @return
      */
     BusAssignmentNoticeShow initialize(Long relativePerId);
+
+    /**
+     * 通过资产id查询资产债权转让通知书
+     * @param propertId
+     * @return
+     */
+    BusAssignmentNotice selectByPropertId(Long propertId);
 }

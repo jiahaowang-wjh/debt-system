@@ -9,7 +9,8 @@ public class BusAssessmentInit {
     String debtidCard;
     String debtPhnoe;
     String debtCorPhone;
-    String reportType;
+
+    String reportPropert;
 
 
     String personName;

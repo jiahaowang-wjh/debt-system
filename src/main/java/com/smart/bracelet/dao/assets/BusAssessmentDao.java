@@ -30,4 +30,10 @@ public interface BusAssessmentDao {
      * 资产评估页面初始化
      */
     BusAssessmentInit initialize(Long relativePerId);
+
+    /**
+     * 通过资产id获取资产评估信息
+     */
+    BusAssessment selectByPropertId(Long propertId);
+
 }

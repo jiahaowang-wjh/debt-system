@@ -34,14 +34,20 @@
     <select id="initialize" resultType="com.smart.bracelet.model.vo.assets.BusAssessmentInit"
             parameterType="java.lang.Long">
       SELECT
-      br.`report_id`,br.`data1` AS 'debtName',br.data2 AS 'debtidCard',br.`data3` AS 'debtPhnoe',br.`data4` AS 'debtCorPhone',br.`report_type`,
+      br.`report_id`,br.`data1` AS 'debtName',br.data2 AS 'debtidCard',br.`data3` AS 'debtPhnoe',br.`data5` AS 'debtCorPhone',br.report_propert,
       brp.`data1` AS 'personName',brp.`data2` AS 'personIdCard',brp.`data3` AS 'personPhnoe',brp.`data5` AS 'personCorPhone',
       pd.`amount_this`
       FROM bus_relative_person brp
       LEFT JOIN bus_report br ON br.`report_id` = brp.`report_id`
       LEFT JOIN pub_debt pd ON brp.`relative_per_id` = pd.`relative_per_id`
       WHERE brp.`relative_per_id` = #{relativePerId,jdbcType=BIGINT}
-
+    </select>
+    <select id="selectByPropertId" resultType="com.smart.bracelet.model.po.assets.BusAssessment"
+            parameterType="java.lang.Long">
+      select
+      <include refid="Base_Column_List" />
+      from bus_assessment
+      where propert_id = #{propertId,jdbcType=BIGINT}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from bus_assessment

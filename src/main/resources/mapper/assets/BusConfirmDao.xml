@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.smart.bracelet.dao.assets.BusConfirmDao">
-  <resultMap id="BaseResultMap" type="com.smart.bracelet.model.po.assets.BusConfirm">
-    <id column="confirmt_id" jdbcType="BIGINT" property="confirmtId" />
-    <result column="propert_id" jdbcType="BIGINT" property="propertId" />
-    <result column="confirm_no" jdbcType="VARCHAR" property="confirmNo" />
-    <result column="transferee_" jdbcType="VARCHAR" property="transferee" />
-    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
-    <result column="tel" jdbcType="VARCHAR" property="tel" />
-    <result column="transferee_date" jdbcType="DATE" property="transfereeDate" />
-    <result column="obligor_seal" jdbcType="VARCHAR" property="obligorSeal" />
-    <result column="obligor_sign" jdbcType="VARCHAR" property="obligorSign" />
-    <result column="obligor_date" jdbcType="TIMESTAMP" property="obligorDate" />
-  </resultMap>
-  <sql id="Base_Column_List">
+    <resultMap id="BaseResultMap" type="com.smart.bracelet.model.po.assets.BusConfirm">
+        <id column="confirmt_id" jdbcType="BIGINT" property="confirmtId"/>
+        <result column="propert_id" jdbcType="BIGINT" property="propertId"/>
+        <result column="confirm_no" jdbcType="VARCHAR" property="confirmNo"/>
+        <result column="transferee_" jdbcType="VARCHAR" property="transferee"/>
+        <result column="company_name" jdbcType="VARCHAR" property="companyName"/>
+        <result column="tel" jdbcType="VARCHAR" property="tel"/>
+        <result column="transferee_date" jdbcType="DATE" property="transfereeDate"/>
+        <result column="obligor_seal" jdbcType="VARCHAR" property="obligorSeal"/>
+        <result column="obligor_sign" jdbcType="VARCHAR" property="obligorSign"/>
+        <result column="obligor_date" jdbcType="TIMESTAMP" property="obligorDate"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     confirmt_id, propert_id, confirm_no, transferee_, company_name, tel, transferee_date, 
     obligor_seal, obligor_sign, obligor_date
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from bus_confirm
-    where confirmt_id = #{confirmtId,jdbcType=BIGINT}
-  </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from bus_confirm
+        where confirmt_id = #{confirmtId,jdbcType=BIGINT}
+    </select>
     <select id="queryList" resultType="com.smart.bracelet.model.po.assets.BusConfirm">
-      select
-      <include refid="Base_Column_List" />
-      from bus_confirm
+        select
+        <include refid="Base_Column_List"/>
+        from bus_confirm
     </select>
     <select id="initialize" resultType="com.smart.bracelet.model.vo.assets.BusConfirmShow">
       SELECT br.`data1` AS 'debtName',brp.`data1` AS 'personName',baa.assignment_agreement_no,pd.`create_time`,pd.service_principal,pd.service_interest FROM bus_report br
@@ -37,11 +37,18 @@
       WHERE brp.`relative_per_id` = #{relativePerId,jdbcType=BIGINT}
 
     </select>
+    <select id="selectByPropertId" resultType="com.smart.bracelet.model.po.assets.BusConfirm"
+            parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from bus_confirm
+        where propert_id= #{ propertId,jdbcType=BIGINT}
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from bus_confirm
     where confirmt_id = #{confirmtId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.smart.bracelet.model.po.assets.BusConfirm">
+    <insert id="insert" parameterType="com.smart.bracelet.model.po.assets.BusConfirm">
     insert into bus_confirm (confirmt_id, propert_id, confirm_no, 
       transferee_, company_name, tel, 
       transferee_date, obligor_seal, obligor_sign, 
@@ -51,107 +58,107 @@
       #{transfereeDate,jdbcType=DATE}, #{obligorSeal,jdbcType=VARCHAR}, #{obligorSign,jdbcType=VARCHAR}, 
       #{obligorDate,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.assets.BusConfirm">
-    insert into bus_confirm
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="confirmtId != null">
-        confirmt_id,
-      </if>
-      <if test="propertId != null">
-        propert_id,
-      </if>
-      <if test="confirmNo != null">
-        confirm_no,
-      </if>
-      <if test="transferee != null">
-        transferee_,
-      </if>
-      <if test="companyName != null">
-        company_name,
-      </if>
-      <if test="tel != null">
-        tel,
-      </if>
-      <if test="transfereeDate != null">
-        transferee_date,
-      </if>
-      <if test="obligorSeal != null">
-        obligor_seal,
-      </if>
-      <if test="obligorSign != null">
-        obligor_sign,
-      </if>
-      <if test="obligorDate != null">
-        obligor_date,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="confirmtId != null">
-        #{confirmtId,jdbcType=BIGINT},
-      </if>
-      <if test="propertId != null">
-        #{propertId,jdbcType=BIGINT},
-      </if>
-      <if test="confirmNo != null">
-        #{confirmNo,jdbcType=VARCHAR},
-      </if>
-      <if test="transferee != null">
-        #{transferee,jdbcType=VARCHAR},
-      </if>
-      <if test="companyName != null">
-        #{companyName,jdbcType=VARCHAR},
-      </if>
-      <if test="tel != null">
-        #{tel,jdbcType=VARCHAR},
-      </if>
-      <if test="transfereeDate != null">
-        #{transfereeDate,jdbcType=DATE},
-      </if>
-      <if test="obligorSeal != null">
-        #{obligorSeal,jdbcType=VARCHAR},
-      </if>
-      <if test="obligorSign != null">
-        #{obligorSign,jdbcType=VARCHAR},
-      </if>
-      <if test="obligorDate != null">
-        #{obligorDate,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective">
-    update bus_confirm
-    <set>
-      <if test="propertId != null">
-        propert_id = #{propertId,jdbcType=BIGINT},
-      </if>
-      <if test="confirmNo != null">
-        confirm_no = #{confirmNo,jdbcType=VARCHAR},
-      </if>
-      <if test="transferee != null">
-        transferee_ = #{transferee,jdbcType=VARCHAR},
-      </if>
-      <if test="companyName != null">
-        company_name = #{companyName,jdbcType=VARCHAR},
-      </if>
-      <if test="tel != null">
-        tel = #{tel,jdbcType=VARCHAR},
-      </if>
-      <if test="transfereeDate != null">
-        transferee_date = #{transfereeDate,jdbcType=DATE},
-      </if>
-      <if test="obligorSeal != null">
-        obligor_seal = #{obligorSeal,jdbcType=VARCHAR},
-      </if>
-      <if test="obligorSign != null">
-        obligor_sign = #{obligorSign,jdbcType=VARCHAR},
-      </if>
-      <if test="obligorDate != null">
-        obligor_date = #{obligorDate,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where confirmt_id = #{confirmtId,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.smart.bracelet.model.po.assets.BusConfirm">
+    <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.assets.BusConfirm">
+        insert into bus_confirm
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="confirmtId != null">
+                confirmt_id,
+            </if>
+            <if test="propertId != null">
+                propert_id,
+            </if>
+            <if test="confirmNo != null">
+                confirm_no,
+            </if>
+            <if test="transferee != null">
+                transferee_,
+            </if>
+            <if test="companyName != null">
+                company_name,
+            </if>
+            <if test="tel != null">
+                tel,
+            </if>
+            <if test="transfereeDate != null">
+                transferee_date,
+            </if>
+            <if test="obligorSeal != null">
+                obligor_seal,
+            </if>
+            <if test="obligorSign != null">
+                obligor_sign,
+            </if>
+            <if test="obligorDate != null">
+                obligor_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="confirmtId != null">
+                #{confirmtId,jdbcType=BIGINT},
+            </if>
+            <if test="propertId != null">
+                #{propertId,jdbcType=BIGINT},
+            </if>
+            <if test="confirmNo != null">
+                #{confirmNo,jdbcType=VARCHAR},
+            </if>
+            <if test="transferee != null">
+                #{transferee,jdbcType=VARCHAR},
+            </if>
+            <if test="companyName != null">
+                #{companyName,jdbcType=VARCHAR},
+            </if>
+            <if test="tel != null">
+                #{tel,jdbcType=VARCHAR},
+            </if>
+            <if test="transfereeDate != null">
+                #{transfereeDate,jdbcType=DATE},
+            </if>
+            <if test="obligorSeal != null">
+                #{obligorSeal,jdbcType=VARCHAR},
+            </if>
+            <if test="obligorSign != null">
+                #{obligorSign,jdbcType=VARCHAR},
+            </if>
+            <if test="obligorDate != null">
+                #{obligorDate,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective">
+        update bus_confirm
+        <set>
+            <if test="propertId != null">
+                propert_id = #{propertId,jdbcType=BIGINT},
+            </if>
+            <if test="confirmNo != null">
+                confirm_no = #{confirmNo,jdbcType=VARCHAR},
+            </if>
+            <if test="transferee != null">
+                transferee_ = #{transferee,jdbcType=VARCHAR},
+            </if>
+            <if test="companyName != null">
+                company_name = #{companyName,jdbcType=VARCHAR},
+            </if>
+            <if test="tel != null">
+                tel = #{tel,jdbcType=VARCHAR},
+            </if>
+            <if test="transfereeDate != null">
+                transferee_date = #{transfereeDate,jdbcType=DATE},
+            </if>
+            <if test="obligorSeal != null">
+                obligor_seal = #{obligorSeal,jdbcType=VARCHAR},
+            </if>
+            <if test="obligorSign != null">
+                obligor_sign = #{obligorSign,jdbcType=VARCHAR},
+            </if>
+            <if test="obligorDate != null">
+                obligor_date = #{obligorDate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where confirmt_id = #{confirmtId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.smart.bracelet.model.po.assets.BusConfirm">
     update bus_confirm
     set propert_id = #{propertId,jdbcType=BIGINT},
       confirm_no = #{confirmNo,jdbcType=VARCHAR},

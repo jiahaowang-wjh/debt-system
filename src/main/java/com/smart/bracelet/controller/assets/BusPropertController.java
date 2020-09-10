@@ -1,8 +1,11 @@
 package com.smart.bracelet.controller.assets;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.debt.BusPropert;
+import com.smart.bracelet.model.vo.assets.AssetsDebtBank;
 import com.smart.bracelet.model.vo.debt.BusPropertVo;
 import com.smart.bracelet.service.assets.BusPropertService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,9 +64,20 @@ public class BusPropertController {
      * @throws CustomerException
      */
     @RequestMapping("/updateStatus")
-    public Result updateStatus(@NotBlank(message = "状态不能为空")String status, @NotNull(message = "资产ID不能为空")Long propertId) throws CustomerException{
-        int i = busPropertService.updateStatus(status, propertId);
+    public Result updateStatus(@NotBlank(message = "状态不能为空")String status, @NotNull(message = "资产ID不能为空")Long propertId,String checkReason) throws CustomerException{
+        int i = busPropertService.updateStatus(status, checkReason,propertId);
         return Result.success(i);
     }
-
+    /**
+     * 资产系统，我的债行
+     * @return
+     */
+    @RequestMapping("/querys")
+    public Result<PageInfo> querys(@NotNull(message = "页码不能为空") Integer pageNum,
+                                               @NotNull(message = "当前显示条数不能为空") Integer pageSize){
+        PageHelper.startPage(pageNum,pageSize);
+        List<AssetsDebtBank> querys = busPropertService.querys();
+        PageInfo<AssetsDebtBank> assetsDebtBankPageInfo = new PageInfo<>(querys);
+        return Result.success(assetsDebtBankPageInfo);
+    }
 }

@@ -29,8 +29,8 @@ public class BusAgentSalesContractModityController {
 
     @RequestMapping("/insertSelective")
     public Result insertSelective(@Valid BusAgentSalesContractModity record) throws CustomerException {
-        int i = busAgentSalesContractModityService.insertSelective(record);
-        return Result.success(i);
+        Long i = busAgentSalesContractModityService.insertSelective(record);
+        return Result.success(i+"");
     }
 
     @RequestMapping("/selectByPrimaryKey")

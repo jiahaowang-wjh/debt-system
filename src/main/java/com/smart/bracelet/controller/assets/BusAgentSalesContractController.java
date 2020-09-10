@@ -30,8 +30,8 @@ public class BusAgentSalesContractController {
 
     @RequestMapping("/insertSelective")
     public Result insertSelective(@Valid BusAgentSalesContract record) throws CustomerException {
-        int i = busAgentSalesContractService.insertSelective(record);
-        return Result.success(i);
+        Long i = busAgentSalesContractService.insertSelective(record);
+        return Result.success(i+"");
     }
 
     @RequestMapping("/selectByPrimaryKey")
@@ -57,4 +57,15 @@ public class BusAgentSalesContractController {
         return Result.success(initialize);
     }
 
+    /**
+     * 通过资产Id查询 委托代理销售合同
+     *
+     * @param propertId
+     * @return
+     */
+    @RequestMapping("/selectByPropertId")
+    public  Result<BusAgentSalesContract> selectByPropertId(@NotNull(message = "资产ID不能为空") Long propertId){
+        BusAgentSalesContract busAgentSalesContract = busAgentSalesContractService.selectByPropertId(propertId);
+        return Result.success(busAgentSalesContract);
+    }
 }

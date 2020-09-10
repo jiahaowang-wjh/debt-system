@@ -25,8 +25,8 @@ public class BusPropert implements Serializable {
     /**
      * 相对人ID
      */
-    @JsonSerialize(using = ToStringSerializer.class)
     @NotNull(message = "相对人ID不能为空")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long relativePerId;
 
     /**

@@ -2,6 +2,7 @@ package com.smart.bracelet.controller.assets;
 
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
+import com.smart.bracelet.model.po.assets.BusCompromiseAgreement;
 import com.smart.bracelet.model.po.assets.Manner1;
 import com.smart.bracelet.model.po.assets.Manner1AndManner2;
 import com.smart.bracelet.model.po.assets.Manner2;
@@ -78,5 +79,16 @@ public class BusCompromiseAgreementController {
     public Result<BusCompromiseAgreementShow> initialize(@NotNull(message = "相对人ID不能为空") Long relativePerId) throws ParseException {
         BusCompromiseAgreementShow initialize = busCompromiseAgreementService.initialize(relativePerId);
         return Result.success(initialize);
+    }
+
+    /**
+     * 通过资产Id查询解协议
+     * @param propertId
+     * @return
+     */
+    @RequestMapping("/selectByPropertId")
+    public Result<BusCompromiseAgreement> selectByPropertId(@NotNull(message = "资产ID不能为空") Long propertId){
+        BusCompromiseAgreement busCompromiseAgreement = busCompromiseAgreementService.selectByPropertId(propertId);
+        return Result.success(busCompromiseAgreement);
     }
 }

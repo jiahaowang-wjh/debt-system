@@ -31,8 +31,8 @@ public class BusAssignmentConfirmController {
 
     @RequestMapping("/insertSelective")
     public Result insertSelective(@Valid BusAssignmentConfirm record) throws CustomerException {
-        int insertSelective = busAssignmentConfirmService.insertSelective(record);
-        return Result.success(insertSelective);
+        Long insertSelective = busAssignmentConfirmService.insertSelective(record);
+        return Result.success(insertSelective+"");
     }
 
     @RequestMapping("/selectByPrimaryKey")
@@ -60,6 +60,16 @@ public class BusAssignmentConfirmController {
     public Result<BusAssignmentConfirmShow> initialize(@NotNull(message = "相对人ID不能为空") Long relativePerId){
         BusAssignmentConfirmShow initialize = busAssignmentConfirmService.initialize(relativePerId);
         return Result.success(initialize);
+    }
+    /**
+     * 通过资产ID查询资产债权转让确认
+     * @param propertId
+     * @return
+     */
+    @RequestMapping("/selectByPropertId")
+    public Result<BusAssignmentConfirm> selectByPropertId(@NotNull(message = "资产ID不能为空") Long propertId){
+        BusAssignmentConfirm busAssignmentConfirm = busAssignmentConfirmService.selectByPropertId(propertId);
+        return Result.success(busAssignmentConfirm);
     }
 
 }

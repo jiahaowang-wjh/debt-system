@@ -32,8 +32,8 @@ public class BusAssignmentAgreementController {
 
     @RequestMapping("/insertSelective")
     public Result insertSelective(@Valid BusAssignmentAgreement record) throws CustomerException {
-        int insertSelective = busAssignmentAgreementService.insertSelective(record);
-        return Result.success(insertSelective);
+        Long insertSelective = busAssignmentAgreementService.insertSelective(record);
+        return Result.success(insertSelective+"");
     }
 
     @RequestMapping("/selectByPrimaryKey")
@@ -65,5 +65,16 @@ public class BusAssignmentAgreementController {
         return Result.success(initialize);
     }
 
+
+    /**
+     * 通过资产Id查询资产债权转让协议
+     * @param propertId
+     * @return
+     */
+    @RequestMapping("/selectByProId")
+    public Result<BusAssignmentAgreementShow> selectByProId(@NotNull(message = "资产ID不能为空") Long propertId){
+        BusAssignmentAgreementShow busAssignmentAgreementShow = busAssignmentAgreementService.selectByProId(propertId);
+        return Result.success(busAssignmentAgreementShow);
+    }
 
 }

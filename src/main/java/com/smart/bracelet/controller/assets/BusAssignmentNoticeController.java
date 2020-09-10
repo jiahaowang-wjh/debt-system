@@ -31,8 +31,8 @@ public class BusAssignmentNoticeController {
 
     @RequestMapping("/insertSelective")
     public Result insertSelective(@Valid BusAssignmentNotice record) throws CustomerException {
-        int insertSelective = busAssignmentNoticeService.insertSelective(record);
-        return Result.success(insertSelective);
+        Long insertSelective = busAssignmentNoticeService.insertSelective(record);
+        return Result.success(insertSelective+"");
     }
 
     @RequestMapping("/selectByPrimaryKey")
@@ -66,4 +66,14 @@ public class BusAssignmentNoticeController {
         return Result.success(initialize);
     }
 
+    /**
+     * 通过资产id查询资产债权转让通知书
+     * @param propertId
+     * @return
+     */
+    @RequestMapping("/selectByPropertId")
+    public Result<BusAssignmentNotice> selectByPropertId(@NotNull(message = "资产Id不能为空") Long propertId){
+        BusAssignmentNotice busAssignmentNotice = busAssignmentNoticeService.selectByPropertId(propertId);
+        return Result.success(busAssignmentNotice);
+    }
 }
