@@ -71,5 +71,8 @@ public interface BusCivilService {
      * @return
      */
     List<BusCivil> selectByReportId(Long reportId);
-
+    /**
+     * 民事调解书
+     */
+    List<CivilAndPseronInfo> selectCivi(Long reportId);
 }

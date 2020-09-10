@@ -23,10 +23,12 @@ public class DebtInfoQuery {
     /**
      * 起始日期
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     String beginDate;
     /**
      * 截至日期
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     String endDate;
     /**
      * 民事调解编号

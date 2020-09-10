@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * 担保人信息表现层
@@ -43,8 +44,8 @@ public class BusGuaranteeController {
     }
 
     @RequestMapping("/selectByPrimaryKey")
-    public Result<BusGuarantee> selectByPrimaryKey(@NotNull(message = "担保人ID不能为空") Long guaranteeId) {
-        BusGuarantee busGuarantee = busGuaranteeService.selectByPrimaryKey(guaranteeId);
+    public Result<List<BusGuarantee>> selectByPrimaryKey(@NotNull(message = "民事调解ID不能为空") Long civilId) {
+        List<BusGuarantee> busGuarantee = busGuaranteeService.selectByPrimaryKey(civilId);
         return Result.success(busGuarantee);
     }
 

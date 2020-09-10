@@ -20,7 +20,6 @@ public class BusInvestigateReport implements Serializable {
     /**
      *报告ID
      */
-    @NotNull(message = "不能为空")
     private Long reportId;
     /**
      *解债ID

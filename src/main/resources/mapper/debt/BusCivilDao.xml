@@ -52,7 +52,7 @@
         from bus_civil
     </select>
     <select id="selectBusList" resultType="com.smart.bracelet.model.vo.debt.BusCivilInfo">
-        SELECT br.`report_id`,bc.civil_id,brp.`relative_per_id`,br.`report_no`,bc.civilno,br.`data1` AS 'debtName',bc.status FROM bus_relative_person brp
+        SELECT br.`report_id`,bc.civil_id,brp.data1 AS 'personName',brp.`relative_per_id`,br.`report_no`,bc.civilno,br.`data1` AS 'debtName',bc.status FROM bus_relative_person brp
         LEFT JOIN bus_civil bc ON brp.`relative_per_id`=bc.`relative_per_id`
         LEFT JOIN bus_report br ON brp.`report_id` = br.`report_id`
         <where>
@@ -104,6 +104,14 @@
         from bus_civil
         where report_id =#{reportId,jdbcType=BIGINT}
     </select>
+    <select id="selectCivi" resultType="com.smart.bracelet.model.vo.debt.CivilAndPseronInfo"
+            parameterType="java.lang.Long">
+        SELECT bc.`civil_id`,bc.`civilno`,brp.`data1` AS 'personName',brp.`relative_per_id` FROM bus_civil bc
+        LEFT JOIN bus_report br ON bc.`report_id` = br.`report_id`
+        LEFT JOIN bus_relative_person brp ON brp.`relative_per_id` = bc.`relative_per_id`
+        WHERE br.`report_id` = #{reportId,jdbcType=BIGINT}
+    </select>
+
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from bus_civil

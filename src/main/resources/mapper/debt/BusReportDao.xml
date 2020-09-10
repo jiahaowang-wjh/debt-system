@@ -253,7 +253,7 @@
                 #{cardJust,jdbcType=VARCHAR},
             </if>
             <if test="cardBack != null">
-                    #{cardBack,jdbcType=VARCHAR},
+                #{cardBack,jdbcType=VARCHAR},
             </if>
             <if test="obligatRight != null">
                 #{obligatRight,jdbcType=VARCHAR},
@@ -310,7 +310,7 @@
     </insert>
 
     <update id="addANO">
-        update bus_report set agreement_no = #{agreementNo,jdbcType=VARCHAR} where report_id = #{reportId,jdbcType=BIGINT}
+        update bus_report set agreement_no = #{agreementNo,jdbcType=VARCHAR},party_a = #{partyA,jdbcType=VARCHAR},party_b = #{partyB,jdbcType=VARCHAR} where report_id = #{reportId,jdbcType=BIGINT}
     </update>
     <update id="updateByPrimaryKeySelective">
         update bus_report
@@ -484,13 +484,18 @@
                 and br.create_time BETWEEN #{beginDate} AND #{endDate}
             </if>
         </where>
-      ORDER BY br.`report_id` desc
+        ORDER BY br.`report_id` desc
     </select>
     <select id="selectANO" resultType="java.lang.String">
-          SELECT bus_report.`agreement_no` FROM `bus_report` ORDER BY bus_report.`report_id` DESC LIMIT 1,1;
+          SELECT bus_report.`agreement_no` FROM bus_report ORDER BY bus_report.`agreement_no` desc
     </select>
     <select id="selectByreportId" resultType="com.smart.bracelet.model.po.debt.BusRelativePerson"
             parameterType="java.lang.Long">
         SELECT * FROM bus_relative_person WHERE bus_relative_person.`report_id`=#{reportId,jdbcType=BIGINT}
+    </select>
+    <select id="selectJiJin" resultType="com.smart.bracelet.model.vo.debt.CumOutInfo"
+            parameterType="java.lang.Long">
+            SELECT `agreement_no`,party_a,party_b,create_time FROM bus_report
+            WHERE bus_report.`report_id` = #{reportId,jdbcType=BIGINT}
     </select>
 </mapper>

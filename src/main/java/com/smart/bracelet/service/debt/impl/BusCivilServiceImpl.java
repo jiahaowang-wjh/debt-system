@@ -53,17 +53,15 @@ public class BusCivilServiceImpl implements BusCivilService {
             String repNo = RepNoUtils.createRepNo("TZ", "MSTJ", selectRepNo);
             record.setCivilId(CiID);
             record.setCivilno(repNo);
-            List<BusGuarantee> busGuarantee = record.getBusGuarantee();
-            if(busGuarantee==null){
-                throw new CustomerException("担保人信息不能为空");
-            }
-            Long[] longs = record.getLongs();
-            if(longs.length==0){
+            BusGuarantee[] busGuarantee = record.getBusGuarantee();
+            if(StringUtils.isEmpty(record.getLongs().toString())){
                 throw new CustomerException("调解员id不能为空");
             }
+            Long[] longs = record.getLongs();
             int insertSelective = busCivilDao.insertSelective(record);
             log.info("新增民事调解信息成功,受影响行数:{}", insertSelective);
             if(insertSelective!=0){
+                if(busGuarantee!=null){
                 for (BusGuarantee item:busGuarantee) {
                     if(!StringUtils.isBlank(item.getAuthname())){
                         item.setCivilId(CiID);
@@ -74,6 +72,7 @@ public class BusCivilServiceImpl implements BusCivilService {
                 //批量新增担保人
                 int i = busGuaranteeDao.insertList(record.getBusGuarantee());
                 log.info("新增担保人成功受影响行数：{}",i);
+                }
                 //新增调解员
                 List<BusMediatePerson> list = new ArrayList<>();
                 for (Long item: longs) {
@@ -215,5 +214,10 @@ public class BusCivilServiceImpl implements BusCivilService {
     @Override
     public List<BusCivil> selectByReportId(Long reportId) {
         return busCivilDao.selectByReportId(reportId);
+    }
+
+    @Override
+    public List<CivilAndPseronInfo> selectCivi(Long reportId) {
+        return busCivilDao.selectCivi(reportId);
     }
 }

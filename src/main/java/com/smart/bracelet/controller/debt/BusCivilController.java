@@ -1,11 +1,16 @@
 package com.smart.bracelet.controller.debt;
 
+
+import cn.hutool.json.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.debt.BusCivil;
-import com.smart.bracelet.model.po.debt.BusRelativePerson;
+import com.smart.bracelet.model.po.debt.BusGuarantee;
 import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.vo.debt.*;
 import com.smart.bracelet.service.debt.BusCivilService;
@@ -18,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.security.cert.CertStoreException;
 import java.util.List;
 
 @RestController
@@ -153,5 +157,17 @@ public class BusCivilController {
         List<BusCivil> busCivils = busCivilService.selectByReportId(reportId);
         return Result.success(busCivils);
     }
+
+
+    /**
+     * 民事调解书
+     */
+    @RequestMapping("/selectCivi")
+    public Result<List<CivilAndPseronInfo>> selectCivi(@NotNull(message = "报备ID不能为空") Long reportId){
+        List<CivilAndPseronInfo> civilAndPseronInfos = busCivilService.selectCivi(reportId);
+        return Result.success(civilAndPseronInfos);
+    }
+
+
 
 }

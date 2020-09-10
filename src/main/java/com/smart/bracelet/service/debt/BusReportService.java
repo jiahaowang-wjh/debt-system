@@ -6,6 +6,7 @@ import com.smart.bracelet.model.po.debt.BusReport;
 import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.vo.debt.*;
 import com.smart.bracelet.utils.RepNoUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
@@ -99,8 +100,14 @@ public interface BusReportService {
     /**
      * 提交暨尽调协议生成编号
      */
-    int addAgreementNo(Long reportId) throws CustomerException;
+    int addAgreementNo(String partyA, String partyB,Long reportId) throws CustomerException;
 
+    /**
+     * 暨尽协议下载
+     * @param reportId
+     * @return
+     */
+    CumOutInfo selectJiJin(Long reportId);
 
 
 }

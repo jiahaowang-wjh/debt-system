@@ -6,6 +6,7 @@ import com.smart.bracelet.model.vo.debt.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface PubDebtDao {
@@ -60,6 +61,11 @@ public interface PubDebtDao {
     List<PubDebtInfo> selectDebtListShow(QueryDebtVo queryDebtVo);
 
     /**
+     * 解债页面展示
+     */
+    List<PubDebtInfo> selectByReportIds(Long reportId);
+
+    /**
      * 解债信息填写更新展示
      */
     List<DebtAndRepAndCiviI> selectDebtAndRepAndCiviI();
@@ -68,4 +74,12 @@ public interface PubDebtDao {
      * 通过报备Id查询解债信息
      */
     List<PubDebt> selectByreportId(Long reportId);
+
+    /**
+     *查询金额
+     * @param relativePerId
+     * @return
+     */
+     DebtMoney selectMoney(Long relativePerId);
+
 }

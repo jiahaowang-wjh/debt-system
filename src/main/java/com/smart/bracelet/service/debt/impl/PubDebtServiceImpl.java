@@ -1,5 +1,6 @@
 package com.smart.bracelet.service.debt.impl;
 
+import com.smart.bracelet.dao.debt.BusGuaranteeDao;
 import com.smart.bracelet.dao.debt.PubDebtDao;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.debt.DateAndDays;
@@ -22,6 +23,9 @@ public class PubDebtServiceImpl implements PubDebtService {
     @Autowired
     private PubDebtDao pubDebtDao;
 
+    @Autowired
+    private BusGuaranteeDao busGuaranteeDao;
+
     @Override
     public int deleteByPrimaryKey(Long debtId) throws CustomerException {
         try {
@@ -40,6 +44,8 @@ public class PubDebtServiceImpl implements PubDebtService {
         try {
             Long l = IdUtils.nextId();
             String selectNo = pubDebtDao.selectNo();
+            //累计金额等于本次加累计
+            record.setAmountCumulative(record.getAmountCumulative()+record.getAmountThis());
             String repNo = RepNoUtils.createRepNo("TZ", "ZLGS", selectNo);
             record.setDebtId(l);
             record.setDebtNo(createRepNo());
@@ -112,6 +118,16 @@ public class PubDebtServiceImpl implements PubDebtService {
     @Override
     public List<PubDebt> selectByreportId(Long reportId) {
         return pubDebtDao.selectByreportId(reportId);
+    }
+
+    @Override
+    public DebtMoney selectMoney(Long relativePerId) {
+        return pubDebtDao.selectMoney(relativePerId);
+    }
+
+    @Override
+    public List<PubDebtInfo> selectByReportIds(Long reportId) {
+        return pubDebtDao.selectByReportIds(reportId);
     }
 
 

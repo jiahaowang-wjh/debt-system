@@ -37,13 +37,14 @@
         <result column="partya_addr_info" jdbcType="VARCHAR" property="partyaAddrInfo"/>
         <result column="partya_person_info" jdbcType="VARCHAR" property="partyaPersonInfo"/>
         <result column="partya_tel_info" jdbcType="VARCHAR" property="partyaTelInfo"/>
+        <result column="civil_id" jdbcType="BIGINT" property="civilId"/>
     </resultMap>
     <sql id="Base_Column_List">
     debt_id, report_id,relative_per_id, amount_total, amount_cumulative, amount_this, debt_type, debt_yaer,
     is_pledge, service_plan, partya_addr, partya_person, partya_tel, partyb_addr, partyb_person, 
     partyb_tel, service_principal, service_interest, partya_deputy, partya_seal, partya_date, 
     partyb_deputy, partyb_seal, partyb_date, contract_place, `status`, check_reason,check_date,partya_identity,partyb_identity,partya_addr_info,partya_person_info,partya_tel_info,
-      debt_no,create_time,update_time,service_no
+      debt_no,create_time,update_time,service_no,civil_id
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
@@ -164,6 +165,9 @@
             <if test="partyaTelInfo != null">
                 partya_tel_info,
             </if>
+            <if test="civilId != null">
+                civil_id,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="debtId != null">
@@ -270,6 +274,9 @@
             </if>
             <if test="partyaTelInfo != null">
                 #{partyaTelInfo,jdbcType=VARCHAR},
+            </if>
+            <if test="civilId != null">
+                #{civilId,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -407,13 +414,13 @@
     </select>
 
     <select id="selectDebtListShow" resultType="com.smart.bracelet.model.vo.debt.PubDebtInfo">
-        SELECT br.`report_id`,brp.`relative_per_id`,br.`report_no`,br.`data1` AS
-        'debtName',pd.`debt_no`,pd.`debt_id`,pd.`status`,bc.`civilno` FROM bus_relative_person brp
+        SELECT br.`report_id`,brp.`relative_per_id`,br.`report_no`,brp.data1 AS
+        'personName',pd.`debt_no`,pd.`debt_id`,pd.`status`,bc.`civilno` FROM bus_relative_person brp
         LEFT JOIN pub_debt pd ON pd.`relative_per_id` = brp.`relative_per_id`
         LEFT JOIN bus_civil bc ON bc.`relative_per_id` = brp.`relative_per_id`
         LEFT JOIN bus_report br ON br.`report_id` = brp.report_id
         <where>
-            br.`stage`='3' AND pd.status='0'
+            br.`stage`='3'
             <if test="debtNo != null and debtNo!=''">
                 and pd.debt_no = #{debtNo,jdbcType=VARCHAR}
             </if>
@@ -444,5 +451,22 @@
         from pub_debt
         where report_id = #{report_id,jdbcType=BIGINT}
     </select>
+    <select id="selectMoney" resultType="com.smart.bracelet.model.vo.debt.DebtMoney"
+            parameterType="java.lang.Long">
+                SELECT brp.`relative_per_id`,bc.interest_all,pd.amount_cumulative FROM bus_relative_person brp
+        LEFT JOIN bus_report br ON brp.`report_id` = br.`report_id`
+        LEFT JOIN pub_debt pd ON pd.`relative_per_id` = brp.`relative_per_id`
+        LEFT JOIN bus_civil bc ON bc.`relative_per_id` = brp.`relative_per_id`
+        WHERE brp.`relative_per_id` = #{relativePerId,jdbcType=BIGINT}
+    </select>
+    <select id="selectByReportIds" resultType="com.smart.bracelet.model.vo.debt.PubDebtInfo"
+            parameterType="java.lang.Long">
+        SELECT br.`report_id`,brp.`relative_per_id`,br.`report_no`,brp.data1 AS 'personName',pd.`debt_no`,pd.`debt_id`,pd.`status`,bc.`civilno` FROM bus_relative_person brp
+        LEFT JOIN pub_debt pd ON pd.`relative_per_id` = brp.`relative_per_id`
+        LEFT JOIN bus_civil bc ON bc.`relative_per_id` = brp.`relative_per_id`
+        LEFT JOIN bus_report br ON br.`report_id` = brp.report_id
+        WHERE br.`report_id` = #{reportId,jdbcType=BIGINT}
+    </select>
+
 
 </mapper>

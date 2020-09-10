@@ -1,8 +1,11 @@
 package com.smart.bracelet.model.po.debt;
 
+import cn.hutool.json.JSONObject;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.google.gson.JsonArray;
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
@@ -173,7 +176,7 @@ public class BusCivil implements Serializable {
     /**
      * 担保人集合
      */
-    List<BusGuarantee> busGuarantee;
+   BusGuarantee[] busGuarantee;
 
     /**
      * 用户Id

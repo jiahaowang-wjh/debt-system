@@ -1,46 +1,49 @@
-package com.smart.bracelet.model.vo.debt;
+package com.smart.bracelet.model.vo.assets;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
+import java.util.Date;
+
 @Data
-public class BusCivilInfo {
-    /**
-     * 调解ID
-     */
-    @JsonSerialize(using = ToStringSerializer.class)
-    Long civilId;
+public class AssetsDebtBank {
 
     /**
      * 相对人ID
      */
     @JsonSerialize(using = ToStringSerializer.class)
     Long relativePerId;
-
     /**
-     * 报备ID
+     * 资产ID
      */
     @JsonSerialize(using = ToStringSerializer.class)
-    Long reportId;
-
+    Long propertId;
     /**
      * 报备编号
      */
     String reportNo;
     /**
-     * 调解编号
+     * 解债编号
      */
-    String civilno;
-
+    String debtNo;
+    /**
+     * 资产评估编号
+     */
+    String assessmentNo;
+    /**
+     * 阶段
+     */
+    String stage;
+    /**
+     * 创建时间
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    Date createTime;
 
     /**
-     * 相对人
-     */
-    String personName;
-
-    /**
-     * 调解状态
+     * 状态
      */
     String status;
 }

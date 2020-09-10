@@ -3,10 +3,7 @@ package com.smart.bracelet.dao.debt;
 import com.smart.bracelet.model.po.debt.BusRelativePerson;
 import com.smart.bracelet.model.po.debt.BusReport;
 import com.smart.bracelet.model.po.debt.DateAndDays;
-import com.smart.bracelet.model.vo.debt.BusReportVo;
-import com.smart.bracelet.model.vo.debt.DebtChain;
-import com.smart.bracelet.model.vo.debt.DebtInfo;
-import com.smart.bracelet.model.vo.debt.DebtInfoQuery;
+import com.smart.bracelet.model.vo.debt.*;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigInteger;
@@ -77,14 +74,19 @@ public interface BusReportDao {
     /**
      * 查询最后一条暨尽编号
      */
-    String selectANO();
+    List<String> selectANO();
 
     /**
      * 新增暨尽编号
      */
-    int addANO(String agreementNo,Long reportId);
+    int addANO(String partyA, String partyB,String agreementNo,Long reportId);
 
-
+    /**
+     * 暨尽协议下载
+     * @param reportId
+     * @return
+     */
+    CumOutInfo selectJiJin(Long reportId);
 
 
 }

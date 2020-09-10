@@ -17,7 +17,7 @@
     select 
     <include refid="Base_Column_List" />
     from bus_guarantee
-    where guarantee_id = #{guaranteeId,jdbcType=BIGINT}
+    where civil_id = #{civilId,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from bus_guarantee
@@ -75,7 +75,7 @@
   <insert id="insertList" parameterType="com.smart.bracelet.model.po.debt.BusGuarantee">
       insert into bus_guarantee(guarantee_id, civil_id, authname, card, unit_type,tel, address)
       values
-      <foreach collection ="list" item="info" separator="," >
+      <foreach collection ="array" item="info" separator="," >
         (#{info.guaranteeId},#{info.civilId},#{info.authname},#{info.card},#{info.unitType},#{info.tel},#{info.address})
       </foreach>
   </insert>

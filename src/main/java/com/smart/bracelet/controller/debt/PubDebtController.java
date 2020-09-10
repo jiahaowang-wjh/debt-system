@@ -127,4 +127,25 @@ public class PubDebtController {
         return Result.success(pubDebts);
     }
 
+    /**
+     * 查询金额
+     *
+     * @param relativePerId
+     * @return
+     */
+    @RequestMapping("/selectMoney")
+    public Result<DebtMoney> selectMoney(@NotNull(message = "相对人id不能为空") Long relativePerId) {
+        DebtMoney debtMoney = pubDebtService.selectMoney(relativePerId);
+        return Result.success(debtMoney);
+    }
+
+
+    /**
+     * 解债页面展示
+     */
+    @RequestMapping("/selectByReportIds")
+    public Result<List<PubDebtInfo>> selectByReportIds(@NotNull(message = "报备ID不能为空") Long reportId) {
+        List<PubDebtInfo> pubDebtInfos = pubDebtService.selectByReportIds(reportId);
+        return Result.success(pubDebtInfos);
+    }
 }

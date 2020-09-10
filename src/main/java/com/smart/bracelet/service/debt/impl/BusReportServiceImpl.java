@@ -12,6 +12,7 @@ import com.smart.bracelet.service.debt.BusReportService;
 import com.smart.bracelet.utils.IdUtils;
 import com.smart.bracelet.utils.RepNoUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -608,19 +609,35 @@ public class BusReportServiceImpl implements BusReportService {
      * @return
      */
     String agreementNo() {
-        String s = busReportDao.selectANO();
-        String repNo = RepNoUtils.createRepNo("TZ", "ZLGS", s);
+        List<String>  s = busReportDao.selectANO();
+        String JINO = null;
+        for (String string: s) {
+            if(!StringUtils.isBlank(string)){
+                JINO = string;
+                break;
+            }
+        }
+        String repNo = RepNoUtils.createRepNo("TZ", "ZLGS", JINO);
         return repNo;
     }
 
     @Override
-    public int addAgreementNo(Long reportId) throws CustomerException {
+    public int addAgreementNo(String partyA, String partyB,Long reportId) throws CustomerException {
         try {
-            return busReportDao.addANO(agreementNo(), reportId);
+            return busReportDao.addANO(partyA,partyB,agreementNo(), reportId);
         } catch (Exception e) {
             log.error("异常信息:{}", e.getMessage());
             throw new CustomerException("新增失败");
         }
     }
 
+    /**
+     * 暨尽协议下载
+     * @param reportId
+     * @return
+     */
+    @Override
+    public CumOutInfo selectJiJin(Long reportId){
+        return busReportDao.selectJiJin(reportId);
+    }
 }

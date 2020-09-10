@@ -12,7 +12,7 @@ public interface BusGuaranteeDao {
 
     int insertSelective(BusGuarantee record);
 
-    BusGuarantee selectByPrimaryKey(Long guaranteeId);
+    List<BusGuarantee> selectByPrimaryKey(Long civilId);
 
     int updateByPrimaryKeySelective(BusGuaranteeVo record);
 
@@ -21,6 +21,6 @@ public interface BusGuaranteeDao {
      * @param list
      * @return
      */
-    int insertList(List<BusGuarantee> list);
+    int insertList(BusGuarantee[] list);
 
 }

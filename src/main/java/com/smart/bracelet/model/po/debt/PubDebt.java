@@ -9,6 +9,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * pub_debt
@@ -29,6 +30,11 @@ public class PubDebt implements Serializable {
      */
     private String debtNo;
 
+    /**
+     * 民事调解ID
+     */
+    @NotNull(message = "民事调解ID不能为空")
+    private Long civilId;
 
     /**
      * 报备ID
@@ -241,4 +247,8 @@ public class PubDebt implements Serializable {
     @NotBlank(message = "甲方联系电话不能为空")
     String partyaTelInfo;
 
+    /**
+     * 担保人集合
+     */
+    BusGuarantee[] busGuarantee;
 }

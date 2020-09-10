@@ -17,9 +17,9 @@ public class PubDebtInfo {
      */
     String reportNo;
     /**
-     * 债事人
+     * 相对人
      */
-    String debtName;
+    String personName;
     /**
      * 相对人Id
      */
@@ -38,6 +38,7 @@ public class PubDebtInfo {
     /**
      * 解债ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     Long debtId;
 
     /**

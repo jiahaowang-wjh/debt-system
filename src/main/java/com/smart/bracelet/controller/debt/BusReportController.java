@@ -218,9 +218,20 @@ public class BusReportController {
      * 提交暨尽调协议生成编号
      */
     @RequestMapping("/addAgreementNo")
-    public Result addAgreementNo(@NotNull(message = "报备ID不能为空") Long reportId) throws CustomerException{
-        int a = busReportService.addAgreementNo(reportId);
+    public Result addAgreementNo(@NotBlank(message = "甲方不能为空") String partyA, @NotBlank(message = "乙方不能为空") String partyB,@NotNull(message = "报备ID不能为空") Long reportId) throws CustomerException{
+        int a = busReportService.addAgreementNo(partyA,partyB,reportId);
         return Result.success(a);
+    }
+
+    /**
+     * 暨尽协议下载
+     * @param reportId
+     * @return
+     */
+    @RequestMapping("/selectJiJin")
+    public Result<CumOutInfo> selectJiJin(@NotNull(message = "报备ID不能为空") Long reportId){
+        CumOutInfo cumOutInfo = busReportService.selectJiJin(reportId);
+        return Result.success(cumOutInfo);
     }
 
 

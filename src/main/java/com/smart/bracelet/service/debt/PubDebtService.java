@@ -54,4 +54,15 @@ public interface PubDebtService {
      */
     List<PubDebt> selectByreportId(Long reportId);
 
+    /**
+     *查询金额
+     * @param relativePerId
+     * @return
+     */
+    DebtMoney selectMoney(Long relativePerId);
+
+    /**
+     * 解债页面展示
+     */
+    List<PubDebtInfo> selectByReportIds(Long reportId);
 }

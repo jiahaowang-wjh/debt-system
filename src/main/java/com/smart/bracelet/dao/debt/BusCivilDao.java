@@ -90,4 +90,10 @@ public interface BusCivilDao {
      * 批量新增调解参与人信息表
      */
     int inertList(List<BusMediatePerson> busMediatePerson);
+
+    /**
+     * 民事调解书
+     */
+    List<CivilAndPseronInfo> selectCivi(Long reportId);
+
 }
