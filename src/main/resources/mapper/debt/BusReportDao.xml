@@ -70,11 +70,12 @@
     </select>
 
     <select id="queryLisyDebtor" resultType="com.smart.bracelet.model.vo.debt.DebtChain">
-        SELECT br.report_id AS father_Id,br.data1 AS Report,br.data3 AS RelativePersonIdCad FROM bus_report br
-        WHERE br.data2=#{personIdCad,jdbcType=VARCHAR}
+        SELECT MIN(br.report_id) AS father_Id,br.data1 AS Report,br.data3 AS RelativePersonIdCad FROM bus_report br
+        WHERE br.data1=#{personIdCad,jdbcType=VARCHAR}
+        GROUP BY br.`data1`,br.`data3`
     </select>
     <select id="queryLisyRelativePerson" resultType="com.smart.bracelet.model.vo.debt.DebtChain">
-        SELECT brp.data1 AS Report,brp.data3 AS RelativePersonIdCad FROM  bus_relative_person brp
+        SELECT brp.data1 AS Report,brp.data3 AS RelativePersonIdCad,brp.`obligat_right` FROM  bus_relative_person brp
         WHERE brp.report_id=#{personId,jdbcType=BIGINT}
     </select>
     <select id="selectRepNo" resultType="java.lang.String">

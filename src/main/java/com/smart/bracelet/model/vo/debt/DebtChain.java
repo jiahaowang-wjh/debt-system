@@ -19,6 +19,11 @@ public class DebtChain {
     String RelativePersonIdCad;
 
     /**
+     * 金额
+     */
+    String obligatRight;
+
+    /**
      * 父级ID
      */
     BigInteger fatherId;
