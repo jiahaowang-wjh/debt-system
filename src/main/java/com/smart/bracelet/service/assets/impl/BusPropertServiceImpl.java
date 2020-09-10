@@ -3,6 +3,7 @@ package com.smart.bracelet.service.assets.impl;
 import com.smart.bracelet.dao.assets.BusPropertDao;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.debt.BusPropert;
+import com.smart.bracelet.model.vo.assets.AssetsDebtBank;
 import com.smart.bracelet.model.vo.debt.BusPropertVo;
 import com.smart.bracelet.service.assets.BusPropertService;
 import com.smart.bracelet.utils.IdUtils;
@@ -23,7 +24,7 @@ public class BusPropertServiceImpl implements BusPropertService {
     public int deleteByPrimaryKey(Long propertId) throws CustomerException {
         try {
             int deleteByPrimaryKey = busPropertDao.deleteByPrimaryKey(propertId);
-            log.info("删除资产信息成功,受影响行数:{}",deleteByPrimaryKey);
+            log.info("删除资产信息成功,受影响行数:{}", deleteByPrimaryKey);
             return deleteByPrimaryKey;
         } catch (Exception e) {
             log.error("删除资产信息失败,异常信息:{}", e.getMessage());
@@ -37,7 +38,7 @@ public class BusPropertServiceImpl implements BusPropertService {
             Long l = IdUtils.nextId();
             record.setPropertId(l);
             int insertSelective = busPropertDao.insertSelective(record);
-            log.info("新增资产信息成功,受影响行数:{}",insertSelective);
+            log.info("新增资产信息成功,受影响行数:{}", insertSelective);
             return l;
         } catch (Exception e) {
             log.error("新增资产信息失败,异常信息:{}", e.getMessage());
@@ -54,7 +55,7 @@ public class BusPropertServiceImpl implements BusPropertService {
     public int updateByPrimaryKeySelective(BusPropertVo record) throws CustomerException {
         try {
             int updateByPrimaryKeySelective = busPropertDao.updateByPrimaryKeySelective(record);
-            log.info("更新资产信息成功,受影响行数:{}",updateByPrimaryKeySelective);
+            log.info("更新资产信息成功,受影响行数:{}", updateByPrimaryKeySelective);
             return updateByPrimaryKeySelective;
         } catch (Exception e) {
             log.error("更新资产信息失败,异常信息:{}", e.getMessage());
@@ -68,14 +69,19 @@ public class BusPropertServiceImpl implements BusPropertService {
     }
 
     @Override
-    public int updateStatus(String status, Long propertId) throws CustomerException {
+    public int updateStatus(String status, String checkReason, Long propertId) throws CustomerException {
         try {
-            int i = busPropertDao.updateStatus(status, propertId);
-            log.info("更新状态成功,受影响行数:{}",i);
+            int i = busPropertDao.updateStatus(status, checkReason, propertId);
+            log.info("更新状态成功,受影响行数:{}", i);
             return i;
         } catch (Exception e) {
-            log.error("更新状态失败,异常信息:{}",e.getMessage());
+            log.error("更新状态失败,异常信息:{}", e.getMessage());
             throw new CustomerException("更新状态失败");
         }
+    }
+
+    @Override
+    public List<AssetsDebtBank> querys() {
+        return busPropertDao.querys();
     }
 }

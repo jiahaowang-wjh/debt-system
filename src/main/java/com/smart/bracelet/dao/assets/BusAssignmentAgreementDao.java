@@ -28,9 +28,16 @@ public interface BusAssignmentAgreementDao {
 
     /**
      * 页面初始化数据
-     * @param reportId  报备ID
+     * @param relativePerId  报备ID
      * @return
      */
     BusAssignmentAgreementShow initialize(Long relativePerId);
+
+    /**
+     * 通过资产Id查询资产债权转让协议
+     * @param propertId
+     * @return
+     */
+    BusAssignmentAgreementShow selectByProId(Long propertId);
 
 }

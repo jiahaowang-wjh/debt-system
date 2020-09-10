@@ -30,4 +30,12 @@ public interface BusAssignmentConfirmDao {
      * @return
      */
     BusAssignmentConfirmShow initialize(Long relativePerId);
+
+    /**
+     * 通过资产ID查询资产债权转让确认
+     * @param propertId
+     * @return
+     */
+    BusAssignmentConfirm selectByPropertId(Long propertId);
+
 }

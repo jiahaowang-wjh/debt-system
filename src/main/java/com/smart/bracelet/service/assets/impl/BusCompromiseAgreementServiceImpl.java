@@ -219,4 +219,9 @@ public class BusCompromiseAgreementServiceImpl implements BusCompromiseAgreement
         initialize.setDay(c.get(Calendar.DAY_OF_MONTH)+"");
         return initialize;
     }
+
+    @Override
+    public BusCompromiseAgreement selectByPropertId(Long propertId) {
+        return busCompromiseAgreementDao.selectByPropertId(propertId);
+    }
 }

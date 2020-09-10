@@ -11,7 +11,7 @@ public interface BusAssignmentNoticeService {
 
     int deleteByPrimaryKey(Long assignmentNoticeId) throws CustomerException;
 
-    int insertSelective(BusAssignmentNotice record) throws CustomerException;
+    Long insertSelective(BusAssignmentNotice record) throws CustomerException;
 
     BusAssignmentNotice selectByPrimaryKey(Long assignmentNoticeId);
 
@@ -25,4 +25,11 @@ public interface BusAssignmentNoticeService {
      * @return
      */
     BusAssignmentNoticeShow initialize(Long relativePerId);
+
+    /**
+     * 通过资产id查询资产债权转让通知书
+     * @param propertId
+     * @return
+     */
+    BusAssignmentNotice selectByPropertId(Long propertId);
 }

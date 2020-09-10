@@ -36,15 +36,16 @@ public class BusAssignmentConfirmServiceImpl implements BusAssignmentConfirmServ
     }
 
     @Override
-    public int insertSelective(BusAssignmentConfirm record) throws CustomerException {
+    public Long insertSelective(BusAssignmentConfirm record) throws CustomerException {
         try {
+            long l = IdUtils.nextId();
             String selectNo = busAssignmentConfirmDao.selectNo();
             String repNo = RepNoUtils.createRepNo("ZCGS","ZQZRQR",selectNo);
-            record.setPosseConfirmtId(IdUtils.nextId());
+            record.setPosseConfirmtId(l);
             record.setConfirmNo(repNo);
             int deleteByPrimaryKey = busAssignmentConfirmDao.insertSelective(record);
             log.info("新增资产债权转让确认成功,受影响行数:{}",deleteByPrimaryKey);
-            return deleteByPrimaryKey;
+            return l;
         } catch (Exception e) {
             log.error("新增资产债权转让确认失败,异常信息:{}",e.getMessage());
             throw new CustomerException("新增资产债权转让确认失败");
@@ -79,4 +80,11 @@ public class BusAssignmentConfirmServiceImpl implements BusAssignmentConfirmServ
         initialize.setThisTime(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
         return initialize;
     }
+
+    @Override
+    public BusAssignmentConfirm selectByPropertId(Long propertId) {
+        return busAssignmentConfirmDao.selectByPropertId(propertId);
+    }
+
+
 }

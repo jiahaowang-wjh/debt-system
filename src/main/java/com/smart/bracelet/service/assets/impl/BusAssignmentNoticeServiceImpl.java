@@ -33,12 +33,13 @@ public class BusAssignmentNoticeServiceImpl implements BusAssignmentNoticeServic
     }
 
     @Override
-    public int insertSelective(BusAssignmentNotice record) throws CustomerException {
+    public Long insertSelective(BusAssignmentNotice record) throws CustomerException {
         try {
-            record.setAssignmentNoticeId(IdUtils.nextId());
+            long l = IdUtils.nextId();
+            record.setAssignmentNoticeId(l);
             int deleteByPrimaryKey = busAssignmentNoticeDao.insertSelective(record);
             log.info("新增资产债权转让通知书成功,受影响行数:{}",deleteByPrimaryKey);
-            return deleteByPrimaryKey;
+            return l;
         } catch (Exception e) {
             log.error("新增资产债权转让通知书失败,异常信息:{}",e.getMessage());
             throw new CustomerException("新增资产债权转让通知书失败");
@@ -70,5 +71,10 @@ public class BusAssignmentNoticeServiceImpl implements BusAssignmentNoticeServic
     @Override
     public BusAssignmentNoticeShow initialize(Long relativePerId) {
         return busAssignmentNoticeDao.initialize(relativePerId);
+    }
+
+    @Override
+    public BusAssignmentNotice selectByPropertId(Long propertId) {
+        return busAssignmentNoticeDao.selectByPropertId(propertId);
     }
 }

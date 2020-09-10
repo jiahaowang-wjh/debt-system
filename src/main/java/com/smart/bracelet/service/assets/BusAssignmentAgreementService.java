@@ -13,7 +13,7 @@ public interface BusAssignmentAgreementService {
 
     int deleteByPrimaryKey(Long assignmentAgreementId) throws CustomerException;
 
-    int insertSelective(BusAssignmentAgreement record) throws CustomerException;
+    Long insertSelective(BusAssignmentAgreement record) throws CustomerException;
 
     BusAssignmentAgreement selectByPrimaryKey(Long assignmentAgreementId);
 
@@ -27,4 +27,10 @@ public interface BusAssignmentAgreementService {
      * @return
      */
     BusAssignmentAgreementShow initialize(Long relativePerId) throws CustomerException;
+    /**
+     * 通过资产Id查询资产债权转让协议
+     * @param propertId
+     * @return
+     */
+    BusAssignmentAgreementShow selectByProId(Long propertId);
 }

@@ -28,10 +28,12 @@ public class BusAgentSalesContractModityServiceImpl implements BusAgentSalesCont
     }
 
     @Override
-    public int insertSelective(BusAgentSalesContractModity record) throws CustomerException {
+    public Long insertSelective(BusAgentSalesContractModity record) throws CustomerException {
         try {
-            record.setSalesContractModityId(IdUtils.nextId());
-            return busAgentSalesContractModityDao.insertSelective(record);
+            long l = IdUtils.nextId();
+            record.setSalesContractModityId(l);
+            busAgentSalesContractModityDao.insertSelective(record);
+            return l;
         } catch (Exception e) {
             log.error("新增失败.异常信息:{}",e.getMessage());
             throw new CustomerException("新增失败");

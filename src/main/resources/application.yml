@@ -54,4 +54,4 @@ security:
       user-info-uri: http://localhost:8888/api/oauth/checkToken
       prefer-token-info: false
 # 图片上传位置
-fileImgPath: \root\upload\
+fileImgPath: /root/upload/

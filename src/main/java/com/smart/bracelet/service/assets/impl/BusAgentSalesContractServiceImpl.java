@@ -36,12 +36,14 @@ public class BusAgentSalesContractServiceImpl implements BusAgentSalesContractSe
     }
 
     @Override
-    public int insertSelective(BusAgentSalesContract record) throws CustomerException {
+    public Long insertSelective(BusAgentSalesContract record) throws CustomerException {
         try {
+            long l = IdUtils.nextId();
             String a = busAgentSalesContractDao.selectNo();
-            record.setSalesContractId(IdUtils.nextId());
+            record.setSalesContractId(l);
             record.setSalesNo(RepNoUtils.createRepNo("TZ","DLXS",a));
-            return busAgentSalesContractDao.insertSelective(record);
+            busAgentSalesContractDao.insertSelective(record);
+            return l;
         } catch (Exception e) {
             log.error("新增失败,异常信息:{}",e.getMessage());
             throw new CustomerException("新增失败");
@@ -90,5 +92,10 @@ public class BusAgentSalesContractServiceImpl implements BusAgentSalesContractSe
             log.error("异常信息:{}",e.getMessage());
             throw new CustomerException("初始化失败");
         }
+    }
+
+    @Override
+    public BusAgentSalesContract selectByPropertId(Long propertId) {
+        return busAgentSalesContractDao.selectByPropertId(propertId);
     }
 }

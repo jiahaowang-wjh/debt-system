@@ -87,7 +87,7 @@
         WHERE bus_relative_person.`report_id` = #{reportId,jdbcType=BIGINT}
     </select>
     <select id="initialize" resultType="com.smart.bracelet.model.vo.debt.AgreementInfoShow">
-        SELECT br.`data1` AS 'debtName',br.`data2` AS 'idCard', br.`agreement_no` FROM bus_report br
+        SELECT br.`data1` AS 'debtName',br.`data2` AS 'idCard', br.`agreement_no`,br.party_a,br.party_b,br.create_time FROM bus_report br
         WHERE br.`report_id` = #{reportId,jdbcType=BIGINT}
     </select>
     <select id="initializePlan" resultType="com.smart.bracelet.model.vo.debt.PlanServiceInfo">
@@ -368,7 +368,7 @@
             <if test="status != null and status != ''">
                 `status` = #{status,jdbcType=VARCHAR},
             </if>
-            <if test="checkReason != null and checkReason= ''">
+            <if test="checkReason != null and checkReason != ''">
                 check_reason=#{checkReason,jdbcType=VARCHAR},
             </if>
         </set>

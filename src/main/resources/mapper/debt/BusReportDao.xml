@@ -429,7 +429,7 @@
             <if test="status != null and status != ''">
                 `status` = #{status,jdbcType=VARCHAR},
             </if>
-            <if test="checkReason != null and checkReason= ''">
+            <if test="checkReason != null and checkReason != ''">
                 check_reason=#{checkReason,jdbcType=VARCHAR},
             </if>
         </set>

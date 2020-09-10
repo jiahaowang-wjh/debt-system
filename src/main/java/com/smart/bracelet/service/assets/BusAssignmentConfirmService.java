@@ -10,7 +10,7 @@ import java.util.List;
 public interface BusAssignmentConfirmService {
     int deleteByPrimaryKey(Long posseConfirmtId) throws CustomerException;
 
-    int insertSelective(BusAssignmentConfirm record) throws CustomerException;
+    Long insertSelective(BusAssignmentConfirm record) throws CustomerException;
 
     BusAssignmentConfirm selectByPrimaryKey(Long posseConfirmtId);
 
@@ -23,4 +23,12 @@ public interface BusAssignmentConfirmService {
      * @return
      */
     BusAssignmentConfirmShow initialize(Long relativePerId);
+
+    /**
+     * 通过资产ID查询资产债权转让确认
+     * @param propertId
+     * @return
+     */
+    BusAssignmentConfirm selectByPropertId(Long propertId);
+
 }

@@ -35,15 +35,16 @@ public class BusAssignmentAgreementServiceImpl implements BusAssignmentAgreement
     }
 
     @Override
-    public int insertSelective(BusAssignmentAgreement record) throws CustomerException {
+    public Long insertSelective(BusAssignmentAgreement record) throws CustomerException {
         try {
+            long l = IdUtils.nextId();
             String selectNo = busAssignmentAgreementDao.selectNo();
             String repNo = RepNoUtils.createRepNo("ZCGS", "ZQZR", selectNo);
-            record.setAssignmentAgreementId(IdUtils.nextId());
+            record.setAssignmentAgreementId(l);
             record.setAssignmentAgreementNo(repNo);
             int insertSelective = busAssignmentAgreementDao.insertSelective(record);
             log.info("新增资产债权转让协议成功,受影响行数:{}", insertSelective);
-            return insertSelective;
+            return l;
         } catch (Exception e) {
             log.error("新增资产债权转让协议失败,异常信息:{}", e.getMessage());
             throw new CustomerException("新增资产债权转让协议失败");
@@ -107,5 +108,10 @@ public class BusAssignmentAgreementServiceImpl implements BusAssignmentAgreement
             throw new CustomerException("查询失败,请检查参数");
         }
 
+    }
+
+    @Override
+    public BusAssignmentAgreementShow selectByProId(Long propertId) {
+        return busAssignmentAgreementDao.selectByProId(propertId);
     }
 }

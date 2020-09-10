@@ -1,6 +1,9 @@
 package com.smart.bracelet.model.vo.debt;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+
+import java.util.Date;
 
 /**
  * 信息分析暨尽调协议
@@ -14,4 +17,10 @@ public class AgreementInfoShow {
 
     String agreementNo;
 
+    String partyA;
+
+    String partyB;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    Date createTime;
 }

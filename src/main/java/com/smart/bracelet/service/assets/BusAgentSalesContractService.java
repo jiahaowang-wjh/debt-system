@@ -9,7 +9,7 @@ public interface BusAgentSalesContractService {
 
     int deleteByPrimaryKey(Long salesContractId) throws CustomerException;
 
-    int insertSelective(BusAgentSalesContract record) throws CustomerException;
+    Long insertSelective(BusAgentSalesContract record) throws CustomerException;
 
     BusAgentSalesContract selectByPrimaryKey(Long salesContractId);
 
@@ -21,4 +21,12 @@ public interface BusAgentSalesContractService {
      * @return
      */
     BusAgentSalesContractShow initialize(Long reportId) throws CustomerException;
+
+    /**
+     * 通过资产Id查询 委托代理销售合同
+     *
+     * @param propertId
+     * @return
+     */
+    BusAgentSalesContract selectByPropertId(Long propertId);
 }

@@ -64,4 +64,15 @@ public class BusCollectionLetterController {
         return Result.success(initialize);
     }
 
+    /**
+     * 通过资产Id查询催款函
+     * @param propertId
+     * @return
+     */
+    @RequestMapping("/selectByPropertId")
+    public Result<BusCollectionLetter> selectByPropertId(@NotNull(message = "资产ID不能为空") Long propertId){
+        BusCollectionLetter busCollectionLetter = busCollectionLetterService.selectByPropertId(propertId);
+        return Result.success(busCollectionLetter);
+    }
+
 }
