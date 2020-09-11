@@ -17,7 +17,7 @@ public interface BusAgentSalesContractService {
 
     /**
      * 委托代理销售合同初始化
-     * @param reportId
+     * @param relativePerId
      * @return
      */
     BusAgentSalesContractShow initialize(Long relativePerId) throws CustomerException;

@@ -91,8 +91,8 @@ public class BusCompromiseAgreementServiceImpl implements BusCompromiseAgreement
             busCompromiseAgreement.setCompromiseAgreementNo(repNo);
             busCompromiseAgreement.setPropertId(manner2Vo.getPropertId());
             busCompromiseAgreement.setPartybMode(manner2Vo.getPartybMode());
-            busCompromiseAgreement.setData1(manner2Vo.getStagingNumber());
-            busCompromiseAgreement.setData2(manner2Vo.getMoney());
+            busCompromiseAgreement.setData1(manner2Vo.getMoney());
+            busCompromiseAgreement.setData2(manner2Vo.getStagingNumber());
             busCompromiseAgreement.setData3(manner2Vo.getDays());
             busCompromiseAgreement.setPartyaSubrogation(manner2Vo.getPartyaSubrogation());
             busCompromiseAgreement.setPartyaDate(manner2Vo.getPartyaDate());
@@ -120,8 +120,8 @@ public class BusCompromiseAgreementServiceImpl implements BusCompromiseAgreement
                 manner1VoAndManner2Vo.setCompromiseAgreementId(busCompromiseAgreement.getCompromiseAgreementId());
                 manner1VoAndManner2Vo.setPropertId(busCompromiseAgreement.getPropertId());
                 manner1VoAndManner2Vo.setPartybMode(busCompromiseAgreement.getPartybMode());
-                manner1VoAndManner2Vo.setStagingNumber(busCompromiseAgreement.getData1());
-                manner1VoAndManner2Vo.setMoney(busCompromiseAgreement.getData2());
+                manner1VoAndManner2Vo.setStagingNumber(busCompromiseAgreement.getData2());
+                manner1VoAndManner2Vo.setMoney(busCompromiseAgreement.getData1());
                 manner1VoAndManner2Vo.setDays(busCompromiseAgreement.getData3());
                 manner1VoAndManner2Vo.setPartyaSubrogation(busCompromiseAgreement.getPartyaSubrogation());
                 manner1VoAndManner2Vo.setPartyaDate(busCompromiseAgreement.getPartyaDate());
@@ -179,8 +179,8 @@ public class BusCompromiseAgreementServiceImpl implements BusCompromiseAgreement
             busCompromiseAgreement.setCompromiseAgreementId(manner2Vo.getCompromiseAgreementId());
             busCompromiseAgreement.setPropertId(manner2Vo.getPropertId());
             busCompromiseAgreement.setPartybMode(manner2Vo.getPartybMode());
-            busCompromiseAgreement.setData1(manner2Vo.getStagingNumber());
-            busCompromiseAgreement.setData2(manner2Vo.getMoney());
+            busCompromiseAgreement.setData1(manner2Vo.getMoney());
+            busCompromiseAgreement.setData2(manner2Vo.getStagingNumber());
             busCompromiseAgreement.setData3(manner2Vo.getDays());
             busCompromiseAgreement.setPartyaSubrogation(manner2Vo.getPartyaSubrogation());
             busCompromiseAgreement.setPartyaDate(manner2Vo.getPartyaDate());
@@ -221,7 +221,9 @@ public class BusCompromiseAgreementServiceImpl implements BusCompromiseAgreement
     }
 
     @Override
-    public BusCompromiseAgreement selectByPropertId(Long propertId) {
-        return busCompromiseAgreementDao.selectByPropertId(propertId);
+    public Manner1AndManner2 selectByPropertId(Long propertId) throws CustomerException {
+        BusCompromiseAgreement a = busCompromiseAgreementDao.selectByPropertId(propertId);
+        Manner1AndManner2 manner1AndManner2 = selectByPrimaryKey(a.getCompromiseAgreementId());
+        return manner1AndManner2;
     }
 }

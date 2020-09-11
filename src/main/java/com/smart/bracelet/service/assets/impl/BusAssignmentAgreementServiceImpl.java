@@ -109,7 +109,6 @@ public class BusAssignmentAgreementServiceImpl implements BusAssignmentAgreement
             log.error("异常信息:{}", e.getMessage());
             throw new CustomerException("查询失败,请检查参数");
         }
-
     }
 
     @Override

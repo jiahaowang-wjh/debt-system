@@ -56,4 +56,29 @@ public interface PubDictionService {
      */
     int delDictionList(Long[] dictionIds) throws CustomerException;
 
+    /**
+     * 查询代理销售合同商品
+     */
+    List<PubDiction> selectCommodity();
+
+
+    /**
+     * 查询代理销售合同产地
+     */
+    List<PubDiction> selectPlace();
+
+    /**
+     * 查询代理销售合同规格
+     */
+    List<PubDiction> selectNorm();
+
+    /**
+     * 查询代理销售合同计量单位
+     */
+    List<PubDiction> selectMeasure();
+
+    /**
+     * 查询代理销售合同计量包装
+     */
+    List<PubDiction> selectPackage();
 }

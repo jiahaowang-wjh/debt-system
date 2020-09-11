@@ -37,7 +37,7 @@ public class Manner1Vo {
      *支付现金
      */
     @NotNull(message = "支付现金不能为空")
-    private Long cash;
+    private Float cash;
 
     /**
      * 甲方法人代表

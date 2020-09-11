@@ -10,6 +10,7 @@ import com.smart.bracelet.model.po.user.PersonOnUserOnCom;
 import com.smart.bracelet.model.vo.user.PersonOnUserOnComVo;
 import com.smart.bracelet.model.vo.user.PubUserVo;
 import com.smart.bracelet.service.user.PubUserService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,6 +41,7 @@ public class PubUserController {
      * @throws CustomerException
      */
     @RequestMapping("/addPubUser")
+    @PreAuthorize("hasAnyAuthority('user:add')")
     public Result addPubUser(@Valid PubUser pubUser) throws CustomerException {
         int insert = userInfoService.insertSelective(pubUser);
         return Result.success(insert);
@@ -51,6 +53,7 @@ public class PubUserController {
      * @return
      */
     @RequestMapping("/updateByPrimaryKeySelective")
+    @PreAuthorize("hasAnyAuthority('user:update')")
     public Result updateByPrimaryKeySelective(@Valid PubUserVo record) throws CustomerException{
         int updateByPrimaryKeySelective = userInfoService.updateByPrimaryKeySelective(record);
         return Result.success(updateByPrimaryKeySelective);

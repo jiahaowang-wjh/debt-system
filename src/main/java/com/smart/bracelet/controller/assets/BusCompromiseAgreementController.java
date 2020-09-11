@@ -87,8 +87,8 @@ public class BusCompromiseAgreementController {
      * @return
      */
     @RequestMapping("/selectByPropertId")
-    public Result<BusCompromiseAgreement> selectByPropertId(@NotNull(message = "资产ID不能为空") Long propertId){
-        BusCompromiseAgreement busCompromiseAgreement = busCompromiseAgreementService.selectByPropertId(propertId);
+    public Result<Manner1AndManner2> selectByPropertId(@NotNull(message = "资产ID不能为空") Long propertId) throws CustomerException {
+        Manner1AndManner2 busCompromiseAgreement = busCompromiseAgreementService.selectByPropertId(propertId);
         return Result.success(busCompromiseAgreement);
     }
 }

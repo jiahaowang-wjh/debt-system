@@ -32,7 +32,6 @@ public class PubAuth implements Serializable {
      * 菜单ID
      */
     @JsonSerialize(using = ToStringSerializer.class)
-    @NotNull(message = "菜单ID不能为空")
     private Long menuId;
 
     /**

@@ -42,13 +42,13 @@ public class BusCompromiseAgreement implements Serializable {
      * 数据一
      */
     @NotNull(message = "数据一不能为空")
-    private Long data1;
+    private Float data1;
 
     /**
      * 数据二
      */
     @NotNull(message = "数据二不能为空")
-    private Float data2;
+    private Long data2;
 
     /**
      * 数据三
@@ -93,4 +93,9 @@ public class BusCompromiseAgreement implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date partybDate;
 
+
+    Float cash;
+    String StagingNumber;
+    String money;
+    String days;
 }

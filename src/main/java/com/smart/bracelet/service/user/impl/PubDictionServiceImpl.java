@@ -119,4 +119,29 @@ public class PubDictionServiceImpl implements PubDictionService {
             throw new CustomerException("批量删除字典信息失败");
         }
     }
+
+    @Override
+    public List<PubDiction> selectCommodity() {
+        return pubDictionDao.selectCommodity();
+    }
+
+    @Override
+    public List<PubDiction> selectPlace() {
+        return pubDictionDao.selectPlace();
+    }
+
+    @Override
+    public List<PubDiction> selectNorm() {
+        return pubDictionDao.selectNorm();
+    }
+
+    @Override
+    public List<PubDiction> selectMeasure() {
+        return pubDictionDao.selectMeasure();
+    }
+
+    @Override
+    public List<PubDiction> selectPackage() {
+        return pubDictionDao.selectPackage();
+    }
 }

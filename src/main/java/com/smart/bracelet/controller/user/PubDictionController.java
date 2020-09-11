@@ -84,8 +84,8 @@ public class PubDictionController {
      * @return
      */
     @RequestMapping("/queryDicList")
-    public Result<PageInfo> queryDicList(@NotNull(message = "页码不能为空") Integer pageNum,@NotNull(message = "当前显示条数不能为空") Integer pageSize) {
-        PageHelper.startPage(pageNum,pageSize);
+    public Result<PageInfo> queryDicList(@NotNull(message = "页码不能为空") Integer pageNum, @NotNull(message = "当前显示条数不能为空") Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         List<PubDiction> pubDictions = pubDictionService.queryDicList();
         PageInfo<PubDiction> pubDictionPageInfo = new PageInfo<>(pubDictions);
         return Result.success(pubDictionPageInfo);
@@ -116,5 +116,49 @@ public class PubDictionController {
         return Result.success(pubDictions);
     }
 
+    /**
+     * 查询代理销售合同商品
+     */
+    @RequestMapping("/selectCommodity")
+    public Result<List<PubDiction>> selectCommodity() {
+        List<PubDiction> pubDictions = pubDictionService.selectCommodity();
+        return Result.success(pubDictions);
+    }
 
+
+    /**
+     * 查询代理销售合同产地
+     */
+    @RequestMapping("/selectPlace")
+    public Result<List<PubDiction>> selectPlace() {
+        List<PubDiction> pubDictions = pubDictionService.selectPlace();
+        return Result.success(pubDictions);
+    }
+
+    /**
+     * 查询代理销售合同规格
+     */
+    @RequestMapping("/selectNorm")
+    public Result<List<PubDiction>> selectNorm() {
+        List<PubDiction> pubDictions = pubDictionService.selectNorm();
+        return Result.success(pubDictions);
+    }
+
+    /**
+     * 查询代理销售合同计量单位
+     */
+    @RequestMapping("/selectMeasure")
+    public Result<List<PubDiction>> selectMeasure() {
+        List<PubDiction> pubDictions = pubDictionService.selectMeasure();
+        return Result.success(pubDictions);
+    }
+
+    /**
+     * 查询代理销售合同计量包装
+     */
+    @RequestMapping("/selectPackage")
+    public Result<List<PubDiction>> selectPackage() {
+        List<PubDiction> pubDictions = pubDictionService.selectPackage();
+        return Result.success(pubDictions);
+    }
 }

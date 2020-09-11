@@ -35,7 +35,7 @@ public class Manner1AndManner2 {
      */
     @JsonSerialize(using = ToStringSerializer.class)
     @NotNull(message = "支付现金不能为空")
-    private Long cash;
+    private Float cash;
 
     /**
      * 分期期数

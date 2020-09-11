@@ -40,5 +40,5 @@ public interface BusCompromiseAgreementService {
      * @param propertId
      * @return
      */
-    BusCompromiseAgreement selectByPropertId(Long propertId);
+    Manner1AndManner2 selectByPropertId(Long propertId) throws CustomerException;
 }

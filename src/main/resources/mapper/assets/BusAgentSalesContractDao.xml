@@ -14,10 +14,11 @@
         <result column="partyb_time" jdbcType="DATE" property="partybTime"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="annex" jdbcType="VARCHAR" property="annex"/>
     </resultMap>
     <sql id="Base_Column_List">
     sales_contract_id, propert_id, date_start, sales_no, date_end, `second`, partya_seal, 
-    partya_time, partyb_seal, partyb_time, create_time, update_time
+    partya_time, partyb_seal, partyb_time, create_time, update_time,annex
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
@@ -99,6 +100,9 @@
             <if test="updateTime != null">
                 update_time,
             </if>
+            <if test="annex != null">
+                annex,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="salesContractId != null">
@@ -136,6 +140,9 @@
             </if>
             <if test="updateTime != null">
                 #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="annex != null">
+                #{annex,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>

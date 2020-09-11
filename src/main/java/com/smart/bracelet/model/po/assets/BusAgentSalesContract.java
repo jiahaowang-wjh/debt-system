@@ -39,6 +39,11 @@ public class BusAgentSalesContract implements Serializable {
     private Date dateStart;
 
     /**
+     * 附件
+     */
+    String annex;
+
+    /**
      * 编号
      */
     private String salesNo;

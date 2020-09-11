@@ -7,6 +7,7 @@ import com.smart.bracelet.model.vo.assets.BusAgentSalesContractShow;
 import com.smart.bracelet.service.debt.BusReportService;
 import com.smart.bracelet.utils.BigDecimalUtil;
 import com.smart.bracelet.utils.ConvertUpMoney;
+import com.smart.bracelet.utils.IdUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -31,10 +32,14 @@ public class UserInfoServiceTest {
 
     @Test
     public void testA() {
-        String mul1 = BigDecimalUtil.div("0.3", "0.7", 10);
-       String  resolveNum = BigDecimalUtil.add(mul1, "0.1", 10);
-        String totalCost = BigDecimalUtil.mul("1000000", resolveNum, 2);
-        System.out.println(totalCost);
+        List<Long> longs = new ArrayList<>();
+        for(int i=0;i<=20;i++){
+            longs.add(IdUtils.nextId());
+        }
+        for (Long item: longs) {
+            System.out.println(item);
+        }
+
     }
 
 }

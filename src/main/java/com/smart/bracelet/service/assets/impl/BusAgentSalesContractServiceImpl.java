@@ -50,6 +50,7 @@ public class BusAgentSalesContractServiceImpl implements BusAgentSalesContractSe
     @Override
     public Long insertSelective(BusAgentSalesContract record) throws CustomerException {
         try {
+            System.out.println(record.getAnnex());
             long l = IdUtils.nextId();
             String a = busAgentSalesContractDao.selectNo();
             record.setSalesContractId(l);
