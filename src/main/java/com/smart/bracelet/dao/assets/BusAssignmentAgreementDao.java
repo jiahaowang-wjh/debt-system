@@ -38,6 +38,6 @@ public interface BusAssignmentAgreementDao {
      * @param propertId
      * @return
      */
-    BusAssignmentAgreementShow selectByProId(Long propertId);
+    BusAssignmentAgreement selectByProId(Long propertId);
 
 }

@@ -42,11 +42,11 @@
         select
         <include refid="Base_Column_List"/>
         from bus_agent_sales_contract
-        where sales_contract_id = #{salesContractId,jdbcType=BIGINT}
+        where propert_id = #{propertId,jdbcType=BIGINT}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from bus_agent_sales_contract
-    where propert_id = #{propertId,jdbcType=BIGINT}
+    where sales_contract_id = #{salesContractId,jdbcType=BIGINT}
   </delete>
     <insert id="insert" parameterType="com.smart.bracelet.model.po.assets.BusAgentSalesContract">
     insert into bus_agent_sales_contract (sales_contract_id, propert_id, date_start, 

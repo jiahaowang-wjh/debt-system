@@ -1,12 +1,16 @@
 package com.smart.bracelet.service.assets.impl;
 
+import com.smart.bracelet.controller.publicmethod.Formula;
 import com.smart.bracelet.dao.assets.BusAgentSalesContractDao;
 import com.smart.bracelet.dao.assets.BusAgentSalesContractModityDao;
+import com.smart.bracelet.dao.debt.PubDebtDao;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.assets.BusAgentSalesContract;
 import com.smart.bracelet.model.po.assets.BusAgentSalesContractModity;
+import com.smart.bracelet.model.po.debt.PubDebt;
 import com.smart.bracelet.model.vo.assets.BusAgentSalesContractShow;
 import com.smart.bracelet.model.vo.assets.BusAgentSalesContractVo;
+import com.smart.bracelet.model.vo.assets.FormulaVo;
 import com.smart.bracelet.service.assets.BusAgentSalesContractService;
 import com.smart.bracelet.utils.ConvertUpMoney;
 import com.smart.bracelet.utils.IdUtils;
@@ -25,8 +29,13 @@ public class BusAgentSalesContractServiceImpl implements BusAgentSalesContractSe
 
     @Autowired
     private BusAgentSalesContractDao busAgentSalesContractDao;
+
     @Autowired
     private BusAgentSalesContractModityDao busAgentSalesContractModityDao;
+
+    @Autowired
+    private PubDebtDao pubDebtDao;
+
     @Override
     public int deleteByPrimaryKey(Long salesContractId) throws CustomerException {
         try {
@@ -84,12 +93,18 @@ public class BusAgentSalesContractServiceImpl implements BusAgentSalesContractSe
 
     @Override
     public BusAgentSalesContractShow initialize(Long relativePerId) throws CustomerException {
+
+
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
+            PubDebt pubDebt = pubDebtDao.selectByRelativePerId(relativePerId);
+            Formula formula = new Formula();
+            FormulaVo calculation = formula.Calculation(pubDebt.getDebtType(),Integer.parseInt(pubDebt.getDebtYaer()),pubDebt.getAmountThis());
             BusAgentSalesContractShow initialize = busAgentSalesContractDao.initialize(relativePerId);
             Date createTime = initialize.getCreateTime();
             String format1 = simpleDateFormat.format(createTime);
             Date parse = simpleDateFormat.parse(format1);
+            initialize.setAverageMoney(calculation.getAverage());
             Calendar rightNow = Calendar.getInstance();
             rightNow.setTime(parse);
             rightNow.add(Calendar.YEAR, +Integer.parseInt(initialize.getDebtYaer()));
@@ -98,11 +113,11 @@ public class BusAgentSalesContractServiceImpl implements BusAgentSalesContractSe
             initialize.setEndTime(format);
             initialize.setAmountThisMax(ConvertUpMoney.toChinese(initialize.getAmountThis().toString()));
             if (initialize.getReportPropert().equals("1")) {
-                initialize.setCorBankPhone(null);
-                initialize.setCorBankAdd(null);
+                initialize.setCorBankPhone("NULL");
+                initialize.setCorBankAdd("NULL");
             } else {
-                initialize.setPriPhone(null);
-                initialize.setPriAdd(null);
+                initialize.setPriPhone("NULL");
+                initialize.setPriAdd("NULL");
             }
             return initialize;
         } catch (Exception e) {

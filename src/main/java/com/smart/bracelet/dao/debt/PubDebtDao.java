@@ -30,6 +30,13 @@ public interface PubDebtDao {
      */
     List<DateAndDays> selectDaysCount();
 
+    /**
+     * 通过相对人ID查询解债信息
+     * @param debtId
+     * @return
+     */
+    PubDebt selectByRelativePerId(Long relativePerId);
+
 
     /**
      * 查询所有借债信息
@@ -63,7 +70,7 @@ public interface PubDebtDao {
     /**
      * 解债页面展示
      */
-    List<PubDebtInfo> selectByReportIds(Long reportId);
+    List<PubDebtInfo> selectByReportIds(Long relativePerId);
 
     /**
      * 解债信息填写更新展示

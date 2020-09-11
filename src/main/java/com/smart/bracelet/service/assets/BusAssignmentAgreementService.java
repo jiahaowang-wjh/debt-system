@@ -27,10 +27,11 @@ public interface BusAssignmentAgreementService {
      * @return
      */
     BusAssignmentAgreementShow initialize(Long relativePerId) throws CustomerException;
+
     /**
      * 通过资产Id查询资产债权转让协议
      * @param propertId
      * @return
      */
-    BusAssignmentAgreementShow selectByProId(Long propertId);
+    BusAssignmentAgreement selectByProId(Long propertId);
 }

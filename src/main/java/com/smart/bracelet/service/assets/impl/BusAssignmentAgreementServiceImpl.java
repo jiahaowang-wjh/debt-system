@@ -6,6 +6,7 @@ import com.smart.bracelet.model.po.assets.BusAssignmentAgreement;
 import com.smart.bracelet.model.vo.assets.BusAssignmentAgreementShow;
 import com.smart.bracelet.model.vo.assets.BusAssignmentAgreementVo;
 import com.smart.bracelet.service.assets.BusAssignmentAgreementService;
+import com.smart.bracelet.utils.BigDecimalUtil;
 import com.smart.bracelet.utils.IdUtils;
 import com.smart.bracelet.utils.RepNoUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -75,7 +76,8 @@ public class BusAssignmentAgreementServiceImpl implements BusAssignmentAgreement
 
     /**
      * 页面初始化
-     * @param relativePerId     相对人Id
+     *
+     * @param relativePerId 相对人Id
      * @return
      */
     @Override
@@ -85,33 +87,33 @@ public class BusAssignmentAgreementServiceImpl implements BusAssignmentAgreement
             int debtYaer = Integer.parseInt(agreementShow.getDebtYaer());
             switch (debtYaer) {
                 case 1:
-                    agreementShow.setMoney(agreementShow.getAmountThis() * 0.2f);
+                    agreementShow.setMoney(Float.parseFloat(BigDecimalUtil.mul(agreementShow.getAmountThis().toString(), "0.2", 2)));
                     break;
                 case 2:
-                    agreementShow.setMoney(agreementShow.getAmountThis() * 0.3f);
+                    agreementShow.setMoney(Float.parseFloat(BigDecimalUtil.mul(agreementShow.getAmountThis().toString(), "0.3", 2)));
                     break;
                 case 3:
-                    agreementShow.setMoney(agreementShow.getAmountThis() * 0.5f);
+                    agreementShow.setMoney(Float.parseFloat(BigDecimalUtil.mul(agreementShow.getAmountThis().toString(), "0.5", 2)));
                     break;
             }
-            if(agreementShow.getReportPropert().equals("1")){
+            if (agreementShow.getReportPropert().equals("1")) {
                 agreementShow.setCorBankAdd(null);
                 agreementShow.setCorBankPhone(null);
-            }else{
+            } else {
                 agreementShow.setPriAdd(null);
                 agreementShow.setPriPhone(null);
             }
             agreementShow.setThisTime(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
             return agreementShow;
         } catch (Exception e) {
-            log.error("异常信息:{}",e.getMessage());
+            log.error("异常信息:{}", e.getMessage());
             throw new CustomerException("查询失败,请检查参数");
         }
 
     }
 
     @Override
-    public BusAssignmentAgreementShow selectByProId(Long propertId) {
+    public BusAssignmentAgreement selectByProId(Long propertId) {
         return busAssignmentAgreementDao.selectByProId(propertId);
     }
 }

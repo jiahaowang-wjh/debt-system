@@ -2,6 +2,7 @@ package com.smart.bracelet.model.vo.assets;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Date;
 
@@ -65,9 +66,11 @@ public class BusAgentSalesContractShow {
      * 解债金额大写
      */
     String amountThisMax;
+
     /**
      *每期贷款金额
      */
+    String averageMoney;
 
     /**
      * 债权人银行卡号

@@ -56,7 +56,7 @@ public class BusAssignmentAgreementController {
 
     /**
      * 页面初始化数据
-     * @param relativePerId  报备ID
+     * @param relativePerId
      * @return
      */
     @RequestMapping("/initialize")
@@ -72,8 +72,8 @@ public class BusAssignmentAgreementController {
      * @return
      */
     @RequestMapping("/selectByProId")
-    public Result<BusAssignmentAgreementShow> selectByProId(@NotNull(message = "资产ID不能为空") Long propertId){
-        BusAssignmentAgreementShow busAssignmentAgreementShow = busAssignmentAgreementService.selectByProId(propertId);
+    public Result<BusAssignmentAgreement> selectByProId(@NotNull(message = "资产ID不能为空") Long propertId){
+        BusAssignmentAgreement busAssignmentAgreementShow = busAssignmentAgreementService.selectByProId(propertId);
         return Result.success(busAssignmentAgreementShow);
     }
 
