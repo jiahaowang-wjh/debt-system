@@ -11,10 +11,11 @@
         <result column="partyb_addr" jdbcType="VARCHAR" property="partybAddr"/>
         <result column="partyb_person" jdbcType="VARCHAR" property="partybPerson"/>
         <result column="partyb_tel" jdbcType="VARCHAR" property="partybTel"/>
+        <result column="chapter" jdbcType="VARCHAR" property="chapter"/>
     </resultMap>
     <sql id="Base_Column_List">
     collection_lettert_id, propert_id, partya_addr, partya_person, partya_tel, partyb_addr, 
-    partyb_person, partyb_tel
+    partyb_person, partyb_tel,chapter
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
@@ -80,6 +81,9 @@
             <if test="partybTel != null">
                 partyb_tel,
             </if>
+            <if test="chapter != null">
+                chapter,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="collectionLettertId != null">
@@ -108,6 +112,9 @@
             </if>
             <if test="partybTel != null">
                 #{partybTel,jdbcType=VARCHAR},
+            </if>
+            <if test="chapter != null">
+                #{chapter,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>

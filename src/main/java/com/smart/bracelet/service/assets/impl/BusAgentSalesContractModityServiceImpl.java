@@ -54,4 +54,9 @@ public class BusAgentSalesContractModityServiceImpl implements BusAgentSalesCont
             throw new CustomerException("更新失败");
         }
     }
+
+    @Override
+    public BusAgentSalesContractModity selectBySalesContractId(Long salesContractId) {
+        return busAgentSalesContractModityDao.selectBySalesContractId(salesContractId);
+    }
 }

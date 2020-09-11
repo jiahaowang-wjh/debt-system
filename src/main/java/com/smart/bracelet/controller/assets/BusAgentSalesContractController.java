@@ -48,12 +48,12 @@ public class BusAgentSalesContractController {
 
     /**
      * 委托代理销售合同初始化
-     * @param reportId
+     * @param
      * @return
      */
     @RequestMapping("/initialize")
-    public Result<BusAgentSalesContractShow> initialize(@NotNull(message = "报备ID不能为空") Long reportId) throws CustomerException {
-        BusAgentSalesContractShow initialize = busAgentSalesContractService.initialize(reportId);
+    public Result<BusAgentSalesContractShow> initialize(@NotNull(message = "相对人ID不能为空") Long relativePerId) throws CustomerException {
+        BusAgentSalesContractShow initialize = busAgentSalesContractService.initialize(relativePerId);
         return Result.success(initialize);
     }
 

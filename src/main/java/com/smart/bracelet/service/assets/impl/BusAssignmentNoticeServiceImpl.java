@@ -7,6 +7,7 @@ import com.smart.bracelet.model.vo.assets.BusAssignmentNoticeShow;
 import com.smart.bracelet.model.vo.assets.BusAssignmentNoticeVo;
 import com.smart.bracelet.service.assets.BusAssignmentNoticeService;
 import com.smart.bracelet.utils.IdUtils;
+import com.smart.bracelet.utils.RepNoUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,8 +36,12 @@ public class BusAssignmentNoticeServiceImpl implements BusAssignmentNoticeServic
     @Override
     public Long insertSelective(BusAssignmentNotice record) throws CustomerException {
         try {
+
+            String s = busAssignmentNoticeDao.selectNo();
+            String zc = RepNoUtils.createRepNo("ZC", "ZRTZ", s);
             long l = IdUtils.nextId();
             record.setAssignmentNoticeId(l);
+            record.setNoticeNo(zc);
             int deleteByPrimaryKey = busAssignmentNoticeDao.insertSelective(record);
             log.info("新增资产债权转让通知书成功,受影响行数:{}",deleteByPrimaryKey);
             return l;

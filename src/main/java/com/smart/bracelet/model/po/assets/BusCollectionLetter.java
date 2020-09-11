@@ -3,6 +3,7 @@ package com.smart.bracelet.model.po.assets;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -21,6 +22,11 @@ public class BusCollectionLetter implements Serializable {
      */
     @JsonSerialize(using = ToStringSerializer.class)
     private Long collectionLettertId;
+
+    /**
+     * 电子章
+     */
+    String chapter;
 
     /**
      * 编号

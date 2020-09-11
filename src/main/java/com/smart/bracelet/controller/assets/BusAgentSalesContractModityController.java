@@ -45,5 +45,15 @@ public class BusAgentSalesContractModityController {
         return Result.success(i);
     }
 
+    /**
+     * 通过资产委托代理销售合同id查询
+     * @param salesContractId
+     * @return
+     */
+    @RequestMapping("/selectBySalesContractId")
+    public Result<BusAgentSalesContractModity> selectBySalesContractId(@NotNull(message = "资产委托代理销售合同ID不能为空") Long salesContractId){
+        BusAgentSalesContractModity busAgentSalesContractModity = busAgentSalesContractModityService.selectBySalesContractId(salesContractId);
+        return Result.success(busAgentSalesContractModity);
+    }
 
 }

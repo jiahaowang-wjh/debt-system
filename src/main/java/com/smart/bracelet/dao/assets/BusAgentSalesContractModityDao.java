@@ -15,4 +15,10 @@ public interface BusAgentSalesContractModityDao {
 
     int updateByPrimaryKeySelective(BusAgentSalesContractModityVo record);
 
+    /**
+     * 通过资产委托代理销售合同id查询
+     * @param salesContractId
+     * @return
+     */
+    BusAgentSalesContractModity selectBySalesContractId(Long salesContractId);
 }

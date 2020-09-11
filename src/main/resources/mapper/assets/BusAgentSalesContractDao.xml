@@ -29,12 +29,13 @@
     SELECT  bus_agent_sales_contract.sales_no  FROM    `bus_agent_sales_contract`  ORDER   BY   bus_agent_sales_contract.sales_contract_id    DESC   LIMIT   1
   </select>
     <select id="initialize" resultType="com.smart.bracelet.model.vo.assets.BusAgentSalesContractShow">
-       SELECT br.`report_propert`,br.`data1` AS 'debtName',br.`data5` AS 'priAdd',br.`data7` AS 'corBankAdd',br.`data2` AS 'debtIdCard',br.`data3` AS 'priPhone',br.`data9` AS 'corBankPhone',
+      SELECT br.`report_propert`,br.`data1` AS 'debtName',br.`data5` AS 'priAdd',br.`data7` AS 'corBankAdd',br.`data2` AS 'debtIdCard',br.`data3` AS 'priPhone',br.`data9` AS 'corBankPhone',
         pd.`amount_this`,bra.bank,bra.bank_card,pd.`create_time`,pd.debt_yaer
-        FROM bus_report br
-        LEFT JOIN pub_debt pd ON br.`report_id`=pd.`report_id`
+        FROM bus_relative_person brp
+        LEFT JOIN bus_report br ON br.`report_id` = brp.`report_id`
+        LEFT JOIN pub_debt pd ON brp.`relative_per_id`  = pd.`relative_per_id`
         LEFT JOIN bus_real_auth bra ON br.`report_id` = bra.report_id
-        WHERE br.`report_id` =   #{reportId,jdbcType=BIGINT}
+        WHERE brp.`relative_per_id` =   #{relativePerId,jdbcType=BIGINT}
     </select>
     <select id="selectByPropertId" resultType="com.smart.bracelet.model.po.assets.BusAgentSalesContract"
             parameterType="java.lang.Long">

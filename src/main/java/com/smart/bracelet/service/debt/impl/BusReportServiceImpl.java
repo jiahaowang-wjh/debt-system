@@ -525,6 +525,9 @@ public class BusReportServiceImpl implements BusReportService {
         //查询债事人
         DebtChain debtChain;
         debtChain = busReportDao.queryLisyDebtor(personIdCad);
+        if (org.springframework.util.StringUtils.isEmpty(debtChain)){
+            return null;
+        }
         //查询相对人
         List<DebtChain> list = new ArrayList<>();
         list = busReportDao.queryLisyRelativePerson(debtChain.getFatherId());

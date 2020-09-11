@@ -22,7 +22,14 @@
     from bus_agent_sales_contract_modity
     where sales_contract_modity_id = #{salesContractModityId,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <select id="selectBySalesContractId" resultType="com.smart.bracelet.model.po.assets.BusAgentSalesContractModity"
+            parameterType="java.lang.Long">
+      select
+      <include refid="Base_Column_List" />
+      from bus_agent_sales_contract_modity
+      where sales_contract_id = #{salesContractId,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from bus_agent_sales_contract_modity
     where sales_contract_modity_id = #{salesContractModityId,jdbcType=BIGINT}
   </delete>

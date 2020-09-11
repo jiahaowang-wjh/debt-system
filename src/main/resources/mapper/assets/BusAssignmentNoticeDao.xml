@@ -40,6 +40,9 @@
         from bus_assignment_notice
         where propert_id = #{propertId,jdbcType=BIGINT}
     </select>
+    <select id="selectNo" resultType="java.lang.String">
+              SELECT   `bus_assignment_notice`.`notice_no` FROM    `bus_assignment_notice`  ORDER   BY    `bus_assignment_notice`.`assignment_notice_id`  DESC   LIMIT   1
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from bus_assignment_notice
     where assignment_notice_id = #{assignmentNoticeId,jdbcType=BIGINT}

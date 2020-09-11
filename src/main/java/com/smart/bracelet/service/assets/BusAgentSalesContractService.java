@@ -20,7 +20,7 @@ public interface BusAgentSalesContractService {
      * @param reportId
      * @return
      */
-    BusAgentSalesContractShow initialize(Long reportId) throws CustomerException;
+    BusAgentSalesContractShow initialize(Long relativePerId) throws CustomerException;
 
     /**
      * 通过资产Id查询 委托代理销售合同
