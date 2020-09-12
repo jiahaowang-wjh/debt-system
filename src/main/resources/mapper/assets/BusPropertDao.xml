@@ -28,12 +28,21 @@
         from bus_propert
     </select>
     <select id="querys" resultType="com.smart.bracelet.model.vo.assets.AssetsDebtBank">
-        SELECT br.data1 AS 'debtName',brp.data1 AS 'personName',brp.`relative_per_id`,bp.`propert_id`,br.`report_no`,pd.`debt_no`,ba.`assessment_no`,br.`stage`,br.`create_time`,bp.`status` FROM bus_relative_person brp
+        SELECT br.data1 AS 'debtName',brp.data1 AS
+        'personName',brp.`relative_per_id`,bp.`propert_id`,br.`report_no`,pd.`debt_no`,ba.`assessment_no`,br.`stage`,br.`create_time`,bp.`status`
+        FROM bus_relative_person brp
         LEFT JOIN bus_report br ON brp.`report_id` = br.`report_id`
         LEFT JOIN pub_debt pd ON brp.`relative_per_id` = pd.`relative_per_id`
         LEFT JOIN bus_propert bp ON bp.`relative_per_id` = brp.`relative_per_id`
         LEFT JOIN bus_assessment ba ON ba.`propert_id` = bp.`propert_id`
-        WHERE pd.`status` = '9'
+        left join pub_company pc on br.company_id = pc.company_id
+        <where>
+            pd.`status` = '9'
+            <if test="companyType !=null and companyType!=''">
+               and pc.company_type =#{companyType,jdbcType=VARCHAR}
+            </if>
+        </where>
+
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from bus_propert

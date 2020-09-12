@@ -20,8 +20,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -57,19 +59,24 @@ public class BusAgentSalesContractServiceImpl implements BusAgentSalesContractSe
             record.setSalesNo(RepNoUtils.createRepNo("TZ", "DLXS", a));
             busAgentSalesContractDao.insertSelective(record);
             log.info("新增委托合同成功");
-            BusAgentSalesContractModity busAgentSalesContractModity = new BusAgentSalesContractModity();
-            busAgentSalesContractModity.setSalesContractModityId(IdUtils.nextId());
-            busAgentSalesContractModity.setSalesContractId(l);
-            busAgentSalesContractModity.setModityName(record.getModityName());
-            busAgentSalesContractModity.setModityPlace(record.getModityPlace());
-            busAgentSalesContractModity.setModitySpecificat(record.getModitySpecificat());
-            busAgentSalesContractModity.setPartyaSeal(record.getPartyaSeal1());
-            busAgentSalesContractModity.setPartyaTime(record.getPartyaTime1());
-            busAgentSalesContractModity.setPartyaSeal(record.getPartyaSeal1());
-            busAgentSalesContractModity.setPartybSeal(record.getPartybSeal1());
-            busAgentSalesContractModity.setPartybTime(record.getPartybTime1());
-            busAgentSalesContractModityDao.insertSelective(busAgentSalesContractModity);
-            log.info("新增委托合同商品成功");
+            BusAgentSalesContractModity[] busAgentSalesContractModity2 = record.getBusAgentSalesContractModity();
+            List<BusAgentSalesContractModity> list = new ArrayList<>();
+            for (BusAgentSalesContractModity busAgentSalesContractModity: busAgentSalesContractModity2) {
+                BusAgentSalesContractModity busAgentSalesContractModity1 = new BusAgentSalesContractModity();
+                busAgentSalesContractModity1.setSalesContractModityId(IdUtils.nextId());
+                busAgentSalesContractModity1.setSalesContractId(l);
+                busAgentSalesContractModity1.setModityName(busAgentSalesContractModity.getModityName());
+                busAgentSalesContractModity1.setModityPlace(busAgentSalesContractModity.getModityPlace());
+                busAgentSalesContractModity1.setModitySpecificat(busAgentSalesContractModity.getModitySpecificat());
+                busAgentSalesContractModity1.setPartyaSeal(busAgentSalesContractModity.getPartyaSeal());
+                busAgentSalesContractModity1.setPartyaTime(busAgentSalesContractModity.getPartyaTime());
+                busAgentSalesContractModity1.setPartyaSeal(busAgentSalesContractModity.getPartyaSeal());
+                busAgentSalesContractModity1.setPartybSeal(busAgentSalesContractModity.getPartybSeal());
+                busAgentSalesContractModity1.setPartybTime(busAgentSalesContractModity.getPartybTime());
+                list.add(busAgentSalesContractModity1);
+            }
+            int i = busAgentSalesContractModityDao.insertSelectives(list);
+            log.info("新增委托合同商品成功,受影响行数：{}",i);
             return l;
         } catch (Exception e) {
             log.error("新增失败,异常信息:{}", e.getMessage());

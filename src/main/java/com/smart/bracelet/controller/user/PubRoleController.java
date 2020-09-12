@@ -97,15 +97,15 @@ public class PubRoleController {
     }
 
     /**
-     * 给角色添加菜单
+     * 批量给角色添加菜单
      *
-     * @param pubRolemenu
+     * @param
      * @return
      */
-    @RequestMapping("/addRoleMenu")
+    @RequestMapping("/addRoleMenus")
     @PreAuthorize("hasAnyAuthority('user:add')")
-    public Result addRoleMenu(@Valid PubRolemenu pubRolemenu) throws CustomerException {
-        int addRoleMenu = pubRoleService.addRoleMenu(pubRolemenu);
+    public Result addRoleMenu(Long[] menus,@NotNull(message = "角色Id不能为空") Long roleId) throws CustomerException {
+        int addRoleMenu = pubRoleService.addRoleMenu(menus,roleId);
         return Result.success(addRoleMenu);
     }
 

@@ -1,5 +1,7 @@
 package com.smart.bracelet.userdetails;
 
+import com.smart.bracelet.dao.user.PubCompanyDao;
+import com.smart.bracelet.model.po.user.PubCompany;
 import com.smart.bracelet.model.po.user.PubUser;
 import com.smart.bracelet.service.user.PubUserService;
 import lombok.AllArgsConstructor;
@@ -31,6 +33,8 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private PubUserService pubUserService;
 
+    @Autowired
+    private PubCompanyDao pubCompanyDao;
 
     @Override
     public UserDetails loadUserByUsername(String userAccount) throws UsernameNotFoundException {
@@ -38,12 +42,14 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
         if (StringUtils.isEmpty(pubUser)) {
             throw new UsernameNotFoundException("用户名不存在");
         }
+
         Long comId = pubUserService.selectUserComId(pubUser.getUserId());
+        PubCompany a = pubCompanyDao.selectByPrimaryKey(comId);
         List<GrantedAuthority> authorities = new ArrayList<>();
         List<String> list = pubUserService.selectUserAuth(userAccount);
         for (String item : list) {
             authorities.add(new SimpleGrantedAuthority(item));
         }
-        return new CustomUserInfo(pubUser.getUserId().toString(), pubUser.getLoginName(),userAccount, pubUser.getPasswordMd5(),pubUser.getPersonId().toString() ,comId.toString(),pubUser.getRoleId().toString(),null, true, true, true, true, authorities);
+        return new CustomUserInfo(pubUser.getUserId().toString(), pubUser.getLoginName(), userAccount, pubUser.getPasswordMd5(), pubUser.getPersonId().toString(), comId.toString(), pubUser.getRoleId().toString(), null, true, true, true, true, authorities,a.getCompanyType());
     }
 }

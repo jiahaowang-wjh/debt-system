@@ -4,6 +4,7 @@ import com.smart.bracelet.dao.assets.BusPropertDao;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.debt.BusPropert;
 import com.smart.bracelet.model.vo.assets.AssetsDebtBank;
+import com.smart.bracelet.model.vo.assets.AssetsMyDebt;
 import com.smart.bracelet.model.vo.debt.BusPropertVo;
 import com.smart.bracelet.service.assets.BusPropertService;
 import com.smart.bracelet.utils.IdUtils;
@@ -81,7 +82,10 @@ public class BusPropertServiceImpl implements BusPropertService {
     }
 
     @Override
-    public List<AssetsDebtBank> querys() {
-        return busPropertDao.querys();
+    public List<AssetsDebtBank> querys(AssetsMyDebt assetsMyDebt) {
+        if(assetsMyDebt.getCompanyType().equals("1")){
+            assetsMyDebt.setCompanyType(null);
+        }
+        return busPropertDao.querys(assetsMyDebt);
     }
 }

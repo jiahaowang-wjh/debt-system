@@ -32,7 +32,6 @@ public class BusAgentSalesContractModityServiceImpl implements BusAgentSalesCont
         try {
             long l = IdUtils.nextId();
             record.setSalesContractModityId(l);
-            busAgentSalesContractModityDao.insertSelective(record);
             return l;
         } catch (Exception e) {
             log.error("新增失败.异常信息:{}",e.getMessage());

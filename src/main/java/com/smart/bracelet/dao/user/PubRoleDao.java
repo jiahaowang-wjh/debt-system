@@ -72,7 +72,7 @@ public interface PubRoleDao {
      * @param pubRolemenu
      * @return
      */
-    int addRoleMenu(PubRolemenu pubRolemenu);
+    int addRoleMenu(List<PubRolemenu> pubRolemenu);
 
     /**
      * 批量删除角色

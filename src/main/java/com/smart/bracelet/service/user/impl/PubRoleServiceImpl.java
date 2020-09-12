@@ -3,6 +3,7 @@ package com.smart.bracelet.service.user.impl;
 import com.smart.bracelet.dao.debt.PubRolemenuDao;
 import com.smart.bracelet.dao.user.PubRoleDao;
 import com.smart.bracelet.exception.CustomerException;
+import com.smart.bracelet.model.po.user.PubMenu;
 import com.smart.bracelet.model.po.user.PubRole;
 import com.smart.bracelet.model.po.user.PubRoleauth;
 import com.smart.bracelet.model.po.user.PubRolemenu;
@@ -31,6 +32,7 @@ public class PubRoleServiceImpl implements PubRoleService {
 
     /**
      * 通过Id删除角色信息
+     *
      * @param roleId
      * @return
      */
@@ -38,7 +40,7 @@ public class PubRoleServiceImpl implements PubRoleService {
     public int deleteByPrimaryKey(Long roleId) throws CustomerException {
         try {
             int deleteByPrimaryKey = pubRoleDao.deleteByPrimaryKey(roleId);
-            if(deleteByPrimaryKey!=0){
+            if (deleteByPrimaryKey != 0) {
                 //删除角色权限表
                 pubRoleDao.deleteRoleauthByPrimaryKey(roleId);
                 //删除角色菜单表
@@ -47,7 +49,7 @@ public class PubRoleServiceImpl implements PubRoleService {
             log.info("删除角色信息成功");
             return deleteByPrimaryKey;
         } catch (Exception e) {
-            log.error("删除角色信息失败,异常信息:{}",e.getMessage());
+            log.error("删除角色信息失败,异常信息:{}", e.getMessage());
             throw new CustomerException("删除角色信息失败");
         }
     }
@@ -55,6 +57,7 @@ public class PubRoleServiceImpl implements PubRoleService {
 
     /**
      * 新增角色信息
+     *
      * @param record
      * @return
      */
@@ -67,13 +70,14 @@ public class PubRoleServiceImpl implements PubRoleService {
             log.info("新增角色信息成功");
             return insertSelective;
         } catch (Exception e) {
-            log.error("新增角色信息失败,异常信息:{}",e.getMessage());
+            log.error("新增角色信息失败,异常信息:{}", e.getMessage());
             throw new CustomerException("新增角色信息失败");
         }
     }
 
     /**
      * 通过Id查询角色信息
+     *
      * @param roleId
      * @return
      */
@@ -84,6 +88,7 @@ public class PubRoleServiceImpl implements PubRoleService {
 
     /**
      * 修改角色信息
+     *
      * @param record
      * @return
      */
@@ -94,13 +99,14 @@ public class PubRoleServiceImpl implements PubRoleService {
             log.info("修改角色信息成功");
             return updateByPrimaryKeySelective;
         } catch (Exception e) {
-            log.error("修改角色信息失败,异常信息:{}",e.getMessage());
+            log.error("修改角色信息失败,异常信息:{}", e.getMessage());
             throw new CustomerException("修改角色信息失败");
         }
     }
 
     /**
      * 给角色分配权限
+     *
      * @param pubRoleauth
      * @return
      * @throws CustomerException
@@ -110,29 +116,40 @@ public class PubRoleServiceImpl implements PubRoleService {
         try {
             pubRoleauth.setRoleauthId(IdUtils.nextId());
             int addRoleAuth = pubRoleDao.addRoleAuth(pubRoleauth);
-            log.info("角色权限分配成功,受影响行数:{}",addRoleAuth);
+            log.info("角色权限分配成功,受影响行数:{}", addRoleAuth);
             return addRoleAuth;
         } catch (Exception e) {
-            log.error("角色权限分配失败,异常信息:{}",e.getMessage());
+            log.error("角色权限分配失败,异常信息:{}", e.getMessage());
             throw new CustomerException("角色权限分配失败");
         }
     }
 
     /**
-     * 角色菜单添加
-     * @param pubRolemenu
+     * 批量分配菜单
+     *
+     * @param
      * @return
      * @throws CustomerException
      */
     @Override
-    public int addRoleMenu(PubRolemenu pubRolemenu) throws CustomerException {
+    public int addRoleMenu(Long[] menus, Long roleId) throws CustomerException {
+        if(menus==null||menus.length==0){
+            throw new CustomerException("菜单Id不能为空");
+        }
         try {
-            pubRolemenu.setRolemenuId(IdUtils.nextId());
-            int addRoleMenu = pubRoleDao.addRoleMenu(pubRolemenu);
-            log.info("菜单添加成功,受影响行数:{}",addRoleMenu);
+            List<PubRolemenu> list = new ArrayList<>();
+            for (Long item : menus) {
+                PubRolemenu pubRolemenu = new PubRolemenu();
+                pubRolemenu.setRolemenuId(IdUtils.nextId());
+                pubRolemenu.setMenuId(item);
+                pubRolemenu.setRoleId(roleId);
+                list.add(pubRolemenu);
+            }
+            int addRoleMenu = pubRoleDao.addRoleMenu(list);
+            log.info("菜单添加成功,受影响行数:{}", addRoleMenu);
             return addRoleMenu;
         } catch (Exception e) {
-            log.error("菜单添加失败,异常信息:{}",e.getMessage());
+            log.error("菜单添加失败,异常信息:{}", e.getMessage());
             throw new CustomerException("菜单添加失败");
         }
     }
@@ -141,28 +158,29 @@ public class PubRoleServiceImpl implements PubRoleService {
     public int delRoleList(Long[] roleIds) throws CustomerException {
         try {
             int delRoleList = pubRoleDao.delRoleList(roleIds);
-            log.info("批量删除角色成功,受影响行数:{}",delRoleList);
+            log.info("批量删除角色成功,受影响行数:{}", delRoleList);
             return delRoleList;
         } catch (Exception e) {
-            log.error("批量删除角色失败,异常信息:{}",e.getMessage());
+            log.error("批量删除角色失败,异常信息:{}", e.getMessage());
             throw new CustomerException("批量删除角色失败");
         }
     }
 
     /**
      * (批量分配权限)
-     * @param roleIds 角色ID
-     * @param authId 权限ID
+     *
+     * @param
+     * @param authId  权限ID
      * @return
      * @throws CustomerException
      */
     @Override
-    public int addRoleAuthList(String authId,Long roleId,String menuId,String note) throws CustomerException {
+    public int addRoleAuthList(String authId, Long roleId, String menuId, String note) throws CustomerException {
         List<PubRoleauth> pubRoleauths = new ArrayList<>();
         try {
             List<String> authIdList = Arrays.asList(authId.split(","));
             //获取单个权限ID并添加
-            for (String item: authIdList) {
+            for (String item : authIdList) {
                 PubRoleauth pubRoleauth = new PubRoleauth();
                 pubRoleauth.setRoleauthId(IdUtils.nextId());
                 pubRoleauth.setAuthId(Long.parseLong(item));
@@ -170,12 +188,12 @@ public class PubRoleServiceImpl implements PubRoleService {
                 pubRoleauth.setNote(note);
                 pubRoleauths.add(pubRoleauth);
             }
-            pubRolemenuService.addListRolemenu(menuId,roleId);
+            // pubRolemenuService.addListRolemenu(menuId,roleId);
             int addRoleMenu = pubRoleDao.addRoleAuthList(pubRoleauths);
-            log.info("批量角色权限分配成功,受影响行数:{}",addRoleMenu);
+            log.info("批量角色权限分配成功,受影响行数:{}", addRoleMenu);
             return addRoleMenu;
         } catch (Exception e) {
-            log.error("批量角色权限分配失败,异常信息:{}",e.getMessage());
+            log.error("批量角色权限分配失败,异常信息:{}", e.getMessage());
             throw new CustomerException("批量角色权限分配失败");
         }
     }

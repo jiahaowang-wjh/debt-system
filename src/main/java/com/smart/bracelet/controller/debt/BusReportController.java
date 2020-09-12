@@ -206,7 +206,7 @@ public class BusReportController {
     @PreAuthorize("hasAnyAuthority('debt:select')")
     public Result<PageInfo> selectDebtInfos(@NotNull(message = "页码不能为空") Integer pageNum,
                                             @NotNull(message = "当前显示条数不能为空") Integer pageSize,
-                                            DebtInfoQuery debtInfoQuery) {
+                                            @Valid DebtInfoQuery debtInfoQuery) {
         if (!StringUtils.isBlank(debtInfoQuery.getBeginDate())) {
             debtInfoQuery.setBeginDate(debtInfoQuery.getBeginDate() + " 00:00:00");
         }

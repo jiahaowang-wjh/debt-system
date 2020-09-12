@@ -101,7 +101,7 @@ public class PubDebtController {
     @PreAuthorize("hasAnyAuthority('debt:select')")
     public Result<PageInfo> selectDebtListShow(@NotNull(message = "页码不能为空") Integer pageNum,
                                                @NotNull(message = "当前显示条数不能为空") Integer pageSize,
-                                               QueryDebtVo queryDebtVo) {
+                                               @Valid QueryDebtVo queryDebtVo) {
 
         if (!StringUtils.isBlank(queryDebtVo.getBeginDate())) {
             queryDebtVo.setBeginDate(queryDebtVo.getBeginDate() + " 00:00:00");

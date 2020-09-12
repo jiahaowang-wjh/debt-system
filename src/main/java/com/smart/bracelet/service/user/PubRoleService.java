@@ -47,10 +47,10 @@ public interface PubRoleService {
 
     /**
      * 给角色添加菜单
-     * @param pubRolemenu
+     * @param
      * @return
      */
-    int addRoleMenu(PubRolemenu pubRolemenu) throws CustomerException;
+    int addRoleMenu(Long[] menus,Long roleId) throws CustomerException;
 
     /**
      * 批量删除角色

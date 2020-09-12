@@ -6,6 +6,7 @@ import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.debt.BusPropert;
 import com.smart.bracelet.model.vo.assets.AssetsDebtBank;
+import com.smart.bracelet.model.vo.assets.AssetsMyDebt;
 import com.smart.bracelet.model.vo.debt.BusPropertVo;
 import com.smart.bracelet.service.assets.BusPropertService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,9 +86,10 @@ public class BusPropertController {
     @RequestMapping("/querys")
     @PreAuthorize("hasAnyAuthority('assets:select')")
     public Result<PageInfo> querys(@NotNull(message = "页码不能为空") Integer pageNum,
-                                   @NotNull(message = "当前显示条数不能为空") Integer pageSize) {
+                                   @NotNull(message = "当前显示条数不能为空") Integer pageSize,
+                                   @Valid AssetsMyDebt assetsMyDebt ) {
         PageHelper.startPage(pageNum, pageSize);
-        List<AssetsDebtBank> querys = busPropertService.querys();
+        List<AssetsDebtBank> querys = busPropertService.querys(assetsMyDebt);
         PageInfo<AssetsDebtBank> assetsDebtBankPageInfo = new PageInfo<>(querys);
         return Result.success(assetsDebtBankPageInfo);
     }

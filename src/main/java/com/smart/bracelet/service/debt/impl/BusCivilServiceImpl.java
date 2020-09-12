@@ -143,6 +143,9 @@ public class BusCivilServiceImpl implements BusCivilService {
 
     @Override
     public List<BusCivilInfo> selectBusList(DebtInfoQuery debtInfoQuery) {
+        if(debtInfoQuery.getCompanyType().equals("1")){
+            debtInfoQuery.setCompanyType(null);
+        }
         return busCivilDao.selectBusList(debtInfoQuery);
     }
 

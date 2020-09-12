@@ -55,7 +55,11 @@
         SELECT br.`report_id`,bc.civil_id,brp.data1 AS 'personName',brp.`relative_per_id`,br.`report_no`,bc.civilno,br.`data1` AS 'debtName',bc.status FROM bus_relative_person brp
         LEFT JOIN bus_civil bc ON brp.`relative_per_id`=bc.`relative_per_id`
         LEFT JOIN bus_report br ON brp.`report_id` = br.`report_id`
+        left join pub_company pc on br.company_id = pc.company_id
         <where>
+            <if test="companyType != null and companyType!=''">
+                and pc.company_type = #{companyType,jdbcType=VARCHAR}
+            </if>
             <if test="civilno != null and civilno!=''">
                 and bc.civilno = #{civilno,jdbcType=VARCHAR}
             </if>

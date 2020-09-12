@@ -95,4 +95,30 @@ public class PubAuthController {
         return Result.success(pubAuthPageInfo);
     }
 
+    /**
+     * 用户权限
+     */
+    @RequestMapping("/selectUserAuth")
+    public Result<List<PubAuth>> selectUserAuth() {
+        List<PubAuth> pubAuths = pubAuthService.selectUserAuth();
+        return Result.success(pubAuths);
+    }
+
+    /**
+     * 债务权限
+     */
+    @RequestMapping("/selectDebtAuth")
+    public Result<List<PubAuth>> selectDebtAuth() {
+        List<PubAuth> pubAuths = pubAuthService.selectDebtAuth();
+        return Result.success(pubAuths);
+    }
+
+    /**
+     * 资产权限
+     */
+    @RequestMapping("/selectAssetsAuth")
+    public Result<List<PubAuth>> selectAssetsAuth() {
+        List<PubAuth> pubAuths = pubAuthService.selectAssetsAuth();
+        return Result.success(pubAuths);
+    }
 }

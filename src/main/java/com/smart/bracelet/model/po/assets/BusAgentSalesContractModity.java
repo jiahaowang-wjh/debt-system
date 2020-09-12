@@ -19,7 +19,6 @@ public class BusAgentSalesContractModity implements Serializable {
     /**
      * 代理销售合同商品ID
      */
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long salesContractModityId;
 
     /**

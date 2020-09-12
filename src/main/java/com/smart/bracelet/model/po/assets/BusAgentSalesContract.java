@@ -97,54 +97,5 @@ public class BusAgentSalesContract implements Serializable {
      */
     private Date updateTime;
 
-
-
-
-    /**
-     * 代理销售合同商品ID
-     */
-    @JsonSerialize(using = ToStringSerializer.class)
-    private Long salesContractModityId;
-
-    /**
-     * 商品名
-     */
-    @NotBlank(message = "商品名不能为空")
-    private String modityName;
-
-    /**
-     * 商品产地
-     */
-    @NotBlank(message = "商品产地不能为空")
-    private String modityPlace;
-
-    /**
-     * 商品规格
-     */
-    @NotBlank(message = "商品规格不能为空")
-    private String moditySpecificat;
-
-    /**
-     * 计量单位
-     */
-    @NotBlank(message = "计量单位不能为空")
-    private String partyaSeal1;
-
-    /**
-     * 商品包装
-     */
-    @NotBlank(message = "商品包装不能为空")
-    private String partyaTime1;
-
-    /**
-     * 商品数量
-     */
-    @NotNull(message = "商品数量不能为空")
-    private Integer partybSeal1;
-
-    /**
-     * 商品备注
-     */
-    private String partybTime1;
-
+    BusAgentSalesContractModity[] busAgentSalesContractModity;
 }
