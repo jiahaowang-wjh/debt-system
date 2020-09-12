@@ -10,6 +10,7 @@
         <result column="isenable" jdbcType="VARCHAR" property="isenable"/>
         <result column="note" jdbcType="VARCHAR" property="note"/>
     </resultMap>
+
     <sql id="Base_Column_List">
     user_id, person_id, role_id, login_name, password_md5, isenable, note
   </sql>
@@ -55,6 +56,7 @@
         INNER JOIN pub_company pc ON pp.`company_id`=pc.`company_id`
         WHERE pu.`user_id` = #{userId,jdbcType=BIGINT}
     </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from pub_user
     where user_id = #{userId,jdbcType=BIGINT}

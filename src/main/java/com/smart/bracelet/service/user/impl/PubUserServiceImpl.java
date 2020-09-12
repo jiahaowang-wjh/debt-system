@@ -7,6 +7,7 @@ import com.smart.bracelet.model.po.user.PubUser;
 import com.smart.bracelet.model.po.user.PersonOnUserOnCom;
 import com.smart.bracelet.model.vo.user.PersonOnUserOnComVo;
 import com.smart.bracelet.model.vo.user.PubUserVo;
+import com.smart.bracelet.model.vo.user.UserMenu;
 import com.smart.bracelet.service.user.PubUserService;
 import com.smart.bracelet.utils.IdUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -214,4 +215,5 @@ public class PubUserServiceImpl implements PubUserService {
             throw new CustomerException("更新失败");
         }
     }
+
 }

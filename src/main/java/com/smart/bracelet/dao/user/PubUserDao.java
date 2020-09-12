@@ -5,6 +5,7 @@ import com.smart.bracelet.model.po.user.PubUser;
 import com.smart.bracelet.model.po.user.PersonOnUserOnCom;
 import com.smart.bracelet.model.vo.user.PersonOnUserOnComVo;
 import com.smart.bracelet.model.vo.user.PubUserVo;
+import com.smart.bracelet.model.vo.user.UserMenu;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 

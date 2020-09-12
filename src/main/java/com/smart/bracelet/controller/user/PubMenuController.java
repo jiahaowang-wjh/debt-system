@@ -7,6 +7,7 @@ import com.smart.bracelet.model.po.user.PubMenuShow;
 import com.smart.bracelet.model.vo.user.PubMenuVo;
 import com.smart.bracelet.service.user.PubMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,6 +33,7 @@ public class PubMenuController {
      * @return
      */
     @RequestMapping("/addMenu")
+    @PreAuthorize("hasAnyAuthority('user:add')")
     public Result addMenu(@Valid PubMenu pubMenu) throws CustomerException {
         int insertSelective = pubMenuService.insertSelective(pubMenu);
         return Result.success(insertSelective);
@@ -44,6 +46,7 @@ public class PubMenuController {
      * @throws CustomerException
      */
     @RequestMapping("/deleteMenuById")
+    @PreAuthorize("hasAnyAuthority('user:delete')")
     public Result deleteMenuById(@NotNull(message = "菜单Id不能为空") Long menuId) throws CustomerException {
         int deleteByPrimaryKey = pubMenuService.deleteByPrimaryKey(menuId);
         return Result.success(deleteByPrimaryKey);
@@ -55,6 +58,7 @@ public class PubMenuController {
      * @return
      */
     @RequestMapping("/selectByPrimaryKey")
+    @PreAuthorize("hasAnyAuthority('user:select')")
     public Result<PubMenu> selectByPrimaryKey(@NotNull(message = "菜单Id不能为空") Long menuId){
         PubMenu pubMenu = pubMenuService.selectByPrimaryKey(menuId);
         return Result.success(pubMenu);
@@ -67,6 +71,7 @@ public class PubMenuController {
      * @throws CustomerException
      */
     @RequestMapping("/updateByPrimaryKeySelective")
+    @PreAuthorize("hasAnyAuthority('user:update')")
     public Result updateByPrimaryKeySelective(@Valid PubMenuVo pubMenuVo) throws CustomerException {
         int updateByPrimaryKeySelective = pubMenuService.updateByPrimaryKeySelective(pubMenuVo);
         return Result.success(updateByPrimaryKeySelective);
@@ -77,6 +82,7 @@ public class PubMenuController {
      * @return
      */
     @RequestMapping("/queryMenuList")
+    @PreAuthorize("hasAnyAuthority('user:select')")
     public Result<List<PubMenu>> queryMenuList(){
         List<PubMenu> pubMenus = pubMenuService.queryMenuList();
         return Result.success(pubMenus);
@@ -87,6 +93,7 @@ public class PubMenuController {
      * 树状图展示菜单
      */
     @RequestMapping("/selcetListAuth")
+    @PreAuthorize("hasAnyAuthority('user:select')")
     public Result<List<PubMenuShow>> selcetListAuth(){
         List<PubMenuShow> list = pubMenuService.selcetListAuth();
         return Result.success(list);

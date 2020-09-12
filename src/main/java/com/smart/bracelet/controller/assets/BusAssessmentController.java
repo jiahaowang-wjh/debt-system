@@ -8,6 +8,7 @@ import com.smart.bracelet.model.vo.assets.BusAssessmentInit;
 import com.smart.bracelet.model.vo.assets.BusAssessmentVo;
 import com.smart.bracelet.service.assets.BusAssessmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,24 +26,28 @@ public class BusAssessmentController {
     private BusAssessmentService busAssessmentService;
 
     @RequestMapping("/deleteByPrimaryKey")
+    @PreAuthorize("hasAnyAuthority('assets:delete')")
     public Result deleteByPrimaryKey(@NotNull(message = "不能为空资产评估ID") Long assessmentId) throws CustomerException {
         int deleteByPrimaryKey = busAssessmentService.deleteByPrimaryKey(assessmentId);
         return Result.success(deleteByPrimaryKey);
     }
 
     @RequestMapping("/insertSelective")
+    @PreAuthorize("hasAnyAuthority('assets:add')")
     public Result insertSelective(@Valid BusAssessment record) throws CustomerException {
         Long i = busAssessmentService.insertSelective(record);
-        return Result.success(i+"");
+        return Result.success(i + "");
     }
 
     @RequestMapping("/selectByPrimaryKey")
+    @PreAuthorize("hasAnyAuthority('assets:select')")
     public Result<BusAssessment> selectByPrimaryKey(@NotNull(message = "不能为空资产评估ID") Long assessmentId) {
         BusAssessment busAssessment = busAssessmentService.selectByPrimaryKey(assessmentId);
         return Result.success(busAssessment);
     }
 
     @RequestMapping("/updateByPrimaryKeySelective")
+    @PreAuthorize("hasAnyAuthority('assets:update')")
     public Result updateByPrimaryKeySelective(@Valid BusAssessmentVo record) throws CustomerException {
         int i = busAssessmentService.updateByPrimaryKeySelective(record);
         return Result.success(i);
@@ -50,10 +55,12 @@ public class BusAssessmentController {
 
     /**
      * 按照日期展示每日数据
+     *
      * @return
      */
     @RequestMapping("/selectDaysCount")
-    public Result<List<DateAndDays>> selectDaysCount(){
+    @PreAuthorize("hasAnyAuthority('assets:select')")
+    public Result<List<DateAndDays>> selectDaysCount() {
         List<DateAndDays> dateAndDays = busAssessmentService.selectDaysCount();
         return Result.success(dateAndDays);
     }
@@ -62,7 +69,8 @@ public class BusAssessmentController {
      * 资产评估页面初始化
      */
     @RequestMapping("/initialize")
-    public  Result<BusAssessmentInit> initialize(@NotNull(message = "相对人ID不能为空") Long relativePerId){
+    @PreAuthorize("hasAnyAuthority('assets:select')")
+    public Result<BusAssessmentInit> initialize(@NotNull(message = "相对人ID不能为空") Long relativePerId) {
         BusAssessmentInit initialize = busAssessmentService.initialize(relativePerId);
         return Result.success(initialize);
     }
@@ -71,7 +79,8 @@ public class BusAssessmentController {
      * 通过资产id获取资产评估信息
      */
     @RequestMapping("/selectByPropertId")
-    public Result<BusAssessment> selectByPropertId(@NotNull(message = "资产ID不能为空") Long propertId){
+    @PreAuthorize("hasAnyAuthority('assets:select')")
+    public Result<BusAssessment> selectByPropertId(@NotNull(message = "资产ID不能为空") Long propertId) {
         BusAssessment busAssessment = busAssessmentService.selectByPropertId(propertId);
         return Result.success(busAssessment);
     }
