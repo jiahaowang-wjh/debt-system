@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.smart.bracelet.dao.BusEletronUserDao">
-  <resultMap id="BaseResultMap" type="com.smart.bracelet.model.BusEletronUser">
+<mapper namespace="com.smart.bracelet.dao.doc.BusEletronUserDao">
+  <resultMap id="BaseResultMap" type="com.smart.bracelet.model.po.doc.BusEletronUser">
     <id column="acct_id" jdbcType="VARCHAR" property="acctId" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="user_card" jdbcType="VARCHAR" property="userCard" />
@@ -20,13 +20,13 @@
     delete from bus_eletron_user
     where acct_id = #{acctId,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.smart.bracelet.model.BusEletronUser">
+  <insert id="insert" parameterType="com.smart.bracelet.model.po.doc.BusEletronUser">
     insert into bus_eletron_user (acct_id, user_name, user_card, 
       user_tel)
     values (#{acctId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{userCard,jdbcType=VARCHAR}, 
       #{userTel,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.smart.bracelet.model.BusEletronUser">
+  <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.doc.BusEletronUser">
     insert into bus_eletron_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="acctId != null">
@@ -57,7 +57,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.BusEletronUser">
+  <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.po.doc.BusEletronUser">
     update bus_eletron_user
     <set>
       <if test="userName != null">
@@ -72,7 +72,7 @@
     </set>
     where acct_id = #{acctId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.smart.bracelet.model.BusEletronUser">
+  <update id="updateByPrimaryKey" parameterType="com.smart.bracelet.model.po.doc.BusEletronUser">
     update bus_eletron_user
     set user_name = #{userName,jdbcType=VARCHAR},
       user_card = #{userCard,jdbcType=VARCHAR},

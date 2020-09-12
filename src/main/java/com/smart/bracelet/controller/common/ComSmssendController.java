@@ -13,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -28,7 +29,7 @@ public class ComSmssendController {
     RedisTemplate redisTemplate;
 
     @RequestMapping("/sendCheckNO")
-    public Result deleteByPrimaryKey(@NotNull(message = "电话号码") String tel) throws CustomerException,Exception {
+    public Result deleteByPrimaryKey(@NotBlank(message = "电话号码") String tel) throws CustomerException,Exception {
         String code = RandomUtils.randomNumberString(4);
         redisTemplate.opsForValue().set(CacheConstants.TEL_CODE_KEY + tel, code);
         //验证码
@@ -37,7 +38,7 @@ public class ComSmssendController {
     }
 
     @RequestMapping("/checkNO")
-    public Result insertSelective(@NotNull(message = "验证码") String checkNo,@NotNull(message = "电话号码") String tel) throws CustomerException {
+    public Result insertSelective(@NotBlank(message = "验证码") String checkNo,@NotBlank(message = "电话号码") String tel) throws CustomerException {
         //通过输入的验证码获取redis中的码值
         String code = (String) redisTemplate.opsForValue().get(CacheConstants.TEL_CODE_KEY +tel);
         Result result = new Result();

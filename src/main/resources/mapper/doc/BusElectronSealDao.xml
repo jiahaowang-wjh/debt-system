@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.smart.bracelet.dao.BusElectronSealDao">
-  <resultMap id="BaseResultMap" type="com.smart.bracelet.model.BusElectronSeal">
+<mapper namespace="com.smart.bracelet.dao.doc.BusElectronSealDao">
+  <resultMap id="BaseResultMap" type="com.smart.bracelet.model.po.doc.BusElectronSeal">
     <id column="electron_seal_id" jdbcType="BIGINT" property="electronSealId" />
     <result column="doc_id" jdbcType="BIGINT" property="docId" />
     <result column="doc_type" jdbcType="VARCHAR" property="docType" />
@@ -28,7 +28,7 @@
     delete from bus_electron_seal
     where electron_seal_id = #{electronSealId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.smart.bracelet.model.BusElectronSeal">
+  <insert id="insert" parameterType="com.smart.bracelet.model.po.doc.BusElectronSeal">
     insert into bus_electron_seal (electron_seal_id, doc_id, doc_type, 
       parta, partb, parta_type, 
       partb_type, parta_card, partb_card, 
@@ -38,7 +38,7 @@
       #{partbType,jdbcType=VARCHAR}, #{partaCard,jdbcType=VARCHAR}, #{partbCard,jdbcType=VARCHAR}, 
       #{partaTel,jdbcType=VARCHAR}, #{partbTel,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.smart.bracelet.model.BusElectronSeal">
+  <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.doc.BusElectronSeal">
     insert into bus_electron_seal
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="electronSealId != null">
@@ -111,7 +111,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.BusElectronSeal">
+  <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.po.doc.BusElectronSeal">
     update bus_electron_seal
     <set>
       <if test="docId != null">
@@ -147,7 +147,7 @@
     </set>
     where electron_seal_id = #{electronSealId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.smart.bracelet.model.BusElectronSeal">
+  <update id="updateByPrimaryKey" parameterType="com.smart.bracelet.model.po.doc.BusElectronSeal">
     update bus_electron_seal
     set doc_id = #{docId,jdbcType=BIGINT},
       doc_type = #{docType,jdbcType=VARCHAR},

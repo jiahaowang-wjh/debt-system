@@ -10,6 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -21,7 +22,7 @@ import javax.validation.constraints.NotNull;
 public class ComSafrvController {
 
     @RequestMapping("/safrvCheck")
-    public Result safrvCheck(@NotNull(message = "身份证号码") String identifyNum, @NotNull(message = "手机号码") String mobilePhone, @NotNull(message = "姓名") String userName, @NotNull(message = "银行卡号") String bankCard) throws CustomerException,Exception {
+    public Result safrvCheck(@NotBlank(message = "身份证号码") String identifyNum, @NotBlank(message = "手机号码") String mobilePhone, @NotBlank(message = "姓名") String userName, @NotBlank(message = "银行卡号") String bankCard) throws CustomerException,Exception {
         String resultCon = HttpUtils.safrv3metaIdNamePhone(identifyNum,mobilePhone,userName,bankCard);
         JSONObject jsonObject = JSON.parseObject(resultCon);
         String code = jsonObject.getString("code");
