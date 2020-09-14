@@ -81,4 +81,6 @@ public interface PubRoleDao {
      */
     int delRoleList(Long[] roleIds);
 
+    List<PubRole> queryRole();
+
 }

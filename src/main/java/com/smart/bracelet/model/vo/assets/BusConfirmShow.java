@@ -14,6 +14,22 @@ public class BusConfirmShow {
      * 债务人姓名
      */
     String debtName;
+
+    /**
+     *债务人身份证号
+     */
+    String personCard;
+
+    /**
+     * （私人性质）债务人电话
+     */
+    String priPhone;
+
+    /**
+     * （企业/银行性质）债务人电话
+     */
+    String corBankPhone;
+
     /**
      * 债权人姓名
      */
@@ -35,4 +51,8 @@ public class BusConfirmShow {
      */
     Float serviceInterest;
 
+    /**
+     * 性质
+     */
+    String reportPropert;
 }

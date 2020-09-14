@@ -150,7 +150,7 @@
     SELECT  bus_pay_detail.pay_no  FROM   bus_pay_detail   ORDER   BY   bus_pay_detail.pay_id  DESC   LIMIT   1
   </select>
     <select id="selectPayInfoList" resultType="com.smart.bracelet.model.vo.debt.BusPayDetailInfo">
-        SELECT bpd.pay_id,br.`report_id`,br.`report_no`,bpd.payert_name,bpd.flag AS
+        SELECT bpd.contract_name,br.stage,bpd.pay_id,br.`report_id`,br.`report_no`,bpd.payert_name,bpd.flag AS
         'payType',bpd.pay_no,bpd.cost,bpd.voucher,bpd.status FROM bus_pay_detail bpd
         LEFT JOIN bus_report br ON bpd.`report_id`=br.`report_id`
         left join pub_company pc on br.company_id = pc.company_id

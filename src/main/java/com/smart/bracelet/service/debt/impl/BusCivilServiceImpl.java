@@ -189,7 +189,13 @@ public class BusCivilServiceImpl implements BusCivilService {
 
     @Override
     public AgreementInfoShow initialize(Long reportId) {
-        return busCivilDao.initialize(reportId);
+        AgreementInfoShow initialize = busCivilDao.initialize(reportId);
+        if(initialize.getReportPropert().equals("1")){
+            initialize.setCorBankPhone(null);
+        }else {
+            initialize.setPriPhone(null);
+        }
+        return initialize;
     }
 
     @Override

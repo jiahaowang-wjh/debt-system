@@ -197,4 +197,9 @@ public class PubRoleServiceImpl implements PubRoleService {
             throw new CustomerException("批量角色权限分配失败");
         }
     }
+
+    @Override
+    public List<PubRole> queryRole() {
+        return pubRoleDao.queryRole();
+    }
 }

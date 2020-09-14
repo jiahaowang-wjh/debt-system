@@ -32,7 +32,7 @@
       SELECT  bus_collection_letter.`collection_lettert_no`  FROM   `bus_collection_letter`   ORDER   BY  bus_collection_letter.`collection_lettert_id`    DESC   LIMIT   1
     </select>
     <select id="initialize" resultType="com.smart.bracelet.model.vo.assets.BusCollectionLetterShow">
-        SELECT br.`data1` AS 'debtName',brp.`data1` AS 'personName',baa.assignment_agreement_no,pd.`amount_this` FROM bus_report br
+        SELECT brp.report_propert,brp.data2 as 'personCard',brp.data3 as 'priPhone',brp.data5 as 'corBankPhone',br.`data1` AS 'debtName',brp.`data1` AS 'personName',baa.assignment_agreement_no,pd.`amount_this` FROM bus_report br
         LEFT JOIN bus_relative_person brp ON br.`report_id` = brp.`report_id`
         LEFT JOIN pub_debt pd ON br.`report_id` = pd.`report_id`
         LEFT JOIN bus_propert bp ON br.`report_id` = bp.report_id

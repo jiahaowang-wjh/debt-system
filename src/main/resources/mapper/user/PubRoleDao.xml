@@ -16,6 +16,11 @@
         from pub_role
         where role_id = #{roleId,jdbcType=BIGINT}
     </select>
+    <select id="queryRole" resultType="com.smart.bracelet.model.po.user.PubRole">
+        select
+        <include refid="Base_Column_List"/>
+        from pub_role
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from pub_role
     where role_id = #{roleId,jdbcType=BIGINT}

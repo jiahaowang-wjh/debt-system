@@ -65,4 +65,6 @@ public interface PubRoleService {
      * @return
      */
     int addRoleAuthList(String roleIds,Long authId,String menuId,String note) throws CustomerException;
+
+    List<PubRole> queryRole();
 }

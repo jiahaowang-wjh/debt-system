@@ -137,4 +137,10 @@ public class PubRoleController {
         return Result.success(i);
     }
 
+    @RequestMapping("/queryRole")
+    @PreAuthorize("hasAnyAuthority('user:select')")
+    public Result<List<PubRole>> queryRole(){
+        List<PubRole> list = pubRoleService.queryRole();
+        return Result.success(list);
+    }
 }
