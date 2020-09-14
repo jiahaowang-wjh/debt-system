@@ -105,8 +105,11 @@ public class BusPayDetailServiceImpl implements BusPayDetailService {
     }
 
     @Override
-    public List<BusPayDetailInfo> selectPayInfoList(String debtNo) {
-        return busPayDetailDao.selectPayInfoList(debtNo);
+    public List<BusPayDetailInfo> selectPayInfoList(String debtNo,String companyType) {
+        if(companyType.equals("1")){
+            companyType = null;
+        }
+        return busPayDetailDao.selectPayInfoList(debtNo,companyType);
     }
 
     @Override

@@ -107,6 +107,9 @@ public class PubDebtServiceImpl implements PubDebtService {
 
     @Override
     public List<PubDebtInfo> selectDebtListShow(QueryDebtVo queryDebtVo) {
+        if(queryDebtVo.getCompanyType().equals("1")){
+            queryDebtVo.setCompanyType(null);
+        }
         return pubDebtDao.selectDebtListShow(queryDebtVo);
     }
 

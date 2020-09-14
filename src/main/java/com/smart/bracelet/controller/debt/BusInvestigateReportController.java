@@ -5,6 +5,7 @@ import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.debt.BusInvestigateReport;
 import com.smart.bracelet.service.debt.BusInvestigateReportService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,21 +21,24 @@ public class BusInvestigateReportController {
     private BusInvestigateReportService busInvestigateReportService;
 
     @RequestMapping("/insert")
-     public Result insert(@Valid BusInvestigateReport record) throws CustomerException{
+    @PreAuthorize("hasAnyAuthority('debt:add')")
+    public Result insert(@Valid BusInvestigateReport record) throws CustomerException {
         Long insert = busInvestigateReportService.insert(record);
-        return Result.success(insert+"");
-     }
+        return Result.success(insert + "");
+    }
 
     /**
      * selectByPrimaryKey
+     *
      * @param reportId
      * @return
      */
     @RequestMapping("/selectByPrimaryKey")
-    public Result< BusInvestigateReport> selectByPrimaryKey(Long reportId){
-         BusInvestigateReport busInvestigateReport = busInvestigateReportService.selectByPrimaryKey(reportId);
-         return Result.success(busInvestigateReport);
-     }
+    @PreAuthorize("hasAnyAuthority('debt:select')")
+    public Result<BusInvestigateReport> selectByPrimaryKey(Long reportId) {
+        BusInvestigateReport busInvestigateReport = busInvestigateReportService.selectByPrimaryKey(reportId);
+        return Result.success(busInvestigateReport);
+    }
 
 
 }

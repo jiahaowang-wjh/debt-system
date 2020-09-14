@@ -10,6 +10,7 @@ import com.smart.bracelet.model.vo.debt.*;
 import com.smart.bracelet.service.debt.PubDebtService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,6 +29,7 @@ public class PubDebtController {
     private PubDebtService pubDebtService;
 
     @RequestMapping("/insertSelective")
+    @PreAuthorize("hasAnyAuthority('debt:add')")
     public Result insertSelective(@Valid PubDebt record) throws CustomerException {
         Long insertSelective = pubDebtService.insertSelective(record);
         return Result.success(insertSelective + "");
@@ -35,18 +37,21 @@ public class PubDebtController {
 
 
     @RequestMapping("/deleteByPrimaryKey")
+    @PreAuthorize("hasAnyAuthority('debt:delete')")
     public Result deleteByPrimaryKey(@NotNull(message = "解债信息Id不能为空") Long debtId) throws CustomerException {
         int deleteByPrimaryKey = pubDebtService.deleteByPrimaryKey(debtId);
         return Result.success(deleteByPrimaryKey);
     }
 
     @RequestMapping("/updateByPrimaryKeySelective")
+    @PreAuthorize("hasAnyAuthority('debt:update')")
     public Result updateByPrimaryKeySelective(@Valid PubDebtVo record) throws CustomerException {
         int updateByPrimaryKeySelective = pubDebtService.updateByPrimaryKeySelective(record);
         return Result.success(updateByPrimaryKeySelective);
     }
 
     @RequestMapping("/selectByPrimaryKey")
+    @PreAuthorize("hasAnyAuthority('debt:select')")
     public Result<PubDebt> selectByPrimaryKey(@NotNull(message = "解债信息Id不能为空") Long debtId) {
         PubDebt pubDebt = pubDebtService.selectByPrimaryKey(debtId);
         return Result.success(pubDebt);
@@ -56,6 +61,7 @@ public class PubDebtController {
      * 按照日期查询每日解债数量
      */
     @RequestMapping("/selectDaysCount")
+    @PreAuthorize("hasAnyAuthority('debt:select')")
     public Result<List<DateAndDays>> selectDaysCount() {
         List<DateAndDays> dateAndDays = pubDebtService.selectDaysCount();
         return Result.success(dateAndDays);
@@ -67,6 +73,7 @@ public class PubDebtController {
      * @return
      */
     @RequestMapping("/queryList")
+    @PreAuthorize("hasAnyAuthority('debt:select')")
     public Result queryList() {
         List<PubDebt> pubDebts = pubDebtService.queryList();
         return Result.success(pubDebts);
@@ -81,6 +88,7 @@ public class PubDebtController {
      * @throws CustomerException
      */
     @RequestMapping("/updateStatus")
+    @PreAuthorize("hasAnyAuthority('debt:update')")
     public Result updateStatus(@NotBlank(message = "状态不能为空") String status, @NotNull(message = "解债信息Id不能为空") Long debtId, String checkReason) throws CustomerException {
         int i = pubDebtService.updateStatus(status, debtId, checkReason);
         return Result.success(i);
@@ -90,9 +98,10 @@ public class PubDebtController {
      * 页面解债信息展示
      */
     @RequestMapping("/selectDebtListShow")
+    @PreAuthorize("hasAnyAuthority('debt:select')")
     public Result<PageInfo> selectDebtListShow(@NotNull(message = "页码不能为空") Integer pageNum,
                                                @NotNull(message = "当前显示条数不能为空") Integer pageSize,
-                                               QueryDebtVo queryDebtVo) {
+                                               @Valid QueryDebtVo queryDebtVo) {
 
         if (!StringUtils.isBlank(queryDebtVo.getBeginDate())) {
             queryDebtVo.setBeginDate(queryDebtVo.getBeginDate() + " 00:00:00");
@@ -112,6 +121,7 @@ public class PubDebtController {
      * 解债信息填写更新展示
      */
     @RequestMapping("/selectDebtAndRepAndCiviI")
+    @PreAuthorize("hasAnyAuthority('debt:select')")
     public Result<List<DebtAndRepAndCiviI>> selectDebtAndRepAndCiviI() {
         List<DebtAndRepAndCiviI> debtAndRepAndCiviIS = pubDebtService.selectDebtAndRepAndCiviI();
         return Result.success(debtAndRepAndCiviIS);
@@ -122,6 +132,7 @@ public class PubDebtController {
      * 通过报备Id查询解债信息
      */
     @RequestMapping("/selectByreportId")
+    @PreAuthorize("hasAnyAuthority('debt:select')")
     public Result<List<PubDebt>> selectByreportId(@NotNull(message = "报备Id不能为空") Long reportId) {
         List<PubDebt> pubDebts = pubDebtService.selectByreportId(reportId);
         return Result.success(pubDebts);
@@ -134,6 +145,7 @@ public class PubDebtController {
      * @return
      */
     @RequestMapping("/selectMoney")
+    @PreAuthorize("hasAnyAuthority('debt:select')")
     public Result<DebtMoney> selectMoney(@NotNull(message = "相对人id不能为空") Long relativePerId) {
         DebtMoney debtMoney = pubDebtService.selectMoney(relativePerId);
         return Result.success(debtMoney);
@@ -144,6 +156,7 @@ public class PubDebtController {
      * 解债页面展示
      */
     @RequestMapping("/selectByReportIds")
+    @PreAuthorize("hasAnyAuthority('debt:select')")
     public Result<List<PubDebtInfo>> selectByReportIds(@NotNull(message = "报备ID不能为空") Long reportId) {
         List<PubDebtInfo> pubDebtInfos = pubDebtService.selectByReportIds(reportId);
         return Result.success(pubDebtInfos);

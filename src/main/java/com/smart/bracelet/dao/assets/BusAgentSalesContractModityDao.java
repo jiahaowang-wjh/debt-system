@@ -4,12 +4,14 @@ import com.smart.bracelet.model.po.assets.BusAgentSalesContractModity;
 import com.smart.bracelet.model.vo.assets.BusAgentSalesContractModityVo;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface BusAgentSalesContractModityDao {
 
     int deleteByPrimaryKey(Long salesContractModityId);
 
-    int insertSelective(BusAgentSalesContractModity record);
+    int insertSelectives(List<BusAgentSalesContractModity> record);
 
     BusAgentSalesContractModity selectByPrimaryKey(Long salesContractModityId);
 

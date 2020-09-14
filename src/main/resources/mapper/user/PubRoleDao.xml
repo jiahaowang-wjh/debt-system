@@ -16,6 +16,11 @@
         from pub_role
         where role_id = #{roleId,jdbcType=BIGINT}
     </select>
+    <select id="queryRole" resultType="com.smart.bracelet.model.po.user.PubRole">
+        select
+        <include refid="Base_Column_List"/>
+        from pub_role
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from pub_role
     where role_id = #{roleId,jdbcType=BIGINT}
@@ -98,17 +103,23 @@
     </insert>
     <insert id="addRoleMenu">
         insert into pub_rolemenu (rolemenu_id, role_id, menu_id)
-        values (#{rolemenuId,jdbcType=BIGINT}, #{roleId,jdbcType=BIGINT}, #{menuId,jdbcType=BIGINT})
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.rolemenuId,jdbcType=BIGINT},
+            #{item.roleId,jdbcType=BIGINT},
+            #{item.menuId,jdbcType=BIGINT}
+            )
+        </foreach>
     </insert>
     <insert id="addRoleAuthList">
-        insert into pub_roleauth (roleauth_id,role_id,auth_id,note)
+        insert into pub_roleauth (roleauth_id,role_id,auth_id)
         values
         <foreach collection="list" item="item" index="index" separator=",">
             (
             #{item.roleauthId,jdbcType=BIGINT},
             #{item.roleId,jdbcType=BIGINT},
-            #{item.authId,jdbcType=BIGINT},
-            #{item.note,jdbcType=VARCHAR}
+            #{item.authId,jdbcType=BIGINT}
             )
         </foreach>
     </insert>

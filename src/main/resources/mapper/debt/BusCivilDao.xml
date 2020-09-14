@@ -55,7 +55,11 @@
         SELECT br.`report_id`,bc.civil_id,brp.data1 AS 'personName',brp.`relative_per_id`,br.`report_no`,bc.civilno,br.`data1` AS 'debtName',bc.status FROM bus_relative_person brp
         LEFT JOIN bus_civil bc ON brp.`relative_per_id`=bc.`relative_per_id`
         LEFT JOIN bus_report br ON brp.`report_id` = br.`report_id`
+        left join pub_company pc on br.company_id = pc.company_id
         <where>
+            <if test="companyType != null and companyType!=''">
+                and pc.company_type = #{companyType,jdbcType=VARCHAR}
+            </if>
             <if test="civilno != null and civilno!=''">
                 and bc.civilno = #{civilno,jdbcType=VARCHAR}
             </if>
@@ -87,7 +91,7 @@
         WHERE bus_relative_person.`report_id` = #{reportId,jdbcType=BIGINT}
     </select>
     <select id="initialize" resultType="com.smart.bracelet.model.vo.debt.AgreementInfoShow">
-        SELECT br.`data1` AS 'debtName',br.`data2` AS 'idCard', br.`agreement_no`,br.party_a,br.party_b,br.create_time FROM bus_report br
+        SELECT br.report_propert,br.data3 as 'priPhone',br.data5 as 'corBankPhone',br.`data1` AS 'debtName',br.`data2` AS 'idCard', br.`agreement_no`,br.party_a,br.party_b,br.create_time FROM bus_report br
         WHERE br.`report_id` = #{reportId,jdbcType=BIGINT}
     </select>
     <select id="initializePlan" resultType="com.smart.bracelet.model.vo.debt.PlanServiceInfo">

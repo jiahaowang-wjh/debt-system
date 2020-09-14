@@ -40,4 +40,14 @@ public class BusPayDetailInfo {
      *支付状态
      */
     String status;
+
+    /**
+     * 阶段
+     */
+    String stage;
+
+    /**
+     * 合同人
+     */
+    String contractName;
 }

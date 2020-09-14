@@ -12,6 +12,26 @@ public class BusCollectionLetterShow {
      * 债务人姓名
      */
     String personName;
+
+    /**
+     *债务人身份证号
+     */
+    String personCard;
+
+    /**
+     * （私人性质）债务人电话
+     */
+    String priPhone;
+
+    /**
+     * （企业/银行性质）债务人电话
+     */
+    String corBankPhone;
+
+    /**
+     * 性质
+     */
+    String reportPropert;
     /**
      *债权人姓名
      */

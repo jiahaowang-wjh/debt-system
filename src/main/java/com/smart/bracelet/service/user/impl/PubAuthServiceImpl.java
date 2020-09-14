@@ -86,4 +86,21 @@ public class PubAuthServiceImpl implements PubAuthService {
     public List<PubAuth> selectPageAuth() {
         return pubAuthDao.selectPageAuth();
     }
+
+    @Override
+    public List<PubAuth> selectUserAuth() {
+        return pubAuthDao.selectUserAuth();
+    }
+
+    @Override
+    public List<PubAuth> selectDebtAuth() {
+        return pubAuthDao.selectDebtAuth();
+    }
+
+    @Override
+    public List<PubAuth> selectAssetsAuth() {
+        return pubAuthDao.selectAssetsAuth();
+    }
+
+
 }

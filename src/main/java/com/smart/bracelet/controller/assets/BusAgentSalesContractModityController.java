@@ -6,6 +6,7 @@ import com.smart.bracelet.model.po.assets.BusAgentSalesContractModity;
 import com.smart.bracelet.model.vo.assets.BusAgentSalesContractModityVo;
 import com.smart.bracelet.service.assets.BusAgentSalesContractModityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,24 +23,28 @@ public class BusAgentSalesContractModityController {
     private BusAgentSalesContractModityService busAgentSalesContractModityService;
 
     @RequestMapping("/deleteByPrimaryKey")
+    @PreAuthorize("hasAnyAuthority('assets:delete')")
     public Result deleteByPrimaryKey(@NotNull(message = "代理销售合同商品ID不能为空") Long salesContractModityId) throws CustomerException {
         int i = busAgentSalesContractModityService.deleteByPrimaryKey(salesContractModityId);
         return Result.success(i);
     }
 
     @RequestMapping("/insertSelective")
+    @PreAuthorize("hasAnyAuthority('assets:add')")
     public Result insertSelective(@Valid BusAgentSalesContractModity record) throws CustomerException {
         Long i = busAgentSalesContractModityService.insertSelective(record);
-        return Result.success(i+"");
+        return Result.success(i + "");
     }
 
     @RequestMapping("/selectByPrimaryKey")
+    @PreAuthorize("hasAnyAuthority('assets:select')")
     public Result<BusAgentSalesContractModity> selectByPrimaryKey(@NotNull(message = "代理销售合同商品ID不能为空") Long salesContractModityId) {
         BusAgentSalesContractModity busAgentSalesContractModity = busAgentSalesContractModityService.selectByPrimaryKey(salesContractModityId);
         return Result.success(busAgentSalesContractModity);
     }
 
     @RequestMapping("/updateByPrimaryKeySelective")
+    @PreAuthorize("hasAnyAuthority('assets:update')")
     public Result updateByPrimaryKeySelective(@Valid BusAgentSalesContractModityVo record) throws CustomerException {
         int i = busAgentSalesContractModityService.updateByPrimaryKeySelective(record);
         return Result.success(i);
@@ -47,11 +52,13 @@ public class BusAgentSalesContractModityController {
 
     /**
      * 通过资产委托代理销售合同id查询
+     *
      * @param salesContractId
      * @return
      */
     @RequestMapping("/selectBySalesContractId")
-    public Result<BusAgentSalesContractModity> selectBySalesContractId(@NotNull(message = "资产委托代理销售合同ID不能为空") Long salesContractId){
+    @PreAuthorize("hasAnyAuthority('assets:select')")
+    public Result<BusAgentSalesContractModity> selectBySalesContractId(@NotNull(message = "资产委托代理销售合同ID不能为空") Long salesContractId) {
         BusAgentSalesContractModity busAgentSalesContractModity = busAgentSalesContractModityService.selectBySalesContractId(salesContractId);
         return Result.success(busAgentSalesContractModity);
     }

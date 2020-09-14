@@ -40,6 +40,7 @@ public class CustomUserInfo implements UserDetails, CredentialsContainer, Serial
 
     private final String roleId;
 
+    private final String companyType;
     /**
      * 人员ID
      */
@@ -52,7 +53,7 @@ public class CustomUserInfo implements UserDetails, CredentialsContainer, Serial
 
     private final Collection<? extends GrantedAuthority> authorities;
     
-    public CustomUserInfo(String userInfoId, String username, String name, String password, String personId,String comId,String roleId,String userAvatar, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
+    public CustomUserInfo(String userInfoId, String username, String name, String password, String personId,String comId,String roleId,String userAvatar, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities,String companyType) {
         if (username != null && !"".equals(username) && password != null) {
         this.userInfoId = userInfoId;
         this.username = username;
@@ -67,6 +68,7 @@ public class CustomUserInfo implements UserDetails, CredentialsContainer, Serial
         this.personId=personId;
         this.comId = comId;
         this.roleId = roleId;
+        this.companyType = companyType;
         } else {
             throw new IllegalArgumentException("Cannot pass null or empty values to constructor");
         }
@@ -149,6 +151,10 @@ public class CustomUserInfo implements UserDetails, CredentialsContainer, Serial
     @Override
     public void eraseCredentials() {
         this.password = null;
+    }
+
+    public String getCompanyType() {
+        return companyType;
     }
 
 

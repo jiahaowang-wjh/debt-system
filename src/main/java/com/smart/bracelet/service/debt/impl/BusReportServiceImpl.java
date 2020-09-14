@@ -580,6 +580,9 @@ public class BusReportServiceImpl implements BusReportService {
      */
     @Override
     public List<DebtInfo> selectDebtInfos(DebtInfoQuery debtInfoQuery) {
+        if(debtInfoQuery.getCompanyType().equals("1")){
+            debtInfoQuery.setCompanyType(null);
+        }
         return busReportDao.selectDebtInofs(debtInfoQuery);
     }
 

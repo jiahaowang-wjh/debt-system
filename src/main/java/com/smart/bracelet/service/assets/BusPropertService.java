@@ -3,6 +3,7 @@ package com.smart.bracelet.service.assets;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.debt.BusPropert;
 import com.smart.bracelet.model.vo.assets.AssetsDebtBank;
+import com.smart.bracelet.model.vo.assets.AssetsMyDebt;
 import com.smart.bracelet.model.vo.debt.BusPropertVo;
 import org.springframework.stereotype.Repository;
 
@@ -31,6 +32,6 @@ public interface BusPropertService {
      * 资产系统，我的债行
      * @return
      */
-    List<AssetsDebtBank> querys();
+    List<AssetsDebtBank> querys(AssetsMyDebt assetsMyDebt);
 
 }

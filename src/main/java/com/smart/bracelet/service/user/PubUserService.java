@@ -6,6 +6,7 @@ import com.smart.bracelet.model.po.user.PubUser;
 import com.smart.bracelet.model.po.user.PersonOnUserOnCom;
 import com.smart.bracelet.model.vo.user.PersonOnUserOnComVo;
 import com.smart.bracelet.model.vo.user.PubUserVo;
+import com.smart.bracelet.model.vo.user.UserMenu;
 
 import java.util.List;
 
@@ -109,4 +110,5 @@ public interface PubUserService {
      * 更新人员信息
      */
     int updatePerson(PersonOnUserOnComVo personOnUserOnComVo) throws CustomerException;
+
 }

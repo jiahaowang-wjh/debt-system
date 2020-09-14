@@ -21,6 +21,12 @@ public class AgreementInfoShow {
 
     String partyB;
 
+    String reportPropert;
+
+    String priPhone;
+
+    String corBankPhone;
+
     @JsonFormat(pattern = "yyyy-MM-dd")
     Date createTime;
 }

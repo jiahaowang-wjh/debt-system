@@ -46,5 +46,18 @@ public interface PubAuthDao {
      */
     List<PubAuth> selectPageAuth();
 
+    /**
+     * 用户权限
+     */
+    List<PubAuth> selectUserAuth();
 
+    /**
+     * 债务权限
+     */
+    List<PubAuth> selectDebtAuth();
+
+    /**
+     * 资产权限
+     */
+    List<PubAuth> selectAssetsAuth();
 }

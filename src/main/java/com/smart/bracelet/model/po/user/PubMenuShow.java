@@ -1,5 +1,7 @@
 package com.smart.bracelet.model.po.user;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -18,6 +20,7 @@ public class PubMenuShow implements Serializable {
     /**
      * 菜单ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long menuId;
 
     /**
@@ -33,11 +36,13 @@ public class PubMenuShow implements Serializable {
     /**
      * 排序
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     private Integer menuOrder;
 
     /**
      * 父级ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long prantId;
 
     /**

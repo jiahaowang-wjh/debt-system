@@ -31,7 +31,6 @@ public class PubAuth implements Serializable {
     /**
      * 菜单ID
      */
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long menuId;
 
     /**

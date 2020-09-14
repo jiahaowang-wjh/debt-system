@@ -26,10 +26,10 @@ public class BusCollectionLetterServiceImpl implements BusCollectionLetterServic
     public int deleteByPrimaryKey(Long collectionLettertId) throws CustomerException {
         try {
             int deleteByPrimaryKey = busCollectionLetterDao.deleteByPrimaryKey(collectionLettertId);
-            log.info("删除资产催款函成功,受影响行数:{}",deleteByPrimaryKey);
+            log.info("删除资产催款函成功,受影响行数:{}", deleteByPrimaryKey);
             return deleteByPrimaryKey;
         } catch (Exception e) {
-            log.error("删除资产催款函失败,异常信息:{}",e.getMessage());
+            log.error("删除资产催款函失败,异常信息:{}", e.getMessage());
             throw new CustomerException("删除资产催款函失败");
         }
     }
@@ -42,10 +42,10 @@ public class BusCollectionLetterServiceImpl implements BusCollectionLetterServic
             record.setCollectionLettertId(IdUtils.nextId());
             record.setCollectionLettertNo(repNo);
             int deleteByPrimaryKey = busCollectionLetterDao.insertSelective(record);
-            log.info("新增资产催款函成功,受影响行数:{}",deleteByPrimaryKey);
+            log.info("新增资产催款函成功,受影响行数:{}", deleteByPrimaryKey);
             return deleteByPrimaryKey;
         } catch (Exception e) {
-            log.error("新增资产催款函失败,异常信息:{}",e.getMessage());
+            log.error("新增资产催款函失败,异常信息:{}", e.getMessage());
             throw new CustomerException("新增资产催款函失败");
         }
     }
@@ -59,10 +59,10 @@ public class BusCollectionLetterServiceImpl implements BusCollectionLetterServic
     public int updateByPrimaryKeySelective(BusCollectionLetterVo record) throws CustomerException {
         try {
             int deleteByPrimaryKey = busCollectionLetterDao.updateByPrimaryKeySelective(record);
-            log.info("更新资产催款函成功,受影响行数:{}",deleteByPrimaryKey);
+            log.info("更新资产催款函成功,受影响行数:{}", deleteByPrimaryKey);
             return deleteByPrimaryKey;
         } catch (Exception e) {
-            log.error("更新资产催款函失败,异常信息:{}",e.getMessage());
+            log.error("更新资产催款函失败,异常信息:{}", e.getMessage());
             throw new CustomerException("更新资产催款函失败");
         }
     }
@@ -74,12 +74,18 @@ public class BusCollectionLetterServiceImpl implements BusCollectionLetterServic
 
     /**
      * 催款函页面初始化
+     *
      * @param relativePerId
      * @return
      */
     @Override
     public BusCollectionLetterShow initialize(Long relativePerId) {
         BusCollectionLetterShow initialize = busCollectionLetterDao.initialize(relativePerId);
+        if (initialize.getReportPropert().equals("1")) {
+            initialize.setCorBankPhone(null);
+        } else {
+            initialize.setPriPhone(null);
+        }
         initialize.setMoneyMax(ConvertUpMoney.toChinese(initialize.getAmountThis().toString()));
         return initialize;
     }
