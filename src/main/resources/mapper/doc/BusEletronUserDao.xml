@@ -16,6 +16,13 @@
     from bus_eletron_user
     where acct_id = #{acctId,jdbcType=VARCHAR}
   </select>
+
+  <select id="selectByPartaCard" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from bus_eletron_user
+    where acct_id = #{partaCard,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from bus_eletron_user
     where acct_id = #{acctId,jdbcType=VARCHAR}

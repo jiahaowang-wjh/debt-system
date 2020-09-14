@@ -2,27 +2,61 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.smart.bracelet.dao.doc.BusElectronUsernoDao">
   <resultMap id="BaseResultMap" type="com.smart.bracelet.model.po.doc.BusElectronUserno">
-    <id column="userno" jdbcType="INTEGER" property="userno" />
+    <id column="userno" jdbcType="BIGINT" property="userno" />
+    <id column="notype" jdbcType="VARCHAR" property="notype" />
+    <id column="idno" jdbcType="INTEGER" property="idno" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from bus_electron_userno
-    where userno = #{userno,jdbcType=INTEGER}
+    where userno = #{userno,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.smart.bracelet.model.po.doc.BusElectronUserno">
-    insert into bus_electron_userno (userno)
-    values (#{userno,jdbcType=INTEGER})
+    insert into bus_electron_userno (userno,notype,idno)
+    values (#{userno,jdbcType=BIGINT},#{notype,jdbcType=VARCHAR},#{idno,jdbcType=INTEGER})
   </insert>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    userno,notype,idno
+    from bus_electron_userno
+    where userno = #{userno,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectByPrimaryNotype" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    userno,notype,idno
+    from bus_electron_userno
+    where notype = #{notype,jdbcType=VARCHAR}
+  </select>
+
   <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.doc.BusElectronUserno">
     insert into bus_electron_userno
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="userno != null">
         userno,
       </if>
+      <if test="notype != null">
+        userno,
+      </if><if test="idno != null">
+      userno,
+    </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="userno != null">
-        #{userno,jdbcType=INTEGER},
+        #{userno,jdbcType=BIGINT},
       </if>
+      <if test="notype != null">
+        #{notype,jdbcType=VARCHAR},
+      </if><if test="idno != null">
+      #{idno,jdbcType=INTEGER},
+    </if>
     </trim>
   </insert>
+
+  <update id="updateByPrimaryKey" parameterType="com.smart.bracelet.model.po.doc.BusElectronUserno">
+    update bus_electron_seal
+    set notype = #{notype,jdbcType=VARCHAR},
+      idno = #{idno,jdbcType=INTEGER}
+    where userno = #{userno,jdbcType=BIGINT}
+  </update>
 </mapper>

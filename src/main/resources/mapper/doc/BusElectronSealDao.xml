@@ -6,17 +6,15 @@
     <result column="doc_id" jdbcType="BIGINT" property="docId" />
     <result column="doc_type" jdbcType="VARCHAR" property="docType" />
     <result column="parta" jdbcType="VARCHAR" property="parta" />
-    <result column="partb" jdbcType="VARCHAR" property="partb" />
     <result column="parta_type" jdbcType="VARCHAR" property="partaType" />
-    <result column="partb_type" jdbcType="VARCHAR" property="partbType" />
     <result column="parta_card" jdbcType="VARCHAR" property="partaCard" />
-    <result column="partb_card" jdbcType="VARCHAR" property="partbCard" />
     <result column="parta_tel" jdbcType="VARCHAR" property="partaTel" />
-    <result column="partb_tel" jdbcType="VARCHAR" property="partbTel" />
+    <result column="flow_id" jdbcType="VARCHAR" property="flowId" />
+    <result column="file_url" jdbcType="VARCHAR" property="fileUrl" />
   </resultMap>
   <sql id="Base_Column_List">
-    electron_seal_id, doc_id, doc_type, parta, partb, parta_type, partb_type, parta_card, 
-    partb_card, parta_tel, partb_tel
+    electron_seal_id, doc_id, doc_type, parta, parta_type, parta_card,
+    parta_tel, flow_id, file_url
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -30,13 +28,13 @@
   </delete>
   <insert id="insert" parameterType="com.smart.bracelet.model.po.doc.BusElectronSeal">
     insert into bus_electron_seal (electron_seal_id, doc_id, doc_type, 
-      parta, partb, parta_type, 
-      partb_type, parta_card, partb_card, 
-      parta_tel, partb_tel)
+      parta, parta_type,
+      parta_card,
+      parta_tel, flow_id,file_url )
     values (#{electronSealId,jdbcType=BIGINT}, #{docId,jdbcType=BIGINT}, #{docType,jdbcType=VARCHAR}, 
-      #{parta,jdbcType=VARCHAR}, #{partb,jdbcType=VARCHAR}, #{partaType,jdbcType=VARCHAR}, 
-      #{partbType,jdbcType=VARCHAR}, #{partaCard,jdbcType=VARCHAR}, #{partbCard,jdbcType=VARCHAR}, 
-      #{partaTel,jdbcType=VARCHAR}, #{partbTel,jdbcType=VARCHAR})
+      #{parta,jdbcType=VARCHAR}, #{partaType,jdbcType=VARCHAR},
+       #{partaCard,jdbcType=VARCHAR},
+      #{partaTel,jdbcType=VARCHAR}, #{flowId,jdbcType=VARCHAR}, #{fileUrl,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.doc.BusElectronSeal">
     insert into bus_electron_seal
@@ -53,26 +51,20 @@
       <if test="parta != null">
         parta,
       </if>
-      <if test="partb != null">
-        partb,
-      </if>
       <if test="partaType != null">
         parta_type,
-      </if>
-      <if test="partbType != null">
-        partb_type,
       </if>
       <if test="partaCard != null">
         parta_card,
       </if>
-      <if test="partbCard != null">
-        partb_card,
-      </if>
       <if test="partaTel != null">
         parta_tel,
       </if>
-      <if test="partbTel != null">
-        partb_tel,
+      <if test="flowId != null">
+        flow_id,
+      </if>
+      <if test="fileUrl != null">
+        file_url,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -88,26 +80,20 @@
       <if test="parta != null">
         #{parta,jdbcType=VARCHAR},
       </if>
-      <if test="partb != null">
-        #{partb,jdbcType=VARCHAR},
-      </if>
       <if test="partaType != null">
         #{partaType,jdbcType=VARCHAR},
-      </if>
-      <if test="partbType != null">
-        #{partbType,jdbcType=VARCHAR},
       </if>
       <if test="partaCard != null">
         #{partaCard,jdbcType=VARCHAR},
       </if>
-      <if test="partbCard != null">
-        #{partbCard,jdbcType=VARCHAR},
-      </if>
       <if test="partaTel != null">
         #{partaTel,jdbcType=VARCHAR},
       </if>
-      <if test="partbTel != null">
-        #{partbTel,jdbcType=VARCHAR},
+      <if test="flowId != null">
+        #{flowId,jdbcType=VARCHAR},
+      </if>
+      <if test="fileUrl != null">
+        #{fileUrl,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -123,26 +109,20 @@
       <if test="parta != null">
         parta = #{parta,jdbcType=VARCHAR},
       </if>
-      <if test="partb != null">
-        partb = #{partb,jdbcType=VARCHAR},
-      </if>
       <if test="partaType != null">
         parta_type = #{partaType,jdbcType=VARCHAR},
-      </if>
-      <if test="partbType != null">
-        partb_type = #{partbType,jdbcType=VARCHAR},
       </if>
       <if test="partaCard != null">
         parta_card = #{partaCard,jdbcType=VARCHAR},
       </if>
-      <if test="partbCard != null">
-        partb_card = #{partbCard,jdbcType=VARCHAR},
-      </if>
       <if test="partaTel != null">
         parta_tel = #{partaTel,jdbcType=VARCHAR},
       </if>
-      <if test="partbTel != null">
-        partb_tel = #{partbTel,jdbcType=VARCHAR},
+      <if test="flowId != null">
+        flow_id = #{flowId,jdbcType=VARCHAR},
+      </if>
+      <if test="fileUrl != null">
+        file_url = #{fileUrl,jdbcType=VARCHAR},
       </if>
     </set>
     where electron_seal_id = #{electronSealId,jdbcType=BIGINT}
@@ -152,13 +132,11 @@
     set doc_id = #{docId,jdbcType=BIGINT},
       doc_type = #{docType,jdbcType=VARCHAR},
       parta = #{parta,jdbcType=VARCHAR},
-      partb = #{partb,jdbcType=VARCHAR},
       parta_type = #{partaType,jdbcType=VARCHAR},
-      partb_type = #{partbType,jdbcType=VARCHAR},
       parta_card = #{partaCard,jdbcType=VARCHAR},
-      partb_card = #{partbCard,jdbcType=VARCHAR},
       parta_tel = #{partaTel,jdbcType=VARCHAR},
-      partb_tel = #{partbTel,jdbcType=VARCHAR}
+      flow_id = #{flowId,jdbcType=VARCHAR},
+      file_url = #{fileUrl,jdbcType=VARCHAR}
     where electron_seal_id = #{electronSealId,jdbcType=BIGINT}
   </update>
 </mapper>

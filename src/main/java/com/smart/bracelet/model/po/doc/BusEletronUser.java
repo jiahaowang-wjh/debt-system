@@ -1,4 +1,4 @@
-package com.smart.bracelet.model;
+package com.smart.bracelet.model.po.doc;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package com.smart.bracelet.model;
+package com.smart.bracelet.model.po.doc;
 
 import java.io.Serializable;
 
@@ -28,27 +28,43 @@ public class BusElectronSeal implements Serializable {
     private String parta;
 
     /**
-     * 乙方
-     */
-    private String partb;
-
-    /**
      * 甲方类型
      */
     private String partaType;
 
-    /**
-     * 乙方类型
-     */
-    private String partbType;
-
     private String partaCard;
-
-    private String partbCard;
 
     private String partaTel;
 
-    private String partbTel;
+    private String flowId;
+
+    private String fileUrl;
+
+    private String filePath;
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public String getFlowId() {
+        return flowId;
+    }
+
+    public void setFlowId(String flowId) {
+        this.flowId = flowId;
+    }
+
+    public String getFileUrl() {
+        return fileUrl;
+    }
+
+    public void setFileUrl(String fileUrl) {
+        this.fileUrl = fileUrl;
+    }
 
     private static final long serialVersionUID = 1L;
 
@@ -84,28 +100,12 @@ public class BusElectronSeal implements Serializable {
         this.parta = parta;
     }
 
-    public String getPartb() {
-        return partb;
-    }
-
-    public void setPartb(String partb) {
-        this.partb = partb;
-    }
-
     public String getPartaType() {
         return partaType;
     }
 
     public void setPartaType(String partaType) {
         this.partaType = partaType;
-    }
-
-    public String getPartbType() {
-        return partbType;
-    }
-
-    public void setPartbType(String partbType) {
-        this.partbType = partbType;
     }
 
     public String getPartaCard() {
@@ -116,14 +116,6 @@ public class BusElectronSeal implements Serializable {
         this.partaCard = partaCard;
     }
 
-    public String getPartbCard() {
-        return partbCard;
-    }
-
-    public void setPartbCard(String partbCard) {
-        this.partbCard = partbCard;
-    }
-
     public String getPartaTel() {
         return partaTel;
     }
@@ -132,11 +124,4 @@ public class BusElectronSeal implements Serializable {
         this.partaTel = partaTel;
     }
 
-    public String getPartbTel() {
-        return partbTel;
-    }
-
-    public void setPartbTel(String partbTel) {
-        this.partbTel = partbTel;
-    }
 }

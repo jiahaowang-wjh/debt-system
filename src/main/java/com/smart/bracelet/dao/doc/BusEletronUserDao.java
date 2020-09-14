@@ -1,6 +1,6 @@
-package com.smart.bracelet.dao;
+package com.smart.bracelet.dao.doc;
 
-import com.smart.bracelet.model.BusEletronUser;
+import com.smart.bracelet.model.po.doc.BusEletronUser;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -16,4 +16,6 @@ public interface BusEletronUserDao {
     int updateByPrimaryKeySelective(BusEletronUser record);
 
     int updateByPrimaryKey(BusEletronUser record);
+
+    BusEletronUser selectByPartaCard(String partaCard);
 }

@@ -1,6 +1,6 @@
-package com.smart.bracelet.dao;
+package com.smart.bracelet.dao.doc;
 
-import com.smart.bracelet.model.BusElectronSeal;
+import com.smart.bracelet.model.po.doc.BusElectronSeal;
 import org.springframework.stereotype.Repository;
 
 @Repository
