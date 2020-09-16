@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smart.bracelet.dao.doc.BusElectronSealDao">
+  <resultMap id="BaseResultMap" type="com.smart.bracelet.model.po.doc.BusElectronSeal">
+    <id column="electron_seal_id" jdbcType="BIGINT" property="electronSealId" />
+    <result column="doc_id" jdbcType="BIGINT" property="docId" />
+    <result column="doc_type" jdbcType="VARCHAR" property="docType" />
+    <result column="parta" jdbcType="VARCHAR" property="parta" />
+    <result column="partb" jdbcType="VARCHAR" property="partb" />
+    <result column="parta_type" jdbcType="VARCHAR" property="partaType" />
+    <result column="partb_type" jdbcType="VARCHAR" property="partbType" />
+    <result column="parta_card" jdbcType="VARCHAR" property="partaCard" />
+    <result column="partb_card" jdbcType="VARCHAR" property="partbCard" />
+    <result column="parta_tel" jdbcType="VARCHAR" property="partaTel" />
+    <result column="partb_tel" jdbcType="VARCHAR" property="partbTel" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    electron_seal_id, doc_id, doc_type, parta, partb, parta_type, partb_type, parta_card, 
+    partb_card, parta_tel, partb_tel
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bus_electron_seal
+    where electron_seal_id = #{electronSealId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from bus_electron_seal
+    where electron_seal_id = #{electronSealId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.smart.bracelet.model.po.doc.BusElectronSeal">
+    insert into bus_electron_seal (electron_seal_id, doc_id, doc_type, 
+      parta, partb, parta_type, 
+      partb_type, parta_card, partb_card, 
+      parta_tel, partb_tel)
+    values (#{electronSealId,jdbcType=BIGINT}, #{docId,jdbcType=BIGINT}, #{docType,jdbcType=VARCHAR}, 
+      #{parta,jdbcType=VARCHAR}, #{partb,jdbcType=VARCHAR}, #{partaType,jdbcType=VARCHAR}, 
+      #{partbType,jdbcType=VARCHAR}, #{partaCard,jdbcType=VARCHAR}, #{partbCard,jdbcType=VARCHAR}, 
+      #{partaTel,jdbcType=VARCHAR}, #{partbTel,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.doc.BusElectronSeal">
+    insert into bus_electron_seal
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="electronSealId != null">
+        electron_seal_id,
+      </if>
+      <if test="docId != null">
+        doc_id,
+      </if>
+      <if test="docType != null">
+        doc_type,
+      </if>
+      <if test="parta != null">
+        parta,
+      </if>
+      <if test="partb != null">
+        partb,
+      </if>
+      <if test="partaType != null">
+        parta_type,
+      </if>
+      <if test="partbType != null">
+        partb_type,
+      </if>
+      <if test="partaCard != null">
+        parta_card,
+      </if>
+      <if test="partbCard != null">
+        partb_card,
+      </if>
+      <if test="partaTel != null">
+        parta_tel,
+      </if>
+      <if test="partbTel != null">
+        partb_tel,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="electronSealId != null">
+        #{electronSealId,jdbcType=BIGINT},
+      </if>
+      <if test="docId != null">
+        #{docId,jdbcType=BIGINT},
+      </if>
+      <if test="docType != null">
+        #{docType,jdbcType=VARCHAR},
+      </if>
+      <if test="parta != null">
+        #{parta,jdbcType=VARCHAR},
+      </if>
+      <if test="partb != null">
+        #{partb,jdbcType=VARCHAR},
+      </if>
+      <if test="partaType != null">
+        #{partaType,jdbcType=VARCHAR},
+      </if>
+      <if test="partbType != null">
+        #{partbType,jdbcType=VARCHAR},
+      </if>
+      <if test="partaCard != null">
+        #{partaCard,jdbcType=VARCHAR},
+      </if>
+      <if test="partbCard != null">
+        #{partbCard,jdbcType=VARCHAR},
+      </if>
+      <if test="partaTel != null">
+        #{partaTel,jdbcType=VARCHAR},
+      </if>
+      <if test="partbTel != null">
+        #{partbTel,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.po.doc.BusElectronSeal">
+    update bus_electron_seal
+    <set>
+      <if test="docId != null">
+        doc_id = #{docId,jdbcType=BIGINT},
+      </if>
+      <if test="docType != null">
+        doc_type = #{docType,jdbcType=VARCHAR},
+      </if>
+      <if test="parta != null">
+        parta = #{parta,jdbcType=VARCHAR},
+      </if>
+      <if test="partb != null">
+        partb = #{partb,jdbcType=VARCHAR},
+      </if>
+      <if test="partaType != null">
+        parta_type = #{partaType,jdbcType=VARCHAR},
+      </if>
+      <if test="partbType != null">
+        partb_type = #{partbType,jdbcType=VARCHAR},
+      </if>
+      <if test="partaCard != null">
+        parta_card = #{partaCard,jdbcType=VARCHAR},
+      </if>
+      <if test="partbCard != null">
+        partb_card = #{partbCard,jdbcType=VARCHAR},
+      </if>
+      <if test="partaTel != null">
+        parta_tel = #{partaTel,jdbcType=VARCHAR},
+      </if>
+      <if test="partbTel != null">
+        partb_tel = #{partbTel,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where electron_seal_id = #{electronSealId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.smart.bracelet.model.po.doc.BusElectronSeal">
+    update bus_electron_seal
+    set doc_id = #{docId,jdbcType=BIGINT},
+      doc_type = #{docType,jdbcType=VARCHAR},
+      parta = #{parta,jdbcType=VARCHAR},
+      partb = #{partb,jdbcType=VARCHAR},
+      parta_type = #{partaType,jdbcType=VARCHAR},
+      partb_type = #{partbType,jdbcType=VARCHAR},
+      parta_card = #{partaCard,jdbcType=VARCHAR},
+      partb_card = #{partbCard,jdbcType=VARCHAR},
+      parta_tel = #{partaTel,jdbcType=VARCHAR},
+      partb_tel = #{partbTel,jdbcType=VARCHAR}
+    where electron_seal_id = #{electronSealId,jdbcType=BIGINT}
+  </update>
+</mapper>

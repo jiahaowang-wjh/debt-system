@@ -61,7 +61,7 @@ public enum FailResultCode {
     CODE_13056_CODE_ERR("13056","姓名和⼿机不匹配 "),
     CODE_13057_CODE_ERR("13057","⽆法准确校验 "),
     CODE_13066_CODE_ERR("13066","验证不⼀致 "),
-
+    CODE_13067_CODE_ERR("13067","电子签单错误 "),
     /**
      * 尚未进行注册
      */
