@@ -26,6 +26,9 @@ public class SignfieldInfo {
 	//签署区的宽度
 	private Integer width;
 
+	//印章id
+	private String sealId;
+
 	public Boolean getAutoExecute() {
 		return autoExecute;
 	}
@@ -90,8 +93,17 @@ public class SignfieldInfo {
 		this.width = width;
 	}
 
+	public String getSealId() {
+		return sealId;
+	}
+
+	public void setSealId(String sealId) {
+		this.sealId = sealId;
+	}
+
+
 	public SignfieldInfo(Boolean autoExecute, String actorIndentityType, String fileId, String sealType,
-			SignDateBean signDateBean, Integer signType, PosBeanInfo posBean, Integer width) {
+			SignDateBean signDateBean, Integer signType, PosBeanInfo posBean, Integer width,String sealId) {
 		this.autoExecute = autoExecute;
 		this.actorIndentityType = actorIndentityType;
 		this.fileId = fileId;
@@ -100,6 +112,7 @@ public class SignfieldInfo {
 		this.signType = signType;
 		this.posBean = posBean;
 		this.width = width;
+		this.sealId = sealId;
 	}
 
 	public SignfieldInfo() {

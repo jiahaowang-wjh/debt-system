@@ -11,11 +11,11 @@ public enum DocCode {
 
     PAYMENT_FEE("货款费发票", "03",false,1),
 
-    AGREE_ON("信息分析暨尽调协议", "04",true,2),
+    AGREE_ON("信息分析暨尽调协议", "04",true,3),
 
     PLAN_SERVICE_AGREEMENT("策划方案服务协议", "05",false,7),
 
-    ASSIGNMENT_AGREEMENT("债权转让协议", "06",false,7),
+    ASSIGNMENT_AGREEMENT("债权转让协议", "06",false,6),
 
     ASSIGNMENT_CONFIRMATION("债权转让确认书", "07",false,1),
 

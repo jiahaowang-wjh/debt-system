@@ -54,7 +54,7 @@
   </insert>
 
   <update id="updateByPrimaryKey" parameterType="com.smart.bracelet.model.po.doc.BusElectronUserno">
-    update bus_electron_seal
+    update bus_electron_userno
     set notype = #{notype,jdbcType=VARCHAR},
       idno = #{idno,jdbcType=INTEGER}
     where userno = #{userno,jdbcType=BIGINT}
