@@ -541,7 +541,7 @@ public class SignHelper {
 			PosBeanInfo posBean1 = new PosBeanInfo(""+docCode.getPagesize(), 131F, 530F); // 签署位置
 			SignfieldInfo signfield1 = new SignfieldInfo(true, "2", fileId, null, null, null, posBean1, null,null); // 签署区
 			SignerAccount signAccount = new SignerAccount(orgInfo.getAccountId(), orgInfo.getOrgid());//签署方账号
-			Signer signer1 = new Signer(true, 1, signAccount, Lists.newArrayList(signfield1), null); // 签署方
+			Signer signer1 = new Signer(false, 1, signAccount, Lists.newArrayList(signfield1), null); // 签署方
 			//添加至签署方
 			signers = Lists.newArrayList(signer1);
 		}else if ("4".equals(docType)){//信息分析暨尽调协议
