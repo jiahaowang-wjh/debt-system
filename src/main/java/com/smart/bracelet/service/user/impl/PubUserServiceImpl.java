@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -33,6 +34,7 @@ public class PubUserServiceImpl implements PubUserService {
      * @throws CustomerException
      */
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int deleteByPrimaryKey(Long userId) throws CustomerException {
         try {
             int i = pubUserDao.deleteByPrimaryKey(userId);
@@ -52,6 +54,7 @@ public class PubUserServiceImpl implements PubUserService {
      * @throws CustomerException
      */
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int insertSelective(PubUser record) throws CustomerException {
         try {
             record.setUserId(IdUtils.nextId());
@@ -86,6 +89,7 @@ public class PubUserServiceImpl implements PubUserService {
      * @throws CustomerException
      */
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int updateByPrimaryKeySelective(PubUserVo record) throws CustomerException {
         try {
             int i = pubUserDao.updateByPrimaryKeySelective(record);
@@ -140,6 +144,7 @@ public class PubUserServiceImpl implements PubUserService {
      * @throws CustomerException
      */
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int updateUserPwd(String outPwd, String newPwdA, String newPwdB, Long personId) throws CustomerException {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         try {
@@ -166,6 +171,7 @@ public class PubUserServiceImpl implements PubUserService {
      * @return
      */
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int delUserList(Long[] userIds) throws CustomerException {
         try {
             int delUserList = pubUserDao.delUserList(userIds);
@@ -195,23 +201,25 @@ public class PubUserServiceImpl implements PubUserService {
     }
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int delListPerson(Long[] ids) throws CustomerException {
         try {
             int i = pubUserDao.delListPerson(ids);
             return i;
         } catch (Exception e) {
-            log.error("异常信息:{}",e.getMessage());
-           throw new CustomerException("批量删除失败");
+            log.error("异常信息:{}", e.getMessage());
+            throw new CustomerException("批量删除失败");
         }
     }
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int updatePerson(PersonOnUserOnComVo personOnUserOnComVo) throws CustomerException {
         try {
             int i = pubUserDao.updatePerson(personOnUserOnComVo);
             return i;
         } catch (Exception e) {
-            log.error("异常信息:{}",e.getMessage());
+            log.error("异常信息:{}", e.getMessage());
             throw new CustomerException("更新失败");
         }
     }

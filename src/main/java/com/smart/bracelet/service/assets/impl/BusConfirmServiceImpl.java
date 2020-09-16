@@ -10,6 +10,7 @@ import com.smart.bracelet.utils.IdUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,26 +22,28 @@ public class BusConfirmServiceImpl implements BusConfirmService {
     private BusConfirmDao busConfirmDao;
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int deleteByPrimaryKey(Long confirmtId) throws CustomerException {
         try {
             int deleteByPrimaryKey = busConfirmDao.deleteByPrimaryKey(confirmtId);
-            log.info("删除资产债权确认成功,受影响行数:{}",deleteByPrimaryKey);
+            log.info("删除资产债权确认成功,受影响行数:{}", deleteByPrimaryKey);
             return deleteByPrimaryKey;
         } catch (Exception e) {
-            log.error("删除资产债权确认失败,异常信息:{}",e.getMessage());
+            log.error("删除资产债权确认失败,异常信息:{}", e.getMessage());
             throw new CustomerException("删除资产债权确认失败");
         }
     }
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int insertSelective(BusConfirm record) throws CustomerException {
         try {
             record.setConfirmtId(IdUtils.nextId());
             int deleteByPrimaryKey = busConfirmDao.insertSelective(record);
-            log.info("新增资产债权确认成功,受影响行数:{}",deleteByPrimaryKey);
+            log.info("新增资产债权确认成功,受影响行数:{}", deleteByPrimaryKey);
             return deleteByPrimaryKey;
         } catch (Exception e) {
-            log.error("新增资产债权确认失败,异常信息:{}",e.getMessage());
+            log.error("新增资产债权确认失败,异常信息:{}", e.getMessage());
             throw new CustomerException("新增资产债权确认失败");
         }
     }
@@ -51,13 +54,14 @@ public class BusConfirmServiceImpl implements BusConfirmService {
     }
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int updateByPrimaryKeySelective(BusConfirmVo record) throws CustomerException {
         try {
             int deleteByPrimaryKey = busConfirmDao.updateByPrimaryKeySelective(record);
-            log.info("更新资产债权确认成功,受影响行数:{}",deleteByPrimaryKey);
+            log.info("更新资产债权确认成功,受影响行数:{}", deleteByPrimaryKey);
             return deleteByPrimaryKey;
         } catch (Exception e) {
-            log.error("更新资产债权确认失败,异常信息:{}",e.getMessage());
+            log.error("更新资产债权确认失败,异常信息:{}", e.getMessage());
             throw new CustomerException("更新资产债权确认失败");
         }
     }
@@ -70,9 +74,9 @@ public class BusConfirmServiceImpl implements BusConfirmService {
     @Override
     public BusConfirmShow initialize(Long relativePerId) {
         BusConfirmShow initialize = busConfirmDao.initialize(relativePerId);
-        if(initialize.getReportPropert().equals("1")){
+        if (initialize.getReportPropert().equals("1")) {
             initialize.setCorBankPhone(null);
-        }else{
+        } else {
             initialize.setPriPhone(null);
         }
         return initialize;

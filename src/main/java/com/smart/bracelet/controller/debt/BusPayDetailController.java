@@ -77,9 +77,9 @@ public class BusPayDetailController {
     @PreAuthorize("hasAnyAuthority('debt:select')")
     public Result<PageInfo> selectPayInfoList(@NotNull(message = "页码不能为空") Integer pageNum,
                                               @NotNull(message = "当前显示条数不能为空") Integer pageSize,
-                                              String debtNo,@NotBlank(message = "公司类型不能为空") String companyType) {
+                                              String debtNo,@NotBlank(message = "公司类型不能为空") String companyType,String status) {
         PageHelper.startPage(pageNum, pageSize);
-        List<BusPayDetailInfo> busPayDetailInfos = busPayDetailService.selectPayInfoList(debtNo,companyType);
+        List<BusPayDetailInfo> busPayDetailInfos = busPayDetailService.selectPayInfoList(debtNo,companyType,status);
         PageInfo<BusPayDetailInfo> busPayDetailInfoPageInfo = new PageInfo<>(busPayDetailInfos);
         return Result.success(busPayDetailInfoPageInfo);
     }

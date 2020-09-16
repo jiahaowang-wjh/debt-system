@@ -9,6 +9,7 @@ import com.smart.bracelet.utils.IdUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class BusPledgeContractServiceImpl implements BusPledgeContractService {
     private BusPledgeContractDao busPledgeContractDao;
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int deleteByPrimaryKey(Long pledgeContractId) throws CustomerException {
         try {
             int deleteByPrimaryKey = busPledgeContractDao.deleteByPrimaryKey(pledgeContractId);
@@ -32,6 +34,7 @@ public class BusPledgeContractServiceImpl implements BusPledgeContractService {
     }
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int insertSelective(BusPledgeContract record) throws CustomerException {
         try {
             record.setPledgeContractId(IdUtils.nextId());
@@ -50,6 +53,7 @@ public class BusPledgeContractServiceImpl implements BusPledgeContractService {
     }
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int updateByPrimaryKeySelective(BusPledgeContractVo record) throws CustomerException {
         try {
             int updateByPrimaryKeySelective = busPledgeContractDao.updateByPrimaryKeySelective(record);

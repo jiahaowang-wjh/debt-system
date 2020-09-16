@@ -9,6 +9,7 @@ import com.smart.bracelet.utils.IdUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,26 +21,28 @@ public class BusPledgePropertyServiceImpl implements BusPledgePropertyService {
     private BusPledgePropertyDao busPledgePropertyDao;
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int deleteByPrimaryKey(Long pledgePropertyId) throws CustomerException {
         try {
             int deleteByPrimaryKey = busPledgePropertyDao.deleteByPrimaryKey(pledgePropertyId);
-            log.info("删除质押财产信息成功,受影响行数:{}",deleteByPrimaryKey);
+            log.info("删除质押财产信息成功,受影响行数:{}", deleteByPrimaryKey);
             return deleteByPrimaryKey;
         } catch (Exception e) {
-            log.error("删除质押财产信息失败,异常信息:{}",e.getMessage());
+            log.error("删除质押财产信息失败,异常信息:{}", e.getMessage());
             throw new CustomerException("删除质押财产信息失败");
         }
     }
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int insertSelective(BusPledgeProperty record) throws CustomerException {
         try {
             record.setPledgePropertyId(IdUtils.nextId());
             int insertSelective = busPledgePropertyDao.insertSelective(record);
-            log.info("新增质押财产信息成功,受影响行数:{}",insertSelective);
+            log.info("新增质押财产信息成功,受影响行数:{}", insertSelective);
             return insertSelective;
         } catch (Exception e) {
-            log.error("新增质押财产信息失败,异常信息:{}",e.getMessage());
+            log.error("新增质押财产信息失败,异常信息:{}", e.getMessage());
             throw new CustomerException("新增质押财产信息失败");
         }
     }
@@ -50,13 +53,14 @@ public class BusPledgePropertyServiceImpl implements BusPledgePropertyService {
     }
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int updateByPrimaryKeySelective(BusPledgePropertyVo record) throws CustomerException {
         try {
             int updateByPrimaryKeySelective = busPledgePropertyDao.updateByPrimaryKeySelective(record);
-            log.info("更新质押财产信息成功,受影响行数:{}",updateByPrimaryKeySelective);
+            log.info("更新质押财产信息成功,受影响行数:{}", updateByPrimaryKeySelective);
             return updateByPrimaryKeySelective;
         } catch (Exception e) {
-            log.error("更新质押财产信息失败,异常信息:{}",e.getMessage());
+            log.error("更新质押财产信息失败,异常信息:{}", e.getMessage());
             throw new CustomerException("更新质押财产信息失败");
         }
     }

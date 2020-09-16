@@ -9,6 +9,7 @@ import com.smart.bracelet.utils.IdUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -29,13 +30,14 @@ public class PubDictionServiceImpl implements PubDictionService {
      * @return
      */
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int deleteByPrimaryKey(Long dictionId) throws CustomerException {
         try {
             int deleteByPrimaryKey = pubDictionDao.deleteByPrimaryKey(dictionId);
-            log.info("删除字典成功,受影响行数:{}",deleteByPrimaryKey);
+            log.info("删除字典成功,受影响行数:{}", deleteByPrimaryKey);
             return deleteByPrimaryKey;
         } catch (Exception e) {
-            log.error("删除字典失败,异常信息:{}",e.getMessage());
+            log.error("删除字典失败,异常信息:{}", e.getMessage());
             throw new CustomerException("删除字典失败");
         }
     }
@@ -52,14 +54,15 @@ public class PubDictionServiceImpl implements PubDictionService {
      * @return
      */
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int insertSelective(PubDiction record) throws CustomerException {
         try {
             record.setDictionId(IdUtils.nextId());
             int insertSelective = pubDictionDao.insertSelective(record);
-            log.info("新增字典成功,受影响行数:{}",insertSelective);
+            log.info("新增字典成功,受影响行数:{}", insertSelective);
             return insertSelective;
         } catch (Exception e) {
-            log.error("新增字典失败,异常信息:{}",e.getMessage());
+            log.error("新增字典失败,异常信息:{}", e.getMessage());
             throw new CustomerException("新增字典失败");
         }
     }
@@ -82,19 +85,21 @@ public class PubDictionServiceImpl implements PubDictionService {
      * @return
      */
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int updateByPrimaryKeySelective(PubDictionVo record) throws CustomerException {
         try {
             int updateByPrimaryKeySelective = pubDictionDao.updateByPrimaryKeySelective(record);
-            log.info("更新字典成功,受影响行数:{}",updateByPrimaryKeySelective);
+            log.info("更新字典成功,受影响行数:{}", updateByPrimaryKeySelective);
             return updateByPrimaryKeySelective;
         } catch (Exception e) {
-            log.error("更新字典成功,异常信息:{}",e.getMessage());
+            log.error("更新字典成功,异常信息:{}", e.getMessage());
             throw new CustomerException("更新字典成功");
         }
     }
 
     /**
      * 查询所有字典
+     *
      * @return
      */
     @Override
@@ -104,18 +109,20 @@ public class PubDictionServiceImpl implements PubDictionService {
 
     /**
      * 批量删除字典信息
+     *
      * @param dictionIds
      * @return
      * @throws CustomerException
      */
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int delDictionList(Long[] dictionIds) throws CustomerException {
         try {
             int delDictionList = pubDictionDao.delDictionList(dictionIds);
-            log.info("批量删除字典信息成功,受影响行数:{}",delDictionList);
+            log.info("批量删除字典信息成功,受影响行数:{}", delDictionList);
             return delDictionList;
         } catch (Exception e) {
-            log.error("批量删除字典信息失败,异常信息:{}",e.getMessage());
+            log.error("批量删除字典信息失败,异常信息:{}", e.getMessage());
             throw new CustomerException("批量删除字典信息失败");
         }
     }

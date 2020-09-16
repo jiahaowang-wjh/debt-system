@@ -1,10 +1,8 @@
 package com.smart.bracelet.dao.debt;
 
 import com.smart.bracelet.model.po.debt.BusRelativePerson;
-import com.smart.bracelet.model.vo.debt.AuxiliaryDownload;
-import com.smart.bracelet.model.vo.debt.BusRelativePersonVo;
-import com.smart.bracelet.model.vo.debt.ReportAndRelativePerson;
-import com.smart.bracelet.model.vo.debt.ReportAndRelativePersonShow;
+import com.smart.bracelet.model.vo.debt.*;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -43,7 +41,11 @@ public interface BusRelativePersonDao {
     ReportAndRelativePerson selectByRelativePerId(Long relativePerId);
 
     /**
-     * 辅助下载
+     * 辅助下载财务
      */
-    List<AuxiliaryDownload> selectDow();
+    List<AuxiliaryDownload> selectDow(String debtName, String time);
+    /**
+     * 辅助下载债务
+     */
+    List<DowLod> selectDebtDow(String debtName,String time);
 }

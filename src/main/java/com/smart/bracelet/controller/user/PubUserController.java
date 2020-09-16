@@ -15,6 +15,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import javax.annotation.Resource;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -37,6 +38,7 @@ public class PubUserController {
 
     /**
      * 新增用户信息
+     *
      * @param pubUser
      * @return
      * @throws CustomerException
@@ -50,20 +52,21 @@ public class PubUserController {
 
     /**
      * 修改用户信息
+     *
      * @param record
      * @return
      */
     @RequestMapping("/updateByPrimaryKeySelective")
     @PreAuthorize("hasAnyAuthority('user:update')")
-    public Result updateByPrimaryKeySelective(@Valid PubUserVo record) throws CustomerException{
+    public Result updateByPrimaryKeySelective(@Valid PubUserVo record) throws CustomerException {
         int updateByPrimaryKeySelective = userInfoService.updateByPrimaryKeySelective(record);
         return Result.success(updateByPrimaryKeySelective);
     }
 
 
-
     /**
      * 通过ID删除用户信息
+     *
      * @param userId
      * @return
      * @throws CustomerException
@@ -77,12 +80,13 @@ public class PubUserController {
 
     /**
      * 查询所有用户
+     *
      * @return
      */
     @RequestMapping("/queryUserList")
     @PreAuthorize("hasAnyAuthority('user:select')")
-    public Result<PageInfo> queryUserList(){
-        PageHelper.startPage(1,5);
+    public Result<PageInfo> queryUserList() {
+        PageHelper.startPage(1, 5);
         List<PubUser> pubUsers = userInfoService.queryUserList();
         PageInfo pageInfo = new PageInfo<PubUser>(pubUsers);
         return Result.success(pageInfo);
@@ -90,44 +94,48 @@ public class PubUserController {
 
     /**
      * 通过Id查询用户信息
+     *
      * @param userId
      * @return
      */
     @RequestMapping("/selectByPrimaryKey")
     @PreAuthorize("hasAnyAuthority('user:select')")
-    public Result<PubUser> selectByPrimaryKey(@NotNull(message = "用户Id不能为空")Long userId){
+    public Result<PubUser> selectByPrimaryKey(@NotNull(message = "用户Id不能为空") Long userId) {
         PubUser pubUser = userInfoService.selectByPrimaryKey(userId);
         return Result.success(pubUser);
     }
 
     /**
      * 通过用户Id查询菜单信息
+     *
      * @param userId
      * @return
      */
     @RequestMapping("/selectMenuByUserId")
     @PreAuthorize("hasAnyAuthority('user:select')")
-    public Result<List<PubMenu>> selectMenuByUserId(@NotNull(message = "用户Id不能为空") Long userId){
+    public Result<List<PubMenu>> selectMenuByUserId(@NotNull(message = "用户Id不能为空") Long userId) {
         List<PubMenu> pubMenus = userInfoService.selectMenuByUserId(userId);
         return Result.success(pubMenus);
     }
 
     /**
      * 修改密码
+     *
      * @return
      */
     @RequestMapping("/updatePwd")
     @PreAuthorize("hasAnyAuthority('user:update')")
     public Result updatePwd(@NotBlank(message = "旧密码不能为空") String outPwd,
-                            @NotBlank(message = "新密码不能为空")String newPwdA,
-                            @NotBlank(message = "重复新密码不能为空")String newPwdB,
-                            @NotNull(message = "用户Id不能为空") Long personId ) throws CustomerException {
-        int updateUserPwd = userInfoService.updateUserPwd(outPwd, newPwdA,newPwdB, personId);
+                            @NotBlank(message = "新密码不能为空") String newPwdA,
+                            @NotBlank(message = "重复新密码不能为空") String newPwdB,
+                            @NotNull(message = "用户Id不能为空") Long personId) throws CustomerException {
+        int updateUserPwd = userInfoService.updateUserPwd(outPwd, newPwdA, newPwdB, personId);
         return Result.success(updateUserPwd);
     }
 
     /**
      * 批量删除用户
+     *
      * @return
      */
     @RequestMapping("/delUserList")
@@ -138,15 +146,16 @@ public class PubUserController {
     }
 
     /**
-     *  分页查询所有用户,人员,公司信息
+     * 分页查询所有用户,人员,公司信息
+     *
      * @param pageNum
      * @param pageSize
      * @return
      */
     @RequestMapping("/queryList")
     @PreAuthorize("hasAnyAuthority('user:select')")
-    public Result<PageInfo> queryList(@NotNull(message = "页码不能为空") Integer pageNum,@NotNull(message = "当前显示条数不能为空") Integer pageSize){
-        PageHelper.startPage(pageNum,pageSize);
+    public Result<PageInfo> queryList(@NotNull(message = "页码不能为空") Integer pageNum, @NotNull(message = "当前显示条数不能为空") Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         List<PersonOnUserOnCom> personOnUserOnComVos = userInfoService.queryList();
         PageInfo pageInfo = new PageInfo<PersonOnUserOnCom>(personOnUserOnComVos);
         return Result.success(pageInfo);
@@ -155,28 +164,29 @@ public class PubUserController {
 
     /**
      * 批量删除人员
+     *
      * @param ids
      * @return
      */
     @RequestMapping("/delListPerson")
     @PreAuthorize("hasAnyAuthority('user:delete')")
-    public Result delListPerson(Long[] ids) throws CustomerException{
-        if(ids.length==0){
+    public Result delListPerson(Long[] ids) throws CustomerException {
+        if (ids.length == 0) {
             throw new CustomerException("Id不能为空");
         }
         int i = userInfoService.delListPerson(ids);
         return Result.success(i);
     }
+
     /**
      * 更新人员信息
      */
     @RequestMapping("/updatePerson")
     @PreAuthorize("hasAnyAuthority('user:update')")
-    public Result updatePerson(@Valid PersonOnUserOnComVo personOnUserOnComVo) throws CustomerException{
+    public Result updatePerson(@Valid PersonOnUserOnComVo personOnUserOnComVo) throws CustomerException {
         int i = userInfoService.updatePerson(personOnUserOnComVo);
         return Result.success(i);
     }
-
 
 
 }

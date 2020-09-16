@@ -12,6 +12,7 @@ import com.smart.bracelet.utils.RepNoUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Calendar;
 import java.util.List;
@@ -27,34 +28,36 @@ public class PubDebtServiceImpl implements PubDebtService {
     private BusGuaranteeDao busGuaranteeDao;
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int deleteByPrimaryKey(Long debtId) throws CustomerException {
         try {
             int deleteByPrimaryKey = pubDebtDao.deleteByPrimaryKey(debtId);
-            log.info("删除借债信息成功,受影响行数:{}",deleteByPrimaryKey);
+            log.info("删除借债信息成功,受影响行数:{}", deleteByPrimaryKey);
             return deleteByPrimaryKey;
         } catch (Exception e) {
-            log.error("删除解债信息失败,异常信息:{}",e.getMessage());
+            log.error("删除解债信息失败,异常信息:{}", e.getMessage());
             throw new CustomerException("删除解债信息失败");
         }
     }
 
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public Long insertSelective(PubDebt record) throws CustomerException {
         try {
             Long l = IdUtils.nextId();
             String selectNo = pubDebtDao.selectNo();
             //累计金额等于本次加累计
-            record.setAmountCumulative(record.getAmountCumulative()+record.getAmountThis());
+            record.setAmountCumulative(record.getAmountCumulative() + record.getAmountThis());
             String repNo = RepNoUtils.createRepNo("TZ", "ZLGS", selectNo);
             record.setDebtId(l);
             record.setDebtNo(createRepNo());
             record.setServiceNo(repNo);
             int insertSelective = pubDebtDao.insertSelective(record);
-            log.info("新增解债信息成功,受影响行数:{}",insertSelective);
+            log.info("新增解债信息成功,受影响行数:{}", insertSelective);
             return l;
         } catch (Exception e) {
-            log.error("新增解债信息失败,异常信息:{}",e.getMessage());
+            log.error("新增解债信息失败,异常信息:{}", e.getMessage());
             throw new CustomerException("新增解债信息失败");
         }
     }
@@ -65,16 +68,18 @@ public class PubDebtServiceImpl implements PubDebtService {
     }
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int updateByPrimaryKeySelective(PubDebtVo record) throws CustomerException {
         try {
             int updateByPrimaryKeySelective = pubDebtDao.updateByPrimaryKeySelective(record);
-            log.info("更新解债信息成功,受影响行数:{}",updateByPrimaryKeySelective);
+            log.info("更新解债信息成功,受影响行数:{}", updateByPrimaryKeySelective);
             return updateByPrimaryKeySelective;
         } catch (Exception e) {
-            log.error("更新解债信息失败,异常信息:{}",e.getMessage());
+            log.error("更新解债信息失败,异常信息:{}", e.getMessage());
             throw new CustomerException("更新解债信息失败");
         }
     }
+
     /**
      * 按照日期查询每日解债数量
      */
@@ -84,7 +89,8 @@ public class PubDebtServiceImpl implements PubDebtService {
     }
 
     /**
-     *查询所有解债信息
+     * 查询所有解债信息
+     *
      * @return
      */
     @Override
@@ -94,20 +100,21 @@ public class PubDebtServiceImpl implements PubDebtService {
     }
 
     @Override
-    public int updateStatus(String status, Long debtId,String checkReason) throws CustomerException {
+    @Transactional(noRollbackFor = Exception.class)
+    public int updateStatus(String status, Long debtId, String checkReason) throws CustomerException {
         try {
-            int i = pubDebtDao.updateStatus(status, debtId,checkReason);
-            log.info("更新解债状态成功,受影响行数:{}",i);
+            int i = pubDebtDao.updateStatus(status, debtId, checkReason);
+            log.info("更新解债状态成功,受影响行数:{}", i);
             return i;
         } catch (Exception e) {
-            log.error("更新解债状态失败,异常信息:{}",e.getMessage());
+            log.error("更新解债状态失败,异常信息:{}", e.getMessage());
             throw new CustomerException("更新解债状态失败");
         }
     }
 
     @Override
     public List<PubDebtInfo> selectDebtListShow(QueryDebtVo queryDebtVo) {
-        if(queryDebtVo.getCompanyType().equals("1")){
+        if (queryDebtVo.getCompanyType().equals("1")) {
             queryDebtVo.setCompanyType(null);
         }
         return pubDebtDao.selectDebtListShow(queryDebtVo);
@@ -136,33 +143,34 @@ public class PubDebtServiceImpl implements PubDebtService {
 
     /**
      * 编号生成方法
+     *
      * @return
      */
-    public String createRepNo(){
+    public String createRepNo() {
         String repNo;
         int intXuhao;
         String stringXuhao;
-        boolean ok=true;
+        boolean ok = true;
         Calendar ca = Calendar.getInstance();
         int year = ca.get(Calendar.YEAR);//获取年份
-        String xuHao=null;
+        String xuHao = null;
         String aLong = pubDebtDao.selectRepNo();
-        if(aLong!=null) {
+        if (aLong != null) {
             xuHao = aLong.substring(aLong.toString().indexOf("F") + 1);
             intXuhao = Integer.parseInt(xuHao);
-            intXuhao = intXuhao+1;
-            stringXuhao = intXuhao+"";
-            while (ok){
-                if(stringXuhao.length()<6){
-                    stringXuhao = 0+stringXuhao;
-                }else{
+            intXuhao = intXuhao + 1;
+            stringXuhao = intXuhao + "";
+            while (ok) {
+                if (stringXuhao.length() < 6) {
+                    stringXuhao = 0 + stringXuhao;
+                } else {
                     ok = false;
                 }
             }
-            repNo = "TZ" + year + "JJF"+stringXuhao;
+            repNo = "TZ" + year + "JJF" + stringXuhao;
             return repNo;
-        }else {
-            repNo = "TZ" + year + "JJF"+"000001";
+        } else {
+            repNo = "TZ" + year + "JJF" + "000001";
             return repNo;
         }
     }

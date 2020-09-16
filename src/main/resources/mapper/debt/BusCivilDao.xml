@@ -52,10 +52,12 @@
         from bus_civil
     </select>
     <select id="selectBusList" resultType="com.smart.bracelet.model.vo.debt.BusCivilInfo">
-        SELECT br.`report_id`,bc.civil_id,brp.data1 AS 'personName',brp.`relative_per_id`,br.`report_no`,bc.civilno,br.`data1` AS 'debtName',bc.status FROM bus_relative_person brp
-        LEFT JOIN bus_civil bc ON brp.`relative_per_id`=bc.`relative_per_id`
+        SELECT br.`report_id`,bc.civil_id,brp.data1 AS
+        'personName',brp.`relative_per_id`,br.`report_no`,bc.civilno,br.`data1` AS 'debtName',bc.status
+        FROM bus_civil bc
+        LEFT JOIN bus_relative_person brp ON brp.`relative_per_id`=bc.`relative_per_id`
         LEFT JOIN bus_report br ON brp.`report_id` = br.`report_id`
-        left join pub_company pc on br.company_id = pc.company_id
+        LEFT JOIN pub_company pc ON br.company_id = pc.company_id
         <where>
             <if test="companyType != null and companyType!=''">
                 and pc.company_type = #{companyType,jdbcType=VARCHAR}
@@ -282,7 +284,7 @@
     <insert id="inertList" parameterType="com.smart.bracelet.model.po.debt.BusMediatePerson">
         insert into bus_mediate_person(mediate_person_id,civil_id,user_id)
         values
-        <foreach collection ="list" item="info" separator="," >
+        <foreach collection="list" item="info" separator=",">
             (#{info.mediatePersonId},#{info.civilId},#{info.userId})
         </foreach>
     </insert>

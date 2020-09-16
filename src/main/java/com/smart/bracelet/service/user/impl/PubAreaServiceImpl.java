@@ -9,6 +9,7 @@ import com.smart.bracelet.utils.IdUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Slf4j
@@ -18,26 +19,28 @@ public class PubAreaServiceImpl implements PubAreaService {
     private PubAreaDao pubAreaDao;
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int deleteByPrimaryKey(Long personId) throws CustomerException {
         try {
             int deleteByPrimaryKey = pubAreaDao.deleteByPrimaryKey(personId);
-            log.info("删除区域信息成功,受影响行数:{}",deleteByPrimaryKey);
+            log.info("删除区域信息成功,受影响行数:{}", deleteByPrimaryKey);
             return deleteByPrimaryKey;
         } catch (Exception e) {
-            log.error("删除区域信息失败,异常信息:{}",e.getMessage());
+            log.error("删除区域信息失败,异常信息:{}", e.getMessage());
             throw new CustomerException("删除区域信息失败");
         }
     }
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int insertSelective(PubArea pubArea) throws CustomerException {
         try {
             pubArea.setAreaId(IdUtils.nextId());
             int insertSelective = pubAreaDao.insertSelective(pubArea);
-            log.info("新增区域信息成功,受影响行数:{}",insertSelective);
+            log.info("新增区域信息成功,受影响行数:{}", insertSelective);
             return insertSelective;
         } catch (Exception e) {
-            log.error("新增区域信息失败,异常信息:{}",e.getMessage());
+            log.error("新增区域信息失败,异常信息:{}", e.getMessage());
             throw new CustomerException("新增区域信息失败");
         }
     }
@@ -49,13 +52,14 @@ public class PubAreaServiceImpl implements PubAreaService {
 
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int updateByPrimaryKeySelective(PubAreaVo record) throws CustomerException {
         try {
             int updateByPrimaryKeySelective = pubAreaDao.updateByPrimaryKeySelective(record);
-            log.info("更新区域信息成功,受影响行数:{}",updateByPrimaryKeySelective);
+            log.info("更新区域信息成功,受影响行数:{}", updateByPrimaryKeySelective);
             return updateByPrimaryKeySelective;
         } catch (Exception e) {
-            log.error("更新区域信息失败,异常信息:{}",e.getMessage());
+            log.error("更新区域信息失败,异常信息:{}", e.getMessage());
             throw new CustomerException("更新区域信息失败");
         }
     }

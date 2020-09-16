@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -23,39 +24,42 @@ public class BusPayDetailServiceImpl implements BusPayDetailService {
     private BusPayDetailDao busPayDetailDao;
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int deleteByPrimaryKey(Long payId) throws CustomerException {
         try {
             int deleteByPrimaryKey = busPayDetailDao.deleteByPrimaryKey(payId);
-            log.info("删除支付明细信息成功,受影响行数:{}",deleteByPrimaryKey);
+            log.info("删除支付明细信息成功,受影响行数:{}", deleteByPrimaryKey);
             return deleteByPrimaryKey;
         } catch (Exception e) {
-            log.error("删除支付明细信息失败,异常信息:{}",e.getMessage());
+            log.error("删除支付明细信息失败,异常信息:{}", e.getMessage());
             throw new CustomerException("删除支付明细信息失败");
         }
     }
 
     /**
      * 组装编号
+     *
      * @param name
      * @return
      */
-    public String buildUpNo(String name){
+    public String buildUpNo(String name) {
         String selectRepNo = busPayDetailDao.selectRepNo();
-        String string3="";
-        if(!StringUtils.isBlank(selectRepNo)){
+        String string3 = "";
+        if (!StringUtils.isBlank(selectRepNo)) {
             String substring1 = selectRepNo.substring(0, 6);
             String substring2 = selectRepNo.substring(10);
-            string3 = substring1+name+substring2;
+            string3 = substring1 + name + substring2;
         }
         String repNo = RepNoUtils.createRepNo("TZ", name, string3);
         return repNo;
     }
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public Long insertSelective(BusPayDetail record) throws CustomerException {
         long l = IdUtils.nextId();
         try {
-            switch (record.getFlag()){
+            switch (record.getFlag()) {
                 case "1":
                     record.setPayNo(buildUpNo("BBFW"));
                     break;
@@ -74,63 +78,66 @@ public class BusPayDetailServiceImpl implements BusPayDetailService {
             }
             record.setPayId(l);
             int insertSelective = busPayDetailDao.insertSelective(record);
-            log.info("新增支付信息成功,受影响行数:{}",insertSelective);
+            log.info("新增支付信息成功,受影响行数:{}", insertSelective);
             return l;
         } catch (Exception e) {
-            log.error("新增支付信息失败,异常信息:{}",e.getMessage());
+            log.error("新增支付信息失败,异常信息:{}", e.getMessage());
             throw new CustomerException("新增支付信息失败");
         }
     }
 
     @Override
     public BusPayDetail selectByPrimaryKey(Long payId) {
-       return busPayDetailDao.selectByPrimaryKey(payId);
+        return busPayDetailDao.selectByPrimaryKey(payId);
     }
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int updateByPrimaryKeySelective(BusPayDetailVo record) throws CustomerException {
         try {
             int updateByPrimaryKeySelective = busPayDetailDao.updateByPrimaryKeySelective(record);
-            log.info("更新支付信息成功,受影响行数:{}",updateByPrimaryKeySelective);
+            log.info("更新支付信息成功,受影响行数:{}", updateByPrimaryKeySelective);
             return updateByPrimaryKeySelective;
         } catch (Exception e) {
-            log.error("更新支付信息失败,异常信息:{}",e.getMessage());
-            throw  new CustomerException("更新支付信息失败");
+            log.error("更新支付信息失败,异常信息:{}", e.getMessage());
+            throw new CustomerException("更新支付信息失败");
         }
     }
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public List<BusPayDetail> selectByReportId(Long reportId) {
         return busPayDetailDao.selectByReportId(reportId);
     }
 
     @Override
-    public List<BusPayDetailInfo> selectPayInfoList(String debtNo,String companyType) {
-        if(companyType.equals("1")){
+    public List<BusPayDetailInfo> selectPayInfoList(String debtNo, String companyType,String status) {
+        if (companyType.equals("1")) {
             companyType = null;
         }
-        return busPayDetailDao.selectPayInfoList(debtNo,companyType);
+        return busPayDetailDao.selectPayInfoList(debtNo, companyType,status);
     }
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int updateStatus(String status, Long payId) throws CustomerException {
         try {
             int i = busPayDetailDao.updateStatus(status, payId);
             return i;
         } catch (Exception e) {
-            log.error("更新支付信息失败,异常信息:{}",e.getMessage());
+            log.error("更新支付信息失败,异常信息:{}", e.getMessage());
             throw new CustomerException("更新状态失败");
         }
     }
 
     @Override
     public List<BusPayDetail> selectByReportIdAndDebtId(Long reportId, Long debtId) {
-        return busPayDetailDao.selectByReportIdAndDebtId(reportId,debtId);
+        return busPayDetailDao.selectByReportIdAndDebtId(reportId, debtId);
     }
 
     @Override
     public List<BusPayDetail> selectByReportIdAndPropertId(Long reportId, Long propertId) {
-        return busPayDetailDao.selectByReportIdAndPropertId(reportId,propertId);
+        return busPayDetailDao.selectByReportIdAndPropertId(reportId, propertId);
     }
 
 

@@ -11,6 +11,7 @@ import com.smart.bracelet.utils.IdUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class BusPropertServiceImpl implements BusPropertService {
     private BusPropertDao busPropertDao;
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int deleteByPrimaryKey(Long propertId) throws CustomerException {
         try {
             int deleteByPrimaryKey = busPropertDao.deleteByPrimaryKey(propertId);
@@ -34,6 +36,7 @@ public class BusPropertServiceImpl implements BusPropertService {
     }
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public Long insertSelective(BusPropert record) throws CustomerException {
         try {
             Long l = IdUtils.nextId();
@@ -53,6 +56,7 @@ public class BusPropertServiceImpl implements BusPropertService {
     }
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int updateByPrimaryKeySelective(BusPropertVo record) throws CustomerException {
         try {
             int updateByPrimaryKeySelective = busPropertDao.updateByPrimaryKeySelective(record);
@@ -70,6 +74,7 @@ public class BusPropertServiceImpl implements BusPropertService {
     }
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int updateStatus(String status, String checkReason, Long propertId) throws CustomerException {
         try {
             int i = busPropertDao.updateStatus(status, checkReason, propertId);
@@ -83,7 +88,7 @@ public class BusPropertServiceImpl implements BusPropertService {
 
     @Override
     public List<AssetsDebtBank> querys(AssetsMyDebt assetsMyDebt) {
-        if(assetsMyDebt.getCompanyType().equals("1")){
+        if (assetsMyDebt.getCompanyType().equals("1")) {
             assetsMyDebt.setCompanyType(null);
         }
         return busPropertDao.querys(assetsMyDebt);

@@ -12,6 +12,7 @@ import com.smart.bracelet.utils.RepNoUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -24,6 +25,7 @@ public class BusAssignmentAgreementServiceImpl implements BusAssignmentAgreement
     private BusAssignmentAgreementDao busAssignmentAgreementDao;
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int deleteByPrimaryKey(Long assignmentAgreementId) throws CustomerException {
         try {
             int deleteByPrimaryKey = busAssignmentAgreementDao.deleteByPrimaryKey(assignmentAgreementId);
@@ -36,6 +38,7 @@ public class BusAssignmentAgreementServiceImpl implements BusAssignmentAgreement
     }
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public Long insertSelective(BusAssignmentAgreement record) throws CustomerException {
         try {
             long l = IdUtils.nextId();
@@ -58,6 +61,7 @@ public class BusAssignmentAgreementServiceImpl implements BusAssignmentAgreement
     }
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int updateByPrimaryKeySelective(BusAssignmentAgreementVo record) throws CustomerException {
         try {
             int updateByPrimaryKeySelective = busAssignmentAgreementDao.updateByPrimaryKeySelective(record);

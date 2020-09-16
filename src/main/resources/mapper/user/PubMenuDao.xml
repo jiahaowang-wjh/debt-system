@@ -40,8 +40,7 @@
     from pub_menu
   </select>
   <select id="selcetListAuth" resultMap="BaseResultMapB">
-    SELECT pm.menu_id,pm.menuname,pm.prant_id,pm.menuurl,pm.menuorder,pm.isenable,pm.note,pa.auth_id,pa.authname FROM `pub_menu` pm
-    LEFT JOIN `pub_auth` pa ON pm.menu_id = pa.menu_id
+    SELECT pm.menu_id,pm.menuname,pm.prant_id,pm.menuurl,pm.menuorder,pm.isenable,pm.note FROM `pub_menu` pm
   </select>
   <select id="selcetListAuthOne" resultType="com.smart.bracelet.model.po.user.PubMenuShow">
    SELECT * FROM `pub_menu` WHERE prant_id = 0

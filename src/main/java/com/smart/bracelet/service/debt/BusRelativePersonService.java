@@ -5,6 +5,8 @@ import com.smart.bracelet.model.po.debt.BusRelativePerson;
 import com.smart.bracelet.model.vo.debt.*;
 import com.smart.bracelet.utils.RepNoUtils;
 
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 public interface BusRelativePersonService {
@@ -65,12 +67,15 @@ public interface BusRelativePersonService {
     /**
      * 辅助下载
      */
-    List<AuxiliaryDownload> selectDow();
+    List<AuxiliaryDownload> selectDow(String debtName, String time) throws ParseException;
 
     /**
      * 根据报备ID查询相对人信息并验证是否符合解债申请
      */
     List<BusRelativePersonListVo> selectByreportIdAndDebt(Long reportId) throws CustomerException;
-
+    /**
+     * 辅助下载债务
+     */
+    List<DowLod> selectDebtDow(String debtName,String time);
 
 }

@@ -1,8 +1,10 @@
 package com.smart.bracelet.service.debt.impl;
 
 import com.smart.bracelet.dao.debt.BusRelativePersonDao;
+import com.smart.bracelet.dao.debt.BusReportDao;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.debt.BusRelativePerson;
+import com.smart.bracelet.model.po.debt.BusReport;
 import com.smart.bracelet.model.vo.debt.*;
 import com.smart.bracelet.service.debt.BusCivilService;
 import com.smart.bracelet.service.debt.BusRelativePersonService;
@@ -12,8 +14,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -25,9 +32,13 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
     private BusRelativePersonDao busRelativePersonDao;
 
     @Autowired
+    private BusReportDao busReportDao;
+
+    @Autowired
     private BusCivilService busCivilService;
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int deleteByPrimaryKey(Long relativePerId) throws CustomerException {
         try {
             int deleteByPrimaryKey = busRelativePersonDao.deleteByPrimaryKey(relativePerId);
@@ -88,7 +99,7 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
             busRelativePersonListVo.setCirculationAssets(busRelativePerson.getData9());
             busRelativePersonListVo.setIfWork(busRelativePerson.getData10());
         }
-        if(busRelativePerson.getReportPropert().equals("2") || busRelativePerson.getReportPropert().equals("3")){
+        if (busRelativePerson.getReportPropert().equals("2") || busRelativePerson.getReportPropert().equals("3")) {
             busRelativePersonListVo.setCompanyName(busRelativePerson.getData1());
             busRelativePersonListVo.setCreditCode(busRelativePerson.getData2());
             busRelativePersonListVo.setIndustryAttributes(busRelativePerson.getData3());
@@ -122,6 +133,7 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
      * @return
      */
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public Long insertPrivate(BusRelativePersonPrivateVo busRelativePersonPrivateVo) throws CustomerException {
         try {
             Long nextId = IdUtils.nextId();
@@ -176,6 +188,7 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
      * @throws CustomerException
      */
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int updatePrivate(BusRelativePersonPrivateUpdateVo busRelativePersonPrivateVo) throws CustomerException {
         try {
             BusRelativePersonVo busRelativePerson = new BusRelativePersonVo();
@@ -225,6 +238,7 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
      * @return
      */
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public Long insertEnterprise(BusRelativePersonEnterpriseVo busRelativePersonEnterpriseVo) throws CustomerException {
         try {
             Long l = IdUtils.nextId();
@@ -271,6 +285,7 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
     }
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int updateEnterprise(BusRelativePersonEnterpriseUpdateVo busRelativePersonEnterpriseVo) throws CustomerException {
         try {
             BusRelativePersonVo busRelativePerson = new BusRelativePersonVo();
@@ -320,6 +335,7 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
      * @return
      */
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public Long insertBank(BusRelativePersonBankVo busRelativePersonBankVo) throws CustomerException {
         try {
             Long l = IdUtils.nextId();
@@ -371,6 +387,7 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
      * @throws CustomerException
      */
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int updateBank(BusRelativePersonBankUpdateVo busRelativePersonBankVo) throws CustomerException {
         try {
             BusRelativePersonVo busRelativePerson = new BusRelativePersonVo();
@@ -412,7 +429,6 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
     }
 
 
-
     /**
      * 通过报备Id查询相对人信息(并判断是否达成民事调解关系)
      *
@@ -422,14 +438,20 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
     @Override
     public List<BusRelativePersonListVo> selectByreportId(Long reportId) throws CustomerException {
         try {
+            BusReport busReport = busReportDao.selectByPrimaryKey(reportId);
+            if(busReport.getReportType().equals("2")){
+                return null;
+            }
             List<BusRelativePerson> busRelativePeople = busRelativePersonDao.selectByreportId(reportId);
             List<BusRelativePersonListVo> listVos = new ArrayList<>();
-            for (BusRelativePerson item: busRelativePeople) {
+            for (BusRelativePerson item : busRelativePeople) {
                 //判断是否符合民事调解关系
                 Boolean verification = busCivilService.verification(item.getRelativePerId());
-                if(verification){
+                if (verification) {
                     BusRelativePersonListVo busRelativePersonListVo = selectByPrimaryKey(item.getRelativePerId());
-                    listVos.add(busRelativePersonListVo);
+                    if(!busRelativePersonListVo.getReportType().equals("1")){
+                        listVos.add(busRelativePersonListVo);
+                    }
                 }
             }
             return listVos;
@@ -443,7 +465,7 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
     public List<BusRelativePersonListVo> selectByRepId(Long reportId) throws CustomerException {
         List<BusRelativePerson> busRelativePeople = busRelativePersonDao.selectByreportId(reportId);
         List<BusRelativePersonListVo> listVos = new ArrayList<>();
-        for (BusRelativePerson item: busRelativePeople) {
+        for (BusRelativePerson item : busRelativePeople) {
             BusRelativePersonListVo busRelativePersonListVo = selectByPrimaryKey(item.getRelativePerId());
             listVos.add(busRelativePersonListVo);
         }
@@ -493,8 +515,9 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
     }
 
     @Override
-    public List<AuxiliaryDownload> selectDow() {
-        return busRelativePersonDao.selectDow();
+    public List<AuxiliaryDownload> selectDow(String debtName, String time) throws ParseException {
+        List<AuxiliaryDownload> auxiliaryDownloads = busRelativePersonDao.selectDow(debtName, time);
+        return auxiliaryDownloads;
     }
 
     @Override
@@ -502,15 +525,28 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
         try {
             List<BusRelativePersonListVo> listVos = new ArrayList<>();
             List<Long> longs = busRelativePersonDao.selectByreportIdAndDebt(reportId);
-            for (Long item: longs) {
+            for (Long item : longs) {
                 BusRelativePersonListVo busRelativePersonListVo = selectByPrimaryKey(item);
                 listVos.add(busRelativePersonListVo);
             }
             return listVos;
         } catch (Exception e) {
-            log.error("异常信息：{}",e.getMessage());
+            log.error("异常信息：{}", e.getMessage());
             throw new CustomerException("查询失败");
         }
+    }
+
+    @Override
+    public List<DowLod> selectDebtDow(String debtName, String time) {
+        List<DowLod> dowLods = busRelativePersonDao.selectDebtDow(debtName, time);
+        for (DowLod item : dowLods) {
+            if (item.getType().equals("1")) {
+                item.setCroBankPhone(null);
+            } else {
+                item.setPriPhone(null);
+            }
+        }
+        return dowLods;
     }
 
 

@@ -12,6 +12,7 @@ import com.smart.bracelet.utils.RepNoUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -23,27 +24,29 @@ public class BusAssessmentServiceImpl implements BusAssessmentService {
     private BusAssessmentDao busAssessmentDao;
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int deleteByPrimaryKey(Long assessmentId) throws CustomerException {
         try {
             int i = busAssessmentDao.deleteByPrimaryKey(assessmentId);
             return i;
         } catch (Exception e) {
-            log.error("删除资产评估失败异常信息:{}",e.getMessage());
-           throw new CustomerException("删除资产评估失败");
+            log.error("删除资产评估失败异常信息:{}", e.getMessage());
+            throw new CustomerException("删除资产评估失败");
         }
     }
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public Long insertSelective(BusAssessment record) throws CustomerException {
         try {
             long nextId = IdUtils.nextId();
             record.setAssessmentId(nextId);
             String selectNo = busAssessmentDao.selectNo();
-            record.setAssessmentNo(RepNoUtils.createRepNo("TZ","ZCPG",selectNo));
+            record.setAssessmentNo(RepNoUtils.createRepNo("TZ", "ZCPG", selectNo));
             int i = busAssessmentDao.insertSelective(record);
             return nextId;
         } catch (Exception e) {
-            log.error("新增资产评估失败,异常信息:{}",e.getMessage());
+            log.error("新增资产评估失败,异常信息:{}", e.getMessage());
             throw new CustomerException("新增资产评估失败");
         }
     }
@@ -55,12 +58,13 @@ public class BusAssessmentServiceImpl implements BusAssessmentService {
     }
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int updateByPrimaryKeySelective(BusAssessmentVo record) throws CustomerException {
         try {
             int i = busAssessmentDao.updateByPrimaryKeySelective(record);
             return i;
         } catch (Exception e) {
-            log.error("更新资产评估失败,异常信息:{}",e.getMessage());
+            log.error("更新资产评估失败,异常信息:{}", e.getMessage());
             throw new CustomerException("更新资产评估失败");
         }
     }
@@ -73,10 +77,10 @@ public class BusAssessmentServiceImpl implements BusAssessmentService {
     @Override
     public BusAssessmentInit initialize(Long relativePerId) {
         BusAssessmentInit initialize = busAssessmentDao.initialize(relativePerId);
-        if(initialize.getReportPropert().equals("1")){
+        if (initialize.getReportPropert().equals("1")) {
             initialize.setDebtCorPhone(null);
             initialize.setPersonCorPhone(null);
-        }else{
+        } else {
             initialize.setPersonPhnoe(null);
             initialize.setDebtPhnoe(null);
         }

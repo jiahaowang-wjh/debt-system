@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -525,7 +526,7 @@ public class BusReportServiceImpl implements BusReportService {
         //查询债事人
         DebtChain debtChain;
         debtChain = busReportDao.queryLisyDebtor(personIdCad);
-        if (org.springframework.util.StringUtils.isEmpty(debtChain)){
+        if (org.springframework.util.StringUtils.isEmpty(debtChain)) {
             return null;
         }
         //查询相对人
@@ -580,13 +581,14 @@ public class BusReportServiceImpl implements BusReportService {
      */
     @Override
     public List<DebtInfo> selectDebtInfos(DebtInfoQuery debtInfoQuery) {
-        if(debtInfoQuery.getCompanyType().equals("1")){
+        if (debtInfoQuery.getCompanyType().equals("1")) {
             debtInfoQuery.setCompanyType(null);
         }
         return busReportDao.selectDebtInofs(debtInfoQuery);
     }
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int updateDebtStage(String stage, Long repId) throws CustomerException {
         try {
             int i = busReportDao.updateDebtStage(stage, repId);
@@ -615,10 +617,10 @@ public class BusReportServiceImpl implements BusReportService {
      * @return
      */
     String agreementNo() {
-        List<String>  s = busReportDao.selectANO();
+        List<String> s = busReportDao.selectANO();
         String JINO = null;
-        for (String string: s) {
-            if(!StringUtils.isBlank(string)){
+        for (String string : s) {
+            if (!StringUtils.isBlank(string)) {
                 JINO = string;
                 break;
             }
@@ -628,9 +630,10 @@ public class BusReportServiceImpl implements BusReportService {
     }
 
     @Override
-    public int addAgreementNo(String partyA, String partyB,Long reportId) throws CustomerException {
+    @Transactional(noRollbackFor = Exception.class)
+    public int addAgreementNo(String partyA, String partyB, Long reportId) throws CustomerException {
         try {
-            return busReportDao.addANO(partyA,partyB,agreementNo(), reportId);
+            return busReportDao.addANO(partyA, partyB, agreementNo(), reportId);
         } catch (Exception e) {
             log.error("异常信息:{}", e.getMessage());
             throw new CustomerException("新增失败");
@@ -639,11 +642,12 @@ public class BusReportServiceImpl implements BusReportService {
 
     /**
      * 暨尽协议下载
+     *
      * @param reportId
      * @return
      */
     @Override
-    public CumOutInfo selectJiJin(Long reportId){
+    public CumOutInfo selectJiJin(Long reportId) {
         return busReportDao.selectJiJin(reportId);
     }
 }

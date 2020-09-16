@@ -18,6 +18,7 @@ import com.smart.bracelet.utils.RepNoUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -39,6 +40,7 @@ public class BusAgentSalesContractServiceImpl implements BusAgentSalesContractSe
     private PubDebtDao pubDebtDao;
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int deleteByPrimaryKey(Long salesContractId) throws CustomerException {
         try {
             int i = busAgentSalesContractDao.deleteByPrimaryKey(salesContractId);
@@ -50,6 +52,7 @@ public class BusAgentSalesContractServiceImpl implements BusAgentSalesContractSe
     }
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public Long insertSelective(BusAgentSalesContract record) throws CustomerException {
         try {
             System.out.println(record.getAnnex());
@@ -61,7 +64,7 @@ public class BusAgentSalesContractServiceImpl implements BusAgentSalesContractSe
             log.info("新增委托合同成功");
             BusAgentSalesContractModity[] busAgentSalesContractModity2 = record.getBusAgentSalesContractModity();
             List<BusAgentSalesContractModity> list = new ArrayList<>();
-            for (BusAgentSalesContractModity busAgentSalesContractModity: busAgentSalesContractModity2) {
+            for (BusAgentSalesContractModity busAgentSalesContractModity : busAgentSalesContractModity2) {
                 BusAgentSalesContractModity busAgentSalesContractModity1 = new BusAgentSalesContractModity();
                 busAgentSalesContractModity1.setSalesContractModityId(IdUtils.nextId());
                 busAgentSalesContractModity1.setSalesContractId(l);
@@ -76,7 +79,7 @@ public class BusAgentSalesContractServiceImpl implements BusAgentSalesContractSe
                 list.add(busAgentSalesContractModity1);
             }
             int i = busAgentSalesContractModityDao.insertSelectives(list);
-            log.info("新增委托合同商品成功,受影响行数：{}",i);
+            log.info("新增委托合同商品成功,受影响行数：{}", i);
             return l;
         } catch (Exception e) {
             log.error("新增失败,异常信息:{}", e.getMessage());
@@ -90,6 +93,7 @@ public class BusAgentSalesContractServiceImpl implements BusAgentSalesContractSe
     }
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int updateByPrimaryKeySelective(BusAgentSalesContractVo record) throws CustomerException {
         try {
             return busAgentSalesContractDao.updateByPrimaryKeySelective(record);
@@ -107,7 +111,7 @@ public class BusAgentSalesContractServiceImpl implements BusAgentSalesContractSe
         try {
             PubDebt pubDebt = pubDebtDao.selectByRelativePerId(relativePerId);
             Formula formula = new Formula();
-            FormulaVo calculation = formula.Calculation(pubDebt.getDebtType(),Integer.parseInt(pubDebt.getDebtYaer()),pubDebt.getAmountThis());
+            FormulaVo calculation = formula.Calculation(pubDebt.getDebtType(), Integer.parseInt(pubDebt.getDebtYaer()), pubDebt.getAmountThis());
             BusAgentSalesContractShow initialize = busAgentSalesContractDao.initialize(relativePerId);
             Date createTime = initialize.getCreateTime();
             String format1 = simpleDateFormat.format(createTime);

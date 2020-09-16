@@ -9,6 +9,7 @@ import com.smart.bracelet.utils.IdUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,26 +21,28 @@ public class PubCompanyServiceImpl implements PubCompanyService {
     private PubCompanyDao pubCompanyDao;
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int deleteByPrimaryKey(Long companyId) throws CustomerException {
         try {
             int deleteByPrimaryKey = pubCompanyDao.deleteByPrimaryKey(companyId);
-            log.info("删除公司信息成功,受影响行数:{}",deleteByPrimaryKey);
+            log.info("删除公司信息成功,受影响行数:{}", deleteByPrimaryKey);
             return deleteByPrimaryKey;
         } catch (Exception e) {
-            log.error("删除公司信息失败,异常信息:{}",e.getMessage());
+            log.error("删除公司信息失败,异常信息:{}", e.getMessage());
             throw new CustomerException("删除公司信息失败");
         }
     }
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int insertSelective(PubCompany record) throws CustomerException {
         try {
             record.setCompanyId(IdUtils.nextId());
             int insertSelective = pubCompanyDao.insertSelective(record);
-            log.info("新增公司信息成功,受影响行数:{}",insertSelective);
+            log.info("新增公司信息成功,受影响行数:{}", insertSelective);
             return insertSelective;
         } catch (Exception e) {
-            log.error("新增公司信息失败,异常信息:{}",e.getMessage());
+            log.error("新增公司信息失败,异常信息:{}", e.getMessage());
             throw new CustomerException("新增公司信息失败");
         }
     }
@@ -50,13 +53,14 @@ public class PubCompanyServiceImpl implements PubCompanyService {
     }
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int updateByPrimaryKeySelective(PubCompanyVo record) throws CustomerException {
         try {
             int updateByPrimaryKeySelective = pubCompanyDao.updateByPrimaryKeySelective(record);
-            log.info("更新公司信息成功,受影响行数:{}",updateByPrimaryKeySelective);
+            log.info("更新公司信息成功,受影响行数:{}", updateByPrimaryKeySelective);
             return updateByPrimaryKeySelective;
         } catch (Exception e) {
-            log.error("更新公司信息失败,异常信息:{}",e.getMessage());
+            log.error("更新公司信息失败,异常信息:{}", e.getMessage());
             throw new CustomerException("新更新公司信息失败");
         }
     }

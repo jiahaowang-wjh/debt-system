@@ -1,17 +1,25 @@
 package com.smart.bracelet.model.vo.debt;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 @Data
 public class BusPayDetailInfo {
     /**
-     *支付ID
+     * 支付ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     Long payId;
     /**
      * 报备Id
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     Long reportId;
+
+    @JsonSerialize(using = ToStringSerializer.class)
+    Long debtId;
+
     /**
      * 报备编号
      */
@@ -37,7 +45,7 @@ public class BusPayDetailInfo {
      */
     String voucher;
     /**
-     *支付状态
+     * 支付状态
      */
     String status;
 

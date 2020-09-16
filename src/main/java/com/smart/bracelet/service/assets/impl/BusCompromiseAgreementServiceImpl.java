@@ -15,6 +15,7 @@ import com.smart.bracelet.utils.RepNoUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -31,25 +32,29 @@ public class BusCompromiseAgreementServiceImpl implements BusCompromiseAgreement
     private BusCompromiseAgreementDao busCompromiseAgreementDao;
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int deleteByPrimaryKey(Long compromiseAgreementId) throws CustomerException {
 
         int deleteByPrimaryKey = 0;
         try {
             deleteByPrimaryKey = busCompromiseAgreementDao.deleteByPrimaryKey(compromiseAgreementId);
-            log.info("删除资产和解协议成功,受影响行数:{}",deleteByPrimaryKey);
+            log.info("删除资产和解协议成功,受影响行数:{}", deleteByPrimaryKey);
         } catch (Exception e) {
-            log.error("删除资产和解协议失败,异常信息:{}",e.getMessage());
+            log.error("删除资产和解协议失败,异常信息:{}", e.getMessage());
             throw new CustomerException("删除资产和解协议失败");
         }
         return deleteByPrimaryKey;
     }
+
     /**
      * 全款
+     *
      * @param manner1Vo
      * @return
      * @throws CustomerException
      */
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int insertSelectiveManner1(Manner1 manner1Vo) throws CustomerException {
         String selectNo = busCompromiseAgreementDao.selectNo();
         String repNo = RepNoUtils.createRepNo("ZCGS", "HJ", selectNo);
@@ -67,21 +72,23 @@ public class BusCompromiseAgreementServiceImpl implements BusCompromiseAgreement
             busCompromiseAgreement.setPartybSeal(manner1Vo.getPartybSeal());
             busCompromiseAgreement.setPartybDate(manner1Vo.getPartybDate());
             int insertSelective = busCompromiseAgreementDao.insertSelective(busCompromiseAgreement);
-            log.info("新增资产和解协议全款成功受影响行数:{}",insertSelective);
+            log.info("新增资产和解协议全款成功受影响行数:{}", insertSelective);
             return insertSelective;
         } catch (Exception e) {
-            log.error("新增资产和解协议全款失败,异常信息:{}",e.getMessage());
+            log.error("新增资产和解协议全款失败,异常信息:{}", e.getMessage());
             throw new CustomerException("新增资产和解协议全款失败");
         }
     }
 
     /**
      * 分期
+     *
      * @param manner2Vo
      * @return
      * @throws CustomerException
      */
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int insertSelectiveManner2(Manner2 manner2Vo) throws CustomerException {
         String selectNo = busCompromiseAgreementDao.selectNo();
         String repNo = RepNoUtils.createRepNo("ZCGS", "HJ", selectNo);
@@ -101,10 +108,10 @@ public class BusCompromiseAgreementServiceImpl implements BusCompromiseAgreement
             busCompromiseAgreement.setPartybSubrogation(manner2Vo.getPartybSubrogation());
             busCompromiseAgreement.setPartybDate(manner2Vo.getPartybDate());
             int insertSelective = busCompromiseAgreementDao.insertSelective(busCompromiseAgreement);
-            log.info("新增资产和解协议全款成功受影响行数:{}",insertSelective);
+            log.info("新增资产和解协议全款成功受影响行数:{}", insertSelective);
             return insertSelective;
         } catch (Exception e) {
-            log.error("新增资产和解协议全款失败,异常信息:{}",e.getMessage());
+            log.error("新增资产和解协议全款失败,异常信息:{}", e.getMessage());
             throw new CustomerException("新增资产和解协议全款失败");
         }
     }
@@ -116,7 +123,7 @@ public class BusCompromiseAgreementServiceImpl implements BusCompromiseAgreement
             Manner1AndManner2 manner1VoAndManner2Vo = new Manner1AndManner2();
             BusCompromiseAgreement busCompromiseAgreement = busCompromiseAgreementDao.selectByPrimaryKey(compromiseAgreementId);
             //判断是分期还款还是全款
-            if(busCompromiseAgreement.getData2()!=null&&busCompromiseAgreement.getData3()!=null){
+            if (busCompromiseAgreement.getData2() != null && busCompromiseAgreement.getData3() != null) {
                 manner1VoAndManner2Vo.setCompromiseAgreementId(busCompromiseAgreement.getCompromiseAgreementId());
                 manner1VoAndManner2Vo.setPropertId(busCompromiseAgreement.getPropertId());
                 manner1VoAndManner2Vo.setPartybMode(busCompromiseAgreement.getPartybMode());
@@ -130,7 +137,7 @@ public class BusCompromiseAgreementServiceImpl implements BusCompromiseAgreement
                 manner1VoAndManner2Vo.setPartybSubrogation(busCompromiseAgreement.getPartybSubrogation());
                 manner1VoAndManner2Vo.setPartybDate(busCompromiseAgreement.getPartybDate());
                 manner1VoAndManner2Vo.setType("2");
-            }else{
+            } else {
                 manner1VoAndManner2Vo.setCompromiseAgreementId(busCompromiseAgreement.getCompromiseAgreementId());
                 manner1VoAndManner2Vo.setPropertId(busCompromiseAgreement.getPropertId());
                 manner1VoAndManner2Vo.setPartybMode(busCompromiseAgreement.getPartybMode());
@@ -145,12 +152,13 @@ public class BusCompromiseAgreementServiceImpl implements BusCompromiseAgreement
             }
             return manner1VoAndManner2Vo;
         } catch (Exception e) {
-            log.error("异常信息:{}",e.getMessage());
+            log.error("异常信息:{}", e.getMessage());
             throw new CustomerException("查询异常");
         }
     }
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int updateByPrimaryKeySelectiveManner1Vo(Manner1Vo manner1Vo) throws CustomerException {
         try {
             BusCompromiseAgreement busCompromiseAgreement = new BusCompromiseAgreement();
@@ -164,15 +172,16 @@ public class BusCompromiseAgreementServiceImpl implements BusCompromiseAgreement
             busCompromiseAgreement.setPartybSeal(manner1Vo.getPartybSeal());
             busCompromiseAgreement.setPartybDate(manner1Vo.getPartybDate());
             int insertSelective = busCompromiseAgreementDao.updateByPrimaryKeySelective(busCompromiseAgreement);
-            log.info("更新资产和解协议全款成功受影响行数:{}",insertSelective);
+            log.info("更新资产和解协议全款成功受影响行数:{}", insertSelective);
             return insertSelective;
         } catch (Exception e) {
-            log.error("更新资产和解协议全款失败,异常信息:{}",e.getMessage());
+            log.error("更新资产和解协议全款失败,异常信息:{}", e.getMessage());
             throw new CustomerException("更新资产和解协议全款失败");
         }
     }
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int updateByPrimaryKeySelectiveManner2Vo(Manner2Vo manner2Vo) throws CustomerException {
         try {
             BusCompromiseAgreement busCompromiseAgreement = new BusCompromiseAgreement();
@@ -188,10 +197,10 @@ public class BusCompromiseAgreementServiceImpl implements BusCompromiseAgreement
             busCompromiseAgreement.setPartybSeal(manner2Vo.getPartybSeal());
             busCompromiseAgreement.setPartybDate(manner2Vo.getPartybDate());
             int insertSelective = busCompromiseAgreementDao.updateByPrimaryKeySelective(busCompromiseAgreement);
-            log.info("更新资产和解协议全款成功受影响行数:{}",insertSelective);
+            log.info("更新资产和解协议全款成功受影响行数:{}", insertSelective);
             return insertSelective;
         } catch (Exception e) {
-            log.error("更新资产和解协议全款失败,异常信息:{}",e.getMessage());
+            log.error("更新资产和解协议全款失败,异常信息:{}", e.getMessage());
             throw new CustomerException("更新资产和解协议全款失败");
         }
     }
@@ -201,7 +210,7 @@ public class BusCompromiseAgreementServiceImpl implements BusCompromiseAgreement
     public List<Manner1AndManner2> queryList() throws CustomerException {
         List<Manner1AndManner2> list = new ArrayList<>();
         List<BusCompromiseAgreement> busCompromiseAgreements = busCompromiseAgreementDao.queryList();
-        for (BusCompromiseAgreement item: busCompromiseAgreements) {
+        for (BusCompromiseAgreement item : busCompromiseAgreements) {
             Manner1AndManner2 manner1VoAndManner2Vo = selectByPrimaryKey(item.getCompromiseAgreementId());
             list.add(manner1VoAndManner2Vo);
         }
@@ -216,7 +225,7 @@ public class BusCompromiseAgreementServiceImpl implements BusCompromiseAgreement
         Date parse = simpleDateFormat.parse(format);
         Calendar c = Calendar.getInstance();
         c.setTime(parse);
-        initialize.setDay(c.get(Calendar.DAY_OF_MONTH)+"");
+        initialize.setDay(c.get(Calendar.DAY_OF_MONTH) + "");
         return initialize;
     }
 

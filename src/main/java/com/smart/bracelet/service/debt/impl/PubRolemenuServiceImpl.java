@@ -8,6 +8,7 @@ import com.smart.bracelet.utils.IdUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,11 +22,12 @@ public class PubRolemenuServiceImpl implements PubRolemenuService {
     private PubRolemenuDao pubRolemenuDao;
 
     @Override
-    public int addListRolemenu(String menuId,Long roleId) throws CustomerException {
+    @Transactional(noRollbackFor = Exception.class)
+    public int addListRolemenu(String menuId, Long roleId) throws CustomerException {
         List<PubRolemenu> list = new ArrayList<>();
         try {
             List<String> menuIds = Arrays.asList(menuId.split(","));
-            for (String item: menuIds) {
+            for (String item : menuIds) {
                 PubRolemenu pubRolemenu = new PubRolemenu();
                 pubRolemenu.setRolemenuId(IdUtils.nextId());
                 pubRolemenu.setMenuId(Long.parseLong(item));
@@ -34,7 +36,7 @@ public class PubRolemenuServiceImpl implements PubRolemenuService {
             }
             return pubRolemenuDao.addListRolemenu(list);
         } catch (Exception e) {
-            log.error("异常信息:{}",e.getMessage());
+            log.error("异常信息:{}", e.getMessage());
             throw new CustomerException("新增失败");
         }
     }

@@ -26,7 +26,7 @@ public interface BusPayDetailService {
     /**
      * 页面支付信息展示
      */
-    List<BusPayDetailInfo> selectPayInfoList(String debtNo,String companyType);
+    List<BusPayDetailInfo> selectPayInfoList(String debtNo,String companyType,String status);
 
     /**
      *更新状态

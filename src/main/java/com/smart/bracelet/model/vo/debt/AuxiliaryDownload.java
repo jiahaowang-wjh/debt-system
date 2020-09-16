@@ -1,5 +1,8 @@
 package com.smart.bracelet.model.vo.debt;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 import java.util.Date;
@@ -23,6 +26,7 @@ public class AuxiliaryDownload {
     /**
      * 创建时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd")
     Date createTime;
 
     /**
@@ -59,6 +63,8 @@ public class AuxiliaryDownload {
      * 解债金额
      */
     Float amountCumulative;
+
+
 
     /**
      * 解债年限

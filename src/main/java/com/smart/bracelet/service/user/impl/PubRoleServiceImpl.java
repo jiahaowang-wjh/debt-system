@@ -14,6 +14,7 @@ import com.smart.bracelet.utils.IdUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class PubRoleServiceImpl implements PubRoleService {
      * @param roleId
      * @return
      */
-    @Override
+    @Override     @Transactional(noRollbackFor = Exception.class)
     public int deleteByPrimaryKey(Long roleId) throws CustomerException {
         try {
             int deleteByPrimaryKey = pubRoleDao.deleteByPrimaryKey(roleId);
@@ -61,7 +62,7 @@ public class PubRoleServiceImpl implements PubRoleService {
      * @param record
      * @return
      */
-    @Override
+    @Override     @Transactional(noRollbackFor = Exception.class)
     public int insertSelective(PubRole record) throws CustomerException {
         try {
             record.setRoleId(IdUtils.nextId());
@@ -92,7 +93,7 @@ public class PubRoleServiceImpl implements PubRoleService {
      * @param record
      * @return
      */
-    @Override
+    @Override     @Transactional(noRollbackFor = Exception.class)
     public int updateByPrimaryKeySelective(PubRoleVo record) throws CustomerException {
         try {
             int updateByPrimaryKeySelective = pubRoleDao.updateByPrimaryKeySelective(record);
@@ -111,7 +112,7 @@ public class PubRoleServiceImpl implements PubRoleService {
      * @return
      * @throws CustomerException
      */
-    @Override
+    @Override     @Transactional(noRollbackFor = Exception.class)
     public int addRoleAuth(PubRoleauth pubRoleauth) throws CustomerException {
         try {
             pubRoleauth.setRoleauthId(IdUtils.nextId());
@@ -131,7 +132,7 @@ public class PubRoleServiceImpl implements PubRoleService {
      * @return
      * @throws CustomerException
      */
-    @Override
+    @Override     @Transactional(noRollbackFor = Exception.class)
     public int addRoleMenu(Long[] menus, Long roleId) throws CustomerException {
         if(menus==null||menus.length==0){
             throw new CustomerException("菜单Id不能为空");
@@ -154,7 +155,7 @@ public class PubRoleServiceImpl implements PubRoleService {
         }
     }
 
-    @Override
+    @Override     @Transactional(noRollbackFor = Exception.class)
     public int delRoleList(Long[] roleIds) throws CustomerException {
         try {
             int delRoleList = pubRoleDao.delRoleList(roleIds);
@@ -174,7 +175,7 @@ public class PubRoleServiceImpl implements PubRoleService {
      * @return
      * @throws CustomerException
      */
-    @Override
+    @Override     @Transactional(noRollbackFor = Exception.class)
     public int addRoleAuthList(String authId, Long roleId, String menuId, String note) throws CustomerException {
         List<PubRoleauth> pubRoleauths = new ArrayList<>();
         try {

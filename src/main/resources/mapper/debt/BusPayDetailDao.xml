@@ -150,16 +150,20 @@
     SELECT  bus_pay_detail.pay_no  FROM   bus_pay_detail   ORDER   BY   bus_pay_detail.pay_id  DESC   LIMIT   1
   </select>
     <select id="selectPayInfoList" resultType="com.smart.bracelet.model.vo.debt.BusPayDetailInfo">
-        SELECT bpd.contract_name,br.stage,bpd.pay_id,br.`report_id`,br.`report_no`,bpd.payert_name,bpd.flag AS
-        'payType',bpd.pay_no,bpd.cost,bpd.voucher,bpd.status FROM bus_pay_detail bpd
-        LEFT JOIN bus_report br ON bpd.`report_id`=br.`report_id`
-        left join pub_company pc on br.company_id = pc.company_id
+        SELECT pd.`debt_id`,bpd.contract_name,br.stage,bpd.pay_id,br.`report_id`,br.`report_no`,bpd.payert_name,bpd.flag AS 'payType',bpd.pay_no,bpd.cost,bpd.voucher,bpd.status
+        FROM bus_pay_detail bpd
+        LEFT JOIN bus_report br ON br.`report_id` = bpd.`report_id`
+        LEFT JOIN pub_debt pd ON br.`report_id` = pd.`report_id`
+        LEFT JOIN pub_company pc ON br.company_id = pc.company_id
         <where>
             <if test="companyType != '' and companyType != null">
                 pc.company_type =  #{companyType,jdbcType=VARCHAR}
             </if>
             <if test="reportNo != '' and reportNo != null">
                 br.report_no = #{reportNo,jdbcType=VARCHAR}
+            </if>
+            <if test="status != '' and status != null">
+                bpd.status = #{status,jdbcType=VARCHAR}
             </if>
         </where>
     </select>

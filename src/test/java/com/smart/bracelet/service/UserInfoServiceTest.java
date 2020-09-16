@@ -1,9 +1,11 @@
 package com.smart.bracelet.service;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.smart.bracelet.dao.assets.BusAgentSalesContractDao;
 import com.smart.bracelet.dao.debt.BusRelativePersonDao;
 import com.smart.bracelet.model.po.debt.BusRelativePerson;
 import com.smart.bracelet.model.vo.assets.BusAgentSalesContractShow;
+import com.smart.bracelet.model.vo.debt.AuxiliaryDownload;
 import com.smart.bracelet.service.debt.BusReportService;
 import com.smart.bracelet.utils.BigDecimalUtil;
 import com.smart.bracelet.utils.ConvertUpMoney;
@@ -14,6 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -27,18 +30,13 @@ public class UserInfoServiceTest {
     private BusReportService busReportDao;
     @Autowired
     private BusAgentSalesContractDao busAgentSalesContractDao;
+    @Autowired
     BusRelativePersonDao busRelativePersonDao;
     //  String repNo = "TZ2020BBF000001";
 
     @Test
-    public void testA() {
-        List<Long> longs = new ArrayList<>();
-        for(int i=0;i<=20;i++){
-            longs.add(IdUtils.nextId());
-        }
-        for (Long item: longs) {
-            System.out.println(item);
-        }
+    public void testA() throws ParseException {
+
 
     }
 

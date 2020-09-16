@@ -42,7 +42,7 @@ public interface BusPayDetailDao {
      * 页面支付信息展示
      * @return reportNo
      */
-    List<BusPayDetailInfo> selectPayInfoList(String reportNo,String companyType);
+    List<BusPayDetailInfo> selectPayInfoList(String reportNo,String companyType,String status);
 
 
     /**

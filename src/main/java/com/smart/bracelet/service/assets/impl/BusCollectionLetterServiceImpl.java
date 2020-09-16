@@ -12,6 +12,7 @@ import com.smart.bracelet.utils.RepNoUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class BusCollectionLetterServiceImpl implements BusCollectionLetterServic
     private BusCollectionLetterDao busCollectionLetterDao;
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int deleteByPrimaryKey(Long collectionLettertId) throws CustomerException {
         try {
             int deleteByPrimaryKey = busCollectionLetterDao.deleteByPrimaryKey(collectionLettertId);
@@ -35,6 +37,7 @@ public class BusCollectionLetterServiceImpl implements BusCollectionLetterServic
     }
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int insertSelective(BusCollectionLetter record) throws CustomerException {
         String selectNo = busCollectionLetterDao.selectNo();
         String repNo = RepNoUtils.createRepNo("ZCGS", "CKH", selectNo);
@@ -56,6 +59,7 @@ public class BusCollectionLetterServiceImpl implements BusCollectionLetterServic
     }
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int updateByPrimaryKeySelective(BusCollectionLetterVo record) throws CustomerException {
         try {
             int deleteByPrimaryKey = busCollectionLetterDao.updateByPrimaryKeySelective(record);

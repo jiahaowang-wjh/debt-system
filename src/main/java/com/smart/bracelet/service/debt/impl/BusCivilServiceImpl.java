@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,7 @@ public class BusCivilServiceImpl implements BusCivilService {
 
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int deleteByPrimaryKey(Long civilId) throws CustomerException {
         try {
             int deleteByPrimaryKey = busCivilDao.deleteByPrimaryKey(civilId);
@@ -45,6 +47,7 @@ public class BusCivilServiceImpl implements BusCivilService {
     }
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public Long insertSelective(BusCivil record) throws CustomerException {
         try {
             //民事调解ID
@@ -54,28 +57,28 @@ public class BusCivilServiceImpl implements BusCivilService {
             record.setCivilId(CiID);
             record.setCivilno(repNo);
             BusGuarantee[] busGuarantee = record.getBusGuarantee();
-            if(StringUtils.isEmpty(record.getLongs().toString())){
+            if (StringUtils.isEmpty(record.getLongs().toString())) {
                 throw new CustomerException("调解员id不能为空");
             }
             Long[] longs = record.getLongs();
             int insertSelective = busCivilDao.insertSelective(record);
             log.info("新增民事调解信息成功,受影响行数:{}", insertSelective);
-            if(insertSelective!=0){
-                if(busGuarantee!=null){
-                for (BusGuarantee item:busGuarantee) {
-                    if(!StringUtils.isBlank(item.getAuthname())){
-                        item.setCivilId(CiID);
-                        item.setGuaranteeId(IdUtils.nextId());
+            if (insertSelective != 0) {
+                if (busGuarantee != null) {
+                    for (BusGuarantee item : busGuarantee) {
+                        if (!StringUtils.isBlank(item.getAuthname())) {
+                            item.setCivilId(CiID);
+                            item.setGuaranteeId(IdUtils.nextId());
+                        }
                     }
-                }
-                record.setBusGuarantee(busGuarantee);
-                //批量新增担保人
-                int i = busGuaranteeDao.insertList(record.getBusGuarantee());
-                log.info("新增担保人成功受影响行数：{}",i);
+                    record.setBusGuarantee(busGuarantee);
+                    //批量新增担保人
+                    int i = busGuaranteeDao.insertList(record.getBusGuarantee());
+                    log.info("新增担保人成功受影响行数：{}", i);
                 }
                 //新增调解员
                 List<BusMediatePerson> list = new ArrayList<>();
-                for (Long item: longs) {
+                for (Long item : longs) {
                     BusMediatePerson busMediatePerson = new BusMediatePerson();
                     busMediatePerson.setMediatePersonId(IdUtils.nextId());
                     busMediatePerson.setCivilId(CiID);
@@ -83,21 +86,23 @@ public class BusCivilServiceImpl implements BusCivilService {
                     list.add(busMediatePerson);
                 }
                 int i1 = busCivilDao.inertList(list);
-                log.info("批量新增调解员成功，受影响行数：{}",i1);
+                log.info("批量新增调解员成功，受影响行数：{}", i1);
             }
             return CiID;
         } catch (Exception e) {
             log.error("新增民事调解信息失败,异常信息:{}", e.getMessage());
-            throw new CustomerException("新增民事调解信息失败"+e.getMessage());
+            throw new CustomerException("新增民事调解信息失败" + e.getMessage());
         }
     }
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public BusCivil selectByPrimaryKey(Long civilId) {
         return busCivilDao.selectByPrimaryKey(civilId);
     }
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int updateByPrimaryKeySelective(BusCivilVo record) throws CustomerException {
         try {
             int updateByPrimaryKeySelective = busCivilDao.updateByPrimaryKeySelective(record);
@@ -115,6 +120,7 @@ public class BusCivilServiceImpl implements BusCivilService {
      * @return
      */
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public List<DateAndDays> selectDaysCount() {
         return busCivilDao.selectDaysCount();
     }
@@ -130,6 +136,7 @@ public class BusCivilServiceImpl implements BusCivilService {
     }
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int updateStatus(String status, Long civilId, String checkReason) throws CustomerException {
         try {
             int i = busCivilDao.updateStatus(status, civilId, checkReason);
@@ -142,14 +149,16 @@ public class BusCivilServiceImpl implements BusCivilService {
     }
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public List<BusCivilInfo> selectBusList(DebtInfoQuery debtInfoQuery) {
-        if(debtInfoQuery.getCompanyType().equals("1")){
+        if (debtInfoQuery.getCompanyType().equals("1")) {
             debtInfoQuery.setCompanyType(null);
         }
         return busCivilDao.selectBusList(debtInfoQuery);
     }
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public List<CiviIAndRepShow> selectCiviIAndRepShow() {
         return busCivilDao.selectCiviIAndRepShow();
     }
@@ -163,6 +172,7 @@ public class BusCivilServiceImpl implements BusCivilService {
      * @throws CustomerException
      */
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public Boolean verification(Long relativePerId) {
         Boolean ok = false;
         //1.通过相对人ID获取债事人相对人身份信息
@@ -171,34 +181,36 @@ public class BusCivilServiceImpl implements BusCivilService {
         Long aLong = busCivilDao.selectReportId(debtAndPerson.getPersonIdcard());
         //查询相对人是否债事报备
         if (org.springframework.util.StringUtils.isEmpty(aLong)) {
-             ok = false;
+            ok = false;
         }
         //通过相对人作为债事人的报备ID查询相对人
         List<BusRelativePerson> busRelativePeople = busRelativePersonDao.selectByreportId(aLong);
-        if(busRelativePeople.isEmpty()){
-            ok=false;
+        if (busRelativePeople.isEmpty()) {
+            ok = false;
         }
         for (BusRelativePerson item : busRelativePeople) {
             //查询信息一致
             if (item.getData2().equals(debtAndPerson.getDebtIdcard())) {
-               ok = true;
+                ok = true;
             }
         }
         return ok;
     }
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public AgreementInfoShow initialize(Long reportId) {
         AgreementInfoShow initialize = busCivilDao.initialize(reportId);
-        if(initialize.getReportPropert().equals("1")){
+        if (initialize.getReportPropert().equals("1")) {
             initialize.setCorBankPhone(null);
-        }else {
+        } else {
             initialize.setPriPhone(null);
         }
         return initialize;
     }
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public PlanServiceInfo initializePlan(Long reportId) throws CustomerException {
         try {
             PlanServiceInfo initialize = busCivilDao.initializePlan(reportId);

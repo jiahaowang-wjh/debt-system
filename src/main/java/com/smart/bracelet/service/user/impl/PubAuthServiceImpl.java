@@ -9,6 +9,7 @@ import com.smart.bracelet.utils.IdUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,41 +22,46 @@ public class PubAuthServiceImpl implements PubAuthService {
 
     /**
      * 删除权限信息
+     *
      * @param authId
      * @return
      */
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int deleteByPrimaryKey(Long authId) throws CustomerException {
         try {
             int deleteByPrimaryKey = pubAuthDao.deleteByPrimaryKey(authId);
-            log.info("删除权限信息成功,受影响行数:{}",deleteByPrimaryKey);
+            log.info("删除权限信息成功,受影响行数:{}", deleteByPrimaryKey);
             return deleteByPrimaryKey;
         } catch (Exception e) {
-            log.error("删除权限信息失败,异常信息:{}",e.getMessage());
+            log.error("删除权限信息失败,异常信息:{}", e.getMessage());
             throw new CustomerException("删除权限信息失败");
         }
     }
 
     /**
      * 新增权限信息
+     *
      * @param record
      * @return
      */
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int insertSelective(PubAuth record) throws CustomerException {
         try {
             record.setAuthId(IdUtils.nextId());
             int insertSelective = pubAuthDao.insertSelective(record);
-            log.info("新增权限信息成功,受影响行数:{}",insertSelective);
+            log.info("新增权限信息成功,受影响行数:{}", insertSelective);
             return insertSelective;
         } catch (Exception e) {
-            log.error("新增权限信息失败,异常信息:{}",e.getMessage());
+            log.error("新增权限信息失败,异常信息:{}", e.getMessage());
             throw new CustomerException("新增权限信息失败");
         }
     }
 
     /**
      * 通过ID查询权限信息
+     *
      * @param authId
      * @return
      */
@@ -66,18 +72,20 @@ public class PubAuthServiceImpl implements PubAuthService {
 
     /**
      * 修改权限信息
+     *
      * @param record
      * @return
      * @throws CustomerException
      */
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int updateByPrimaryKeySelective(PubAuthVo record) throws CustomerException {
         try {
             int updateByPrimaryKeySelective = pubAuthDao.updateByPrimaryKeySelective(record);
-            log.info("修改权限信息成功,受影响行数:{}",updateByPrimaryKeySelective);
+            log.info("修改权限信息成功,受影响行数:{}", updateByPrimaryKeySelective);
             return updateByPrimaryKeySelective;
         } catch (Exception e) {
-            log.error("修改权限信息失败,异常信息:{}",e.getMessage());
+            log.error("修改权限信息失败,异常信息:{}", e.getMessage());
             throw new CustomerException("修改权限信息失败");
         }
     }

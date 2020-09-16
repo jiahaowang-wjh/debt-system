@@ -67,30 +67,38 @@
           WHERE brp.relative_per_id = #{relativePerId,jdbcType=BIGINT}
   </select>
     <select id="selectDow" resultType="com.smart.bracelet.model.vo.debt.AuxiliaryDownload">
-SELECT br.`report_id`,brp.relative_per_id,brp.`create_time`,br.`data1` AS 'debtName',brp.data1 AS 'personName',froma.assignment_agreement_no
-,fromb.cost AS 'bb_cost',fromc.cost AS 'zx_cost',fromd.cost AS 'hc_cost',
-pd.amount_cumulative,pd.debt_yaer,pd.debt_type,pc.company_name
-FROM bus_report br
-LEFT JOIN `bus_relative_person` brp ON br.`report_id` = brp.`report_id`
-LEFT JOIN
-(
-SELECT bp.propert_id,baa.assignment_agreement_no,bp.relative_per_id FROM bus_propert bp
-LEFT JOIN bus_assignment_agreement baa ON bp.propert_id = baa.propert_id
-) froma ON froma.relative_per_id = brp.relative_per_id
-LEFT JOIN
-(
-SELECT bus_pay_detail.report_id,bus_pay_detail.`cost` FROM  bus_pay_detail WHERE bus_pay_detail.`flag`='1'
-) fromb ON fromb.report_id = brp.report_id
-LEFT JOIN
-(
-SELECT bus_pay_detail.`report_id`,bus_pay_detail.`cost` FROM  bus_pay_detail WHERE bus_pay_detail.`flag`='3'
-) fromc ON fromc.report_id = brp.report_id
-LEFT JOIN
-(
-SELECT bus_pay_detail.`report_id`,bus_pay_detail.`cost` FROM  bus_pay_detail WHERE bus_pay_detail.`flag`='4'
-) fromd ON fromd.report_id = brp.report_id
-LEFT JOIN pub_debt pd ON brp.relative_per_id = pd.relative_per_id
-LEFT JOIN pub_company pc ON pc.company_id = br.company_id
+        SELECT br.`report_id`,brp.relative_per_id,br.`create_time`,br.`data1` AS 'debtName',brp.data1 AS 'personName',froma.assignment_agreement_no
+        ,fromb.cost AS 'bb_cost',fromc.cost AS 'zx_cost',fromd.cost AS 'hc_cost',
+        pd.amount_cumulative,pd.debt_yaer,pd.debt_type,pc.company_name
+        FROM bus_report br
+        LEFT JOIN `bus_relative_person` brp ON br.`report_id` = brp.`report_id`
+        LEFT JOIN
+        (
+        SELECT bp.propert_id,baa.assignment_agreement_no,bp.relative_per_id FROM bus_propert bp
+        LEFT JOIN bus_assignment_agreement baa ON bp.propert_id = baa.propert_id
+        ) froma ON froma.relative_per_id = brp.relative_per_id
+        LEFT JOIN
+        (
+        SELECT bus_pay_detail.report_id,bus_pay_detail.`cost` FROM  bus_pay_detail WHERE bus_pay_detail.`flag`='1'
+        ) fromb ON fromb.report_id = brp.report_id
+        LEFT JOIN
+        (
+        SELECT bus_pay_detail.`report_id`,bus_pay_detail.`cost` FROM  bus_pay_detail WHERE bus_pay_detail.`flag`='3'
+        ) fromc ON fromc.report_id = brp.report_id
+        LEFT JOIN
+        (
+        SELECT bus_pay_detail.`report_id`,bus_pay_detail.`cost` FROM  bus_pay_detail WHERE bus_pay_detail.`flag`='4'
+        ) fromd ON fromd.report_id = brp.report_id
+        LEFT JOIN pub_debt pd ON brp.relative_per_id = pd.relative_per_id
+        LEFT JOIN pub_company pc ON pc.company_id = br.company_id
+        <where>
+            <if test="debtName != null and debtName !=''">
+             and br.data1 = #{debtName}
+            </if>
+            <if test="time != null and time !=''">
+             and br.create_time LIKE CONCAT(CONCAT('%',#{time},'%'))
+            </if>
+        </where>
   </select>
     <select id="selectByreportId" resultType="com.smart.bracelet.model.po.debt.BusRelativePerson"
             parameterType="java.lang.Long">
@@ -102,6 +110,19 @@ LEFT JOIN pub_company pc ON pc.company_id = br.company_id
         LEFT JOIN bus_relative_person brp ON br.report_id = brp.report_id
         LEFT JOIN bus_civil bc ON bc.`report_id` = br.`report_id`
         WHERE br.report_id = #{reportId,jdbcType=BIGINT} AND br.`stage` = '2' AND bc.`status` = '2'
+    </select>
+    <select id="selectDebtDow" resultType="com.smart.bracelet.model.vo.debt.DowLod">
+        SELECT br.`report_id` AS 'debtId',br.`data1` AS 'debtName',br.`data2` AS 'idCard',br.`data3` AS 'priPhone',br.`data5` AS 'croBankPhone',br.report_type AS 'type',brp.`data1`'personName',br.capital AS 'moeny' FROM bus_relative_person brp
+        LEFT JOIN bus_report br ON brp.`report_id` = br.`report_id`
+        LEFT JOIN pub_debt pd ON brp.`relative_per_id` = pd.`relative_per_id`
+        <where>
+            <if test="debtName != null and debtName !=''">
+                and br.data1 = #{debtName}
+            </if>
+            <if test="time != null and time !=''">
+                and br.create_time LIKE CONCAT(CONCAT('%',#{time},'%'))
+            </if>
+        </where>
     </select>
 
 

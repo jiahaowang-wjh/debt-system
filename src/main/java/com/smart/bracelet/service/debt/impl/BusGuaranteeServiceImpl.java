@@ -9,6 +9,7 @@ import com.smart.bracelet.utils.IdUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,44 +21,48 @@ public class BusGuaranteeServiceImpl implements BusGuaranteeService {
     private BusGuaranteeDao busGuaranteeDao;
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int deleteByPrimaryKey(Long guaranteeId) throws CustomerException {
 
         try {
             int deleteByPrimaryKey = busGuaranteeDao.deleteByPrimaryKey(guaranteeId);
-            log.info("删除担保人信息成功,受影响行数:{}",deleteByPrimaryKey);
+            log.info("删除担保人信息成功,受影响行数:{}", deleteByPrimaryKey);
             return deleteByPrimaryKey;
         } catch (Exception e) {
-            log.error("删除担保人信息失败,异常信息:{}",e.getMessage());
+            log.error("删除担保人信息失败,异常信息:{}", e.getMessage());
             throw new CustomerException("删除担保人信息失败");
         }
     }
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int insertSelective(BusGuarantee record) throws CustomerException {
         try {
             record.setGuaranteeId(IdUtils.nextId());
             int insertSelective = busGuaranteeDao.insertSelective(record);
-            log.info("新增担保人信息成功,受影响行数:{}",insertSelective);
+            log.info("新增担保人信息成功,受影响行数:{}", insertSelective);
             return insertSelective;
         } catch (Exception e) {
-            log.error("新增担保人信息失败,异常信息:{}",e.getMessage());
+            log.error("新增担保人信息失败,异常信息:{}", e.getMessage());
             throw new CustomerException("新增担保人信息失败");
         }
     }
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public List<BusGuarantee> selectByPrimaryKey(Long civilId) {
         return busGuaranteeDao.selectByPrimaryKey(civilId);
     }
 
     @Override
+    @Transactional(noRollbackFor = Exception.class)
     public int updateByPrimaryKeySelective(BusGuaranteeVo record) throws CustomerException {
         try {
             int updateByPrimaryKeySelective = busGuaranteeDao.updateByPrimaryKeySelective(record);
-            log.info("更新担保人信息成功,受影响行数:{}",updateByPrimaryKeySelective);
+            log.info("更新担保人信息成功,受影响行数:{}", updateByPrimaryKeySelective);
             return updateByPrimaryKeySelective;
         } catch (Exception e) {
-            log.error("更新担保人信息失败,异常信息:{}",e.getMessage());
+            log.error("更新担保人信息失败,异常信息:{}", e.getMessage());
             throw new CustomerException("更新担保人信息失败");
         }
     }

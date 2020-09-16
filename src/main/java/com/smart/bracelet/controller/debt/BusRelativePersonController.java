@@ -1,5 +1,6 @@
 package com.smart.bracelet.controller.debt;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.smart.bracelet.exception.CustomerException;
@@ -7,6 +8,7 @@ import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.vo.debt.*;
 import com.smart.bracelet.service.debt.BusRelativePersonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -183,14 +187,15 @@ public class BusRelativePersonController {
     }
 
     /**
-     * 辅助下载
+     * 辅助下载财务
      */
     @RequestMapping("/selectDow")
     @PreAuthorize("hasAnyAuthority('debt:select')")
     public Result<PageInfo> selectDow(@NotNull(message = "页码不能为空") Integer pageNum,
-                                      @NotNull(message = "当前显示条数不能为空") Integer pageSize) {
+                                      @NotNull(message = "当前显示条数不能为空") Integer pageSize,
+                                      String debtName, String time) throws ParseException {
         PageHelper.startPage(pageNum, pageSize);
-        List<AuxiliaryDownload> auxiliaryDownloads = busRelativePersonService.selectDow();
+        List<AuxiliaryDownload> auxiliaryDownloads = busRelativePersonService.selectDow(debtName, time);
         PageInfo<AuxiliaryDownload> auxiliaryDownloadPageInfo = new PageInfo<>(auxiliaryDownloads);
         return Result.success(auxiliaryDownloadPageInfo);
     }
@@ -205,4 +210,17 @@ public class BusRelativePersonController {
         return Result.success(listVos);
     }
 
+    /**
+     * 辅助下载债务
+     */
+    @RequestMapping("/selectDebtDow")
+    public Result<PageInfo> selectDebtDow(
+            @NotNull(message = "页码不能为空") Integer pageNum,
+            @NotNull(message = "当前显示条数不能为空") Integer pageSize,
+            String debtName, String time) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<DowLod> dowLods = busRelativePersonService.selectDebtDow(debtName, time);
+        PageInfo<DowLod> dowLodPageInfo = new PageInfo<>(dowLods);
+        return Result.success(dowLodPageInfo);
+    }
 }
