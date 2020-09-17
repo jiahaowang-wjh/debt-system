@@ -34,7 +34,7 @@ public interface BusPayDetailService {
      * @param payId
      * @return
      */
-    int updateStatus(String status,Long payId) throws CustomerException;
+    int updateStatus(String status,Long payId,String checkReason) throws CustomerException;
 
     /**
      *通过报备Id和解债id查询支付信息

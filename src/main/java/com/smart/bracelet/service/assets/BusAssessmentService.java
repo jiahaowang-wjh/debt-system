@@ -17,7 +17,7 @@ public interface BusAssessmentService {
 
     int updateByPrimaryKeySelective(BusAssessmentVo record) throws CustomerException;
 
-    List<DateAndDays> selectDaysCount();
+    List<DateAndDays> selectDaysCount(String type);
 
 
     /**

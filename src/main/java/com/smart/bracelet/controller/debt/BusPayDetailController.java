@@ -93,8 +93,8 @@ public class BusPayDetailController {
      */
     @RequestMapping("/updateStatus")
     @PreAuthorize("hasAnyAuthority('debt:update')")
-    public Result updateStatus(@NotBlank(message = "状态不能为空") String status, @NotNull(message = "支付ID不能为空") Long payId) throws CustomerException {
-        int updateStatus = busPayDetailService.updateStatus(status, payId);
+    public Result updateStatus(@NotBlank(message = "状态不能为空") String status, @NotNull(message = "支付ID不能为空") Long payId,String checkReason) throws CustomerException {
+        int updateStatus = busPayDetailService.updateStatus(status, payId,checkReason);
         return Result.success(updateStatus);
     }
 

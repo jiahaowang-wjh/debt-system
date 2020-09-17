@@ -2,12 +2,15 @@ package com.smart.bracelet.model.vo.assets;
 
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * 资产债权转让确认页面初始化实体
  */
 @Data
 public class BusAssignmentConfirmShow {
 
+    Long civilId;
     /**
      * 债权人姓名
      */
@@ -31,6 +34,6 @@ public class BusAssignmentConfirmShow {
     /**
      *担保人姓名
      */
-    String authName;
+    List<String> authName;
 
 }

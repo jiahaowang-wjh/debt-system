@@ -20,6 +20,9 @@ public class BusPayDetailInfo {
     @JsonSerialize(using = ToStringSerializer.class)
     Long debtId;
 
+    @JsonSerialize(using = ToStringSerializer.class)
+    Long propertId;
+
     /**
      * 报备编号
      */

@@ -84,8 +84,8 @@ public class PubDebtServiceImpl implements PubDebtService {
      * 按照日期查询每日解债数量
      */
     @Override
-    public List<DateAndDays> selectDaysCount() {
-        return pubDebtDao.selectDaysCount();
+    public List<DateAndDays> selectDaysCount(String type) {
+        return pubDebtDao.selectDaysCount(type);
     }
 
     /**

@@ -61,7 +61,10 @@
         from bus_report
     </select>
     <select id="selectDaysCount" resultType="com.smart.bracelet.model.po.debt.DateAndDays">
-        SELECT DATE_FORMAT(create_time,'%Y-%m-%d') days,COUNT(*) COUNT FROM bus_report GROUP BY days ORDER BY days DESC LIMIT 10;
+        SELECT DATE_FORMAT(create_time,'%Y-%m-%d') days,COUNT(*) COUNT FROM bus_report
+        LEFT JOIN pub_company pc ON bus_report.`company_id` = pc.`company_id`
+        WHERE pc.`company_type` = #{type}
+        GROUP BY days ORDER BY days DESC LIMIT 10;
     </select>
     <select id="queryLisyChain" resultType="com.smart.bracelet.model.vo.debt.DebtChain">
         SELECT br.data1 AS Report,brp.data1 AS RelativePerson,brp.data3 AS RelativePersonIdCad FROM bus_report br
@@ -439,6 +442,9 @@
     <update id="updateDebtStage">
         update bus_report set stage = #{stage,jdbcType=VARCHAR} where report_id = #{reportId,jdbcType=BIGINT}
     </update>
+    <update id="updateCheckDate" parameterType="java.util.Date">
+       update bus_report set  check_date
+    </update>
 
     <!--页面报备信息展示-->
     <select id="selectDebtInofs" resultType="com.smart.bracelet.model.vo.debt.DebtInfo">
@@ -457,7 +463,8 @@
         br.`status`,
         bc.`status` AS 'ciStatus',
         pd.`status` AS 'puStatus',
-        pc.company_type
+        pc.company_type,
+        pd.debt_no
         FROM bus_report br
         LEFT JOIN pub_user pu ON br.user_id=pu.`user_id`
         LEFT JOIN pub_person pp ON pu.`person_id`=pp.`person_id`

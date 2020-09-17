@@ -144,21 +144,27 @@
         where pay_id = #{payId,jdbcType=BIGINT}
     </update>
     <update id="updateStatus">
-        update bus_pay_detail set status = #{status,jdbcType = VARCHAR} where pay_id = #{payId,jdbcType=BIGINT}
+        update bus_pay_detail
+        <set>
+            <if test="status != null and status != ''">
+                `status` = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="checkReason != null and checkReason != ''">
+                check_reason=#{checkReason,jdbcType=VARCHAR},
+            </if>
+        </set>
+         where pay_id = #{payId,jdbcType=BIGINT}
     </update>
     <select id="selectRepNo" resultType="java.lang.String">
     SELECT  bus_pay_detail.pay_no  FROM   bus_pay_detail   ORDER   BY   bus_pay_detail.pay_id  DESC   LIMIT   1
   </select>
     <select id="selectPayInfoList" resultType="com.smart.bracelet.model.vo.debt.BusPayDetailInfo">
-        SELECT pd.`debt_id`,bpd.contract_name,br.stage,bpd.pay_id,br.`report_id`,br.`report_no`,bpd.payert_name,bpd.flag AS 'payType',bpd.pay_no,bpd.cost,bpd.voucher,bpd.status
+        SELECT bpd.contract_name,bpd.propert_id,br.stage,bpd.pay_id,br.`report_id`,br.`report_no`,bpd.payert_name,bpd.flag AS 'payType',bpd.pay_no,bpd.cost,bpd.voucher,bpd.status,pd.`debt_id`,bp.`propert_id`
         FROM bus_pay_detail bpd
         LEFT JOIN bus_report br ON br.`report_id` = bpd.`report_id`
-        LEFT JOIN pub_debt pd ON br.`report_id` = pd.`report_id`
-        LEFT JOIN pub_company pc ON br.company_id = pc.company_id
+        LEFT JOIN pub_debt pd ON bpd.`debt_id` = pd.`debt_id`
+        LEFT JOIN bus_propert bp ON bpd.`propert_id` = bp.`propert_id`
         <where>
-            <if test="companyType != '' and companyType != null">
-                pc.company_type =  #{companyType,jdbcType=VARCHAR}
-            </if>
             <if test="reportNo != '' and reportNo != null">
                 br.report_no = #{reportNo,jdbcType=VARCHAR}
             </if>
@@ -166,6 +172,7 @@
                 bpd.status = #{status,jdbcType=VARCHAR}
             </if>
         </where>
+        order by bpd.pay_id desc
     </select>
     <select id="selectByReportIdAndDebtId" resultType="com.smart.bracelet.model.po.debt.BusPayDetail">
         select

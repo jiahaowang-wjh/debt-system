@@ -30,8 +30,8 @@ public class DebtAndRepAndCiviI {
      */
     String civilno;
     /**
-     * 债事人
+     * 相对人
      */
-    String debtName;
+    String personName;
 
 }

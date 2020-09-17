@@ -51,7 +51,7 @@ public class PubMenuServiceImpl implements PubMenuService {
         try {
             record.setMenuId(IdUtils.nextId());
             //是否有效,0无效,1有效.默认有效
-            record.setIsenable("1");
+            record.setIsenable("0");
             int insertSelective = pubMenuDao.insertSelective(record);
             log.info("菜单信息添加成功,受影响行数{}",insertSelective);
             return insertSelective;

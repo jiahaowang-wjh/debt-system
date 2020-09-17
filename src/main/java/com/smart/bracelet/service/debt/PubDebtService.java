@@ -21,7 +21,7 @@ public interface PubDebtService {
      * 按照日期查询每日解债数量
      * @return
      */
-    List<DateAndDays> selectDaysCount();
+    List<DateAndDays> selectDaysCount(String type);
     /**
      * 查询所有借债信息
      * @return

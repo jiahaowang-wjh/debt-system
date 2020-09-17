@@ -33,5 +33,5 @@ public interface BusPropertService {
      * @return
      */
     List<AssetsDebtBank> querys(AssetsMyDebt assetsMyDebt);
-
+    int updateStage(String stage,Long propertId) throws CustomerException;
 }

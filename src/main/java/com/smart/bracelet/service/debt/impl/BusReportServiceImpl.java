@@ -128,8 +128,8 @@ public class BusReportServiceImpl implements BusReportService {
     }
 
     @Override
-    public List<DateAndDays> selectDaysCount() {
-        return busReportDao.selectDaysCount();
+    public List<DateAndDays> selectDaysCount(String type) {
+        return busReportDao.selectDaysCount(type);
     }
 
     /**
@@ -199,8 +199,8 @@ public class BusReportServiceImpl implements BusReportService {
             log.info("新增实名认证成功，受影响行数：{}", insertSelective1);
             return l;
         } catch (Exception e) {
-            log.error("新增私人报备信息失败,异常信息:{}", e.getMessage());
-            throw new CustomerException("新增私人报备信息失败");
+            log.error("私人性质录入信息失败,异常信息:{}", e.getMessage());
+            throw new CustomerException("私人性质录入信息失败");
         }
     }
 
@@ -326,7 +326,7 @@ public class BusReportServiceImpl implements BusReportService {
             return l;
         } catch (Exception e) {
             log.error("新增企业报备信息失败,异常信息:{}", e.getMessage());
-            throw new CustomerException("新增企业报备信息失败");
+            throw new CustomerException("企业性质录入信息失败");
         }
     }
 
@@ -437,7 +437,7 @@ public class BusReportServiceImpl implements BusReportService {
             return l;
         } catch (Exception e) {
             log.error("新增银行报备信息失败,异常信息:{}", e.getMessage());
-            throw new CustomerException("新增银行报备信息失败");
+            throw new CustomerException("银行性质录入信息失败");
         }
     }
 

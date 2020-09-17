@@ -34,9 +34,6 @@
         <result column="partya_identity" jdbcType="VARCHAR" property="partyaIdentity"/>
         <result column="partyb_identity" jdbcType="VARCHAR" property="partybIdentity"/>
         <result column="debt_no" jdbcType="VARCHAR" property="debtNo"/>
-        <result column="partya_addr_info" jdbcType="VARCHAR" property="partyaAddrInfo"/>
-        <result column="partya_person_info" jdbcType="VARCHAR" property="partyaPersonInfo"/>
-        <result column="partya_tel_info" jdbcType="VARCHAR" property="partyaTelInfo"/>
         <result column="civil_id" jdbcType="BIGINT" property="civilId"/>
     </resultMap>
     <sql id="Base_Column_List">
@@ -156,15 +153,6 @@
             <if test="partybIdentity != null">
                 partyb_identity,
             </if>
-            <if test="partyaAddrInfo != null">
-                partya_addr_info,
-            </if>
-            <if test="partyaPersonInfo != null">
-                partya_person_info,
-            </if>
-            <if test="partyaTelInfo != null">
-                partya_tel_info,
-            </if>
             <if test="civilId != null">
                 civil_id,
             </if>
@@ -265,15 +253,6 @@
             </if>
             <if test="partybIdentity != null">
                 #{partybIdentity,jdbcType=VARCHAR},
-            </if>
-            <if test="partyaAddrInfo != null">
-                #{partyaAddrInfo,jdbcType=VARCHAR},
-            </if>
-            <if test="partyaPersonInfo != null">
-                #{partyaPersonInfo,jdbcType=VARCHAR},
-            </if>
-            <if test="partyaTelInfo != null">
-                #{partyaTelInfo,jdbcType=VARCHAR},
             </if>
             <if test="civilId != null">
                 #{civilId,jdbcType=VARCHAR},
@@ -376,15 +355,7 @@
             <if test="partybIdentity != null">
                 partyb_identity= #{partybIdentity,jdbcType=DATE},
             </if>
-            <if test="partyaAddrInfo != null">
-                partya_addr_info = #{partyaAddrInfo,jdbcType=VARCHAR},
-            </if>
-            <if test="partyaPersonInfo != null">
-                partya_person_info = #{partyaPersonInfo,jdbcType=VARCHAR},
-            </if>
-            <if test="partyaTelInfo != null">
-                partya_tel_info = #{partyaTelInfo,jdbcType=VARCHAR},
-            </if>
+
 
         </set>
         where debt_id = #{debtId,jdbcType=BIGINT}
@@ -402,7 +373,12 @@
         where debt_id = #{debtId,jdbcType=BIGINT}
     </update>
     <select id="selectDaysCount" resultType="com.smart.bracelet.model.po.debt.DateAndDays">
-      SELECT DATE_FORMAT(create_time,'%Y-%m-%d') days,COUNT(*) COUNT FROM pub_debt GROUP BY days ORDER BY days DESC LIMIT 10;
+      SELECT DATE_FORMAT(pub_debt.create_time,'%Y-%m-%d') days,COUNT(*) COUNT
+      FROM pub_debt
+      LEFT JOIN bus_report br ON pub_debt.`report_id` = br.`report_id`
+      LEFT JOIN pub_company pc ON br.`company_id` = pc.`company_id`
+      WHERE pc.`company_type` = #{type}
+      GROUP BY days ORDER BY days DESC LIMIT 10;
   </select>
     <select id="queryList" resultType="com.smart.bracelet.model.po.debt.PubDebt">
         select
@@ -415,18 +391,15 @@
 
     <select id="selectDebtListShow" resultType="com.smart.bracelet.model.vo.debt.PubDebtInfo">
         SELECT br.`report_id`,brp.`relative_per_id`,br.`report_no`,brp.data1 AS
-        'personName',pd.`debt_no`,pd.`debt_id`,pd.`status`,bc.`civilno` FROM bus_relative_person brp
-        LEFT JOIN pub_debt pd ON pd.`relative_per_id` = brp.`relative_per_id`
-        LEFT JOIN bus_civil bc ON bc.`relative_per_id` = brp.`relative_per_id`
-        LEFT JOIN bus_report br ON br.`report_id` = brp.report_id
-        left join pub_company pc on br.company_id = pc.company_id
+        'personName',pd.`debt_no`,pd.`debt_id`,pd.`status`,bc.`civil_id`
+        FROM `pub_debt` pd
+        LEFT JOIN bus_relative_person brp ON pd.`relative_per_id` = brp.`relative_per_id`
+        LEFT JOIN bus_civil bc ON bc.`civil_id` = pd.`civil_id`
+        LEFT JOIN bus_report br ON br.`report_id` = pd.report_id
         <where>
             br.`stage`='3'
             <if test="debtNo != null and debtNo!=''">
                 and pd.debt_no = #{debtNo,jdbcType=VARCHAR}
-            </if>
-            <if test="companyType != null and companyType!=''">
-                and pc.company_type= #{companyType,jdbcType=VARCHAR}
             </if>
             <if test="debtId != null and debtId!=''">
                 and pd.debt_id = #{debtId,jdbcType=BIGINT}
@@ -465,11 +438,12 @@
     </select>
     <select id="selectByReportIds" resultType="com.smart.bracelet.model.vo.debt.PubDebtInfo"
             parameterType="java.lang.Long">
-        SELECT br.`report_id`,brp.`relative_per_id`,br.`report_no`,brp.data1 AS 'personName',pd.`debt_no`,pd.`debt_id`,pd.`status`,bc.`civilno` FROM bus_relative_person brp
-        LEFT JOIN pub_debt pd ON pd.`relative_per_id` = brp.`relative_per_id`
+        SELECT br.`report_id`,brp.`relative_per_id`,br.`report_no`,brp.data1 AS 'personName',pd.`debt_no`,pd.`debt_id`,pd.`status`,bc.`civilno`
+        FROM pub_debt pd
+        LEFT JOIN bus_relative_person brp ON pd.`relative_per_id` = brp.`relative_per_id`
         LEFT JOIN bus_civil bc ON bc.`relative_per_id` = brp.`relative_per_id`
         LEFT JOIN bus_report br ON br.`report_id` = brp.report_id
-              WHERE brp.`relative_per_id` = #{relativePerId,jdbcType=BIGINT}
+        WHERE br.`report_id` = #{relativePerId}
     </select>
     <select id="selectByRelativePerId" resultType="com.smart.bracelet.model.po.debt.PubDebt"
             parameterType="java.lang.Long">

@@ -7,6 +7,7 @@ import com.smart.bracelet.model.vo.debt.*;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -26,7 +27,7 @@ public interface BusReportDao {
      * 按照日期查询每日报备数量
      * @return
      */
-    List<DateAndDays> selectDaysCount();
+    List<DateAndDays> selectDaysCount(String type);
 
     /**
      *查询债事人债事链
@@ -88,5 +89,5 @@ public interface BusReportDao {
      */
     CumOutInfo selectJiJin(Long reportId);
 
-
+    int updateCheckDate(Date checkDate);
 }

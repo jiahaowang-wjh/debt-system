@@ -93,4 +93,18 @@ public class BusPropertServiceImpl implements BusPropertService {
         }
         return busPropertDao.querys(assetsMyDebt);
     }
+
+    @Override
+    public int updateStage(String stage, Long propertId) throws CustomerException {
+        try {
+            int i = 0;
+            i = busPropertDao.updateStage(stage, propertId);
+            log.info("更新资产阶段成功，受影响行数：{}",i);
+            return i;
+        } catch (Exception e) {
+            log.error("更新资产评估失败,异常信息:{}",e.getMessage());
+            throw new CustomerException("更新资产阶段失败");
+        }
+
+    }
 }

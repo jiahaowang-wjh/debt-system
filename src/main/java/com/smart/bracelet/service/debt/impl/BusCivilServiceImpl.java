@@ -7,6 +7,7 @@ import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.debt.*;
 import com.smart.bracelet.model.vo.debt.*;
 import com.smart.bracelet.service.debt.BusCivilService;
+import com.smart.bracelet.utils.BigDecimalUtil;
 import com.smart.bracelet.utils.ConvertUpMoney;
 import com.smart.bracelet.utils.IdUtils;
 import com.smart.bracelet.utils.RepNoUtils;
@@ -121,8 +122,8 @@ public class BusCivilServiceImpl implements BusCivilService {
      */
     @Override
     @Transactional(noRollbackFor = Exception.class)
-    public List<DateAndDays> selectDaysCount() {
-        return busCivilDao.selectDaysCount();
+    public List<DateAndDays> selectDaysCount(String type) {
+        return busCivilDao.selectDaysCount(type);
     }
 
     /**
@@ -181,12 +182,12 @@ public class BusCivilServiceImpl implements BusCivilService {
         Long aLong = busCivilDao.selectReportId(debtAndPerson.getPersonIdcard());
         //查询相对人是否债事报备
         if (org.springframework.util.StringUtils.isEmpty(aLong)) {
-            ok = false;
+            return ok = false;
         }
         //通过相对人作为债事人的报备ID查询相对人
         List<BusRelativePerson> busRelativePeople = busRelativePersonDao.selectByreportId(aLong);
         if (busRelativePeople.isEmpty()) {
-            ok = false;
+            return ok = false;
         }
         for (BusRelativePerson item : busRelativePeople) {
             //查询信息一致
@@ -214,9 +215,12 @@ public class BusCivilServiceImpl implements BusCivilService {
     public PlanServiceInfo initializePlan(Long reportId) throws CustomerException {
         try {
             PlanServiceInfo initialize = busCivilDao.initializePlan(reportId);
-            Float monry = initialize.getAmountThis() * 0.1f;
-            initialize.setPlanMoney(monry);
-            initialize.setPlanMoneyMax(ConvertUpMoney.toChinese(monry.toString()));
+            if (initialize.getDebtId() == null) {
+                throw new CustomerException("该债事人未进行置换处理");
+            }
+            String mul = BigDecimalUtil.mul(initialize.getAmountThis().toString(), "0.1", 2);
+            initialize.setPlanMoney(mul);
+            initialize.setPlanMoneyMax(ConvertUpMoney.toChinese(mul.toString()));
             initialize.setAmountThisMax(ConvertUpMoney.toChinese(initialize.getAmountThis().toString()));
             if (initialize.getReportPropert().equals("1")) {
                 initialize.setCorBankAdd(null);
@@ -228,12 +232,12 @@ public class BusCivilServiceImpl implements BusCivilService {
             return initialize;
         } catch (Exception e) {
             log.error("异常信息:{}", e.getMessage());
-            throw new CustomerException("查询异常");
+            throw new CustomerException("查询异常"+e.getMessage());
         }
     }
 
     @Override
-    public List<BusCivil> selectByReportId(Long reportId) {
+    public List<CivilShow> selectByReportId(Long reportId) {
         return busCivilDao.selectByReportId(reportId);
     }
 

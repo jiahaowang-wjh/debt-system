@@ -11,6 +11,7 @@ import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.debt.BusCivil;
 import com.smart.bracelet.model.po.debt.BusGuarantee;
+import com.smart.bracelet.model.po.debt.CivilShow;
 import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.vo.debt.*;
 import com.smart.bracelet.service.debt.BusCivilService;
@@ -69,8 +70,8 @@ public class BusCivilController {
      */
     @RequestMapping("/selectDaysCount")
     @PreAuthorize("hasAnyAuthority('debt:select')")
-    public Result<List<DateAndDays>> selectDaysCount() {
-        List<DateAndDays> dateAndDays = busCivilService.selectDaysCount();
+    public Result<List<DateAndDays>> selectDaysCount(@NotBlank(message = "公司类型不能为空") String type) {
+        List<DateAndDays> dateAndDays = busCivilService.selectDaysCount(type);
         return Result.success(dateAndDays);
     }
 
@@ -167,14 +168,14 @@ public class BusCivilController {
 
     /**
      * 通过报备ID查询民事调解协议
-     *
+     *      *
      * @param reportId
      * @return
      */
     @RequestMapping("/selectByReportId")
     @PreAuthorize("hasAnyAuthority('debt:select')")
-    public Result<List<BusCivil>> selectByReportId(@NotNull(message = "报备Id不能为空") Long reportId) {
-        List<BusCivil> busCivils = busCivilService.selectByReportId(reportId);
+    public Result<List<CivilShow>> selectByReportId(@NotNull(message = "报备Id不能为空") Long reportId) {
+        List<CivilShow> busCivils = busCivilService.selectByReportId(reportId);
         return Result.success(busCivils);
     }
 

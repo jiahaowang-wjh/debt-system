@@ -33,8 +33,8 @@
       SELECT br.`report_propert`,br.`data1` AS 'debtName',br.`data5` AS 'priAdd',br.`data7` AS 'corBankAdd',br.`data2` AS 'debtIdCard',br.`data3` AS 'priPhone',br.`data9` AS 'corBankPhone',
         pd.`amount_this`,bra.bank,bra.bank_card,pd.`create_time`,pd.debt_yaer
         FROM bus_relative_person brp
-        LEFT JOIN bus_report br ON br.`report_id` = brp.`report_id`
-        LEFT JOIN pub_debt pd ON brp.`relative_per_id`  = pd.`relative_per_id`
+		LEFT JOIN pub_debt pd ON brp.`relative_per_id`  = pd.`relative_per_id`
+		LEFT JOIN bus_report br ON br.`report_id` = brp.`report_id`
         LEFT JOIN bus_real_auth bra ON br.`report_id` = bra.report_id
         WHERE brp.`relative_per_id` =   #{relativePerId,jdbcType=BIGINT}
     </select>

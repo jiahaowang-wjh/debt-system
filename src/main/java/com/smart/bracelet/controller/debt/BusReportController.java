@@ -165,8 +165,8 @@ public class BusReportController {
      */
     @RequestMapping("/selectDaysCount")
     @PreAuthorize("hasAnyAuthority('debt:select')")
-    public Result<List<DateAndDays>> selectDaysCount() {
-        List<DateAndDays> busReports = busReportService.selectDaysCount();
+    public Result<List<DateAndDays>> selectDaysCount(@NotBlank(message = "公司类型不能为空") String type) {
+        List<DateAndDays> busReports = busReportService.selectDaysCount(type);
         return Result.success(busReports);
     }
 

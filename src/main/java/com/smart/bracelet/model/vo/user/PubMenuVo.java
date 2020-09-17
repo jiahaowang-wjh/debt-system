@@ -2,12 +2,14 @@ package com.smart.bracelet.model.vo.user;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
  * pub_menu
- * @author 
+ *
+ * @author
  */
 @Data
 public class PubMenuVo implements Serializable {
@@ -21,11 +23,13 @@ public class PubMenuVo implements Serializable {
     /**
      * 菜单名
      */
+    @NotBlank(message = "菜单名不能为空")
     private String menuName;
 
     /**
      * 菜单地址
      */
+    @NotBlank(message = "菜单地址不能为空")
     private String menuUrl;
 
     /**

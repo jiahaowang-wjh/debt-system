@@ -44,7 +44,12 @@
       SELECT  bus_civil.`civilno`  FROM   bus_civil   ORDER   BY    bus_civil.`civilno`   DESC   LIMIT   1
     </select>
     <select id="selectDaysCount" resultType="com.smart.bracelet.model.po.debt.DateAndDays">
-      SELECT DATE_FORMAT(create_time,'%Y-%m-%d') days,COUNT(*) COUNT FROM bus_civil GROUP BY days ORDER BY days DESC LIMIT 10;
+      SELECT DATE_FORMAT(bus_civil.create_time,'%Y-%m-%d') days,COUNT(*) COUNT
+      FROM bus_civil
+      LEFT JOIN bus_report br ON br.`report_id` = bus_civil.`report_id`
+      LEFT JOIN pub_company pc ON br.`company_id` = pc.`company_id`
+      WHERE pc.`company_type` = #{type}
+      GROUP BY days ORDER BY days DESC LIMIT 10;
   </select>
     <select id="queryList" resultType="com.smart.bracelet.model.po.debt.BusCivil">
         select
@@ -59,6 +64,7 @@
         LEFT JOIN bus_report br ON brp.`report_id` = br.`report_id`
         LEFT JOIN pub_company pc ON br.company_id = pc.company_id
         <where>
+            br.stage='2'
             <if test="companyType != null and companyType!=''">
                 and pc.company_type = #{companyType,jdbcType=VARCHAR}
             </if>
@@ -85,7 +91,7 @@
     </select>
     <select id="selectReportId" resultType="java.lang.Long">
         SELECT bus_report.`report_id` FROM bus_report
-        WHERE bus_report.data2 = #{personIdcard,jdbcType=BIGINT} AND bus_report.`stage` = '1' AND bus_report.`status` = '5'
+        WHERE bus_report.data2 = #{personIdcard,jdbcType=BIGINT} AND bus_report.`stage` = '2' AND bus_report.`status` = '5'
     </select>
 
     <select id="selectPersonIdCardByPrId" resultType="java.lang.String">
@@ -97,18 +103,18 @@
         WHERE br.`report_id` = #{reportId,jdbcType=BIGINT}
     </select>
     <select id="initializePlan" resultType="com.smart.bracelet.model.vo.debt.PlanServiceInfo">
-        SELECT br.`report_propert`,br.`data1` AS 'debtName',br.`data2` AS 'personCard',br.`data5` AS 'priAdd',br.`data7` AS 'corBankAdd',br.data3 AS 'priPhone',br.`data9` AS 'corBankPhone',
+        SELECT pd.debt_id,br.`report_propert`,br.`data1` AS 'debtName',br.`data2` AS 'personCard',br.`data5` AS 'priAdd',br.`data7` AS 'corBankAdd',br.data3 AS 'priPhone',br.`data9` AS 'corBankPhone',
         pd.`amount_this`,pd.partyb_seal
         FROM bus_report br
         LEFT JOIN pub_debt pd ON br.`report_id` = pd.`report_id`
         WHERE br.`report_id` =  #{reportId,jdbcType=BIGINT}
     </select>
-    <select id="selectByReportId" resultType="com.smart.bracelet.model.po.debt.BusCivil"
+    <select id="selectByReportId" resultType="com.smart.bracelet.model.po.debt.CivilShow"
             parameterType="java.lang.Long">
-        select
-        <include refid="Base_Column_List"/>
-        from bus_civil
-        where report_id =#{reportId,jdbcType=BIGINT}
+       SELECT br.`report_id`,bc.`civilno`,brp.`data1` as 'personName' ,bc.`status` FROM bus_civil bc
+        LEFT JOIN bus_report br ON bc.`report_id` = br.`report_id`
+        LEFT JOIN bus_relative_person brp ON brp.`relative_per_id` = bc.`relative_per_id`
+        where br.`report_id` = #{reportId,jdbcType=BIGINT}
     </select>
     <select id="selectCivi" resultType="com.smart.bracelet.model.vo.debt.CivilAndPseronInfo"
             parameterType="java.lang.Long">

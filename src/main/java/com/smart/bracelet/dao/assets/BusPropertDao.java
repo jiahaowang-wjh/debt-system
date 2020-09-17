@@ -34,4 +34,6 @@ public interface BusPropertDao {
      */
     List<AssetsDebtBank> querys(AssetsMyDebt assetsMyDebt);
 
+
+    int updateStage(String stage,Long propertId);
 }

@@ -439,7 +439,7 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
     public List<BusRelativePersonListVo> selectByreportId(Long reportId) throws CustomerException {
         try {
             BusReport busReport = busReportDao.selectByPrimaryKey(reportId);
-            if(busReport.getReportType().equals("2")){
+            if (busReport.getReportType().equals("2")) {
                 return null;
             }
             List<BusRelativePerson> busRelativePeople = busRelativePersonDao.selectByreportId(reportId);
@@ -449,9 +449,7 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
                 Boolean verification = busCivilService.verification(item.getRelativePerId());
                 if (verification) {
                     BusRelativePersonListVo busRelativePersonListVo = selectByPrimaryKey(item.getRelativePerId());
-                    if(!busRelativePersonListVo.getReportType().equals("1")){
-                        listVos.add(busRelativePersonListVo);
-                    }
+                    listVos.add(busRelativePersonListVo);
                 }
             }
             return listVos;

@@ -33,7 +33,6 @@ public class BusAssignmentConfirm implements Serializable {
     /**
      * 编号
      */
-    @NotBlank(message = "编号不能为空")
     private String confirmNo;
 
     /**
@@ -67,11 +66,6 @@ public class BusAssignmentConfirm implements Serializable {
     @NotBlank(message = "担保人不能为空")
     private String guarantee;
 
-    /**
-     * 担保编号
-     */
-    @NotBlank(message = "担保编号不能为空")
-    private String guaranteeNo;
 
     /**
      * 资产公司名称

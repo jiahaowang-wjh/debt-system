@@ -233,24 +233,6 @@ public class PubDebt implements Serializable {
     String partybIdentity;
 
     /**
-     * 甲方地址
-     */
-    @NotBlank(message = "甲方地址不能为空")
-    String partyaAddrInfo;
-
-    /**
-     * 甲方联系人
-     */
-    @NotBlank(message = "甲方联系人不能为空")
-    String partyaPersonInfo;
-
-    /**
-     * 甲方联系电话
-     */
-    @NotBlank(message = "甲方联系电话不能为空")
-    String partyaTelInfo;
-
-    /**
      * 担保人集合
      */
     BusGuarantee[] busGuarantee;

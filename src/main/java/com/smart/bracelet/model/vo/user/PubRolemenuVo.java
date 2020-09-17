@@ -2,11 +2,14 @@ package com.smart.bracelet.model.vo.user;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
  * pub_rolemenu
- * @author 
+ *
+ * @author
  */
 @Data
 public class PubRolemenuVo implements Serializable {
@@ -14,16 +17,19 @@ public class PubRolemenuVo implements Serializable {
     /**
      * 角色菜单ID
      */
+    @NotNull(message = "角色菜单ID不能为空")
     private Long rolemenuId;
 
     /**
      * 角色ID
      */
+    @NotNull(message = "角色ID不能为空")
     private Long roleId;
 
     /**
      * 菜单ID
      */
+    @NotNull(message = "菜单ID不能为空")
     private Long menuId;
 
 

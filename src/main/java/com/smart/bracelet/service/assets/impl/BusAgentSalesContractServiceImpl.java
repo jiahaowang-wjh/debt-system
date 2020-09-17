@@ -52,7 +52,7 @@ public class BusAgentSalesContractServiceImpl implements BusAgentSalesContractSe
     }
 
     @Override
-    @Transactional(noRollbackFor = Exception.class)
+    @Transactional(rollbackFor = CustomerException.class)
     public Long insertSelective(BusAgentSalesContract record) throws CustomerException {
         try {
             System.out.println(record.getAnnex());

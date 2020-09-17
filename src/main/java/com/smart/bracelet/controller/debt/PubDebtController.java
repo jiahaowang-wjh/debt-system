@@ -62,8 +62,8 @@ public class PubDebtController {
      */
     @RequestMapping("/selectDaysCount")
     @PreAuthorize("hasAnyAuthority('debt:select')")
-    public Result<List<DateAndDays>> selectDaysCount() {
-        List<DateAndDays> dateAndDays = pubDebtService.selectDaysCount();
+    public Result<List<DateAndDays>> selectDaysCount(@NotBlank(message = "公司类型不能为空") String type) {
+        List<DateAndDays> dateAndDays = pubDebtService.selectDaysCount(type);
         return Result.success(dateAndDays);
     }
 

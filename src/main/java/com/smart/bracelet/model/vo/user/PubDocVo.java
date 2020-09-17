@@ -2,12 +2,14 @@ package com.smart.bracelet.model.vo.user;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
  * pub_doc
- * @author 
+ *
+ * @author
  */
 @Data
 public class PubDocVo implements Serializable {
@@ -21,6 +23,7 @@ public class PubDocVo implements Serializable {
     /**
      * 文档路径
      */
+    @NotBlank(message = "文档路径不能为空")
     private String docPath;
 
     /**

@@ -8,7 +8,8 @@ import java.io.Serializable;
 
 /**
  * pub_user
- * @author 
+ *
+ * @author
  */
 @Data
 public class PubUserVo implements Serializable {
@@ -23,26 +24,31 @@ public class PubUserVo implements Serializable {
     /**
      * 用户姓名
      */
+    @NotBlank(message = "用户姓名不能为空")
     private String userName;
 
     /**
      * 人员ID
      */
+    @NotBlank(message = "人员ID不能为空")
     private Long personId;
 
     /**
      * 角色ID
      */
+    @NotNull(message = "角色ID不能为空")
     private Long roleId;
 
     /**
      * 登陆名
      */
+    @NotBlank(message = "登陆名不能为空")
     private String loginName;
 
     /**
      * 密码
      */
+    @NotBlank(message = "密码不能为空")
     private String passwordMd5;
 
     /**

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -60,8 +61,8 @@ public class BusAssessmentController {
      */
     @RequestMapping("/selectDaysCount")
     @PreAuthorize("hasAnyAuthority('assets:select')")
-    public Result<List<DateAndDays>> selectDaysCount() {
-        List<DateAndDays> dateAndDays = busAssessmentService.selectDaysCount();
+    public Result<List<DateAndDays>> selectDaysCount(@NotBlank(message = "公司类型不能为空") String type) {
+        List<DateAndDays> dateAndDays = busAssessmentService.selectDaysCount(type);
         return Result.success(dateAndDays);
     }
 

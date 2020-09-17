@@ -8,7 +8,8 @@ import java.io.Serializable;
 
 /**
  * pub_role
- * @author 
+ *
+ * @author
  */
 @Data
 public class PubRoleVo implements Serializable {
@@ -23,6 +24,7 @@ public class PubRoleVo implements Serializable {
     /**
      * 角色名
      */
+    @NotBlank(message = "角色名不能为空")
     private String rolename;
 
     /**

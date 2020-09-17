@@ -29,7 +29,7 @@
     </select>
     <select id="querys" resultType="com.smart.bracelet.model.vo.assets.AssetsDebtBank">
         SELECT br.data1 AS 'debtName',brp.data1 AS
-        'personName',brp.`relative_per_id`,bp.`propert_id`,br.`report_no`,pd.`debt_no`,ba.`assessment_no`,br.`stage`,br.`create_time`,bp.`status`
+        'personName',brp.`relative_per_id`,bp.`propert_id`,br.`report_no`,pd.`debt_no`,ba.`assessment_no`,bp.`stage`,br.`create_time`,bp.`status`
         FROM bus_relative_person brp
         LEFT JOIN bus_report br ON brp.`report_id` = br.`report_id`
         LEFT JOIN pub_debt pd ON brp.`relative_per_id` = pd.`relative_per_id`
@@ -150,5 +150,8 @@
             </if>
         </set>
         where propert_id = #{propertId,jdbcType=BIGINT}
+    </update>
+    <update id="updateStage">
+            update bus_propert set stage=#{stage,jdbcType=VARCHAR} where propert_id = #{propertId,jdbcType=BIGINT}
     </update>
 </mapper>

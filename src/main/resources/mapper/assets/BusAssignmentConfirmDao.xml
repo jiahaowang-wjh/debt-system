@@ -10,7 +10,6 @@
     <result column="no_code" jdbcType="VARCHAR" property="noCode" />
     <result column="sign_date" jdbcType="DATE" property="signDate" />
     <result column="guarantee" jdbcType="VARCHAR" property="guarantee" />
-    <result column="guarantee_no" jdbcType="VARCHAR" property="guaranteeNo" />
     <result column="assets_company_name" jdbcType="VARCHAR" property="assetsCompanyName" />
     <result column="assets_card" jdbcType="VARCHAR" property="assetsCard" />
     <result column="assets_date" jdbcType="DATE" property="assetsDate" />
@@ -41,14 +40,12 @@
           SELECT  `bus_assignment_confirm`.confirm_no  FROM  bus_assignment_confirm  ORDER   BY   `bus_assignment_confirm`.posse_confirmt_id   DESC   LIMIT   1
     </select>
     <select id="initialize" resultType="com.smart.bracelet.model.vo.assets.BusAssignmentConfirmShow">
-      SELECT br.`data1` AS 'debtName',brp.`data1` AS 'personName',pd.`amount_this`,bg.authname,baa.assignment_agreement_no
-      FROM bus_report br
-      LEFT JOIN bus_relative_person brp ON br.`report_id`=brp.`report_id`
-      LEFT JOIN bus_civil bc ON br.`report_id` = bc.report_id
-      LEFT JOIN bus_guarantee bg ON bc.civil_id = bg.civil_id
-      LEFT JOIN pub_debt pd ON br.`report_id` = pd.`report_id`
-      LEFT JOIN bus_propert bp ON br.`report_id` = bp.report_id
-      LEFT JOIN bus_assignment_agreement baa ON bp.propert_id = baa.propert_id
+     SELECT bc.`civil_id`,br.`data1` AS 'debtName',brp.`data1` AS 'personName',pd.`amount_this`,baa.assignment_agreement_no FROM bus_assignment_agreement baa
+    LEFT JOIN bus_propert bp ON baa.`propert_id` = bp.`propert_id`
+    LEFT JOIN bus_relative_person brp ON bp.`relative_per_id` = brp.`relative_per_id`
+    LEFT JOIN bus_report br ON br.`report_id` = brp.`report_id`
+    LEFT JOIN pub_debt pd ON brp.`relative_per_id` = pd.`relative_per_id`
+    LEFT JOIN bus_civil bc ON brp.`relative_per_id` = bc.`relative_per_id`
       WHERE brp.`relative_per_id` =  #{relativePerId,jdbcType=BIGINT}
     </select>
     <select id="selectByPropertId" resultType="com.smart.bracelet.model.po.assets.BusAssignmentConfirm"
@@ -72,7 +69,7 @@
       )
     values (#{posseConfirmtId,jdbcType=BIGINT}, #{propertId,jdbcType=BIGINT}, #{confirmNo,jdbcType=VARCHAR}, 
       #{creditorName,jdbcType=VARCHAR}, #{creditorSign,jdbcType=VARCHAR}, #{noCode,jdbcType=VARCHAR}, 
-      #{signDate,jdbcType=DATE}, #{guarantee,jdbcType=VARCHAR}, #{guaranteeNo,jdbcType=VARCHAR}, 
+      #{signDate,jdbcType=DATE}, #{guarantee,jdbcType=VARCHAR},
       #{assetsCompanyName,jdbcType=VARCHAR}, #{assetsCard,jdbcType=VARCHAR}, #{assetsDate,jdbcType=DATE}, 
       #{legalRepresen,jdbcType=VARCHAR}, #{legalRepresenDate,jdbcType=DATE}, #{obligor,jdbcType=VARCHAR}, 
       #{obligorSign,jdbcType=VARCHAR}, #{obligorIdcard,jdbcType=VARCHAR}, #{obligorDate,jdbcType=DATE}
@@ -104,10 +101,7 @@
       </if>
       <if test="guarantee != null">
         guarantee,
-      </if>
-      <if test="guaranteeNo != null">
-        guarantee_no,
-      </if>
+
       <if test="assetsCompanyName != null">
         assets_company_name,
       </if>
@@ -160,9 +154,6 @@
       </if>
       <if test="guarantee != null">
         #{guarantee,jdbcType=VARCHAR},
-      </if>
-      <if test="guaranteeNo != null">
-        #{guaranteeNo,jdbcType=VARCHAR},
       </if>
       <if test="assetsCompanyName != null">
         #{assetsCompanyName,jdbcType=VARCHAR},
@@ -217,9 +208,7 @@
       <if test="guarantee != null">
         guarantee = #{guarantee,jdbcType=VARCHAR},
       </if>
-      <if test="guaranteeNo != null">
-        guarantee_no = #{guaranteeNo,jdbcType=VARCHAR},
-      </if>
+
       <if test="assetsCompanyName != null">
         assets_company_name = #{assetsCompanyName,jdbcType=VARCHAR},
       </if>
@@ -259,7 +248,6 @@
       no_code = #{noCode,jdbcType=VARCHAR},
       sign_date = #{signDate,jdbcType=DATE},
       guarantee = #{guarantee,jdbcType=VARCHAR},
-      guarantee_no = #{guaranteeNo,jdbcType=VARCHAR},
       assets_company_name = #{assetsCompanyName,jdbcType=VARCHAR},
       assets_card = #{assetsCard,jdbcType=VARCHAR},
       assets_date = #{assetsDate,jdbcType=DATE},

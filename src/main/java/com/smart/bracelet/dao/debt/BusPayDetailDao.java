@@ -30,7 +30,7 @@ public interface BusPayDetailDao {
      * @param payId
      * @return
      */
-    int updateStatus(String status,Long payId);
+    int updateStatus(String status,Long payId,String checkReason);
 
     /**
      * 查询最后一条编号

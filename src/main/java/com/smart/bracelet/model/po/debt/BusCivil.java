@@ -49,7 +49,6 @@ public class BusCivil implements Serializable {
     /**
      * 化解方式
      */
-    @NotBlank(message = "化解方式不能为空")
     private String solutions;
 
     /**
@@ -148,7 +147,6 @@ public class BusCivil implements Serializable {
     /**
      * 债务处理方式
      */
-    @NotBlank(message = "债务处理方式不能为空")
     private String treatmentMethod;
 
     /**

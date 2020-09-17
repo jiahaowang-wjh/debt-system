@@ -120,9 +120,9 @@ public class BusPayDetailServiceImpl implements BusPayDetailService {
 
     @Override
     @Transactional(noRollbackFor = Exception.class)
-    public int updateStatus(String status, Long payId) throws CustomerException {
+    public int updateStatus(String status, Long payId,String checkReason) throws CustomerException {
         try {
-            int i = busPayDetailDao.updateStatus(status, payId);
+            int i = busPayDetailDao.updateStatus(status, payId,checkReason);
             return i;
         } catch (Exception e) {
             log.error("更新支付信息失败,异常信息:{}", e.getMessage());

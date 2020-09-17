@@ -93,4 +93,11 @@ public class BusPropertController {
         PageInfo<AssetsDebtBank> assetsDebtBankPageInfo = new PageInfo<>(querys);
         return Result.success(assetsDebtBankPageInfo);
     }
+
+    @RequestMapping("/updateStage")
+   public Result updateStage(@NotBlank(message = "资产阶段不能为空") String stage,@NotNull(message = "资产id不能为空") Long propertId) throws CustomerException{
+        int a = busPropertService.updateStage(stage, propertId);
+        return Result.success(a);
+   }
+
 }

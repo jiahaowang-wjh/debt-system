@@ -16,6 +16,8 @@ public class DebtInfo {
      */
     @JsonSerialize(using = ToStringSerializer.class)
     Long reportId;
+
+    String debtNo;
     /**
      * 报备编号
      */
