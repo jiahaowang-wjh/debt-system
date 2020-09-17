@@ -32,12 +32,12 @@ public class OneStepStart {
 			LOGGER.info("---------------------获取token start------------------------------");
 			TokenHelper.getTokenData();
 
-//			LOGGER.info("---------------------创建个人账号start-------------------------------");
-//			JSONObject personAcctJson = AccountHelper.createPersonAcct("ZS0001", "付世波", null, "500101199102162619", "13274019757", null);
-//			String acctId = personAcctJson.getString("accountId");
+			LOGGER.info("---------------------创建个人账号start-------------------------------");
+			JSONObject personAcctJson = AccountHelper.createPersonAcct("ZS0006", "付世波", null, "500101199102162619", "13274019757", null);
+			String acctId = personAcctJson.getString("accountId");
 //
-////			JSONObject personAcctJson = AccountHelper.createPersonAcct("ZS0003", "邓丽清", null, "440981198801011427", "15218801056", null);
-////			String acctId = personAcctJson.getString("accountId");
+//			JSONObject personAcctJson = AccountHelper.createPersonAcct("ZS0008", "邓丽清", null, "440981198801011427", "15218801056", null);
+//			String acctId = personAcctJson.getString("accountId");
 //
 //			//设置静默签署
 ////			AccountHelper.setAutoSign(acctId,"2021-09-07 23:59:59");
@@ -45,13 +45,14 @@ public class OneStepStart {
 ////			JSONObject copierAcctJson = AccountHelper.createPersonAcct("LS123", "李四", null, "34240119920313****", "1508886****", null);
 ////			String copierAcctId = copierAcctJson.getString("accountId");
 //
-//			LOGGER.info("---------------------创建机构账号start----------------------------------");
-//			JSONObject orgAcctJson = AccountHelper.createOrgAcct("cccc", acctId, "重庆术才科技有限公司", null, "91500113MA5YQU1H6B");
-//			String orgId = orgAcctJson.getString("orgId");
-//
-//			LOGGER.info("---------------------创建机构印章start----------------------------------");
-//			JSONObject orgSealJson = SealHelper.createOrgTemplateSeal(orgId, "重庆术才科技有限公司a", "RED", null, null, null, "91500113MA5YQU1H6B", "TEMPLATE_ROUND", "STAR");
-//			String orgSealId = orgSealJson.getString("sealId");
+			LOGGER.info("---------------------创建机构账号start----------------------------------");
+			JSONObject orgAcctJson = AccountHelper.createOrgAcct("ss", acctId, "深圳市方博商贸管理有限公司", null, "91440300MA5G44JB4K");
+			String orgId = orgAcctJson.getString("orgId");
+
+			LOGGER.info("---------------------创建机构印章start----------------------------------");
+			JSONObject orgSealJson = SealHelper.createOrgTemplateSeal(orgId, "深圳市方博商贸管理有限公司", "RED", null, null, null, "91440300MA5G44JB4K", "TEMPLATE_ROUND", "STAR");
+			String orgSealId = orgSealJson.getString("sealId");
+			System.out.println(orgSealId);
 //
 //			LOGGER.info("---------------------通过上传方式创建文件start-----------------------------");
 //			String fileName = "劳动合同.pdf";
@@ -75,10 +76,10 @@ public class OneStepStart {
 //			LOGGER.info("---------------------归档后，获取文件下载地址 start-----------------------------");
 //			SignHelper.downloadFlowDoc(flowId);
 //			String fileId = "c05c28697a3c4f4a926e307b665400ce";
-			String flowId = "580c7b6f3d2141108495573a723610ed";
-			SignHelper.archiveSignFlow(flowId);
-			JSONObject json = SignHelper.qryDocuments(flowId,"");
-			LOGGER.info(json.toJSONString());
+//			String flowId = "ec4a78ba2fdc472b8c6facb05b1b4022";
+//			SignHelper.archiveSignFlow(flowId);
+//			JSONObject json = SignHelper.qryDocuments(flowId,"");
+//			LOGGER.info(json.toJSONString());
 		} catch (DefineException e) {
 			e.getE().printStackTrace();
 		}

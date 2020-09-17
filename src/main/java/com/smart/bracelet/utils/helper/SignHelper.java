@@ -520,7 +520,7 @@ public class SignHelper {
 			// 签署方信息
 			// 平台方
 			PosBeanInfo posBean1 = new PosBeanInfo(""+docCode.getPagesize(), 131F, 530F); // 签署位置
-			SignfieldInfo signfield1 = new SignfieldInfo(true, "2", fileId, null, null, null, posBean1, null); // 签署区
+			SignfieldInfo signfield1 = new SignfieldInfo(true, "2", fileId, null, null, null, posBean1, null,null); // 签署区
 			Signer signer1 = new Signer(true, 1, null, Lists.newArrayList(signfield1), null); // 签署方
 			//添加至签署方
 			signers = Lists.newArrayList(signer1);
@@ -529,7 +529,7 @@ public class SignHelper {
 			// 签署方信息
 			// 平台方
 			PosBeanInfo posBean1 = new PosBeanInfo(""+docCode.getPagesize(), 131F, 530F); // 签署位置
-			SignfieldInfo signfield1 = new SignfieldInfo(true, "2", fileId, null, null, null, posBean1, null); // 签署区
+			SignfieldInfo signfield1 = new SignfieldInfo(true, "2", fileId, null, null, null, posBean1, null,null); // 签署区
 			Signer signer1 = new Signer(true, 1, null, Lists.newArrayList(signfield1), null); // 签署方
 			//添加至签署方
 			signers = Lists.newArrayList(signer1);
@@ -539,8 +539,8 @@ public class SignHelper {
 			// 签署方信息
 			// 平台方
 			PosBeanInfo posBean1 = new PosBeanInfo(""+docCode.getPagesize(), 131F, 530F); // 签署位置
-			SignfieldInfo signfield1 = new SignfieldInfo(true, "2", fileId, null, null, null, posBean1, null); // 签署区
-			SignerAccount signAccount = new SignerAccount(copierAccountId, orgInfo.getOrgid());//签署方账号
+			SignfieldInfo signfield1 = new SignfieldInfo(true, "2", fileId, null, null, null, posBean1, null,null); // 签署区
+			SignerAccount signAccount = new SignerAccount(orgInfo.getAccountId(), orgInfo.getOrgid());//签署方账号
 			Signer signer1 = new Signer(false, 1, signAccount, Lists.newArrayList(signfield1), null); // 签署方
 			//添加至签署方
 			signers = Lists.newArrayList(signer1);
@@ -548,37 +548,38 @@ public class SignHelper {
 			docCode = DocCode.AGREE_ON;
 			// 签署方信息
 			// 平台方
-			PosBeanInfo posBean1 = new PosBeanInfo(""+docCode.getPagesize(), 463F, 600F); // 签署位置
-			SignfieldInfo signfield1 = new SignfieldInfo(true, "2", fileId, null, null, null, posBean1, null); // 签署区
+			PosBeanInfo posBean1 = new PosBeanInfo(""+docCode.getPagesize(), 413F, 619F); // 签署位置
+			SignfieldInfo signfield1 = new SignfieldInfo(true, "2", fileId, null, null, null, posBean1, null,null); // 签署区
 			Signer signer1 = new Signer(true, 1, null, Lists.newArrayList(signfield1), null); // 签署方
 			// 用户方1
-			PosBeanInfo posBean2 = new PosBeanInfo(""+docCode.getPagesize(), 137F, 642F); // 签署位置
-			SignfieldInfo signfield2 = new SignfieldInfo(true, null, fileId, null, null, null, posBean2, null); // 签署区
+			PosBeanInfo posBean2 = new PosBeanInfo(""+docCode.getPagesize(), 169F, 619F); // 签署位置
+			SignfieldInfo signfield2 = new SignfieldInfo(true, null, fileId, null, null, null, posBean2, null,null); // 签署区
 			SignerAccount signAccount = new SignerAccount(copierAccountId, signerAccountId);//签署方账号
 			Signer signer2 = new Signer(false, 1, signAccount, Lists.newArrayList(signfield2), null); // 签署方
 
 			// 平台方-骑缝章
-			PosBeanInfo posBean3 = new PosBeanInfo("1-"+docCode.getPagesize(), 388F, 0F); // 签署位置
-			SignfieldInfo signfield3 = new SignfieldInfo(true, "2", fileId, "2", null, null, posBean1, null); // 签署区
-			Signer signer3 = new Signer(true, 1, null, Lists.newArrayList(signfield1), null); // 签署方
-			signers = Lists.newArrayList(signer1, signer2,signer3);
+			PosBeanInfo posBean3 = new PosBeanInfo("1-"+docCode.getPagesize(), 0F, 500F); // 签署位置
+			SignfieldInfo signfield3 = new SignfieldInfo(true, "2", fileId, null, null, 2, posBean3, null,null); // 签署区
+			Signer signer3 = new Signer(true, 1, null, Lists.newArrayList(signfield3), null); // 签署方
+
+			signers = Lists.newArrayList(signer1,signer3,signer2);
 		}else if ("5".equals(docType)){//策划方案服务协议
 			docCode = DocCode.PLAN_SERVICE_AGREEMENT;
 			// 签署方信息
 			// 平台方
 			PosBeanInfo posBean1 = new PosBeanInfo(""+docCode.getPagesize(), 505F, 718F); // 签署位置
-			SignfieldInfo signfield1 = new SignfieldInfo(true, "2", fileId, null, null, null, posBean1, null); // 签署区
+			SignfieldInfo signfield1 = new SignfieldInfo(true, "2", fileId, null, null, null, posBean1, null,null); // 签署区
 			Signer signer1 = new Signer(true, 1, null, Lists.newArrayList(signfield1), null); // 签署方
 			// 用户方1
 			PosBeanInfo posBean2 = new PosBeanInfo(""+docCode.getPagesize(), 200F, 718F); // 签署位置
-			SignfieldInfo signfield2 = new SignfieldInfo(true, null, fileId, null, null, null, posBean2, null); // 签署区
+			SignfieldInfo signfield2 = new SignfieldInfo(true, null, fileId, null, null, null, posBean2, null,null); // 签署区
 			SignerAccount signAccount = new SignerAccount(copierAccountId, signerAccountId);//签署方账号
 			Signer signer2 = new Signer(false, 1, signAccount, Lists.newArrayList(signfield2), null); // 签署方
 
 			// 平台方-骑缝章
-			PosBeanInfo posBean3 = new PosBeanInfo("1-"+docCode.getPagesize(), 388F, 0F); // 签署位置
-			SignfieldInfo signfield3 = new SignfieldInfo(true, "2", fileId, "2", null, null, posBean1, null); // 签署区
-			Signer signer3 = new Signer(true, 1, null, Lists.newArrayList(signfield1), null); // 签署方
+			PosBeanInfo posBean3 = new PosBeanInfo("1-"+docCode.getPagesize(), 0F, 500F); // 签署位置
+			SignfieldInfo signfield3 = new SignfieldInfo(true, "2", fileId, null, null, 2, posBean3, null,null); // 签署区
+			Signer signer3 = new Signer(true, 1, null, Lists.newArrayList(signfield3), null); // 签署方
 			signers = Lists.newArrayList(signer1, signer2,signer3);
 		}else if ("6".equals(docType)){//债权转让协议
 			docCode = DocCode.ASSIGNMENT_AGREEMENT;
@@ -586,20 +587,20 @@ public class SignHelper {
 			// 签署方信息
 			// 平台方
 			PosBeanInfo posBean1 = new PosBeanInfo("7", 443F, 148F); // 签署位置
-			SignfieldInfo signfield1 = new SignfieldInfo(true, "2", fileId, null, null, null, posBean1, null); // 签署区
-			SignerAccount signAccount1 = new SignerAccount(copierAccountId, orgInfo.getOrgid());//签署方账号
-			Signer signer1 = new Signer(true, 1, signAccount1, Lists.newArrayList(signfield1), null); // 签署方
+			SignfieldInfo signfield1 = new SignfieldInfo(true, "2", fileId, null, null, null, posBean1, null,orgInfo.getSealId()); // 签署区
+			SignerAccount signAccount1 = new SignerAccount(orgInfo.getAccountId(), orgInfo.getOrgid());//签署方账号
+			Signer signer1 = new Signer(false, 1, signAccount1, Lists.newArrayList(signfield1), null); // 签署方
 			// 用户方1
 			PosBeanInfo posBean2 = new PosBeanInfo("7", 138F, 126F); // 签署位置
-			SignfieldInfo signfield2 = new SignfieldInfo(true, null, fileId, null, null, null, posBean2, null); // 签署区
+			SignfieldInfo signfield2 = new SignfieldInfo(true, null, fileId, null, null, null, posBean2, null,null); // 签署区
 			SignerAccount signAccount = new SignerAccount(copierAccountId, signerAccountId);//签署方账号
 			Signer signer2 = new Signer(false, 1, signAccount, Lists.newArrayList(signfield2), null); // 签署方
 
 			// 平台方-骑缝章
-			PosBeanInfo posBean3 = new PosBeanInfo("1-"+docCode.getPagesize(), 388F, 0F); // 签署位置
-			SignfieldInfo signfield3 = new SignfieldInfo(true, "2", fileId, "2", null, null, posBean1, null); // 签署区
+			PosBeanInfo posBean3 = new PosBeanInfo("1-"+docCode.getPagesize(), 0F, 500F); // 签署位置
+			SignfieldInfo signfield3 = new SignfieldInfo(true, "2", fileId, null, null, 2, posBean3, null,orgInfo.getSealId()); // 签署区
 			SignerAccount signAccount3 = new SignerAccount(copierAccountId, orgInfo.getOrgid());//签署方账号
-			Signer signer3 = new Signer(true, 1, signAccount3, Lists.newArrayList(signfield1), null); // 签署方
+			Signer signer3 = new Signer(false, 1, signAccount3, Lists.newArrayList(signfield3), null); // 签署方
 			signers = Lists.newArrayList(signer1, signer2,signer3);
 		}else if ("7".equals(docType)){//债权转让确认书
 			docCode = DocCode.ASSIGNMENT_CONFIRMATION;
@@ -611,12 +612,12 @@ public class SignHelper {
 			// 签署方信息
 			// 平台方
 			PosBeanInfo posBean1 = new PosBeanInfo("1", 110F, 271F); // 签署位置
-			SignfieldInfo signfield1 = new SignfieldInfo(true, "2", fileId, null, null, null, posBean1, null); // 签署区
-			SignerAccount signAccount1 = new SignerAccount(copierAccountId, orgInfo.getOrgid());//签署方账号
-			Signer signer1 = new Signer(true, 1, signAccount1, Lists.newArrayList(signfield1), null); // 签署方
+			SignfieldInfo signfield1 = new SignfieldInfo(true, "2", fileId, null, null, null, posBean1, null,orgInfo.getSealId()); // 签署区
+			SignerAccount signAccount1 = new SignerAccount(orgInfo.getAccountId(), orgInfo.getOrgid());//签署方账号
+			Signer signer1 = new Signer(false, 1, signAccount1, Lists.newArrayList(signfield1), null); // 签署方
 			// 用户方1
 			PosBeanInfo posBean2 = new PosBeanInfo("1", 392F, 277F); // 签署位置
-			SignfieldInfo signfield2 = new SignfieldInfo(true, null, fileId, null, null, null, posBean2, null); // 签署区
+			SignfieldInfo signfield2 = new SignfieldInfo(true, null, fileId, null, null, null, posBean2, null,null); // 签署区
 			SignerAccount signAccount = new SignerAccount(copierAccountId, signerAccountId);//签署方账号
 			Signer signer2 = new Signer(false, 1, signAccount, Lists.newArrayList(signfield2), null); // 签署方
 
@@ -627,9 +628,9 @@ public class SignHelper {
 			// 签署方信息
 			// 平台方
 			PosBeanInfo posBean1 = new PosBeanInfo("2", 357F, 716F); // 签署位置
-			SignfieldInfo signfield1 = new SignfieldInfo(true, "2", fileId, null, null, null, posBean1, null); // 签署区
-			SignerAccount signAccount1 = new SignerAccount(copierAccountId, orgInfo.getOrgid());//签署方账号
-			Signer signer1 = new Signer(true, 1, signAccount1, Lists.newArrayList(signfield1), null); // 签署方
+			SignfieldInfo signfield1 = new SignfieldInfo(true, "2", fileId, null, null, null, posBean1, null,orgInfo.getSealId()); // 签署区
+			SignerAccount signAccount1 = new SignerAccount(orgInfo.getAccountId(), orgInfo.getOrgid());//签署方账号
+			Signer signer1 = new Signer(false, 1, signAccount1, Lists.newArrayList(signfield1), null); // 签署方
 
 			signers = Lists.newArrayList(signer1);
 		}else if ("11".equals(docType)){//委托代理销售合同
@@ -638,41 +639,51 @@ public class SignHelper {
 			// 签署方信息
 			// 平台方
 			PosBeanInfo posBean1 = new PosBeanInfo("4", 469F, 346F); // 签署位置
-			SignfieldInfo signfield1 = new SignfieldInfo(true, "2", fileId, null, null, null, posBean1, null); // 签署区
-			SignerAccount signAccount1 = new SignerAccount(copierAccountId, orgInfo.getOrgid());//签署方账号
-			Signer signer1 = new Signer(true, 1, signAccount1, Lists.newArrayList(signfield1), null); // 签署方
+			SignfieldInfo signfield1 = new SignfieldInfo(true, "2", fileId, null, null, null, posBean1, null,orgInfo.getSealId()); // 签署区
+			SignerAccount signAccount1 = new SignerAccount(orgInfo.getAccountId(), orgInfo.getOrgid());//签署方账号
+			Signer signer1 = new Signer(false, 1, signAccount1, Lists.newArrayList(signfield1), null); // 签署方
 			// 用户方1
 			PosBeanInfo posBean2 = new PosBeanInfo("4", 151F, 318F); // 签署位置
-			SignfieldInfo signfield2 = new SignfieldInfo(true, null, fileId, null, null, null, posBean2, null); // 签署区
+			SignfieldInfo signfield2 = new SignfieldInfo(true, null, fileId, null, null, null, posBean2, null,null); // 签署区
 			SignerAccount signAccount = new SignerAccount(copierAccountId, signerAccountId);//签署方账号
 			Signer signer2 = new Signer(false, 1, signAccount, Lists.newArrayList(signfield2), null); // 签署方
 
+			PosBeanInfo posBean4 = new PosBeanInfo("5", 166F, 351F); // 签署位置
+			SignfieldInfo signfield4 = new SignfieldInfo(true, "2", fileId, null, null, null, posBean4, null,orgInfo.getSealId()); // 签署区
+			SignerAccount signAccount4 = new SignerAccount(orgInfo.getAccountId(), orgInfo.getOrgid());//签署方账号
+			Signer signer4 = new Signer(false, 1, signAccount4, Lists.newArrayList(signfield4), null); // 签署方
+			// 用户方1
+			PosBeanInfo posBean5 = new PosBeanInfo("5", 166F, 493F); // 签署位置
+			SignfieldInfo signfield5 = new SignfieldInfo(true, null, fileId, null, null, null, posBean5, null,null); // 签署区
+			SignerAccount signAccoun5 = new SignerAccount(copierAccountId, signerAccountId);//签署方账号
+			Signer signer5 = new Signer(false, 1, signAccoun5, Lists.newArrayList(signfield5), null); // 签署方
+
 			// 平台方-骑缝章
-			PosBeanInfo posBean3 = new PosBeanInfo("1-5", 388F, 0F); // 签署位置
-			SignfieldInfo signfield3 = new SignfieldInfo(true, "2", fileId, "2", null, null, posBean1, null); // 签署区
+			PosBeanInfo posBean3 = new PosBeanInfo("1-5", 0F, 500F); // 签署位置
+			SignfieldInfo signfield3 = new SignfieldInfo(true, "2", fileId, null, null, 2, posBean3, null,orgInfo.getSealId()); // 签署区
 			SignerAccount signAccount3 = new SignerAccount(copierAccountId, orgInfo.getOrgid());//签署方账号
-			Signer signer3 = new Signer(true, 1, signAccount3, Lists.newArrayList(signfield1), null); // 签署方
-			signers = Lists.newArrayList(signer1, signer2,signer3);
+			Signer signer3 = new Signer(false, 1, signAccount3, Lists.newArrayList(signfield3), null); // 签署方
+			signers = Lists.newArrayList(signer1, signer2,signer3,signer4,signer5);
 		}else if ("12".equals(docType)){//和解协议
 			docCode = DocCode.SETTLEMENT_AGREEMENT;
 			orgInfo = OrgInfo.ELEC_AA;
 			// 签署方信息
 			// 平台方
 			PosBeanInfo posBean1 = new PosBeanInfo("2", 115F, 321F); // 签署位置
-			SignfieldInfo signfield1 = new SignfieldInfo(true, "2", fileId, null, null, null, posBean1, null); // 签署区
-			SignerAccount signAccount1 = new SignerAccount(copierAccountId, orgInfo.getOrgid());//签署方账号
-			Signer signer1 = new Signer(true, 1, signAccount1, Lists.newArrayList(signfield1), null); // 签署方
+			SignfieldInfo signfield1 = new SignfieldInfo(true, "2", fileId, null, null, null, posBean1, null,orgInfo.getSealId()); // 签署区
+			SignerAccount signAccount1 = new SignerAccount(orgInfo.getAccountId(), orgInfo.getOrgid());//签署方账号
+			Signer signer1 = new Signer(false, 1, signAccount1, Lists.newArrayList(signfield1), null); // 签署方
 			// 用户方1
 			PosBeanInfo posBean2 = new PosBeanInfo("2", 431F, 342F); // 签署位置
-			SignfieldInfo signfield2 = new SignfieldInfo(true, null, fileId, null, null, null, posBean2, null); // 签署区
+			SignfieldInfo signfield2 = new SignfieldInfo(true, null, fileId, null, null, null, posBean2, null,null); // 签署区
 			SignerAccount signAccount = new SignerAccount(copierAccountId, signerAccountId);//签署方账号
 			Signer signer2 = new Signer(false, 1, signAccount, Lists.newArrayList(signfield2), null); // 签署方
 
 			// 平台方-骑缝章
-			PosBeanInfo posBean3 = new PosBeanInfo("1-2", 388F, 0F); // 签署位置
-			SignfieldInfo signfield3 = new SignfieldInfo(true, "2", fileId, "2", null, null, posBean1, null); // 签署区
-			SignerAccount signAccount3 = new SignerAccount(copierAccountId, orgInfo.getOrgid());//签署方账号
-			Signer signer3 = new Signer(true, 1, signAccount3, Lists.newArrayList(signfield1), null); // 签署方
+			PosBeanInfo posBean3 = new PosBeanInfo("1-2", 0F, 500F); // 签署位置
+			SignfieldInfo signfield3 = new SignfieldInfo(true, "2", fileId, null, null, 2, posBean3, null,orgInfo.getSealId()); // 签署区
+			SignerAccount signAccount3 = new SignerAccount(orgInfo.getAccountId(), orgInfo.getOrgid());//签署方账号
+			Signer signer3 = new Signer(false, 1, signAccount3, Lists.newArrayList(signfield3), null); // 签署方
 			signers = Lists.newArrayList(signer1, signer2,signer3);
 		}
 

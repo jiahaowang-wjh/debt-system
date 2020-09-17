@@ -11,6 +11,7 @@ import com.smart.bracelet.service.doc.BusElectronUserService;
 import com.smart.bracelet.service.doc.BusElectronUsernoService;
 import com.smart.bracelet.utils.DocUtils;
 import com.smart.bracelet.utils.IdUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -58,30 +59,55 @@ public class BusElectronSealController {
             //身份证
             String partaCard = busElectronSeal.getPartaCard();
 
-            BusEletronUser busEletronUser = busElectronUserService.selectByPartaCard(partaCard);
-            //判定人是否存储过
-            if(busEletronUser==null){
-                BusElectronUserno busElectronUserno = busElectronUsernoService.selectByPrimaryNotype("USER_NO");
-                int acctId = busElectronUserno.getIdno();
-                acctId +=1;
-                busElectronUserno.setIdno(acctId);
-                busElectronUsernoService.insert(busElectronUserno);
+            BusEletronUser busEletronUser = null;
+            if(StringUtils.isNotEmpty(partaCard)){
+                busEletronUser = busElectronUserService.selectByPartaCard(partaCard);
+                //判定人是否存储过
+                if(busEletronUser==null){
+                    busEletronUser = new BusEletronUser();
+                    BusElectronUserno busElectronUserno = busElectronUsernoService.selectByPrimaryNotype("USER_NO");
+                    int acctId = busElectronUserno.getIdno();
+                    acctId +=1;
+                    busElectronUserno.setIdno(acctId);
+                    busElectronUsernoService.updateByPrimaryKey(busElectronUserno);
+                    String acctIdStr = DocUtils.creatUser(DocUtils.creatUserId(acctId),busElectronSeal);
+                    busEletronUser.setUserName(busElectronSeal.getParta());
+                    busEletronUser.setUserCard(busElectronSeal.getPartaCard());
+                    busEletronUser.setUserTel(busElectronSeal.getPartaTel());
+                    //创建个人账号
+                    busEletronUser.setAcctId(acctIdStr);
+                    busElectronUserService.insert(busEletronUser);
+                }
+            }
 
-                //创建个人账号
-                busEletronUser.setAcctId(DocUtils.creatUserId(acctId));
-                busElectronUserService.insert(busEletronUser);
+            String acctId = "";
+            if(busEletronUser!=null){
+                acctId = busEletronUser.getAcctId();
             }
             //创建电子章及盖电子章
-            String returnElectronCon = DocUtils.fileCrete(docType,busElectronSeal,busEletronUser.getAcctId());
+            String returnElectronCon = DocUtils.fileCrete(docType,busElectronSeal,acctId);
             String[] returnElectronConS = returnElectronCon.split(",");
             busElectronSeal.setElectronSealId(IdUtils.nextId());
             busElectronSeal.setFlowId(returnElectronConS[0]);
-            busElectronSeal.setFilePath(returnElectronConS[1]);
+            busElectronSeal.setFileUrl(returnElectronConS[1]);
             //保证电子签单记录
             busElectronSealService.insert(busElectronSeal);
         } catch (Exception e) {
             return Result.fail(FailResultCode.CODE_13067_CODE_ERR);
         }
         return Result.success(0);
+    }
+
+    /**
+     * 获取文件电子章
+     * @param flowId
+     * @return
+     * @throws CustomerException
+     */
+    @RequestMapping("/getBusElectronDoc")
+    public Result getBusElectronDoc(@Valid String flowId) throws Exception {
+        //根据flowid 获取新地址
+        String fileUrl  = DocUtils.getFile(flowId);
+        return Result.success(fileUrl);
     }
 }

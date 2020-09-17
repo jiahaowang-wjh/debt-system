@@ -79,7 +79,7 @@
     </select>
     <select id="queryLisyRelativePerson" resultType="com.smart.bracelet.model.vo.debt.DebtChain">
         SELECT brp.data1 AS Report,brp.data3 AS RelativePersonIdCad,brp.`obligat_right` FROM  bus_relative_person brp
-        WHERE brp.report_id=#{personId,jdbcType=BIGINT}
+        WHERE brp.report_id=#{personId,jdbcType=BIGINT} and brp.report_type != '1'
     </select>
     <select id="selectRepNo" resultType="java.lang.String">
         SELECT   bus_report.`report_no`  FROM   bus_report   ORDER   BY   bus_report.`report_id`   DESC   LIMIT   1
