@@ -59,22 +59,7 @@
     delete from bus_assignment_confirm
     where posse_confirmt_id = #{posseConfirmtId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.smart.bracelet.model.po.assets.BusAssignmentConfirm">
-    insert into bus_assignment_confirm (posse_confirmt_id, propert_id, confirm_no, 
-      creditor_name, creditor_sign, no_code, 
-      sign_date, guarantee, guarantee_no, 
-      assets_company_name, assets_card, assets_date, 
-      legal_represen, legal_represen_date, obligor, 
-      obligor_sign, obligor_idcard, obligor_date
-      )
-    values (#{posseConfirmtId,jdbcType=BIGINT}, #{propertId,jdbcType=BIGINT}, #{confirmNo,jdbcType=VARCHAR}, 
-      #{creditorName,jdbcType=VARCHAR}, #{creditorSign,jdbcType=VARCHAR}, #{noCode,jdbcType=VARCHAR}, 
-      #{signDate,jdbcType=DATE}, #{guarantee,jdbcType=VARCHAR},
-      #{assetsCompanyName,jdbcType=VARCHAR}, #{assetsCard,jdbcType=VARCHAR}, #{assetsDate,jdbcType=DATE}, 
-      #{legalRepresen,jdbcType=VARCHAR}, #{legalRepresenDate,jdbcType=DATE}, #{obligor,jdbcType=VARCHAR}, 
-      #{obligorSign,jdbcType=VARCHAR}, #{obligorIdcard,jdbcType=VARCHAR}, #{obligorDate,jdbcType=DATE}
-      )
-  </insert>
+
   <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.assets.BusAssignmentConfirm">
     insert into bus_assignment_confirm
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -101,7 +86,7 @@
       </if>
       <if test="guarantee != null">
         guarantee,
-
+      </if>
       <if test="assetsCompanyName != null">
         assets_company_name,
       </if>
@@ -208,7 +193,6 @@
       <if test="guarantee != null">
         guarantee = #{guarantee,jdbcType=VARCHAR},
       </if>
-
       <if test="assetsCompanyName != null">
         assets_company_name = #{assetsCompanyName,jdbcType=VARCHAR},
       </if>
@@ -239,24 +223,5 @@
     </set>
     where posse_confirmt_id = #{posseConfirmtId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.smart.bracelet.model.po.assets.BusAssignmentConfirm">
-    update bus_assignment_confirm
-    set propert_id = #{propertId,jdbcType=BIGINT},
-      confirm_no = #{confirmNo,jdbcType=VARCHAR},
-      creditor_name = #{creditorName,jdbcType=VARCHAR},
-      creditor_sign = #{creditorSign,jdbcType=VARCHAR},
-      no_code = #{noCode,jdbcType=VARCHAR},
-      sign_date = #{signDate,jdbcType=DATE},
-      guarantee = #{guarantee,jdbcType=VARCHAR},
-      assets_company_name = #{assetsCompanyName,jdbcType=VARCHAR},
-      assets_card = #{assetsCard,jdbcType=VARCHAR},
-      assets_date = #{assetsDate,jdbcType=DATE},
-      legal_represen = #{legalRepresen,jdbcType=VARCHAR},
-      legal_represen_date = #{legalRepresenDate,jdbcType=DATE},
-      obligor = #{obligor,jdbcType=VARCHAR},
-      obligor_sign = #{obligorSign,jdbcType=VARCHAR},
-      obligor_idcard = #{obligorIdcard,jdbcType=VARCHAR},
-      obligor_date = #{obligorDate,jdbcType=DATE}
-    where posse_confirmt_id = #{posseConfirmtId,jdbcType=BIGINT}
-  </update>
+
 </mapper>
