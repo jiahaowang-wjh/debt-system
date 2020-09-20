@@ -11,10 +11,11 @@
         <result column="partya_time" jdbcType="VARCHAR" property="partyaTime"/>
         <result column="partyb_seal" jdbcType="INTEGER" property="partybSeal"/>
         <result column="partyb_time" jdbcType="VARCHAR" property="partybTime"/>
+        <result column="modity_no" jdbcType="VARCHAR" property="modityNo"/>
     </resultMap>
     <sql id="Base_Column_List">
     sales_contract_modity_id, sales_contract_id, modity_name, modity_place, modity_specificat, 
-    partya_seal, partya_time, partyb_seal, partyb_time
+    partya_seal, partya_time, partyb_seal, partyb_time,modity_no
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
@@ -29,6 +30,9 @@
         from bus_agent_sales_contract_modity
         where sales_contract_id = #{salesContractId,jdbcType=BIGINT}
     </select>
+    <select id="selectNo" resultType="java.lang.String">
+        SELECT bus_agent_sales_contract_modity.`modity_no` FROM bus_agent_sales_contract_modity ORDER BY bus_agent_sales_contract_modity.`sales_contract_modity_id` DESC LIMIT 1
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from bus_agent_sales_contract_modity
     where sales_contract_modity_id = #{salesContractModityId,jdbcType=BIGINT}
@@ -37,15 +41,14 @@
         insert into bus_agent_sales_contract_modity (sales_contract_modity_id, sales_contract_id,
         modity_name, modity_place, modity_specificat,
         partya_seal, partya_time, partyb_seal,
-        partyb_time)
+        partyb_time,modity_no)
         values
         <foreach collection="list" item="item" index="index" separator=",">
             (#{item.salesContractModityId,jdbcType=BIGINT}, #{item.salesContractId,jdbcType=BIGINT},
             #{item.modityName,jdbcType=VARCHAR}, #{item.modityPlace,jdbcType=VARCHAR}, #{item.moditySpecificat,jdbcType=VARCHAR},
             #{item.partyaSeal,jdbcType=VARCHAR}, #{item.partyaTime,jdbcType=VARCHAR}, #{item.partybSeal,jdbcType=INTEGER},
-            #{item.partybTime,jdbcType=VARCHAR})
+            #{item.partybTime,jdbcType=VARCHAR},#{item.modityNo,jdbcType=VARCHAR})
         </foreach>
-
     </insert>
     <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.assets.BusAgentSalesContractModity">
         insert into bus_agent_sales_contract_modity

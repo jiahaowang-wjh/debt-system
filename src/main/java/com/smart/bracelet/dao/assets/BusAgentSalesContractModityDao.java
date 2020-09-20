@@ -23,4 +23,6 @@ public interface BusAgentSalesContractModityDao {
      * @return
      */
     BusAgentSalesContractModity selectBySalesContractId(Long salesContractId);
+
+    String selectNo();
 }

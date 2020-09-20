@@ -473,7 +473,7 @@
         LEFT JOIN pub_company pc ON pc.`company_id` = br.`company_id`
         LEFT JOIN (SELECT report_id, COUNT(0) AS 'busRelativeCount' FROM bus_relative_person GROUP BY report_id ) froma
         ON br.report_id= froma.report_id
-        LEFT JOIN (SELECT report_id, COUNT(0) AS 'resolveCount',SUM(amount_cumulative) AS 'cumulativeSum' FROM pub_debt
+        LEFT JOIN (SELECT report_id, COUNT(0) AS 'resolveCount',SUM(amount_this) AS 'cumulativeSum' FROM pub_debt
         GROUP BY report_id) fromb ON fromb.report_id=br.report_id
         LEFT JOIN (
         SELECT bus_report.`report_id`,pub_user.`user_id`,pub_person.`person_name` FROM bus_report
@@ -500,7 +500,7 @@
         ORDER BY br.`report_id` desc
     </select>
     <select id="selectANO" resultType="java.lang.String">
-          SELECT bus_report.`agreement_no` FROM bus_report ORDER BY bus_report.`agreement_no` desc
+          SELECT bus_report.`agreement_no` FROM bus_report
     </select>
     <select id="selectByreportId" resultType="com.smart.bracelet.model.po.debt.BusRelativePerson"
             parameterType="java.lang.Long">

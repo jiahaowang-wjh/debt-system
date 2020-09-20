@@ -6,8 +6,8 @@ import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.debt.BusPropert;
 import com.smart.bracelet.model.vo.assets.AssetsDebtBank;
-import com.smart.bracelet.model.vo.assets.AssetsMyDebt;
 import com.smart.bracelet.model.vo.debt.BusPropertVo;
+import com.smart.bracelet.model.vo.debt.DebtInfoQuery;
 import com.smart.bracelet.service.assets.BusPropertService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -36,7 +36,7 @@ public class BusPropertController {
     }
 
     @RequestMapping("/insertSelective")
-    @PreAuthorize("hasAnyAuthority('assets:add')")
+    @PreAuthorize("hasAnyAuthority('debt:update')")
     public Result insertSelective(@Valid BusPropert record) throws CustomerException {
         Long insertSelective = busPropertService.insertSelective(record);
         return Result.success(insertSelective + "");
@@ -87,7 +87,7 @@ public class BusPropertController {
     @PreAuthorize("hasAnyAuthority('assets:select')")
     public Result<PageInfo> querys(@NotNull(message = "页码不能为空") Integer pageNum,
                                    @NotNull(message = "当前显示条数不能为空") Integer pageSize,
-                                   @Valid AssetsMyDebt assetsMyDebt ) {
+                                   @Valid DebtInfoQuery assetsMyDebt) {
         PageHelper.startPage(pageNum, pageSize);
         List<AssetsDebtBank> querys = busPropertService.querys(assetsMyDebt);
         PageInfo<AssetsDebtBank> assetsDebtBankPageInfo = new PageInfo<>(querys);
@@ -95,9 +95,11 @@ public class BusPropertController {
     }
 
     @RequestMapping("/updateStage")
-   public Result updateStage(@NotBlank(message = "资产阶段不能为空") String stage,@NotNull(message = "资产id不能为空") Long propertId) throws CustomerException{
+    public Result updateStage(@NotBlank(message = "资产阶段不能为空") String stage, @NotNull(message = "资产id不能为空") Long propertId) throws CustomerException {
         int a = busPropertService.updateStage(stage, propertId);
         return Result.success(a);
-   }
+    }
+
+
 
 }

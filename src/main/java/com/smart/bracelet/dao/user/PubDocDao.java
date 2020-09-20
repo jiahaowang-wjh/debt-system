@@ -32,4 +32,7 @@ public interface PubDocDao {
      * @return
      */
     List<PubDoc> queryDoc();
+
+
+    String selectNo();
 }

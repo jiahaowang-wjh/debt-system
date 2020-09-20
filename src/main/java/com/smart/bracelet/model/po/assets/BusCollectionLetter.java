@@ -24,6 +24,11 @@ public class BusCollectionLetter implements Serializable {
     private Long collectionLettertId;
 
     /**
+     * 公司ID
+     */
+    @NotNull(message = "公司ID不能为空")
+    Long comId;
+    /**
      * 电子章
      */
     String chapter;

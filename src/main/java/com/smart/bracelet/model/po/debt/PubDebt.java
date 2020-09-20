@@ -236,4 +236,8 @@ public class PubDebt implements Serializable {
      * 担保人集合
      */
     BusGuarantee[] busGuarantee;
+
+    @NotNull(message = "公司Id不能为空")
+    Long comId;
+
 }

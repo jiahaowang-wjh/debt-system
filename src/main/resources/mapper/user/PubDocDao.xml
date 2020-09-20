@@ -5,9 +5,14 @@
     <id column="doc_id" jdbcType="BIGINT" property="docId" />
     <result column="doc_path" jdbcType="VARCHAR" property="docPath" />
     <result column="note" jdbcType="VARCHAR" property="note" />
+    <result column="doc_name" jdbcType="VARCHAR" property="docName" />
+    <result column="contract" jdbcType="VARCHAR" property="contract" />
+    <result column="report_id" jdbcType="BIGINT" property="reportId" />
+    <result column="debt_id" jdbcType="BIGINT" property="debtId" />
+    <result column="propert_id" jdbcType="BIGINT" property="propertId" />
   </resultMap>
   <sql id="Base_Column_List">
-    doc_id, doc_path, note
+    doc_id, doc_path, note,doc_name,contract,report_id,debt_id,propert_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -19,6 +24,9 @@
     select
     <include refid="Base_Column_List" />
     from pub_doc
+  </select>
+  <select id="selectNo" resultType="java.lang.String">
+    SELECT   pub_doc.contract  FROM  pub_doc    ORDER   BY   pub_doc.doc_id   DESC   LIMIT   1
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from pub_doc
@@ -43,6 +51,22 @@
       <if test="note != null">
         note,
       </if>
+
+      <if test="docName != null">
+        doc_name,
+      </if>
+      <if test="contract != null">
+        contract,
+      </if>
+      <if test="reportId != null">
+        report_id,
+      </if>
+      <if test="debtId != null">
+        debt_id,
+      </if>
+      <if test="propertId != null">
+        propert_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="docId != null">
@@ -53,6 +77,21 @@
       </if>
       <if test="note != null">
         #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="docName != null">
+        #{docName,jdbcType=VARCHAR},
+      </if>
+      <if test="contract != null">
+        #{contract,jdbcType=VARCHAR},
+      </if>
+      <if test="reportId != null">
+        #{reportId,jdbcType=BIGINT},
+      </if>
+      <if test="debtId != null">
+        #{debtId,jdbcType=BIGINT},
+      </if>
+      <if test="propertId != null">
+        #{propertId,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>

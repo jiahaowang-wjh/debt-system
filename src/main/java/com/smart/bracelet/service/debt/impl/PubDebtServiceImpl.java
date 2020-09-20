@@ -2,9 +2,11 @@ package com.smart.bracelet.service.debt.impl;
 
 import com.smart.bracelet.dao.debt.BusGuaranteeDao;
 import com.smart.bracelet.dao.debt.PubDebtDao;
+import com.smart.bracelet.dao.user.PubCompanyDao;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.po.debt.PubDebt;
+import com.smart.bracelet.model.po.user.PubCompany;
 import com.smart.bracelet.model.vo.debt.*;
 import com.smart.bracelet.service.debt.PubDebtService;
 import com.smart.bracelet.utils.IdUtils;
@@ -26,6 +28,8 @@ public class PubDebtServiceImpl implements PubDebtService {
 
     @Autowired
     private BusGuaranteeDao busGuaranteeDao;
+    @Autowired
+    private PubCompanyDao pubCompanyDao;
 
     @Override
     @Transactional(noRollbackFor = Exception.class)
@@ -45,11 +49,12 @@ public class PubDebtServiceImpl implements PubDebtService {
     @Transactional(noRollbackFor = Exception.class)
     public Long insertSelective(PubDebt record) throws CustomerException {
         try {
+            PubCompany pubCompany = pubCompanyDao.selectByPrimaryKey(record.getComId());
             Long l = IdUtils.nextId();
             String selectNo = pubDebtDao.selectNo();
             //累计金额等于本次加累计
             record.setAmountCumulative(record.getAmountCumulative() + record.getAmountThis());
-            String repNo = RepNoUtils.createRepNo("TZ", "ZLGS", selectNo);
+            String repNo = RepNoUtils.createRepNo("TZ", pubCompany.getCompanyNameMax(), selectNo);
             record.setDebtId(l);
             record.setDebtNo(createRepNo());
             record.setServiceNo(repNo);

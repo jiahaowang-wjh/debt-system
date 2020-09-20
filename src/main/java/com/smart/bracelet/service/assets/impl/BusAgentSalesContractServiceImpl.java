@@ -4,10 +4,12 @@ import com.smart.bracelet.controller.publicmethod.Formula;
 import com.smart.bracelet.dao.assets.BusAgentSalesContractDao;
 import com.smart.bracelet.dao.assets.BusAgentSalesContractModityDao;
 import com.smart.bracelet.dao.debt.PubDebtDao;
+import com.smart.bracelet.dao.user.PubCompanyDao;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.assets.BusAgentSalesContract;
 import com.smart.bracelet.model.po.assets.BusAgentSalesContractModity;
 import com.smart.bracelet.model.po.debt.PubDebt;
+import com.smart.bracelet.model.po.user.PubCompany;
 import com.smart.bracelet.model.vo.assets.BusAgentSalesContractShow;
 import com.smart.bracelet.model.vo.assets.BusAgentSalesContractVo;
 import com.smart.bracelet.model.vo.assets.FormulaVo;
@@ -39,6 +41,9 @@ public class BusAgentSalesContractServiceImpl implements BusAgentSalesContractSe
     @Autowired
     private PubDebtDao pubDebtDao;
 
+    @Autowired
+    private PubCompanyDao pubCompanyDao;
+
     @Override
     @Transactional(noRollbackFor = Exception.class)
     public int deleteByPrimaryKey(Long salesContractId) throws CustomerException {
@@ -55,11 +60,11 @@ public class BusAgentSalesContractServiceImpl implements BusAgentSalesContractSe
     @Transactional(rollbackFor = CustomerException.class)
     public Long insertSelective(BusAgentSalesContract record) throws CustomerException {
         try {
-            System.out.println(record.getAnnex());
+            PubCompany pubCompany = pubCompanyDao.selectByPrimaryKey(record.getComId());
             long l = IdUtils.nextId();
             String a = busAgentSalesContractDao.selectNo();
             record.setSalesContractId(l);
-            record.setSalesNo(RepNoUtils.createRepNo("TZ", "DLXS", a));
+            record.setSalesNo(RepNoUtils.createRepNo("FB", pubCompany.getCompanyNameMax(), a));
             busAgentSalesContractDao.insertSelective(record);
             log.info("新增委托合同成功");
             BusAgentSalesContractModity[] busAgentSalesContractModity2 = record.getBusAgentSalesContractModity();
@@ -76,6 +81,7 @@ public class BusAgentSalesContractServiceImpl implements BusAgentSalesContractSe
                 busAgentSalesContractModity1.setPartyaSeal(busAgentSalesContractModity.getPartyaSeal());
                 busAgentSalesContractModity1.setPartybSeal(busAgentSalesContractModity.getPartybSeal());
                 busAgentSalesContractModity1.setPartybTime(busAgentSalesContractModity.getPartybTime());
+                busAgentSalesContractModity1.setModityNo(RepNoUtils.createRepNo("SW",pubCompany.getCompanyNameMax(),busAgentSalesContractModityDao.selectNo()));
                 list.add(busAgentSalesContractModity1);
             }
             int i = busAgentSalesContractModityDao.insertSelectives(list);

@@ -70,4 +70,6 @@ public class Manner1 {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date partybDate;
 
+    @NotNull(message = "公司id不能为空")
+    Long comId;
 }

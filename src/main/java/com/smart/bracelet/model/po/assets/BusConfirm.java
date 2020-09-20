@@ -34,7 +34,6 @@ public class BusConfirm implements Serializable {
     /**
      * 编号
      */
-    @NotBlank(message = "编号不能为空")
     private String confirmNo;
 
     /**

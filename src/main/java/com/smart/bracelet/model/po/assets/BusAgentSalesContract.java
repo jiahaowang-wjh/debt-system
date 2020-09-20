@@ -97,5 +97,12 @@ public class BusAgentSalesContract implements Serializable {
      */
     private Date updateTime;
 
+    /**
+     * 公司ID
+     */
+    @NotNull(message = "公司Id不能为空")
+    Long comId;
+
+
     BusAgentSalesContractModity[] busAgentSalesContractModity;
 }

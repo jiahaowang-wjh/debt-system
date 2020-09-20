@@ -37,7 +37,9 @@ public class UserInfoServiceTest {
     @Test
     public void testA() throws ParseException {
 
-
+        String cellphone="15585458544";
+        String pwd = cellphone.substring(cellphone.length() - 6);
+        System.out.println(pwd);
     }
 
 }

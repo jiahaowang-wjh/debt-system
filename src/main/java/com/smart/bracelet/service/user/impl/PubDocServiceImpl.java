@@ -1,11 +1,14 @@
 package com.smart.bracelet.service.user.impl;
 
+import com.smart.bracelet.dao.user.PubCompanyDao;
 import com.smart.bracelet.dao.user.PubDocDao;
 import com.smart.bracelet.exception.CustomerException;
+import com.smart.bracelet.model.po.user.PubCompany;
 import com.smart.bracelet.model.po.user.PubDoc;
 import com.smart.bracelet.model.vo.user.PubDocVo;
 import com.smart.bracelet.service.user.PubDocService;
 import com.smart.bracelet.utils.IdUtils;
+import com.smart.bracelet.utils.RepNoUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +22,9 @@ public class PubDocServiceImpl implements PubDocService {
 
     @Autowired
     private PubDocDao pubDocDao;
+
+    @Autowired
+    private PubCompanyDao pubCompanyDao;
 
     @Override
     @Transactional(noRollbackFor = Exception.class)
@@ -37,7 +43,11 @@ public class PubDocServiceImpl implements PubDocService {
     @Transactional(noRollbackFor = Exception.class)
     public int insertSelective(PubDoc record) throws CustomerException {
         try {
+            PubCompany pubCompany = pubCompanyDao.selectByPrimaryKey(record.getComId());
             record.setDocId(IdUtils.nextId());
+            String s = pubDocDao.selectNo();
+            String ht = RepNoUtils.createRepNo(pubCompany.getCompanyNameMax(), pubCompany.getCompanyName(), s);
+            record.setContract(ht);
             int insertSelective = pubDocDao.insertSelective(record);
             return insertSelective;
         } catch (Exception e) {

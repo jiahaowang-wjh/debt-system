@@ -1,7 +1,9 @@
 package com.smart.bracelet.service.assets.impl;
 
+import com.smart.bracelet.dao.assets.BusAssignmentAgreementDao;
 import com.smart.bracelet.dao.assets.BusConfirmDao;
 import com.smart.bracelet.exception.CustomerException;
+import com.smart.bracelet.model.po.assets.BusAssignmentAgreement;
 import com.smart.bracelet.model.po.assets.BusConfirm;
 import com.smart.bracelet.model.vo.assets.BusConfirmShow;
 import com.smart.bracelet.model.vo.assets.BusConfirmVo;
@@ -21,6 +23,9 @@ public class BusConfirmServiceImpl implements BusConfirmService {
     @Autowired
     private BusConfirmDao busConfirmDao;
 
+    @Autowired
+    private BusAssignmentAgreementDao busAssignmentAgreementDao;
+
     @Override
     @Transactional(noRollbackFor = Exception.class)
     public int deleteByPrimaryKey(Long confirmtId) throws CustomerException {
@@ -38,6 +43,8 @@ public class BusConfirmServiceImpl implements BusConfirmService {
     @Transactional(noRollbackFor = Exception.class)
     public int insertSelective(BusConfirm record) throws CustomerException {
         try {
+            BusAssignmentAgreement busAssignmentAgreement = busAssignmentAgreementDao.selectByProId(record.getPropertId());
+            record.setConfirmNo(busAssignmentAgreement.getAssignmentAgreementNo()+"(-3)");
             record.setConfirmtId(IdUtils.nextId());
             int deleteByPrimaryKey = busConfirmDao.insertSelective(record);
             log.info("新增资产债权确认成功,受影响行数:{}", deleteByPrimaryKey);

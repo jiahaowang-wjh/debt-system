@@ -1,7 +1,9 @@
 package com.smart.bracelet.service.assets.impl;
 
+import com.smart.bracelet.dao.assets.BusAssignmentAgreementDao;
 import com.smart.bracelet.dao.assets.BusAssignmentNoticeDao;
 import com.smart.bracelet.exception.CustomerException;
+import com.smart.bracelet.model.po.assets.BusAssignmentAgreement;
 import com.smart.bracelet.model.po.assets.BusAssignmentNotice;
 import com.smart.bracelet.model.vo.assets.BusAssignmentNoticeShow;
 import com.smart.bracelet.model.vo.assets.BusAssignmentNoticeVo;
@@ -22,6 +24,8 @@ public class BusAssignmentNoticeServiceImpl implements BusAssignmentNoticeServic
     @Autowired
     private BusAssignmentNoticeDao busAssignmentNoticeDao;
 
+    @Autowired
+    private BusAssignmentAgreementDao assignmentAgreementDao;
     @Override
     public int deleteByPrimaryKey(Long assignmentNoticeId) throws CustomerException {
         try {
@@ -38,12 +42,10 @@ public class BusAssignmentNoticeServiceImpl implements BusAssignmentNoticeServic
     @Transactional(noRollbackFor = Exception.class)
     public Long insertSelective(BusAssignmentNotice record) throws CustomerException {
         try {
-
-            String s = busAssignmentNoticeDao.selectNo();
-            String zc = RepNoUtils.createRepNo("ZC", "ZRTZ", s);
+            BusAssignmentAgreement busAssignmentAgreement = assignmentAgreementDao.selectByProId(record.getPropertId());
             long l = IdUtils.nextId();
             record.setAssignmentNoticeId(l);
-            record.setNoticeNo(zc);
+            record.setNoticeNo(busAssignmentAgreement.getAssignmentAgreementNo()+"-(2)");
             int deleteByPrimaryKey = busAssignmentNoticeDao.insertSelective(record);
             log.info("新增资产债权转让通知书成功,受影响行数:{}", deleteByPrimaryKey);
             return l;

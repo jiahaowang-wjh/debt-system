@@ -38,11 +38,22 @@
         left join pub_company pc on br.company_id = pc.company_id
         <where>
             pd.`status` = '9'
-            <if test="companyType !=null and companyType!=''">
-               and pc.company_type =#{companyType,jdbcType=VARCHAR}
+            <if test="companyType != null and companyType!='' ">
+                and pc.company_type = #{companyType,jdbcType=VARCHAR}
+            </if>
+            <if test="personName != null and personName!='' ">
+                and brp.data1 = #{debtName,jdbcType=VARCHAR}
+            </if>
+            <if test="reportNo != null and reportNo!=''">
+                and br.report_no = #{reportNo,jdbcType=VARCHAR}
+            </if>
+            <if test="status != null and status!=''">
+                and br.status = #{status,jdbcType=VARCHAR}
+            </if>
+            <if test="beginDate != null and endDate != ''">
+                and br.create_time BETWEEN #{beginDate} AND #{endDate}
             </if>
         </where>
-
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from bus_propert

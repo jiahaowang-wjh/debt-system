@@ -1,11 +1,13 @@
 package com.smart.bracelet.service.assets.impl;
 
 import com.smart.bracelet.dao.assets.BusCompromiseAgreementDao;
+import com.smart.bracelet.dao.user.PubCompanyDao;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.assets.BusCompromiseAgreement;
 import com.smart.bracelet.model.po.assets.Manner1;
 import com.smart.bracelet.model.po.assets.Manner1AndManner2;
 import com.smart.bracelet.model.po.assets.Manner2;
+import com.smart.bracelet.model.po.user.PubCompany;
 import com.smart.bracelet.model.vo.assets.BusCompromiseAgreementShow;
 import com.smart.bracelet.model.vo.assets.Manner1Vo;
 import com.smart.bracelet.model.vo.assets.Manner2Vo;
@@ -30,6 +32,9 @@ public class BusCompromiseAgreementServiceImpl implements BusCompromiseAgreement
 
     @Autowired
     private BusCompromiseAgreementDao busCompromiseAgreementDao;
+
+    @Autowired
+    private PubCompanyDao pubCompanyDao;
 
     @Override
     @Transactional(noRollbackFor = Exception.class)
@@ -57,7 +62,8 @@ public class BusCompromiseAgreementServiceImpl implements BusCompromiseAgreement
     @Transactional(noRollbackFor = Exception.class)
     public int insertSelectiveManner1(Manner1 manner1Vo) throws CustomerException {
         String selectNo = busCompromiseAgreementDao.selectNo();
-        String repNo = RepNoUtils.createRepNo("ZCGS", "HJ", selectNo);
+        PubCompany pubCompany = pubCompanyDao.selectByPrimaryKey(manner1Vo.getComId());
+        String repNo = RepNoUtils.createRepNo("ZC", pubCompany.getCompanyNameMax(), selectNo);
         try {
             BusCompromiseAgreement busCompromiseAgreement = new BusCompromiseAgreement();
             busCompromiseAgreement.setCompromiseAgreementId(IdUtils.nextId());
@@ -90,8 +96,9 @@ public class BusCompromiseAgreementServiceImpl implements BusCompromiseAgreement
     @Override
     @Transactional(noRollbackFor = Exception.class)
     public int insertSelectiveManner2(Manner2 manner2Vo) throws CustomerException {
+        PubCompany pubCompany = pubCompanyDao.selectByPrimaryKey(manner2Vo.getComId());
         String selectNo = busCompromiseAgreementDao.selectNo();
-        String repNo = RepNoUtils.createRepNo("ZCGS", "HJ", selectNo);
+        String repNo = RepNoUtils.createRepNo("ZC", pubCompany.getCompanyNameMax(), selectNo);
         try {
             BusCompromiseAgreement busCompromiseAgreement = new BusCompromiseAgreement();
             busCompromiseAgreement.setCompromiseAgreementId(IdUtils.nextId());

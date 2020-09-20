@@ -195,7 +195,6 @@ public class BusRelativePersonPrivateVo {
     /**
      * 是负债经济使用用途
      */
-    @NotBlank(message = "是负债经济使用用途不能为空")
     private String usage;
 
     /**
