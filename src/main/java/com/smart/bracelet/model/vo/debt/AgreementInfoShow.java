@@ -27,6 +27,6 @@ public class AgreementInfoShow {
 
     String corBankPhone;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     Date createTime;
 }

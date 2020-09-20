@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -658,9 +659,9 @@ public class BusReportServiceImpl implements BusReportService {
 
     @Override
     @Transactional(noRollbackFor = Exception.class)
-    public int addAgreementNo(String partyA, String partyB, Long reportId,Long comId) throws CustomerException {
+    public int addAgreementNo(String partyA, String partyB, Long reportId, Long comId, Date agreementDate) throws CustomerException {
         try {
-            return busReportDao.addANO(partyA, partyB,agreementNo(comId), reportId);
+            return busReportDao.addANO(partyA, partyB,agreementNo(comId), reportId,agreementDate);
         } catch (Exception e) {
             log.error("异常信息:{}", e.getMessage());
             throw new CustomerException("新增失败");

@@ -46,12 +46,8 @@ public class BusAssignmentAgreementServiceImpl implements BusAssignmentAgreement
     @Transactional(noRollbackFor = Exception.class)
     public Long insertSelective(BusAssignmentAgreement record) throws CustomerException {
         try {
-            PubCompany pubCompany = pubCompanyDao.selectByPrimaryKey(record.getComId());
             long l = IdUtils.nextId();
-            String selectNo = busAssignmentAgreementDao.selectNo();
-            String repNo = RepNoUtils.createRepNo("ZC", pubCompany.getCompanyNameMax(), selectNo);
             record.setAssignmentAgreementId(l);
-            record.setAssignmentAgreementNo(repNo);
             int insertSelective = busAssignmentAgreementDao.insertSelective(record);
             log.info("新增资产债权转让协议成功,受影响行数:{}", insertSelective);
             return l;
@@ -87,13 +83,18 @@ public class BusAssignmentAgreementServiceImpl implements BusAssignmentAgreement
     /**
      * 页面初始化
      *
-     * @param relativePerId 相对人Id
+     * @param propertId
      * @return
      */
     @Override
-    public BusAssignmentAgreementShow initialize(Long relativePerId) throws CustomerException {
+    public BusAssignmentAgreementShow initialize(Long propertId,Long comId) throws CustomerException {
         try {
-            BusAssignmentAgreementShow agreementShow = busAssignmentAgreementDao.initialize(relativePerId);
+            PubCompany pubCompany = pubCompanyDao.selectByPrimaryKey(comId);
+            String selectNo = busAssignmentAgreementDao.selectNo();
+            String repNo = RepNoUtils.createRepNo("ZC", pubCompany.getCompanyNameMax(), selectNo);
+            BusAssignmentAgreementShow agreementShow = busAssignmentAgreementDao.initialize(propertId);
+            agreementShow.setAssignmentAgreementNo(repNo);
+            agreementShow.setThisTime(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
             int debtYaer = Integer.parseInt(agreementShow.getDebtYaer());
             switch (debtYaer) {
                 case 1:
@@ -113,7 +114,6 @@ public class BusAssignmentAgreementServiceImpl implements BusAssignmentAgreement
                 agreementShow.setPriAdd(null);
                 agreementShow.setPriPhone(null);
             }
-            agreementShow.setThisTime(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
             return agreementShow;
         } catch (Exception e) {
             log.error("异常信息:{}", e.getMessage());

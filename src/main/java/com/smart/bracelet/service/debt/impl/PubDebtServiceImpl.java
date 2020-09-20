@@ -4,6 +4,7 @@ import com.smart.bracelet.dao.debt.BusGuaranteeDao;
 import com.smart.bracelet.dao.debt.PubDebtDao;
 import com.smart.bracelet.dao.user.PubCompanyDao;
 import com.smart.bracelet.exception.CustomerException;
+import com.smart.bracelet.model.po.debt.AssService;
 import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.po.debt.PubDebt;
 import com.smart.bracelet.model.po.user.PubCompany;
@@ -49,15 +50,12 @@ public class PubDebtServiceImpl implements PubDebtService {
     @Transactional(noRollbackFor = Exception.class)
     public Long insertSelective(PubDebt record) throws CustomerException {
         try {
-            PubCompany pubCompany = pubCompanyDao.selectByPrimaryKey(record.getComId());
             Long l = IdUtils.nextId();
-            String selectNo = pubDebtDao.selectNo();
             //累计金额等于本次加累计
             record.setAmountCumulative(record.getAmountCumulative() + record.getAmountThis());
-            String repNo = RepNoUtils.createRepNo("TZ", pubCompany.getCompanyNameMax(), selectNo);
             record.setDebtId(l);
             record.setDebtNo(createRepNo());
-            record.setServiceNo(repNo);
+
             int insertSelective = pubDebtDao.insertSelective(record);
             log.info("新增解债信息成功,受影响行数:{}", insertSelective);
             return l;
@@ -143,6 +141,26 @@ public class PubDebtServiceImpl implements PubDebtService {
     @Override
     public List<PubDebtInfo> selectByReportIds(Long reportId) {
         return pubDebtDao.selectByReportIds(reportId);
+    }
+
+    @Override
+    public int updateService(AssService assService) throws CustomerException {
+        try {
+            PubCompany pubCompany = pubCompanyDao.selectByPrimaryKey(assService.getComId());
+            String selectNo = pubDebtDao.selectNo();
+            String repNo = RepNoUtils.createRepNo("TZ", pubCompany.getCompanyNameMax(), selectNo);
+            assService.setServiceNo(repNo);
+            log.info("新增咨询服务协议成功");
+            return pubDebtDao.updateService(assService);
+        } catch (Exception e) {
+            log.error("新增咨询服务协议失败,异常信息：{}",e.getMessage());
+            throw new CustomerException("新增咨询服务协议失败");
+        }
+    }
+
+    @Override
+    public AssService selectAssService(Long debtId) {
+        return pubDebtDao.selectAssService(debtId);
     }
 
 

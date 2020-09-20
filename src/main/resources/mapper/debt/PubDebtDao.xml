@@ -372,6 +372,7 @@
         </set>
         where debt_id = #{debtId,jdbcType=BIGINT}
     </update>
+
     <select id="selectDaysCount" resultType="com.smart.bracelet.model.po.debt.DateAndDays">
       SELECT DATE_FORMAT(pub_debt.create_time,'%Y-%m-%d') days,COUNT(*) COUNT
       FROM pub_debt
@@ -452,6 +453,15 @@
         from pub_debt
         where relative_per_id = #{relativePerId,jdbcType=BIGINT}
     </select>
+    <select id="selectAssService" resultType="com.smart.bracelet.model.po.debt.AssService"
+            parameterType="java.lang.Long">
+        select
+        service_no,partya_identity as 'personType',service_principal,service_interest,service_date,debt_id
+        from pub_debt
+        where debt_id = #{debtId,jdbcType=BIGINT}
+    </select>
 
-
+    <update id="updateService" parameterType="com.smart.bracelet.model.po.debt.AssService">
+        update pub_debt set service_no =#{serviceNo},partya_identity =#{personType},service_principal = #{servicePrincipal},service_interest= #{serviceInterest},service_date =#{serviceDate} where debt_id =#{debtId}
+    </update>
 </mapper>

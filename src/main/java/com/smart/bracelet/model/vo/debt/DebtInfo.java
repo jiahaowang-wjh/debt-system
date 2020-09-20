@@ -49,12 +49,12 @@ public class DebtInfo {
     /**
      * 提交时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     Date submitDate;
     /**
      * 审核时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     Date checkDate;
     /**
      * 审批内容

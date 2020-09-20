@@ -6,6 +6,7 @@ import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.vo.debt.*;
 import org.springframework.stereotype.Repository;
 
+import javax.xml.crypto.Data;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
@@ -80,7 +81,7 @@ public interface BusReportDao {
     /**
      * 新增暨尽编号
      */
-    int addANO(String partyA, String partyB,String agreementNo,Long reportId);
+    int addANO(String partyA, String partyB, String agreementNo, Long reportId, Date agreementDate);
 
     /**
      * 暨尽协议下载

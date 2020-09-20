@@ -2,7 +2,9 @@ package com.smart.bracelet.model.vo.assets;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -42,7 +44,7 @@ public class BusAssignmentAgreementShow {
     /**
      * 借款发生时间务
      */
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     Date obligatTime;
     /**
      * 当前日期
@@ -72,4 +74,9 @@ public class BusAssignmentAgreementShow {
      * 性质
      */
     String reportPropert;
+
+    /**
+     * 债权转让协议编号
+     */
+    String assignmentAgreementNo;
 }

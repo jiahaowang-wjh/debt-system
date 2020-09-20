@@ -1,5 +1,6 @@
 package com.smart.bracelet.dao.debt;
 
+import com.smart.bracelet.model.po.debt.AssService;
 import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.po.debt.PubDebt;
 import com.smart.bracelet.model.vo.debt.*;
@@ -88,5 +89,19 @@ public interface PubDebtDao {
      * @return
      */
      DebtMoney selectMoney(Long relativePerId);
+
+
+    /**
+     * 新增咨询服务协议
+     */
+    int updateService(AssService assService);
+
+    /**
+     * 查询策划方案协议
+     * @param debtId
+     * @return
+     */
+    AssService selectAssService(Long debtId);
+
 
 }

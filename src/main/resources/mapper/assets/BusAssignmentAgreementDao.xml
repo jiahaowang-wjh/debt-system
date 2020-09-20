@@ -32,12 +32,14 @@
         SELECT  `bus_assignment_agreement`.assignment_agreement_no  FROM   `bus_assignment_agreement`   ORDER   BY   `bus_assignment_agreement`.assignment_agreement_id   DESC   LIMIT   1
     </select>
     <select id="initialize" resultType="com.smart.bracelet.model.vo.assets.BusAssignmentAgreementShow">
-        SELECT pd.service_principal,pd.service_interest,br.`report_propert`,pd.`debt_yaer`,brp.`data1` AS 'personName',br.`report_id`,br.obligat_time,br.`data1` AS 'debtName',br.`data2` AS 'idCard',br.data5 AS 'priAdd',br.`data7` AS 'corBankAdd',br.`data3` AS 'priPhone',br.`data9` AS 'corBankPhone',
+        SELECT baa.`assignment_agreement_no`,pd.service_principal,pd.service_interest,br.`report_propert`,pd.`debt_yaer`,brp.`data1` AS 'personName',br.`report_id`,br.obligat_time,br.`data1` AS 'debtName',br.`data2` AS 'idCard',br.data5 AS 'priAdd',br.`data7` AS 'corBankAdd',br.`data3` AS 'priPhone',br.`data9` AS 'corBankPhone',
         pd.amount_this
         FROM  pub_debt pd
-		LEFT JOIN bus_report br ON br.`report_id` = pd.`report_id`
+        LEFT JOIN bus_report br ON br.`report_id` = pd.`report_id`
         LEFT JOIN bus_relative_person brp ON brp.`report_id` = pd.`report_id`
-        WHERE brp.`relative_per_id` = #{relativePerId,jdbcType=BIGINT}
+        LEFT JOIN bus_propert bp ON pd.`debt_id` = bp.`debt_id`
+        LEFT JOIN bus_assignment_agreement baa ON bp.`propert_id` = baa.`propert_id`
+        WHERE bp.`propert_id` =#{propertId}
     </select>
     <select id="selectByProId" resultType="com.smart.bracelet.model.po.assets.BusAssignmentAgreement"
             parameterType="java.lang.Long">

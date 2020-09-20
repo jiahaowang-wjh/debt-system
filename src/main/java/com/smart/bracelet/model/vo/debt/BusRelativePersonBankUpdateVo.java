@@ -14,11 +14,7 @@ public class BusRelativePersonBankUpdateVo {
      */
     @NotNull(message = "相对人ID不能为空")
     private Long relativePerId;
-    /**
-     * 暨尽调协议编号
-     */
-    @NotBlank(message = "暨尽调协议编号不能为空")
-    private String agreementNo;
+
     /**
      * 报备ID
      */
@@ -170,7 +166,6 @@ public class BusRelativePersonBankUpdateVo {
     /**
      * 是负债经济使用用途
      */
-    @NotBlank(message = "是负债经济使用用途不能为空")
     private String usage;
 
     /**

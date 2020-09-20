@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
+import com.smart.bracelet.model.po.debt.AssService;
 import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.po.debt.PubDebt;
 import com.smart.bracelet.model.vo.debt.*;
@@ -161,4 +162,27 @@ public class PubDebtController {
         List<PubDebtInfo> pubDebtInfos = pubDebtService.selectByReportIds(reportId);
         return Result.success(pubDebtInfos);
     }
+
+    /**
+     * 新增咨询服务协议
+     */
+    @RequestMapping("/insertService")
+    public Result updateService(@Valid AssService assService) throws CustomerException {
+        int a = pubDebtService.updateService(assService);
+        return Result.success(a);
+    }
+
+    /**
+     * 查询策划方案协议
+     *
+     * @param debtId
+     * @return
+     */
+    @RequestMapping("/selectAssService")
+    public Result<AssService> selectAssService(@NotNull Long debtId) {
+        AssService assService = pubDebtService.selectAssService(debtId);
+        return Result.success(assService);
+    }
+
+
 }

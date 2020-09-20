@@ -62,13 +62,13 @@ public class BusAssignmentAgreementController {
     /**
      * 页面初始化数据
      *
-     * @param relativePerId
+     * @param propertId
      * @return
      */
     @RequestMapping("/initialize")
     @PreAuthorize("hasAnyAuthority('assets:select')")
-    public Result<BusAssignmentAgreementShow> initialize(@NotNull(message = "相对人ID不能为空") Long relativePerId) throws CustomerException {
-        BusAssignmentAgreementShow initialize = busAssignmentAgreementService.initialize(relativePerId);
+    public Result<BusAssignmentAgreementShow> initialize(@NotNull(message = "资产ID不能为空") Long propertId,@NotNull(message = "公司Id不能为空") Long comId) throws CustomerException {
+        BusAssignmentAgreementShow initialize = busAssignmentAgreementService.initialize(propertId,comId);
         return Result.success(initialize);
     }
 

@@ -1,6 +1,7 @@
 package com.smart.bracelet.service.debt;
 
 import com.smart.bracelet.exception.CustomerException;
+import com.smart.bracelet.model.po.debt.AssService;
 import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.po.debt.PubDebt;
 import com.smart.bracelet.model.vo.debt.*;
@@ -65,4 +66,17 @@ public interface PubDebtService {
      * 解债页面展示
      */
     List<PubDebtInfo> selectByReportIds(Long reportId);
+
+    /**
+     * 新增咨询服务协议
+     */
+    int updateService(AssService assService) throws CustomerException;
+
+    /**
+     * 查询策划方案协议
+     * @param debtId
+     * @return
+     */
+    AssService selectAssService(Long debtId);
+
 }

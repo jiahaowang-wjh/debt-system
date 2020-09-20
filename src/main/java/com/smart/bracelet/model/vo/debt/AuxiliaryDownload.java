@@ -26,7 +26,7 @@ public class AuxiliaryDownload {
     /**
      * 创建时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     Date createTime;
 
     /**

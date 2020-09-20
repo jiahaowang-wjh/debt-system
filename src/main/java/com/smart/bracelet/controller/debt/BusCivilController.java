@@ -168,7 +168,7 @@ public class BusCivilController {
 
     /**
      * 通过报备ID查询民事调解协议
-     *      *
+     *
      * @param reportId
      * @return
      */
@@ -189,6 +189,7 @@ public class BusCivilController {
         List<CivilAndPseronInfo> civilAndPseronInfos = busCivilService.selectCivi(reportId);
         return Result.success(civilAndPseronInfos);
     }
+
 
 
 }

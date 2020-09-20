@@ -16,6 +16,11 @@ public class PlanServiceInfo {
      */
     String debtName;
 
+    /**
+     * 服务编号
+     */
+    String serviceNo;
+
     @JsonSerialize(using = ToStringSerializer.class)
     Long debtId;
 
@@ -68,18 +73,4 @@ public class PlanServiceInfo {
      */
     String reportPropert;
 
-    /**
-     * 甲方地址
-     */
-    String partyaAddrInfo;
-
-    /**
-     * 甲方联系人
-     */
-    String partyaPersonInfo;
-
-    /**
-     * 甲方联系方式
-     */
-    String partyaTelInfo;
 }

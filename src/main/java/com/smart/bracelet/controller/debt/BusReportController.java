@@ -1,5 +1,6 @@
 package com.smart.bracelet.controller.debt;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.smart.bracelet.exception.CustomerException;
@@ -10,6 +11,7 @@ import com.smart.bracelet.model.vo.debt.*;
 import com.smart.bracelet.service.debt.BusReportService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -236,8 +239,8 @@ public class BusReportController {
      */
     @RequestMapping("/addAgreementNo")
     @PreAuthorize("hasAnyAuthority('debt:add')")
-    public Result addAgreementNo(@NotBlank(message = "甲方不能为空") String partyA, @NotBlank(message = "乙方不能为空") String partyB, @NotNull(message = "报备ID不能为空") Long reportId,Long comId) throws CustomerException {
-        int a = busReportService.addAgreementNo(partyA, partyB, reportId,comId);
+    public Result addAgreementNo(@NotBlank(message = "甲方不能为空") String partyA, @NotBlank(message = "乙方不能为空") String partyB, @NotNull(message = "报备ID不能为空") Long reportId, @NotNull(message = "公司ID不能为空") Long comId, @NotNull(message = "签约日期不能为空") @DateTimeFormat(pattern = "yyyy-MM-dd") Date agreementDate) throws CustomerException {
+        int a = busReportService.addAgreementNo(partyA, partyB, reportId,comId,agreementDate);
         return Result.success(a);
     }
 

@@ -8,6 +8,7 @@ import com.smart.bracelet.model.vo.debt.*;
 import com.smart.bracelet.utils.RepNoUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Date;
 import java.util.List;
 
 public interface BusReportService {
@@ -100,7 +101,7 @@ public interface BusReportService {
     /**
      * 提交暨尽调协议生成编号
      */
-    int addAgreementNo(String partyA, String partyB,Long reportId,Long comId) throws CustomerException;
+    int addAgreementNo(String partyA, String partyB, Long reportId, Long comId, Date agreementDate) throws CustomerException;
 
     /**
      * 暨尽协议下载
