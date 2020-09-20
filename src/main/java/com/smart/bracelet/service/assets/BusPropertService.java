@@ -5,6 +5,7 @@ import com.smart.bracelet.model.po.debt.BusPropert;
 import com.smart.bracelet.model.vo.assets.AssetsDebtBank;
 import com.smart.bracelet.model.vo.assets.AssetsMyDebt;
 import com.smart.bracelet.model.vo.debt.BusPropertVo;
+import com.smart.bracelet.model.vo.debt.DebtInfoQuery;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -32,6 +33,6 @@ public interface BusPropertService {
      * 资产系统，我的债行
      * @return
      */
-    List<AssetsDebtBank> querys(AssetsMyDebt assetsMyDebt);
+    List<AssetsDebtBank> querys(DebtInfoQuery assetsMyDebt);
     int updateStage(String stage,Long propertId) throws CustomerException;
 }

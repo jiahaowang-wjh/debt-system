@@ -15,6 +15,9 @@ public class Manner2 {
      */
     private Long compromiseAgreementId;
 
+    @NotNull(message = "公司Id不能为空")
+    Long comId;
+
     /**
      * 资产ID
      */

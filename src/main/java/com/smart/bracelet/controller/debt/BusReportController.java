@@ -236,8 +236,8 @@ public class BusReportController {
      */
     @RequestMapping("/addAgreementNo")
     @PreAuthorize("hasAnyAuthority('debt:add')")
-    public Result addAgreementNo(@NotBlank(message = "甲方不能为空") String partyA, @NotBlank(message = "乙方不能为空") String partyB, @NotNull(message = "报备ID不能为空") Long reportId) throws CustomerException {
-        int a = busReportService.addAgreementNo(partyA, partyB, reportId);
+    public Result addAgreementNo(@NotBlank(message = "甲方不能为空") String partyA, @NotBlank(message = "乙方不能为空") String partyB, @NotNull(message = "报备ID不能为空") Long reportId,Long comId) throws CustomerException {
+        int a = busReportService.addAgreementNo(partyA, partyB, reportId,comId);
         return Result.success(a);
     }
 

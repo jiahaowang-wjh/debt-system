@@ -8,9 +8,10 @@
     <result column="company_type" jdbcType="VARCHAR" property="companyType" />
     <result column="company_leperson" jdbcType="VARCHAR" property="companyLeperson" />
     <result column="company_tel" jdbcType="VARCHAR" property="companyTel" />
+    <result column="company_name_max" jdbcType="VARCHAR" property="companyNameMax" />
   </resultMap>
   <sql id="Base_Column_List">
-    company_id, area_id, company_name, company_type, company_leperson, company_tel
+    company_id, area_id, company_name, company_type, company_leperson, company_tel,company_name_max
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -49,6 +50,9 @@
       <if test="companyTel != null">
         company_tel,
       </if>
+      <if test="companyNameMax != null">
+        company_name_max,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="companyId != null">
@@ -69,6 +73,9 @@
       <if test="companyTel != null">
         #{companyTel,jdbcType=VARCHAR},
       </if>
+      <if test="companyNameMax != null">
+        #{companyNameMax,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective">
@@ -88,6 +95,9 @@
       </if>
       <if test="companyTel != null">
         company_tel = #{companyTel,jdbcType=VARCHAR},
+      </if>
+      <if test="companyNameMax != null">
+        company_name_max = #{companyNameMax,jdbcType=VARCHAR},
       </if>
     </set>
     where company_id = #{companyId,jdbcType=BIGINT}

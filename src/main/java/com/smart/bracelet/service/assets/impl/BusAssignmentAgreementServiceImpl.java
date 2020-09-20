@@ -1,8 +1,10 @@
 package com.smart.bracelet.service.assets.impl;
 
 import com.smart.bracelet.dao.assets.BusAssignmentAgreementDao;
+import com.smart.bracelet.dao.user.PubCompanyDao;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.assets.BusAssignmentAgreement;
+import com.smart.bracelet.model.po.user.PubCompany;
 import com.smart.bracelet.model.vo.assets.BusAssignmentAgreementShow;
 import com.smart.bracelet.model.vo.assets.BusAssignmentAgreementVo;
 import com.smart.bracelet.service.assets.BusAssignmentAgreementService;
@@ -24,6 +26,9 @@ public class BusAssignmentAgreementServiceImpl implements BusAssignmentAgreement
     @Autowired
     private BusAssignmentAgreementDao busAssignmentAgreementDao;
 
+    @Autowired
+    private PubCompanyDao pubCompanyDao;
+
     @Override
     @Transactional(noRollbackFor = Exception.class)
     public int deleteByPrimaryKey(Long assignmentAgreementId) throws CustomerException {
@@ -41,9 +46,10 @@ public class BusAssignmentAgreementServiceImpl implements BusAssignmentAgreement
     @Transactional(noRollbackFor = Exception.class)
     public Long insertSelective(BusAssignmentAgreement record) throws CustomerException {
         try {
+            PubCompany pubCompany = pubCompanyDao.selectByPrimaryKey(record.getComId());
             long l = IdUtils.nextId();
             String selectNo = busAssignmentAgreementDao.selectNo();
-            String repNo = RepNoUtils.createRepNo("ZCGS", "ZQZR", selectNo);
+            String repNo = RepNoUtils.createRepNo("ZC", pubCompany.getCompanyNameMax(), selectNo);
             record.setAssignmentAgreementId(l);
             record.setAssignmentAgreementNo(repNo);
             int insertSelective = busAssignmentAgreementDao.insertSelective(record);

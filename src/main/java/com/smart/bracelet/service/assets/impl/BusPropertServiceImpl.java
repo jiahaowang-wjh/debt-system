@@ -6,6 +6,7 @@ import com.smart.bracelet.model.po.debt.BusPropert;
 import com.smart.bracelet.model.vo.assets.AssetsDebtBank;
 import com.smart.bracelet.model.vo.assets.AssetsMyDebt;
 import com.smart.bracelet.model.vo.debt.BusPropertVo;
+import com.smart.bracelet.model.vo.debt.DebtInfoQuery;
 import com.smart.bracelet.service.assets.BusPropertService;
 import com.smart.bracelet.utils.IdUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -87,7 +88,7 @@ public class BusPropertServiceImpl implements BusPropertService {
     }
 
     @Override
-    public List<AssetsDebtBank> querys(AssetsMyDebt assetsMyDebt) {
+    public List<AssetsDebtBank> querys(DebtInfoQuery assetsMyDebt) {
         if (assetsMyDebt.getCompanyType().equals("1")) {
             assetsMyDebt.setCompanyType(null);
         }

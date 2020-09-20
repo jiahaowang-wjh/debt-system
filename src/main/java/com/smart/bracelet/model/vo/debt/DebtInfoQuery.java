@@ -13,6 +13,12 @@ public class DebtInfoQuery {
      * 债事人
      */
     String debtName;
+
+    /**
+     * 相对人
+     */
+    String personName;
+
     /**
      * 报备编号
      */

@@ -93,4 +93,9 @@ public class BusAssignmentAgreement implements Serializable {
     @NotBlank(message = "签约地不能为空")
     private String signupAddr;
 
+    /**
+     * 公司Id
+     */
+    @NotNull(message = "公司ID不能为空")
+    Long comId;
 }

@@ -1,8 +1,10 @@
 package com.smart.bracelet.service.assets.impl;
 
 import com.smart.bracelet.dao.assets.BusCollectionLetterDao;
+import com.smart.bracelet.dao.user.PubCompanyDao;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.assets.BusCollectionLetter;
+import com.smart.bracelet.model.po.user.PubCompany;
 import com.smart.bracelet.model.vo.assets.BusCollectionLetterShow;
 import com.smart.bracelet.model.vo.assets.BusCollectionLetterVo;
 import com.smart.bracelet.service.assets.BusCollectionLetterService;
@@ -23,6 +25,9 @@ public class BusCollectionLetterServiceImpl implements BusCollectionLetterServic
     @Autowired
     private BusCollectionLetterDao busCollectionLetterDao;
 
+    @Autowired
+    private PubCompanyDao pubCompanyDao;
+
     @Override
     @Transactional(noRollbackFor = Exception.class)
     public int deleteByPrimaryKey(Long collectionLettertId) throws CustomerException {
@@ -40,7 +45,8 @@ public class BusCollectionLetterServiceImpl implements BusCollectionLetterServic
     @Transactional(noRollbackFor = Exception.class)
     public int insertSelective(BusCollectionLetter record) throws CustomerException {
         String selectNo = busCollectionLetterDao.selectNo();
-        String repNo = RepNoUtils.createRepNo("ZCGS", "CKH", selectNo);
+        PubCompany pubCompany = pubCompanyDao.selectByPrimaryKey(record.getComId());
+        String repNo = RepNoUtils.createRepNo("ZC",pubCompany.getCompanyNameMax(),selectNo);
         try {
             record.setCollectionLettertId(IdUtils.nextId());
             record.setCollectionLettertNo(repNo);
