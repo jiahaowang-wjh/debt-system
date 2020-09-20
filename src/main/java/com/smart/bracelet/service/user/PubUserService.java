@@ -1,6 +1,7 @@
 package com.smart.bracelet.service.user;
 
 import com.smart.bracelet.exception.CustomerException;
+import com.smart.bracelet.model.po.user.PubAuth;
 import com.smart.bracelet.model.po.user.PubMenu;
 import com.smart.bracelet.model.po.user.PubUser;
 import com.smart.bracelet.model.po.user.PersonOnUserOnCom;
@@ -66,6 +67,12 @@ public interface PubUserService {
      * @return
      */
     List<PubMenu> selectMenuByUserId(Long userId);
+
+    /**
+     * 通过角色ID查询权限信息
+     * @return
+     */
+    List<PubAuth> selectAuthByRoleId(Long roleId,Long menuId);
 
     /**
      * 修改密码

@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
+import com.smart.bracelet.model.po.user.PubAuth;
 import com.smart.bracelet.model.po.user.PubMenu;
 import com.smart.bracelet.model.po.user.PubUser;
 import com.smart.bracelet.model.po.user.PersonOnUserOnCom;
@@ -116,6 +117,18 @@ public class PubUserController {
     public Result<List<PubMenu>> selectMenuByUserId(@NotNull(message = "用户Id不能为空") Long userId) {
         List<PubMenu> pubMenus = userInfoService.selectMenuByUserId(userId);
         return Result.success(pubMenus);
+    }
+
+    /**
+     * 通过用户Id查询菜单信息
+     *
+     * @param roleId
+     * @return
+     */
+    @RequestMapping("/selectAuthByRoleId")
+    public Result<List<PubAuth>> selectAuthByRoleId(@NotNull(message = "用户Id不能为空") Long roleId,@NotNull(message = "菜单Id不能为空") Long menuId) {
+        List<PubAuth> pubauths = userInfoService.selectAuthByRoleId(roleId,menuId);
+        return Result.success(pubauths);
     }
 
     /**
