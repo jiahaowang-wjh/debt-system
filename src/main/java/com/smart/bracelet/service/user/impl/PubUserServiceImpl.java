@@ -2,6 +2,7 @@ package com.smart.bracelet.service.user.impl;
 
 import com.smart.bracelet.dao.user.PubUserDao;
 import com.smart.bracelet.exception.CustomerException;
+import com.smart.bracelet.model.po.user.PubAuth;
 import com.smart.bracelet.model.po.user.PubMenu;
 import com.smart.bracelet.model.po.user.PubUser;
 import com.smart.bracelet.model.po.user.PersonOnUserOnCom;
@@ -131,6 +132,11 @@ public class PubUserServiceImpl implements PubUserService {
     @Override
     public List<PubMenu> selectMenuByUserId(Long userId) {
         return pubUserDao.selectMenuByUserId(userId);
+    }
+
+    @Override
+    public List<PubAuth> selectAuthByRoleId(Long roleId,Long menuId) {
+        return pubUserDao.selectAuthByRoleId(roleId,menuId);
     }
 
     /**

@@ -45,6 +45,15 @@
      INNER JOIN pub_menu pm ON pro.`menu_id`=pm.`menu_id`
      WHERE pu.`user_id`=#{userId,jdbcType=BIGINT}
   </select>
+
+    <select id="selectAuthByRoleId" resultType="com.smart.bracelet.model.po.user.PubAuth">
+     SELECT   b.* FROM
+        (SELECT * FROM pub_roleauth WHERE role_id = =#{roleId,jdbcType=BIGINT}) a
+        LEFT OUTER JOIN
+        (SELECT * FROM pub_auth WHERE menu_id = =#{menuId,jdbcType=BIGINT})b ON a.auth_id = b.auth_id
+        WHERE b.auth_id IS NOT NULL
+  </select>
+
     <select id="queryList" resultType="com.smart.bracelet.model.po.user.PersonOnUserOnCom">
         SELECT pp.note,pp.person_id,pp.person_name,pp.age,pp.person_type,pp.tel,pc.company_id,pc.company_name,pc.company_type,pp.sex
         from pub_person pp
