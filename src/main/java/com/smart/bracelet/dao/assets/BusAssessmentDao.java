@@ -24,7 +24,7 @@ public interface BusAssessmentDao {
      */
     String selectNo();
 
-    List<DateAndDays> selectDaysCount(String type);
+    List<DateAndDays> selectDaysCount(String type,Long comId);
 
     /**
      * 资产评估页面初始化

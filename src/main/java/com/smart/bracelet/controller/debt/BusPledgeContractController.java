@@ -24,35 +24,30 @@ public class BusPledgeContractController {
     private BusPledgeContractService busPledgeContractService;
 
     @RequestMapping("/deleteByPrimaryKey")
-    @PreAuthorize("hasAnyAuthority('debt:delete')")
     public Result deleteByPrimaryKey(@NotNull(message = "质押合同ID不能为空") Long pledgeContractId) throws CustomerException {
         int deleteByPrimaryKey = busPledgeContractService.deleteByPrimaryKey(pledgeContractId);
         return Result.success(deleteByPrimaryKey);
     }
 
     @RequestMapping("/insertSelective")
-    @PreAuthorize("hasAnyAuthority('debt:add')")
     public Result insertSelective(@Valid BusPledgeContract record) throws CustomerException {
         int insertSelective = busPledgeContractService.insertSelective(record);
         return Result.success(insertSelective);
     }
 
     @RequestMapping("/selectByPrimaryKey")
-    @PreAuthorize("hasAnyAuthority('debt:select')")
     public Result<BusPledgeContract> selectByPrimaryKey(@NotNull(message = "质押合同ID不能为空") Long pledgeContractId) {
         BusPledgeContract busPledgeContract = busPledgeContractService.selectByPrimaryKey(pledgeContractId);
         return Result.success(busPledgeContract);
     }
 
     @RequestMapping("/updateByPrimaryKeySelective")
-    @PreAuthorize("hasAnyAuthority('debt:update')")
     public Result updateByPrimaryKeySelective(@Valid BusPledgeContractVo record) throws CustomerException {
         int updateByPrimaryKeySelective = busPledgeContractService.updateByPrimaryKeySelective(record);
         return Result.success(updateByPrimaryKeySelective);
     }
 
     @RequestMapping("/queryList")
-    @PreAuthorize("hasAnyAuthority('debt:select')")
     public Result<List<BusPledgeContract>> queryList() {
         List<BusPledgeContract> busPledgeContracts = busPledgeContractService.queryList();
         return Result.success(busPledgeContracts);

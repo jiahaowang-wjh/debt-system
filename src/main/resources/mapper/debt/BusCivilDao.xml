@@ -44,13 +44,20 @@
       SELECT  bus_civil.`civilno`  FROM   bus_civil   ORDER   BY    bus_civil.`civilno`   DESC   LIMIT   1
     </select>
     <select id="selectDaysCount" resultType="com.smart.bracelet.model.po.debt.DateAndDays">
-      SELECT DATE_FORMAT(bus_civil.create_time,'%Y-%m-%d') days,COUNT(*) COUNT
-      FROM bus_civil
-      LEFT JOIN bus_report br ON br.`report_id` = bus_civil.`report_id`
-      LEFT JOIN pub_company pc ON br.`company_id` = pc.`company_id`
-      WHERE pc.`company_type` = #{type}
-      GROUP BY days ORDER BY days DESC LIMIT 10;
-  </select>
+        SELECT DATE_FORMAT(bus_civil.create_time,'%Y-%m-%d') days,COUNT(*) COUNT
+        FROM bus_civil
+        LEFT JOIN bus_report br ON br.`report_id` = bus_civil.`report_id`
+        LEFT JOIN pub_company pc ON br.`company_id` = pc.`company_id`
+        <where>
+            <if test="comId!=null and comId !=''">
+              and pc.company_id =#{comId}
+            </if>
+            <if test="type!=null and type !=''">
+                and pc.company_type =#{type}
+            </if>
+        </where>
+        GROUP BY days ORDER BY days DESC LIMIT 10;
+    </select>
     <select id="queryList" resultType="com.smart.bracelet.model.po.debt.BusCivil">
         select
         <include refid="Base_Column_List"/>
@@ -64,9 +71,11 @@
         LEFT JOIN bus_report br ON brp.`report_id` = br.`report_id`
         LEFT JOIN pub_company pc ON br.company_id = pc.company_id
         <where>
-            br.stage='2'
             <if test="companyType != null and companyType!=''">
                 and pc.company_type = #{companyType,jdbcType=VARCHAR}
+            </if>
+            <if test="comId != null and comId!=''">
+                and pc.company_id = #{comId}
             </if>
             <if test="civilno != null and civilno!=''">
                 and bc.civilno = #{civilno,jdbcType=VARCHAR}
@@ -85,13 +94,13 @@
         LEFT JOIN `bus_report` br ON bc.`report_id` = br.`report_id`
     </select>
     <select id="selectDebtAndPer" resultType="com.smart.bracelet.model.vo.debt.DebtAndPerson">
-        SELECT br.`data2` AS 'debt_idcard',brp.data2 AS 'person_idcard' FROM bus_report br
+        SELECT br.report_id,br.`data2` AS 'debt_idcard',brp.data2 AS 'person_idcard' FROM bus_report br
         LEFT JOIN bus_relative_person brp ON br.`report_id` = brp.report_id
         WHERE brp.`relative_per_id` = #{relativePerId,jdbcType=BIGINT}
     </select>
     <select id="selectReportId" resultType="java.lang.Long">
         SELECT bus_report.`report_id` FROM bus_report
-        WHERE bus_report.data2 = #{personIdcard,jdbcType=BIGINT} AND bus_report.`stage` = '2' AND bus_report.`status` = '5'
+        WHERE bus_report.data2 = #{personIdcard} AND bus_report.`stage` = '2' AND bus_report.`status` = '5'
     </select>
 
     <select id="selectPersonIdCardByPrId" resultType="java.lang.String">
@@ -291,7 +300,7 @@
         insert into bus_mediate_person(mediate_person_id,civil_id,user_id)
         values
         <foreach collection="list" item="info" separator=",">
-            (#{info.mediatePersonId},#{info.civilId},#{info.userId})
+            ( #{info.mediatePersonId},#{info.civilId},#{info.userId})
         </foreach>
     </insert>
 

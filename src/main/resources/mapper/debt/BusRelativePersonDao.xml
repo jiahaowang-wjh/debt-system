@@ -43,7 +43,8 @@
     obligat_right, obligat_right_no, obligat_time, capital, interest, interest_rate, 
     debt, debt_no, debt_time, debt_certificate, upload_debt_certificate, economics,
     `USAGE`, prject_manager,
-    create_time,update_time
+    create_time,update_time,
+    status
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
@@ -432,6 +433,9 @@
             </if>
         </set>
         where relative_per_id = #{relativePerId,jdbcType=BIGINT}
+    </update>
+    <update id="updateStatus">
+        update bus_relative_person set status = #{status}   where relative_per_id = #{relativePerId,jdbcType=BIGINT}
     </update>
 
 

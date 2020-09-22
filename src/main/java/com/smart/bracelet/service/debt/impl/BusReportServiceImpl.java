@@ -134,8 +134,12 @@ public class BusReportServiceImpl implements BusReportService {
     }
 
     @Override
-    public List<DateAndDays> selectDaysCount(String type) {
-        return busReportDao.selectDaysCount(type);
+    public List<DateAndDays> selectDaysCount(String type,Long comId) {
+        if(type.equals("1")){
+            type = null;
+            comId = null;
+        }
+        return busReportDao.selectDaysCount(type,comId);
     }
 
     /**

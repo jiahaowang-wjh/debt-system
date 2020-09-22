@@ -30,28 +30,24 @@ public class BusCompromiseAgreementController {
     private BusCompromiseAgreementService busCompromiseAgreementService;
 
     @RequestMapping("/deleteByPrimaryKey")
-    @PreAuthorize("hasAnyAuthority('assets:delete')")
     public Result deleteByPrimaryKey(@NotNull(message = "和解协议ID不能为空") Long compromiseAgreementId) throws CustomerException {
         int deleteByPrimaryKey = busCompromiseAgreementService.deleteByPrimaryKey(compromiseAgreementId);
         return Result.success(deleteByPrimaryKey);
     }
 
     @RequestMapping("/insertSelectiveManner1")
-    @PreAuthorize("hasAnyAuthority('assets:add')")
     public Result insertSelectiveManner1(@Valid Manner1 manner1Vo) throws CustomerException {
         int i = busCompromiseAgreementService.insertSelectiveManner1(manner1Vo);
         return Result.success(i);
     }
 
     @RequestMapping("/insertSelectiveManner2")
-    @PreAuthorize("hasAnyAuthority('assets:add')")
     public Result insertSelectiveManner2(@Valid Manner2 manner2Vo) throws CustomerException {
         int i = busCompromiseAgreementService.insertSelectiveManner2(manner2Vo);
         return Result.success(i);
     }
 
     @RequestMapping("/selectByPrimaryKey")
-    @PreAuthorize("hasAnyAuthority('assets:select')")
     public Result<Manner1AndManner2> selectByPrimaryKey(@NotNull(message = "和解协议ID不能为空") Long compromiseAgreementId) throws CustomerException {
         Manner1AndManner2 manner1AndManner2 = busCompromiseAgreementService.selectByPrimaryKey(compromiseAgreementId);
         return Result.success(manner1AndManner2);
@@ -59,21 +55,18 @@ public class BusCompromiseAgreementController {
 
 
     @RequestMapping("/updateByPrimaryKeySelectiveManner1Vo")
-    @PreAuthorize("hasAnyAuthority('assets:update')")
     public Result updateByPrimaryKeySelectiveManner1Vo(@Valid Manner1Vo record) throws CustomerException {
         int i = busCompromiseAgreementService.updateByPrimaryKeySelectiveManner1Vo(record);
         return Result.success(i);
     }
 
     @RequestMapping("/updateByPrimaryKeySelectiveManner2Vo")
-    @PreAuthorize("hasAnyAuthority('assets:update')")
     public Result updateByPrimaryKeySelectiveManner2Vo(@Valid Manner2Vo record) throws CustomerException {
         int i = busCompromiseAgreementService.updateByPrimaryKeySelectiveManner2Vo(record);
         return Result.success(i);
     }
 
     @RequestMapping("/queryList")
-    @PreAuthorize("hasAnyAuthority('assets:select')")
     public Result<List<Manner1AndManner2>> queryList() throws CustomerException {
         List<Manner1AndManner2> manner1AndManner2s = busCompromiseAgreementService.queryList();
         return Result.success(manner1AndManner2s);
@@ -86,7 +79,6 @@ public class BusCompromiseAgreementController {
      * @return
      */
     @RequestMapping("/initialize")
-    @PreAuthorize("hasAnyAuthority('assets:select')")
     public Result<BusCompromiseAgreementShow> initialize(@NotNull(message = "相对人ID不能为空") Long relativePerId) throws ParseException {
         BusCompromiseAgreementShow initialize = busCompromiseAgreementService.initialize(relativePerId);
         return Result.success(initialize);
@@ -99,7 +91,6 @@ public class BusCompromiseAgreementController {
      * @return
      */
     @RequestMapping("/selectByPropertId")
-    @PreAuthorize("hasAnyAuthority('assets:select')")
     public Result<Manner1AndManner2> selectByPropertId(@NotNull(message = "资产ID不能为空") Long propertId) throws CustomerException {
         Manner1AndManner2 busCompromiseAgreement = busCompromiseAgreementService.selectByPropertId(propertId);
         return Result.success(busCompromiseAgreement);

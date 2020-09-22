@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
+import com.smart.bracelet.model.po.debt.BusRelativePerson;
 import com.smart.bracelet.model.vo.debt.*;
 import com.smart.bracelet.service.debt.BusRelativePersonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.text.ParseException;
 import java.util.Date;
@@ -36,7 +38,6 @@ public class BusRelativePersonController {
      * @throws CustomerException
      */
     @RequestMapping("/insertPrivateSelective")
-    @PreAuthorize("hasAnyAuthority('debt:add')")
     public Result insertPrivateSelective(@Valid BusRelativePersonPrivateVo busRelativePersonPrivateVo) throws CustomerException {
         Long insertPrivate = busRelativePersonService.insertPrivate(busRelativePersonPrivateVo);
         return Result.success(insertPrivate + "");
@@ -51,7 +52,6 @@ public class BusRelativePersonController {
      * @throws CustomerException
      */
     @RequestMapping("/insertEnterprise")
-    @PreAuthorize("hasAnyAuthority('debt:add')")
     public Result insertEnterprise(@Valid BusRelativePersonEnterpriseVo busRelativePersonEnterpriseVo) throws CustomerException {
         Long insertPrivate = busRelativePersonService.insertEnterprise(busRelativePersonEnterpriseVo);
         return Result.success(insertPrivate + "");
@@ -65,7 +65,6 @@ public class BusRelativePersonController {
      * @throws CustomerException
      */
     @RequestMapping("/insertBank")
-    @PreAuthorize("hasAnyAuthority('debt:add')")
     public Result insertBank(@Valid BusRelativePersonBankVo busRelativePersonBankVo) throws CustomerException {
         Long insertPrivate = busRelativePersonService.insertBank(busRelativePersonBankVo);
         return Result.success(insertPrivate + "");
@@ -80,7 +79,6 @@ public class BusRelativePersonController {
      * @throws CustomerException
      */
     @RequestMapping("/deleteByPrimaryKey")
-    @PreAuthorize("hasAnyAuthority('debt:delete')")
     public Result deleteByPrimaryKey(@NotNull(message = "相对人信息ID不能为空") Long relativePerId) throws CustomerException {
         int deleteByPrimaryKey = busRelativePersonService.deleteByPrimaryKey(relativePerId);
         return Result.success(deleteByPrimaryKey);
@@ -94,7 +92,6 @@ public class BusRelativePersonController {
      * @throws CustomerException
      */
     @RequestMapping("/updatePrivate")
-    @PreAuthorize("hasAnyAuthority('debt:update')")
     public Result updatePrivate(@Valid BusRelativePersonPrivateUpdateVo busRelativePersonPrivateUpdateVo) throws CustomerException {
         int updatePrivate = busRelativePersonService.updatePrivate(busRelativePersonPrivateUpdateVo);
         return Result.success(updatePrivate);
@@ -108,7 +105,6 @@ public class BusRelativePersonController {
      * @throws CustomerException
      */
     @RequestMapping("/updateEnterprise")
-    @PreAuthorize("hasAnyAuthority('debt:update')")
     public Result updateEnterprise(@Valid BusRelativePersonEnterpriseUpdateVo busRelativePersonEnterpriseUpdateVo) throws CustomerException {
         int updateEnterprise = busRelativePersonService.updateEnterprise(busRelativePersonEnterpriseUpdateVo);
         return Result.success(updateEnterprise);
@@ -122,7 +118,6 @@ public class BusRelativePersonController {
      * @throws CustomerException
      */
     @RequestMapping("/updateBank")
-    @PreAuthorize("hasAnyAuthority('debt:update')")
     public Result updateBank(@Valid BusRelativePersonBankUpdateVo busRelativePersonBankUpdateVo) throws CustomerException {
         int updateBank = busRelativePersonService.updateBank(busRelativePersonBankUpdateVo);
         return Result.success(updateBank);
@@ -135,7 +130,6 @@ public class BusRelativePersonController {
      * @return
      */
     @RequestMapping("/selectByPrimaryKey")
-    @PreAuthorize("hasAnyAuthority('debt:select')")
     public Result<BusRelativePersonListVo> selectByPrimaryKey(@NotNull(message = "相对人信息ID不能为空") Long relativePerId) {
         BusRelativePersonListVo busRelativePerson = busRelativePersonService.selectByPrimaryKey(relativePerId);
         return Result.success(busRelativePerson);
@@ -147,7 +141,6 @@ public class BusRelativePersonController {
      * @return
      */
     @RequestMapping("/queryList")
-    @PreAuthorize("hasAnyAuthority('debt:select')")
     public Result<List<BusRelativePersonListVo>> queryList() {
         List<BusRelativePersonListVo> listVos = busRelativePersonService.queryListVo();
         return Result.success(listVos);
@@ -157,9 +150,8 @@ public class BusRelativePersonController {
      * 根据报备ID查询相对人信息并验证符合民事调解关系
      */
     @RequestMapping("/selectByreportId")
-    @PreAuthorize("hasAnyAuthority('debt:select')")
-    public Result<List<BusRelativePersonListVo>> selectByreportId(@NotNull(message = "报备ID不能为空") Long reportId) throws CustomerException {
-        List<BusRelativePersonListVo> busRelativePeople = busRelativePersonService.selectByreportId(reportId);
+    public Result<List<BusRelativePerson>> selectByreportId(@NotNull(message = "报备ID不能为空") Long reportId) throws CustomerException {
+        List<BusRelativePerson> busRelativePeople = busRelativePersonService.selectByreportId(reportId);
         return Result.success(busRelativePeople);
     }
 
@@ -170,7 +162,6 @@ public class BusRelativePersonController {
      * @return
      */
     @RequestMapping("/selectByRelativePerId")
-    @PreAuthorize("hasAnyAuthority('debt:select')")
     public Result<ReportAndRelativePersonShow> selectByRelativePerId(@NotNull(message = "相对人不能为空") Long relativePerId) throws CustomerException {
         ReportAndRelativePersonShow reportAndRelativePerson = busRelativePersonService.selectByRelativePerId(relativePerId);
         return Result.success(reportAndRelativePerson);
@@ -180,7 +171,6 @@ public class BusRelativePersonController {
      * 根据报备ID查询相对人信息
      */
     @RequestMapping("/selectByRepId")
-    @PreAuthorize("hasAnyAuthority('debt:select')")
     public Result<List<BusRelativePersonListVo>> selectByRepId(@NotNull(message = "报备ID不能为空") Long reportId) throws CustomerException {
         List<BusRelativePersonListVo> listVos = busRelativePersonService.selectByRepId(reportId);
         return Result.success(listVos);
@@ -190,7 +180,6 @@ public class BusRelativePersonController {
      * 辅助下载财务
      */
     @RequestMapping("/selectDow")
-    @PreAuthorize("hasAnyAuthority('debt:select')")
     public Result<PageInfo> selectDow(@NotNull(message = "页码不能为空") Integer pageNum,
                                       @NotNull(message = "当前显示条数不能为空") Integer pageSize,
                                       String debtName, String time) throws ParseException {
@@ -204,7 +193,6 @@ public class BusRelativePersonController {
      * 根据报备ID查询相对人信息并验证是否符合解债申请
      */
     @RequestMapping("/selectByreportIdAndDebt")
-    @PreAuthorize("hasAnyAuthority('debt:select')")
     public Result<List<BusRelativePersonListVo>> selectByreportIdAndDebt(@NotNull(message = "报备ID不能为空") Long reportId) throws CustomerException {
         List<BusRelativePersonListVo> listVos = busRelativePersonService.selectByreportIdAndDebt(reportId);
         return Result.success(listVos);
@@ -226,8 +214,16 @@ public class BusRelativePersonController {
 
 
     /**
-     * 新增咨询服务协议
+     * 更新相对人状态
+     * @param relativePerId
+     * @param status
+     * @return
      */
+    @RequestMapping("/updateStatus")
+    public Result updateStatus(@NotNull(message = "相对人ID不能为空") Long relativePerId,@NotBlank(message = "状态不能为空") String status) throws CustomerException{
+        int i = busRelativePersonService.updateStatus(relativePerId, status);
+        return Result.success(i);
+    }
 
 
 

@@ -30,28 +30,24 @@ public class BusPayDetailController {
     private BusPayDetailService busPayDetailService;
 
     @RequestMapping("/insertSelective")
-    @PreAuthorize("hasAnyAuthority('debt:add')")
     public Result insertSelective(@Valid BusPayDetail record) throws CustomerException {
         Long insertSelective = busPayDetailService.insertSelective(record);
         return Result.success(insertSelective + "");
     }
 
     @RequestMapping("/deleteByPrimaryKey")
-    @PreAuthorize("hasAnyAuthority('debt:delete')")
     public Result deleteByPrimaryKey(@NotNull(message = "支付ID不能为空") Long payId) throws CustomerException {
         int deleteByPrimaryKey = busPayDetailService.deleteByPrimaryKey(payId);
         return Result.success(deleteByPrimaryKey);
     }
 
     @RequestMapping("/updateByPrimaryKeySelective")
-    @PreAuthorize("hasAnyAuthority('debt:update')")
     public Result updateByPrimaryKeySelective(@Valid BusPayDetailVo record) throws CustomerException {
         int updateByPrimaryKeySelective = busPayDetailService.updateByPrimaryKeySelective(record);
         return Result.success(updateByPrimaryKeySelective);
     }
 
     @RequestMapping("/selectByPrimaryKey")
-    @PreAuthorize("hasAnyAuthority('debt:select')")
     public Result<BusPayDetail> selectByPrimaryKey(Long payId) {
         BusPayDetail busPayDetail = busPayDetailService.selectByPrimaryKey(payId);
         return Result.success(busPayDetail);
@@ -64,7 +60,6 @@ public class BusPayDetailController {
      * @return
      */
     @RequestMapping("/selectByReportId")
-    @PreAuthorize("hasAnyAuthority('debt:select')")
     public Result<List<BusPayDetail>> selectByReportId(@NotNull(message = "报备ID不能为空") Long reportId) {
         List<BusPayDetail> busPayDetails = busPayDetailService.selectByReportId(reportId);
         return Result.success(busPayDetails);
@@ -74,7 +69,6 @@ public class BusPayDetailController {
      * 页面支付信息展示
      */
     @RequestMapping("/selectPayInfoList")
-    @PreAuthorize("hasAnyAuthority('debt:select')")
     public Result<PageInfo> selectPayInfoList(@NotNull(message = "页码不能为空") Integer pageNum,
                                               @NotNull(message = "当前显示条数不能为空") Integer pageSize,
                                               String debtNo,@NotBlank(message = "公司类型不能为空") String companyType,String status) {
@@ -92,7 +86,6 @@ public class BusPayDetailController {
      * @return
      */
     @RequestMapping("/updateStatus")
-    @PreAuthorize("hasAnyAuthority('debt:update')")
     public Result updateStatus(@NotBlank(message = "状态不能为空") String status, @NotNull(message = "支付ID不能为空") Long payId,String checkReason) throws CustomerException {
         int updateStatus = busPayDetailService.updateStatus(status, payId,checkReason);
         return Result.success(updateStatus);
@@ -105,7 +98,6 @@ public class BusPayDetailController {
      * @return
      */
     @RequestMapping("/selectByReportIdAndDebtId")
-    @PreAuthorize("hasAnyAuthority('debt:select')")
     public Result<List<BusPayDetail>> selectByReportIdAndDebtId(@NotNull(message = "报备Id不能为空") Long reportId, @NotNull(message = "解债Id不能为空") Long debtId) {
         List<BusPayDetail> busPayDetails = busPayDetailService.selectByReportIdAndDebtId(reportId, debtId);
         return Result.success(busPayDetails);
@@ -118,7 +110,6 @@ public class BusPayDetailController {
      * @return
      */
     @RequestMapping("/selectByReportIdAndPropertId")
-    @PreAuthorize("hasAnyAuthority('debt:select')")
     public Result<List<BusPayDetail>> selectByReportIdAndPropertId(@NotNull(message = "报备Id不能为空") Long reportId, @NotNull(message = "资产Id不能为空") Long propertId) {
         List<BusPayDetail> busPayDetails = busPayDetailService.selectByReportIdAndPropertId(reportId, propertId);
         return Result.success(busPayDetails);

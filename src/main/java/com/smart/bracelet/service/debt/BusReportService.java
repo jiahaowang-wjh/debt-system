@@ -24,7 +24,7 @@ public interface BusReportService {
      * 按照日期查询每日报备数量
      * @return
      */
-    List<DateAndDays> selectDaysCount(String type);
+    List<DateAndDays> selectDaysCount(String type,Long comId);
 
     /**
      * 新增私人报备信息

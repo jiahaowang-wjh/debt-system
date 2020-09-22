@@ -36,28 +36,24 @@ public class BusCivilController {
     private BusCivilService busCivilService;
 
     @RequestMapping("/insertSelective")
-    @PreAuthorize("hasAnyAuthority('debt:add')")
     public Result insertSelective(@Valid BusCivil record) throws CustomerException {
         Long insertSelective = busCivilService.insertSelective(record);
         return Result.success(insertSelective + "");
     }
 
     @RequestMapping("/deleteByPrimaryKey")
-    @PreAuthorize("hasAnyAuthority('debt:delete')")
     public Result deleteByPrimaryKey(@NotNull(message = "民事调解Id不能为空") Long civilId) throws CustomerException {
         int deleteByPrimaryKey = busCivilService.deleteByPrimaryKey(civilId);
         return Result.success(deleteByPrimaryKey);
     }
 
     @RequestMapping("/updateByPrimaryKeySelective")
-    @PreAuthorize("hasAnyAuthority('debt:update')")
     public Result updateByPrimaryKeySelective(@Valid BusCivilVo record) throws CustomerException {
         int updateByPrimaryKeySelective = busCivilService.updateByPrimaryKeySelective(record);
         return Result.success(updateByPrimaryKeySelective);
     }
 
     @RequestMapping("/selectByPrimaryKey")
-    @PreAuthorize("hasAnyAuthority('debt:select')")
     public Result<BusCivil> selectByPrimaryKey(@NotNull(message = "民事调解Id不能为空") Long civilId) {
         BusCivil busCivil = busCivilService.selectByPrimaryKey(civilId);
         return Result.success(busCivil);
@@ -69,9 +65,8 @@ public class BusCivilController {
      * @return
      */
     @RequestMapping("/selectDaysCount")
-    @PreAuthorize("hasAnyAuthority('debt:select')")
-    public Result<List<DateAndDays>> selectDaysCount(@NotBlank(message = "公司类型不能为空") String type) {
-        List<DateAndDays> dateAndDays = busCivilService.selectDaysCount(type);
+    public Result<List<DateAndDays>> selectDaysCount(@NotBlank(message = "公司类型不能为空") String type,@NotNull(message = "公司Id不能为空") Long comId) {
+        List<DateAndDays> dateAndDays = busCivilService.selectDaysCount(type,comId);
         return Result.success(dateAndDays);
     }
 
@@ -82,7 +77,6 @@ public class BusCivilController {
      * @return
      */
     @RequestMapping("/queryList")
-    @PreAuthorize("hasAnyAuthority('debt:select')")
     public Result<List<BusCivil>> queryList() {
         List<BusCivil> busCivils = busCivilService.queryList();
         return Result.success(busCivils);
@@ -97,7 +91,6 @@ public class BusCivilController {
      * @throws CustomerException
      */
     @RequestMapping("/updateStatus")
-    @PreAuthorize("hasAnyAuthority('debt:update')")
     public Result updateStatus(@NotBlank(message = "民事调解状态不能为空") String status, @NotNull(message = "民事调解Id不能为空") Long civilId, String checkReason) throws CustomerException {
         int i = busCivilService.updateStatus(status, civilId, checkReason);
         return Result.success(i);
@@ -107,7 +100,6 @@ public class BusCivilController {
      * 页面展示民事调解信息
      */
     @RequestMapping("/selectBusList")
-    @PreAuthorize("hasAnyAuthority('debt:select')")
     public Result<PageInfo> selectBusList(@NotNull(message = "页码不能为空") Integer pageNum,
                                           @NotNull(message = "当前显示条数不能为空") Integer pageSize,
                                           @Valid DebtInfoQuery debtInfoQuery) {
@@ -127,7 +119,6 @@ public class BusCivilController {
      * 民事调解信息填写页面更新信息
      */
     @RequestMapping("/selectCiviIAndRepShow")
-    @PreAuthorize("hasAnyAuthority('debt:select')")
     public Result<List<CiviIAndRepShow>> selectCiviIAndRepShow() {
         List<CiviIAndRepShow> civiIAndRepShows = busCivilService.selectCiviIAndRepShow();
         return Result.success(civiIAndRepShows);
@@ -150,7 +141,6 @@ public class BusCivilController {
      * 尽调协议初始化
      */
     @RequestMapping("/initialize")
-    @PreAuthorize("hasAnyAuthority('debt:select')")
     public Result<AgreementInfoShow> initialize(@NotNull(message = "报备ID不能为空") Long reportId) {
         AgreementInfoShow initialize = busCivilService.initialize(reportId);
         return Result.success(initialize);
@@ -160,7 +150,6 @@ public class BusCivilController {
      * 策划方案服务协议初始化
      */
     @RequestMapping("/initializePlan")
-    @PreAuthorize("hasAnyAuthority('debt:select')")
     public Result<PlanServiceInfo> initializePlan(@NotNull(message = "报备ID不能为空") Long reportId) throws CustomerException {
         PlanServiceInfo initialize = busCivilService.initializePlan(reportId);
         return Result.success(initialize);
@@ -173,7 +162,6 @@ public class BusCivilController {
      * @return
      */
     @RequestMapping("/selectByReportId")
-    @PreAuthorize("hasAnyAuthority('debt:select')")
     public Result<List<CivilShow>> selectByReportId(@NotNull(message = "报备Id不能为空") Long reportId) {
         List<CivilShow> busCivils = busCivilService.selectByReportId(reportId);
         return Result.success(busCivils);
@@ -184,7 +172,6 @@ public class BusCivilController {
      * 民事调解书
      */
     @RequestMapping("/selectCivi")
-    @PreAuthorize("hasAnyAuthority('debt:select')")
     public Result<List<CivilAndPseronInfo>> selectCivi(@NotNull(message = "报备ID不能为空") Long reportId) {
         List<CivilAndPseronInfo> civilAndPseronInfos = busCivilService.selectCivi(reportId);
         return Result.success(civilAndPseronInfos);

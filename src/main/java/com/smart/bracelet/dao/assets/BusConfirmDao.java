@@ -22,10 +22,10 @@ public interface BusConfirmDao {
 
     /**
      * 资产债权确认页面初始化
-     * @param relativePerId
+     * @param propertId
      * @return
      */
-    BusConfirmShow initialize(Long relativePerId);
+    BusConfirmShow initialize(Long propertId);
 
     /**
      * 通过资产ID查询资产债权确认

@@ -33,7 +33,6 @@ public class PubAuthController {
      * @throws CustomerException
      */
     @RequestMapping("/insertSelective")
-    @PreAuthorize("hasAnyAuthority('user:add')")
     public Result insertSelective(@Valid PubAuth record) throws CustomerException {
         int insertSelective = pubAuthService.insertSelective(record);
         return Result.success(insertSelective);
@@ -47,7 +46,6 @@ public class PubAuthController {
      * @throws CustomerException
      */
     @RequestMapping("/deleteByPrimaryKey")
-    @PreAuthorize("hasAnyAuthority('user:add')")
     public Result deleteByPrimaryKey(@NotNull(message = "权限Id不能为空") Long authId) throws CustomerException {
         int deleteByPrimaryKey = pubAuthService.deleteByPrimaryKey(authId);
         return Result.success(deleteByPrimaryKey);
@@ -62,7 +60,6 @@ public class PubAuthController {
      * @throws CustomerException
      */
     @RequestMapping("/updateByPrimaryKeySelective")
-    @PreAuthorize("hasAnyAuthority('user:add')")
     public Result updateByPrimaryKeySelective(@Valid PubAuthVo record) throws CustomerException {
         int updateByPrimaryKeySelective = pubAuthService.updateByPrimaryKeySelective(record);
         return Result.success(updateByPrimaryKeySelective);
@@ -75,7 +72,6 @@ public class PubAuthController {
      * @return
      */
     @RequestMapping("/selectByPrimaryKey")
-    @PreAuthorize("hasAnyAuthority('user:add')")
     public Result<PubAuth> selectByPrimaryKey(@NotNull(message = "权限Id不能为空") Long authId) {
         PubAuth pubAuth = pubAuthService.selectByPrimaryKey(authId);
         return Result.success(pubAuth);
@@ -87,7 +83,6 @@ public class PubAuthController {
      * @return
      */
     @RequestMapping("/selectAuthPage")
-    @PreAuthorize("hasAnyAuthority('user:add')")
     public Result<PageInfo> selectAuthPage(@NotNull(message = "页码不能为空") Integer pageNum, @NotNull(message = "当前显示条数不能为空") Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         List<PubAuth> pubAuths = pubAuthService.selectPageAuth();

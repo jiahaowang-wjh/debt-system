@@ -21,7 +21,6 @@ public class BusInvestigateReportController {
     private BusInvestigateReportService busInvestigateReportService;
 
     @RequestMapping("/insert")
-    @PreAuthorize("hasAnyAuthority('debt:add')")
     public Result insert(@Valid BusInvestigateReport record) throws CustomerException {
         Long insert = busInvestigateReportService.insert(record);
         return Result.success(insert + "");
@@ -34,7 +33,6 @@ public class BusInvestigateReportController {
      * @return
      */
     @RequestMapping("/selectByPrimaryKey")
-    @PreAuthorize("hasAnyAuthority('debt:select')")
     public Result<BusInvestigateReport> selectByPrimaryKey(Long reportId) {
         BusInvestigateReport busInvestigateReport = busInvestigateReportService.selectByPrimaryKey(reportId);
         return Result.success(busInvestigateReport);

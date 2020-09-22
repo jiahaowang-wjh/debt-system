@@ -40,4 +40,6 @@ public interface BusAssignmentAgreementDao {
      */
     BusAssignmentAgreement selectByProId(Long propertId);
 
+
+
 }

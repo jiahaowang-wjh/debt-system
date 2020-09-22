@@ -29,7 +29,7 @@ public interface PubDebtDao {
      *
      * @return
      */
-    List<DateAndDays> selectDaysCount(String type);
+    List<DateAndDays> selectDaysCount(String type,Long comId);
 
     /**
      * 通过相对人ID查询解债信息

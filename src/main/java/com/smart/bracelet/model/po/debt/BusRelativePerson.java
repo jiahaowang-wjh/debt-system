@@ -233,5 +233,9 @@ public class BusRelativePerson implements Serializable {
      */
     private Date updateTime;
 
+    /**
+     * 状态
+     */
+    String status;
 
 }

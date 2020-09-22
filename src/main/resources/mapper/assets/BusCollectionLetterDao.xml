@@ -12,10 +12,11 @@
         <result column="partyb_person" jdbcType="VARCHAR" property="partybPerson"/>
         <result column="partyb_tel" jdbcType="VARCHAR" property="partybTel"/>
         <result column="chapter" jdbcType="VARCHAR" property="chapter"/>
+        <result column="contract_date" jdbcType="VARCHAR" property="contractDate"/>
     </resultMap>
     <sql id="Base_Column_List">
     collection_lettert_id, propert_id, partya_addr, partya_person, partya_tel, partyb_addr, 
-    partyb_person, partyb_tel,chapter
+    partyb_person, partyb_tel,chapter,contract_date
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
@@ -32,13 +33,13 @@
       SELECT  bus_collection_letter.`collection_lettert_no`  FROM   `bus_collection_letter`   ORDER   BY  bus_collection_letter.`collection_lettert_id`    DESC   LIMIT   1
     </select>
     <select id="initialize" resultType="com.smart.bracelet.model.vo.assets.BusCollectionLetterShow">
-        SELECT brp.report_propert,brp.data2 AS 'personCard',brp.data3 AS 'priPhone',brp.data5 AS 'corBankPhone',br.`data1` AS 'debtName',brp.`data1` AS 'personName',baa.assignment_agreement_no,pd.`amount_this`
-         FROM bus_report br
-        LEFT JOIN bus_relative_person brp ON br.`report_id` = brp.`report_id`
-        LEFT JOIN pub_debt pd ON brp.`relative_per_id` = pd.`relative_per_id`
-        LEFT JOIN bus_propert bp ON br.`report_id` = bp.report_id
-        LEFT JOIN bus_assignment_agreement baa ON bp.propert_id = baa.propert_id
-        WHERE brp.`relative_per_id` = #{relativePerId,jdbcType=BIGINT}
+        SELECT br.`data1` AS 'debtName',brp.`data1` AS 'personName',baa.`assignment_agreement_no`,pd.`amount_this`,bcl.collection_lettert_no,bcl.contract_date FROM bus_propert bp
+        LEFT JOIN bus_report br ON bp.`report_id` = br.`report_id`
+        LEFT JOIN bus_relative_person brp ON bp.`relative_per_id` = brp.`relative_per_id`
+        LEFT JOIN pub_debt pd ON bp.`debt_id` = pd.`debt_id`
+        LEFT JOIN bus_assignment_agreement baa ON baa.`propert_id` = bp.`propert_id`
+        LEFT JOIN bus_collection_letter bcl ON bcl.`propert_id` = bp.`propert_id`
+        WHERE bp.propert_id=#{propertId}
     </select>
     <select id="selectByPropertId" resultType="com.smart.bracelet.model.po.assets.BusCollectionLetter"
             parameterType="java.lang.Long">
@@ -57,6 +58,9 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="collectionLettertId != null">
                 collection_lettert_id,
+            </if>
+            <if test="contractDate != null">
+                contract_date,
             </if>
             <if test="collectionLettertNo != null">
                 collection_lettert_no,
@@ -89,6 +93,9 @@
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="collectionLettertId != null">
                 #{collectionLettertId,jdbcType=BIGINT},
+            </if>
+            <if test="contractDate != null">
+                #{contractDate,jdbcType=DATE},
             </if>
             <if test="collectionLettertNo != null">
                 #{collectionLettertNo,jdbcType=BIGINT},
@@ -124,6 +131,9 @@
         <set>
             <if test="propertId != null">
                 propert_id = #{propertId,jdbcType=BIGINT},
+            </if>
+            <if test="contractDate != null">
+                contract_date = #{contractDate,jdbcType=DATE},
             </if>
             <if test="collectionLettertNo != null">
                 collection_lettert_id = #{collectionLettertNo,jdbcType=VARCHAR},

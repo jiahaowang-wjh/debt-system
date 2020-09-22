@@ -270,4 +270,9 @@ public class BusRelativePersonListVo {
      * 是否从业
      */
     String ifWork;
+
+    /**
+     * 状态
+     */
+    String status;
 }

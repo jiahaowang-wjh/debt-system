@@ -122,8 +122,12 @@ public class BusCivilServiceImpl implements BusCivilService {
      */
     @Override
     @Transactional(noRollbackFor = Exception.class)
-    public List<DateAndDays> selectDaysCount(String type) {
-        return busCivilDao.selectDaysCount(type);
+    public List<DateAndDays> selectDaysCount(String type,Long comId) {
+        if(type.equals("1")){
+            type = null;
+            comId = null;
+        }
+        return busCivilDao.selectDaysCount(type,comId);
     }
 
     /**
@@ -154,6 +158,7 @@ public class BusCivilServiceImpl implements BusCivilService {
     public List<BusCivilInfo> selectBusList(DebtInfoQuery debtInfoQuery) {
         if (debtInfoQuery.getCompanyType().equals("1")) {
             debtInfoQuery.setCompanyType(null);
+            debtInfoQuery.setComId(null);
         }
         return busCivilDao.selectBusList(debtInfoQuery);
     }
@@ -179,20 +184,17 @@ public class BusCivilServiceImpl implements BusCivilService {
         //1.通过相对人ID获取债事人相对人身份信息
         DebtAndPerson debtAndPerson = busCivilDao.selectDebtAndPer(relativePerId);
         //2.通过相对人信息去债事人表中验证,若有此人则获取当前报备ID
-        Long aLong = busCivilDao.selectReportId(debtAndPerson.getPersonIdcard());
+        List<Long> aLong = busCivilDao.selectReportId(debtAndPerson.getPersonIdcard());
         //查询相对人是否债事报备
         if (org.springframework.util.StringUtils.isEmpty(aLong)) {
-            return ok = false;
+            return false;
         }
-        //通过相对人作为债事人的报备ID查询相对人
-        List<BusRelativePerson> busRelativePeople = busRelativePersonDao.selectByreportId(aLong);
-        if (busRelativePeople.isEmpty()) {
-            return ok = false;
-        }
-        for (BusRelativePerson item : busRelativePeople) {
-            //查询信息一致
-            if (item.getData2().equals(debtAndPerson.getDebtIdcard())) {
-                ok = true;
+        for (Long item: aLong) {
+            List<BusRelativePerson> busRelativePeople = busRelativePersonDao.selectByreportId(item);
+            for (BusRelativePerson item1: busRelativePeople) {
+                if(item1.getData2().equals(debtAndPerson.getDebtIdcard())){
+                    ok=true;
+                }
             }
         }
         return ok;
@@ -215,13 +217,13 @@ public class BusCivilServiceImpl implements BusCivilService {
     public PlanServiceInfo initializePlan(Long reportId) throws CustomerException {
         try {
             PlanServiceInfo initialize = busCivilDao.initializePlan(reportId);
-            if (initialize.getDebtId() == null) {
-                throw new CustomerException("该债事人未进行置换处理");
-            }
-            String mul = BigDecimalUtil.mul(initialize.getAmountThis().toString(), "0.1", 2);
-            initialize.setPlanMoney(mul);
-            initialize.setPlanMoneyMax(ConvertUpMoney.toChinese(mul.toString()));
-            initialize.setAmountThisMax(ConvertUpMoney.toChinese(initialize.getAmountThis().toString()));
+//            if (initialize.getDebtId() == null) {
+//                throw new CustomerException("该债事人未进行置换处理");
+//            }
+            //String mul = BigDecimalUtil.mul(initialize.getAmountThis().toString(), "0.1", 2);
+            //initialize.setPlanMoney(mul);
+           // initialize.setPlanMoneyMax(ConvertUpMoney.toChinese(mul));
+            //initialize.setAmountThisMax(ConvertUpMoney.toChinese(initialize.getAmountThis().toString()));
             if (initialize.getReportPropert().equals("1")) {
                 initialize.setCorBankAdd(null);
                 initialize.setCorBankPhone(null);

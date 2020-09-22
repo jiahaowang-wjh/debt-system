@@ -50,7 +50,7 @@ public interface BusRelativePersonService {
     /**
      * 根据报备ID查询相对人信息并验证符合民事调解
      */
-    List<BusRelativePersonListVo> selectByreportId(Long reportId) throws CustomerException;
+    List<BusRelativePerson> selectByreportId(Long reportId) throws CustomerException;
 
 
     /**
@@ -77,5 +77,11 @@ public interface BusRelativePersonService {
      * 辅助下载债务
      */
     List<DowLod> selectDebtDow(String debtName,String time);
-
+    /**
+     * 更新相对人状态
+     * @param relativePerId
+     * @param status
+     * @return
+     */
+    int updateStatus(Long relativePerId,String status) throws CustomerException;
 }

@@ -38,7 +38,6 @@ public class PubRoleController {
      * @return
      */
     @RequestMapping("/insertSelective")
-    @PreAuthorize("hasAnyAuthority('user:add')")
     public Result insertSelective(@Valid PubRole pubRole) throws CustomerException {
         int insertSelective = pubRoleService.insertSelective(pubRole);
         return Result.success(insertSelective);
@@ -51,7 +50,6 @@ public class PubRoleController {
      * @return
      */
     @RequestMapping("/deleteByPrimaryKey")
-    @PreAuthorize("hasAnyAuthority('user:delete')")
     public Result deleteByPrimaryKey(@NotNull(message = "角色Id不能为空") Long roleId) throws CustomerException {
         int deleteByPrimaryKey = pubRoleService.deleteByPrimaryKey(roleId);
         return Result.success(deleteByPrimaryKey);
@@ -64,7 +62,6 @@ public class PubRoleController {
      * @return
      */
     @RequestMapping("/updateByPrimaryKeySelective")
-    @PreAuthorize("hasAnyAuthority('user: update')")
     public Result updateByPrimaryKeySelective(@Valid PubRoleVo record) throws CustomerException {
         int updateByPrimaryKeySelective = pubRoleService.updateByPrimaryKeySelective(record);
         return Result.success(updateByPrimaryKeySelective);
@@ -77,7 +74,6 @@ public class PubRoleController {
      * @return
      */
     @RequestMapping("/selectByPrimaryKey")
-    @PreAuthorize("hasAnyAuthority('user:select')")
     public Result<PubRole> selectByPrimaryKey(@NotNull(message = "角色Id不能为空") Long roleId) {
         PubRole pubRole = pubRoleService.selectByPrimaryKey(roleId);
         return Result.success(pubRole);
@@ -90,7 +86,6 @@ public class PubRoleController {
      * @parampubRoleauth
      */
     @RequestMapping("/addRoleAuth")
-    @PreAuthorize("hasAnyAuthority('user:add')")
     public Result addRoleAuth(@Valid PubRoleauth pubRoleauth) throws CustomerException {
         int addRoleAuth = pubRoleService.addRoleAuth(pubRoleauth);
         return Result.success(addRoleAuth);
@@ -103,7 +98,6 @@ public class PubRoleController {
      * @return
      */
     @RequestMapping("/addRoleMenus")
-    @PreAuthorize("hasAnyAuthority('user:add')")
     public Result addRoleMenu(Long[] menus,@NotNull(message = "角色Id不能为空") Long roleId) throws CustomerException {
         int addRoleMenu = pubRoleService.addRoleMenu(menus,roleId);
         return Result.success(addRoleMenu);
@@ -117,7 +111,6 @@ public class PubRoleController {
      * @throws CustomerException
      */
     @RequestMapping("/delRoleList")
-    @PreAuthorize("hasAnyAuthority('user:delete')")
     public Result delRoleList(@NotNull(message = "角色Id不能为空") Long[] roleIds) throws CustomerException {
         int delRoleList = pubRoleService.delRoleList(roleIds);
         return Result.success(delRoleList);
@@ -131,14 +124,12 @@ public class PubRoleController {
      * @throws CustomerException
      */
     @RequestMapping("/addRoleAuthList")
-    @PreAuthorize("hasAnyAuthority('user:add')")
     public Result addRoleAuthList(@NotBlank(message = "权限ID不能为空") String authId, @NotNull(message = "角色ID不能为空") Long roleId, String menuId ,String note) throws CustomerException {
         int i = pubRoleService.addRoleAuthList(authId, roleId, menuId,note);
         return Result.success(i);
     }
 
     @RequestMapping("/queryRole")
-    @PreAuthorize("hasAnyAuthority('user:select')")
     public Result<List<PubRole>> queryRole(){
         List<PubRole> list = pubRoleService.queryRole();
         return Result.success(list);

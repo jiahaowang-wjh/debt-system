@@ -27,10 +27,10 @@ public interface BusCollectionLetterDao {
 
     /**
      * 催款函页面初始化
-     * @param relativePerId
+     * @param propertId
      * @return
      */
-    BusCollectionLetterShow initialize(Long relativePerId);
+    BusCollectionLetterShow initialize(Long propertId);
 
     /**
      * 通过资产Id查询催款函

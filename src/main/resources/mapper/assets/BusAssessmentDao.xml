@@ -34,7 +34,14 @@
       LEFT JOIN bus_propert bp ON bp.`propert_id` = bus_assessment.`propert_id`
       LEFT JOIN bus_report br ON br.`report_id` = bp.`report_id`
       LEFT JOIN pub_company pc ON br.`company_id` = pc.`company_id`
-      WHERE pc.`company_type` = #{type}
+      <where>
+        <if test="type != null and type != ''">
+         and pc.`company_type` = #{type}
+        </if>
+        <if test="comId != null and comId != ''">
+         and pc.`company_id` = #{comId}
+        </if>
+      </where>
       GROUP BY days ORDER BY days DESC LIMIT 10;
     </select>
     <select id="initialize" resultType="com.smart.bracelet.model.vo.assets.BusAssessmentInit"

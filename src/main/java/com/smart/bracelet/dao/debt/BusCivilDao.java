@@ -17,7 +17,7 @@ public interface BusCivilDao {
 
     int updateByPrimaryKeySelective(BusCivilVo record);
 
-    List<DateAndDays> selectDaysCount(String type);
+    List<DateAndDays> selectDaysCount(String type,Long comId);
 
     /**
      * 查询所有民事调解信息
@@ -59,7 +59,7 @@ public interface BusCivilDao {
      * 通过身份信息获取相对人作为债事人的报备ID
      * @return
      */
-    Long selectReportId(String personIdcard);
+    List<Long> selectReportId(String personIdcard);
 
     /**
      * 通过相对人作为债事人的报备ID查询相对人
@@ -92,5 +92,6 @@ public interface BusCivilDao {
      * 民事调解书
      */
     List<CivilAndPseronInfo> selectCivi(Long reportId);
+
 
 }

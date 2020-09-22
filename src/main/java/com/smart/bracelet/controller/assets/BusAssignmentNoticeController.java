@@ -25,35 +25,30 @@ public class BusAssignmentNoticeController {
     private BusAssignmentNoticeService busAssignmentNoticeService;
 
     @RequestMapping("/deleteByPrimaryKey")
-    @PreAuthorize("hasAnyAuthority('assets:delete')")
     public Result deleteByPrimaryKey(@NotNull(message = "转让通知ID不能为空") Long assignmentNoticeId) throws CustomerException {
         int deleteByPrimaryKey = busAssignmentNoticeService.deleteByPrimaryKey(assignmentNoticeId);
         return Result.success(deleteByPrimaryKey);
     }
 
     @RequestMapping("/insertSelective")
-    @PreAuthorize("hasAnyAuthority('assets:add')")
     public Result insertSelective(@Valid BusAssignmentNotice record) throws CustomerException {
         Long insertSelective = busAssignmentNoticeService.insertSelective(record);
         return Result.success(insertSelective + "");
     }
 
     @RequestMapping("/selectByPrimaryKey")
-    @PreAuthorize("hasAnyAuthority('assets:select')")
     public Result<BusAssignmentNotice> selectByPrimaryKey(@NotNull(message = "转让通知ID不能为空") Long assignmentNoticeId) {
         BusAssignmentNotice busAssignmentNotice = busAssignmentNoticeService.selectByPrimaryKey(assignmentNoticeId);
         return Result.success(busAssignmentNotice);
     }
 
     @RequestMapping("/updateByPrimaryKeySelective")
-    @PreAuthorize("hasAnyAuthority('assets:update')")
     public Result updateByPrimaryKeySelective(@Valid BusAssignmentNoticeVo record) throws CustomerException {
         int updateByPrimaryKeySelective = busAssignmentNoticeService.updateByPrimaryKeySelective(record);
         return Result.success(updateByPrimaryKeySelective);
     }
 
     @RequestMapping("/queryList")
-    @PreAuthorize("hasAnyAuthority('assets:select')")
     public Result<List<BusAssignmentNotice>> queryList() {
         List<BusAssignmentNotice> busAssignmentNotices = busAssignmentNoticeService.queryList();
         return Result.success(busAssignmentNotices);
@@ -63,13 +58,12 @@ public class BusAssignmentNoticeController {
     /**
      * 初始化资产债权转让通知书
      *
-     * @param relativePerId
+     * @param propertId
      * @return
      */
     @RequestMapping("/initialize")
-    @PreAuthorize("hasAnyAuthority('assets:select')")
-    public Result<BusAssignmentNoticeShow> initialize(@NotNull(message = "相对人Id不能为空") Long relativePerId) {
-        BusAssignmentNoticeShow initialize = busAssignmentNoticeService.initialize(relativePerId);
+    public Result<BusAssignmentNoticeShow> initialize(@NotNull(message = "资产Id不能为空") Long propertId) {
+        BusAssignmentNoticeShow initialize = busAssignmentNoticeService.initialize(propertId);
         return Result.success(initialize);
     }
 
@@ -80,7 +74,6 @@ public class BusAssignmentNoticeController {
      * @return
      */
     @RequestMapping("/selectByPropertId")
-    @PreAuthorize("hasAnyAuthority('assets:select')")
     public Result<BusAssignmentNotice> selectByPropertId(@NotNull(message = "资产Id不能为空") Long propertId) {
         BusAssignmentNotice busAssignmentNotice = busAssignmentNoticeService.selectByPropertId(propertId);
         return Result.success(busAssignmentNotice);

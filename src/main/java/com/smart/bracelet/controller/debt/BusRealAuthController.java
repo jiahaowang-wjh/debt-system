@@ -23,28 +23,24 @@ public class BusRealAuthController {
     private BusRealAuthService busRealAuthService;
 
     @RequestMapping("/insertSelective")
-    @PreAuthorize("hasAnyAuthority('debt:add')")
     public Result insertSelective(@Valid BusRealAuth record) throws CustomerException {
         int insertSelective = busRealAuthService.insertSelective(record);
         return Result.success(insertSelective);
     }
 
     @RequestMapping("/deleteByPrimaryKey")
-    @PreAuthorize("hasAnyAuthority('debt:delete')")
     public Result deleteByPrimaryKey(@NotNull(message = "实名ID不能为空") Long realId) throws CustomerException {
         int deleteByPrimaryKey = busRealAuthService.deleteByPrimaryKey(realId);
         return Result.success(deleteByPrimaryKey);
     }
 
     @RequestMapping("/updateByPrimaryKeySelective")
-    @PreAuthorize("hasAnyAuthority('debt:update')")
     public Result updateByPrimaryKeySelective(@Valid BusRealAuthVo record) throws CustomerException {
         int updateByPrimaryKeySelective = busRealAuthService.updateByPrimaryKeySelective(record);
         return Result.success(updateByPrimaryKeySelective);
     }
 
     @RequestMapping("/selectByPrimaryKey")
-    @PreAuthorize("hasAnyAuthority('debt:select')")
     public Result<BusRealAuth> selectByPrimaryKey(@NotNull(message = "实名ID不能为空") Long realId) {
         BusRealAuth busRealAuth = busRealAuthService.selectByPrimaryKey(realId);
         return Result.success(busRealAuth);

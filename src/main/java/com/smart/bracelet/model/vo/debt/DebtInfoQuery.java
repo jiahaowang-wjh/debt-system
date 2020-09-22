@@ -4,6 +4,7 @@ import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Data
@@ -45,4 +46,11 @@ public class DebtInfoQuery {
 
     @NotBlank(message = "公司类型不能为空")
     String companyType;
+
+    /**
+     * 公司Id
+     */
+    @NotNull(message = "公司ID不能为空")
+    Long comId;
+
 }

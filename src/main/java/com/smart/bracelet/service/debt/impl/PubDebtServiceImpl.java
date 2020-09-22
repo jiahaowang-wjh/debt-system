@@ -1,6 +1,7 @@
 package com.smart.bracelet.service.debt.impl;
 
 import com.smart.bracelet.dao.debt.BusGuaranteeDao;
+import com.smart.bracelet.dao.debt.BusReportDao;
 import com.smart.bracelet.dao.debt.PubDebtDao;
 import com.smart.bracelet.dao.user.PubCompanyDao;
 import com.smart.bracelet.exception.CustomerException;
@@ -32,6 +33,9 @@ public class PubDebtServiceImpl implements PubDebtService {
     @Autowired
     private PubCompanyDao pubCompanyDao;
 
+    @Autowired
+    private BusReportDao busReportDao;
+
     @Override
     @Transactional(noRollbackFor = Exception.class)
     public int deleteByPrimaryKey(Long debtId) throws CustomerException {
@@ -55,7 +59,6 @@ public class PubDebtServiceImpl implements PubDebtService {
             record.setAmountCumulative(record.getAmountCumulative() + record.getAmountThis());
             record.setDebtId(l);
             record.setDebtNo(createRepNo());
-
             int insertSelective = pubDebtDao.insertSelective(record);
             log.info("新增解债信息成功,受影响行数:{}", insertSelective);
             return l;
@@ -87,8 +90,12 @@ public class PubDebtServiceImpl implements PubDebtService {
      * 按照日期查询每日解债数量
      */
     @Override
-    public List<DateAndDays> selectDaysCount(String type) {
-        return pubDebtDao.selectDaysCount(type);
+    public List<DateAndDays> selectDaysCount(String type,Long comId) {
+        if(type.equals("1")){
+            type = null;
+            comId = null;
+        }
+        return pubDebtDao.selectDaysCount(type,comId);
     }
 
     /**
@@ -119,6 +126,7 @@ public class PubDebtServiceImpl implements PubDebtService {
     public List<PubDebtInfo> selectDebtListShow(QueryDebtVo queryDebtVo) {
         if (queryDebtVo.getCompanyType().equals("1")) {
             queryDebtVo.setCompanyType(null);
+            queryDebtVo.setComId(null);
         }
         return pubDebtDao.selectDebtListShow(queryDebtVo);
     }
@@ -153,7 +161,7 @@ public class PubDebtServiceImpl implements PubDebtService {
             log.info("新增咨询服务协议成功");
             return pubDebtDao.updateService(assService);
         } catch (Exception e) {
-            log.error("新增咨询服务协议失败,异常信息：{}",e.getMessage());
+            log.error("新增咨询服务协议失败,异常信息：{}", e.getMessage());
             throw new CustomerException("新增咨询服务协议失败");
         }
     }

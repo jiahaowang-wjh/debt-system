@@ -2,7 +2,9 @@ package com.smart.bracelet.service;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.smart.bracelet.dao.assets.BusAgentSalesContractDao;
+import com.smart.bracelet.dao.debt.BusCivilDao;
 import com.smart.bracelet.dao.debt.BusRelativePersonDao;
+import com.smart.bracelet.model.po.debt.BusMediatePerson;
 import com.smart.bracelet.model.po.debt.BusRelativePerson;
 import com.smart.bracelet.model.vo.assets.BusAgentSalesContractShow;
 import com.smart.bracelet.model.vo.debt.AuxiliaryDownload;
@@ -33,13 +35,17 @@ public class UserInfoServiceTest {
     @Autowired
     BusRelativePersonDao busRelativePersonDao;
     //  String repNo = "TZ2020BBF000001";
-
+    @Autowired
+    BusCivilDao BusCivilDao;
     @Test
     public void testA() throws ParseException {
-
-        String cellphone="15585458544";
-        String pwd = cellphone.substring(cellphone.length() - 6);
-        System.out.println(pwd);
+        List<BusMediatePerson> mediatePeople = new ArrayList<>();
+        BusMediatePerson busMediatePerson = new BusMediatePerson();
+        busMediatePerson.setUserId(7994095474244599808L);
+        busMediatePerson.setCivilId(7996072317380321280L);
+        busMediatePerson.setMediatePersonId(123132123L);
+        mediatePeople.add(busMediatePerson);
+        int i = BusCivilDao.inertList(mediatePeople);
     }
 
 }

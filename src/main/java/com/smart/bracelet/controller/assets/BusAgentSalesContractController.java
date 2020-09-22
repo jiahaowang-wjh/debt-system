@@ -24,28 +24,24 @@ public class BusAgentSalesContractController {
     private BusAgentSalesContractService busAgentSalesContractService;
 
     @RequestMapping("/deleteByPrimaryKey")
-    @PreAuthorize("hasAnyAuthority('assets:delete')")
     public Result deleteByPrimaryKey(@NotNull(message = "代理销售合同ID不能为空") Long salesContractId) throws CustomerException {
         int i = busAgentSalesContractService.deleteByPrimaryKey(salesContractId);
         return Result.success(i);
     }
 
     @RequestMapping("/insertSelective")
-    @PreAuthorize("hasAnyAuthority('assets:add')")
     public Result insertSelective(@Valid BusAgentSalesContract record) throws CustomerException {
         Long i = busAgentSalesContractService.insertSelective(record);
         return Result.success(i + "");
     }
 
     @RequestMapping("/selectByPrimaryKey")
-    @PreAuthorize("hasAnyAuthority('assets:select')")
     public Result<BusAgentSalesContract> selectByPrimaryKey(@NotNull(message = "代理销售合同ID不能为空") Long salesContractId) {
         BusAgentSalesContract busAgentSalesContract = busAgentSalesContractService.selectByPrimaryKey(salesContractId);
         return Result.success(busAgentSalesContract);
     }
 
     @RequestMapping("/updateByPrimaryKeySelective")
-    @PreAuthorize("hasAnyAuthority('assets:update')")
     public Result updateByPrimaryKeySelective(@Valid BusAgentSalesContractVo record) throws CustomerException {
         int i = busAgentSalesContractService.updateByPrimaryKeySelective(record);
         return Result.success(i);
@@ -58,7 +54,6 @@ public class BusAgentSalesContractController {
      * @return
      */
     @RequestMapping("/initialize")
-    @PreAuthorize("hasAnyAuthority('assets:select')")
     public Result<BusAgentSalesContractShow> initialize(@NotNull(message = "相对人ID不能为空") Long relativePerId) throws CustomerException {
         BusAgentSalesContractShow initialize = busAgentSalesContractService.initialize(relativePerId);
         return Result.success(initialize);
@@ -71,7 +66,6 @@ public class BusAgentSalesContractController {
      * @return
      */
     @RequestMapping("/selectByPropertId")
-    @PreAuthorize("hasAnyAuthority('assets:select')")
     public Result<BusAgentSalesContract> selectByPropertId(@NotNull(message = "资产ID不能为空") Long propertId) {
         BusAgentSalesContract busAgentSalesContract = busAgentSalesContractService.selectByPropertId(propertId);
         return Result.success(busAgentSalesContract);

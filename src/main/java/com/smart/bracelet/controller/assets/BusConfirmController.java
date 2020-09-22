@@ -25,35 +25,30 @@ public class BusConfirmController {
     private BusConfirmService busConfirmService;
 
     @RequestMapping("/deleteByPrimaryKey")
-    @PreAuthorize("hasAnyAuthority('assets:delete')")
     public Result deleteByPrimaryKey(@NotNull(message = "确认ID不能为空") Long confirmtId) throws CustomerException {
         int deleteByPrimaryKey = busConfirmService.deleteByPrimaryKey(confirmtId);
         return Result.success(deleteByPrimaryKey);
     }
 
     @RequestMapping("/insertSelective")
-    @PreAuthorize("hasAnyAuthority('assets:add')")
     public Result insertSelective(@Valid BusConfirm record) throws CustomerException {
         int insertSelective = busConfirmService.insertSelective(record);
         return Result.success(insertSelective);
     }
 
     @RequestMapping("/selectByPrimaryKey")
-    @PreAuthorize("hasAnyAuthority('assets:select')")
     public Result<BusConfirm> selectByPrimaryKey(@NotNull(message = "确认ID不能为空") Long confirmtId) {
         BusConfirm busConfirm = busConfirmService.selectByPrimaryKey(confirmtId);
         return Result.success(busConfirm);
     }
 
     @RequestMapping("/updateByPrimaryKeySelective")
-    @PreAuthorize("hasAnyAuthority('assets:update')")
     public Result updateByPrimaryKeySelective(@Valid BusConfirmVo record) throws CustomerException {
         int updateByPrimaryKeySelective = busConfirmService.updateByPrimaryKeySelective(record);
         return Result.success(updateByPrimaryKeySelective);
     }
 
     @RequestMapping("/queryList")
-    @PreAuthorize("hasAnyAuthority('assets:select')")
     public Result<List<BusConfirm>> queryList() {
         List<BusConfirm> busConfirms = busConfirmService.queryList();
         return Result.success(busConfirms);
@@ -66,9 +61,8 @@ public class BusConfirmController {
      * @return
      */
     @RequestMapping("/initialize")
-    @PreAuthorize("hasAnyAuthority('assets:select')")
-    public Result<BusConfirmShow> initialize(@NotNull(message = "相对人ID不能为空") Long relativePerId) {
-        BusConfirmShow initialize = busConfirmService.initialize(relativePerId);
+    public Result<BusConfirmShow> initialize(@NotNull(message = "资产ID不能为空") Long propertId) {
+        BusConfirmShow initialize = busConfirmService.initialize(propertId);
         return Result.success(initialize);
     }
 
@@ -80,7 +74,6 @@ public class BusConfirmController {
      * @return
      */
     @RequestMapping("/selectByPropertId")
-    @PreAuthorize("hasAnyAuthority('assets:select')")
     public Result<BusConfirm> selectByPropertId(@NotNull(message = "资产ID不能为空") Long propertId) {
         BusConfirm busConfirm = busConfirmService.selectByPropertId(propertId);
         return Result.success(busConfirm);

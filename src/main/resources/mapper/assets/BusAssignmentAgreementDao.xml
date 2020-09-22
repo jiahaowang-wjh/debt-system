@@ -5,19 +5,10 @@
         <id column="assignment_agreement_id" jdbcType="BIGINT" property="assignmentAgreementId"/>
         <result column="assignment_agreement_no" jdbcType="VARCHAR" property="assignmentAgreementNo"/>
         <result column="propert_id" jdbcType="BIGINT" property="propertId"/>
-        <result column="defuse_way" jdbcType="VARCHAR" property="defuseWay"/>
-        <result column="money_way" jdbcType="VARCHAR" property="moneyWay"/>
-        <result column="agreement_date" jdbcType="DATE" property="agreementDate"/>
-        <result column="agreement_date_end" jdbcType="DATE" property="agreementDateEnd"/>
-        <result column="partya_seal" jdbcType="VARCHAR" property="partyaSeal"/>
-        <result column="partyb_seal" jdbcType="VARCHAR" property="partybSeal"/>
-        <result column="partya_signup_time" jdbcType="DATE" property="partyaSignupTime"/>
-        <result column="partyb_signup_time" jdbcType="DATE" property="partybSignupTime"/>
-        <result column="signup_addr" jdbcType="VARCHAR" property="signupAddr"/>
+        <result column="contract_time" jdbcType="DATE" property="contractTime"/>
     </resultMap>
     <sql id="Base_Column_List">
-    assignment_agreement_id, propert_id, defuse_way, money_way, agreement_date, agreement_date_end, 
-    partya_seal, partyb_seal, partya_signup_time, partyb_signup_time, signup_addr,assignment_agreement_no
+    assignment_agreement_id, propert_id,assignment_agreement_no,contract_time
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
@@ -60,76 +51,28 @@
             <if test="assignmentAgreementId != null">
                 assignment_agreement_id,
             </if>
+            <if test="contractTime != null">
+                contract_time,
+            </if>
             <if test="assignmentAgreementNo != null">
                 assignment_agreement_no,
             </if>
             <if test="propertId != null">
                 propert_id,
             </if>
-            <if test="defuseWay != null">
-                defuse_way,
-            </if>
-            <if test="moneyWay != null">
-                money_way,
-            </if>
-            <if test="agreementDate != null">
-                agreement_date,
-            </if>
-            <if test="agreementDateEnd != null">
-                agreement_date_end,
-            </if>
-            <if test="partyaSeal != null">
-                partya_seal,
-            </if>
-            <if test="partybSeal != null">
-                partyb_seal,
-            </if>
-            <if test="partyaSignupTime != null">
-                partya_signup_time,
-            </if>
-            <if test="partybSignupTime != null">
-                partyb_signup_time,
-            </if>
-            <if test="signupAddr != null">
-                signup_addr,
-            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="assignmentAgreementId != null">
                 #{assignmentAgreementId,jdbcType=BIGINT},
+            </if>
+            <if test="contractTime != null">
+                #{contractTime},
             </if>
             <if test="assignmentAgreementNo != null">
                 #{assignmentAgreementNo,jdbcType=VARCHAR},
             </if>
             <if test="propertId != null">
                 #{propertId,jdbcType=BIGINT},
-            </if>
-            <if test="defuseWay != null">
-                #{defuseWay,jdbcType=VARCHAR},
-            </if>
-            <if test="moneyWay != null">
-                #{moneyWay,jdbcType=VARCHAR},
-            </if>
-            <if test="agreementDate != null">
-                #{agreementDate,jdbcType=DATE},
-            </if>
-            <if test="agreementDateEnd != null">
-                #{agreementDateEnd,jdbcType=DATE},
-            </if>
-            <if test="partyaSeal != null">
-                #{partyaSeal,jdbcType=VARCHAR},
-            </if>
-            <if test="partybSeal != null">
-                #{partybSeal,jdbcType=VARCHAR},
-            </if>
-            <if test="partyaSignupTime != null">
-                #{partyaSignupTime,jdbcType=DATE},
-            </if>
-            <if test="partybSignupTime != null">
-                #{partybSignupTime,jdbcType=DATE},
-            </if>
-            <if test="signupAddr != null">
-                #{signupAddr,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -143,32 +86,8 @@
             <if test="assignmentAgreementNo != null">
                 assignment_agreement_no = #{assignmentAgreementNo,jdbcType=VARCHAR},
             </if>
-            <if test="defuseWay != null">
-                defuse_way = #{defuseWay,jdbcType=VARCHAR},
-            </if>
-            <if test="moneyWay != null">
-                money_way = #{moneyWay,jdbcType=VARCHAR},
-            </if>
-            <if test="agreementDate != null">
-                agreement_date = #{agreementDate,jdbcType=DATE},
-            </if>
-            <if test="agreementDateEnd != null">
-                agreement_date_end = #{agreementDateEnd,jdbcType=DATE},
-            </if>
-            <if test="partyaSeal != null">
-                partya_seal = #{partyaSeal,jdbcType=VARCHAR},
-            </if>
-            <if test="partybSeal != null">
-                partyb_seal = #{partybSeal,jdbcType=VARCHAR},
-            </if>
-            <if test="partyaSignupTime != null">
-                partya_signup_time = #{partyaSignupTime,jdbcType=DATE},
-            </if>
-            <if test="partybSignupTime != null">
-                partyb_signup_time = #{partybSignupTime,jdbcType=DATE},
-            </if>
-            <if test="signupAddr != null">
-                signup_addr = #{signupAddr,jdbcType=VARCHAR},
+            <if test="contractTime != null">
+                contract_time = #{contractTime},
             </if>
         </set>
         where assignment_agreement_id = #{assignmentAgreementId,jdbcType=BIGINT}

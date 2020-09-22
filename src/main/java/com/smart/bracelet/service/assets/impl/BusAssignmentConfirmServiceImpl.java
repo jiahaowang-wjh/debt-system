@@ -1,24 +1,17 @@
 package com.smart.bracelet.service.assets.impl;
 
-import com.smart.bracelet.dao.assets.BusAssessmentDao;
+
 import com.smart.bracelet.dao.assets.BusAssignmentAgreementDao;
 import com.smart.bracelet.dao.assets.BusAssignmentConfirmDao;
-import com.smart.bracelet.dao.debt.BusCivilDao;
+
 import com.smart.bracelet.dao.debt.BusGuaranteeDao;
-import com.smart.bracelet.dao.user.PubCompanyDao;
 import com.smart.bracelet.exception.CustomerException;
-import com.smart.bracelet.model.po.assets.BusAssessment;
-import com.smart.bracelet.model.po.assets.BusAssignmentAgreement;
 import com.smart.bracelet.model.po.assets.BusAssignmentConfirm;
 import com.smart.bracelet.model.po.debt.BusGuarantee;
-import com.smart.bracelet.model.po.user.PubCompany;
 import com.smart.bracelet.model.vo.assets.BusAssignmentConfirmShow;
 import com.smart.bracelet.model.vo.assets.BusAssignmentConfirmVo;
-import com.smart.bracelet.service.assets.BusAssignmentAgreementService;
 import com.smart.bracelet.service.assets.BusAssignmentConfirmService;
 import com.smart.bracelet.utils.IdUtils;
-import com.smart.bracelet.utils.RepNoUtils;
-import io.micrometer.core.instrument.Meter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,10 +52,8 @@ public class BusAssignmentConfirmServiceImpl implements BusAssignmentConfirmServ
     @Transactional(noRollbackFor = Exception.class)
     public Long insertSelective(BusAssignmentConfirm record) throws CustomerException {
         try {
-            BusAssignmentAgreement busAssignmentAgreement = assignmentAgreementDao.selectByProId(record.getPropertId());
             long l = IdUtils.nextId();
             record.setPosseConfirmtId(l);
-            record.setConfirmNo(busAssignmentAgreement.getAssignmentAgreementNo()+"-(1)");
             int deleteByPrimaryKey = busAssignmentConfirmDao.insertSelective(record);
             log.info("新增资产债权转让确认成功,受影响行数:{}", deleteByPrimaryKey);
             return l;
@@ -96,8 +87,9 @@ public class BusAssignmentConfirmServiceImpl implements BusAssignmentConfirmServ
     }
 
     @Override
-    public BusAssignmentConfirmShow initialize(Long relativePerId) {
-        BusAssignmentConfirmShow initialize = busAssignmentConfirmDao.initialize(relativePerId);
+    public BusAssignmentConfirmShow initialize(Long propertId) {
+        BusAssignmentConfirmShow initialize = busAssignmentConfirmDao.initialize(propertId);
+        initialize.setConfirmNo(initialize.getAssignmentAgreementNo()+"(-1)");
         List<String> authName = new ArrayList<>();
         List<BusGuarantee> busGuarantees = busGuaranteeDao.selectByPrimaryKey(initialize.getCivilId());
         for (BusGuarantee item: busGuarantees) {

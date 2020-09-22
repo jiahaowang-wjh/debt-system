@@ -63,7 +63,14 @@
     <select id="selectDaysCount" resultType="com.smart.bracelet.model.po.debt.DateAndDays">
         SELECT DATE_FORMAT(create_time,'%Y-%m-%d') days,COUNT(*) COUNT FROM bus_report
         LEFT JOIN pub_company pc ON bus_report.`company_id` = pc.`company_id`
-        WHERE pc.`company_type` = #{type}
+        <where>
+            <if test="comId != null and comId != ''">
+                and pc.company_id = #{comId}
+            </if>
+            <if test="type != null and type != ''">
+                and pc.`company_type` = #{type}
+            </if>
+        </where>
         GROUP BY days ORDER BY days DESC LIMIT 10;
     </select>
     <select id="queryLisyChain" resultType="com.smart.bracelet.model.vo.debt.DebtChain">
@@ -483,6 +490,9 @@
         <where>
             <if test="companyType != null and companyType!='' ">
                 and pc.company_type = #{companyType,jdbcType=VARCHAR}
+            </if>
+            <if test="comId != null and comId!='' ">
+                and pc.company_id = #{comId,jdbcType=BIGINT}
             </if>
             <if test="debtName != null and debtName!='' ">
                 and br.data1 = #{debtName,jdbcType=VARCHAR}

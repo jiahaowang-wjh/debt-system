@@ -23,28 +23,24 @@ public class PubAreaController {
     private PubAreaService pubAreaService;
 
     @RequestMapping("/insertSelective")
-    @PreAuthorize("hasAnyAuthority('user:add')")
     public Result insertSelective(@Valid PubArea record) throws CustomerException {
         int insertSelective = pubAreaService.insertSelective(record);
         return Result.success(insertSelective);
     }
 
     @RequestMapping("/deleteByPrimaryKey")
-    @PreAuthorize("hasAnyAuthority('user:delete')")
     public Result deleteByPrimaryKey(@NotNull(message = "区域Id不能为空") Long areaId) throws CustomerException {
         int deleteByPrimaryKey = pubAreaService.deleteByPrimaryKey(areaId);
         return Result.success(deleteByPrimaryKey);
     }
 
     @RequestMapping("/updateByPrimaryKeySelective")
-    @PreAuthorize("hasAnyAuthority('user:update')")
     public Result updateByPrimaryKeySelective(@Valid PubAreaVo record) throws CustomerException {
         int updateByPrimaryKeySelective = pubAreaService.updateByPrimaryKeySelective(record);
         return Result.success(updateByPrimaryKeySelective);
     }
 
     @RequestMapping("/selectByPrimaryKey")
-    @PreAuthorize("hasAnyAuthority('user:select')")
     public Result<PubArea> selectByPrimaryKey(@NotNull(message = "区域Id不能为空") Long areaId) {
         PubArea pubArea = pubAreaService.selectByPrimaryKey(areaId);
         return Result.success(pubArea);

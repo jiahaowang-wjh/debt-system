@@ -12,6 +12,7 @@ import com.smart.bracelet.utils.BigDecimalUtil;
 import com.smart.bracelet.utils.IdUtils;
 import com.smart.bracelet.utils.RepNoUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -87,13 +88,16 @@ public class BusAssignmentAgreementServiceImpl implements BusAssignmentAgreement
      * @return
      */
     @Override
-    public BusAssignmentAgreementShow initialize(Long propertId,Long comId) throws CustomerException {
+    public BusAssignmentAgreementShow initialize(Long propertId, Long comId) throws CustomerException {
         try {
-            PubCompany pubCompany = pubCompanyDao.selectByPrimaryKey(comId);
-            String selectNo = busAssignmentAgreementDao.selectNo();
-            String repNo = RepNoUtils.createRepNo("ZC", pubCompany.getCompanyNameMax(), selectNo);
             BusAssignmentAgreementShow agreementShow = busAssignmentAgreementDao.initialize(propertId);
-            agreementShow.setAssignmentAgreementNo(repNo);
+            //编号为空为初始化
+            if(StringUtils.isEmpty(agreementShow.getAssignmentAgreementNo())){
+                PubCompany pubCompany = pubCompanyDao.selectByPrimaryKey(comId);
+                String selectNo = busAssignmentAgreementDao.selectNo();
+                String repNo = RepNoUtils.createRepNo("ZC", pubCompany.getCompanyNameMax(), selectNo);
+                agreementShow.setAssignmentAgreementNo(repNo);
+            }
             agreementShow.setThisTime(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
             int debtYaer = Integer.parseInt(agreementShow.getDebtYaer());
             switch (debtYaer) {

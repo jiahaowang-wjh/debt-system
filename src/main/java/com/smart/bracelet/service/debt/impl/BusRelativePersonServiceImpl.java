@@ -85,6 +85,7 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
         busRelativePersonListVo.setCreateUserId(busRelativePerson.getCreateUserId());
         busRelativePersonListVo.setCreateTime(busRelativePerson.getCreateTime());
         busRelativePersonListVo.setUpdateTime(busRelativePerson.getUpdateTime());
+
         //判断性质在封装
         if (busRelativePerson.getReportPropert().equals("1")) {
             //私人性质
@@ -436,20 +437,19 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
      * @return
      */
     @Override
-    public List<BusRelativePersonListVo> selectByreportId(Long reportId) throws CustomerException {
+    public List<BusRelativePerson> selectByreportId(Long reportId) throws CustomerException {
         try {
-            BusReport busReport = busReportDao.selectByPrimaryKey(reportId);
-            if (busReport.getReportType().equals("2")) {
-                return null;
-            }
             List<BusRelativePerson> busRelativePeople = busRelativePersonDao.selectByreportId(reportId);
-            List<BusRelativePersonListVo> listVos = new ArrayList<>();
+            List<BusRelativePerson> listVos = new ArrayList<>();
             for (BusRelativePerson item : busRelativePeople) {
                 //判断是否符合民事调解关系
                 Boolean verification = busCivilService.verification(item.getRelativePerId());
                 if (verification) {
-                    BusRelativePersonListVo busRelativePersonListVo = selectByPrimaryKey(item.getRelativePerId());
-                    listVos.add(busRelativePersonListVo);
+                    BusRelativePerson busRelativePerson = busRelativePersonDao.selectByPrimaryKey(item.getRelativePerId());
+                    System.out.println(busRelativePerson.getStatus());
+                    if(busRelativePerson.getStatus().equals("0")){
+                        listVos.add(busRelativePerson);
+                    }
                 }
             }
             return listVos;
@@ -545,6 +545,18 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
             }
         }
         return dowLods;
+    }
+
+    @Override
+    public int updateStatus(Long relativePerId, String status) throws CustomerException {
+        try {
+            int i = busRelativePersonDao.updateStatus(relativePerId, status);
+            log.info("更新相对人状态成功，受影响行数：{}",i);
+            return i;
+        } catch (Exception e) {
+            log.error("更新相对人状态失败，异常信息：{}",e.getMessage());
+            throw new CustomerException("更新相对人状态失败");
+        }
     }
 
 

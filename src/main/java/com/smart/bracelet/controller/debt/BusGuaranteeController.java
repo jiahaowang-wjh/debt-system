@@ -27,28 +27,24 @@ public class BusGuaranteeController {
     private BusGuaranteeService busGuaranteeService;
 
     @RequestMapping("/insertSelective")
-    @PreAuthorize("hasAnyAuthority('debt:add')")
     public Result insertSelective(@Valid BusGuarantee record) throws CustomerException {
         int insertSelective = busGuaranteeService.insertSelective(record);
         return Result.success(insertSelective);
     }
 
     @RequestMapping("/deleteByPrimaryKey")
-    @PreAuthorize("hasAnyAuthority('debt:delete')")
     public Result deleteByPrimaryKey(@NotNull(message = "担保人ID不能为空") Long guaranteeId) throws CustomerException {
         int deleteByPrimaryKey = busGuaranteeService.deleteByPrimaryKey(guaranteeId);
         return Result.success(deleteByPrimaryKey);
     }
 
     @RequestMapping("/updateByPrimaryKeySelective")
-    @PreAuthorize("hasAnyAuthority('debt:update')")
     public Result updateByPrimaryKeySelective(@Valid BusGuaranteeVo record) throws CustomerException {
         int updateByPrimaryKeySelective = busGuaranteeService.updateByPrimaryKeySelective(record);
         return Result.success(updateByPrimaryKeySelective);
     }
 
     @RequestMapping("/selectByPrimaryKey")
-    @PreAuthorize("hasAnyAuthority('debt:select')")
     public Result<List<BusGuarantee>> selectByPrimaryKey(@NotNull(message = "民事调解ID不能为空") Long civilId) {
         List<BusGuarantee> busGuarantee = busGuaranteeService.selectByPrimaryKey(civilId);
         return Result.success(busGuarantee);

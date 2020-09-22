@@ -23,28 +23,24 @@ public class BusAgentSalesContractModityController {
     private BusAgentSalesContractModityService busAgentSalesContractModityService;
 
     @RequestMapping("/deleteByPrimaryKey")
-    @PreAuthorize("hasAnyAuthority('assets:delete')")
     public Result deleteByPrimaryKey(@NotNull(message = "代理销售合同商品ID不能为空") Long salesContractModityId) throws CustomerException {
         int i = busAgentSalesContractModityService.deleteByPrimaryKey(salesContractModityId);
         return Result.success(i);
     }
 
     @RequestMapping("/insertSelective")
-    @PreAuthorize("hasAnyAuthority('assets:add')")
     public Result insertSelective(@Valid BusAgentSalesContractModity record) throws CustomerException {
         Long i = busAgentSalesContractModityService.insertSelective(record);
         return Result.success(i + "");
     }
 
     @RequestMapping("/selectByPrimaryKey")
-    @PreAuthorize("hasAnyAuthority('assets:select')")
     public Result<BusAgentSalesContractModity> selectByPrimaryKey(@NotNull(message = "代理销售合同商品ID不能为空") Long salesContractModityId) {
         BusAgentSalesContractModity busAgentSalesContractModity = busAgentSalesContractModityService.selectByPrimaryKey(salesContractModityId);
         return Result.success(busAgentSalesContractModity);
     }
 
     @RequestMapping("/updateByPrimaryKeySelective")
-    @PreAuthorize("hasAnyAuthority('assets:update')")
     public Result updateByPrimaryKeySelective(@Valid BusAgentSalesContractModityVo record) throws CustomerException {
         int i = busAgentSalesContractModityService.updateByPrimaryKeySelective(record);
         return Result.success(i);
@@ -57,7 +53,6 @@ public class BusAgentSalesContractModityController {
      * @return
      */
     @RequestMapping("/selectBySalesContractId")
-    @PreAuthorize("hasAnyAuthority('assets:select')")
     public Result<BusAgentSalesContractModity> selectBySalesContractId(@NotNull(message = "资产委托代理销售合同ID不能为空") Long salesContractId) {
         BusAgentSalesContractModity busAgentSalesContractModity = busAgentSalesContractModityService.selectBySalesContractId(salesContractId);
         return Result.success(busAgentSalesContractModity);

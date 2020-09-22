@@ -27,28 +27,24 @@ public class PubExpController {
     private PubExpService pubExpService;
 
     @RequestMapping("/insertSelective")
-    @PreAuthorize("hasAnyAuthority('user:add')")
     public Result insertSelective(@Valid PubExp record) throws CustomerException {
         int insertSelective = pubExpService.insertSelective(record);
         return Result.success(insertSelective);
     }
 
     @RequestMapping("/deleteByPrimaryKey")
-    @PreAuthorize("hasAnyAuthority('user:delete')")
     public Result deleteByPrimaryKey(@NotNull(message = "公式ID不能为空") Long expId) throws CustomerException {
         int deleteByPrimaryKey = pubExpService.deleteByPrimaryKey(expId);
         return Result.success(deleteByPrimaryKey);
     }
 
     @RequestMapping("/updateByPrimaryKeySelective")
-    @PreAuthorize("hasAnyAuthority('user:update')")
     public Result updateByPrimaryKeySelective(@Valid PubExpVo record) throws CustomerException {
         int updateByPrimaryKeySelective = pubExpService.updateByPrimaryKeySelective(record);
         return Result.success(updateByPrimaryKeySelective);
     }
 
     @RequestMapping("/selectByPrimaryKey")
-    @PreAuthorize("hasAnyAuthority('user:select')")
     public Result<PubExp> selectByPrimaryKey(@NotNull(message = "公式ID不能为空") Long expId) {
         PubExp pubExp = pubExpService.selectByPrimaryKey(expId);
         return Result.success(pubExp);
@@ -60,7 +56,6 @@ public class PubExpController {
      * @return
      */
     @RequestMapping("/queryExpList")
-    @PreAuthorize("hasAnyAuthority('user:select')")
     public Result<List<PubExp>> queryExpList() {
         List<PubExp> pubExps = pubExpService.queryExpList();
         return Result.success(pubExps);
@@ -73,7 +68,6 @@ public class PubExpController {
      * @return
      */
     @RequestMapping("/delExpList")
-    @PreAuthorize("hasAnyAuthority('user:delete')")
     public Result delExpList(@NotNull(message = "公式ID不能为空") Long[] expIds) throws CustomerException {
         int delExpList = pubExpService.delExpList(expIds);
         return Result.success(delExpList);

@@ -79,13 +79,9 @@ public class BusConfirmServiceImpl implements BusConfirmService {
     }
 
     @Override
-    public BusConfirmShow initialize(Long relativePerId) {
-        BusConfirmShow initialize = busConfirmDao.initialize(relativePerId);
-        if (initialize.getReportPropert().equals("1")) {
-            initialize.setCorBankPhone(null);
-        } else {
-            initialize.setPriPhone(null);
-        }
+    public BusConfirmShow initialize(Long propertId) {
+        BusConfirmShow initialize = busConfirmDao.initialize(propertId);
+        initialize.setConfirmNo(initialize.getAssignmentAgreementNo()+"(-3)");
         return initialize;
     }
 

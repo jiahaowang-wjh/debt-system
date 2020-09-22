@@ -70,8 +70,12 @@ public class BusAssessmentServiceImpl implements BusAssessmentService {
     }
 
     @Override
-    public List<DateAndDays> selectDaysCount(String type) {
-        return busAssessmentDao.selectDaysCount(type);
+    public List<DateAndDays> selectDaysCount(String type,Long comId) {
+        if(type.equals("1")){
+            type = null;
+            comId = null;
+        }
+        return busAssessmentDao.selectDaysCount(type,comId);
     }
 
     @Override

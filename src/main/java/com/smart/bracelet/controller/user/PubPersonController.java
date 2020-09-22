@@ -30,28 +30,24 @@ public class PubPersonController {
 
 
     @RequestMapping("/insertSelective")
-    @PreAuthorize("hasAnyAuthority('user:add')")
     public Result insertSelective(@Valid PubPerson record) throws CustomerException {
         int insertSelective = pubPersonService.insertSelective(record);
         return Result.success(insertSelective);
     }
 
     @RequestMapping("/deleteByPrimaryKey")
-    @PreAuthorize("hasAnyAuthority('user:delete')")
     public Result deleteByPrimaryKey(@NotNull(message = "人员ID不能为空") Long personId) throws CustomerException {
         int deleteByPrimaryKey = pubPersonService.deleteByPrimaryKey(personId);
         return Result.success(deleteByPrimaryKey);
     }
 
     @RequestMapping("/updateByPrimaryKeySelective")
-    @PreAuthorize("hasAnyAuthority('user: update')")
     public Result updateByPrimaryKeySelective(@Valid PubPersonVo record) throws CustomerException {
         int updateByPrimaryKeySelective = pubPersonService.updateByPrimaryKeySelective(record);
         return Result.success(updateByPrimaryKeySelective);
     }
 
     @RequestMapping("/selectByPrimaryKey")
-    @PreAuthorize("hasAnyAuthority('user:select')")
     public Result<PubPerson> selectByPrimaryKey(@NotNull(message = "人员ID不能为空") Long personId) {
         PubPerson pubPerson = pubPersonService.selectByPrimaryKey(personId);
         return Result.success(pubPerson);
@@ -61,7 +57,6 @@ public class PubPersonController {
      * 查询推荐人
      */
     @RequestMapping("/selectByType")
-    @PreAuthorize("hasAnyAuthority('user:select')")
     public Result<List<PubPerson>> selectByType(@NotBlank(message = "类型不能为空") String personType) {
         List<PubPerson> pubUsers = pubPersonService.selectByType(personType);
         return Result.success(pubUsers);

@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -79,8 +81,11 @@ public class BusAssignmentNoticeServiceImpl implements BusAssignmentNoticeServic
     }
 
     @Override
-    public BusAssignmentNoticeShow initialize(Long relativePerId) {
-        return busAssignmentNoticeDao.initialize(relativePerId);
+    public BusAssignmentNoticeShow initialize(Long propertId) {
+        BusAssignmentNoticeShow initialize = busAssignmentNoticeDao.initialize(propertId);
+        initialize.setContractTime(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+        initialize.setNoticeNo(initialize.getAssignmentAgreementNo()+"(-2)");
+        return initialize;
     }
 
     @Override

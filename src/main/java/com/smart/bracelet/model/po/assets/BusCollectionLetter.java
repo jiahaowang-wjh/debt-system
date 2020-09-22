@@ -1,13 +1,13 @@
 package com.smart.bracelet.model.po.assets;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
-import org.apache.commons.lang3.StringUtils;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * bus_collection_letter
@@ -28,14 +28,11 @@ public class BusCollectionLetter implements Serializable {
      */
     @NotNull(message = "公司ID不能为空")
     Long comId;
-    /**
-     * 电子章
-     */
-    String chapter;
 
     /**
      * 编号
      */
+    @NotBlank(message = "编号不能为空")
     private String collectionLettertNo;
     /**
      * 资产ID
@@ -45,39 +42,46 @@ public class BusCollectionLetter implements Serializable {
     private Long propertId;
 
     /**
+     * 合同日期
+     */
+    @NotNull(message = "合同日期不能为空")
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
+    Date contractDate;
+
+
+    /**
      * 甲方确认送达地址
      */
-    @NotBlank(message = "甲方确认送达地址不能为空")
     private String partyaAddr;
 
     /**
      * 甲方确认送达联系人
      */
-    @NotBlank(message = "甲方确认送达联系人不能为空")
     private String partyaPerson;
 
     /**
      * 甲方确认送达电话
      */
-    @NotBlank(message = "甲方确认送达电话不能为空")
     private String partyaTel;
 
     /**
      * 乙方确认送达地址
      */
-    @NotBlank(message = "乙方确认送达地址不能为空")
     private String partybAddr;
 
     /**
      * 乙方确认送达联系人
      */
-    @NotBlank(message = "乙方确认送达联系人不能为空")
     private String partybPerson;
 
     /**
      * 乙方确认送达电话
      */
-    @NotBlank(message = "乙方确认送达电话不能为空")
     private String partybTel;
+
+    /**
+     * 电子章
+     */
+    String chapter;
 
 }

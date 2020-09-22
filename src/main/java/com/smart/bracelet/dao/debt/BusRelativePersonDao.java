@@ -48,4 +48,14 @@ public interface BusRelativePersonDao {
      * 辅助下载债务
      */
     List<DowLod> selectDebtDow(String debtName,String time);
+
+
+    /**
+     * 更新相对人状态
+     * @param relativePerId
+     * @param status
+     * @return
+     */
+    int updateStatus(Long relativePerId,String status);
+
 }

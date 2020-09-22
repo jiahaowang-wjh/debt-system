@@ -1,7 +1,10 @@
 package com.smart.bracelet.model.vo.assets;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -10,6 +13,7 @@ import java.util.List;
 @Data
 public class BusAssignmentConfirmShow {
 
+    @JsonSerialize(using = ToStringSerializer.class)
     Long civilId;
     /**
      * 债权人姓名
@@ -35,5 +39,10 @@ public class BusAssignmentConfirmShow {
      *担保人姓名
      */
     List<String> authName;
+
+    /**
+     * 编号
+     */
+    String confirmNo;
 
 }

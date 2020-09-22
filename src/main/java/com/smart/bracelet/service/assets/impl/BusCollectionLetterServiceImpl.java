@@ -12,6 +12,7 @@ import com.smart.bracelet.utils.ConvertUpMoney;
 import com.smart.bracelet.utils.IdUtils;
 import com.smart.bracelet.utils.RepNoUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,12 +45,9 @@ public class BusCollectionLetterServiceImpl implements BusCollectionLetterServic
     @Override
     @Transactional(noRollbackFor = Exception.class)
     public int insertSelective(BusCollectionLetter record) throws CustomerException {
-        String selectNo = busCollectionLetterDao.selectNo();
-        PubCompany pubCompany = pubCompanyDao.selectByPrimaryKey(record.getComId());
-        String repNo = RepNoUtils.createRepNo("ZC",pubCompany.getCompanyNameMax(),selectNo);
+
         try {
             record.setCollectionLettertId(IdUtils.nextId());
-            record.setCollectionLettertNo(repNo);
             int deleteByPrimaryKey = busCollectionLetterDao.insertSelective(record);
             log.info("新增资产催款函成功,受影响行数:{}", deleteByPrimaryKey);
             return deleteByPrimaryKey;
@@ -85,16 +83,16 @@ public class BusCollectionLetterServiceImpl implements BusCollectionLetterServic
     /**
      * 催款函页面初始化
      *
-     * @param relativePerId
+     * @param propertId
      * @return
      */
     @Override
-    public BusCollectionLetterShow initialize(Long relativePerId) {
-        BusCollectionLetterShow initialize = busCollectionLetterDao.initialize(relativePerId);
-        if (initialize.getReportPropert().equals("1")) {
-            initialize.setCorBankPhone(null);
-        } else {
-            initialize.setPriPhone(null);
+    public BusCollectionLetterShow initialize(Long propertId,Long comId) {
+        BusCollectionLetterShow initialize = busCollectionLetterDao.initialize(propertId);
+        if(StringUtils.isEmpty(initialize.getCollectionLettertNo())){
+            String selectNo = busCollectionLetterDao.selectNo();
+            PubCompany pubCompany = pubCompanyDao.selectByPrimaryKey(comId);
+            initialize.setCollectionLettertNo(RepNoUtils.createRepNo("ZC",pubCompany.getCompanyNameMax(),selectNo)+comId);
         }
         initialize.setMoneyMax(ConvertUpMoney.toChinese(initialize.getAmountThis().toString()));
         return initialize;

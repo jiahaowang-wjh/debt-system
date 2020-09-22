@@ -45,7 +45,6 @@ public class PubUserController {
      * @throws CustomerException
      */
     @RequestMapping("/addPubUser")
-    @PreAuthorize("hasAnyAuthority('user:add')")
     public Result addPubUser(@Valid PubUser pubUser) throws CustomerException {
         int insert = userInfoService.insertSelective(pubUser);
         return Result.success(insert);
@@ -58,7 +57,6 @@ public class PubUserController {
      * @return
      */
     @RequestMapping("/updateByPrimaryKeySelective")
-    @PreAuthorize("hasAnyAuthority('user:update')")
     public Result updateByPrimaryKeySelective(@Valid PubUserVo record) throws CustomerException {
         int updateByPrimaryKeySelective = userInfoService.updateByPrimaryKeySelective(record);
         return Result.success(updateByPrimaryKeySelective);
@@ -73,7 +71,6 @@ public class PubUserController {
      * @throws CustomerException
      */
     @RequestMapping("/deleteByPrimaryKey")
-    @PreAuthorize("hasAnyAuthority('user:delete')")
     public Result deleteByPrimaryKey(@NotNull(message = "用户Id不能为空") Long userId) throws CustomerException {
         int deleteByPrimaryKey = userInfoService.deleteByPrimaryKey(userId);
         return Result.success(deleteByPrimaryKey);
@@ -85,7 +82,6 @@ public class PubUserController {
      * @return
      */
     @RequestMapping("/queryUserList")
-    @PreAuthorize("hasAnyAuthority('user:select')")
     public Result<PageInfo> queryUserList() {
         PageHelper.startPage(1, 5);
         List<PubUser> pubUsers = userInfoService.queryUserList();
@@ -100,7 +96,6 @@ public class PubUserController {
      * @return
      */
     @RequestMapping("/selectByPrimaryKey")
-    @PreAuthorize("hasAnyAuthority('user:select')")
     public Result<PubUser> selectByPrimaryKey(@NotNull(message = "用户Id不能为空") Long userId) {
         PubUser pubUser = userInfoService.selectByPrimaryKey(userId);
         return Result.success(pubUser);
@@ -113,7 +108,6 @@ public class PubUserController {
      * @return
      */
     @RequestMapping("/selectMenuByUserId")
-    @PreAuthorize("hasAnyAuthority('user:select')")
     public Result<List<PubMenu>> selectMenuByUserId(@NotNull(message = "用户Id不能为空") Long userId) {
         List<PubMenu> pubMenus = userInfoService.selectMenuByUserId(userId);
         return Result.success(pubMenus);
@@ -137,7 +131,6 @@ public class PubUserController {
      * @return
      */
     @RequestMapping("/updatePwd")
-    @PreAuthorize("hasAnyAuthority('user:update')")
     public Result updatePwd(@NotBlank(message = "旧密码不能为空") String outPwd,
                             @NotBlank(message = "新密码不能为空") String newPwdA,
                             @NotBlank(message = "重复新密码不能为空") String newPwdB,
@@ -152,7 +145,6 @@ public class PubUserController {
      * @return
      */
     @RequestMapping("/delUserList")
-    @PreAuthorize("hasAnyAuthority('user:delete')")
     public Result delUserList(@NotNull(message = "用户ID不能为空") Long[] userIds) throws CustomerException {
         int delUserList = userInfoService.delUserList(userIds);
         return Result.success(delUserList);
@@ -166,7 +158,6 @@ public class PubUserController {
      * @return
      */
     @RequestMapping("/queryList")
-    @PreAuthorize("hasAnyAuthority('user:select')")
     public Result<PageInfo> queryList(@NotNull(message = "页码不能为空") Integer pageNum, @NotNull(message = "当前显示条数不能为空") Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         List<PersonOnUserOnCom> personOnUserOnComVos = userInfoService.queryList();
@@ -182,7 +173,6 @@ public class PubUserController {
      * @return
      */
     @RequestMapping("/delListPerson")
-    @PreAuthorize("hasAnyAuthority('user:delete')")
     public Result delListPerson(Long[] ids) throws CustomerException {
         if (ids.length == 0) {
             throw new CustomerException("Id不能为空");
@@ -195,7 +185,6 @@ public class PubUserController {
      * 更新人员信息
      */
     @RequestMapping("/updatePerson")
-    @PreAuthorize("hasAnyAuthority('user:update')")
     public Result updatePerson(@Valid PersonOnUserOnComVo personOnUserOnComVo) throws CustomerException {
         int i = userInfoService.updatePerson(personOnUserOnComVo);
         return Result.success(i);

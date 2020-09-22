@@ -23,10 +23,10 @@ public interface BusAssignmentNoticeDao {
 
     /**
      * 初始化资产债权转让通知书
-     * @param relativePerId
+     * @param propertId
      * @return
      */
-    BusAssignmentNoticeShow initialize(Long relativePerId);
+    BusAssignmentNoticeShow initialize(Long propertId);
 
     /**
      * 通过资产id查询资产债权转让通知书
