@@ -44,6 +44,7 @@
      INNER JOIN pub_rolemenu pro ON pr.`role_id`=pro.`role_id`
      INNER JOIN pub_menu pm ON pro.`menu_id`=pm.`menu_id`
      WHERE pu.`user_id`=#{userId,jdbcType=BIGINT}
+     ORDER BY pm.`menuorder`
   </select>
 
     <select id="selectAuthByRoleId" resultType="com.smart.bracelet.model.po.user.PubAuth">

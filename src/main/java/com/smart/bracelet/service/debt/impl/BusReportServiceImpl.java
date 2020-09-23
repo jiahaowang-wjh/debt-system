@@ -593,6 +593,7 @@ public class BusReportServiceImpl implements BusReportService {
     public List<DebtInfo> selectDebtInfos(DebtInfoQuery debtInfoQuery) {
         if (debtInfoQuery.getCompanyType().equals("1")) {
             debtInfoQuery.setCompanyType(null);
+            debtInfoQuery.setComId(null);
         }
         return busReportDao.selectDebtInofs(debtInfoQuery);
     }
