@@ -1,5 +1,6 @@
 package com.smart.bracelet.model.vo.assets;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
@@ -45,4 +46,9 @@ public class BusAssignmentConfirmShow {
      */
     String confirmNo;
 
+    /**
+     * 签约日期
+     */
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
+    Date contractTime;
 }

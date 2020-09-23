@@ -35,12 +35,12 @@ public class BusAssignmentConfirm implements Serializable {
      */
     @NotNull(message = "签约日期不能为空")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date signDate;
+    private Date contractTime;
 
     /**
      * 编号
      */
-    @NotNull(message = "编号不能为空")
+    @NotBlank(message = "编号不能为空")
     private String confirmNo;
 
     /**

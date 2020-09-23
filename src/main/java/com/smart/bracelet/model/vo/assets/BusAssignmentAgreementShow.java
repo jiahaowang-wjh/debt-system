@@ -44,7 +44,7 @@ public class BusAssignmentAgreementShow {
     /**
      * 借款发生时间务
      */
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     Date obligatTime;
     /**
      * 当前日期
@@ -79,4 +79,10 @@ public class BusAssignmentAgreementShow {
      * 债权转让协议编号
      */
     String assignmentAgreementNo;
+
+    /**
+     * 签约日期
+     */
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
+    Date contractTime;
 }

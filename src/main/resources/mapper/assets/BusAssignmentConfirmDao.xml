@@ -8,7 +8,7 @@
     <result column="creditor_name" jdbcType="VARCHAR" property="creditorName" />
     <result column="creditor_sign" jdbcType="VARCHAR" property="creditorSign" />
     <result column="no_code" jdbcType="VARCHAR" property="noCode" />
-    <result column="sign_date" jdbcType="DATE" property="signDate" />
+    <result column="contract_time" jdbcType="DATE" property="contractTime" />
     <result column="guarantee" jdbcType="VARCHAR" property="guarantee" />
     <result column="assets_company_name" jdbcType="VARCHAR" property="assetsCompanyName" />
     <result column="assets_card" jdbcType="VARCHAR" property="assetsCard" />
@@ -16,13 +16,13 @@
     <result column="legal_represen" jdbcType="VARCHAR" property="legalRepresen" />
     <result column="legal_represen_date" jdbcType="DATE" property="legalRepresenDate" />
     <result column="obligor" jdbcType="VARCHAR" property="obligor" />
-    <result column="obligor_sign" jdbcType="VARCHAR" property="obligorSign" />
+    <result column="obligor_sign" jdbcType="VARCHAR" property="obligorSign"/>
     <result column="obligor_idcard" jdbcType="VARCHAR" property="obligorIdcard" />
     <result column="obligor_date" jdbcType="DATE" property="obligorDate" />
   </resultMap>
   <sql id="Base_Column_List">
     posse_confirmt_id, propert_id, confirm_no, creditor_name, creditor_sign, no_code, 
-    sign_date, guarantee, guarantee_no, assets_company_name, assets_card, assets_date, 
+    contract_time, guarantee, guarantee_no, assets_company_name, assets_card, assets_date,
     legal_represen, legal_represen_date, obligor, obligor_sign, obligor_idcard, obligor_date
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
@@ -40,13 +40,14 @@
           SELECT  `bus_assignment_confirm`.confirm_no  FROM  bus_assignment_confirm  ORDER   BY   `bus_assignment_confirm`.posse_confirmt_id   DESC   LIMIT   1
     </select>
     <select id="initialize" resultType="com.smart.bracelet.model.vo.assets.BusAssignmentConfirmShow">
-    SELECT bc.`civil_id`,br.`data1` AS 'debtName',brp.`data1` AS 'personName',pd.`amount_this`,baa.assignment_agreement_no
+    SELECT bc.`civil_id`,br.`data1` AS 'debtName',brp.`data1` AS 'personName',pd.`amount_this`,baa.assignment_agreement_no,bac.`contract_time`
     FROM bus_propert bp
     LEFT JOIN bus_report br ON bp.`report_id` = br.`report_id`
     LEFT JOIN bus_relative_person brp ON brp.`relative_per_id` = bp.`relative_per_id`
     LEFT JOIN pub_debt pd ON pd.`debt_id` = bp.`debt_id`
     LEFT JOIN bus_assignment_agreement baa ON baa.`propert_id` = bp.`propert_id`
     LEFT JOIN bus_civil bc ON bc.`civil_id` = bp.`civil_id`
+    LEFT JOIN bus_assignment_confirm bac ON bac.`propert_id` = bp.`propert_id`
     WHERE bp.propert_id = #{propertId}
     </select>
     <select id="selectByPropertId" resultType="com.smart.bracelet.model.po.assets.BusAssignmentConfirm"
@@ -82,8 +83,8 @@
       <if test="noCode != null">
         no_code,
       </if>
-      <if test="signDate != null">
-        sign_date,
+      <if test="contractTime != null">
+        contract_time,
       </if>
       <if test="guarantee != null">
         guarantee,
@@ -135,8 +136,8 @@
       <if test="noCode != null">
         #{noCode,jdbcType=VARCHAR},
       </if>
-      <if test="signDate != null">
-        #{signDate,jdbcType=DATE},
+      <if test="contractTime != null">
+        #{contractTime,jdbcType=DATE},
       </if>
       <if test="guarantee != null">
         #{guarantee,jdbcType=VARCHAR},
@@ -188,8 +189,8 @@
       <if test="noCode != null">
         no_code = #{noCode,jdbcType=VARCHAR},
       </if>
-      <if test="signDate != null">
-        sign_date = #{signDate,jdbcType=DATE},
+      <if test="contractTime != null">
+        contract_time = #{contractTime,jdbcType=DATE},
       </if>
       <if test="guarantee != null">
         guarantee = #{guarantee,jdbcType=VARCHAR},
