@@ -75,12 +75,12 @@ public class BusCompromiseAgreementController {
     /**
      * 初始化和解协议页面
      *
-     * @param relativePerId
+     * @param propertId
      * @return
      */
     @RequestMapping("/initialize")
-    public Result<BusCompromiseAgreementShow> initialize(@NotNull(message = "相对人ID不能为空") Long relativePerId) throws ParseException {
-        BusCompromiseAgreementShow initialize = busCompromiseAgreementService.initialize(relativePerId);
+    public Result<BusCompromiseAgreementShow> initialize(@NotNull(message = "资产ID不能为空") Long propertId,@NotNull(message = "公司ID不能为空") Long comId) throws ParseException {
+        BusCompromiseAgreementShow initialize = busCompromiseAgreementService.initialize(propertId,comId);
         return Result.success(initialize);
     }
 

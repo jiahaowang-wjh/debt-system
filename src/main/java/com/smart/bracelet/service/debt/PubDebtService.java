@@ -6,10 +6,10 @@ import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.po.debt.PubDebt;
 import com.smart.bracelet.model.vo.debt.*;
 
+import java.util.Date;
 import java.util.List;
 
 public interface PubDebtService {
-
     int deleteByPrimaryKey(Long debtId) throws CustomerException;
 
     Long insertSelective(PubDebt record) throws CustomerException;
@@ -23,11 +23,6 @@ public interface PubDebtService {
      * @return
      */
     List<DateAndDays> selectDaysCount(String type,Long comId);
-    /**
-     * 查询所有借债信息
-     * @return
-     */
-    List<PubDebt> queryList();
 
 
     /**
@@ -44,11 +39,11 @@ public interface PubDebtService {
      */
     List<PubDebtInfo> selectDebtListShow(QueryDebtVo queryDebtVo);
 
-
     /**
-     * 解债信息填写更新展示
+     * 解债页面列表（关系绑定）
      */
-    List<DebtAndRepAndCiviI> selectDebtAndRepAndCiviI();
+    List<PubDebtInfo> selectByReportIds(Long reportId);
+
 
     /**
      * 通过报备Id查询解债信息
@@ -56,27 +51,19 @@ public interface PubDebtService {
     List<PubDebt> selectByreportId(Long reportId);
 
     /**
-     *查询金额
-     * @param relativePerId
+     * 策划方案服务协议初始化
+     */
+    PlanServiceInfo initializePlan(Long reportId,Long comId) throws CustomerException;
+
+
+    /**
+     * 策划方案新增
+     * @param matters
+     * @param serviceNo
+     * @param servicePrincipal
+     * @param serviceInterest
+     * @param contractDate
      * @return
      */
-    DebtMoney selectMoney(Long relativePerId);
-
-    /**
-     * 解债页面展示
-     */
-    List<PubDebtInfo> selectByReportIds(Long reportId);
-
-    /**
-     * 新增咨询服务协议
-     */
-    int updateService(AssService assService) throws CustomerException;
-
-    /**
-     * 查询策划方案协议
-     * @param debtId
-     * @return
-     */
-    AssService selectAssService(Long debtId);
-
+    int updatePlanInfo(String matters, String serviceNo, Float servicePrincipal, Float serviceInterest, Date contractDate, Long debtId) throws CustomerException;
 }

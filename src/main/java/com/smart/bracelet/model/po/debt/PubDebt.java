@@ -1,16 +1,11 @@
 package com.smart.bracelet.model.po.debt;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-import com.fasterxml.jackson.datatype.jdk8.StreamSerializer;
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 /**
  * pub_debt
@@ -19,12 +14,28 @@ import java.util.List;
  */
 @Data
 public class PubDebt implements Serializable {
-
     /**
      * 解债ID
      */
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long debtId;
+
+    /**
+     * 报备ID
+     */
+    @NotNull(message = "报备ID不能为空")
+    private Long reportId;
+
+    /**
+     * 相对人ID
+     */
+    @NotNull(message = "相对人ID不能为空")
+    private Long relativePerId;
+
+    /**
+     * 民事调解ID
+     */
+    @NotNull(message = "民事调解ID不能为空")
+    private Long civilId;
 
     /**
      * 解债编号
@@ -32,43 +43,54 @@ public class PubDebt implements Serializable {
     private String debtNo;
 
     /**
-     * 民事调解ID
+     * 状态
      */
-    @JsonSerialize(using = ToStringSerializer.class)
-    @NotNull(message = "民事调解ID不能为空")
-    private Long civilId;
+    private String status;
 
     /**
-     * 报备ID
+     * 审核原因
      */
-    @JsonSerialize(using = ToStringSerializer.class)
-    @NotNull(message = "报备ID不能为空")
-    private Long reportId;
+    private String checkReason;
 
     /**
-     * 相对人ID
+     * 审核时间
      */
-    @JsonSerialize(using = ToStringSerializer.class)
-    @NotNull(message = "相对人ID不能为空")
-    private Long relativePerId;
+    private Date checkDate;
+
+    /**
+     * 创建时间
+     */
+    private Date createTime;
+
+    /**
+     * 更新时间
+     */
+    private Date updateTime;
+
+
+    /**
+     * 本次策划方案服务费
+     */
+    @NotNull(message = "本次策划方案服务费不能为空")
+    private Float thisPlanMoney;
 
     /**
      * 债全总金额
      */
     @NotNull(message = "债全总金额不能为空")
-    private float amountTotal;
+    private Float amountTotal;
 
     /**
      * 累计化解金额
      */
     @NotNull(message = "累计化解金额不能为空")
-    private float amountCumulative;
+    private Float amountCumulative;
 
     /**
-     * 本次化解金额
+     * 本次申请转让债权金额
      */
-    @NotNull(message = "本次化解金额不能为空")
-    private float amountThis;
+    @NotNull(message = "本次申请转让债权金额不能为空")
+    private Float amountThis;
 
     /**
      * 解债类型
@@ -83,16 +105,16 @@ public class PubDebt implements Serializable {
     private String debtYaer;
 
     /**
-     * 是否黄金做质押
+     * 甲方身份情况
      */
-    @NotBlank(message = "是否黄金做质押不能为空")
-    private String isPledge;
+    @NotBlank(message = "甲方身份情况不能为空")
+    private String partyaIdentity;
 
     /**
-     * 债事化解咨询服务方案
+     * 乙方身份情况
      */
-    @NotBlank(message = "债事化解咨询服务方案不能为空")
-    private String servicePlan;
+    @NotBlank(message = "乙方身份情况不能为空")
+    private String partybIdentity;
 
     /**
      * 甲方确认送达地址
@@ -131,113 +153,32 @@ public class PubDebt implements Serializable {
     private String partybTel;
 
     /**
-     * 策划方案服务本金
+     * 服务编号
      */
-    @NotNull(message = "策划方案服务本金不能为空")
-    private Float servicePrincipal;
+    private String serviceNo;
 
     /**
-     * 策划方案服务利息
+     * 策划服务日期
      */
-    @NotNull(message = "策划方案服务利息不能为空")
-    private Float serviceInterest;
-
+    private Date serviceDate;
 
     /**
-     * 策划方案服务编号
+     * 委托事项
      */
-    String serviceNo;
+    private String matters;
 
     /**
-     * 甲方受权代表人
+     * 签约日期
      */
-    @NotBlank(message = "甲方受权代表人不能为空")
-    private String partyaDeputy;
+    private Date contractDate;
 
     /**
-     * 甲方印章
+     * 本金
      */
-    @NotBlank(message = "甲方印章不能为空")
-    private String partyaSeal;
+    Float servicePrincipal;
 
     /**
-     * 甲方签约日期
+     * 利息
      */
-    @NotNull(message = "甲方签约日期不能为空")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date partyaDate;
-
-    /**
-     * 审核时间
-     */
-    @NotNull(message = "审核时间不能为空")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date checkDate;
-
-    /**
-     * 乙方受权代表人
-     */
-    @NotBlank(message = "乙方受权代表人不能为空")
-    private String partybDeputy;
-
-    /**
-     * 乙方印章
-     */
-    @NotBlank(message = "乙方印章不能为空")
-    private String partybSeal;
-
-    /**
-     * 乙方签约日期
-     */
-    @NotNull(message = "乙方签约日期不能为空")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date partybDate;
-
-    /**
-     * 合同签约地点
-     */
-    @NotBlank(message = "合同签约地点不能为空")
-    private String contractPlace;
-
-    /**
-     * 状态
-     */
-    @NotBlank(message = "状态不能为空")
-    private String status;
-
-    /**
-     * 审核原因
-     */
-    @NotBlank(message = "审核原因不能为空")
-    private String checkReason;
-
-    /**
-     * 创建时间
-     */
-    private Date createTime;
-
-    /**
-     * 更新时间
-     */
-    private Date updateTime;
-
-    /**
-     * 甲方身份
-     */
-    @NotBlank(message = "甲方身份不能为空")
-    String partyaIdentity;
-    /**
-     * 乙方身份
-     */
-    @NotBlank(message = "乙方身份不能为空")
-    String partybIdentity;
-
-    /**
-     * 担保人集合
-     */
-    BusGuarantee[] busGuarantee;
-
-    @NotNull(message = "公司Id不能为空")
-    Long comId;
-
+    Float serviceInterest;
 }

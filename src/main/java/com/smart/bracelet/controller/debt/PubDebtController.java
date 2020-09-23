@@ -4,14 +4,16 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
-import com.smart.bracelet.model.po.debt.AssService;
 import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.po.debt.PubDebt;
-import com.smart.bracelet.model.vo.debt.*;
+import com.smart.bracelet.model.vo.debt.PlanServiceInfo;
+import com.smart.bracelet.model.vo.debt.PubDebtInfo;
+import com.smart.bracelet.model.vo.debt.PubDebtVo;
+import com.smart.bracelet.model.vo.debt.QueryDebtVo;
 import com.smart.bracelet.service.debt.PubDebtService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -29,72 +32,60 @@ public class PubDebtController {
     @Autowired
     private PubDebtService pubDebtService;
 
+    @RequestMapping("/deleteByPrimaryKey")
+    public Result deleteByPrimaryKey(@NotNull(message = "解债ID不能为空") Long debtId) throws CustomerException {
+        int a = pubDebtService.deleteByPrimaryKey(debtId);
+        return Result.success(a);
+    }
+
     @RequestMapping("/insertSelective")
     public Result insertSelective(@Valid PubDebt record) throws CustomerException {
-        Long insertSelective = pubDebtService.insertSelective(record);
-        return Result.success(insertSelective + "");
-    }
-
-
-    @RequestMapping("/deleteByPrimaryKey")
-    public Result deleteByPrimaryKey(@NotNull(message = "解债信息Id不能为空") Long debtId) throws CustomerException {
-        int deleteByPrimaryKey = pubDebtService.deleteByPrimaryKey(debtId);
-        return Result.success(deleteByPrimaryKey);
-    }
-
-    @RequestMapping("/updateByPrimaryKeySelective")
-    public Result updateByPrimaryKeySelective(@Valid PubDebtVo record) throws CustomerException {
-        int updateByPrimaryKeySelective = pubDebtService.updateByPrimaryKeySelective(record);
-        return Result.success(updateByPrimaryKeySelective);
+        Long aLong = pubDebtService.insertSelective(record);
+        return Result.success(aLong+"");
     }
 
     @RequestMapping("/selectByPrimaryKey")
-    public Result<PubDebt> selectByPrimaryKey(@NotNull(message = "解债信息Id不能为空") Long debtId) {
+    public Result<PubDebt> selectByPrimaryKey(@NotNull(message = "解债ID不能为空")Long debtId) {
         PubDebt pubDebt = pubDebtService.selectByPrimaryKey(debtId);
         return Result.success(pubDebt);
     }
 
+    @RequestMapping("/updateByPrimaryKeySelective")
+    public Result updateByPrimaryKeySelective(@Valid PubDebtVo record) throws CustomerException {
+        int i = pubDebtService.updateByPrimaryKeySelective(record);
+        return Result.success(i);
+    }
     /**
      * 按照日期查询每日解债数量
+     * @return
      */
     @RequestMapping("/selectDaysCount")
-    public Result<List<DateAndDays>> selectDaysCount(@NotBlank(message = "公司类型不能为空") String type,@NotNull(message = "公司ID不能为空") Long comId) {
-        List<DateAndDays> dateAndDays = pubDebtService.selectDaysCount(type,comId);
+    public Result<List<DateAndDays>> selectDaysCount(@NotBlank(message = "公司类型不能为空") String type, @NotNull(message = "公司ID不能为空") Long comId){
+        List<DateAndDays> dateAndDays = pubDebtService.selectDaysCount(type, comId);
         return Result.success(dateAndDays);
     }
 
-    /**
-     * 查询所有解债信息
-     *
-     * @return
-     */
-    @RequestMapping("/queryList")
-    public Result queryList() {
-        List<PubDebt> pubDebts = pubDebtService.queryList();
-        return Result.success(pubDebts);
-    }
 
     /**
-     * 更新解债审批状态
-     *
+     * 更新审核状态
      * @param status
      * @param debtId
      * @return
-     * @throws CustomerException
      */
     @RequestMapping("/updateStatus")
-    public Result updateStatus(@NotBlank(message = "状态不能为空") String status, @NotNull(message = "解债信息Id不能为空") Long debtId, String checkReason) throws CustomerException {
+    public Result updateStatus(@NotBlank(message = "状态不能为空") String status,@NotNull(message = "解债ID不能为空") Long debtId,String checkReason) throws CustomerException{
         int i = pubDebtService.updateStatus(status, debtId, checkReason);
         return Result.success(i);
     }
+
 
     /**
      * 页面解债信息展示
      */
     @RequestMapping("/selectDebtListShow")
     public Result<PageInfo> selectDebtListShow(@NotNull(message = "页码不能为空") Integer pageNum,
-                                               @NotNull(message = "当前显示条数不能为空") Integer pageSize,
-                                               @Valid QueryDebtVo queryDebtVo) {
+                                                        @NotNull(message = "当前显示条数不能为空") Integer pageSize,
+                                                        @Valid QueryDebtVo queryDebtVo){
         if (!StringUtils.isBlank(queryDebtVo.getBeginDate())) {
             queryDebtVo.setBeginDate(queryDebtVo.getBeginDate() + " 00:00:00");
         }
@@ -108,16 +99,14 @@ public class PubDebtController {
         return Result.success(pubDebtInfoPageInfo);
     }
 
-
     /**
-     * 解债信息填写更新展示
+     * 解债页面列表（关系绑定）
      */
-    @RequestMapping("/selectDebtAndRepAndCiviI")
-    public Result<List<DebtAndRepAndCiviI>> selectDebtAndRepAndCiviI() {
-        List<DebtAndRepAndCiviI> debtAndRepAndCiviIS = pubDebtService.selectDebtAndRepAndCiviI();
-        return Result.success(debtAndRepAndCiviIS);
+    @RequestMapping("/selectByReportIds")
+    public Result<List<PubDebtInfo>> selectByReportIds(@NotNull(message = "报备ID不能为空") Long reportId){
+        List<PubDebtInfo> pubDebtInfos = pubDebtService.selectByReportIds(reportId);
+        return Result.success(pubDebtInfos);
     }
-
 
     /**
      * 通过报备Id查询解债信息
@@ -128,48 +117,29 @@ public class PubDebtController {
         return Result.success(pubDebts);
     }
 
+
     /**
-     * 查询金额
-     *
-     * @param relativePerId
+     * 策划方案服务协议初始化
+     */
+    @RequestMapping("/initializePlan")
+    public Result<PlanServiceInfo> initializePlan(@NotNull(message = "解债ID不能为空") Long debtId,@NotNull(message = "公司ID不能为空") Long comId) throws CustomerException {
+        PlanServiceInfo initialize = pubDebtService.initializePlan(debtId,comId);
+        return Result.success(initialize);
+    }
+
+    /**
+     * 策划方案新增
+     * @param matters
+     * @param serviceNo
+     * @param servicePrincipal
+     * @param serviceInterest
+     * @param contractDate
      * @return
      */
-    @RequestMapping("/selectMoney")
-    public Result<DebtMoney> selectMoney(@NotNull(message = "相对人id不能为空") Long relativePerId) {
-        DebtMoney debtMoney = pubDebtService.selectMoney(relativePerId);
-        return Result.success(debtMoney);
-    }
-
-
-    /**
-     * 解债页面展示
-     */
-    @RequestMapping("/selectByReportIds")
-    public Result<List<PubDebtInfo>> selectByReportIds(@NotNull(message = "报备ID不能为空") Long reportId) {
-        List<PubDebtInfo> pubDebtInfos = pubDebtService.selectByReportIds(reportId);
-        return Result.success(pubDebtInfos);
-    }
-
-    /**
-     * 新增咨询服务协议
-     */
-    @RequestMapping("/insertService")
-    public Result updateService(@Valid AssService assService) throws CustomerException {
-        int a = pubDebtService.updateService(assService);
-        return Result.success(a);
-    }
-
-    /**
-     * 查询策划方案协议
-     *
-     * @param debtId
-     * @return
-     */
-    @RequestMapping("/selectAssService")
-    public Result<AssService> selectAssService(@NotNull Long debtId) {
-        AssService assService = pubDebtService.selectAssService(debtId);
-        return Result.success(assService);
-    }
-
+    @RequestMapping("/insertPlanInfo")
+   public Result updatePlanInfo(@NotBlank(message = "甲方手选身份不能为空") String matters, @NotBlank(message = "服务编号不能为空")String serviceNo, @NotNull(message = "本金不能为空") Float servicePrincipal, @NotNull(message = "利息不能为空")Float serviceInterest, @NotNull(message = "签约日期不能为空") @DateTimeFormat(pattern = "yyyy-MM-dd") Date contractDate, @NotNull(message = "解债ID不能为空")Long debtId) throws CustomerException{
+        int i = pubDebtService.updatePlanInfo(matters, serviceNo, servicePrincipal, serviceInterest, contractDate, debtId);
+        return Result.success(i);
+   }
 
 }

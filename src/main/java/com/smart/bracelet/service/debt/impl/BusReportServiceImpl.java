@@ -622,50 +622,13 @@ public class BusReportServiceImpl implements BusReportService {
         return repNo;
     }
 
-    /**
-     * 生成编号
-     *
-     * @return
-     */
-    String agreementNo(Long comId) {
-        Calendar ca = Calendar.getInstance();
-        int year = ca.get(Calendar.YEAR);//获取年份
-        List<String> s = busReportDao.selectANO();
-        PubCompany pubCompany = pubCompanyDao.selectByPrimaryKey(comId);
-        if(s==null){
-            return "TZ"+year+pubCompany.getCompanyNameMax()+"000001";
-        }
-        String i;
-        //记录保存最大的序号
-        int j=0;
-        for (String item: s) {
-            if(item!=null){
-                i =item.substring(item.length()-6);
-                if(Integer.parseInt(i)>j){
-                    j = Integer.parseInt(i);
-                }
-            }
-        }
-        String j1 = j+"";
-        int j3 = Integer.parseInt(j1);
-        j3=j3+1;
-        String j2 = j3+"";
-        Boolean ok = true;
-        while (ok){
-            if(j2.length()<6){
-                j2 = 0+j2;
-            }else{
-                ok=false;
-            }
-        }
-        return "TZ"+year+pubCompany.getCompanyNameMax()+j2;
-    }
+
 
     @Override
     @Transactional(noRollbackFor = Exception.class)
-    public int addAgreementNo(String partyA, String partyB, Long reportId, Long comId, Date agreementDate) throws CustomerException {
+    public int addAgreementNo(String partyA, String partyB, Long reportId, Date agreementDate,String agreementNo) throws CustomerException {
         try {
-            return busReportDao.addANO(partyA, partyB,agreementNo(comId), reportId,agreementDate);
+            return busReportDao.addANO(partyA, partyB, reportId,agreementDate,agreementNo);
         } catch (Exception e) {
             log.error("异常信息:{}", e.getMessage());
             throw new CustomerException("新增失败");

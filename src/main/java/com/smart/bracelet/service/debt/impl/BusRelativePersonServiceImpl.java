@@ -19,10 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -437,18 +434,20 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
      * @return
      */
     @Override
-    public List<BusRelativePerson> selectByreportId(Long reportId) throws CustomerException {
+    public List<BusRelativePersonPrivateVo> selectByreportId(Long reportId) throws CustomerException {
         try {
             List<BusRelativePerson> busRelativePeople = busRelativePersonDao.selectByreportId(reportId);
-            List<BusRelativePerson> listVos = new ArrayList<>();
+            List<BusRelativePersonPrivateVo> listVos = new ArrayList<>();
             for (BusRelativePerson item : busRelativePeople) {
                 //判断是否符合民事调解关系
                 Boolean verification = busCivilService.verification(item.getRelativePerId());
                 if (verification) {
                     BusRelativePerson busRelativePerson = busRelativePersonDao.selectByPrimaryKey(item.getRelativePerId());
-                    System.out.println(busRelativePerson.getStatus());
+                    BusRelativePersonPrivateVo privateVo = new BusRelativePersonPrivateVo();
                     if(busRelativePerson.getStatus().equals("0")){
-                        listVos.add(busRelativePerson);
+                        privateVo.setPersonalName(busRelativePerson.getData1());
+                        privateVo.setRelativePerId(busRelativePerson.getRelativePerId());
+                        listVos.add(privateVo);
                     }
                 }
             }

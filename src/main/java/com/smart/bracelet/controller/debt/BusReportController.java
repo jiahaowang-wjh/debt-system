@@ -1,18 +1,15 @@
 package com.smart.bracelet.controller.debt;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
-import com.smart.bracelet.model.po.debt.BusRelativePerson;
 import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.vo.debt.*;
 import com.smart.bracelet.service.debt.BusReportService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -103,7 +100,7 @@ public class BusReportController {
 
 
     /**
-     * 更新个人报备信息
+     * 更新企业报备信息
      *
      * @param busPrivateReportVo
      * @return
@@ -224,8 +221,8 @@ public class BusReportController {
      * 提交暨尽调协议生成编号
      */
     @RequestMapping("/addAgreementNo")
-    public Result addAgreementNo(@NotBlank(message = "甲方不能为空") String partyA, @NotBlank(message = "乙方不能为空") String partyB, @NotNull(message = "报备ID不能为空") Long reportId, @NotNull(message = "公司ID不能为空") Long comId, @NotNull(message = "签约日期不能为空") @DateTimeFormat(pattern = "yyyy-MM-dd") Date agreementDate) throws CustomerException {
-        int a = busReportService.addAgreementNo(partyA, partyB, reportId,comId,agreementDate);
+    public Result addAgreementNo(@NotBlank(message = "甲方不能为空") String partyA, @NotBlank(message = "乙方不能为空") String partyB, @NotNull(message = "报备ID不能为空") Long reportId, @NotNull(message = "签约日期不能为空") @DateTimeFormat(pattern = "yyyy-MM-dd") Date agreementDate,@NotBlank(message = "编号不能为空") String agreementNo) throws CustomerException {
+        int a = busReportService.addAgreementNo(partyA, partyB, reportId,agreementDate,agreementNo);
         return Result.success(a);
     }
 

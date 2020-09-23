@@ -1,9 +1,12 @@
 package com.smart.bracelet.model.vo.debt;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
+
+import java.util.Date;
 
 /**
  * 策划服务协议初始化
@@ -54,23 +57,43 @@ public class PlanServiceInfo {
     String amountThisMax;
 
     /**
-     * 乙方盖章
-     */
-    String partybSeal;
-
-    /**
      * 策划方案服务费
      */
-    String planMoney;
+    String thisPlanMoney;
 
     /**
      * 策划方案服务费大写
      */
-    String planMoneyMax;
+    String thisPlanMoneyMax;
 
     /**
      * 性质
      */
     String reportPropert;
+
+    /**
+     * 本金
+     */
+    Float servicePrincipal;
+    /**
+     * 利息
+     */
+    Float serviceInterest;
+
+    /**
+     * 甲方身份
+     */
+    String matters;
+
+    /**
+     *签约日期
+     */
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
+    Date contractDate;
+
+    /**
+     * 当前日期
+     */
+    String thisTime;
 
 }

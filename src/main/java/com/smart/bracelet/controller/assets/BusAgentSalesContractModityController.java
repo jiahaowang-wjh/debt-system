@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @RestController
 @Validated
@@ -53,8 +54,8 @@ public class BusAgentSalesContractModityController {
      * @return
      */
     @RequestMapping("/selectBySalesContractId")
-    public Result<BusAgentSalesContractModity> selectBySalesContractId(@NotNull(message = "资产委托代理销售合同ID不能为空") Long salesContractId) {
-        BusAgentSalesContractModity busAgentSalesContractModity = busAgentSalesContractModityService.selectBySalesContractId(salesContractId);
+    public Result<List<BusAgentSalesContractModity>> selectBySalesContractId(@NotNull(message = "资产委托代理销售合同ID不能为空") Long salesContractId) {
+        List<BusAgentSalesContractModity> busAgentSalesContractModity = busAgentSalesContractModityService.selectBySalesContractId(salesContractId);
         return Result.success(busAgentSalesContractModity);
     }
 

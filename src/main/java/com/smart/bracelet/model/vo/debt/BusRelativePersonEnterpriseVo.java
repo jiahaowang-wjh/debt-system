@@ -80,12 +80,12 @@ public class BusRelativePersonEnterpriseVo {
      * 企业联系人
      */
     @NotBlank(message = "企业联系人不能为空")
-    private String ContactPerson;
+    private String contactPerson;
     /**
      * 联系电话
      */
     @NotBlank(message = "联系电话不能为空")
-    private String ContactPhone;
+    private String contactPhone;
 
 
     /**

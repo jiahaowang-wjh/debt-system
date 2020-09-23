@@ -15,6 +15,7 @@
         <result column="partyb_seal" jdbcType="VARCHAR" property="partybSeal"/>
         <result column="partyb_subrogation" jdbcType="VARCHAR" property="partybSubrogation"/>
         <result column="partyb_date" jdbcType="DATE" property="partybDate"/>
+        <result column="compromise_date" jdbcType="DATE" property="compromiseDate"/>
     </resultMap>
     <sql id="Base_Column_List">
     compromise_agreement_id,compromise_agreement_no, propert_id, partyb_mode, data1, data2, data3, partya_subrogation,
@@ -35,11 +36,15 @@
       SELECT  bus_compromise_agreement.compromise_agreement_no  FROM   `bus_compromise_agreement`   ORDER   BY  bus_compromise_agreement.compromise_agreement_id  DESC   LIMIT   1
     </select>
     <select id="initialize" resultType="com.smart.bracelet.model.vo.assets.BusCompromiseAgreementShow">
-        SELECT br.`data1` AS 'debtName',brp.`data1` AS 'personName',pd.`amount_this`,pd.`create_time`
-        FROM pub_debt pd
-        LEFT JOIN bus_relative_person brp ON pd.`relative_per_id` = brp.`relative_per_id`
-        LEFT JOIN  bus_report br ON pd.`report_id` = br.`report_id`
-        WHERE brp.`relative_per_id` =  #{relativePerId,jdbcType=BIGINT}
+        SELECT br.`data1` AS 'debtName',brp.`data1` AS 'personName',pd.`amount_this`,
+        pd.`create_time`,pd.debt_type,pd.`debt_yaer`,
+        bca.`compromise_agreement_no`,bca.`compromise_date`
+        FROM bus_propert bp
+        LEFT JOIN bus_report br ON bp.`report_id` = br.`report_id`
+        LEFT JOIN bus_relative_person brp ON bp.`relative_per_id` = brp.`relative_per_id`
+        LEFT JOIN pub_debt pd ON bp.`debt_id` = pd.`debt_id`
+        LEFT JOIN bus_compromise_agreement bca ON bca.`propert_id` = bp.`propert_id`
+        WHERE bp.`propert_id` =#{propertId}
     </select>
     <select id="selectByPropertId" resultType="com.smart.bracelet.model.po.assets.BusCompromiseAgreement"
             parameterType="java.lang.Long">
@@ -60,6 +65,9 @@
             </if>
             <if test="compromiseAgreementNo != null">
                 compromise_agreement_no,
+            </if>
+            <if test="compromiseDate != null">
+                compromise_date,
             </if>
             <if test="propertId != null">
                 propert_id,
@@ -102,6 +110,9 @@
             <if test="compromiseAgreementNo != null">
                 #{compromiseAgreementNo,jdbcType=VARCHAR},
             </if>
+            <if test="compromiseDate != null">
+                #{compromiseDate},
+            </if>
             <if test="propertId != null">
                 #{propertId,jdbcType=BIGINT},
             </if>
@@ -142,6 +153,9 @@
         <set>
             <if test="propertId != null">
                 propert_id = #{propertId,jdbcType=BIGINT},
+            </if>
+            <if test="compromiseDate != null">
+                compromise_date = #{compromiseDate},
             </if>
             <if test="compromiseAgreementId != null">
                 compromise_agreement_id = #{compromiseAgreementId,jdbcType=BIGINT},

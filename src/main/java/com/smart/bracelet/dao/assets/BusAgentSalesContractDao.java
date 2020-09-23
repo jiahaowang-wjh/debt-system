@@ -21,10 +21,10 @@ public interface BusAgentSalesContractDao {
     /**
      * 委托代理销售合同初始化
      *
-     * @param reportId
+     * @param propertId
      * @return
      */
-    BusAgentSalesContractShow initialize(Long relativePerId);
+    BusAgentSalesContractShow initialize(Long propertId);
 
     /**
      * 通过资产Id查询 委托代理销售合同

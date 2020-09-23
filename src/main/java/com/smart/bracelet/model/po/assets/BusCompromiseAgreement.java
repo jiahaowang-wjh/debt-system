@@ -94,6 +94,8 @@ public class BusCompromiseAgreement implements Serializable {
     private Date partybDate;
 
 
+    private Date compromiseDate;
+
     Float cash;
     String StagingNumber;
     String money;

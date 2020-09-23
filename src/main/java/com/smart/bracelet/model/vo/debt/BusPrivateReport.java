@@ -73,7 +73,7 @@ public class BusPrivateReport {
      * 身份证号码
      */
     @NotBlank(message = "身份证号码不能为空")
-    private String IdCard;
+    private String idCard;
 
     /**
      * 性别
@@ -85,13 +85,13 @@ public class BusPrivateReport {
      * 所在地区
      */
     @NotBlank(message = "所在地区不能为空")
-    private String Area;
+    private String area;
 
     /**
      * 电子邮箱
      */
     @NotBlank(message = "电子邮箱不能为空")
-    private String Email;
+    private String email;
 
     /**
      * 资产总价值 （元）
@@ -109,7 +109,7 @@ public class BusPrivateReport {
      * 可流通资产价值（元）
      */
     @NotBlank(message = "可流通资产价值不能为空")
-    private String CirculationAssets;
+    private String circulationAssets;
 
     /**
      * 身份证正

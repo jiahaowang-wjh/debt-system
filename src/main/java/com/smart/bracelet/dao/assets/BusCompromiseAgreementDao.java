@@ -25,10 +25,10 @@ public interface BusCompromiseAgreementDao {
 
     /**
      * 初始化和解协议页面
-     * @param relativePerId
+     * @param propertId
      * @return
      */
-    BusCompromiseAgreementShow initialize(Long relativePerId);
+    BusCompromiseAgreementShow initialize(Long propertId);
 
     /**
      * 通过资产Id查询解协议

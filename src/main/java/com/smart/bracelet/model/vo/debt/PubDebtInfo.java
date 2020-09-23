@@ -29,7 +29,7 @@ public class PubDebtInfo {
     /**
      * 民事调解id
      */
-    String civilno;
+    String civilId;
     /**
      * 解债编号
      */

@@ -75,7 +75,7 @@ public class BusReportListVo implements Serializable {
     /**
      * 身份证号码
      */
-    private String IdCard;
+    private String idCard;
 
     /**
      * 性别
@@ -85,12 +85,12 @@ public class BusReportListVo implements Serializable {
     /**
      * 所在地区
      */
-    private String Area;
+    private String area;
 
     /**
      * 电子邮箱
      */
-    private String Email;
+    private String email;
 
     /**
      * 资产总价值 （元）
@@ -109,19 +109,19 @@ public class BusReportListVo implements Serializable {
     /**
      * 可流通资产价值（元）
      */
-    private String CirculationAssets;
+    private String circulationAssets;
 
 //    <-----企业,银行---->
 
     /**
      * 企业名称
      */
-    private String CompanyName;
+    private String companyName;
 
     /**
      * 社会统一信用代码
      */
-    private String CreditCode;
+    private String creditCode;
     /**
      * 行业属性
      */
@@ -129,15 +129,15 @@ public class BusReportListVo implements Serializable {
     /**
      * 法定代表人名称
      */
-    private String LegalName;
+    private String legalName;
     /**
      * 法定代表人联系电话
      */
-    private String LegalPhone;
+    private String legalPhone;
     /**
      * 法定代表人身份证号
      */
-    private String LegalIdCard;
+    private String legalIdCard;
     /**
      * 注册地址
      */
@@ -145,11 +145,11 @@ public class BusReportListVo implements Serializable {
     /**
      * 企业联系人
      */
-    private String ContactPerson;
+    private String contactPerson;
     /**
      * 联系电话
      */
-    private String ContactPhone;
+    private String contactPhone;
 //<----工共属性--->
     /**
      * 身份证正

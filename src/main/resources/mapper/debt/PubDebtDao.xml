@@ -5,49 +5,123 @@
         <id column="debt_id" jdbcType="BIGINT" property="debtId"/>
         <result column="report_id" jdbcType="BIGINT" property="reportId"/>
         <result column="relative_per_id" jdbcType="BIGINT" property="relativePerId"/>
+        <result column="civil_id" jdbcType="BIGINT" property="civilId"/>
+        <result column="debt_no" jdbcType="VARCHAR" property="debtNo"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="check_reason" jdbcType="VARCHAR" property="checkReason"/>
+        <result column="check_date" jdbcType="DATE" property="checkDate"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="service_no" jdbcType="VARCHAR" property="serviceNo"/>
+        <result column="matters" jdbcType="VARCHAR" property="matters"/>
+        <result column="contract_date" jdbcType="DATE" property="contractDate"/>
+        <result column="this_plan_money" jdbcType="REAL" property="thisPlanMoney"/>
         <result column="amount_total" jdbcType="REAL" property="amountTotal"/>
         <result column="amount_cumulative" jdbcType="REAL" property="amountCumulative"/>
         <result column="amount_this" jdbcType="REAL" property="amountThis"/>
         <result column="debt_type" jdbcType="VARCHAR" property="debtType"/>
         <result column="debt_yaer" jdbcType="VARCHAR" property="debtYaer"/>
-        <result column="is_pledge" jdbcType="VARCHAR" property="isPledge"/>
-        <result column="service_plan" jdbcType="VARCHAR" property="servicePlan"/>
+        <result column="partya_identity" jdbcType="VARCHAR" property="partyaIdentity"/>
+        <result column="partyb_identity" jdbcType="VARCHAR" property="partybIdentity"/>
         <result column="partya_addr" jdbcType="VARCHAR" property="partyaAddr"/>
         <result column="partya_person" jdbcType="VARCHAR" property="partyaPerson"/>
         <result column="partya_tel" jdbcType="VARCHAR" property="partyaTel"/>
         <result column="partyb_addr" jdbcType="VARCHAR" property="partybAddr"/>
         <result column="partyb_person" jdbcType="VARCHAR" property="partybPerson"/>
         <result column="partyb_tel" jdbcType="VARCHAR" property="partybTel"/>
-        <result column="service_principal" jdbcType="REAL" property="servicePrincipal"/>
-        <result column="service_interest" jdbcType="REAL" property="serviceInterest"/>
-        <result column="partya_deputy" jdbcType="VARCHAR" property="partyaDeputy"/>
-        <result column="partya_seal" jdbcType="VARCHAR" property="partyaSeal"/>
-        <result column="partya_date" jdbcType="DATE" property="partyaDate"/>
-        <result column="partyb_deputy" jdbcType="VARCHAR" property="partybDeputy"/>
-        <result column="partyb_seal" jdbcType="VARCHAR" property="partybSeal"/>
-        <result column="partyb_date" jdbcType="DATE" property="partybDate"/>
-        <result column="contract_place" jdbcType="VARCHAR" property="contractPlace"/>
-        <result column="status" jdbcType="VARCHAR" property="status"/>
-        <result column="check_reason" jdbcType="VARCHAR" property="checkReason"/>
-        <result column="check_date" jdbcType="VARCHAR" property="checkDate"/>
-        <result column="service_no" jdbcType="VARCHAR" property="serviceNo"/>
-        <result column="partya_identity" jdbcType="VARCHAR" property="partyaIdentity"/>
-        <result column="partyb_identity" jdbcType="VARCHAR" property="partybIdentity"/>
-        <result column="debt_no" jdbcType="VARCHAR" property="debtNo"/>
-        <result column="civil_id" jdbcType="BIGINT" property="civilId"/>
+        <result column="service_principal" jdbcType="VARCHAR" property="servicePrincipal"/>
+        <result column="service_interest" jdbcType="VARCHAR" property="serviceInterest"/>
     </resultMap>
     <sql id="Base_Column_List">
-    debt_id, report_id,relative_per_id, amount_total, amount_cumulative, amount_this, debt_type, debt_yaer,
-    is_pledge, service_plan, partya_addr, partya_person, partya_tel, partyb_addr, partyb_person, 
-    partyb_tel, service_principal, service_interest, partya_deputy, partya_seal, partya_date, 
-    partyb_deputy, partyb_seal, partyb_date, contract_place, `status`, check_reason,check_date,partya_identity,partyb_identity,partya_addr_info,partya_person_info,partya_tel_info,
-      debt_no,create_time,update_time,service_no,civil_id
+    debt_id, report_id, relative_per_id, civil_id, debt_no, `status`, check_reason, check_date, 
+    create_time, update_time, service_no, matters, contract_date, this_plan_money,
+    amount_total, amount_cumulative, amount_this, debt_type, debt_yaer,
+    partya_identity, partyb_identity, partya_addr, partya_person, partya_tel, partyb_addr, 
+    partyb_person, partyb_tel,service_principal,service_interest
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from pub_debt
         where debt_id = #{debtId,jdbcType=BIGINT}
+    </select>
+    <select id="selectNo" resultType="java.lang.String">
+      SELECT  pub_debt.`debt_no`  FROM   pub_debt   ORDER   BY   pub_debt.`debt_no`   DESC   LIMIT   1
+    </select>
+    <select id="selectDaysCount" resultType="com.smart.bracelet.model.po.debt.DateAndDays">
+        SELECT DATE_FORMAT(pub_debt.create_time,'%Y-%m-%d') days,COUNT(*) COUNT
+        FROM pub_debt
+        LEFT JOIN bus_report br ON pub_debt.`report_id` = br.`report_id`
+        LEFT JOIN pub_company pc ON br.`company_id` = pc.`company_id`
+        <where>
+            <if test="comId!= null and comId!=''">
+                AND pc.`company_id` = #{comId}
+            </if>
+            <if test="type != null and type!=''">
+                AND pc.`company_type` = #{type}
+            </if>
+        </where>
+        GROUP BY days ORDER BY days DESC LIMIT 10;
+    </select>
+    <select id="selectDebtListShow" resultType="com.smart.bracelet.model.vo.debt.PubDebtInfo">
+        SELECT br.`report_id`,brp.`relative_per_id`,br.`report_no`,brp.data1 AS
+        'personName',pd.`debt_no`,pd.`debt_id`,pd.`status`,bc.`civil_id`
+        FROM `pub_debt` pd
+        LEFT JOIN bus_relative_person brp ON pd.`relative_per_id` = brp.`relative_per_id`
+        LEFT JOIN bus_civil bc ON bc.`civil_id` = pd.`civil_id`
+        LEFT JOIN bus_report br ON br.`report_id` = pd.report_id
+        LEFT JOIN pub_company pc ON pc.`company_id` = br.`company_id`
+        <where>
+            <if test="debtNo != null and debtNo!=''">
+                AND pd.debt_no = #{debtNo,jdbcType=VARCHAR}
+            </if>
+            <if test="comId != null and comId!=''">
+                AND pc.company_id = #{comId,jdbcType=BIGINT}
+            </if>
+            <if test="companyType != null and companyType!=''">
+                AND pc.company_type = #{companyType,jdbcType=VARCHAR}
+            </if>
+            <if test="debtId != null and debtId!=''">
+                AND pd.debt_id = #{debtId,jdbcType=BIGINT}
+            </if>
+            <if test="status != null and status!=''">
+                AND pd.status = #{status,jdbcType=VARCHAR}
+            </if>
+            <if test="beginDate != null and endDate != ''">
+                AND pd.create_time BETWEEN #{beginDate} AND #{endDate}
+            </if>
+        </where>
+        ORDER BY br.`report_id` DESC
+    </select>
+    <select id="selectByRelativePerId" resultType="com.smart.bracelet.model.po.debt.PubDebt"
+            parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from pub_debt
+        where relative_per_id = #{relativePerId}
+    </select>
+    <select id="selectByReportIds" resultType="com.smart.bracelet.model.vo.debt.PubDebtInfo"
+            parameterType="java.lang.Long">
+        SELECT br.`report_id`,brp.`relative_per_id`,br.`report_no`,brp.data1 AS 'personName',pd.`debt_no`,pd.`debt_id`,pd.`status`,bc.`civil_id`
+        FROM pub_debt pd LEFT JOIN bus_relative_person brp ON pd.`relative_per_id` = brp.`relative_per_id`
+        LEFT JOIN bus_civil bc ON bc.`relative_per_id` = brp.`relative_per_id`
+        LEFT JOIN bus_report br ON br.`report_id` = brp.report_id
+        WHERE br.`report_id` = #{reportId}
+    </select>
+    <select id="selectByreportId" resultType="com.smart.bracelet.model.po.debt.PubDebt"
+            parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from pub_debt
+        where report_id = #{report_id,jdbcType=BIGINT}
+    </select>
+    <select id="initializePlan" resultType="com.smart.bracelet.model.vo.debt.PlanServiceInfo"
+            parameterType="java.lang.Long">
+        SELECT pd.debt_id,br.`report_propert`,br.`data1` AS 'debtName',br.`data2` AS 'personCard',br.`data5` AS 'priAdd',br.`data7` AS 'corBankAdd',br.data3 AS 'priPhone',br.`data9` AS 'corBankPhone',
+        pd.`amount_this`,pd.this_plan_money,pd.`service_principal`,pd.`service_interest`,pd.`matters`,pd.`contract_date`
+        FROM bus_report br
+        LEFT JOIN pub_debt pd ON br.`report_id` = pd.`report_id`
+        WHERE  pd.`debt_id` = #{debtId}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from pub_debt
@@ -60,18 +134,47 @@
             <if test="debtId != null">
                 debt_id,
             </if>
-            <if test="debtNo != null">
-                debt_no,
-            </if>
-            <if test="serviceNo != null">
-                service_no,
-            </if>
             <if test="reportId != null">
                 report_id,
             </if>
             <if test="relativePerId != null">
                 relative_per_id,
             </if>
+            <if test="civilId != null">
+                civil_id,
+            </if>
+            <if test="debtNo != null">
+                debt_no,
+            </if>
+            <if test="status != null">
+                `status`,
+            </if>
+            <if test="checkReason != null">
+                check_reason,
+            </if>
+            <if test="checkDate != null">
+                check_date,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="serviceNo != null">
+                service_no,
+            </if>
+
+            <if test="matters != null">
+                matters,
+            </if>
+            <if test="contractDate != null">
+                contract_date,
+            </if>
+            <if test="thisPlanMoney != null">
+                this_plan_money,
+            </if>
+
             <if test="amountTotal != null">
                 amount_total,
             </if>
@@ -87,11 +190,11 @@
             <if test="debtYaer != null">
                 debt_yaer,
             </if>
-            <if test="isPledge != null">
-                is_pledge,
+            <if test="partyaIdentity != null">
+                partya_identity,
             </if>
-            <if test="servicePlan != null">
-                service_plan,
+            <if test="partybIdentity != null">
+                partyb_identity,
             </if>
             <if test="partyaAddr != null">
                 partya_addr,
@@ -111,61 +214,11 @@
             <if test="partybTel != null">
                 partyb_tel,
             </if>
-            <if test="servicePrincipal != null">
-                service_principal,
-            </if>
-            <if test="serviceInterest != null">
-                service_interest,
-            </if>
-            <if test="partyaDeputy != null">
-                partya_deputy,
-            </if>
-            <if test="partyaSeal != null">
-                partya_seal,
-            </if>
-            <if test="partyaDate != null">
-                partya_date,
-            </if>
-            <if test="partybDeputy != null">
-                partyb_deputy,
-            </if>
-            <if test="partybSeal != null">
-                partyb_seal,
-            </if>
-            <if test="partybDate != null">
-                partyb_date,
-            </if>
-            <if test="contractPlace != null">
-                contract_place,
-            </if>
-            <if test="status != null">
-                `status`,
-            </if>
-            <if test="checkReason != null">
-                check_reason,
-            </if>
-            <if test="checkDate != null">
-                check_date,
-            </if>
-            <if test="partyaIdentity != null">
-                partya_identity,
-            </if>
-            <if test="partybIdentity != null">
-                partyb_identity,
-            </if>
-            <if test="civilId != null">
-                civil_id,
-            </if>
+
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="debtId != null">
                 #{debtId,jdbcType=BIGINT},
-            </if>
-            <if test="debtNo != null">
-                #{debtNo,jdbcType=VARCHAR},
-            </if>
-            <if test="serviceNo != null">
-                #{serviceNo,jdbcType=VARCHAR},
             </if>
             <if test="reportId != null">
                 #{reportId,jdbcType=BIGINT},
@@ -173,6 +226,41 @@
             <if test="relativePerId != null">
                 #{relativePerId,jdbcType=BIGINT},
             </if>
+            <if test="civilId != null">
+                #{civilId,jdbcType=BIGINT},
+            </if>
+            <if test="debtNo != null">
+                #{debtNo,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="checkReason != null">
+                #{checkReason,jdbcType=VARCHAR},
+            </if>
+            <if test="checkDate != null">
+                #{checkDate,jdbcType=DATE},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="serviceNo != null">
+                #{serviceNo,jdbcType=VARCHAR},
+            </if>
+
+            <if test="matters != null">
+                #{matters,jdbcType=VARCHAR},
+            </if>
+            <if test="contractDate != null">
+                #{contractDate,jdbcType=DATE},
+            </if>
+            <if test="thisPlanMoney != null">
+                #{thisPlanMoney,jdbcType=REAL},
+            </if>
+
             <if test="amountTotal != null">
                 #{amountTotal,jdbcType=REAL},
             </if>
@@ -188,11 +276,11 @@
             <if test="debtYaer != null">
                 #{debtYaer,jdbcType=VARCHAR},
             </if>
-            <if test="isPledge != null">
-                #{isPledge,jdbcType=VARCHAR},
+            <if test="partyaIdentity != null">
+                #{partyaIdentity,jdbcType=VARCHAR},
             </if>
-            <if test="servicePlan != null">
-                #{servicePlan,jdbcType=VARCHAR},
+            <if test="partybIdentity != null">
+                #{partybIdentity,jdbcType=VARCHAR},
             </if>
             <if test="partyaAddr != null">
                 #{partyaAddr,jdbcType=VARCHAR},
@@ -212,54 +300,10 @@
             <if test="partybTel != null">
                 #{partybTel,jdbcType=VARCHAR},
             </if>
-            <if test="servicePrincipal != null">
-                #{servicePrincipal,jdbcType=REAL},
-            </if>
-            <if test="serviceInterest != null">
-                #{serviceInterest,jdbcType=REAL},
-            </if>
-            <if test="partyaDeputy != null">
-                #{partyaDeputy,jdbcType=VARCHAR},
-            </if>
-            <if test="partyaSeal != null">
-                #{partyaSeal,jdbcType=VARCHAR},
-            </if>
-            <if test="partyaDate != null">
-                #{partyaDate,jdbcType=DATE},
-            </if>
-            <if test="partybDeputy != null">
-                #{partybDeputy,jdbcType=VARCHAR},
-            </if>
-            <if test="partybSeal != null">
-                #{partybSeal,jdbcType=VARCHAR},
-            </if>
-            <if test="partybDate != null">
-                #{partybDate,jdbcType=DATE},
-            </if>
-            <if test="contractPlace != null">
-                #{contractPlace,jdbcType=VARCHAR},
-            </if>
-            <if test="status != null">
-                #{status,jdbcType=VARCHAR},
-            </if>
-            <if test="checkReason != null">
-                #{checkReason,jdbcType=VARCHAR},
-            </if>
-            <if test="checkDate != null">
-                #{checkDate,jdbcType=DATE},
-            </if>
-            <if test="partyaIdentity != null">
-                #{partyaIdentity,jdbcType=VARCHAR},
-            </if>
-            <if test="partybIdentity != null">
-                #{partybIdentity,jdbcType=VARCHAR},
-            </if>
-            <if test="civilId != null">
-                #{civilId,jdbcType=VARCHAR},
-            </if>
+
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.vo.debt.PubDebtVo">
+    <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.po.debt.PubDebt">
         update pub_debt
         <set>
             <if test="reportId != null">
@@ -268,12 +312,41 @@
             <if test="relativePerId != null">
                 relative_per_id = #{relativePerId,jdbcType=BIGINT},
             </if>
+            <if test="civilId != null">
+                civil_id = #{civilId,jdbcType=BIGINT},
+            </if>
             <if test="debtNo != null">
-                debt_no = #{reportNo,jdbcType=VARCHAR},
+                debt_no = #{debtNo,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                `status` = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="checkReason != null">
+                check_reason = #{checkReason,jdbcType=VARCHAR},
+            </if>
+            <if test="checkDate != null">
+                check_date = #{checkDate,jdbcType=DATE},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
             </if>
             <if test="serviceNo != null">
                 service_no = #{serviceNo,jdbcType=VARCHAR},
             </if>
+
+            <if test="matters != null">
+                matters = #{matters,jdbcType=VARCHAR},
+            </if>
+            <if test="contractDate != null">
+                contract_date = #{contractDate,jdbcType=DATE},
+            </if>
+            <if test="thisPlanMoney != null">
+                this_plan_money = #{thisPlanMoney,jdbcType=REAL},
+            </if>
+
             <if test="amountTotal != null">
                 amount_total = #{amountTotal,jdbcType=REAL},
             </if>
@@ -289,11 +362,11 @@
             <if test="debtYaer != null">
                 debt_yaer = #{debtYaer,jdbcType=VARCHAR},
             </if>
-            <if test="isPledge != null">
-                is_pledge = #{isPledge,jdbcType=VARCHAR},
+            <if test="partyaIdentity != null">
+                partya_identity = #{partyaIdentity,jdbcType=VARCHAR},
             </if>
-            <if test="servicePlan != null">
-                service_plan = #{servicePlan,jdbcType=VARCHAR},
+            <if test="partybIdentity != null">
+                partyb_identity = #{partybIdentity,jdbcType=VARCHAR},
             </if>
             <if test="partyaAddr != null">
                 partya_addr = #{partyaAddr,jdbcType=VARCHAR},
@@ -313,55 +386,12 @@
             <if test="partybTel != null">
                 partyb_tel = #{partybTel,jdbcType=VARCHAR},
             </if>
-            <if test="servicePrincipal != null">
-                service_principal = #{servicePrincipal,jdbcType=REAL},
-            </if>
-            <if test="serviceInterest != null">
-                service_interest = #{serviceInterest,jdbcType=REAL},
-            </if>
-            <if test="partyaDeputy != null">
-                partya_deputy = #{partyaDeputy,jdbcType=VARCHAR},
-            </if>
-            <if test="partyaSeal != null">
-                partya_seal = #{partyaSeal,jdbcType=VARCHAR},
-            </if>
-            <if test="partyaDate != null">
-                partya_date = #{partyaDate,jdbcType=DATE},
-            </if>
-            <if test="partybDeputy != null">
-                partyb_deputy = #{partybDeputy,jdbcType=VARCHAR},
-            </if>
-            <if test="partybSeal != null">
-                partyb_seal = #{partybSeal,jdbcType=VARCHAR},
-            </if>
-            <if test="partybDate != null">
-                partyb_date = #{partybDate,jdbcType=DATE},
-            </if>
-            <if test="contractPlace != null">
-                contract_place = #{contractPlace,jdbcType=VARCHAR},
-            </if>
-            <if test="status != null">
-                `status` = #{status,jdbcType=VARCHAR},
-            </if>
-            <if test="checkReason != null">
-                check_reason = #{checkReason,jdbcType=VARCHAR},
-            </if>
-            <if test="checkDate != null">
-                check_date= #{checkDate,jdbcType=DATE},
-            </if>
-            <if test="partyaIdentity != null">
-                partya_identity= #{partyaIdentity,jdbcType=DATE},
-            </if>
-            <if test="partybIdentity != null">
-                partyb_identity= #{partybIdentity,jdbcType=DATE},
-            </if>
-
 
         </set>
         where debt_id = #{debtId,jdbcType=BIGINT}
     </update>
     <update id="updateStatus">
-        update pub_debt
+        UPDATE pub_debt
         <set>
             <if test="status != null and status != ''">
                 `status` = #{status,jdbcType=VARCHAR},
@@ -370,111 +400,11 @@
                 check_reason=#{checkReason,jdbcType=VARCHAR},
             </if>
         </set>
-        where debt_id = #{debtId,jdbcType=BIGINT}
+        WHERE debt_id = #{debtId,jdbcType=BIGINT}
+    </update>
+    <update id="updatePlanInfo">
+        update pub_debt set matters =#{matters},service_no=#{serviceNo},service_principal=#{servicePrincipal},service_interest=#{serviceInterest}
+        ,contract_date=#{contractDate} where debt_id=#{debtId}
     </update>
 
-    <select id="selectDaysCount" resultType="com.smart.bracelet.model.po.debt.DateAndDays">
-        SELECT DATE_FORMAT(pub_debt.create_time,'%Y-%m-%d') days,COUNT(*) COUNT
-        FROM pub_debt
-        LEFT JOIN bus_report br ON pub_debt.`report_id` = br.`report_id`
-        LEFT JOIN pub_company pc ON br.`company_id` = pc.`company_id`
-        <where>
-            <if test="comId!= null and comId!=''">
-               and pc.`company_id` = #{comId}
-            </if>
-            <if test="type != null and type!=''">
-              and  pc.`company_type` = #{type}
-            </if>
-        </where>
-        GROUP BY days ORDER BY days DESC LIMIT 10;
-    </select>
-    <select id="queryList" resultType="com.smart.bracelet.model.po.debt.PubDebt">
-        select
-        <include refid="Base_Column_List"/>
-        from pub_debt
-    </select>
-    <select id="selectRepNo" resultType="java.lang.String">
-      SELECT  pub_debt.`debt_no`  FROM   pub_debt   ORDER   BY   pub_debt.`debt_no`   DESC   LIMIT   1
-    </select>
-
-    <select id="selectDebtListShow" resultType="com.smart.bracelet.model.vo.debt.PubDebtInfo">
-        SELECT br.`report_id`,brp.`relative_per_id`,br.`report_no`,brp.data1 AS
-        'personName',pd.`debt_no`,pd.`debt_id`,pd.`status`,bc.`civil_id`
-        FROM `pub_debt` pd
-        LEFT JOIN bus_relative_person brp ON pd.`relative_per_id` = brp.`relative_per_id`
-        LEFT JOIN bus_civil bc ON bc.`civil_id` = pd.`civil_id`
-        LEFT JOIN bus_report br ON br.`report_id` = pd.report_id
-        LEFT JOIN pub_company pc ON pc.`company_id` = br.`company_id`
-        <where>
-            <if test="debtNo != null and debtNo!=''">
-                and pd.debt_no = #{debtNo,jdbcType=VARCHAR}
-            </if>
-            <if test="comId != null and comId!=''">
-                and pc.company_id = #{comId,jdbcType=BIGINT}
-            </if>
-            <if test="companyType != null and companyType!=''">
-                and pc.company_type = #{companyType,jdbcType=VARCHAR}
-            </if>
-            <if test="debtId != null and debtId!=''">
-                and pd.debt_id = #{debtId,jdbcType=BIGINT}
-            </if>
-            <if test="status != null and status!=''">
-                and pd.status = #{status,jdbcType=VARCHAR}
-            </if>
-            <if test="beginDate != null and endDate != ''">
-                and pd.create_time BETWEEN #{beginDate} AND #{endDate}
-            </if>
-        </where>
-        ORDER BY br.`report_id` desc
-    </select>
-    <select id="selectDebtAndRepAndCiviI" resultType="com.smart.bracelet.model.vo.debt.DebtAndRepAndCiviI">
-        SELECT br.`report_id`,br.`report_no`,bc.civilno,pd.debt_id,pd.debt_no,br.`data1` AS 'debtName' FROM `bus_report` br
-        LEFT JOIN `pub_debt` pd ON br.`report_id`=pd.report_id
-        LEFT JOIN `bus_civil` bc ON bc.report_id = br.report_id
-    </select>
-    <select id="selectNo" resultType="java.lang.String">
-         SELECT pub_debt.`service_no`  FROM   `pub_debt`   ORDER   BY  pub_debt.`debt_id`    DESC   LIMIT   1
-    </select>
-    <select id="selectByreportId" resultType="com.smart.bracelet.model.po.debt.PubDebt"
-            parameterType="java.lang.Long">
-        select
-        <include refid="Base_Column_List"/>
-        from pub_debt
-        where report_id = #{report_id,jdbcType=BIGINT}
-    </select>
-    <select id="selectMoney" resultType="com.smart.bracelet.model.vo.debt.DebtMoney"
-            parameterType="java.lang.Long">
-                SELECT brp.`relative_per_id`,bc.interest_all,pd.amount_cumulative FROM bus_relative_person brp
-        LEFT JOIN bus_report br ON brp.`report_id` = br.`report_id`
-        LEFT JOIN pub_debt pd ON pd.`relative_per_id` = brp.`relative_per_id`
-        LEFT JOIN bus_civil bc ON bc.`relative_per_id` = brp.`relative_per_id`
-        WHERE brp.`relative_per_id` = #{relativePerId,jdbcType=BIGINT}
-    </select>
-    <select id="selectByReportIds" resultType="com.smart.bracelet.model.vo.debt.PubDebtInfo"
-            parameterType="java.lang.Long">
-        SELECT br.`report_id`,brp.`relative_per_id`,br.`report_no`,brp.data1 AS 'personName',pd.`debt_no`,pd.`debt_id`,pd.`status`,bc.`civilno`
-        FROM pub_debt pd
-        LEFT JOIN bus_relative_person brp ON pd.`relative_per_id` = brp.`relative_per_id`
-        LEFT JOIN bus_civil bc ON bc.`relative_per_id` = brp.`relative_per_id`
-        LEFT JOIN bus_report br ON br.`report_id` = brp.report_id
-        WHERE br.`report_id` = #{relativePerId}
-    </select>
-    <select id="selectByRelativePerId" resultType="com.smart.bracelet.model.po.debt.PubDebt"
-            parameterType="java.lang.Long">
-        select
-        <include refid="Base_Column_List"/>
-        from pub_debt
-        where relative_per_id = #{relativePerId,jdbcType=BIGINT}
-    </select>
-    <select id="selectAssService" resultType="com.smart.bracelet.model.po.debt.AssService"
-            parameterType="java.lang.Long">
-        select
-        service_no,partya_identity as 'personType',service_principal,service_interest,service_date,debt_id
-        from pub_debt
-        where debt_id = #{debtId,jdbcType=BIGINT}
-    </select>
-
-    <update id="updateService" parameterType="com.smart.bracelet.model.po.debt.AssService">
-        update pub_debt set service_no =#{serviceNo},partya_identity =#{personType},service_principal = #{servicePrincipal},service_interest= #{serviceInterest},service_date =#{serviceDate} where debt_id =#{debtId}
-    </update>
 </mapper>

@@ -15,10 +15,11 @@
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
         <result column="annex" jdbcType="VARCHAR" property="annex"/>
+        <result column="contract_date" jdbcType="VARCHAR" property="contractDate"/>
     </resultMap>
     <sql id="Base_Column_List">
     sales_contract_id, propert_id, date_start, sales_no, date_end, `second`, partya_seal, 
-    partya_time, partyb_seal, partyb_time, create_time, update_time,annex
+    partya_time, partyb_seal, partyb_time, create_time, update_time,annex,contract_date
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
@@ -30,13 +31,15 @@
     SELECT  bus_agent_sales_contract.sales_no  FROM    `bus_agent_sales_contract`  ORDER   BY   bus_agent_sales_contract.sales_contract_id    DESC   LIMIT   1
   </select>
     <select id="initialize" resultType="com.smart.bracelet.model.vo.assets.BusAgentSalesContractShow">
-      SELECT br.`report_propert`,br.`data1` AS 'debtName',br.`data5` AS 'priAdd',br.`data7` AS 'corBankAdd',br.`data2` AS 'debtIdCard',br.`data3` AS 'priPhone',br.`data9` AS 'corBankPhone',
+    SELECT basc.sales_contract_id,basc.contract_date,basc.contract_date,basc.`sales_no`,br.`report_propert`,br.`data1` AS 'debtName',br.`data5` AS 'priAdd',br.`data7` AS 'corBankAdd',br.`data2` AS 'debtIdCard',br.`data3` AS 'priPhone',br.`data9` AS 'corBankPhone',
         pd.`amount_this`,bra.bank,bra.bank_card,pd.`create_time`,pd.debt_yaer
-        FROM bus_relative_person brp
-		LEFT JOIN pub_debt pd ON brp.`relative_per_id`  = pd.`relative_per_id`
-		LEFT JOIN bus_report br ON br.`report_id` = brp.`report_id`
+        FROM bus_propert bp
+        LEFT JOIN bus_report br ON bp.`report_id` = br.`report_id`
+        LEFT JOIN bus_relative_person brp ON brp.`relative_per_id` = bp.`relative_per_id`
+        LEFT JOIN pub_debt pd ON pd.`debt_id` = bp.`debt_id`
         LEFT JOIN bus_real_auth bra ON br.`report_id` = bra.report_id
-        WHERE brp.`relative_per_id` =   #{relativePerId,jdbcType=BIGINT}
+        LEFT JOIN bus_agent_sales_contract basc ON basc.`propert_id` = bp.`propert_id`
+        WHERE bp.`propert_id` = #{propertId}
     </select>
     <select id="selectByPropertId" resultType="com.smart.bracelet.model.po.assets.BusAgentSalesContract"
             parameterType="java.lang.Long">
@@ -66,6 +69,9 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="salesContractId != null">
                 sales_contract_id,
+            </if>
+            <if test="contractDate != null">
+                contract_date,
             </if>
             <if test="propertId != null">
                 propert_id,
@@ -107,6 +113,9 @@
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="salesContractId != null">
                 #{salesContractId,jdbcType=BIGINT},
+            </if>
+            <if test="contractDate != null">
+                #{contractDate,jdbcType=BIGINT},
             </if>
             <if test="propertId != null">
                 #{propertId,jdbcType=BIGINT},

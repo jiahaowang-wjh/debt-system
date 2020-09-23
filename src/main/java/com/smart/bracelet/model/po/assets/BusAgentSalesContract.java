@@ -1,5 +1,6 @@
 package com.smart.bracelet.model.po.assets;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
@@ -31,59 +32,61 @@ public class BusAgentSalesContract implements Serializable {
     @NotNull(message = "资产ID不能为空")
     private Long propertId;
 
-    /**
-     * 代销时间开始
-     */
-    @NotNull(message = "代销时间开始不能为空")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date dateStart;
-
-    /**
-     * 附件
-     */
-    String annex;
 
     /**
      * 编号
      */
+    @NotBlank(message = "编号不能为空")
     private String salesNo;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "合同日期不能为空")
+    Date contractDate;
+
+
+
+
+
+
+
+
+    /**
+     * 代销时间开始
+     */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date dateStart;
+
 
     /**
      * 代销时间结束
      */
-    @NotNull(message = "代销时间结束不能为空")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateEnd;
 
     /**
      * 附议
      */
-    @NotBlank(message = "附议不能为空")
     private String second;
 
     /**
      * 甲方盖章
      */
-    @NotBlank(message = "甲方盖章不能为空")
     private String partyaSeal;
 
     /**
      * 甲方时间
      */
-    @NotNull(message = "甲方时间不能为空")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date partyaTime;
 
     /**
      * 乙方盖章
      */
-    @NotBlank(message = "乙方盖章不能为空")
     private String partybSeal;
 
     /**
      * 乙方时间
      */
-    @NotNull(message = "乙方时间不能为空")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date partybTime;
 
@@ -98,10 +101,9 @@ public class BusAgentSalesContract implements Serializable {
     private Date updateTime;
 
     /**
-     * 公司ID
+     * 附件
      */
-    @NotNull(message = "公司Id不能为空")
-    Long comId;
+    String annex;
 
 
     BusAgentSalesContractModity[] busAgentSalesContractModity;

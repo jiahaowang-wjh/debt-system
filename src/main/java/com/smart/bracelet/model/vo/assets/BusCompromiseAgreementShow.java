@@ -1,5 +1,6 @@
 package com.smart.bracelet.model.vo.assets;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.util.Date;
@@ -25,6 +26,7 @@ public class BusCompromiseAgreementShow {
     /**
      * 解债每期贷款
      */
+    String average;
     /**
      * 解债日期中日的数字
      */
@@ -32,5 +34,32 @@ public class BusCompromiseAgreementShow {
     /**
      * 解债日期
      */
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     Date createTime;
+    /**
+     * 解债类型
+     */
+    String debtType;
+
+    /**
+     * 解债年限
+     */
+    String debtYaer;
+
+    /**
+     * 期数
+     */
+    String number;
+
+    /**
+     * 和解编号
+     */
+    String compromiseAgreementNo;
+
+    /**
+     * 签约日期
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    Date compromiseDate;
+
 }

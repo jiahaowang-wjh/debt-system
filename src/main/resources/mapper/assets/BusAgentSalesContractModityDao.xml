@@ -11,11 +11,12 @@
         <result column="partya_time" jdbcType="VARCHAR" property="partyaTime"/>
         <result column="partyb_seal" jdbcType="INTEGER" property="partybSeal"/>
         <result column="partyb_time" jdbcType="VARCHAR" property="partybTime"/>
-        <result column="modity_no" jdbcType="VARCHAR" property="modityNo"/>
+        <result column="money_num1" jdbcType="VARCHAR" property="moneyNum1"/>
+        <result column="protocol_id" jdbcType="VARCHAR" property="protocolId"/>
     </resultMap>
     <sql id="Base_Column_List">
     sales_contract_modity_id, sales_contract_id, modity_name, modity_place, modity_specificat, 
-    partya_seal, partya_time, partyb_seal, partyb_time,modity_no
+    partya_seal, partya_time, partyb_seal, partyb_time,modity_no,money_num1,protocol_id
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
@@ -41,13 +42,13 @@
         insert into bus_agent_sales_contract_modity (sales_contract_modity_id, sales_contract_id,
         modity_name, modity_place, modity_specificat,
         partya_seal, partya_time, partyb_seal,
-        partyb_time,modity_no)
+        partyb_time,money_num1,protocol_id)
         values
         <foreach collection="list" item="item" index="index" separator=",">
             (#{item.salesContractModityId,jdbcType=BIGINT}, #{item.salesContractId,jdbcType=BIGINT},
             #{item.modityName,jdbcType=VARCHAR}, #{item.modityPlace,jdbcType=VARCHAR}, #{item.moditySpecificat,jdbcType=VARCHAR},
             #{item.partyaSeal,jdbcType=VARCHAR}, #{item.partyaTime,jdbcType=VARCHAR}, #{item.partybSeal,jdbcType=INTEGER},
-            #{item.partybTime,jdbcType=VARCHAR},#{item.modityNo,jdbcType=VARCHAR})
+            #{item.partybTime,jdbcType=VARCHAR},#{item.moneyNum1,jdbcType=VARCHAR},#{item.protocolId,jdbcType=BIGINT})
         </foreach>
     </insert>
     <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.assets.BusAgentSalesContractModity">

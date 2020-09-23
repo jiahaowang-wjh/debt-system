@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smart.bracelet.dao.assets.CumoutProtocolDao">
+    <resultMap id="BaseResultMap" type="com.smart.bracelet.model.po.assets.CumoutProtocol">
+        <id column="protocol_id" jdbcType="BIGINT" property="protocolId"/>
+        <result column="protocol_no" jdbcType="VARCHAR" property="protocolNo"/>
+        <result column="propert_id" jdbcType="BIGINT" property="propertId"/>
+        <result column="protocol_date" jdbcType="DATE" property="protocolDate"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    protocol_id, protocol_no, propert_id, protocol_date
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from cumout_protocol
+        where protocol_id = #{protocolId,jdbcType=BIGINT}
+    </select>
+    <select id="initialize" resultType="com.smart.bracelet.model.vo.assets.CommissionOnLine"
+            parameterType="java.lang.Long">
+    SELECT cp.protocol_no,br.`report_propert`,br.`data1` AS 'debtName',br.`data5` AS 'priAdd',br.`data7` AS 'corBankAdd',br.`data2` AS 'debtIdCard',br.`data3` AS 'priPhone',br.`data9` AS 'corBankPhone',
+        pd.`amount_this`,pd.`create_time`,pd.debt_yaer
+    FROM bus_propert bp
+    LEFT JOIN `cumout_protocol` cp ON bp.`propert_id` = cp.`propert_id`
+    LEFT JOIN bus_report br ON bp.`report_id` = br.`report_id`
+    LEFT JOIN pub_debt pd ON pd.`debt_id` = bp.`debt_id`
+    where bp.propert_id =#{propertId}
+  </select>
+    <select id="selectNo" resultType="java.lang.String">
+        SELECT  cumout_protocol.protocol_no  FROM   cumout_protocol   ORDER   BY   cumout_protocol.propert_id    DESC   LIMIT   1
+  </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from cumout_protocol
+    where protocol_id = #{protocolId,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="com.smart.bracelet.model.po.assets.CumoutProtocol">
+    insert into cumout_protocol (protocol_id, protocol_no, propert_id, 
+      protocol_date)
+    values (#{protocolId,jdbcType=BIGINT}, #{protocolNo,jdbcType=VARCHAR}, #{propertId,jdbcType=BIGINT}, 
+      #{protocolDate,jdbcType=DATE})
+  </insert>
+    <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.assets.CumoutProtocol">
+        insert into cumout_protocol
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="protocolId != null">
+                protocol_id,
+            </if>
+            <if test="protocolNo != null">
+                protocol_no,
+            </if>
+            <if test="propertId != null">
+                propert_id,
+            </if>
+            <if test="protocolDate != null">
+                protocol_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="protocolId != null">
+                #{protocolId,jdbcType=BIGINT},
+            </if>
+            <if test="protocolNo != null">
+                #{protocolNo,jdbcType=VARCHAR},
+            </if>
+            <if test="propertId != null">
+                #{propertId,jdbcType=BIGINT},
+            </if>
+            <if test="protocolDate != null">
+                #{protocolDate,jdbcType=DATE},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.po.assets.CumoutProtocol">
+        update cumout_protocol
+        <set>
+            <if test="protocolNo != null">
+                protocol_no = #{protocolNo,jdbcType=VARCHAR},
+            </if>
+            <if test="propertId != null">
+                propert_id = #{propertId,jdbcType=BIGINT},
+            </if>
+            <if test="protocolDate != null">
+                protocol_date = #{protocolDate,jdbcType=DATE},
+            </if>
+        </set>
+        where protocol_id = #{protocolId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.smart.bracelet.model.po.assets.CumoutProtocol">
+    update cumout_protocol
+    set protocol_no = #{protocolNo,jdbcType=VARCHAR},
+      propert_id = #{propertId,jdbcType=BIGINT},
+      protocol_date = #{protocolDate,jdbcType=DATE}
+    where protocol_id = #{protocolId,jdbcType=BIGINT}
+  </update>
+</mapper>

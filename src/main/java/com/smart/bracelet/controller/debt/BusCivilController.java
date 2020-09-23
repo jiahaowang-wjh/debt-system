@@ -141,17 +141,8 @@ public class BusCivilController {
      * 尽调协议初始化
      */
     @RequestMapping("/initialize")
-    public Result<AgreementInfoShow> initialize(@NotNull(message = "报备ID不能为空") Long reportId) {
-        AgreementInfoShow initialize = busCivilService.initialize(reportId);
-        return Result.success(initialize);
-    }
-
-    /**
-     * 策划方案服务协议初始化
-     */
-    @RequestMapping("/initializePlan")
-    public Result<PlanServiceInfo> initializePlan(@NotNull(message = "报备ID不能为空") Long reportId) throws CustomerException {
-        PlanServiceInfo initialize = busCivilService.initializePlan(reportId);
+    public Result<AgreementInfoShow> initialize(@NotNull(message = "报备ID不能为空") Long reportId,@NotNull(message = "公司ID不能为空") Long comId) {
+        AgreementInfoShow initialize = busCivilService.initialize(reportId,comId);
         return Result.success(initialize);
     }
 

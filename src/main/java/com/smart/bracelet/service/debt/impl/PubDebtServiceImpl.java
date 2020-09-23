@@ -1,24 +1,24 @@
 package com.smart.bracelet.service.debt.impl;
 
-import com.smart.bracelet.dao.debt.BusGuaranteeDao;
-import com.smart.bracelet.dao.debt.BusReportDao;
+
 import com.smart.bracelet.dao.debt.PubDebtDao;
 import com.smart.bracelet.dao.user.PubCompanyDao;
 import com.smart.bracelet.exception.CustomerException;
-import com.smart.bracelet.model.po.debt.AssService;
 import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.po.debt.PubDebt;
-import com.smart.bracelet.model.po.user.PubCompany;
 import com.smart.bracelet.model.vo.debt.*;
 import com.smart.bracelet.service.debt.PubDebtService;
+import com.smart.bracelet.utils.ConvertUpMoney;
 import com.smart.bracelet.utils.IdUtils;
 import com.smart.bracelet.utils.RepNoUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Calendar;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -29,12 +29,7 @@ public class PubDebtServiceImpl implements PubDebtService {
     private PubDebtDao pubDebtDao;
 
     @Autowired
-    private BusGuaranteeDao busGuaranteeDao;
-    @Autowired
     private PubCompanyDao pubCompanyDao;
-
-    @Autowired
-    private BusReportDao busReportDao;
 
     @Override
     @Transactional(noRollbackFor = Exception.class)
@@ -58,7 +53,6 @@ public class PubDebtServiceImpl implements PubDebtService {
             //累计金额等于本次加累计
             record.setAmountCumulative(record.getAmountCumulative() + record.getAmountThis());
             record.setDebtId(l);
-            record.setDebtNo(createRepNo());
             int insertSelective = pubDebtDao.insertSelective(record);
             log.info("新增解债信息成功,受影响行数:{}", insertSelective);
             return l;
@@ -90,24 +84,14 @@ public class PubDebtServiceImpl implements PubDebtService {
      * 按照日期查询每日解债数量
      */
     @Override
-    public List<DateAndDays> selectDaysCount(String type,Long comId) {
-        if(type.equals("1")){
+    public List<DateAndDays> selectDaysCount(String type, Long comId) {
+        if (type.equals("1")) {
             type = null;
             comId = null;
         }
-        return pubDebtDao.selectDaysCount(type,comId);
+        return pubDebtDao.selectDaysCount(type, comId);
     }
 
-    /**
-     * 查询所有解债信息
-     *
-     * @return
-     */
-    @Override
-    public List<PubDebt> queryList() {
-        List<PubDebt> pubDebts = pubDebtDao.queryList();
-        return pubDebts;
-    }
 
     @Override
     @Transactional(noRollbackFor = Exception.class)
@@ -132,8 +116,8 @@ public class PubDebtServiceImpl implements PubDebtService {
     }
 
     @Override
-    public List<DebtAndRepAndCiviI> selectDebtAndRepAndCiviI() {
-        return pubDebtDao.selectDebtAndRepAndCiviI();
+    public List<PubDebtInfo> selectByReportIds(Long reportId) {
+        return pubDebtDao.selectByReportIds(reportId);
     }
 
     @Override
@@ -141,69 +125,41 @@ public class PubDebtServiceImpl implements PubDebtService {
         return pubDebtDao.selectByreportId(reportId);
     }
 
-    @Override
-    public DebtMoney selectMoney(Long relativePerId) {
-        return pubDebtDao.selectMoney(relativePerId);
-    }
 
     @Override
-    public List<PubDebtInfo> selectByReportIds(Long reportId) {
-        return pubDebtDao.selectByReportIds(reportId);
-    }
-
-    @Override
-    public int updateService(AssService assService) throws CustomerException {
+    @Transactional(noRollbackFor = Exception.class)
+    public PlanServiceInfo initializePlan(Long debtId, Long comId) throws CustomerException {
         try {
-            PubCompany pubCompany = pubCompanyDao.selectByPrimaryKey(assService.getComId());
-            String selectNo = pubDebtDao.selectNo();
-            String repNo = RepNoUtils.createRepNo("TZ", pubCompany.getCompanyNameMax(), selectNo);
-            assService.setServiceNo(repNo);
-            log.info("新增咨询服务协议成功");
-            return pubDebtDao.updateService(assService);
+            PlanServiceInfo initialize = pubDebtDao.initializePlan(debtId);
+            if (StringUtils.isEmpty(initialize.getServiceNo())) {
+                initialize.setServiceNo(RepNoUtils.createRepNo("TZ", pubCompanyDao.selectByPrimaryKey(comId).getCompanyNameMax(), pubDebtDao.selectNo()));
+            }
+            initialize.setThisTime(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+            initialize.setThisPlanMoneyMax(ConvertUpMoney.toChinese(initialize.getThisPlanMoney()));
+            initialize.setAmountThisMax(ConvertUpMoney.toChinese(initialize.getAmountThis().toString()));
+            if (initialize.getReportPropert().equals("1")) {
+                initialize.setCorBankAdd(null);
+                initialize.setCorBankPhone(null);
+            } else {
+                initialize.setPriAdd(null);
+                initialize.setPriPhone(null);
+            }
+            return initialize;
         } catch (Exception e) {
-            log.error("新增咨询服务协议失败,异常信息：{}", e.getMessage());
-            throw new CustomerException("新增咨询服务协议失败");
+            log.error("异常信息:{}", e.getMessage());
+            throw new CustomerException("查询异常" + e.getMessage());
         }
     }
 
     @Override
-    public AssService selectAssService(Long debtId) {
-        return pubDebtDao.selectAssService(debtId);
-    }
-
-
-    /**
-     * 编号生成方法
-     *
-     * @return
-     */
-    public String createRepNo() {
-        String repNo;
-        int intXuhao;
-        String stringXuhao;
-        boolean ok = true;
-        Calendar ca = Calendar.getInstance();
-        int year = ca.get(Calendar.YEAR);//获取年份
-        String xuHao = null;
-        String aLong = pubDebtDao.selectRepNo();
-        if (aLong != null) {
-            xuHao = aLong.substring(aLong.toString().indexOf("F") + 1);
-            intXuhao = Integer.parseInt(xuHao);
-            intXuhao = intXuhao + 1;
-            stringXuhao = intXuhao + "";
-            while (ok) {
-                if (stringXuhao.length() < 6) {
-                    stringXuhao = 0 + stringXuhao;
-                } else {
-                    ok = false;
-                }
-            }
-            repNo = "TZ" + year + "JJF" + stringXuhao;
-            return repNo;
-        } else {
-            repNo = "TZ" + year + "JJF" + "000001";
-            return repNo;
+    public int updatePlanInfo(String matters, String serviceNo, Float servicePrincipal, Float serviceInterest, Date contractDate, Long debtId) throws CustomerException {
+        try {
+            int i = pubDebtDao.updatePlanInfo(matters, serviceNo, servicePrincipal, serviceInterest, contractDate, debtId);
+            log.info("新增策划方案成功，受影响行数：{}",i);
+            return i;
+        } catch (Exception e) {
+            log.error("新增策划方案服务协议失败，异常信息：{}",e.getMessage());
+            throw new CustomerException("新增策划方案协议失败");
         }
     }
-
 }

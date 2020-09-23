@@ -26,50 +26,48 @@ public class Manner1 {
     @NotBlank(message = "乙方清偿债务不能为空")
     private String partybMode;
 
+    @NotNull(message = "公司id不能为空")
+    Long comId;
+
+    /**
+     * 签约日期
+     */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "签约日期不能为空")
+    private Date compromiseDate;
+
     /**
      *支付现金
      */
-    @NotNull(message = "支付现金不能为空")
     private Float cash;
 
     /**
      * 甲方法人代表
      */
-    @NotBlank(message = "甲方法人代表不能为空")
     private String partyaSubrogation;
 
-    /**
-     * 甲方日期
-     */
-    @NotNull(message = "甲方日期不能为空")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date partyaDate;
+
 
     /**
      * 甲方盖章
      */
-    @NotBlank(message = "甲方盖章不能为空")
     private String partyaSeal;
 
     /**
      * 乙方盖章
      */
-    @NotBlank(message = "乙方盖章不能为空")
     private String partybSeal;
 
     /**
      * 乙方法人代表
      */
-    @NotBlank(message = "乙方法人代表不能为空")
     private String partybSubrogation;
 
     /**
      * 乙方日期
      */
-    @NotNull(message = "乙方日期不能为空")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date partybDate;
 
-    @NotNull(message = "公司id不能为空")
-    Long comId;
+
 }

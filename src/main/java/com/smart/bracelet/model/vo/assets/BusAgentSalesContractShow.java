@@ -1,10 +1,15 @@
 package com.smart.bracelet.model.vo.assets;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.smart.bracelet.model.po.assets.BusAgentSalesContract;
+import com.smart.bracelet.model.po.assets.BusAgentSalesContractModity;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 页面资产委托代理销售合同初始化实体
@@ -48,15 +53,15 @@ public class BusAgentSalesContractShow {
     String debtYaer;
 
     /**
-     *解债开始日期
+     * 解债开始日期
      */
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     Date createTime;
 
     /**
-     *截至日期
+     * 截至日期
      */
-    String  endTime;
+    String endTime;
 
     /**
      * 解债金额
@@ -68,7 +73,7 @@ public class BusAgentSalesContractShow {
     String amountThisMax;
 
     /**
-     *每期贷款金额
+     * 每期贷款金额
      */
     String averageMoney;
 
@@ -85,4 +90,22 @@ public class BusAgentSalesContractShow {
      * 债事人性质
      */
     String reportPropert;
+
+    /**
+     * 销售合同编号
+     */
+    String salesNo;
+
+    /**
+     * 签约日期
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    Date contractDate;
+
+    @JsonSerialize(using = ToStringSerializer.class)
+    Long salesContractId;
+    /**
+     * 销售商品
+     */
+    List<BusAgentSalesContractModity> busAgentSalesContractModity;
 }

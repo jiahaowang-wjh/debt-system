@@ -48,9 +48,9 @@
 
     <select id="selectAuthByRoleId" resultType="com.smart.bracelet.model.po.user.PubAuth">
      SELECT   b.* FROM
-        (SELECT * FROM pub_roleauth WHERE role_id = =#{roleId,jdbcType=BIGINT}) a
+        (SELECT * FROM pub_roleauth WHERE role_id  =#{roleId,jdbcType=BIGINT}) a
         LEFT OUTER JOIN
-        (SELECT * FROM pub_auth WHERE menu_id = =#{menuId,jdbcType=BIGINT})b ON a.auth_id = b.auth_id
+        (SELECT * FROM pub_auth WHERE menu_id =#{menuId,jdbcType=BIGINT})b ON a.auth_id = b.auth_id
         WHERE b.auth_id IS NOT NULL
   </select>
 

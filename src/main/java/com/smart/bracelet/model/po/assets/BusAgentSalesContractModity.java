@@ -22,16 +22,15 @@ public class BusAgentSalesContractModity implements Serializable {
     private Long salesContractModityId;
 
     /**
-     * 商品编号
-     */
-    String modityNo;
-
-    /**
      * 代理销售合同ID
      */
     @JsonSerialize(using = ToStringSerializer.class)
-    @NotNull(message = "代理销售合同ID不能为空")
     private Long salesContractId;
+
+    /**
+     * 委托线上代理销售合同ID
+     */
+    private Long protocolId;
 
     /**
      * 商品名
@@ -40,15 +39,15 @@ public class BusAgentSalesContractModity implements Serializable {
     private String modityName;
 
     /**
-     * 商品产地
+     * 商品单价
      */
-    @NotBlank(message = "商品产地不能为空")
+    @NotBlank(message = "商品单价不能为空")
     private String modityPlace;
 
     /**
-     * 商品规格
+     * 商品型号
      */
-    @NotBlank(message = "商品规格不能为空")
+    @NotBlank(message = "商品型号不能为空")
     private String moditySpecificat;
 
     /**
@@ -60,7 +59,6 @@ public class BusAgentSalesContractModity implements Serializable {
     /**
      * 商品包装
      */
-    @NotBlank(message = "商品包装不能为空")
     private String partyaTime;
 
     /**
@@ -74,5 +72,13 @@ public class BusAgentSalesContractModity implements Serializable {
      */
     private String partybTime;
 
+    /**
+     * 合计
+     */
+    String moneyNum1;
 
+    /**
+     * 总计
+     */
+    String moneyNum;
 }

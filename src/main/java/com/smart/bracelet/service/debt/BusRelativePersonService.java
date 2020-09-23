@@ -50,7 +50,7 @@ public interface BusRelativePersonService {
     /**
      * 根据报备ID查询相对人信息并验证符合民事调解
      */
-    List<BusRelativePerson> selectByreportId(Long reportId) throws CustomerException;
+    List<BusRelativePersonPrivateVo> selectByreportId(Long reportId) throws CustomerException;
 
 
     /**

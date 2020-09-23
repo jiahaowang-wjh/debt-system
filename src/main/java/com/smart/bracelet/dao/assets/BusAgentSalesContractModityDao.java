@@ -22,7 +22,7 @@ public interface BusAgentSalesContractModityDao {
      * @param salesContractId
      * @return
      */
-    BusAgentSalesContractModity selectBySalesContractId(Long salesContractId);
+    List<BusAgentSalesContractModity> selectBySalesContractId(Long salesContractId);
 
     String selectNo();
 }

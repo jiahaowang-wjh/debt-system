@@ -81,7 +81,7 @@ public interface BusReportDao {
     /**
      * 新增暨尽编号
      */
-    int addANO(String partyA, String partyB, String agreementNo, Long reportId, Date agreementDate);
+    int addANO(String partyA, String partyB, Long reportId, Date agreementDate,String agreementNo);
 
     /**
      * 暨尽协议下载

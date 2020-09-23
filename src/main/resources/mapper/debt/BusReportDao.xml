@@ -321,7 +321,7 @@
     </insert>
 
     <update id="addANO">
-        update bus_report set agreement_no = #{agreementNo,jdbcType=VARCHAR},party_a = #{partyA,jdbcType=VARCHAR},party_b = #{partyB,jdbcType=VARCHAR},agreement_date=#{agreementDate} where report_id = #{reportId,jdbcType=BIGINT}
+        update bus_report set party_a = #{partyA,jdbcType=VARCHAR},agreement_no = #{agreementNo,jdbcType=VARCHAR},party_b = #{partyB,jdbcType=VARCHAR},agreement_date=#{agreementDate} where report_id = #{reportId,jdbcType=BIGINT}
     </update>
     <update id="updateByPrimaryKeySelective">
         update bus_report

@@ -54,8 +54,8 @@ public class BusAgentSalesContractController {
      * @return
      */
     @RequestMapping("/initialize")
-    public Result<BusAgentSalesContractShow> initialize(@NotNull(message = "相对人ID不能为空") Long relativePerId) throws CustomerException {
-        BusAgentSalesContractShow initialize = busAgentSalesContractService.initialize(relativePerId);
+    public Result<BusAgentSalesContractShow> initialize(@NotNull(message = "资产ID不能为空") Long propertId,@NotNull(message = "公司ID不能为空") Long comId) throws CustomerException {
+        BusAgentSalesContractShow initialize = busAgentSalesContractService.initialize(propertId,comId);
         return Result.success(initialize);
     }
 

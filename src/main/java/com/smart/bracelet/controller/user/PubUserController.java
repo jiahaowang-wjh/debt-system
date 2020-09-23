@@ -114,13 +114,13 @@ public class PubUserController {
     }
 
     /**
-     * 通过用户Id查询菜单信息
+     * 通过角色Id查询权限信息
      *
      * @param roleId
      * @return
      */
     @RequestMapping("/selectAuthByRoleId")
-    public Result<List<PubAuth>> selectAuthByRoleId(@NotNull(message = "用户Id不能为空") Long roleId,@NotNull(message = "菜单Id不能为空") Long menuId) {
+    public Result<List<PubAuth>> selectAuthByRoleId(@NotNull(message = "角色Id不能为空") Long roleId,@NotNull(message = "菜单Id不能为空") Long menuId) {
         List<PubAuth> pubauths = userInfoService.selectAuthByRoleId(roleId,menuId);
         return Result.success(pubauths);
     }

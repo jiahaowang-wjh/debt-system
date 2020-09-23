@@ -1,5 +1,6 @@
 package com.smart.bracelet.service.assets.impl;
 
+import com.smart.bracelet.controller.publicmethod.Formula;
 import com.smart.bracelet.dao.assets.BusCompromiseAgreementDao;
 import com.smart.bracelet.dao.user.PubCompanyDao;
 import com.smart.bracelet.exception.CustomerException;
@@ -9,12 +10,14 @@ import com.smart.bracelet.model.po.assets.Manner1AndManner2;
 import com.smart.bracelet.model.po.assets.Manner2;
 import com.smart.bracelet.model.po.user.PubCompany;
 import com.smart.bracelet.model.vo.assets.BusCompromiseAgreementShow;
+import com.smart.bracelet.model.vo.assets.FormulaVo;
 import com.smart.bracelet.model.vo.assets.Manner1Vo;
 import com.smart.bracelet.model.vo.assets.Manner2Vo;
 import com.smart.bracelet.service.assets.BusCompromiseAgreementService;
 import com.smart.bracelet.utils.IdUtils;
 import com.smart.bracelet.utils.RepNoUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -61,22 +64,18 @@ public class BusCompromiseAgreementServiceImpl implements BusCompromiseAgreement
     @Override
     @Transactional(noRollbackFor = Exception.class)
     public int insertSelectiveManner1(Manner1 manner1Vo) throws CustomerException {
-        String selectNo = busCompromiseAgreementDao.selectNo();
-        PubCompany pubCompany = pubCompanyDao.selectByPrimaryKey(manner1Vo.getComId());
-        String repNo = RepNoUtils.createRepNo("ZC", pubCompany.getCompanyNameMax(), selectNo);
         try {
             BusCompromiseAgreement busCompromiseAgreement = new BusCompromiseAgreement();
             busCompromiseAgreement.setCompromiseAgreementId(IdUtils.nextId());
-            busCompromiseAgreement.setCompromiseAgreementNo(repNo);
             busCompromiseAgreement.setPropertId(manner1Vo.getPropertId());
             busCompromiseAgreement.setPartybMode(manner1Vo.getPartybMode());
             busCompromiseAgreement.setData1(manner1Vo.getCash());
             busCompromiseAgreement.setPartyaSubrogation(manner1Vo.getPartyaSubrogation());
             busCompromiseAgreement.setPartybSubrogation(manner1Vo.getPartybSubrogation());
-            busCompromiseAgreement.setPartyaDate(manner1Vo.getPartyaDate());
             busCompromiseAgreement.setPartyaSeal(manner1Vo.getPartyaSeal());
             busCompromiseAgreement.setPartybSeal(manner1Vo.getPartybSeal());
             busCompromiseAgreement.setPartybDate(manner1Vo.getPartybDate());
+            busCompromiseAgreement.setCompromiseDate(manner1Vo.getCompromiseDate());
             int insertSelective = busCompromiseAgreementDao.insertSelective(busCompromiseAgreement);
             log.info("新增资产和解协议全款成功受影响行数:{}", insertSelective);
             return insertSelective;
@@ -96,13 +95,10 @@ public class BusCompromiseAgreementServiceImpl implements BusCompromiseAgreement
     @Override
     @Transactional(noRollbackFor = Exception.class)
     public int insertSelectiveManner2(Manner2 manner2Vo) throws CustomerException {
-        PubCompany pubCompany = pubCompanyDao.selectByPrimaryKey(manner2Vo.getComId());
-        String selectNo = busCompromiseAgreementDao.selectNo();
-        String repNo = RepNoUtils.createRepNo("ZC", pubCompany.getCompanyNameMax(), selectNo);
+
         try {
             BusCompromiseAgreement busCompromiseAgreement = new BusCompromiseAgreement();
             busCompromiseAgreement.setCompromiseAgreementId(IdUtils.nextId());
-            busCompromiseAgreement.setCompromiseAgreementNo(repNo);
             busCompromiseAgreement.setPropertId(manner2Vo.getPropertId());
             busCompromiseAgreement.setPartybMode(manner2Vo.getPartybMode());
             busCompromiseAgreement.setData1(manner2Vo.getMoney());
@@ -225,9 +221,19 @@ public class BusCompromiseAgreementServiceImpl implements BusCompromiseAgreement
     }
 
     @Override
-    public BusCompromiseAgreementShow initialize(Long relativePerId) throws ParseException {
+    public BusCompromiseAgreementShow initialize(Long propertId,Long comId) throws ParseException {
+
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        BusCompromiseAgreementShow initialize = busCompromiseAgreementDao.initialize(relativePerId);
+        Formula formula = new Formula();
+        BusCompromiseAgreementShow initialize = busCompromiseAgreementDao.initialize(propertId);
+        if(StringUtils.isEmpty(initialize.getCompromiseAgreementNo())){
+            PubCompany pubCompany = pubCompanyDao.selectByPrimaryKey(comId);
+            String selectNo = busCompromiseAgreementDao.selectNo();
+            initialize.setCompromiseAgreementNo(RepNoUtils.createRepNo("ZC", pubCompany.getCompanyNameMax(), selectNo));
+        }
+        FormulaVo calculation = formula.Calculation(initialize.getDebtType(), Integer.parseInt(initialize.getDebtYaer()), initialize.getAmountThis());
+        initialize.setAverage(calculation.getAverage());
+        initialize.setNumber(calculation.getDeadline());
         String format = simpleDateFormat.format(initialize.getCreateTime());
         Date parse = simpleDateFormat.parse(format);
         Calendar c = Calendar.getInstance();

@@ -59,7 +59,7 @@ public class BusRelativePersonListVo {
      * 身份证号码
      */
     @NotBlank(message = "身份证号码不能为空")
-    private String IdCard;
+    private String idCard;
 
     /**
      * 性别
@@ -71,13 +71,13 @@ public class BusRelativePersonListVo {
      * 所在地区
      */
     @NotBlank(message = "所在地区不能为空")
-    private String Area;
+    private String area;
 
     /**
      * 电子邮箱
      */
     @NotBlank(message = "电子邮箱不能为空")
-    private String Email;
+    private String email;
 
     /**
      * 资产总价值 （元）
@@ -95,18 +95,18 @@ public class BusRelativePersonListVo {
      * 可流通资产价值（元）
      */
     @NotBlank(message = "可流通资产价值不能为空")
-    private String CirculationAssets;
+    private String circulationAssets;
     /**
      * 企业名称
      */
     @NotBlank(message = "企业名称不能为空")
-    private String CompanyName;
+    private String companyName;
 
     /**
      * 社会统一信用代码
      */
     @NotBlank(message = "社会统一信用代码不能为空")
-    private String CreditCode;
+    private String creditCode;
     /**
      * 行业属性
      */
@@ -116,17 +116,17 @@ public class BusRelativePersonListVo {
      * 法定代表人名称
      */
     @NotBlank(message = "法定代表人名称不能为空")
-    private String LegalName;
+    private String legalName;
     /**
      * 法定代表人联系电话
      */
     @NotBlank(message = "法定代表人联系电话不能为空")
-    private String LegalPhone;
+    private String legalPhone;
     /**
      * 法定代表人身份证号
      */
     @NotBlank(message = "法定代表人身份证号不能为空")
-    private String LegalIdCard;
+    private String legalIdCard;
     /**
      * 注册地址
      */
@@ -136,12 +136,12 @@ public class BusRelativePersonListVo {
      * 企业联系人
      */
     @NotBlank(message = "企业联系人不能为空")
-    private String ContactPerson;
+    private String contactPerson;
     /**
      * 联系电话
      */
     @NotBlank(message = "联系电话不能为空")
-    private String ContactPhone;
+    private String contactPhone;
 
     /**
      * 身份证正

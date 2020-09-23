@@ -29,12 +29,14 @@
         from bus_confirm
     </select>
     <select id="initialize" resultType="com.smart.bracelet.model.vo.assets.BusConfirmShow">
-        SELECT br.`data1` AS 'debtName',brp.`data1` AS 'personName',baa.`assignment_agreement_no`,pd.`create_time`,pd.service_principal,pd.service_interest FROM bus_propert bp
-        LEFT JOIN bus_report br ON bp.`report_id` = br.`report_id`
-        LEFT JOIN bus_relative_person brp ON bp.`relative_per_id` = brp.`relative_per_id`
-        LEFT JOIN pub_debt pd ON bp.`debt_id` = pd.`debt_id`
-        LEFT JOIN bus_assignment_agreement baa ON baa.`propert_id` = bp.`propert_id`
-        WHERE bp.`propert_id` = #{propertId,jdbcType=BIGINT}
+        SELECT brp.report_propert,br.`data1` AS 'debtName',brp.`data1` AS 'personName',brp.`data2` AS 'personCard',brp.`data3` AS 'priPhone',brp.`data5` AS 'corBankPhone',baa.assignment_agreement_no,pd.`create_time`,pd.service_principal,pd.service_interest
+        FROM bus_report br
+      LEFT JOIN bus_relative_person brp ON br.`report_id` = brp.`report_id`
+      LEFT JOIN bus_propert bp ON br.`report_id` = bp.report_id
+      LEFT JOIN bus_assignment_agreement baa ON bp.propert_id = baa.propert_id
+      LEFT JOIN pub_debt pd ON brp.`report_id` = pd.`report_id`
+      WHERE brp.`relative_per_id` = #{relativePerId,jdbcType=BIGINT}
+
     </select>
     <select id="selectByPropertId" resultType="com.smart.bracelet.model.po.assets.BusConfirm"
             parameterType="java.lang.Long">

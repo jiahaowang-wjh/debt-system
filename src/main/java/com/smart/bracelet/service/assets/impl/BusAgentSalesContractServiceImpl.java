@@ -3,11 +3,13 @@ package com.smart.bracelet.service.assets.impl;
 import com.smart.bracelet.controller.publicmethod.Formula;
 import com.smart.bracelet.dao.assets.BusAgentSalesContractDao;
 import com.smart.bracelet.dao.assets.BusAgentSalesContractModityDao;
+import com.smart.bracelet.dao.assets.BusPropertDao;
 import com.smart.bracelet.dao.debt.PubDebtDao;
 import com.smart.bracelet.dao.user.PubCompanyDao;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.assets.BusAgentSalesContract;
 import com.smart.bracelet.model.po.assets.BusAgentSalesContractModity;
+import com.smart.bracelet.model.po.debt.BusPropert;
 import com.smart.bracelet.model.po.debt.PubDebt;
 import com.smart.bracelet.model.po.user.PubCompany;
 import com.smart.bracelet.model.vo.assets.BusAgentSalesContractShow;
@@ -18,6 +20,7 @@ import com.smart.bracelet.utils.ConvertUpMoney;
 import com.smart.bracelet.utils.IdUtils;
 import com.smart.bracelet.utils.RepNoUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,6 +47,9 @@ public class BusAgentSalesContractServiceImpl implements BusAgentSalesContractSe
     @Autowired
     private PubCompanyDao pubCompanyDao;
 
+    @Autowired
+    private BusPropertDao busPropertDao;
+
     @Override
     @Transactional(noRollbackFor = Exception.class)
     public int deleteByPrimaryKey(Long salesContractId) throws CustomerException {
@@ -60,11 +66,9 @@ public class BusAgentSalesContractServiceImpl implements BusAgentSalesContractSe
     @Transactional(rollbackFor = CustomerException.class)
     public Long insertSelective(BusAgentSalesContract record) throws CustomerException {
         try {
-            PubCompany pubCompany = pubCompanyDao.selectByPrimaryKey(record.getComId());
+
             long l = IdUtils.nextId();
-            String a = busAgentSalesContractDao.selectNo();
             record.setSalesContractId(l);
-            record.setSalesNo(RepNoUtils.createRepNo("FB", pubCompany.getCompanyNameMax(), a));
             busAgentSalesContractDao.insertSelective(record);
             log.info("新增委托合同成功");
             BusAgentSalesContractModity[] busAgentSalesContractModity2 = record.getBusAgentSalesContractModity();
@@ -81,7 +85,6 @@ public class BusAgentSalesContractServiceImpl implements BusAgentSalesContractSe
                 busAgentSalesContractModity1.setPartyaSeal(busAgentSalesContractModity.getPartyaSeal());
                 busAgentSalesContractModity1.setPartybSeal(busAgentSalesContractModity.getPartybSeal());
                 busAgentSalesContractModity1.setPartybTime(busAgentSalesContractModity.getPartybTime());
-                busAgentSalesContractModity1.setModityNo(RepNoUtils.createRepNo("SW",pubCompany.getCompanyNameMax(),busAgentSalesContractModityDao.selectNo()));
                 list.add(busAgentSalesContractModity1);
             }
             int i = busAgentSalesContractModityDao.insertSelectives(list);
@@ -110,15 +113,14 @@ public class BusAgentSalesContractServiceImpl implements BusAgentSalesContractSe
     }
 
     @Override
-    public BusAgentSalesContractShow initialize(Long relativePerId) throws CustomerException {
-
-
+    public BusAgentSalesContractShow initialize(Long propertId,Long comId) throws CustomerException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
-            PubDebt pubDebt = pubDebtDao.selectByRelativePerId(relativePerId);
+            BusPropert busPropert = busPropertDao.selectByPrimaryKey(propertId);
+            PubDebt pubDebt = pubDebtDao.selectByRelativePerId(busPropert.getRelativePerId());
             Formula formula = new Formula();
             FormulaVo calculation = formula.Calculation(pubDebt.getDebtType(), Integer.parseInt(pubDebt.getDebtYaer()), pubDebt.getAmountThis());
-            BusAgentSalesContractShow initialize = busAgentSalesContractDao.initialize(relativePerId);
+            BusAgentSalesContractShow initialize = busAgentSalesContractDao.initialize(propertId);
             Date createTime = initialize.getCreateTime();
             String format1 = simpleDateFormat.format(createTime);
             Date parse = simpleDateFormat.parse(format1);
@@ -130,6 +132,13 @@ public class BusAgentSalesContractServiceImpl implements BusAgentSalesContractSe
             String format = simpleDateFormat.format(date);
             initialize.setEndTime(format);
             initialize.setAmountThisMax(ConvertUpMoney.toChinese(initialize.getAmountThis().toString()));
+            List<BusAgentSalesContractModity> list = busAgentSalesContractModityDao.selectBySalesContractId(initialize.getSalesContractId());
+            initialize.setBusAgentSalesContractModity(list);
+            if(StringUtils.isEmpty(initialize.getSalesNo())){
+                PubCompany pubCompany = pubCompanyDao.selectByPrimaryKey(comId);
+                String a = busAgentSalesContractDao.selectNo();
+                initialize.setSalesNo(RepNoUtils.createRepNo("FB", pubCompany.getCompanyNameMax(), a));
+            }
             if (initialize.getReportPropert().equals("1")) {
                 initialize.setCorBankPhone("NULL");
                 initialize.setCorBankAdd("NULL");

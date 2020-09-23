@@ -17,16 +17,11 @@ public class AgreementInfoShow {
 
     String agreementNo;
 
-    String partyA;
-
-    String partyB;
-
     String reportPropert;
 
     String priPhone;
 
     String corBankPhone;
 
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
-    Date createTime;
+    String agreementDate;
 }

@@ -150,8 +150,8 @@ public class BusRelativePersonController {
      * 根据报备ID查询相对人信息并验证符合民事调解关系
      */
     @RequestMapping("/selectByreportId")
-    public Result<List<BusRelativePerson>> selectByreportId(@NotNull(message = "报备ID不能为空") Long reportId) throws CustomerException {
-        List<BusRelativePerson> busRelativePeople = busRelativePersonService.selectByreportId(reportId);
+    public Result<List<BusRelativePersonPrivateVo>> selectByreportId(@NotNull(message = "报备ID不能为空") Long reportId) throws CustomerException {
+        List<BusRelativePersonPrivateVo> busRelativePeople = busRelativePersonService.selectByreportId(reportId);
         return Result.success(busRelativePeople);
     }
 

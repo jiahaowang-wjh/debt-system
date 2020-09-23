@@ -4,6 +4,8 @@ import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.assets.BusAgentSalesContractModity;
 import com.smart.bracelet.model.vo.assets.BusAgentSalesContractModityVo;
 
+import java.util.List;
+
 public interface BusAgentSalesContractModityService {
 
 
@@ -19,5 +21,5 @@ public interface BusAgentSalesContractModityService {
      * @param salesContractId
      * @return
      */
-    BusAgentSalesContractModity selectBySalesContractId(Long salesContractId);
+    List<BusAgentSalesContractModity> selectBySalesContractId(Long salesContractId);
 }

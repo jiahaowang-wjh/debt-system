@@ -30,10 +30,10 @@ public interface BusCompromiseAgreementService {
 
     /**
      * 初始化和解协议页面
-     * @param relativePerId
+     * @param propertId
      * @return
      */
-    BusCompromiseAgreementShow initialize(Long relativePerId) throws ParseException;
+    BusCompromiseAgreementShow initialize(Long propertId,Long comId) throws ParseException;
 
     /**
      * 通过资产Id查询解协议

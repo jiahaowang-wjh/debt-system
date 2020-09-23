@@ -101,7 +101,7 @@ public interface BusReportService {
     /**
      * 提交暨尽调协议生成编号
      */
-    int addAgreementNo(String partyA, String partyB, Long reportId, Long comId, Date agreementDate) throws CustomerException;
+    int addAgreementNo(String partyA, String partyB, Long reportId, Date agreementDate,String agreementNo ) throws CustomerException;
 
     /**
      * 暨尽协议下载

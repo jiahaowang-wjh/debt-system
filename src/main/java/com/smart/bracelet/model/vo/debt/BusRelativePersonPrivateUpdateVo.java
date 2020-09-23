@@ -57,7 +57,7 @@ public class BusRelativePersonPrivateUpdateVo {
      * 身份证号码
      */
     @NotBlank(message = "身份证号码不能为空")
-    private String IdCard;
+    private String idCard;
 
     /**
      * 性别
@@ -69,13 +69,13 @@ public class BusRelativePersonPrivateUpdateVo {
      * 所在地区
      */
     @NotBlank(message = "所在地区不能为空")
-    private String Area;
+    private String area;
 
     /**
      * 电子邮箱
      */
     @NotBlank(message = "电子邮箱不能为空")
-    private String Email;
+    private String email;
 
     /**
      * 资产总价值 （元）
@@ -93,7 +93,7 @@ public class BusRelativePersonPrivateUpdateVo {
      * 可流通资产价值（元）
      */
     @NotBlank(message = "可流通资产价值不能为空")
-    private String CirculationAssets;
+    private String circulationAssets;
 
 
     /**
@@ -197,11 +197,9 @@ public class BusRelativePersonPrivateUpdateVo {
 
 
 
-
     /**
      * 创建时间
      */
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     /**

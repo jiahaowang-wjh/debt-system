@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Slf4j
 public class BusAgentSalesContractModityServiceImpl implements BusAgentSalesContractModityService {
@@ -60,7 +62,8 @@ public class BusAgentSalesContractModityServiceImpl implements BusAgentSalesCont
     }
 
     @Override
-    public BusAgentSalesContractModity selectBySalesContractId(Long salesContractId) {
-        return busAgentSalesContractModityDao.selectBySalesContractId(salesContractId);
+    public List<BusAgentSalesContractModity> selectBySalesContractId(Long salesContractId) {
+        List<BusAgentSalesContractModity> list = busAgentSalesContractModityDao.selectBySalesContractId(salesContractId);
+        return list;
     }
 }
