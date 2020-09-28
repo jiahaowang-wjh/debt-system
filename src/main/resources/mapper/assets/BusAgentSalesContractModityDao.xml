@@ -8,7 +8,6 @@
         <result column="modity_place" jdbcType="VARCHAR" property="modityPlace"/>
         <result column="modity_specificat" jdbcType="VARCHAR" property="moditySpecificat"/>
         <result column="partya_seal" jdbcType="VARCHAR" property="partyaSeal"/>
-        <result column="partya_time" jdbcType="VARCHAR" property="partyaTime"/>
         <result column="partyb_seal" jdbcType="INTEGER" property="partybSeal"/>
         <result column="partyb_time" jdbcType="VARCHAR" property="partybTime"/>
         <result column="money_num1" jdbcType="VARCHAR" property="moneyNum1"/>
@@ -16,7 +15,7 @@
     </resultMap>
     <sql id="Base_Column_List">
     sales_contract_modity_id, sales_contract_id, modity_name, modity_place, modity_specificat, 
-    partya_seal, partya_time, partyb_seal, partyb_time,modity_no,money_num1,protocol_id
+    partya_seal, partyb_seal, partyb_time,modity_no,money_num1,protocol_id
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
@@ -34,6 +33,16 @@
     <select id="selectNo" resultType="java.lang.String">
         SELECT bus_agent_sales_contract_modity.`modity_no` FROM bus_agent_sales_contract_modity ORDER BY bus_agent_sales_contract_modity.`sales_contract_modity_id` DESC LIMIT 1
     </select>
+    <select id="selectBySalesProtocolId" resultType="com.smart.bracelet.model.po.assets.BusAgentSalesContractModity"
+            parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from bus_agent_sales_contract_modity
+        where protocol_id = #{protocolId,jdbcType=BIGINT}
+    </select>
+    <select id="queryComm" resultType="java.lang.String">
+        SELECT diction_dis FROM `pub_diction` WHERE diction_type = 'COMMODITY'
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from bus_agent_sales_contract_modity
     where sales_contract_modity_id = #{salesContractModityId,jdbcType=BIGINT}
@@ -41,77 +50,17 @@
     <insert id="insertSelectives" parameterType="com.smart.bracelet.model.po.assets.BusAgentSalesContractModity">
         insert into bus_agent_sales_contract_modity (sales_contract_modity_id, sales_contract_id,
         modity_name, modity_place, modity_specificat,
-        partya_seal, partya_time, partyb_seal,
+        partya_seal, partyb_seal,
         partyb_time,money_num1,protocol_id)
         values
         <foreach collection="list" item="item" index="index" separator=",">
             (#{item.salesContractModityId,jdbcType=BIGINT}, #{item.salesContractId,jdbcType=BIGINT},
             #{item.modityName,jdbcType=VARCHAR}, #{item.modityPlace,jdbcType=VARCHAR}, #{item.moditySpecificat,jdbcType=VARCHAR},
-            #{item.partyaSeal,jdbcType=VARCHAR}, #{item.partyaTime,jdbcType=VARCHAR}, #{item.partybSeal,jdbcType=INTEGER},
+            #{item.partyaSeal,jdbcType=VARCHAR}, #{item.partybSeal,jdbcType=INTEGER},
             #{item.partybTime,jdbcType=VARCHAR},#{item.moneyNum1,jdbcType=VARCHAR},#{item.protocolId,jdbcType=BIGINT})
         </foreach>
     </insert>
-    <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.assets.BusAgentSalesContractModity">
-        insert into bus_agent_sales_contract_modity
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="salesContractModityId != null">
-                sales_contract_modity_id,
-            </if>
-            <if test="salesContractId != null">
-                sales_contract_id,
-            </if>
-            <if test="modityName != null">
-                modity_name,
-            </if>
-            <if test="modityPlace != null">
-                modity_place,
-            </if>
-            <if test="moditySpecificat != null">
-                modity_specificat,
-            </if>
-            <if test="partyaSeal != null">
-                partya_seal,
-            </if>
-            <if test="partyaTime != null">
-                partya_time,
-            </if>
-            <if test="partybSeal != null">
-                partyb_seal,
-            </if>
-            <if test="partybTime != null">
-                partyb_time,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="salesContractModityId != null">
-                #{salesContractModityId,jdbcType=BIGINT},
-            </if>
-            <if test="salesContractId != null">
-                #{salesContractId,jdbcType=BIGINT},
-            </if>
-            <if test="modityName != null">
-                #{modityName,jdbcType=VARCHAR},
-            </if>
-            <if test="modityPlace != null">
-                #{modityPlace,jdbcType=VARCHAR},
-            </if>
-            <if test="moditySpecificat != null">
-                #{moditySpecificat,jdbcType=VARCHAR},
-            </if>
-            <if test="partyaSeal != null">
-                #{partyaSeal,jdbcType=VARCHAR},
-            </if>
-            <if test="partyaTime != null">
-                #{partyaTime,jdbcType=VARCHAR},
-            </if>
-            <if test="partybSeal != null">
-                #{partybSeal,jdbcType=INTEGER},
-            </if>
-            <if test="partybTime != null">
-                #{partybTime,jdbcType=VARCHAR},
-            </if>
-        </trim>
-    </insert>
+
     <update id="updateByPrimaryKeySelective"
             parameterType="com.smart.bracelet.model.vo.assets.BusAgentSalesContractModityVo">
         update bus_agent_sales_contract_modity
@@ -131,9 +80,6 @@
             <if test="partyaSeal != null">
                 partya_seal = #{partyaSeal,jdbcType=VARCHAR},
             </if>
-            <if test="partyaTime != null">
-                partya_time = #{partyaTime,jdbcType=VARCHAR},
-            </if>
             <if test="partybSeal != null">
                 partyb_seal = #{partybSeal,jdbcType=INTEGER},
             </if>
@@ -143,16 +89,4 @@
         </set>
         where sales_contract_modity_id = #{salesContractModityId,jdbcType=BIGINT}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.smart.bracelet.model.po.assets.BusAgentSalesContractModity">
-    update bus_agent_sales_contract_modity
-    set sales_contract_id = #{salesContractId,jdbcType=BIGINT},
-      modity_name = #{modityName,jdbcType=VARCHAR},
-      modity_place = #{modityPlace,jdbcType=VARCHAR},
-      modity_specificat = #{moditySpecificat,jdbcType=VARCHAR},
-      partya_seal = #{partyaSeal,jdbcType=VARCHAR},
-      partya_time = #{partyaTime,jdbcType=VARCHAR},
-      partyb_seal = #{partybSeal,jdbcType=INTEGER},
-      partyb_time = #{partybTime,jdbcType=VARCHAR}
-    where sales_contract_modity_id = #{salesContractModityId,jdbcType=BIGINT}
-  </update>
 </mapper>

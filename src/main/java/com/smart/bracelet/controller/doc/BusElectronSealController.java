@@ -28,6 +28,8 @@ import javax.validation.Valid;
 public class BusElectronSealController {
 
     /**
+     *
+     *
      * 电子章对象
      */
     @Resource

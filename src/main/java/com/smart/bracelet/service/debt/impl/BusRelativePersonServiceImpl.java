@@ -2,6 +2,7 @@ package com.smart.bracelet.service.debt.impl;
 
 import com.smart.bracelet.dao.debt.BusRelativePersonDao;
 import com.smart.bracelet.dao.debt.BusReportDao;
+import com.smart.bracelet.dao.debt.PubDebtDao;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.debt.BusRelativePerson;
 import com.smart.bracelet.model.po.debt.BusReport;
@@ -30,6 +31,9 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
 
     @Autowired
     private BusReportDao busReportDao;
+
+    @Autowired
+    private PubDebtDao pubDebtDao;
 
     @Autowired
     private BusCivilService busCivilService;
@@ -220,6 +224,7 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
             busRelativePerson.setEconomics(busRelativePersonPrivateVo.getEconomics());
             busRelativePerson.setUsage(busRelativePersonPrivateVo.getUsage());
             busRelativePerson.setPrjectManager(busRelativePersonPrivateVo.getPrjectManager());
+            busRelativePerson.setRelativePerId(busRelativePersonPrivateVo.getRelativePerId());
             int updateByPrimaryKeySelective = busRelativePersonDao.updateByPrimaryKeySelective(busRelativePerson);
             log.info("更新私人相对人成功,受影响行数:{}", updateByPrimaryKeySelective);
             return updateByPrimaryKeySelective;
@@ -317,6 +322,7 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
             busRelativePerson.setEconomics(busRelativePersonEnterpriseVo.getEconomics());
             busRelativePerson.setUsage(busRelativePersonEnterpriseVo.getUsage());
             busRelativePerson.setPrjectManager(busRelativePersonEnterpriseVo.getPrjectManager());
+            busRelativePerson.setRelativePerId(busRelativePersonEnterpriseVo.getRelativePerId());
             int updateByPrimaryKeySelective = busRelativePersonDao.updateByPrimaryKeySelective(busRelativePerson);
             log.info("更新企业相对人成功,受影响行数:{}", updateByPrimaryKeySelective);
             return updateByPrimaryKeySelective;
@@ -417,6 +423,7 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
             busRelativePerson.setEconomics(busRelativePersonBankVo.getEconomics());
             busRelativePerson.setUsage(busRelativePersonBankVo.getUsage());
             busRelativePerson.setPrjectManager(busRelativePersonBankVo.getPrjectManager());
+            busRelativePerson.setRelativePerId(busRelativePersonBankVo.getRelativePerId());
             int updateByPrimaryKeySelective = busRelativePersonDao.updateByPrimaryKeySelective(busRelativePerson);
             log.info("更新银行相对人成功,受影响行数:{}", updateByPrimaryKeySelective);
             return updateByPrimaryKeySelective;
@@ -437,6 +444,7 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
     public List<BusRelativePersonPrivateVo> selectByreportId(Long reportId) throws CustomerException {
         try {
             List<BusRelativePerson> busRelativePeople = busRelativePersonDao.selectByreportId(reportId);
+
             List<BusRelativePersonPrivateVo> listVos = new ArrayList<>();
             for (BusRelativePerson item : busRelativePeople) {
                 //判断是否符合民事调解关系
@@ -447,7 +455,9 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
                     if(busRelativePerson.getStatus().equals("0")){
                         privateVo.setPersonalName(busRelativePerson.getData1());
                         privateVo.setRelativePerId(busRelativePerson.getRelativePerId());
-                        listVos.add(privateVo);
+                        if(!privateVo.getReportType().equals("2")){
+                            listVos.add(privateVo);
+                        }
                     }
                 }
             }
@@ -475,6 +485,17 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
         try {
             ReportAndRelativePerson reportAndRelativePerson = busRelativePersonDao.selectByRelativePerId(relativePerId);
             ReportAndRelativePersonShow show = new ReportAndRelativePersonShow();
+            Float aFloat = pubDebtDao.selectAmountCumulative(relativePerId);
+            if(aFloat==null){
+                show.setAmountCumulative("0.00");
+            }else{
+                show.setAmountCumulative(String.format("%.2f",aFloat));
+            }
+            if(reportAndRelativePerson.getAmountTotal()==null){
+                show.setAmountTotal("0.00");
+            }else {
+                show.setAmountTotal(String.format("%.2f",reportAndRelativePerson.getAmountTotal()));
+            }
             show.setReportId(reportAndRelativePerson.getReportId());
             show.setRelativeperId(reportAndRelativePerson.getRelativeperId());
             if (reportAndRelativePerson.getReportPropert().equals("1")) {

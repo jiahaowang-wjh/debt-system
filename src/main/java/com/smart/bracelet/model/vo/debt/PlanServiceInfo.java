@@ -65,7 +65,10 @@ public class PlanServiceInfo {
      * 策划方案服务费大写
      */
     String thisPlanMoneyMax;
-
+    /**
+     * 报备ID
+     */
+    Long reportId;
     /**
      * 性质
      */
@@ -91,9 +94,5 @@ public class PlanServiceInfo {
     @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
     Date contractDate;
 
-    /**
-     * 当前日期
-     */
-    String thisTime;
 
 }

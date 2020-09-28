@@ -35,7 +35,7 @@ public class BusAssignmentNotice implements Serializable {
      */
     @NotNull(message = "签约日期不能为空")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date obligorDate;
+    private Date contractTime;
 
     /**
      * 编号

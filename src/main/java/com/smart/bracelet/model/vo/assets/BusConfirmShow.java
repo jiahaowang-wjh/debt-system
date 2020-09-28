@@ -41,4 +41,19 @@ public class BusConfirmShow {
      * 确认编号
      */
     String confirmNo;
+
+    /**
+     * 合同日期
+     */
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
+    Date contractTime;
+
+    /**
+     * 解债金额
+     */
+    Float amountThis;
+
+
+    Long reportId;
+
 }

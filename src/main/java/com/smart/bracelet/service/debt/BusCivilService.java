@@ -8,6 +8,7 @@ import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.vo.debt.*;
 
 import java.security.cert.CertStoreException;
+import java.text.ParseException;
 import java.util.List;
 
 public interface BusCivilService {
@@ -60,7 +61,7 @@ public interface BusCivilService {
     /**
      * 尽调协议初始化
      */
-    AgreementInfoShow initialize(Long reportId,Long comId);
+    AgreementInfoShow initialize(Long reportId,Long comId) throws ParseException;
 
 
     /**
@@ -73,4 +74,7 @@ public interface BusCivilService {
      * 民事调解书
      */
     List<CivilAndPseronInfo> selectCivi(Long reportId);
+
+
+
 }

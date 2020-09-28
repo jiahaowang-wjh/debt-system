@@ -59,5 +59,8 @@ public class PubUser implements Serializable {
      */
     private String note;
 
-
+    /**
+     * 用户类型
+     */
+    String userType;
 }

@@ -22,18 +22,15 @@ public class BusPrivateReportVo {
     /**
      * 所属公司ID
      */
-    @NotNull(message = "所属公司ID不能为空")
     private Long companyId;
 
     /**
      * 推荐人ID
      */
-    @NotNull(message = "推荐人ID不能为空")
     private Long userId;
     /**
      * 报备编号
      */
-    @NotBlank(message = "报备编号号不能为空")
     private String reportNo;
 
     /**
@@ -214,31 +211,28 @@ public class BusPrivateReportVo {
     /**
      * 状态
      */
-    @NotBlank(message = "状态不能为空")
     private String status;
 
     /**
      * 阶段
      */
-    @NotBlank(message = "阶段不能为空")
     private String stage;
     /**
      * 创建人Id
      */
-    @NotNull(message = "创建人Id不能为空")
     private Long createUserId;
 
 
     /**
      * 创建时间
      */
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date createTime;
 
     /**
      * 更新时间
      */
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date updateTime;
 
 }

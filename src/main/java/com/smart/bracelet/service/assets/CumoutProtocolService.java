@@ -1,6 +1,7 @@
 package com.smart.bracelet.service.assets;
 
 import com.smart.bracelet.exception.CustomerException;
+import com.smart.bracelet.model.po.assets.BusAgentSalesContractModity;
 import com.smart.bracelet.model.po.assets.CumoutProtocol;
 import com.smart.bracelet.model.vo.assets.CommissionOnLine;
 
@@ -21,6 +22,5 @@ public interface CumoutProtocolService {
      * @return
      */
     CommissionOnLine initialize(Long propertId,Long comId) throws ParseException, CustomerException;
-
 
 }

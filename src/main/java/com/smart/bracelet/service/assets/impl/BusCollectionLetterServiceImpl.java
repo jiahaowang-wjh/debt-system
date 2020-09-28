@@ -17,6 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -45,7 +48,6 @@ public class BusCollectionLetterServiceImpl implements BusCollectionLetterServic
     @Override
     @Transactional(noRollbackFor = Exception.class)
     public int insertSelective(BusCollectionLetter record) throws CustomerException {
-
         try {
             record.setCollectionLettertId(IdUtils.nextId());
             int deleteByPrimaryKey = busCollectionLetterDao.insertSelective(record);
@@ -87,12 +89,13 @@ public class BusCollectionLetterServiceImpl implements BusCollectionLetterServic
      * @return
      */
     @Override
-    public BusCollectionLetterShow initialize(Long propertId,Long comId) {
+    public BusCollectionLetterShow initialize(Long propertId,Long comId) throws ParseException {
         BusCollectionLetterShow initialize = busCollectionLetterDao.initialize(propertId);
         if(StringUtils.isEmpty(initialize.getCollectionLettertNo())){
             String selectNo = busCollectionLetterDao.selectNo();
             PubCompany pubCompany = pubCompanyDao.selectByPrimaryKey(comId);
-            initialize.setCollectionLettertNo(RepNoUtils.createRepNo("ZC",pubCompany.getCompanyNameMax(),selectNo)+comId);
+            initialize.setCollectionLettertNo(RepNoUtils.createRepNo("ZC",pubCompany.getCompanyNameMax(),selectNo));
+            initialize.setContractDate(new SimpleDateFormat("yyyy-MM-dd").parse(new SimpleDateFormat("yyyy-MM-dd").format(new Date())));
         }
         initialize.setMoneyMax(ConvertUpMoney.toChinese(initialize.getAmountThis().toString()));
         return initialize;

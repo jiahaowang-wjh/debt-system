@@ -79,14 +79,20 @@ public class BusAssessmentServiceImpl implements BusAssessmentService {
     }
 
     @Override
-    public BusAssessmentInit initialize(Long relativePerId) {
-        BusAssessmentInit initialize = busAssessmentDao.initialize(relativePerId);
-        if (initialize.getReportPropert().equals("1")) {
+    public BusAssessmentInit initialize(Long propertId) {
+
+        BusAssessmentInit initialize = busAssessmentDao.initialize(propertId);
+
+        if (initialize.getDebtPropert().equals("1")) {
             initialize.setDebtCorPhone(null);
-            initialize.setPersonCorPhone(null);
         } else {
-            initialize.setPersonPhnoe(null);
             initialize.setDebtPhnoe(null);
+        }
+
+        if(initialize.getPersonPeropert().equals("1")){
+            initialize.setPersonCorPhone(null);
+        }else {
+            initialize.setPersonPhnoe(null);
         }
         return initialize;
     }

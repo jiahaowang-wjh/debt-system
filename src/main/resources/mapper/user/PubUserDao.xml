@@ -9,10 +9,11 @@
         <result column="password_md5" jdbcType="VARCHAR" property="passwordMd5"/>
         <result column="isenable" jdbcType="VARCHAR" property="isenable"/>
         <result column="note" jdbcType="VARCHAR" property="note"/>
+        <result column="user_type" jdbcType="VARCHAR" property="userType"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-    user_id, person_id, role_id, login_name, password_md5, isenable, note
+    user_id, person_id, role_id, login_name, password_md5, isenable, note,user_type
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
@@ -90,6 +91,9 @@
             <if test="userId != null and userId !='' ">
                 user_id,
             </if>
+            <if test="userType != null and userType !='' ">
+                user_type,
+            </if>
             <if test="personId != null and personId !='' ">
                 person_id,
             </if>
@@ -113,6 +117,9 @@
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="userId != null and userId !='' ">
                 #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="userType != null and userType !='' ">
+                #{userType,jdbcType=BIGINT},
             </if>
             <if test="personId != null and personId !='' ">
                 #{personId,jdbcType=BIGINT},
@@ -155,6 +162,9 @@
             </if>
             <if test="note != null and note != ''">
                 note = #{note,jdbcType=VARCHAR},
+            </if>
+            <if test="note != null and note != ''">
+                user_type = #{userType,jdbcType=VARCHAR},
             </if>
 
             <if test="userId != null and userId != ''">

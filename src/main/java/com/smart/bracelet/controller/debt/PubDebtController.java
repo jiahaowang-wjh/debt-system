@@ -6,10 +6,7 @@ import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.po.debt.PubDebt;
-import com.smart.bracelet.model.vo.debt.PlanServiceInfo;
-import com.smart.bracelet.model.vo.debt.PubDebtInfo;
-import com.smart.bracelet.model.vo.debt.PubDebtVo;
-import com.smart.bracelet.model.vo.debt.QueryDebtVo;
+import com.smart.bracelet.model.vo.debt.*;
 import com.smart.bracelet.service.debt.PubDebtService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,16 +82,16 @@ public class PubDebtController {
     @RequestMapping("/selectDebtListShow")
     public Result<PageInfo> selectDebtListShow(@NotNull(message = "页码不能为空") Integer pageNum,
                                                         @NotNull(message = "当前显示条数不能为空") Integer pageSize,
-                                                        @Valid QueryDebtVo queryDebtVo){
-        if (!StringUtils.isBlank(queryDebtVo.getBeginDate())) {
-            queryDebtVo.setBeginDate(queryDebtVo.getBeginDate() + " 00:00:00");
+                                               @Valid DebtInfoQuery debtInfoQuery){
+        if (!StringUtils.isBlank(debtInfoQuery.getBeginDate())) {
+            debtInfoQuery.setBeginDate(debtInfoQuery.getBeginDate() + " 00:00:00");
         }
-        if (!StringUtils.isBlank(queryDebtVo.getEndDate())) {
-            queryDebtVo.setEndDate(queryDebtVo.getEndDate() + " 23:59:00");
+        if (!StringUtils.isBlank(debtInfoQuery.getEndDate())) {
+            debtInfoQuery.setEndDate(debtInfoQuery.getEndDate() + " 23:59:00");
         }
 
         PageHelper.startPage(pageNum, pageSize);
-        List<PubDebtInfo> pubDebtInfos = pubDebtService.selectDebtListShow(queryDebtVo);
+        List<PubDebtInfo> pubDebtInfos = pubDebtService.selectDebtListShow(debtInfoQuery);
         PageInfo<PubDebtInfo> pubDebtInfoPageInfo = new PageInfo<>(pubDebtInfos);
         return Result.success(pubDebtInfoPageInfo);
     }

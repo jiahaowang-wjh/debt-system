@@ -27,12 +27,13 @@
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
         <result column="status" jdbcType="VARCHAR" property="status"/>
         <result column="check_reason" jdbcType="VARCHAR" property="checkReason"/>
+        <result column="certificate" jdbcType="VARCHAR" property="certificate"/>
     </resultMap>
     <sql id="Base_Column_List">
     civil_id, report_id, relative_per_id, civilno, solutions, civil_type, amount_total, 
     amount_principal, amount_interest, amount_breach, month_interest, star_date, end_date, 
     interest, interest_payment, breach_date, breach_money, guarantee_meth, interest_all, 
-    abandon_content, treatment_method, create_time, update_time, `status`, check_reason
+    abandon_content, treatment_method, create_time, update_time, `status`, check_reason,certificate
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
@@ -77,8 +78,11 @@
             <if test="comId != null and comId!=''">
                 and pc.company_id = #{comId}
             </if>
-            <if test="civilno != null and civilno!=''">
-                and bc.civilno = #{civilno,jdbcType=VARCHAR}
+            <if test="reportNo != null and reportNo!=''">
+                and br.report_no = #{reportNo,jdbcType=VARCHAR}
+            </if>
+            <if test="reportId != '' and reportId!=null">
+                and br.report_id = #{reportId,jdbcType=BIGINT}
             </if>
             <if test="status != '' and status!=null">
                 and bc.status = #{status,jdbcType=VARCHAR}
@@ -108,7 +112,7 @@
         WHERE bus_relative_person.`report_id` = #{reportId,jdbcType=BIGINT}
     </select>
     <select id="initialize" resultType="com.smart.bracelet.model.vo.debt.AgreementInfoShow">
-        SELECT br.report_propert,br.data3 as 'priPhone',br.data5 as 'corBankPhone',br.`data1` AS 'debtName',br.`data2` AS 'idCard', br.`agreement_no` FROM bus_report br
+       SELECT br.report_id,br.report_propert,br.data3 AS 'priPhone',br.data5 AS 'corBankPhone',br.`data1` AS 'debtName',br.`data2` AS 'idCard', br.`agreement_no`,br.agreement_date FROM bus_report br
         WHERE br.`report_id` = #{reportId,jdbcType=BIGINT}
     </select>
     <select id="initializePlan" resultType="com.smart.bracelet.model.vo.debt.PlanServiceInfo">
@@ -132,6 +136,13 @@
         LEFT JOIN bus_relative_person brp ON brp.`relative_per_id` = bc.`relative_per_id`
         WHERE br.`report_id` = #{reportId,jdbcType=BIGINT}
     </select>
+    <select id="selectUser" resultType="java.lang.String" parameterType="java.lang.Long">
+        SELECT pp.`person_name` FROM bus_civil bc
+        LEFT JOIN bus_mediate_person bmp ON bc.`civil_id` = bmp.`civil_id`
+        LEFT JOIN pub_user pu ON  pu.`user_id` = bmp.`user_id`
+        LEFT JOIN pub_person pp ON pu.`person_id` = pp.`person_id`
+        WHERE bc.`civil_id` = #{civId}
+    </select>
 
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
@@ -144,6 +155,9 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="civilId != null">
                 civil_id,
+            </if>
+            <if test="certificate != null">
+                certificate,
             </if>
             <if test="reportId != null">
                 report_id,
@@ -221,6 +235,9 @@
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="civilId != null">
                 #{civilId,jdbcType=BIGINT},
+            </if>
+            <if test="certificate != null">
+                #{certificate,jdbcType=VARCHAR},
             </if>
             <if test="reportId != null">
                 #{reportId,jdbcType=BIGINT},
@@ -310,6 +327,9 @@
         <set>
             <if test="reportId != null">
                 report_id = #{reportId,jdbcType=BIGINT},
+            </if>
+            <if test="certificate != null">
+                certificate = #{reportId,jdbcType=VARCHAR},
             </if>
             <if test="relativePerId != null">
                 relative_per_id = #{relativePerId,jdbcType=BIGINT},

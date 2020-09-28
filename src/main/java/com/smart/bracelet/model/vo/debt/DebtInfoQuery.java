@@ -48,6 +48,11 @@ public class DebtInfoQuery {
     String companyType;
 
     /**
+     * 报备ID
+     */
+    Long reportId;
+
+    /**
      * 公司Id
      */
     @NotNull(message = "公司ID不能为空")

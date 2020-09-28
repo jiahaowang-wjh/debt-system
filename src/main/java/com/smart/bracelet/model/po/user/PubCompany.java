@@ -59,4 +59,6 @@ public class PubCompany implements Serializable {
     @NotBlank(message = "公司名称缩写不能为空")
     private String companyNameMax;
 
+
+
 }

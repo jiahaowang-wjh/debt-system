@@ -5,6 +5,7 @@ import com.smart.bracelet.model.po.assets.BusAssignmentConfirm;
 import com.smart.bracelet.model.vo.assets.BusAssignmentConfirmShow;
 import com.smart.bracelet.model.vo.assets.BusAssignmentConfirmVo;
 
+import java.text.ParseException;
 import java.util.List;
 
 public interface BusAssignmentConfirmService {
@@ -22,7 +23,7 @@ public interface BusAssignmentConfirmService {
      * 初始化资产债权转让确认页面
      * @return
      */
-    BusAssignmentConfirmShow initialize(Long relativePerId);
+    BusAssignmentConfirmShow initialize(Long relativePerId) throws ParseException;
 
     /**
      * 通过资产ID查询资产债权转让确认

@@ -60,4 +60,17 @@ public class ReportAndRelativePersonShow {
      * 债事人联系电话
      */
     String debtPhone;
+
+
+    /**
+     * 债权总额
+     */
+    String amountTotal;
+
+    /**
+     * 累计化解金额
+     */
+    String amountCumulative;
+
+
 }

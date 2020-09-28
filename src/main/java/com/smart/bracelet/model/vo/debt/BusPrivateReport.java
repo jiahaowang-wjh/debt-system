@@ -212,13 +212,11 @@ public class BusPrivateReport {
     /**
      * 状态
      */
-    @NotBlank(message = "状态不能为空")
     private String status;
 
     /**
      * 阶段
      */
-    @NotBlank(message = "阶段不能为空")
     private String stage;
     /**
      * 银行

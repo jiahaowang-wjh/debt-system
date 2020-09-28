@@ -75,7 +75,8 @@ public class BusCompromiseAgreementServiceImpl implements BusCompromiseAgreement
             busCompromiseAgreement.setPartyaSeal(manner1Vo.getPartyaSeal());
             busCompromiseAgreement.setPartybSeal(manner1Vo.getPartybSeal());
             busCompromiseAgreement.setPartybDate(manner1Vo.getPartybDate());
-            busCompromiseAgreement.setCompromiseDate(manner1Vo.getCompromiseDate());
+            busCompromiseAgreement.setContractDate(manner1Vo.getContractDate());
+            busCompromiseAgreement.setCompromiseAgreementNo(manner1Vo.getCompromiseAgreementNo());
             int insertSelective = busCompromiseAgreementDao.insertSelective(busCompromiseAgreement);
             log.info("新增资产和解协议全款成功受影响行数:{}", insertSelective);
             return insertSelective;
@@ -230,6 +231,7 @@ public class BusCompromiseAgreementServiceImpl implements BusCompromiseAgreement
             PubCompany pubCompany = pubCompanyDao.selectByPrimaryKey(comId);
             String selectNo = busCompromiseAgreementDao.selectNo();
             initialize.setCompromiseAgreementNo(RepNoUtils.createRepNo("ZC", pubCompany.getCompanyNameMax(), selectNo));
+            initialize.setContractDate(new SimpleDateFormat("yyyy-MM-dd").parse(new SimpleDateFormat("yyyy-MM-dd").format(new Date())));
         }
         FormulaVo calculation = formula.Calculation(initialize.getDebtType(), Integer.parseInt(initialize.getDebtYaer()), initialize.getAmountThis());
         initialize.setAverage(calculation.getAverage());
@@ -247,5 +249,17 @@ public class BusCompromiseAgreementServiceImpl implements BusCompromiseAgreement
         BusCompromiseAgreement a = busCompromiseAgreementDao.selectByPropertId(propertId);
         Manner1AndManner2 manner1AndManner2 = selectByPrimaryKey(a.getCompromiseAgreementId());
         return manner1AndManner2;
+    }
+
+    @Override
+    public int updatePartybMode(String partybMode, Long propertId) throws CustomerException {
+        try {
+            int i = busCompromiseAgreementDao.updatePartybMode(partybMode, propertId);
+            log.info("更新乙方选择偿还债务方式成功，受影响行数：{}",i);
+            return i;
+        } catch (Exception e) {
+            log.error("更新乙方选择偿还债务方式失败，异常信息：{}",e.getMessage());
+            throw new CustomerException("更新乙方选择偿还债务方式失败");
+        }
     }
 }

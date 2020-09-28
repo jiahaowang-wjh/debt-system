@@ -1,17 +1,22 @@
 package com.smart.bracelet.service.assets.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.smart.bracelet.dao.assets.BusAgentSalesContractModityDao;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.assets.BusAgentSalesContractModity;
 import com.smart.bracelet.model.vo.assets.BusAgentSalesContractModityVo;
+import com.smart.bracelet.model.vo.assets.CommModiey;
 import com.smart.bracelet.service.assets.BusAgentSalesContractModityService;
 import com.smart.bracelet.utils.IdUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Slf4j
@@ -64,6 +69,18 @@ public class BusAgentSalesContractModityServiceImpl implements BusAgentSalesCont
     @Override
     public List<BusAgentSalesContractModity> selectBySalesContractId(Long salesContractId) {
         List<BusAgentSalesContractModity> list = busAgentSalesContractModityDao.selectBySalesContractId(salesContractId);
+        return list;
+    }
+
+    @Override
+    public List<CommModiey> queryComm() {
+        List<String> stringList = busAgentSalesContractModityDao.queryComm();
+        List<CommModiey> list = new ArrayList<>();
+        for (String item: stringList) {
+            JSONObject jsonArray = JSONObject.parseObject(item);
+            CommModiey commModiey = JSONObject.toJavaObject(jsonArray, CommModiey.class);
+            list.add(commModiey);
+        }
         return list;
     }
 }

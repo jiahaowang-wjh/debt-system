@@ -43,4 +43,8 @@ public class BusCivilInfo {
      * 调解状态
      */
     String status;
+    /**
+     *
+     */
+    String civilType;
 }

@@ -49,11 +49,14 @@ public class CustomUserInfo implements UserDetails, CredentialsContainer, Serial
      * 公司ID
      */
     private final String comId;
-
+    /**
+     * 账号类型
+     */
+    private String userType;
 
     private final Collection<? extends GrantedAuthority> authorities;
     
-    public CustomUserInfo(String userInfoId, String username, String name, String password, String personId,String comId,String roleId,String userAvatar, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities,String companyType) {
+    public CustomUserInfo(String userInfoId, String username, String name, String password, String personId,String comId,String roleId,String userAvatar, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities,String companyType,String userType) {
         if (username != null && !"".equals(username) && password != null) {
         this.userInfoId = userInfoId;
         this.username = username;
@@ -69,6 +72,7 @@ public class CustomUserInfo implements UserDetails, CredentialsContainer, Serial
         this.comId = comId;
         this.roleId = roleId;
         this.companyType = companyType;
+        this.userType = userType;
         } else {
             throw new IllegalArgumentException("Cannot pass null or empty values to constructor");
         }
@@ -101,6 +105,10 @@ public class CustomUserInfo implements UserDetails, CredentialsContainer, Serial
 
     public String getUserAvatar() {
         return this.userAvatar;
+    }
+
+    public String getUserType() {
+        return userType;
     }
 
     @Override

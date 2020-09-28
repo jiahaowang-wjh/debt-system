@@ -50,9 +50,8 @@ public class PubDebtServiceImpl implements PubDebtService {
     public Long insertSelective(PubDebt record) throws CustomerException {
         try {
             Long l = IdUtils.nextId();
-            //累计金额等于本次加累计
-            record.setAmountCumulative(record.getAmountCumulative() + record.getAmountThis());
             record.setDebtId(l);
+            record.setDebtNo(RepNoUtils.createRepNo("TZ","ZQZR",pubDebtDao.selectNo()));
             int insertSelective = pubDebtDao.insertSelective(record);
             log.info("新增解债信息成功,受影响行数:{}", insertSelective);
             return l;
@@ -107,12 +106,12 @@ public class PubDebtServiceImpl implements PubDebtService {
     }
 
     @Override
-    public List<PubDebtInfo> selectDebtListShow(QueryDebtVo queryDebtVo) {
-        if (queryDebtVo.getCompanyType().equals("1")) {
-            queryDebtVo.setCompanyType(null);
-            queryDebtVo.setComId(null);
+    public List<PubDebtInfo> selectDebtListShow(DebtInfoQuery DebtInfoQuery) {
+        if (DebtInfoQuery.getCompanyType().equals("1")) {
+            DebtInfoQuery.setCompanyType(null);
+            DebtInfoQuery.setComId(null);
         }
-        return pubDebtDao.selectDebtListShow(queryDebtVo);
+        return pubDebtDao.selectDebtListShow(DebtInfoQuery);
     }
 
     @Override
@@ -132,9 +131,9 @@ public class PubDebtServiceImpl implements PubDebtService {
         try {
             PlanServiceInfo initialize = pubDebtDao.initializePlan(debtId);
             if (StringUtils.isEmpty(initialize.getServiceNo())) {
-                initialize.setServiceNo(RepNoUtils.createRepNo("TZ", pubCompanyDao.selectByPrimaryKey(comId).getCompanyNameMax(), pubDebtDao.selectNo()));
+                initialize.setServiceNo(RepNoUtils.createRepNo("TZ", pubCompanyDao.selectByPrimaryKey(comId).getCompanyNameMax(), pubDebtDao.selectServiiceNo()));
+                initialize.setContractDate(new SimpleDateFormat("yyyy-MM-dd").parse(new SimpleDateFormat("yyyy-MM-dd").format(new Date())));
             }
-            initialize.setThisTime(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
             initialize.setThisPlanMoneyMax(ConvertUpMoney.toChinese(initialize.getThisPlanMoney()));
             initialize.setAmountThisMax(ConvertUpMoney.toChinese(initialize.getAmountThis().toString()));
             if (initialize.getReportPropert().equals("1")) {

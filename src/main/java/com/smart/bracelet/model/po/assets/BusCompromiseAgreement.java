@@ -93,8 +93,10 @@ public class BusCompromiseAgreement implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date partybDate;
 
-
-    private Date compromiseDate;
+    /**
+     * 签约日期
+     */
+    private Date contractDate;
 
     Float cash;
     String StagingNumber;

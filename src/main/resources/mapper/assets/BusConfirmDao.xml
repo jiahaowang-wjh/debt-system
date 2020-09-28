@@ -12,10 +12,11 @@
         <result column="obligor_seal" jdbcType="VARCHAR" property="obligorSeal"/>
         <result column="obligor_sign" jdbcType="VARCHAR" property="obligorSign"/>
         <result column="obligor_date" jdbcType="TIMESTAMP" property="obligorDate"/>
+        <result column="contract_time" jdbcType="TIMESTAMP" property="contractTime"/>
     </resultMap>
     <sql id="Base_Column_List">
     confirmt_id, propert_id, confirm_no, transferee_, company_name, tel, transferee_date, 
-    obligor_seal, obligor_sign, obligor_date
+    obligor_seal, obligor_sign, obligor_date,contract_time
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
@@ -29,14 +30,16 @@
         from bus_confirm
     </select>
     <select id="initialize" resultType="com.smart.bracelet.model.vo.assets.BusConfirmShow">
-        SELECT brp.report_propert,br.`data1` AS 'debtName',brp.`data1` AS 'personName',brp.`data2` AS 'personCard',brp.`data3` AS 'priPhone',brp.`data5` AS 'corBankPhone',baa.assignment_agreement_no,pd.`create_time`,pd.service_principal,pd.service_interest
-        FROM bus_report br
-      LEFT JOIN bus_relative_person brp ON br.`report_id` = brp.`report_id`
-      LEFT JOIN bus_propert bp ON br.`report_id` = bp.report_id
-      LEFT JOIN bus_assignment_agreement baa ON bp.propert_id = baa.propert_id
-      LEFT JOIN pub_debt pd ON brp.`report_id` = pd.`report_id`
-      WHERE brp.`relative_per_id` = #{relativePerId,jdbcType=BIGINT}
-
+        SELECT
+        br.report_id,brp.report_propert,br.`data1` AS 'debtName',brp.`data1` AS 'personName',brp.`data2` AS 'personCard',brp.`data3` AS 'priPhone',brp.`data5` AS 'corBankPhone',baa.assignment_agreement_no,pd.`create_time`,pd.service_principal,pd.service_interest
+        ,bc.`contract_time`,pd.amount_this
+        FROM bus_propert bp
+        LEFT JOIN bus_report br ON bp.`report_id` = br.`report_id`
+        LEFT JOIN bus_relative_person brp ON brp.`relative_per_id` = bp.`relative_per_id`
+        LEFT JOIN bus_assignment_agreement baa ON baa.`propert_id` = bp.`propert_id`
+        LEFT JOIN pub_debt pd ON pd.`debt_id` = bp.`debt_id`
+        LEFT JOIN bus_confirm bc ON bc.`propert_id` = bp.`propert_id`
+        WHERE bp.propert_id = #{propertId,jdbcType=BIGINT}
     </select>
     <select id="selectByPropertId" resultType="com.smart.bracelet.model.po.assets.BusConfirm"
             parameterType="java.lang.Long">
@@ -49,21 +52,14 @@
     delete from bus_confirm
     where confirmt_id = #{confirmtId,jdbcType=BIGINT}
   </delete>
-    <insert id="insert" parameterType="com.smart.bracelet.model.po.assets.BusConfirm">
-    insert into bus_confirm (confirmt_id, propert_id, confirm_no, 
-      transferee_, company_name, tel, 
-      transferee_date, obligor_seal, obligor_sign, 
-      obligor_date)
-    values (#{confirmtId,jdbcType=BIGINT}, #{propertId,jdbcType=BIGINT}, #{confirmNo,jdbcType=VARCHAR}, 
-      #{transferee,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, 
-      #{transfereeDate,jdbcType=DATE}, #{obligorSeal,jdbcType=VARCHAR}, #{obligorSign,jdbcType=VARCHAR}, 
-      #{obligorDate,jdbcType=TIMESTAMP})
-  </insert>
     <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.assets.BusConfirm">
         insert into bus_confirm
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="confirmtId != null">
                 confirmt_id,
+            </if>
+            <if test="contractTime != null">
+                contract_time,
             </if>
             <if test="propertId != null">
                 propert_id,
@@ -96,6 +92,9 @@
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="confirmtId != null">
                 #{confirmtId,jdbcType=BIGINT},
+            </if>
+            <if test="contractTime != null">
+                #{contractTime,jdbcType=BIGINT},
             </if>
             <if test="propertId != null">
                 #{propertId,jdbcType=BIGINT},
@@ -132,6 +131,9 @@
             <if test="propertId != null">
                 propert_id = #{propertId,jdbcType=BIGINT},
             </if>
+            <if test="contractTime != null">
+                contract_time = #{contractTime,jdbcType=BIGINT},
+            </if>
             <if test="confirmNo != null">
                 confirm_no = #{confirmNo,jdbcType=VARCHAR},
             </if>
@@ -159,17 +161,4 @@
         </set>
         where confirmt_id = #{confirmtId,jdbcType=BIGINT}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.smart.bracelet.model.po.assets.BusConfirm">
-    update bus_confirm
-    set propert_id = #{propertId,jdbcType=BIGINT},
-      confirm_no = #{confirmNo,jdbcType=VARCHAR},
-      transferee_ = #{transferee,jdbcType=VARCHAR},
-      company_name = #{companyName,jdbcType=VARCHAR},
-      tel = #{tel,jdbcType=VARCHAR},
-      transferee_date = #{transfereeDate,jdbcType=DATE},
-      obligor_seal = #{obligorSeal,jdbcType=VARCHAR},
-      obligor_sign = #{obligorSign,jdbcType=VARCHAR},
-      obligor_date = #{obligorDate,jdbcType=TIMESTAMP}
-    where confirmt_id = #{confirmtId,jdbcType=BIGINT}
-  </update>
 </mapper>

@@ -65,8 +65,8 @@ public class BusAssessmentController {
      * 资产评估页面初始化
      */
     @RequestMapping("/initialize")
-    public Result<BusAssessmentInit> initialize(@NotNull(message = "相对人ID不能为空") Long relativePerId) {
-        BusAssessmentInit initialize = busAssessmentService.initialize(relativePerId);
+    public Result<BusAssessmentInit> initialize(@NotNull(message = "资产ID不能为空") Long propertId) {
+        BusAssessmentInit initialize = busAssessmentService.initialize(propertId);
         return Result.success(initialize);
     }
 

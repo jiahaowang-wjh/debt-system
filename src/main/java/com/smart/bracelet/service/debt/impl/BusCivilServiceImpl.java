@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -112,7 +113,9 @@ public class BusCivilServiceImpl implements BusCivilService {
     @Override
     @Transactional(noRollbackFor = Exception.class)
     public BusCivil selectByPrimaryKey(Long civilId) {
-        return busCivilDao.selectByPrimaryKey(civilId);
+        BusCivil busCivil = busCivilDao.selectByPrimaryKey(civilId);
+        busCivil.setUserName(busCivilDao.selectUser(civilId));
+        return busCivil;
     }
 
     @Override
@@ -254,11 +257,11 @@ public class BusCivilServiceImpl implements BusCivilService {
 
     @Override
     @Transactional(noRollbackFor = Exception.class)
-    public AgreementInfoShow initialize(Long reportId,Long comId) {
+    public AgreementInfoShow initialize(Long reportId,Long comId) throws ParseException {
         AgreementInfoShow initialize = busCivilDao.initialize(reportId);
-        initialize.setAgreementDate(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
         if(StringUtils.isEmpty(initialize.getAgreementNo())){
-            initialize.setAgreementNo(agreementNo(comId)+comId);
+            initialize.setAgreementNo(agreementNo(comId));
+            initialize.setAgreementDate(new SimpleDateFormat("yyyy-MM-dd").parse(new SimpleDateFormat("yyyy-MM-dd").format(new Date())));
         }
         if (initialize.getReportPropert().equals("1")) {
             initialize.setCorBankPhone(null);
@@ -277,4 +280,6 @@ public class BusCivilServiceImpl implements BusCivilService {
     public List<CivilAndPseronInfo> selectCivi(Long reportId) {
         return busCivilDao.selectCivi(reportId);
     }
+
+
 }

@@ -24,10 +24,7 @@ public class BusAssignmentConfirmShow {
      *债权转让协议编号
      */
     String assignmentAgreementNo;
-    /**
-     *当天日期
-     */
-    String thisTime;
+
     /**
      *解债金额
      */
@@ -51,4 +48,10 @@ public class BusAssignmentConfirmShow {
      */
     @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
     Date contractTime;
+
+    /**
+     * 当前系统日期
+     */
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
+    Date thisTime;
 }

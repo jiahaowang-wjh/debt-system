@@ -94,4 +94,10 @@ public interface BusCivilDao {
     List<CivilAndPseronInfo> selectCivi(Long reportId);
 
 
+    /**
+     * 获取调解员
+     * @param civId
+     * @return
+     */
+    String selectUser(Long civId);
 }

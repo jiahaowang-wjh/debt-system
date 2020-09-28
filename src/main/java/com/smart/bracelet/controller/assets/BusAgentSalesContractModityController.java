@@ -4,6 +4,7 @@ import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.assets.BusAgentSalesContractModity;
 import com.smart.bracelet.model.vo.assets.BusAgentSalesContractModityVo;
+import com.smart.bracelet.model.vo.assets.CommModiey;
 import com.smart.bracelet.service.assets.BusAgentSalesContractModityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -58,5 +59,13 @@ public class BusAgentSalesContractModityController {
         List<BusAgentSalesContractModity> busAgentSalesContractModity = busAgentSalesContractModityService.selectBySalesContractId(salesContractId);
         return Result.success(busAgentSalesContractModity);
     }
-
+    /**
+     * 查询商品内容
+     * @return
+     */
+    @RequestMapping("/queryComm")
+    public Result<List<CommModiey>> queryComm(){
+        List<CommModiey> list = busAgentSalesContractModityService.queryComm();
+        return Result.success(list);
+    }
 }

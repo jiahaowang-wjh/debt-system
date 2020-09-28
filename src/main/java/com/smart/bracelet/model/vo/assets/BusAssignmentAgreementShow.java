@@ -46,10 +46,7 @@ public class BusAssignmentAgreementShow {
      */
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     Date obligatTime;
-    /**
-     * 当前日期
-     */
-    String thisTime;
+
     /**
      * 解债金额
      */
@@ -81,8 +78,18 @@ public class BusAssignmentAgreementShow {
     String assignmentAgreementNo;
 
     /**
+     * 当前时间
+     */
+    String thisTime;
+
+    /**
      * 签约日期
      */
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
     Date contractTime;
+
+    /**
+     * 报备ID
+     */
+    Long reportId;
 }

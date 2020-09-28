@@ -28,6 +28,7 @@ public class CustomTokenEnhancer implements TokenEnhancer {
         additionalInfo.put("companyId",customUserInfo.getComId());
         additionalInfo.put("roleId",customUserInfo.getRoleId());
         additionalInfo.put("companyType",customUserInfo.getCompanyType());
+        additionalInfo.put("userType",customUserInfo.getUserType());
         ((DefaultOAuth2AccessToken) oAuth2AccessToken).setAdditionalInformation(additionalInfo);
         return oAuth2AccessToken;
     }

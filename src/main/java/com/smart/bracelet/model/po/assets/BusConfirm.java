@@ -31,9 +31,8 @@ public class BusConfirm implements Serializable {
     @NotNull(message = "资产ID不能为空")
     private Long propertId;
     /**
-     * 签约日期
+     * 日期
      */
-    @NotNull(message = "日期不能为空")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date transfereeDate;
 
@@ -74,4 +73,10 @@ public class BusConfirm implements Serializable {
      */
     private Date obligorDate;
 
+    /**
+     * 日期
+     */
+    @NotNull(message = "签约日期不能为空")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    Date contractTime;
 }

@@ -11,10 +11,12 @@ import com.smart.bracelet.service.assets.BusAssignmentNoticeService;
 import com.smart.bracelet.utils.IdUtils;
 import com.smart.bracelet.utils.RepNoUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -81,10 +83,13 @@ public class BusAssignmentNoticeServiceImpl implements BusAssignmentNoticeServic
     }
 
     @Override
-    public BusAssignmentNoticeShow initialize(Long propertId) {
+    public BusAssignmentNoticeShow initialize(Long propertId) throws ParseException {
         BusAssignmentNoticeShow initialize = busAssignmentNoticeDao.initialize(propertId);
-        initialize.setContractTime(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
-        initialize.setNoticeNo(initialize.getAssignmentAgreementNo()+"(-2)");
+        if(StringUtils.isEmpty(initialize.getNoticeNo())){
+            initialize.setNoticeNo(initialize.getAssignmentAgreementNo()+"(-2)");
+            initialize.setContractTime(new SimpleDateFormat("yyyy-MM-dd").parse(new SimpleDateFormat("yyyy-MM-dd").format(new Date())));
+        }
+
         return initialize;
     }
 

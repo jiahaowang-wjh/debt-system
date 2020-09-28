@@ -1,13 +1,16 @@
 package com.smart.bracelet.model.vo.assets;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.smart.bracelet.model.po.assets.BusAgentSalesContractModity;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class CommissionOnLine {
-
 
     /**
      * 性质
@@ -68,4 +71,24 @@ public class CommissionOnLine {
      */
     String integral;
 
+    /**
+     * 签约日期
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    Date contractDate;
+
+    /**
+     * 委托线上代理销售合同ID
+     */
+    Long protocolId;
+
+    /**
+     * 销售商品价格总计
+     */
+    String allCommodityMoney;
+
+    /**
+     * 委托销售商品
+     */
+    List<BusAgentSalesContractModity> busAgentSalesContractModities;
 }

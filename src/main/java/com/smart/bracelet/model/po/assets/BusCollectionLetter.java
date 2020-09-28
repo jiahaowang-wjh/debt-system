@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -23,11 +25,6 @@ public class BusCollectionLetter implements Serializable {
     @JsonSerialize(using = ToStringSerializer.class)
     private Long collectionLettertId;
 
-    /**
-     * 公司ID
-     */
-    @NotNull(message = "公司ID不能为空")
-    Long comId;
 
     /**
      * 编号
@@ -45,7 +42,7 @@ public class BusCollectionLetter implements Serializable {
      * 合同日期
      */
     @NotNull(message = "合同日期不能为空")
-    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     Date contractDate;
 
 

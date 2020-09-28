@@ -49,4 +49,6 @@ public class ReportAndRelativePerson {
     String brpData8;
     String brpData9;
     String brpData10;
+
+    Float amountTotal;
 }

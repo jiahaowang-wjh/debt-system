@@ -27,9 +27,9 @@ public class PubDebtInfo {
     Long relativePerId;
 
     /**
-     * 民事调解id
+     * 民事调解编号
      */
-    String civilId;
+    String civilno;
     /**
      * 解债编号
      */
