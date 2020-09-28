@@ -2,15 +2,19 @@ package com.smart.bracelet.controller.debt;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.smart.bracelet.enums.FailResultCode;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.vo.debt.*;
 import com.smart.bracelet.service.debt.BusRelativePersonService;
+import com.smart.bracelet.utils.ExportHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -182,6 +186,43 @@ public class BusRelativePersonController {
         List<AuxiliaryDownload> auxiliaryDownloads = busRelativePersonService.selectDow(debtName, time);
         PageInfo<AuxiliaryDownload> auxiliaryDownloadPageInfo = new PageInfo<>(auxiliaryDownloads);
         return Result.success(auxiliaryDownloadPageInfo);
+    }
+
+    /**
+     * 下载财务
+     */
+    @RequestMapping("/downSelectDow")
+    public void downSelectDow( HttpServletRequest request, HttpServletResponse response) throws ParseException {
+        String debtName = request.getParameter("debtName");
+        String time = request.getParameter("time");
+        List<AuxiliaryDownload> auxiliaryDownloads = busRelativePersonService.selectDow(debtName, time);
+        try {
+            ExportHelper exportHelper = new ExportHelper();
+            exportHelper.WriteResponse("财务信息", exportHelper.ExportExcel2(auxiliaryDownloads),
+                    request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            //Result.fail(FailResultCode.FAIL);
+        }
+        //return Result.success();
+    }
+    /**
+     * 下载债务
+     */
+    @RequestMapping("/downSelectDebtDow")
+    public void downSelectDebtDow(HttpServletRequest request, HttpServletResponse response) throws ParseException {
+        try{
+            String debtName = request.getParameter("debtName");
+            String time = request.getParameter("time");
+            List<DowLod> dowLods = busRelativePersonService.selectDebtDow(debtName, time);
+            ExportHelper exportHelper=new ExportHelper();
+            exportHelper.WriteResponse("债务信息", exportHelper.ExportExcel1(dowLods),
+                    request,response);
+        }catch (Exception e){
+            e.printStackTrace();
+            //Result.fail(FailResultCode.FAIL);
+        }
+        //return Result.success();
     }
 
     /**
