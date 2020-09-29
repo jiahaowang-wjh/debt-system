@@ -39,7 +39,6 @@ public class BusAssessment implements Serializable {
     /**
      * 评估日期
      */
-    @NotNull(message = "评估日期不能为空")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date assessmentDate;
 

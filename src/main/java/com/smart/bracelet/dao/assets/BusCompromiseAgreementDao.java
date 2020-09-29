@@ -36,4 +36,10 @@ public interface BusCompromiseAgreementDao {
      * @return
      */
     BusCompromiseAgreement selectByPropertId(Long propertId);
+
+    /**
+     * 更新乙方选择偿还债务方式
+     */
+    int updatePartybMode(String partybMode,Long propertId);
+
 }

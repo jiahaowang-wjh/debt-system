@@ -50,6 +50,6 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
         for (String item : list) {
             authorities.add(new SimpleGrantedAuthority(item));
         }
-        return new CustomUserInfo(pubUser.getUserId().toString(), pubUser.getLoginName(), userAccount, pubUser.getPasswordMd5(), pubUser.getPersonId().toString(), comId.toString(), pubUser.getRoleId().toString(), null, true, true, true, true, authorities,a.getCompanyType());
+        return new CustomUserInfo(pubUser.getUserId().toString(), pubUser.getLoginName(), userAccount, pubUser.getPasswordMd5(), pubUser.getPersonId().toString(), comId.toString(), pubUser.getRoleId().toString(), null, true, true, true, true, authorities,a.getCompanyType(),pubUser.getUserType());
     }
 }

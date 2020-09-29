@@ -1,191 +1,193 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.smart.bracelet.dao.assets.BusAssessmentDao">
-  <resultMap id="BaseResultMap" type="com.smart.bracelet.model.po.assets.BusAssessment">
-    <id column="assessment_id" jdbcType="BIGINT" property="assessmentId" />
-    <result column="assessment_no" jdbcType="VARCHAR" property="assessmentNo" />
-    <result column="propert_id" jdbcType="BIGINT" property="propertId" />
-    <result column="assessment_date" jdbcType="DATE" property="assessmentDate" />
-    <result column="credentials" jdbcType="VARCHAR" property="credentials" />
-    <result column="card" jdbcType="VARCHAR" property="card" />
-    <result column="company_manag" jdbcType="VARCHAR" property="companyManag" />
-    <result column="status" jdbcType="VARCHAR" property="status" />
-    <result column="check_reason" jdbcType="VARCHAR" property="checkReason" />
-    <result column="check_date" jdbcType="DATE" property="checkDate" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-  </resultMap>
-  <sql id="Base_Column_List">
+    <resultMap id="BaseResultMap" type="com.smart.bracelet.model.po.assets.BusAssessment">
+        <id column="assessment_id" jdbcType="BIGINT" property="assessmentId"/>
+        <result column="assessment_no" jdbcType="VARCHAR" property="assessmentNo"/>
+        <result column="propert_id" jdbcType="BIGINT" property="propertId"/>
+        <result column="assessment_date" jdbcType="DATE" property="assessmentDate"/>
+        <result column="credentials" jdbcType="VARCHAR" property="credentials"/>
+        <result column="card" jdbcType="VARCHAR" property="card"/>
+        <result column="company_manag" jdbcType="VARCHAR" property="companyManag"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="check_reason" jdbcType="VARCHAR" property="checkReason"/>
+        <result column="check_date" jdbcType="DATE" property="checkDate"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     assessment_id, assessment_no, propert_id, assessment_date, credentials, card, company_manag, 
     `status`, check_reason, check_date, update_time, create_time
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from bus_assessment
-    where assessment_id = #{assessmentId,jdbcType=BIGINT}
-  </select>
-  <select id="selectNo" resultType="java.lang.String">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from bus_assessment
+        where assessment_id = #{assessmentId,jdbcType=BIGINT}
+    </select>
+    <select id="selectNo" resultType="java.lang.String">
     SELECT  bus_assessment.`assessment_no`  FROM   bus_assessment   ORDER   BY   bus_assessment.`assessment_id`    DESC   LIMIT   1
   </select>
     <select id="selectDaysCount" resultType="com.smart.bracelet.model.po.debt.DateAndDays">
-      SELECT DATE_FORMAT(bus_assessment.create_time,'%Y-%m-%d') days,COUNT(*) COUNT
-      FROM bus_assessment
-      LEFT JOIN bus_propert bp ON bp.`propert_id` = bus_assessment.`propert_id`
-      LEFT JOIN bus_report br ON br.`report_id` = bp.`report_id`
-      LEFT JOIN pub_company pc ON br.`company_id` = pc.`company_id`
-      <where>
-        <if test="type != null and type != ''">
-         and pc.`company_type` = #{type}
-        </if>
-        <if test="comId != null and comId != ''">
-         and pc.`company_id` = #{comId}
-        </if>
-      </where>
-      GROUP BY days ORDER BY days DESC LIMIT 10;
+        SELECT DATE_FORMAT(bus_assessment.create_time,'%Y-%m-%d') days,COUNT(*) COUNT
+        FROM bus_assessment
+        LEFT JOIN bus_propert bp ON bp.`propert_id` = bus_assessment.`propert_id`
+        LEFT JOIN bus_report br ON br.`report_id` = bp.`report_id`
+        LEFT JOIN pub_company pc ON br.`company_id` = pc.`company_id`
+        <where>
+            <if test="type != null and type != ''">
+                and pc.`company_type` = #{type}
+            </if>
+            <if test="comId != null and comId != ''">
+                and pc.`company_id` = #{comId}
+            </if>
+        </where>
+        GROUP BY days ORDER BY days DESC LIMIT 10;
     </select>
     <select id="initialize" resultType="com.smart.bracelet.model.vo.assets.BusAssessmentInit"
             parameterType="java.lang.Long">
-      SELECT
-      br.`report_id`,br.`data1` AS 'debtName',br.data2 AS 'debtidCard',br.`data3` AS 'debtPhnoe',br.`data5` AS 'debtCorPhone',br.report_propert,
+ SELECT
+      br.`report_id`,br.`data1` AS 'debtName',br.data2 AS 'debtIdCard',br.`data3` AS 'debtPhnoe',br.`data5` AS 'debtCorPhone',br.report_propert AS 'debtPropert',brp.`report_propert` AS 'personPeropert',
       brp.`data1` AS 'personName',brp.`data2` AS 'personIdCard',brp.`data3` AS 'personPhnoe',brp.`data5` AS 'personCorPhone',
-      pd.`amount_this`
-      FROM bus_relative_person brp
-      LEFT JOIN bus_report br ON br.`report_id` = brp.`report_id`
-      LEFT JOIN pub_debt pd ON brp.`relative_per_id` = pd.`relative_per_id`
-      WHERE brp.`relative_per_id` = #{relativePerId,jdbcType=BIGINT}
+      pd.`amount_this`,ba.credentials,ba.card,ba.company_manag
+      FROM bus_propert bp
+      LEFT JOIN bus_report br ON br.`report_id` = bp.`report_id`
+      LEFT JOIN bus_relative_person brp ON bp.`relative_per_id` = brp.`relative_per_id`
+      LEFT JOIN pub_debt pd ON pd.`debt_id` = bp.`debt_id`
+      LEFT JOIN bus_assessment ba ON ba.`propert_id` = bp.`propert_id`
+      WHERE bp.propert_id = #{propertId,jdbcType=BIGINT}
     </select>
     <select id="selectByPropertId" resultType="com.smart.bracelet.model.po.assets.BusAssessment"
             parameterType="java.lang.Long">
-      select
-      <include refid="Base_Column_List" />
-      from bus_assessment
-      where propert_id = #{propertId,jdbcType=BIGINT}
+        select
+        <include refid="Base_Column_List"/>
+        from bus_assessment
+        where propert_id = #{propertId,jdbcType=BIGINT}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from bus_assessment
     where assessment_id = #{assessmentId,jdbcType=BIGINT}
   </delete>
 
-  <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.assets.BusAssessment">
-    insert into bus_assessment
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="assessmentId != null">
-        assessment_id,
-      </if>
-      <if test="assessmentNo != null">
-        assessment_no,
-      </if>
-      <if test="propertId != null">
-        propert_id,
-      </if>
-      <if test="assessmentDate != null">
-        assessment_date,
-      </if>
-      <if test="credentials != null">
-        credentials,
-      </if>
-      <if test="card != null">
-        card,
-      </if>
-      <if test="companyManag != null">
-        company_manag,
-      </if>
-      <if test="status != null">
-        `status`,
-      </if>
-      <if test="checkReason != null">
-        check_reason,
-      </if>
-      <if test="checkDate != null">
-        check_date,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="assessmentId != null">
-        #{assessmentId,jdbcType=BIGINT},
-      </if>
-      <if test="assessmentNo != null">
-        #{assessmentNo,jdbcType=VARCHAR},
-      </if>
-      <if test="propertId != null">
-        #{propertId,jdbcType=BIGINT},
-      </if>
-      <if test="assessmentDate != null">
-        #{assessmentDate,jdbcType=DATE},
-      </if>
-      <if test="credentials != null">
-        #{credentials,jdbcType=VARCHAR},
-      </if>
-      <if test="card != null">
-        #{card,jdbcType=VARCHAR},
-      </if>
-      <if test="companyManag != null">
-        #{companyManag,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="checkReason != null">
-        #{checkReason,jdbcType=VARCHAR},
-      </if>
-      <if test="checkDate != null">
-        #{checkDate,jdbcType=DATE},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.vo.assets.BusAssessmentVo">
-    update bus_assessment
-    <set>
-      <if test="assessmentNo != null">
-        assessment_no = #{assessmentNo,jdbcType=VARCHAR},
-      </if>
-      <if test="propertId != null">
-        propert_id = #{propertId,jdbcType=BIGINT},
-      </if>
-      <if test="assessmentDate != null">
-        assessment_date = #{assessmentDate,jdbcType=DATE},
-      </if>
-      <if test="credentials != null">
-        credentials = #{credentials,jdbcType=VARCHAR},
-      </if>
-      <if test="card != null">
-        card = #{card,jdbcType=VARCHAR},
-      </if>
-      <if test="companyManag != null">
-        company_manag = #{companyManag,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        `status` = #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="checkReason != null">
-        check_reason = #{checkReason,jdbcType=VARCHAR},
-      </if>
-      <if test="checkDate != null">
-        check_date = #{checkDate,jdbcType=DATE},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where assessment_id = #{assessmentId,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.smart.bracelet.model.po.assets.BusAssessment">
+    <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.assets.BusAssessment">
+        insert into bus_assessment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="assessmentId != null">
+                assessment_id,
+            </if>
+            <if test="assessmentNo != null">
+                assessment_no,
+            </if>
+            <if test="propertId != null">
+                propert_id,
+            </if>
+            <if test="assessmentDate != null">
+                assessment_date,
+            </if>
+            <if test="credentials != null">
+                credentials,
+            </if>
+            <if test="card != null">
+                card,
+            </if>
+            <if test="companyManag != null">
+                company_manag,
+            </if>
+            <if test="status != null">
+                `status`,
+            </if>
+            <if test="checkReason != null">
+                check_reason,
+            </if>
+            <if test="checkDate != null">
+                check_date,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="assessmentId != null">
+                #{assessmentId,jdbcType=BIGINT},
+            </if>
+            <if test="assessmentNo != null">
+                #{assessmentNo,jdbcType=VARCHAR},
+            </if>
+            <if test="propertId != null">
+                #{propertId,jdbcType=BIGINT},
+            </if>
+            <if test="assessmentDate != null">
+                #{assessmentDate,jdbcType=DATE},
+            </if>
+            <if test="credentials != null">
+                #{credentials,jdbcType=VARCHAR},
+            </if>
+            <if test="card != null">
+                #{card,jdbcType=VARCHAR},
+            </if>
+            <if test="companyManag != null">
+                #{companyManag,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="checkReason != null">
+                #{checkReason,jdbcType=VARCHAR},
+            </if>
+            <if test="checkDate != null">
+                #{checkDate,jdbcType=DATE},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.vo.assets.BusAssessmentVo">
+        update bus_assessment
+        <set>
+            <if test="assessmentNo != null">
+                assessment_no = #{assessmentNo,jdbcType=VARCHAR},
+            </if>
+            <if test="propertId != null">
+                propert_id = #{propertId,jdbcType=BIGINT},
+            </if>
+            <if test="assessmentDate != null">
+                assessment_date = #{assessmentDate,jdbcType=DATE},
+            </if>
+            <if test="credentials != null">
+                credentials = #{credentials,jdbcType=VARCHAR},
+            </if>
+            <if test="card != null">
+                card = #{card,jdbcType=VARCHAR},
+            </if>
+            <if test="companyManag != null">
+                company_manag = #{companyManag,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                `status` = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="checkReason != null">
+                check_reason = #{checkReason,jdbcType=VARCHAR},
+            </if>
+            <if test="checkDate != null">
+                check_date = #{checkDate,jdbcType=DATE},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where assessment_id = #{assessmentId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.smart.bracelet.model.po.assets.BusAssessment">
     update bus_assessment
     set assessment_no = #{assessmentNo,jdbcType=VARCHAR},
       propert_id = #{propertId,jdbcType=BIGINT},

@@ -6,6 +6,7 @@ import com.smart.bracelet.model.vo.assets.BusCollectionLetterShow;
 import com.smart.bracelet.model.vo.assets.BusCollectionLetterVo;
 import com.smart.bracelet.model.vo.assets.BusConfirmShow;
 
+import java.text.ParseException;
 import java.util.List;
 
 public interface BusCollectionLetterService {
@@ -22,10 +23,10 @@ public interface BusCollectionLetterService {
 
     /**
      * 资产债权确认页面初始化
-     * @param relativePerId
+     * @param propertId
      * @return
      */
-    BusCollectionLetterShow initialize(Long relativePerId,Long comId);
+    BusCollectionLetterShow initialize(Long propertId,Long comId) throws ParseException;
     /**
      * 通过资产Id查询催款函
      * @param propertId

@@ -11,10 +11,11 @@
         <result column="status" jdbcType="VARCHAR" property="status"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="create_id" jdbcType="BIGINT" property="createId"/>
+        <result column="debt_type" jdbcType="BIGINT" property="debtType"/>
     </resultMap>
     <sql id="Base_Column_List">
     propert_id, relative_per_id, report_id, civil_id, debt_id, stage, `status`, create_time, 
-    create_id
+    create_id,debt_type
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
@@ -65,6 +66,9 @@
             <if test="propertId != null">
                 propert_id,
             </if>
+            <if test="debtType != null">
+                debt_type,
+            </if>
             <if test="relativePerId != null">
                 relative_per_id,
             </if>
@@ -93,6 +97,9 @@
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="propertId != null">
                 #{propertId,jdbcType=BIGINT},
+            </if>
+            <if test="debtType != null">
+                #{debtType,jdbcType=VARCHAR},
             </if>
             <if test="relativePerId != null">
                 #{relativePerId,jdbcType=BIGINT},
@@ -125,6 +132,9 @@
         <set>
             <if test="relativePerId != null">
                 relative_per_id = #{relativePerId,jdbcType=BIGINT},
+            </if>
+            <if test="debtType != null">
+                debt_type = #{relativePerId,jdbcType=VARCHAR},
             </if>
             <if test="reportId != null">
                 report_id = #{reportId,jdbcType=BIGINT},

@@ -62,9 +62,11 @@
           SELECT br.`report_id`,br.report_propert,brp.relative_per_id,brp.report_propert AS 'brpReport',
           br.`data1`,br.`data2`,br.`data3`,br.`data4`,br.`data5`,br.`data6`,br.`data7`,br.`data8`,br.`data9`,br.`data10`,
           brp.data1 AS 'brpdata1',brp.data2 AS 'brpdata2',brp.data3 AS 'brpdata3',brp.data4 AS 'brpdata4',brp.data5 AS 'brpdata5',
-          brp.data6 AS 'brpdata6',brp.data7 AS 'brpdata7',brp.data8 AS 'brpdata8',brp.data9 AS 'brpdata9',brp.data10 AS 'brpdata10'
+          brp.data6 AS 'brpdata6',brp.data7 AS 'brpdata7',brp.data8 AS 'brpdata8',brp.data9 AS 'brpdata9',brp.data10 AS 'brpdata10',
+          bc.`interest_all` as 'amountTotal'
           FROM bus_relative_person brp
           LEFT JOIN bus_report br ON brp.report_id = br.`report_id`
+          LEFT JOIN bus_civil bc ON brp.`relative_per_id` = bc.`relative_per_id`
           WHERE brp.relative_per_id = #{relativePerId,jdbcType=BIGINT}
   </select>
     <select id="selectDow" resultType="com.smart.bracelet.model.vo.debt.AuxiliaryDownload">
@@ -421,7 +423,6 @@
             <if test="uploadDebtCertificate != null">
                 upload_debt_certificate = #{uploadDebtCertificate,jdbcType=VARCHAR},
             </if>
-
             <if test="economics != null">
                 economics = #{economics,jdbcType=VARCHAR},
             </if>

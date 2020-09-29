@@ -23,10 +23,10 @@ public interface BusAssignmentAgreementService {
 
     /**
      * 页面初始化数据
-     * @param relativePerId
+     * @param propertId
      * @return
      */
-    BusAssignmentAgreementShow initialize(Long relativePerId,Long comId) throws CustomerException;
+    BusAssignmentAgreementShow initialize(Long propertId,Long comId) throws CustomerException;
 
     /**
      * 通过资产Id查询资产债权转让协议

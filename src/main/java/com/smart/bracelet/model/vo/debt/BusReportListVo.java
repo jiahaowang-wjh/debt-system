@@ -1,5 +1,6 @@
 package com.smart.bracelet.model.vo.debt;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
@@ -177,6 +178,7 @@ public class BusReportListVo implements Serializable {
      * 借款发生时间权
      */
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
     @NotNull(message = "借款发生时间权不能为空")
     private Date obligatTime;
 
@@ -214,6 +216,7 @@ public class BusReportListVo implements Serializable {
      * 借款发生时间务
      */
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
     @NotNull(message = "借款发生时间务不能为空")
     private Date debtTime;
 
@@ -273,13 +276,15 @@ public class BusReportListVo implements Serializable {
     /**
      * 创建时间
      */
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
     private Date createTime;
 
     /**
      * 更新时间
      */
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
     private Date updateTime;
 
 }

@@ -1,5 +1,7 @@
 package com.smart.bracelet.model.po.debt;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -17,25 +19,35 @@ public class PubDebt implements Serializable {
     /**
      * 解债ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long debtId;
 
     /**
      * 报备ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     @NotNull(message = "报备ID不能为空")
     private Long reportId;
 
     /**
      * 相对人ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     @NotNull(message = "相对人ID不能为空")
     private Long relativePerId;
 
     /**
      * 民事调解ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     @NotNull(message = "民事调解ID不能为空")
     private Long civilId;
+
+    /**
+     * 债权处理申请
+     */
+    @NotBlank(message = "债券处理申请不能为空")
+    String debtApply;
 
     /**
      * 解债编号
@@ -181,4 +193,11 @@ public class PubDebt implements Serializable {
      * 利息
      */
     Float serviceInterest;
+
+    /**
+     * 上传附件
+     */
+    String uploadAnnex;
+
+
 }

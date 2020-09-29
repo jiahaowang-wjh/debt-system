@@ -21,19 +21,16 @@ public class BusBankReportVo {
     /**
      * 报备号
      */
-    @NotBlank(message = "报备号不能为空")
     private String reportNo;
 
     /**
      * 所属公司ID
      */
-    @NotNull(message = "所属公司ID不能为空")
     private Long companyId;
 
     /**
      * 推荐人ID
      */
-    @NotNull(message = "推荐人ID不能为空")
     private Long userId;
 
     /**
@@ -189,18 +186,15 @@ public class BusBankReportVo {
     /**
      * 状态
      */
-    @NotBlank(message = "状态不能为空")
     private String status;
 
     /**
      * 阶段
      */
-    @NotBlank(message = "阶段不能为空")
     private String stage;
     /**
      * 创建人Id
      */
-    @NotNull(message = "创建人Id不能为空")
     private Long createUserId;
 
 

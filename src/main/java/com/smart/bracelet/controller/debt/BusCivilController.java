@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -141,7 +142,7 @@ public class BusCivilController {
      * 尽调协议初始化
      */
     @RequestMapping("/initialize")
-    public Result<AgreementInfoShow> initialize(@NotNull(message = "报备ID不能为空") Long reportId,@NotNull(message = "公司ID不能为空") Long comId) {
+    public Result<AgreementInfoShow> initialize(@NotNull(message = "报备ID不能为空") Long reportId,@NotNull(message = "公司ID不能为空") Long comId) throws ParseException {
         AgreementInfoShow initialize = busCivilService.initialize(reportId,comId);
         return Result.success(initialize);
     }
@@ -167,6 +168,7 @@ public class BusCivilController {
         List<CivilAndPseronInfo> civilAndPseronInfos = busCivilService.selectCivi(reportId);
         return Result.success(civilAndPseronInfos);
     }
+
 
 
 

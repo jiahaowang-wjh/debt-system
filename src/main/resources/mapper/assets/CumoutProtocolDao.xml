@@ -5,10 +5,10 @@
         <id column="protocol_id" jdbcType="BIGINT" property="protocolId"/>
         <result column="protocol_no" jdbcType="VARCHAR" property="protocolNo"/>
         <result column="propert_id" jdbcType="BIGINT" property="propertId"/>
-        <result column="protocol_date" jdbcType="DATE" property="protocolDate"/>
+        <result column="contract_date" jdbcType="DATE" property="contractDate"/>
     </resultMap>
     <sql id="Base_Column_List">
-    protocol_id, protocol_no, propert_id, protocol_date
+    protocol_id, protocol_no, propert_id, contract_date
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
@@ -18,7 +18,7 @@
     </select>
     <select id="initialize" resultType="com.smart.bracelet.model.vo.assets.CommissionOnLine"
             parameterType="java.lang.Long">
-    SELECT cp.protocol_no,br.`report_propert`,br.`data1` AS 'debtName',br.`data5` AS 'priAdd',br.`data7` AS 'corBankAdd',br.`data2` AS 'debtIdCard',br.`data3` AS 'priPhone',br.`data9` AS 'corBankPhone',
+    SELECT cp.contract_date,cp.protocol_id,cp.protocol_no,br.`report_propert`,br.`data1` AS 'debtName',br.`data5` AS 'priAdd',br.`data7` AS 'corBankAdd',br.`data2` AS 'debtIdCard',br.`data3` AS 'priPhone',br.`data9` AS 'corBankPhone',
         pd.`amount_this`,pd.`create_time`,pd.debt_yaer
     FROM bus_propert bp
     LEFT JOIN `cumout_protocol` cp ON bp.`propert_id` = cp.`propert_id`
@@ -35,9 +35,9 @@
   </delete>
     <insert id="insert" parameterType="com.smart.bracelet.model.po.assets.CumoutProtocol">
     insert into cumout_protocol (protocol_id, protocol_no, propert_id, 
-      protocol_date)
+      contract_date)
     values (#{protocolId,jdbcType=BIGINT}, #{protocolNo,jdbcType=VARCHAR}, #{propertId,jdbcType=BIGINT}, 
-      #{protocolDate,jdbcType=DATE})
+      #{contractDate,jdbcType=DATE})
   </insert>
     <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.assets.CumoutProtocol">
         insert into cumout_protocol
@@ -51,8 +51,8 @@
             <if test="propertId != null">
                 propert_id,
             </if>
-            <if test="protocolDate != null">
-                protocol_date,
+            <if test="contractDate != null">
+                contract_date,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -65,8 +65,8 @@
             <if test="propertId != null">
                 #{propertId,jdbcType=BIGINT},
             </if>
-            <if test="protocolDate != null">
-                #{protocolDate,jdbcType=DATE},
+            <if test="contractDate != null">
+                #{contractDate,jdbcType=DATE},
             </if>
         </trim>
     </insert>
@@ -79,8 +79,8 @@
             <if test="propertId != null">
                 propert_id = #{propertId,jdbcType=BIGINT},
             </if>
-            <if test="protocolDate != null">
-                protocol_date = #{protocolDate,jdbcType=DATE},
+            <if test="contractDate != null">
+                contract_date = #{contractDate,jdbcType=DATE},
             </if>
         </set>
         where protocol_id = #{protocolId,jdbcType=BIGINT}
@@ -89,7 +89,7 @@
     update cumout_protocol
     set protocol_no = #{protocolNo,jdbcType=VARCHAR},
       propert_id = #{propertId,jdbcType=BIGINT},
-      protocol_date = #{protocolDate,jdbcType=DATE}
+      contract_date = #{contractDate,jdbcType=DATE}
     where protocol_id = #{protocolId,jdbcType=BIGINT}
   </update>
 </mapper>

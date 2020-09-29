@@ -23,7 +23,7 @@ public interface BusAssessmentService {
     /**
      * 资产评估页面初始化
      */
-    BusAssessmentInit initialize(Long relativePerId);
+    BusAssessmentInit initialize(Long propertId);
 
     /**
      * 通过资产id获取资产评估信息

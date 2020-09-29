@@ -37,7 +37,7 @@ public interface PubDebtService {
     /**
      * 页面解债信息展示
      */
-    List<PubDebtInfo> selectDebtListShow(QueryDebtVo queryDebtVo);
+    List<PubDebtInfo> selectDebtListShow(DebtInfoQuery debtInfoQuery);
 
     /**
      * 解债页面列表（关系绑定）

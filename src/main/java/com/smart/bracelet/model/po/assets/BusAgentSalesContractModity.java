@@ -56,10 +56,6 @@ public class BusAgentSalesContractModity implements Serializable {
     @NotBlank(message = "计量单位不能为空")
     private String partyaSeal;
 
-    /**
-     * 商品包装
-     */
-    private String partyaTime;
 
     /**
      * 商品数量
@@ -75,10 +71,7 @@ public class BusAgentSalesContractModity implements Serializable {
     /**
      * 合计
      */
+    @NotBlank(message = "合计不能为空")
     String moneyNum1;
 
-    /**
-     * 总计
-     */
-    String moneyNum;
 }

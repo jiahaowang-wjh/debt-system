@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -57,11 +58,11 @@ public class BusConfirmController {
     /**
      * 资产债权确认页面初始化
      *
-     * @param relativePerId
+     * @param propertId
      * @return
      */
     @RequestMapping("/initialize")
-    public Result<BusConfirmShow> initialize(@NotNull(message = "资产ID不能为空") Long propertId) {
+    public Result<BusConfirmShow> initialize(@NotNull(message = "资产ID不能为空") Long propertId) throws ParseException {
         BusConfirmShow initialize = busConfirmService.initialize(propertId);
         return Result.success(initialize);
     }

@@ -31,7 +31,7 @@
     SELECT  bus_agent_sales_contract.sales_no  FROM    `bus_agent_sales_contract`  ORDER   BY   bus_agent_sales_contract.sales_contract_id    DESC   LIMIT   1
   </select>
     <select id="initialize" resultType="com.smart.bracelet.model.vo.assets.BusAgentSalesContractShow">
-    SELECT basc.sales_contract_id,basc.contract_date,basc.contract_date,basc.`sales_no`,br.`report_propert`,br.`data1` AS 'debtName',br.`data5` AS 'priAdd',br.`data7` AS 'corBankAdd',br.`data2` AS 'debtIdCard',br.`data3` AS 'priPhone',br.`data9` AS 'corBankPhone',
+    SELECT br.report_id,basc.sales_contract_id,basc.contract_date,basc.contract_date,basc.`sales_no`,br.`report_propert`,br.`data1` AS 'debtName',br.`data5` AS 'priAdd',br.`data7` AS 'corBankAdd',br.`data2` AS 'debtIdCard',br.`data3` AS 'priPhone',br.`data9` AS 'corBankPhone',
         pd.`amount_this`,bra.bank,bra.bank_card,pd.`create_time`,pd.debt_yaer
         FROM bus_propert bp
         LEFT JOIN bus_report br ON bp.`report_id` = br.`report_id`

@@ -5,6 +5,7 @@ import com.smart.bracelet.model.po.assets.BusConfirm;
 import com.smart.bracelet.model.vo.assets.BusConfirmShow;
 import com.smart.bracelet.model.vo.assets.BusConfirmVo;
 
+import java.text.ParseException;
 import java.util.List;
 
 public interface BusConfirmService {
@@ -26,7 +27,7 @@ public interface BusConfirmService {
      * @param relativePerId
      * @return
      */
-    BusConfirmShow initialize(Long relativePerId);
+    BusConfirmShow initialize(Long relativePerId) throws ParseException;
 
     /**
      * 通过资产ID查询资产债权确认

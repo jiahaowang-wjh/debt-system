@@ -40,7 +40,7 @@
           SELECT  `bus_assignment_confirm`.confirm_no  FROM  bus_assignment_confirm  ORDER   BY   `bus_assignment_confirm`.posse_confirmt_id   DESC   LIMIT   1
     </select>
     <select id="initialize" resultType="com.smart.bracelet.model.vo.assets.BusAssignmentConfirmShow">
-    SELECT bc.`civil_id`,br.`data1` AS 'debtName',brp.`data1` AS 'personName',pd.`amount_this`,baa.assignment_agreement_no,bac.`contract_time`
+    SELECT bc.`civil_id`,br.`data1` AS 'debtName',brp.`data1` AS 'personName',pd.`amount_this`,baa.assignment_agreement_no,bac.`contract_time`,bac.confirm_no
     FROM bus_propert bp
     LEFT JOIN bus_report br ON bp.`report_id` = br.`report_id`
     LEFT JOIN bus_relative_person brp ON brp.`relative_per_id` = bp.`relative_per_id`

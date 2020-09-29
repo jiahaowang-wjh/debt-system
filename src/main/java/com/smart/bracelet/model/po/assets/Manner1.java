@@ -34,10 +34,16 @@ public class Manner1 {
      */
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "签约日期不能为空")
-    private Date compromiseDate;
+    private Date contractDate;
 
     /**
-     *支付现金
+     * 编号
+     */
+    @NotBlank(message = "编号不能为空")
+    String compromiseAgreementNo;
+
+    /**
+     * 支付现金
      */
     private Float cash;
 
@@ -45,7 +51,6 @@ public class Manner1 {
      * 甲方法人代表
      */
     private String partyaSubrogation;
-
 
 
     /**

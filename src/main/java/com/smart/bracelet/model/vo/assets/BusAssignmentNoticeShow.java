@@ -42,8 +42,10 @@ public class BusAssignmentNoticeShow {
      */
     String noticeNo;
 
+
     /**
-     * 当前日期
+     * 签约日期
      */
-    String contractTime;
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
+    Date contractTime;
 }

@@ -102,6 +102,17 @@ public class BusAgentSalesContractShow {
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     Date contractDate;
 
+    /**
+     * 报备ID
+     */
+    Long reportId;
+
+    /**
+     * 委托商品价格共计
+     */
+    String allCommodityMoney;
+
+
     @JsonSerialize(using = ToStringSerializer.class)
     Long salesContractId;
     /**

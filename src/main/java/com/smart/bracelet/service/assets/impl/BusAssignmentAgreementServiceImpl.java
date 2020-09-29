@@ -91,13 +91,13 @@ public class BusAssignmentAgreementServiceImpl implements BusAssignmentAgreement
     public BusAssignmentAgreementShow initialize(Long propertId, Long comId) throws CustomerException {
         try {
             BusAssignmentAgreementShow agreementShow = busAssignmentAgreementDao.initialize(propertId);
-            Date contractTime = agreementShow.getContractTime();
             //编号为空为初始化
             if(StringUtils.isEmpty(agreementShow.getAssignmentAgreementNo())){
                 PubCompany pubCompany = pubCompanyDao.selectByPrimaryKey(comId);
                 String selectNo = busAssignmentAgreementDao.selectNo();
                 String repNo = RepNoUtils.createRepNo("ZC", pubCompany.getCompanyNameMax(), selectNo);
                 agreementShow.setAssignmentAgreementNo(repNo);
+                agreementShow.setContractTime(new SimpleDateFormat("yyyy-MM-dd").parse(new SimpleDateFormat("yyyy-MM-dd").format(new Date())));
             }
             agreementShow.setThisTime(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
             int debtYaer = Integer.parseInt(agreementShow.getDebtYaer());

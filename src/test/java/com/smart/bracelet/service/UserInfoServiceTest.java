@@ -1,13 +1,20 @@
 package com.smart.bracelet.service;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.smart.bracelet.dao.assets.BusAgentSalesContractDao;
+import com.smart.bracelet.dao.assets.BusAgentSalesContractModityDao;
 import com.smart.bracelet.dao.debt.BusCivilDao;
 import com.smart.bracelet.dao.debt.BusRelativePersonDao;
+import com.smart.bracelet.dao.debt.PubDebtDao;
 import com.smart.bracelet.model.po.debt.BusMediatePerson;
 import com.smart.bracelet.model.po.debt.BusRelativePerson;
 import com.smart.bracelet.model.vo.assets.BusAgentSalesContractShow;
+import com.smart.bracelet.model.vo.assets.CommModiey;
 import com.smart.bracelet.model.vo.debt.AuxiliaryDownload;
+import com.smart.bracelet.model.vo.debt.PlanServiceInfo;
 import com.smart.bracelet.service.debt.BusReportService;
 import com.smart.bracelet.utils.BigDecimalUtil;
 import com.smart.bracelet.utils.ConvertUpMoney;
@@ -28,24 +35,23 @@ import java.util.*;
 @RunWith(SpringRunner.class)
 public class UserInfoServiceTest {
 
+
+
+    @Autowired
+    private BusAgentSalesContractModityDao busAgentSalesContractModityDao;
     @Autowired
     private BusReportService busReportDao;
     @Autowired
     private BusAgentSalesContractDao busAgentSalesContractDao;
     @Autowired
     BusRelativePersonDao busRelativePersonDao;
-    //  String repNo = "TZ2020BBF000001";
     @Autowired
     BusCivilDao BusCivilDao;
+    @Autowired
+    private PubDebtDao pubDebtDao;
     @Test
-    public void testA() throws ParseException {
-        List<BusMediatePerson> mediatePeople = new ArrayList<>();
-        BusMediatePerson busMediatePerson = new BusMediatePerson();
-        busMediatePerson.setUserId(7994095474244599808L);
-        busMediatePerson.setCivilId(7996072317380321280L);
-        busMediatePerson.setMediatePersonId(123132123L);
-        mediatePeople.add(busMediatePerson);
-        int i = BusCivilDao.inertList(mediatePeople);
+    public void testA() {
+
     }
 
 }

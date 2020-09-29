@@ -180,6 +180,14 @@ public class BusCivil implements Serializable {
      * 用户Id
      */
     Long[] longs;
+    /**
+     * 凭证
+     */
+    String certificate;
 
+    /**
+     * 调节人员
+     */
+    String userName;
 
 }

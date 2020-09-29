@@ -500,6 +500,9 @@
             <if test="reportNo != null and reportNo!=''">
                 and br.report_no = #{reportNo,jdbcType=VARCHAR}
             </if>
+            <if test="reportId != null and reportId!=''">
+                and br.report_id = #{reportId,jdbcType=BIGINT}
+            </if>
             <if test="status != null and status!=''">
                 and br.status = #{status,jdbcType=VARCHAR}
             </if>

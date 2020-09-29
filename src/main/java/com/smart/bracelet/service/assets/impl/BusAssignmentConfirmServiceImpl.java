@@ -13,10 +13,12 @@ import com.smart.bracelet.model.vo.assets.BusAssignmentConfirmVo;
 import com.smart.bracelet.service.assets.BusAssignmentConfirmService;
 import com.smart.bracelet.utils.IdUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -87,16 +89,19 @@ public class BusAssignmentConfirmServiceImpl implements BusAssignmentConfirmServ
     }
 
     @Override
-    public BusAssignmentConfirmShow initialize(Long propertId) {
+    public BusAssignmentConfirmShow initialize(Long propertId) throws ParseException {
         BusAssignmentConfirmShow initialize = busAssignmentConfirmDao.initialize(propertId);
-        initialize.setConfirmNo(initialize.getAssignmentAgreementNo()+"(-1)");
+        if(StringUtils.isEmpty(initialize.getConfirmNo())){
+            initialize.setConfirmNo(initialize.getAssignmentAgreementNo()+"(-1)");
+            initialize.setContractTime(new SimpleDateFormat("yyyy-MM-dd").parse(new SimpleDateFormat("yyyy-MM-dd").format(new Date())));
+        }
+        initialize.setThisTime(new SimpleDateFormat("yyyy-MM-dd").parse(new SimpleDateFormat("yyyy-MM-dd").format(new Date())));
         List<String> authName = new ArrayList<>();
         List<BusGuarantee> busGuarantees = busGuaranteeDao.selectByPrimaryKey(initialize.getCivilId());
         for (BusGuarantee item: busGuarantees) {
             authName.add(item.getAuthname());
         }
         initialize.setAuthName(authName);
-        initialize.setThisTime(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
         return initialize;
     }
 

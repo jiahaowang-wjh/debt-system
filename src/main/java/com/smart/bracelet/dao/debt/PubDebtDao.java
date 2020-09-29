@@ -2,11 +2,7 @@ package com.smart.bracelet.dao.debt;
 
 import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.po.debt.PubDebt;
-import com.smart.bracelet.model.vo.debt.PlanServiceInfo;
-import com.smart.bracelet.model.vo.debt.PubDebtInfo;
-import com.smart.bracelet.model.vo.debt.PubDebtVo;
-import com.smart.bracelet.model.vo.debt.QueryDebtVo;
-import org.apache.commons.lang3.StringUtils;
+import com.smart.bracelet.model.vo.debt.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
@@ -27,7 +23,7 @@ public interface PubDebtDao {
 
     List<DateAndDays> selectDaysCount(String type,Long comId);
 
-    List<PubDebtInfo> selectDebtListShow(QueryDebtVo queryDebtVo);
+    List<PubDebtInfo> selectDebtListShow(DebtInfoQuery queryDebtVo);
 
     /**
      * 状态更新
@@ -69,5 +65,18 @@ public interface PubDebtDao {
      * @return
      */
     int updatePlanInfo(String matters, String serviceNo, Float servicePrincipal, Float serviceInterest, Date contractDate,Long debtId);
+
+
+    /**
+     * 查询策划方案服务协议最后一条编号
+     * @return
+     */
+    String selectServiiceNo();
+
+
+    /**
+     * 获取累计解债金额
+     */
+    Float selectAmountCumulative(Long relativePerId);
 
 }

@@ -1,5 +1,6 @@
 package com.smart.bracelet.model.vo.assets;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.util.Date;
@@ -14,7 +15,10 @@ public class BusCollectionLetterShow {
      * 债务人姓名
      */
     String personName;
-
+    /**
+     * 报备ID
+     */
+    Long reportId;
     /**
      *债权人姓名
      */
@@ -38,6 +42,12 @@ public class BusCollectionLetterShow {
      * 编号
      */
     String collectionLettertNo;
+
+    /**
+     *合同日期
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    Date contractDate;
 
 
 }

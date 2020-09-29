@@ -5,6 +5,7 @@ import com.smart.bracelet.model.po.assets.BusAssignmentNotice;
 import com.smart.bracelet.model.vo.assets.BusAssignmentNoticeShow;
 import com.smart.bracelet.model.vo.assets.BusAssignmentNoticeVo;
 
+import java.text.ParseException;
 import java.util.List;
 
 public interface BusAssignmentNoticeService {
@@ -24,7 +25,7 @@ public interface BusAssignmentNoticeService {
      * @param relativePerId
      * @return
      */
-    BusAssignmentNoticeShow initialize(Long relativePerId);
+    BusAssignmentNoticeShow initialize(Long relativePerId) throws ParseException;
 
     /**
      * 通过资产id查询资产债权转让通知书

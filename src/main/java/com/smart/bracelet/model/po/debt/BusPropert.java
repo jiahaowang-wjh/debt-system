@@ -72,4 +72,8 @@ public class BusPropert implements Serializable {
     @NotNull(message = "创建人不能为空")
     private Long createId;
 
+    /**
+     * 解债类型
+     */
+    String debtType;
 }

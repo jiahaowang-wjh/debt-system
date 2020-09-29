@@ -1,5 +1,7 @@
 package com.smart.bracelet.model.vo.debt;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -15,6 +17,7 @@ public class BusRelativePersonPrivateVo {
     /**
      * 相对人ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long relativePerId;
 
     /**

@@ -8,7 +8,7 @@
         <result column="obligor_seal" jdbcType="VARCHAR" property="obligorSeal"/>
         <result column="card_id" jdbcType="VARCHAR" property="cardId"/>
         <result column="obligor_sign" jdbcType="VARCHAR" property="obligorSign"/>
-        <result column="obligor_date" jdbcType="DATE" property="obligorDate"/>
+        <result column="contract_time" jdbcType="DATE" property="contractTime"/>
     </resultMap>
     <sql id="Base_Column_List">
     assignment_notice_id, propert_id, notice_no, obligor_seal, card_id, obligor_sign, 
@@ -26,11 +26,13 @@
         from bus_assignment_notice
     </select>
     <select id="initialize" resultType="com.smart.bracelet.model.vo.assets.BusAssignmentNoticeShow">
-        SELECT br.`data1` AS 'debtName',brp.`data1` AS 'personName',pd.`amount_this`,brp.`data2` AS 'idCard',baa.assignment_agreement_no  FROM bus_propert bp
+        SELECT br.`data1` AS 'debtName',brp.`data1` AS 'personName',pd.`amount_this`,brp.`data2` AS 'idCard',baa.assignment_agreement_no,ban.`contract_time`,ban.notice_no
+        FROM bus_propert bp
         LEFT JOIN bus_report br ON bp.`report_id` = br.`report_id`
         LEFT JOIN bus_relative_person brp ON bp.`relative_per_id` = brp.`relative_per_id`
         LEFT JOIN pub_debt pd ON bp.`debt_id` = pd.`debt_id`
         LEFT JOIN bus_assignment_agreement baa ON baa.`propert_id` = bp.`propert_id`
+        LEFT JOIN bus_assignment_notice ban ON ban.`propert_id` = bp.`propert_id`
         where bp.propert_id = #{propertId}
     </select>
     <select id="selectByPropertId" resultType="com.smart.bracelet.model.po.assets.BusAssignmentNotice"
@@ -47,14 +49,6 @@
     delete from bus_assignment_notice
     where assignment_notice_id = #{assignmentNoticeId,jdbcType=BIGINT}
   </delete>
-    <insert id="insert" parameterType="com.smart.bracelet.model.po.assets.BusAssignmentNotice">
-    insert into bus_assignment_notice (assignment_notice_id, propert_id, notice_no, 
-      obligor_seal, card_id, obligor_sign, 
-      obligor_date)
-    values (#{assignmentNoticeId,jdbcType=BIGINT}, #{propertId,jdbcType=BIGINT}, #{noticeNo,jdbcType=VARCHAR}, 
-      #{obligorSeal,jdbcType=VARCHAR}, #{cardId,jdbcType=VARCHAR}, #{obligorSign,jdbcType=VARCHAR}, 
-      #{obligorDate,jdbcType=DATE})
-  </insert>
     <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.assets.BusAssignmentNotice">
         insert into bus_assignment_notice
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -76,8 +70,8 @@
             <if test="obligorSign != null">
                 obligor_sign,
             </if>
-            <if test="obligorDate != null">
-                obligor_date,
+            <if test="contractTime != null">
+                contract_time,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -99,8 +93,8 @@
             <if test="obligorSign != null">
                 #{obligorSign,jdbcType=VARCHAR},
             </if>
-            <if test="obligorDate != null">
-                #{obligorDate,jdbcType=DATE},
+            <if test="contractTime != null">
+                #{contractTime,jdbcType=DATE},
             </if>
         </trim>
     </insert>
@@ -122,20 +116,11 @@
             <if test="obligorSign != null">
                 obligor_sign = #{obligorSign,jdbcType=VARCHAR},
             </if>
-            <if test="obligorDate != null">
-                obligor_date = #{obligorDate,jdbcType=DATE},
+            <if test="contractTime != null">
+                contract_time = #{contractTime,jdbcType=DATE},
             </if>
         </set>
         where assignment_notice_id = #{assignmentNoticeId,jdbcType=BIGINT}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.smart.bracelet.model.po.assets.BusAssignmentNotice">
-    update bus_assignment_notice
-    set propert_id = #{propertId,jdbcType=BIGINT},
-      notice_no = #{noticeNo,jdbcType=VARCHAR},
-      obligor_seal = #{obligorSeal,jdbcType=VARCHAR},
-      card_id = #{cardId,jdbcType=VARCHAR},
-      obligor_sign = #{obligorSign,jdbcType=VARCHAR},
-      obligor_date = #{obligorDate,jdbcType=DATE}
-    where assignment_notice_id = #{assignmentNoticeId,jdbcType=BIGINT}
-  </update>
+
 </mapper>

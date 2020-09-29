@@ -24,5 +24,23 @@ public interface BusAgentSalesContractModityDao {
      */
     List<BusAgentSalesContractModity> selectBySalesContractId(Long salesContractId);
 
+    /**
+     * 通过资产委线上托代理销售合同id查询
+     * @param protocolId
+     * @return
+     */
+    List<BusAgentSalesContractModity> selectBySalesProtocolId(Long protocolId);
+
+    /**
+     * 获取最后一位编号
+     * @return
+     */
     String selectNo();
+
+    /**
+     * 查询商品内容
+     * @return
+     */
+    List<String> queryComm();
+
 }

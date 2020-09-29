@@ -43,13 +43,6 @@ public class BusAgentSalesContract implements Serializable {
     @NotNull(message = "合同日期不能为空")
     Date contractDate;
 
-
-
-
-
-
-
-
     /**
      * 代销时间开始
      */

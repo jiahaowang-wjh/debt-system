@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -61,7 +62,7 @@ public class BusCollectionLetterController {
      * @return
      */
     @RequestMapping("/initialize")
-    public Result<BusCollectionLetterShow> initialize(@NotNull(message = "资产ID不能为空") Long propertId,@NotNull(message = "公司Id不能空") Long comId) {
+    public Result<BusCollectionLetterShow> initialize(@NotNull(message = "资产ID不能为空") Long propertId,@NotNull(message = "公司Id不能空") Long comId) throws ParseException {
         BusCollectionLetterShow initialize = busCollectionLetterService.initialize(propertId,comId);
         return Result.success(initialize);
     }

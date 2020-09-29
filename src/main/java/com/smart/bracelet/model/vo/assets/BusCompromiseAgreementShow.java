@@ -60,6 +60,16 @@ public class BusCompromiseAgreementShow {
      * 签约日期
      */
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
-    Date compromiseDate;
+    Date contractDate;
+
+    /**
+     * 选择偿还方式
+     */
+    String partybMode;
+
+    /**
+     * 报备ID
+     */
+    Long reportId;
 
 }

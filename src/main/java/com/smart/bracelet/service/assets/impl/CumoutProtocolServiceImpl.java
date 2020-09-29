@@ -58,11 +58,10 @@ public class CumoutProtocolServiceImpl implements CumoutProtocolService {
                 modity.setModityName(item.getModityName());
                 modity.setModityPlace(item.getModityPlace());
                 modity.setModitySpecificat(item.getModitySpecificat());
-                modity.setPartyaTime(item.getPartyaTime());
                 modity.setPartyaSeal(item.getPartyaSeal());
                 modity.setPartybSeal(item.getPartybSeal());
                 modity.setPartybTime(item.getPartybTime());
-                modity.setMoneyNum1(BigDecimalUtil.mul(item.getModityPlace(),item.getPartybSeal().toString(),2));
+                modity.setMoneyNum1(item.getMoneyNum1());
                 list.add(modity);
             }
             record.setProtocolId(protocolId);
@@ -93,6 +92,14 @@ public class CumoutProtocolServiceImpl implements CumoutProtocolService {
         try {
             PubCompany a = pubCompanyDao.selectByPrimaryKey(comId);
             CommissionOnLine initialize = cumoutProtocolDao.initialize(propertId);
+            List<BusAgentSalesContractModity> list = busAgentSalesContractModityDao.selectBySalesProtocolId(initialize.getProtocolId());
+            String money = "1";
+            for (BusAgentSalesContractModity item: list) {
+                money = BigDecimalUtil.add(item.getMoneyNum1(),money,2);
+            }
+            money = BigDecimalUtil.sub(money,"1",2);
+            initialize.setAllCommodityMoney(money);
+            initialize.setBusAgentSalesContractModities(list);
             Date createTime = initialize.getCreateTime();
             String format1 = simpleDateFormat.format(createTime);
             Date parse = simpleDateFormat.parse(format1);
@@ -107,16 +114,17 @@ public class CumoutProtocolServiceImpl implements CumoutProtocolService {
                     initialize.setIntegral(div1);
                     break;
                 case "2":
-                    String div2 = BigDecimalUtil.div(initialize.getAmountThis().toString(), "12", 0);
+                    String div2 = BigDecimalUtil.div(initialize.getAmountThis().toString(), "24", 0);
                     initialize.setIntegral(div2);
                     break;
                 case "3":
-                    String div3 = BigDecimalUtil.div(initialize.getAmountThis().toString(), "12", 0);
+                    String div3 = BigDecimalUtil.div(initialize.getAmountThis().toString(), "36", 0);
                     initialize.setIntegral(div3);
                     break;
             }
             if (StringUtils.isEmpty(initialize.getProtocolNo())) {
                 initialize.setProtocolNo(RepNoUtils.createRepNo("SW", a.getCompanyNameMax(), cumoutProtocolDao.selectNo()));
+                initialize.setContractDate(new SimpleDateFormat("yyyy-MM-dd").parse(new SimpleDateFormat("yyyy-MM-dd").format(new Date())));
             }
             initialize.setEndTime(format);
             if (initialize.getReportPropert().equals("1")) {

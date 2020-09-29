@@ -36,7 +36,7 @@ public class CumoutProtocol implements Serializable {
      */
     @NotNull(message = "签约时间不能为空")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date protocolDate;
+    private Date contractDate;
 
     BusAgentSalesContractModity[] busAgentSalesContractModity;
 }

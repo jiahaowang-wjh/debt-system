@@ -41,4 +41,9 @@ public interface BusCompromiseAgreementService {
      * @return
      */
     Manner1AndManner2 selectByPropertId(Long propertId) throws CustomerException;
+
+    /**
+     * 更新乙方选择偿还债务方式
+     */
+    int updatePartybMode(String partybMode,Long propertId) throws CustomerException;
 }
