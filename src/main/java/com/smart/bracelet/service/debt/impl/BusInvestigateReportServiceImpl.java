@@ -59,4 +59,9 @@ public class BusInvestigateReportServiceImpl implements BusInvestigateReportServ
     public int updateByPrimaryKey(BusInvestigateReport record) {
         return 0;
     }
+
+    @Override
+    public BusInvestigateReport selectByDebtId(Long debtId) {
+        return busInvestigateReportDao.selectByDebtId(debtId);
+    }
 }

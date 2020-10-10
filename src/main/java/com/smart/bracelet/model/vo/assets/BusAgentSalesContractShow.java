@@ -49,7 +49,6 @@ public class BusAgentSalesContractShow {
     /**
      * 解债年份
      */
-
     String debtYaer;
 
     /**

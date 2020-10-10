@@ -99,5 +99,5 @@ public interface BusCivilDao {
      * @param civId
      * @return
      */
-    String selectUser(Long civId);
+     List<String> selectUser(Long civId);
 }

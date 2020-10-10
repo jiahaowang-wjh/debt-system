@@ -21,8 +21,10 @@ public enum DocumentPath {
     WORD_TEMPLATE_LETTER("催款函 （资产系统）","D:/doc/","6.催款函 （资产系统）.docx"),
     WORD_TEMPLATE_CONSIG("委托代理销售合同1 （资产系统）","D:/doc/","7.委托代理销售合同1 （资产系统）.docx"),
     WORD_TEMPLATE_RECILIATION("和解协议 （资产系统）","D:/doc/","9.和解协议 （资产系统）.docx"),
-    WORD_TEMPLATE_ONLINECONSIG("委托线上代理销售合同(1)","D:/doc/","14.委托线上代理销售合同(1).docx"),
-
+    WORD_TEMPLATE_ONLINECONSIG("委托线上代理销售合同","D:/doc/","14.委托线上代理销售合同.docx"),
+    WORD_TEMPLATE_REPORT("收据（报备费）","D:/doc/","收据（报备费）.docx"),
+    WORD_TEMPLATE_ADVISORY("收据（咨询服务费）","D:/doc/","收据（咨询服务费）.docx"),
+    WORD_TEMPLATE_PAYMENT("收据（预付款）","D:/doc/","收据（预付款）.docx"),
 
     /**
      * pdf保存
@@ -36,7 +38,10 @@ public enum DocumentPath {
     PDF_SAVE_LETTER("催款函 （资产系统）","D:/doc/",""),
     PDF_SAVE_CONSIG("委托代理销售合同1 （资产系统）","D:/doc/",""),
     PDF_SAVE_RECILIATION("和解协议 （资产系统）","D:/doc/",""),
-    PDF_SAVE_ONLINECONSIG("委托线上代理销售合同(1)","D:/doc/",""),
+    PDF_SAVE_ONLINECONSIG("委托线上代理销售合同","D:/doc/",""),
+    PDF_SAVE_REPORT("收据（报备费）","D:/doc/",""),
+    PDF_SAVE_ADVISORY("收据（咨询服务费）","D:/doc/",""),
+    PDF_SAVE_PAYMENT("收据（预付款）","D:/doc/",""),
     ;
 
 

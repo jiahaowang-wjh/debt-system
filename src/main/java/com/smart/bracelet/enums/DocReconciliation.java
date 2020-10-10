@@ -9,16 +9,16 @@ public enum  DocReconciliation {
     /**
      * 替换字段
      */
-    REC_NO("JLS+战略合作公司名称+序号"),
-    PERSON_NAME("债务人姓名"),
-    DEBT_NAME("债权人姓名"),
-    THIS_MONEY("解债金额小写"),
-    XUANZE("手动选择"),
-    AVG("解债每期货款"),
-    DEBT_DAY("解债日期中日的数字"),
-    CONT_YAER("yyyy"),
-    CONT_MOON("mm"),
-    CONT_DAY("dd"),
+    REC_NO("agreementNumber"),
+    PERSON_NAME("personName"),
+    DEBT_NAME("debtName"),
+    THIS_MONEY("amount"),
+    XUANZE("situation"),
+    AVG("average"),
+    DEBT_DAY("days"),
+    CONT_YAER("yyy1"),
+    CONT_MOON("M1"),
+    CONT_DAY("d1"),
     ;
 
 

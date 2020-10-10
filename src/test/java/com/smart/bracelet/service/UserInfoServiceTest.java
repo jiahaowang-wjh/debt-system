@@ -15,6 +15,8 @@ import com.smart.bracelet.model.vo.assets.BusAgentSalesContractShow;
 import com.smart.bracelet.model.vo.assets.CommModiey;
 import com.smart.bracelet.model.vo.debt.AuxiliaryDownload;
 import com.smart.bracelet.model.vo.debt.PlanServiceInfo;
+import com.smart.bracelet.model.vo.debt.ReportFee;
+import com.smart.bracelet.service.debt.BusPayDetailService;
 import com.smart.bracelet.service.debt.BusReportService;
 import com.smart.bracelet.utils.BigDecimalUtil;
 import com.smart.bracelet.utils.ConvertUpMoney;
@@ -36,7 +38,6 @@ import java.util.*;
 public class UserInfoServiceTest {
 
 
-
     @Autowired
     private BusAgentSalesContractModityDao busAgentSalesContractModityDao;
     @Autowired
@@ -49,9 +50,13 @@ public class UserInfoServiceTest {
     BusCivilDao BusCivilDao;
     @Autowired
     private PubDebtDao pubDebtDao;
-    @Test
-    public void testA() {
+    @Autowired
+    BusPayDetailService busPayDetailService;
 
+    @Test
+    public void testA() throws ParseException {
+        ReportFee reportFee = busPayDetailService.selectByRepId(7997288195058655232L, "1");
+        System.out.println(reportFee);
     }
 
 }

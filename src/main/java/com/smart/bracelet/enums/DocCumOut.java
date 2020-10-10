@@ -8,12 +8,12 @@ public enum DocCumOut {
     /**
      * 替换字段
      */
-    DEBT_NO("TZ+战略合作公司名称+序号"),
-    DEBT_NAME("报备人姓名NAME"),
-    DEBT_CARD("报备人身份证号码"),
-    DEBT_YEAR("yyyy"),
-    DEBT_MOON("mm"),
-    DEBT_DAY("dd")
+    DEBT_NO("agreementNumber"),
+    DEBT_NAME("partyA"),
+    DEBT_CARD("reporterIDCard"),
+    DEBT_YEAR("yyy1"),
+    DEBT_MOON("M1"),
+    DEBT_DAY("d1")
     ;
 
 

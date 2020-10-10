@@ -18,7 +18,7 @@
     </select>
     <select id="initialize" resultType="com.smart.bracelet.model.vo.assets.CommissionOnLine"
             parameterType="java.lang.Long">
-    SELECT cp.contract_date,cp.protocol_id,cp.protocol_no,br.`report_propert`,br.`data1` AS 'debtName',br.`data5` AS 'priAdd',br.`data7` AS 'corBankAdd',br.`data2` AS 'debtIdCard',br.`data3` AS 'priPhone',br.`data9` AS 'corBankPhone',
+    SELECT br.report_id,cp.contract_date,cp.protocol_id,cp.protocol_no,br.`report_propert`,br.`data1` AS 'debtName',br.`data5` AS 'priAdd',br.`data7` AS 'corBankAdd',br.`data2` AS 'debtIdCard',br.`data3` AS 'priPhone',br.`data9` AS 'corBankPhone',
         pd.`amount_this`,pd.`create_time`,pd.debt_yaer
     FROM bus_propert bp
     LEFT JOIN `cumout_protocol` cp ON bp.`propert_id` = cp.`propert_id`

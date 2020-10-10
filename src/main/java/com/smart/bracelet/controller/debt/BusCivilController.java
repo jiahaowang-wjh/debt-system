@@ -1,23 +1,17 @@
 package com.smart.bracelet.controller.debt;
 
 
-import cn.hutool.json.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.google.common.reflect.TypeToken;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.debt.BusCivil;
-import com.smart.bracelet.model.po.debt.BusGuarantee;
 import com.smart.bracelet.model.po.debt.CivilShow;
 import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.vo.debt.*;
 import com.smart.bracelet.service.debt.BusCivilService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -66,8 +60,8 @@ public class BusCivilController {
      * @return
      */
     @RequestMapping("/selectDaysCount")
-    public Result<List<DateAndDays>> selectDaysCount(@NotBlank(message = "公司类型不能为空") String type,@NotNull(message = "公司Id不能为空") Long comId) {
-        List<DateAndDays> dateAndDays = busCivilService.selectDaysCount(type,comId);
+    public Result<List<DateAndDays>> selectDaysCount(@NotBlank(message = "公司类型不能为空") String type, @NotNull(message = "公司Id不能为空") Long comId) {
+        List<DateAndDays> dateAndDays = busCivilService.selectDaysCount(type, comId);
         return Result.success(dateAndDays);
     }
 
@@ -104,13 +98,18 @@ public class BusCivilController {
     public Result<PageInfo> selectBusList(@NotNull(message = "页码不能为空") Integer pageNum,
                                           @NotNull(message = "当前显示条数不能为空") Integer pageSize,
                                           @Valid DebtInfoQuery debtInfoQuery) {
-        PageHelper.startPage(pageNum, pageSize);
-        if (!StringUtils.isBlank(debtInfoQuery.getBeginDate())) {
+
+        if (!StringUtils.isBlank(debtInfoQuery.getBeginDate()) && !debtInfoQuery.getBeginDate().equals("null")) {
             debtInfoQuery.setBeginDate(debtInfoQuery.getBeginDate() + " 00:00:00");
+        } else {
+            debtInfoQuery.setBeginDate(null);
         }
-        if (!StringUtils.isBlank(debtInfoQuery.getEndDate())) {
+        if (!StringUtils.isBlank(debtInfoQuery.getEndDate()) && !debtInfoQuery.getEndDate().equals("null")) {
             debtInfoQuery.setEndDate(debtInfoQuery.getEndDate() + " 23:59:00");
+        } else {
+            debtInfoQuery.setEndDate(null);
         }
+        PageHelper.startPage(pageNum, pageSize);
         List<BusCivilInfo> busCivilInfos = busCivilService.selectBusList(debtInfoQuery);
         PageInfo<BusCivilInfo> busCivilInfoPageInfo = new PageInfo<>(busCivilInfos);
         return Result.success(busCivilInfoPageInfo);
@@ -142,8 +141,8 @@ public class BusCivilController {
      * 尽调协议初始化
      */
     @RequestMapping("/initialize")
-    public Result<AgreementInfoShow> initialize(@NotNull(message = "报备ID不能为空") Long reportId,@NotNull(message = "公司ID不能为空") Long comId) throws ParseException {
-        AgreementInfoShow initialize = busCivilService.initialize(reportId,comId);
+    public Result<AgreementInfoShow> initialize(@NotNull(message = "报备ID不能为空") Long reportId, @NotNull(message = "公司ID不能为空") Long comId) throws ParseException {
+        AgreementInfoShow initialize = busCivilService.initialize(reportId, comId);
         return Result.success(initialize);
     }
 
@@ -168,8 +167,6 @@ public class BusCivilController {
         List<CivilAndPseronInfo> civilAndPseronInfos = busCivilService.selectCivi(reportId);
         return Result.success(civilAndPseronInfos);
     }
-
-
 
 
 }

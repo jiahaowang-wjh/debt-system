@@ -34,7 +34,7 @@ public class PubDoc implements Serializable {
     @NotBlank(message = "文档路径不能为空")
     private String docPath;
 
-    /**
+     /**
      * 合同编号
      */
     String contract;
@@ -65,5 +65,8 @@ public class PubDoc implements Serializable {
     @JsonSerialize(using = ToStringSerializer.class)
     @NotNull(message = "公司ID不能为空")
     private Long comId;
-
+    /**
+     * 文档类型
+     */
+    String docType;
 }

@@ -223,17 +223,33 @@ public class BusCompromiseAgreementServiceImpl implements BusCompromiseAgreement
 
     @Override
     public BusCompromiseAgreementShow initialize(Long propertId,Long comId) throws ParseException {
-
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Formula formula = new Formula();
         BusCompromiseAgreementShow initialize = busCompromiseAgreementDao.initialize(propertId);
+        if(initialize.getDebtReportPropert().equals("1")){
+            initialize.setCorBackDebtPhone(null);
+        }else{
+            initialize.setPriDebtPhone(null);
+        }
+        if(initialize.getPersonReportPropert().equals("1")){
+            initialize.setPersonCorPhone(null);
+        }else{
+            initialize.setPersonPriPhone(null);
+        }
         if(StringUtils.isEmpty(initialize.getCompromiseAgreementNo())){
             PubCompany pubCompany = pubCompanyDao.selectByPrimaryKey(comId);
             String selectNo = busCompromiseAgreementDao.selectNo();
             initialize.setCompromiseAgreementNo(RepNoUtils.createRepNo("ZC", pubCompany.getCompanyNameMax(), selectNo));
             initialize.setContractDate(new SimpleDateFormat("yyyy-MM-dd").parse(new SimpleDateFormat("yyyy-MM-dd").format(new Date())));
         }
-        FormulaVo calculation = formula.Calculation(initialize.getDebtType(), Integer.parseInt(initialize.getDebtYaer()), initialize.getAmountThis());
+        String debtType = initialize.getDebtType();
+        if(debtType.equals("2")){
+            debtType = "1";
+        }
+        if(debtType.equals("3")){
+            debtType = "2";
+        }
+        FormulaVo calculation = formula.Calculation(debtType, Integer.parseInt(initialize.getDebtYaer()), initialize.getAmountThis());
         initialize.setAverage(calculation.getAverage());
         initialize.setNumber(calculation.getDeadline());
         String format = simpleDateFormat.format(initialize.getCreateTime());

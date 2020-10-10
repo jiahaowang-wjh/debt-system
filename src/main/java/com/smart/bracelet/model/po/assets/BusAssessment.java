@@ -85,5 +85,9 @@ public class BusAssessment implements Serializable {
      */
     private Date createTime;
 
+    /**
+     * 凭证说明
+     */
+    String credentialsText;
 
 }

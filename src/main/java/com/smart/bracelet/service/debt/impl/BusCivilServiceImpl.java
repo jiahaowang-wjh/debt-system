@@ -10,8 +10,6 @@ import com.smart.bracelet.model.po.debt.*;
 import com.smart.bracelet.model.po.user.PubCompany;
 import com.smart.bracelet.model.vo.debt.*;
 import com.smart.bracelet.service.debt.BusCivilService;
-import com.smart.bracelet.utils.BigDecimalUtil;
-import com.smart.bracelet.utils.ConvertUpMoney;
 import com.smart.bracelet.utils.IdUtils;
 import com.smart.bracelet.utils.RepNoUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -114,7 +112,8 @@ public class BusCivilServiceImpl implements BusCivilService {
     @Transactional(noRollbackFor = Exception.class)
     public BusCivil selectByPrimaryKey(Long civilId) {
         BusCivil busCivil = busCivilDao.selectByPrimaryKey(civilId);
-        busCivil.setUserName(busCivilDao.selectUser(civilId));
+        List<String> stringList = busCivilDao.selectUser(civilId);
+        busCivil.setUserName(stringList);
         return busCivil;
     }
 

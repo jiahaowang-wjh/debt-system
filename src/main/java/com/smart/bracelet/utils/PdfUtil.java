@@ -95,11 +95,11 @@ public class PdfUtil {
                         for (int j = 0; j < cellParagraphList.size(); j++) {
                             runs = cellParagraphList.get(j).getRuns();
                             for (XWPFRun run : runs) {
-                                //log.info("runString:{}", run.toString());
+                               // log.info("runString:{}", run.toString());
                                 entryIterator = map.entrySet().iterator();
                                 while (entryIterator.hasNext()) {
                                     entry = entryIterator.next();
-                                    if (entry.getKey().equals(run.toString())) {
+                                    if (entry.getKey().equals(run.toString().trim())) {
                                         //替换模板内容(从文本开始处填充内容即可替换原有文本)
                                         run.setText(entry.getValue(), 0);
                                     }

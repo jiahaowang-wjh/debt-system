@@ -171,7 +171,14 @@
     from bus_investigate_report
     where report_id = #{reportId,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <select id="selectByDebtId" resultType="com.smart.bracelet.model.po.debt.BusInvestigateReport"
+            parameterType="java.lang.Long">
+      select
+      <include refid="Base_Column_List" />
+      from bus_investigate_report
+      where debt_id = #{debtId,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from bus_investigate_report
     where report_id = #{reportId,jdbcType=BIGINT}
   </delete>

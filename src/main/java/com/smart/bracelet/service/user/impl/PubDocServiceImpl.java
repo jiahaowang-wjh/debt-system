@@ -96,7 +96,7 @@ public class PubDocServiceImpl implements PubDocService {
      * @return
      */
     @Override
-    public List<PubDoc> queryDoc() {
-        return pubDocDao.queryDoc();
+    public List<PubDoc> queryDoc(Long reportId,String docType) {
+        return pubDocDao.queryDoc(reportId,docType);
     }
 }

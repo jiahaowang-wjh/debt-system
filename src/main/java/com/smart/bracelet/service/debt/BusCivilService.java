@@ -2,12 +2,10 @@ package com.smart.bracelet.service.debt;
 
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.debt.BusCivil;
-import com.smart.bracelet.model.po.debt.BusRelativePerson;
 import com.smart.bracelet.model.po.debt.CivilShow;
 import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.vo.debt.*;
 
-import java.security.cert.CertStoreException;
 import java.text.ParseException;
 import java.util.List;
 

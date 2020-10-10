@@ -38,9 +38,28 @@ public class BusAssignmentAgreementShow {
      */
     String corBankPhone;
     /**
+     * 债务人性质
+     */
+    String reportPriPropert;
+    /**
      * 债务人姓名
      */
     String personName;
+
+    /**
+     * 债务人身份证号
+     */
+    String personCard;
+
+    /**
+     * 债务人手机号私人
+     */
+    String personPriPhone;
+    /**
+     * 债务人手机号企业或银行
+     */
+    String personCorBackPhone;
+
     /**
      * 借款发生时间务
      */

@@ -15,7 +15,11 @@ public class AssetsDebtBank {
      */
     @JsonSerialize(using = ToStringSerializer.class)
     Long relativePerId;
-
+    /**
+     * 报备ID
+     */
+    @JsonSerialize(using = ToStringSerializer.class)
+    Long reportId;
     /**
      * 债务人姓名
      */
@@ -54,7 +58,36 @@ public class AssetsDebtBank {
     Date createTime;
 
     /**
+     * 解债类型
+     */
+    String debtType;
+
+    /**
      * 状态
      */
     String status;
+
+    /**
+     * 本次解债金额
+     */
+    Float amountThis;
+
+    /**
+     * 解债年限
+     */
+    String debtYaer;
+
+    /**
+     * 货款缴费金额
+     */
+    String huoKuanMoney;
+
+    /**
+     * 相对人类型
+     */
+    String reportType;
+
+    String debtData1;
+
+    String personData1;
 }

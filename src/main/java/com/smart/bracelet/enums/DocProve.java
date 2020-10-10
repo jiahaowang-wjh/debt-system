@@ -8,19 +8,19 @@ public enum DocProve {
     /**
      * 替换字段
      */
-    CONFIRM_NO("债权转让协议编号-（3）"),
-    PERSON_NAME("债务人姓名"),
-    DEBT_NAME("债权人姓名"),
-    ASSAG_NO("assignmentAgreementNo"),
-    DEBT_YAER("DebtYaer"),
-    DEBT_MOON("DebtMoon"),
-    DEBT_DAY("DebtDay"),
+    CONFIRM_NO("agreementNumber"),
+    PERSON_NAME("personName"),
+    DEBT_NAME("debtName"),
+    ASSAG_NO("agreementNumber2"),
+    DEBT_YAER("yyy1"),
+    DEBT_MOON("M1"),
+    DEBT_DAY("d1"),
     THIS_MONEY("amountThis"),
-    SERVICE_BENJIN("引用策划方案服务协议本金小写"),
-    SERVICE_LIXI("引用策划方案服务协议利息小写"),
-    CONT_YAER("yyyy"),
-    CONT_MOON("mm"),
-    CONT_DAY("dd")
+    SERVICE_BENJIN("principal"),
+    SERVICE_LIXI("interest"),
+    CONT_YAER("yyy2"),
+    CONT_MOON("M2"),
+    CONT_DAY("d2")
     ;
     private String name;
 

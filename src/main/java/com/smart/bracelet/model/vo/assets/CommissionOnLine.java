@@ -12,6 +12,7 @@ import java.util.List;
 @Data
 public class CommissionOnLine {
 
+    Long reportId;
     /**
      * 性质
      */
@@ -45,7 +46,10 @@ public class CommissionOnLine {
      *解债金额
      */
     Float amountThis;
-
+    /**
+     *解债金额(大写)
+     */
+    String amountThisMax;
     /**
      *解债开始日期
      */

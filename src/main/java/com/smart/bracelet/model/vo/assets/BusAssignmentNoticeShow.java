@@ -11,6 +11,7 @@ import java.util.Date;
 @Data
 public class BusAssignmentNoticeShow {
 
+    Long reportId;
     /**
      * 债务人姓名
      */

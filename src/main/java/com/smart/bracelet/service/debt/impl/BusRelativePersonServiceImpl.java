@@ -444,18 +444,17 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
     public List<BusRelativePersonPrivateVo> selectByreportId(Long reportId) throws CustomerException {
         try {
             List<BusRelativePerson> busRelativePeople = busRelativePersonDao.selectByreportId(reportId);
-
             List<BusRelativePersonPrivateVo> listVos = new ArrayList<>();
             for (BusRelativePerson item : busRelativePeople) {
-                //判断是否符合民事调解关系
-                Boolean verification = busCivilService.verification(item.getRelativePerId());
-                if (verification) {
-                    BusRelativePerson busRelativePerson = busRelativePersonDao.selectByPrimaryKey(item.getRelativePerId());
-                    BusRelativePersonPrivateVo privateVo = new BusRelativePersonPrivateVo();
-                    if(busRelativePerson.getStatus().equals("0")){
-                        privateVo.setPersonalName(busRelativePerson.getData1());
-                        privateVo.setRelativePerId(busRelativePerson.getRelativePerId());
-                        if(!privateVo.getReportType().equals("2")){
+                if (!item.getReportType().equals("1")) {
+                    //判断是否符合民事调解关系
+                    Boolean verification = busCivilService.verification(item.getRelativePerId());
+                    if (verification) {
+                        BusRelativePerson busRelativePerson = busRelativePersonDao.selectByPrimaryKey(item.getRelativePerId());
+                        BusRelativePersonPrivateVo privateVo = new BusRelativePersonPrivateVo();
+                        if (busRelativePerson.getStatus().equals("0")) {
+                            privateVo.setPersonalName(busRelativePerson.getData1());
+                            privateVo.setRelativePerId(busRelativePerson.getRelativePerId());
                             listVos.add(privateVo);
                         }
                     }
@@ -486,15 +485,15 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
             ReportAndRelativePerson reportAndRelativePerson = busRelativePersonDao.selectByRelativePerId(relativePerId);
             ReportAndRelativePersonShow show = new ReportAndRelativePersonShow();
             Float aFloat = pubDebtDao.selectAmountCumulative(relativePerId);
-            if(aFloat==null){
+            if (aFloat == null) {
                 show.setAmountCumulative("0.00");
-            }else{
-                show.setAmountCumulative(String.format("%.2f",aFloat));
+            } else {
+                show.setAmountCumulative(String.format("%.2f", aFloat));
             }
-            if(reportAndRelativePerson.getAmountTotal()==null){
+            if (reportAndRelativePerson.getAmountTotal() == null) {
                 show.setAmountTotal("0.00");
-            }else {
-                show.setAmountTotal(String.format("%.2f",reportAndRelativePerson.getAmountTotal()));
+            } else {
+                show.setAmountTotal(String.format("%.2f", reportAndRelativePerson.getAmountTotal()));
             }
             show.setReportId(reportAndRelativePerson.getReportId());
             show.setRelativeperId(reportAndRelativePerson.getRelativeperId());
@@ -571,10 +570,10 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
     public int updateStatus(Long relativePerId, String status) throws CustomerException {
         try {
             int i = busRelativePersonDao.updateStatus(relativePerId, status);
-            log.info("更新相对人状态成功，受影响行数：{}",i);
+            log.info("更新相对人状态成功，受影响行数：{}", i);
             return i;
         } catch (Exception e) {
-            log.error("更新相对人状态失败，异常信息：{}",e.getMessage());
+            log.error("更新相对人状态失败，异常信息：{}", e.getMessage());
             throw new CustomerException("更新相对人状态失败");
         }
     }

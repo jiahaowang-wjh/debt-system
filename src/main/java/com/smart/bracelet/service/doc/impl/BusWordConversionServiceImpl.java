@@ -6,17 +6,24 @@ import com.smart.bracelet.dao.user.PubDocDao;
 import com.smart.bracelet.enums.*;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.assets.BusAgentSalesContract;
+import com.smart.bracelet.model.po.assets.BusAgentSalesContractModity;
 import com.smart.bracelet.model.po.assets.BusCollectionLetter;
+import com.smart.bracelet.model.po.debt.BusPayDetail;
+import com.smart.bracelet.model.po.debt.BusRelativePerson;
 import com.smart.bracelet.model.po.doc.BusElectronSeal;
 import com.smart.bracelet.model.po.user.PubDoc;
 import com.smart.bracelet.model.vo.assets.*;
 import com.smart.bracelet.model.vo.debt.AgreementInfoShow;
 import com.smart.bracelet.model.vo.debt.PlanServiceInfo;
+import com.smart.bracelet.model.vo.debt.ReportFee;
 import com.smart.bracelet.service.assets.*;
 import com.smart.bracelet.service.debt.BusCivilService;
+import com.smart.bracelet.service.debt.BusPayDetailService;
+import com.smart.bracelet.service.debt.BusRelativePersonService;
 import com.smart.bracelet.service.debt.PubDebtService;
 import com.smart.bracelet.service.doc.BusWordConversionService;
 import com.smart.bracelet.service.user.PubDocService;
+import com.smart.bracelet.utils.BigDecimalUtil;
 import com.smart.bracelet.utils.ConvertUpMoney;
 import com.smart.bracelet.utils.IdUtils;
 
@@ -77,6 +84,9 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
     private CumoutProtocolService cumoutProtocolService;
 
     @Autowired
+    private BusPayDetailService busPayDetailService;
+
+    @Autowired
     private PubDocDao pubDocDao;
 
     /**
@@ -111,6 +121,7 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
             pubDoc.setDocName(DocumentPath.PDF_SAVE_CUMOUT.getName());
             pubDoc.setDocPath(readPath);
             pubDoc.setReportId(initialize.getReportId());
+            pubDoc.setDocType("1");
             pubDocDao.insertSelective(pubDoc);
             //创建电子章
             BusElectronSeal busElectronSeal = new BusElectronSeal();
@@ -130,6 +141,7 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
             throw new CustomerException("盖章失败,异常信息"+e.getMessage());
         }
     }
+
     /**
      * 填充Word并保存为指定格式策划服务协议
      *
@@ -172,9 +184,10 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         long nextId = IdUtils.nextId();
         pubDoc.setDocId(nextId);
         pubDoc.setContract(planServiceInfo.getServiceNo());
-        pubDoc.setDocName(DocumentPath.PDF_SAVE_CUMOUT.getName());
+        pubDoc.setDocName(DocumentPath.PDF_SAVE.getName());
         pubDoc.setDocPath(readPath);
         pubDoc.setReportId(planServiceInfo.getReportId());
+        pubDoc.setDocType("1");
         pubDocDao.insertSelective(pubDoc);
         //创建电子章
         BusElectronSeal busElectronSeal = new BusElectronSeal();
@@ -205,6 +218,7 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         map.put(DocEransfer.ASSNO.getName(), initialize.getAssignmentAgreementNo());
         map.put(DocEransfer.DEBT_NAME.getName(), initialize.getDebtName());
         map.put(DocEransfer.DEBT_IDCARD.getName(), initialize.getIdCard());
+        log.info("{}",initialize.getDebtName()+"---"+initialize.getCorBankPhone()+"-----"+initialize.getPriPhone());
         if (initialize.getReportPropert().equals("1")) {
             map.put(DocEransfer.DEBT_ADD.getName(), initialize.getPriAdd());
             map.put(DocEransfer.DEBT_PHONE.getName(), initialize.getPriPhone());
@@ -233,16 +247,15 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         map.put(DocEransfer.CONST_DAY.getName(), String.format("%td", contractTime));
         //替换模板并保存为PDF
         PdfUtil.fillInWordAndSaveAsPdf(readPath, savePath, map);
-
-
         //创建文档
         PubDoc pubDoc = new PubDoc();
         long nextId = IdUtils.nextId();
         pubDoc.setDocId(nextId);
         pubDoc.setContract(initialize.getAssignmentAgreementNo());
-        pubDoc.setDocName(DocumentPath.PDF_SAVE_CUMOUT.getName());
+        pubDoc.setDocName(DocumentPath.PDF_SAVE_TRANSFER.getName());
         pubDoc.setDocPath(readPath);
         pubDoc.setReportId(initialize.getReportId());
+        pubDoc.setDocType("2");
         pubDocDao.insertSelective(pubDoc);
         //创建电子章
         BusElectronSeal busElectronSeal = new BusElectronSeal();
@@ -291,6 +304,16 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         map.put(DocTransferConfirm.CONT_THIS_MOON.getName(),String.format("%tm",contractTime));
         map.put(DocTransferConfirm.CONT_THIS_DAY.getName(), String.format("%td",contractTime));
         PdfUtil.fillInWordAndSaveAsPdf(readPath, savePath, map);
+        //创建文档
+        PubDoc pubDoc = new PubDoc();
+        long nextId = IdUtils.nextId();
+        pubDoc.setDocId(nextId);
+        pubDoc.setDocType("2");
+        pubDoc.setContract(initialize.getConfirmNo());
+        pubDoc.setDocName(DocumentPath.PDF_SAVE_CONFIRM.getName());
+        pubDoc.setDocPath(readPath);
+        pubDoc.setReportId(initialize.getReportId());
+        pubDocDao.insertSelective(pubDoc);
     }
 
     /**
@@ -310,6 +333,7 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         map.put(DocNotice.NOTICE_NO.getName(),initialize.getNoticeNo());
         map.put(DocNotice.DEBT_DAME.getName(),initialize.getDebtName());
         map.put(DocNotice.PERSON_NAME.getName(),initialize.getPersonName());
+        map.put(DocNotice.PERSON_IDCARD.getName(),initialize.getIdCard());
         map.put(DocNotice.NOTICE_NO.DEBT_REASON.getName(),initialize.getPersonReason());//未获取到数据来源
         map.put(DocNotice.DEBT_AUTHIS_MONEY.getName(),initialize.getAmountThis().toString());
         Date contractTime = initialize.getContractTime();
@@ -317,6 +341,16 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         map.put(DocNotice.CON_TIME_MOON.getName(),String.format("%tm",contractTime));
         map.put(DocNotice.CON_TIME_DAY.getName(),String.format("%td",contractTime));
         PdfUtil.fillInWordAndSaveAsPdf(readPath, savePath, map);
+        //创建文档
+        PubDoc pubDoc = new PubDoc();
+        long nextId = IdUtils.nextId();
+        pubDoc.setDocId(nextId);
+        pubDoc.setContract(initialize.getNoticeNo());
+        pubDoc.setDocName(DocumentPath.PDF_SAVE_NOTICE.getName());
+        pubDoc.setDocType("2");
+        pubDoc.setDocPath(readPath);
+        pubDoc.setReportId(initialize.getReportId());
+        pubDocDao.insertSelective(pubDoc);
     }
 
     /**
@@ -354,9 +388,10 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         long nextId = IdUtils.nextId();
         pubDoc.setDocId(nextId);
         pubDoc.setContract(initialize.getConfirmNo());
-        pubDoc.setDocName(DocumentPath.PDF_SAVE_CUMOUT.getName());
+        pubDoc.setDocName(DocumentPath.PDF_SAVE_PROVE.getName());
         pubDoc.setDocPath(readPath);
         pubDoc.setReportId(initialize.getReportId());
+        pubDoc.setDocType("2");
         pubDocDao.insertSelective(pubDoc);
         //创建电子章
         BusElectronSeal busElectronSeal = new BusElectronSeal();
@@ -389,6 +424,7 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         Map<String, String> map = new HashMap<>(20);
         map.put(DocLetter.LETTER_NO.getName(),initialize.getCollectionLettertNo());
         map.put(DocLetter.PERSON_NAME.getName(),initialize.getPersonName());
+        map.put(DocLetter.ASSAG_NO.getName(),initialize.getAssignmentAgreementNo());
         map.put(DocLetter.DEBT_NAME.getName(),initialize.getDebtName());
         map.put(DocLetter.THIS_MOEY.getName(),initialize.getAmountThis().toString());
         map.put(DocLetter.THIS_MOEY_MAX.getName(),initialize.getMoneyMax());
@@ -398,15 +434,15 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         map.put(DocLetter.CONT_DAY.getName(),String.format("%td",contractDate));
         PdfUtil.fillInWordAndSaveAsPdf(readPath, savePath, map);
 
-
         //创建文档
         PubDoc pubDoc = new PubDoc();
         long nextId = IdUtils.nextId();
         pubDoc.setDocId(nextId);
         pubDoc.setContract(initialize.getCollectionLettertNo());
-        pubDoc.setDocName(DocumentPath.PDF_SAVE_CUMOUT.getName());
+        pubDoc.setDocName(DocumentPath.PDF_SAVE_LETTER.getName());
         pubDoc.setDocPath(readPath);
         pubDoc.setReportId(initialize.getReportId());
+        pubDoc.setDocType("2");
         pubDocDao.insertSelective(pubDoc);
         //创建电子章
         BusElectronSeal busElectronSeal = new BusElectronSeal();
@@ -460,17 +496,40 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         map.put(DocConsignment.CONT_YAER.getName(),String.format("%tY",initialize.getContractDate()));
         map.put(DocConsignment.CONT_MOON.getName(),String.format("%tm",initialize.getContractDate()));
         map.put(DocConsignment.CONT_DAY.getName(),String.format("%td",initialize.getContractDate()));
+
+        //这里设置需要填充的表格行数
+        List<BusAgentSalesContractModity> busAgentSalesContractModity = initialize.getBusAgentSalesContractModity();
+        int size = busAgentSalesContractModity.size();
+        //表格行数默认最多10行
+        for (int i = 1; i < 11; i++) {
+            if (i > size) {
+                map.put("productName" + i, "");
+                map.put("model" + i, "");
+                map.put("unit" + i, "");
+                map.put("unitPrice" + i, "");
+                map.put("amount" + i, "");
+                map.put("total" + i, "");
+                map.put("remarks" + i, "");
+            } else {
+                map.put("productName" + i, busAgentSalesContractModity.get(i-1).getModityName());
+                map.put("model" + i, busAgentSalesContractModity.get(i-1).getModitySpecificat());
+                map.put("unit" + i, busAgentSalesContractModity.get(i-1).getPartyaSeal());
+                map.put("unitPrice" + i, busAgentSalesContractModity.get(i-1).getModityPlace());
+                map.put("amount" + i, busAgentSalesContractModity.get(i-1).getPartybSeal().toString());
+                map.put("total" + i,  busAgentSalesContractModity.get(i-1).getMoneyNum1());
+                map.put("remarks" + i, busAgentSalesContractModity.get(i-1).getPartybTime());
+            }
+        }
         PdfUtil.fillInWordAndSaveAsPdf(readPath, savePath, map);
-
-
         //创建文档
         PubDoc pubDoc = new PubDoc();
         long nextId = IdUtils.nextId();
         pubDoc.setDocId(nextId);
         pubDoc.setContract(initialize.getSalesNo());
-        pubDoc.setDocName(DocumentPath.PDF_SAVE_CUMOUT.getName());
+        pubDoc.setDocName(DocumentPath.PDF_SAVE_CONSIG.getName());
         pubDoc.setDocPath(readPath);
         pubDoc.setReportId(initialize.getReportId());
+        pubDoc.setDocType("2");
         pubDocDao.insertSelective(pubDoc);
         //创建电子章
         BusElectronSeal busElectronSeal = new BusElectronSeal();
@@ -516,8 +575,9 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         long nextId = IdUtils.nextId();
         pubDoc.setDocId(nextId);
         pubDoc.setContract(initialize.getCompromiseAgreementNo());
-        pubDoc.setDocName(DocumentPath.PDF_SAVE_CUMOUT.getName());
+        pubDoc.setDocName(DocumentPath.PDF_SAVE_RECILIATION.getName());
         pubDoc.setDocPath(readPath);
+        pubDoc.setDocType("2");
         pubDoc.setReportId(initialize.getReportId());
         pubDocDao.insertSelective(pubDoc);
         //创建电子章
@@ -530,7 +590,6 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         busElectronSeal.setPartaCard(partaCard);
         busElectronSeal.setPartaTel(partaTel);
         busElectronSealController.addPubUser(busElectronSeal);
-
     }
 
     /**
@@ -572,102 +631,9 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         map.put(DocOnlineConsignment.CONT_YAER.getName(),String.format("%tY",initialize.getContractDate()));
         map.put(DocOnlineConsignment.CONT_MOON.getName(),String.format("%tm",initialize.getContractDate()));
         map.put(DocOnlineConsignment.CONT_DAY.getName(),String.format("%td",initialize.getContractDate()));
-        PdfUtil.fillInWordAndSaveAsPdf(readPath, savePath, map);
-    }
 
-    /**
-     * 0.信息分析暨尽调协议（天泽系统）
-     */
-    public void informationAnalysis() {
-        //设置模板读取路径
-        String readPath = "D:/doc/0.信息分析暨尽调协议（天泽系统）.docx";
-        //设置pdf文件保存路径
-        String savePath = "D:/doc/0.信息分析暨尽调协议（天泽系统）" + IdUtils.nextId() + ".pdf";
-        LocalDate date = LocalDate.now();
-        Map<String, String> map = new HashMap<>(20);
-        map.put("agreementNumber", IdUtils.nextId() + "");
-        map.put("reporter", "张三");
-        map.put("reporterIDCard", "" + IdUtils.nextId());
-        map.put("partyA", "张三");
-        map.put("partyB", "李四");
-        map.put("yyy1", date.getYear() + "");
-        map.put("M1", date.getMonthValue() + "");
-        map.put("d1", date.getDayOfMonth() + "");
-        map.put("yyy2", date.getYear() + "");
-        map.put("M2", date.getMonthValue() + "");
-        map.put("d2", date.getDayOfMonth() + "");
-        //替换模板并保存为PDF
-        PdfUtil.fillInWordAndSaveAsPdf(readPath, savePath, map);
-    }
-
-    /**
-     * 1.策划方案服务协议(天泽系统）
-     */
-    public void planningScheme() {
-        //设置模板读取路径
-        String readPath = "D:/doc/1.策划方案服务协议(天泽系统）.docx";
-        //设置pdf文件保存路径
-        String savePath = "D:/doc/1.策划方案服务协议(天泽系统）" + IdUtils.nextId() + ".pdf";
-        LocalDate date = LocalDate.now();
-        Map<String, String> map = new HashMap<>(20);
-        map.put("agreementNumber", IdUtils.nextId() + "");
-        map.put("debtName", "张三");
-        map.put("debtIdCard", "510364198712021816");
-        map.put("idCardAddress", "重庆市渝中区xxxx");
-        map.put("phoneNumber", "18765453643");
-        map.put("situation", "1");
-        map.put("amount", "11000");
-        map.put("amountInWords", "壹万壹仟");
-        map.put("principal", "10000");
-        map.put("interest", "1000");
-        map.put("serviceFee", "1100");
-        map.put("serviceFeeInWords", "壹仟壹佰");
-        map.put("yyy1", date.getYear() + "");
-        map.put("M1", date.getMonthValue() + "");
-        map.put("d1", date.getDayOfMonth() + "");
-        map.put("yyy2", date.getYear() + "");
-        map.put("M2", date.getMonthValue() + "");
-        map.put("d2", date.getDayOfMonth() + "");
-        //替换模板并保存为PDF
-        PdfUtil.fillInWordAndSaveAsPdf(readPath, savePath, map);
-    }
-
-    /**
-     * 2.债权转让协议1（资产系统）
-     */
-    public void debtAssignmentAgreement() {
-        //设置模板读取路径
-        String readPath = "D:/doc/2.债权转让协议1（资产系统）.docx";
-        //设置pdf文件保存路径
-        String savePath = "D:/doc/2.债权转让协议1（资产系统）" + IdUtils.nextId() + ".pdf";
-        Map<String, String> map = new HashMap<>(20);
-        LocalDate date = LocalDate.now();
-        map.put("agreementNumber", IdUtils.nextId() + "");
-        map.put("debtName", "张三");
-        map.put("idCard", "510265197612271644");
-        map.put("idCardAddress", "重庆市渝中区xxxx");
-        map.put("phoneNumber", "17578655634");
-        map.put("personName", "李四");
-        map.put("yyy1 ", "2020");
-        map.put("M1", "5");
-        map.put("d1", "26");
-        map.put("yyy2", date.getYear() + "");
-        map.put("M2", date.getMonthValue() + "");
-        map.put("d2", date.getDayOfMonth() + "");
-        map.put("amount", "11000");
-        map.put("principal", "10000");
-        map.put("interest", "1000");
-        map.put("amount2", "11000");
-        map.put("partyA", "张三");
-        map.put("partyB", "李四");
-        map.put("yyy3", date.getYear() + "");
-        map.put("M3", date.getMonthValue() + "");
-        map.put("d3", date.getDayOfMonth() + "");
-        map.put("yyy4", date.getYear() + "");
-        map.put("M4", date.getMonthValue() + "");
-        map.put("d4", date.getDayOfMonth() + "");
-        //这里设置需要填充的表格行数
-        int length = 6;
+        int length = initialize.getBusAgentSalesContractModities().size();
+        String total = "1";
         //表格行数默认最多10行
         for (int i = 1; i < 11; i++) {
             if (i > length) {
@@ -679,398 +645,173 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
                 map.put("total" + i, "");
                 map.put("remarks" + i, "");
             } else {
-                map.put("productName" + i, "商品" + i);
-                map.put("model" + i, "SPR-138");
-                map.put("unit" + i, "个");
-                map.put("unitPrice" + i, "1");
-                map.put("amount" + i, "10");
-                map.put("total" + i, "10");
-                map.put("remarks" + i, "");
+                total = BigDecimalUtil.add(total,initialize.getBusAgentSalesContractModities().get(i-1).getMoneyNum1(),2);
+                map.put("productName" + i, initialize.getBusAgentSalesContractModities().get(i-1).getModityName());
+                map.put("model" + i,initialize.getBusAgentSalesContractModities().get(i-1).getModitySpecificat());
+                map.put("unit" + i, initialize.getBusAgentSalesContractModities().get(i-1).getPartyaSeal());
+                map.put("unitPrice" + i,initialize.getBusAgentSalesContractModities().get(i-1).getModityPlace());
+                map.put("amount" + i, initialize.getBusAgentSalesContractModities().get(i-1).getPartybSeal().toString());
+                map.put("total" + i, initialize.getBusAgentSalesContractModities().get(i-1).getMoneyNum1());
+                map.put("remarks" + i,initialize.getBusAgentSalesContractModities().get(i-1).getPartybTime());
             }
         }
-        //替换模板并保存为PDF
+        map.put("total",BigDecimalUtil.sub(total,"1",2));
         PdfUtil.fillInWordAndSaveAsPdf(readPath, savePath, map);
+        //创建文档
+        PubDoc pubDoc = new PubDoc();
+        long nextId = IdUtils.nextId();
+        pubDoc.setDocId(nextId);
+        pubDoc.setContract(initialize.getProtocolNo());
+        pubDoc.setDocName(DocumentPath.PDF_SAVE_ONLINECONSIG.getName());
+        pubDoc.setDocType("2");
+        pubDoc.setDocPath(readPath);
+        pubDoc.setReportId(initialize.getReportId());
+        pubDocDao.insertSelective(pubDoc);
     }
 
 
     /**
-     * 3.债权转让确认书 （资产系统）
+     * 报备费发票
+     * @param reportId
+     * @param parta
+     * @param partaCard
+     * @param partaTel
+     * @throws CustomerException
+     * @throws ParseException
      */
-    public void confirmation() {
+    @Override
+    public void fillInWordAndSaveAsSpecifyFormatReportFee(Long reportId,String parta,String partaCard,String partaTel) throws CustomerException, ParseException {
         //设置模板读取路径
-        String readPath = "D:/doc/3.债权转让确认书 （资产系统）.docx";
+        String readPath = DocumentPath.WORD_TEMPLATE_REPORT.getPath() + DocumentPath.WORD_TEMPLATE_REPORT.getFileName();
         //设置pdf文件保存路径
-        String savePath = "D:/doc/3.债权转让确认书 （资产系统）" + IdUtils.nextId() + ".pdf";
-        LocalDate date = LocalDate.now();
+        String savePath = DocumentPath.PDF_SAVE_REPORT.getPath() + DocumentPath.PDF_SAVE_REPORT.getName() + IdUtils.nextId() + ".pdf";
+        ReportFee reportFee = busPayDetailService.selectByRepId(reportId, "1");
         Map<String, String> map = new HashMap<>(20);
-        map.put("agreementNumber", IdUtils.nextId() + "");
-        map.put("agreementNumber2", IdUtils.nextId() + "");
-        map.put("agreementNumber3", IdUtils.nextId() + "");
-        map.put("debtName", "张三");
-        map.put("personName", "李四");
-        map.put("guarantee", "王五");
-        map.put("amount", "11000");
-        map.put("yyy1", date.getYear() + "");
-        map.put("M1", date.getMonthValue() + "");
-        map.put("d1", date.getDayOfMonth() + "");
-        map.put("yyy2", date.getYear() + "");
-        map.put("M2", date.getMonthValue() + "");
-        map.put("d2", date.getDayOfMonth() + "");
-        map.put("yyy3", date.getYear() + "");
-        map.put("M3", date.getMonthValue() + "");
-        map.put("d3", date.getDayOfMonth() + "");
-        map.put("yyy4", date.getYear() + "");
-        map.put("M4", date.getMonthValue() + "");
-        map.put("d4", date.getDayOfMonth() + "");
-        //替换模板并保存为PDF
+        map.put(DocReportFee.DEBT_NAME.getName(),reportFee.getDebtName());
+        map.put(DocReportFee.DEBT_NO.getName(),reportFee.getPayNo());
+        map.put(DocReportFee.COM_NAME.getName(),reportFee.getCompanyName());
+        map.put(DocReportFee.THIS_YAER.getName(),String.format("%tY",reportFee.getThisTime()));
+        map.put(DocReportFee.THIS_MOON.getName(),String.format("%tm",reportFee.getThisTime()));
+        map.put(DocReportFee.THIS_DAY.getName(),String.format("%td",reportFee.getThisTime()));
         PdfUtil.fillInWordAndSaveAsPdf(readPath, savePath, map);
+        //创建文档
+        PubDoc pubDoc = new PubDoc();
+        long nextId = IdUtils.nextId();
+        pubDoc.setDocId(nextId);
+        pubDoc.setContract(reportFee.getPayNo());
+        pubDoc.setDocName(DocumentPath.PDF_SAVE_REPORT.getName());
+        pubDoc.setDocPath(readPath);
+        pubDoc.setReportId(reportFee.getReportId());
+        pubDoc.setDocType("1");
+        pubDocDao.insertSelective(pubDoc);
+        //创建电子章
+        BusElectronSeal busElectronSeal = new BusElectronSeal();
+        //信息分析暨尽调协议
+        busElectronSeal.setDocType("1");
+        busElectronSeal.setFilePath(savePath);
+        busElectronSeal.setDocId(nextId);
+        busElectronSeal.setParta(parta);
+        busElectronSeal.setPartaCard(partaCard);
+        busElectronSeal.setPartaTel(partaTel);
+        busElectronSealController.addPubUser(busElectronSeal);
     }
 
     /**
-     * 4.债权转让通知书 （资产系统）
+     * 咨询服务费
+     * @param reportId
+     * @param parta
+     * @param partaCard
+     * @param partaTel
+     * @throws CustomerException
+     * @throws ParseException
      */
-    public void notice() {
+    @Override
+    public void fillInWordAndSaveAsSpecifyFormatdvisory(Long reportId, String parta, String partaCard, String partaTel) throws CustomerException, ParseException {
         //设置模板读取路径
-        String readPath = "D:/doc/4.债权转让通知书 （资产系统）.docx";
+        String readPath = DocumentPath.WORD_TEMPLATE_ADVISORY.getPath() + DocumentPath.WORD_TEMPLATE_ADVISORY.getFileName();
         //设置pdf文件保存路径
-        String savePath = "D:/doc/4.债权转让通知书 （资产系统）" + IdUtils.nextId() + ".pdf";
-        LocalDate date = LocalDate.now();
+        String savePath = DocumentPath.PDF_SAVE_ADVISORY.getPath() + DocumentPath.PDF_SAVE_ADVISORY.getName() + IdUtils.nextId() + ".pdf";
         Map<String, String> map = new HashMap<>(20);
-        map.put("agreementNumber", IdUtils.nextId() + "");
-        map.put("debtName", "张三");
-        map.put("personName", "李四");
-        map.put("personReason", "因xxx，造成了巨大的损失，所以需要在这里完成他们的事物");
-        map.put("idCard", "510364198712021816");
-        map.put("amount", "11000");
-        map.put("yyyy", date.getYear() + "");
-        map.put("MM", date.getMonthValue() + "");
-        map.put("dd", date.getDayOfMonth() + "");
-        //替换模板并保存为PDF
+        ReportFee reportFee = busPayDetailService.selectByRepId(reportId, "3");
+        map.put(DocReportFee.DEBT_NAME.getName(),reportFee.getDebtName());
+        map.put(DocReportFee.DEBT_NO.getName(),reportFee.getPayNo());
+        map.put(DocReportFee.COM_NAME.getName(),reportFee.getCompanyName());
+        map.put(DocReportFee.THIS_YAER.getName(),String.format("%tY",reportFee.getThisTime()));
+        map.put(DocReportFee.MONEY.getName(),reportFee.getCost().toString());
+        map.put(DocReportFee.MONEY_MAX.getName(),ConvertUpMoney.toChinese(reportFee.getCost().toString()));
+        map.put(DocReportFee.THIS_MOON.getName(),String.format("%tm",reportFee.getThisTime()));
+        map.put(DocReportFee.THIS_DAY.getName(),String.format("%td",reportFee.getThisTime()));
         PdfUtil.fillInWordAndSaveAsPdf(readPath, savePath, map);
 
+        //创建文档
+        PubDoc pubDoc = new PubDoc();
+        long nextId = IdUtils.nextId();
+        pubDoc.setDocId(nextId);
+        pubDoc.setContract(reportFee.getPayNo());
+        pubDoc.setDocName(DocumentPath.PDF_SAVE_ADVISORY.getName());
+        pubDoc.setDocPath(readPath);
+        pubDoc.setReportId(reportFee.getReportId());
+        pubDoc.setDocType("1");
+        pubDocDao.insertSelective(pubDoc);
+        //创建电子章
+        BusElectronSeal busElectronSeal = new BusElectronSeal();
+        //信息分析暨尽调协议
+        busElectronSeal.setDocType("2");
+        busElectronSeal.setFilePath(savePath);
+        busElectronSeal.setDocId(nextId);
+        busElectronSeal.setParta(parta);
+        busElectronSeal.setPartaCard(partaCard);
+        busElectronSeal.setPartaTel(partaTel);
+        busElectronSealController.addPubUser(busElectronSeal);
     }
 
     /**
-     * 5.债权确认书 （资产系统）
+     * 货款费发票
+     * @param reportId
+     * @param parta
+     * @param partaCard
+     * @param partaTel
+     * @throws CustomerException
+     * @throws ParseException
      */
-    public void confirmationOfCreditorRights() {
+    @Override
+    public void fillInWordAndSaveAsSpecifyPayment(Long reportId, String parta, String partaCard, String partaTel) throws CustomerException, ParseException {
         //设置模板读取路径
-        String readPath = "D:/doc/5.债权确认书 （资产系统）.docx";
+        String readPath = DocumentPath.WORD_TEMPLATE_PAYMENT.getPath() + DocumentPath.WORD_TEMPLATE_PAYMENT.getFileName();
         //设置pdf文件保存路径
-        String savePath = "D:/doc/5.债权确认书 （资产系统）" + IdUtils.nextId() + ".pdf";
+        String savePath = DocumentPath.PDF_SAVE_PAYMENT.getPath() + DocumentPath.PDF_SAVE_PAYMENT.getName() + IdUtils.nextId() + ".pdf";
         Map<String, String> map = new HashMap<>(20);
-        LocalDate date = LocalDate.now();
-        map.put("agreementNumber", IdUtils.nextId() + "");
-        map.put("personName", "李四");
-        map.put("debtName", "张三");
-        map.put("agreementNumber2", IdUtils.nextId() + "");
-        map.put("yyy1", date.getYear() + "");
-        map.put("M1", date.getMonthValue() + "");
-        map.put("d1", date.getDayOfMonth() + "");
-        map.put("principal", "11000");
-        map.put("interest", "1000");
-        map.put("yyy2", date.getYear() + "");
-        map.put("M2", date.getMonthValue() + "");
-        map.put("d2", date.getDayOfMonth() + "");
-        map.put("yyy3", date.getYear() + "");
-        map.put("M3", date.getMonthValue() + "");
-        map.put("d3", date.getDayOfMonth() + "");
-        //替换模板并保存为PDF
+        ReportFee reportFee = busPayDetailService.selectByRepId(reportId, "4");
+        map.put(DocReportFee.DEBT_NAME.getName(),reportFee.getDebtName());
+        map.put(DocReportFee.MONEY.getName(),reportFee.getCost().toString());
+        map.put(DocReportFee.MONEY_MAX.getName(),ConvertUpMoney.toChinese(reportFee.getCost().toString()));
+        map.put(DocReportFee.DEBT_NO.getName(),reportFee.getPayNo());
+        map.put(DocReportFee.COM_NAME.getName(),reportFee.getCompanyName());
+        map.put(DocReportFee.THIS_YAER.getName(),String.format("%tY",reportFee.getThisTime()));
+        map.put(DocReportFee.THIS_MOON.getName(),String.format("%tm",reportFee.getThisTime()));
+        map.put(DocReportFee.THIS_DAY.getName(),String.format("%td",reportFee.getThisTime()));
         PdfUtil.fillInWordAndSaveAsPdf(readPath, savePath, map);
-    }
 
-    /**
-     * 6.催款函 （资产系统）
-     */
-    public void dunningLetter() {
-        //设置模板读取路径
-        String readPath = "D:/doc/6.催款函 （资产系统）.docx";
-        //设置pdf文件保存路径
-        String savePath = "D:/doc/6.催款函 （资产系统）" + IdUtils.nextId() + ".pdf";
-        Map<String, String> map = new HashMap<>(20);
-        LocalDate date = LocalDate.now();
-        map.put("agreementNumber", IdUtils.nextId() + "");
-        map.put("debtName", "张三");
-        map.put("personName", "李四");
-        map.put("agreementNumber2", IdUtils.nextId() + "");
-        map.put("amount", "11000");
-        map.put("amountInWords", "壹万壹仟");
-        map.put("yyyy", date.getYear() + "");
-        map.put("MM", date.getMonthValue() + "");
-        map.put("dd", date.getDayOfMonth() + "");
-        //替换模板并保存为PDF
-        PdfUtil.fillInWordAndSaveAsPdf(readPath, savePath, map);
-    }
-
-    /**
-     * 7.委托代理销售合同1 （资产系统）
-     */
-    public void salesContract() {
-        //设置模板读取路径
-        String readPath = "D:/doc/7.委托代理销售合同1 （资产系统）.docx";
-        //设置pdf文件保存路径
-        String savePath = "D:/doc/7.委托代理销售合同1 （资产系统）" + IdUtils.nextId() + ".pdf";
-        Map<String, String> map = new HashMap<>(20);
-        LocalDate date = LocalDate.now();
-        map.put("agreementNumber", IdUtils.nextId() + "");
-        map.put("debtName", "张三");
-        map.put("idCard", "510453197607161416");
-        map.put("idCardAddress", "重庆市渝中区xxxx");
-        map.put("phoneNumber", "13656467865");
-        map.put("yyy1", "2020");
-        map.put("M1", "6");
-        map.put("d1", "21");
-        map.put("yyy2", date.getYear() + "");
-        map.put("M2", date.getMonthValue() + "");
-        map.put("d2", date.getDayOfMonth() + "");
-        map.put("amount", "11000");
-        map.put("amountInWords", "壹万壹仟");
-        map.put("bankCard", "5642245785546532");
-        map.put("bank", "中国银行");
-        map.put("partyA", "张三");
-        map.put("partyB", "李四");
-        map.put("yyy3", date.getYear() + "");
-        map.put("M3", date.getMonthValue() + "");
-        map.put("d3", date.getDayOfMonth() + "");
-        map.put("yyy4", date.getYear() + "");
-        map.put("M4", date.getMonthValue() + "");
-        map.put("d4", date.getDayOfMonth() + "");
-        //这里设置需要填充的表格行数
-        int length = 6;
-        //表格行数默认最多10行
-        for (int i = 1; i < 11; i++) {
-            if (i > length) {
-                map.put("productName" + i, "");
-                map.put("model" + i, "");
-                map.put("unit" + i, "");
-                map.put("unitPrice" + i, "");
-                map.put("amount" + i, "");
-                map.put("total" + i, "");
-                map.put("remarks" + i, "");
-            } else {
-                map.put("productName" + i, "商品" + i);
-                map.put("model" + i, "SPR-138");
-                map.put("unit" + i, "个");
-                map.put("unitPrice" + i, "1");
-                map.put("amount" + i, "10");
-                map.put("total" + i, "10");
-                map.put("remarks" + i, "");
-            }
-        }
-        //替换模板并保存为PDF
-        PdfUtil.fillInWordAndSaveAsPdf(readPath, savePath, map);
-    }
-
-    /**
-     * 8.委托代理销售合同补充协议 （资产系统）
-     */
-    public void supplementalAgreement() {
-        //设置模板读取路径
-        String readPath = "D:/doc/8.委托代理销售合同补充协议 （资产系统）.docx";
-        //设置pdf文件保存路径
-        String savePath = "D:/doc/8.委托代理销售合同补充协议 （资产系统）" + IdUtils.nextId() + ".pdf";
-        Map<String, String> map = new HashMap<>(20);
-        LocalDate date = LocalDate.now();
-        map.put("agreementNumber", IdUtils.nextId() + "");
-        map.put("agreementNumber2", IdUtils.nextId() + "");
-        map.put("debtName", "张三");
-        map.put("partyA", "张三");
-        map.put("partyB", "李四");
-        map.put("yyy1", date.getYear() + "");
-        map.put("M1", date.getMonthValue() + "");
-        map.put("d1", date.getDayOfMonth() + "");
-        map.put("yyy2", date.getYear() + "");
-        map.put("M2", date.getMonthValue() + "");
-        map.put("d2", date.getDayOfMonth() + "");
-        map.put("yyy3", date.getYear() + "");
-        map.put("M3", date.getMonthValue() + "");
-        map.put("d3", date.getDayOfMonth() + "");
-        //替换模板并保存为PDF
-        PdfUtil.fillInWordAndSaveAsPdf(readPath, savePath, map);
-    }
-
-    /**
-     * 9.和解协议 （资产系统）
-     */
-    public void settlementAgreement() {
-        //设置模板读取路径
-        String readPath = "D:/doc/9.和解协议 （资产系统）.docx";
-        //设置pdf文件保存路径
-        String savePath = "D:/doc/9.和解协议 （资产系统）" + IdUtils.nextId() + ".pdf";
-        Map<String, String> map = new HashMap<>(20);
-        LocalDate date = LocalDate.now();
-        map.put("agreementNumber", IdUtils.nextId() + "");
-        map.put("personName", "李四");
-        map.put("debtName", "张三");
-        map.put("amount", "11000");
-        String situation = "三";
-        map.put("situation", situation);
-        //根据不同的选项替换内容
-        if ("一".equals(situation)) {
-            map.put("amount2", "10000");
-            map.put("average", "");
-            map.put("days", "");
-        }
-        if ("二".equals(situation)) {
-            map.put("amount2", "");
-            map.put("average", "2000");
-            map.put("days", "15");
-        }
-        if ("三".equals(situation)) {
-            map.put("amount2", "");
-            map.put("average", "");
-            map.put("days", "");
-        }
-        map.put("partyA", "张三");
-        map.put("partyB", "李四");
-        map.put("yyy1", date.getYear() + "");
-        map.put("M1", date.getMonthValue() + "");
-        map.put("d1", date.getDayOfMonth() + "");
-        map.put("yyy2", date.getYear() + "");
-        map.put("M2", date.getMonthValue() + "");
-        map.put("d2", date.getDayOfMonth() + "");
-        map.put("yyy3", date.getYear() + "");
-        map.put("M3", date.getMonthValue() + "");
-        map.put("d3", date.getDayOfMonth() + "");
-
-        //替换模板并保存为PDF
-        PdfUtil.fillInWordAndSaveAsPdf(readPath, savePath, map);
-    }
-
-    /**
-     * 14委托线上代理销售合同
-     */
-    public void onlineAgent() {
-        //设置模板读取路径
-        String readPath = "D:/doc/14委托线上代理销售合同.docx";
-        //设置pdf文件保存路径
-        String savePath = "D:/doc/14委托线上代理销售合同" + IdUtils.nextId() + ".pdf";
-        Map<String, String> map = new HashMap<>(20);
-        LocalDate date = LocalDate.now();
-        map.put("agreementNumber", IdUtils.nextId() + "");
-        map.put("client", "张三");
-        map.put("idCard", "510265197612271644");
-        map.put("idCardAddress", "重庆市渝中区xxxx");
-        map.put("phoneNumber", "13876353678");
-        map.put("yyy1", "2020");
-        map.put("M1", "5");
-        map.put("d1", "12");
-        map.put("yyy2", "2020");
-        map.put("M2", "6");
-        map.put("d2", "18");
-        map.put("amount", "11000");
-        map.put("amountInWords", "壹万壹仟");
-        map.put("fraction", "123");
-        map.put("accountNumber", "67338267272");
-        map.put("phoneNumber2", "17865253568");
-        map.put("idCard2", "501286198702214698");
-        map.put("partyA", "张三");
-        map.put("partyB", "李四");
-        map.put("yyy3", date.getYear() + "");
-        map.put("M3", date.getMonthValue() + "");
-        map.put("d3", date.getDayOfMonth() + "");
-        map.put("yyy4", date.getYear() + "");
-        map.put("M4", date.getMonthValue() + "");
-        map.put("d4", date.getDayOfMonth() + "");
-        //这里设置需要填充的表格行数
-        int length = 6;
-        //表格行数默认最多10行
-        for (int i = 1; i < 11; i++) {
-            if (i > length) {
-                map.put("productName" + i, "");
-                map.put("model" + i, "");
-                map.put("unit" + i, "");
-                map.put("unitPrice" + i, "");
-                map.put("amount" + i, "");
-                map.put("total" + i, "");
-                map.put("remarks" + i, "");
-            } else {
-                map.put("productName" + i, "商品" + i);
-                map.put("model" + i, "SPR-138");
-                map.put("unit" + i, "个");
-                map.put("unitPrice" + i, "1");
-                map.put("amount" + i, "10");
-                map.put("total" + i, "10");
-                map.put("remarks" + i, "");
-            }
-        }
-        map.put("total", "60");
-        //替换模板并保存为PDF
-        PdfUtil.fillInWordAndSaveAsPdf(readPath, savePath, map);
-    }
-
-    /**
-     * 收据（报备费）
-     */
-    public void filingFeeReceipt() {
-        //设置模板读取路径
-        String readPath = "D:/doc/收据（报备费）.docx";
-        //设置pdf文件保存路径
-        String savePath = "D:/doc/收据（报备费）" + IdUtils.nextId() + ".pdf";
-        Map<String, String> map = new HashMap<>(20);
-        LocalDate date = LocalDate.now();
-        map.put("office1", "重庆市办事处");
-        map.put("office2", "重庆市办事处");
-        map.put("debtName", "张三");
-        map.put("personName", "李四");
-        map.put("number1", "TZFWF00002");
-        map.put("number2", "TZFWF00002");
-        map.put("bbCost1", "11000");
-        map.put("bbCostInWords1", "壹万壹仟元整");
-        map.put("bbCost2", "11000");
-        map.put("bbCostInWords2", "壹万壹仟元整");
-        map.put("yyy1", date.getYear() + "");
-        map.put("M1", date.getMonthValue() + "");
-        map.put("d1", date.getDayOfMonth() + "");
-        map.put("yyy2", date.getYear() + "");
-        map.put("M2", date.getMonthValue() + "");
-        map.put("d2", date.getDayOfMonth() + "");
-        //替换模板并保存为PDF
-        PdfUtil.fillInWordAndSaveAsPdf(readPath, savePath, map);
-    }
-
-    /**
-     * 收据（预付款）
-     */
-    public void prepaymentReceipt() {
-        //设置模板读取路径
-        String readPath = "D:/doc/收据（预付款）.docx";
-        //设置pdf文件保存路径
-        String savePath = "D:/doc/收据（预付款）" + IdUtils.nextId() + ".pdf";
-        Map<String, String> map = new HashMap<>(20);
-        LocalDate date = LocalDate.now();
-        map.put("office1", "重庆市办事处");
-        map.put("debtName", "张三");
-        map.put("number1", "JRYFK00002");
-        map.put("moneyWay", "11000");
-        map.put("moneyWayInWords", "壹万壹仟元整");
-        map.put("yyy1", date.getYear() + "");
-        map.put("M1", date.getMonthValue() + "");
-        map.put("d1", date.getDayOfMonth() + "");
-        //替换模板并保存为PDF
-        PdfUtil.fillInWordAndSaveAsPdf(readPath, savePath, map);
-    }
-
-    /**
-     * 收据（咨询服务费）
-     */
-    public void consultingServiceFeeReceipt() {
-        //设置模板读取路径
-        String readPath = "D:/doc/收据（咨询服务费）.docx";
-        //设置pdf文件保存路径
-        String savePath = "D:/doc/收据（咨询服务费）" + IdUtils.nextId() + ".pdf";
-        Map<String, String> map = new HashMap<>(20);
-        LocalDate date = LocalDate.now();
-        map.put("office1", "重庆市办事处");
-        map.put("payer", "张素芳");
-        map.put("number1", "TZFWF00002");
-        map.put("consultingMoney", "11000");
-        map.put("consultingMoneyInWords", "壹万壹仟元整");
-        map.put("yyy1", date.getYear() + "");
-        map.put("M1", date.getMonthValue() + "");
-        map.put("d1", date.getDayOfMonth() + "");
-        //替换模板并保存为PDF
-        PdfUtil.fillInWordAndSaveAsPdf(readPath, savePath, map);
+        //创建文档
+        PubDoc pubDoc = new PubDoc();
+        long nextId = IdUtils.nextId();
+        pubDoc.setDocId(nextId);
+        pubDoc.setContract(reportFee.getPayNo());
+        pubDoc.setDocName(DocumentPath.PDF_SAVE_PAYMENT.getName());
+        pubDoc.setDocPath(readPath);
+        pubDoc.setReportId(reportFee.getReportId());
+        pubDoc.setDocType("2");
+        pubDocDao.insertSelective(pubDoc);
+        //创建电子章
+        BusElectronSeal busElectronSeal = new BusElectronSeal();
+        //信息分析暨尽调协议
+        busElectronSeal.setDocType("3");
+        busElectronSeal.setFilePath(savePath);
+        busElectronSeal.setDocId(nextId);
+        busElectronSeal.setParta(parta);
+        busElectronSeal.setPartaCard(partaCard);
+        busElectronSeal.setPartaTel(partaTel);
+        busElectronSealController.addPubUser(busElectronSeal);
     }
 
 }

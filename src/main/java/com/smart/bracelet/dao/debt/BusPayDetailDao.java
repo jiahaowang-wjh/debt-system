@@ -3,6 +3,7 @@ package com.smart.bracelet.dao.debt;
 import com.smart.bracelet.model.po.debt.BusPayDetail;
 import com.smart.bracelet.model.vo.debt.BusPayDetailInfo;
 import com.smart.bracelet.model.vo.debt.BusPayDetailVo;
+import com.smart.bracelet.model.vo.debt.ReportFee;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -58,5 +59,12 @@ public interface BusPayDetailDao {
      * @return
      */
     List<BusPayDetail> selectByReportIdAndPropertId(Long reportId,Long propertId);
+
+    /**
+     * 发票生成信息
+     * @param reportId
+     * @return
+     */
+    ReportFee selectByRepId(Long reportId,String flag);
 
 }

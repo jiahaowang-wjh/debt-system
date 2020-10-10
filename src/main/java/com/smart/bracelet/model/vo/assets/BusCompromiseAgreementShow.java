@@ -20,6 +20,25 @@ public class BusCompromiseAgreementShow {
      */
     String debtName;
     /**
+     * 债权人电话号码（私人）
+     */
+    String priDebtPhone;
+
+    /**
+     *债权人电话号码（企业银行）
+     */
+    String corBackDebtPhone;
+    /**
+     *相对人电话(私人)
+     */
+    String personPriPhone;
+
+    /**
+     *相对人电话（企业银行）
+     */
+    String personCorPhone;
+
+    /**
      * 解债金额小写
      */
     Float amountThis;
@@ -72,4 +91,13 @@ public class BusCompromiseAgreementShow {
      */
     Long reportId;
 
+    /**
+     * 债事人人性质
+     */
+    String debtReportPropert;
+
+    /**
+     * 相对人性质
+     */
+    String personReportPropert;
 }

@@ -14,10 +14,11 @@
         <result column="check_date" jdbcType="DATE" property="checkDate"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="credentials_text" jdbcType="VARCHAR" property="credentialsText"/>
     </resultMap>
     <sql id="Base_Column_List">
     assessment_id, assessment_no, propert_id, assessment_date, credentials, card, company_manag, 
-    `status`, check_reason, check_date, update_time, create_time
+    `status`, check_reason, check_date, update_time, create_time,credentials_text
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
@@ -75,6 +76,9 @@
             <if test="assessmentId != null">
                 assessment_id,
             </if>
+            <if test="credentialsText != null">
+                credentials_text,
+            </if>
             <if test="assessmentNo != null">
                 assessment_no,
             </if>
@@ -112,6 +116,9 @@
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="assessmentId != null">
                 #{assessmentId,jdbcType=BIGINT},
+            </if>
+            <if test="credentialsText != null">
+                #{credentialsText,jdbcType=VARCHAR},
             </if>
             <if test="assessmentNo != null">
                 #{assessmentNo,jdbcType=VARCHAR},
@@ -153,6 +160,9 @@
         <set>
             <if test="assessmentNo != null">
                 assessment_no = #{assessmentNo,jdbcType=VARCHAR},
+            </if>
+            <if test="credentialsText != null">
+                credentialsText = #{credentialsText,jdbcType=VARCHAR},
             </if>
             <if test="propertId != null">
                 propert_id = #{propertId,jdbcType=BIGINT},

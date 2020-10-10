@@ -8,15 +8,15 @@ public enum  DocNotice {
     /**
      * 替换字段
      */
-    NOTICE_NO("债权转让协议编号-（2）"),
-    DEBT_DAME("debtname"),
-    PERSON_NAME("数据库债务人"),
-    PERSON_IDCARD("数据库债务人身份证"),
-    DEBT_REASON("从天泽系统引用数据"),
-    DEBT_AUTHIS_MONEY("数据库解债金额"),
-    CON_TIME_YAER("yy%yy"),
-    CON_TIME_MOON("m%m"),
-    CON_TIME_DAY("d%d"),
+    NOTICE_NO("agreementNumber"),
+    DEBT_DAME("debtName"),
+    PERSON_NAME("personName"),
+    PERSON_IDCARD("idCard"),
+    DEBT_REASON("personReason"),//债务原因
+    DEBT_AUTHIS_MONEY("amount"),
+    CON_TIME_YAER("yyyy"),
+    CON_TIME_MOON("MM"),
+    CON_TIME_DAY("dd"),
     ;
 
     private String name;

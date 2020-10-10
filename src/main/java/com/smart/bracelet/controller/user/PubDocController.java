@@ -1,5 +1,7 @@
 package com.smart.bracelet.controller.user;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.user.PubDoc;
@@ -73,8 +75,8 @@ public class PubDocController {
      * @return
      */
     @RequestMapping("/queryDoc")
-    public Result<List<PubDoc>> queryDoc() {
-        List<PubDoc> pubDocs = pubDocService.queryDoc();
+    public Result<List<PubDoc>> queryDoc(Long reportId,String docType) {
+        List<PubDoc> pubDocs = pubDocService.queryDoc(reportId,docType);
         return Result.success(pubDocs);
     }
 

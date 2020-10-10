@@ -58,7 +58,7 @@ public class ExpController {
 
 // 合并单元格后的标题行，使用默认标题样式
 
-        writer.merge(2, "财务辅助下载");
+        writer.merge(2, "辅助下载");
 
 // 一次性写出内容，使用默认样式，强制输出标题
 

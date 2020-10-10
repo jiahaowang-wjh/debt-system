@@ -16,4 +16,6 @@ public interface BusElectronSealDao {
     int updateByPrimaryKeySelective(BusElectronSeal record);
 
     int updateByPrimaryKey(BusElectronSeal record);
+
+    BusElectronSeal selectByDocId(Long docId);
 }

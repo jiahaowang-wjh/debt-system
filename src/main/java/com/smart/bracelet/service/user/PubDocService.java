@@ -24,5 +24,5 @@ public interface PubDocService {
      *查询所有文档信息
      * @return
      */
-    List<PubDoc> queryDoc();
+    List<PubDoc> queryDoc(Long reportId,String docType);
 }

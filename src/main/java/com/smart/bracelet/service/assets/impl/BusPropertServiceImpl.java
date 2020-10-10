@@ -1,13 +1,19 @@
 package com.smart.bracelet.service.assets.impl;
 
+import com.smart.bracelet.controller.publicmethod.Formula;
 import com.smart.bracelet.dao.assets.BusPropertDao;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.debt.BusPropert;
+import com.smart.bracelet.model.po.debt.PubDebt;
+import com.smart.bracelet.model.po.user.PubUser;
 import com.smart.bracelet.model.vo.assets.AssetsDebtBank;
 import com.smart.bracelet.model.vo.assets.AssetsMyDebt;
+import com.smart.bracelet.model.vo.assets.FormulaVo;
 import com.smart.bracelet.model.vo.debt.BusPropertVo;
 import com.smart.bracelet.model.vo.debt.DebtInfoQuery;
 import com.smart.bracelet.service.assets.BusPropertService;
+import com.smart.bracelet.service.debt.BusReportService;
+import com.smart.bracelet.service.debt.PubDebtService;
 import com.smart.bracelet.utils.IdUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +28,12 @@ public class BusPropertServiceImpl implements BusPropertService {
 
     @Autowired
     private BusPropertDao busPropertDao;
+
+    @Autowired
+    private PubDebtService pubDebtService;
+
+    @Autowired
+    private BusReportService busReportService;
 
     @Override
     @Transactional(noRollbackFor = Exception.class)
@@ -40,8 +52,13 @@ public class BusPropertServiceImpl implements BusPropertService {
     @Transactional(noRollbackFor = Exception.class)
     public Long insertSelective(BusPropert record) throws CustomerException {
         try {
+            PubDebt pubDebt = pubDebtService.selectByPrimaryKey(record.getDebtId());
             Long l = IdUtils.nextId();
             record.setPropertId(l);
+            if (pubDebt.getDebtType().equals("4")) {
+                busReportService.updateDebtStage("5", record.getReportId());
+                return null;
+            }
             int insertSelective = busPropertDao.insertSelective(record);
             log.info("新增资产信息成功,受影响行数:{}", insertSelective);
             return l;
@@ -91,8 +108,29 @@ public class BusPropertServiceImpl implements BusPropertService {
     public List<AssetsDebtBank> querys(DebtInfoQuery assetsMyDebt) {
         if (assetsMyDebt.getCompanyType().equals("1")) {
             assetsMyDebt.setCompanyType(null);
+            assetsMyDebt.setComId(null);
         }
-        return busPropertDao.querys(assetsMyDebt);
+        List<AssetsDebtBank> querys = busPropertDao.querys(assetsMyDebt);
+        for (AssetsDebtBank item : querys) {
+            if(item.getReportType().equals("1")){
+                item.setDebtName(item.getPersonData1());
+                item.setPersonName(item.getDebtData1());
+            }
+            if(item.getReportType().equals("2")){
+                item.setDebtName(item.getDebtData1());
+                item.setPersonName(item.getPersonData1());
+            }
+            Formula formula = new Formula();
+            if (item.getDebtType().equals("2")) {
+                item.setDebtType("1");
+            }
+            if (item.getDebtType().equals("3")) {
+                item.setDebtType("2");
+            }
+            FormulaVo calculation = formula.Calculation(item.getDebtType(), Integer.parseInt(item.getDebtYaer()), item.getAmountThis());
+            item.setHuoKuanMoney(calculation.getLoan());
+        }
+        return querys;
     }
 
     @Override
@@ -100,10 +138,10 @@ public class BusPropertServiceImpl implements BusPropertService {
         try {
             int i = 0;
             i = busPropertDao.updateStage(stage, propertId);
-            log.info("更新资产阶段成功，受影响行数：{}",i);
+            log.info("更新资产阶段成功，受影响行数：{}", i);
             return i;
         } catch (Exception e) {
-            log.error("更新资产评估失败,异常信息:{}",e.getMessage());
+            log.error("更新资产评估失败,异常信息:{}", e.getMessage());
             throw new CustomerException("更新资产阶段失败");
         }
 

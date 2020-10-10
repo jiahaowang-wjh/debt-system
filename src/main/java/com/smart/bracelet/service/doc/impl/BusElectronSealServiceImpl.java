@@ -13,6 +13,7 @@ public class BusElectronSealServiceImpl implements BusElectronSealService {
 
     @Autowired
     private BusElectronSealDao busElectronSealDao;
+
     @Override
     public int deleteByPrimaryKey(Long electronSealId) {
         int i = busElectronSealDao.deleteByPrimaryKey(electronSealId);
@@ -47,5 +48,10 @@ public class BusElectronSealServiceImpl implements BusElectronSealService {
     public int updateByPrimaryKey(BusElectronSeal record) {
         int i = busElectronSealDao.updateByPrimaryKey(record);
         return i;
+    }
+
+    @Override
+    public BusElectronSeal selectByDocId(Long docId) {
+        return busElectronSealDao.selectByDocId(docId);
     }
 }

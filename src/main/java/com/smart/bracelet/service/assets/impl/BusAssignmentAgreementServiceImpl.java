@@ -119,6 +119,12 @@ public class BusAssignmentAgreementServiceImpl implements BusAssignmentAgreement
                 agreementShow.setPriAdd(null);
                 agreementShow.setPriPhone(null);
             }
+            if(agreementShow.getReportPriPropert().equals("1")){
+                agreementShow.setPersonCorBackPhone(null);
+            }else{
+                agreementShow.setPersonPriPhone(null);
+            }
+
             return agreementShow;
         } catch (Exception e) {
             log.error("异常信息:{}", e.getMessage());

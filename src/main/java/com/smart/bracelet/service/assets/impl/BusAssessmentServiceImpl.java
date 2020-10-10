@@ -43,7 +43,7 @@ public class BusAssessmentServiceImpl implements BusAssessmentService {
             record.setAssessmentId(nextId);
             String selectNo = busAssessmentDao.selectNo();
             record.setAssessmentNo(RepNoUtils.createRepNo("TZ", "ZCPG", selectNo));
-            int i = busAssessmentDao.insertSelective(record);
+            busAssessmentDao.insertSelective(record);
             return nextId;
         } catch (Exception e) {
             log.error("新增资产评估失败,异常信息:{}", e.getMessage());

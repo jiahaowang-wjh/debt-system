@@ -46,4 +46,11 @@ public class PubDebtInfo {
      */
     String status;
 
+    /**
+     * 策划方案服务费
+     */
+    @JsonSerialize(using = ToStringSerializer.class)
+    Float thisPlanMoney;
+
+
 }

@@ -1,111 +1,125 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.smart.bracelet.dao.user.PubDocDao">
-  <resultMap id="BaseResultMap" type="com.smart.bracelet.model.po.user.PubDoc">
-    <id column="doc_id" jdbcType="BIGINT" property="docId" />
-    <result column="doc_path" jdbcType="VARCHAR" property="docPath" />
-    <result column="note" jdbcType="VARCHAR" property="note" />
-    <result column="doc_name" jdbcType="VARCHAR" property="docName" />
-    <result column="contract" jdbcType="VARCHAR" property="contract" />
-    <result column="report_id" jdbcType="BIGINT" property="reportId" />
-    <result column="debt_id" jdbcType="BIGINT" property="debtId" />
-    <result column="propert_id" jdbcType="BIGINT" property="propertId" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    doc_id, doc_path, note,doc_name,contract,report_id,debt_id,propert_id
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from pub_doc
-    where doc_id = #{docId,jdbcType=BIGINT}
-  </select>
-  <select id="queryDoc" resultType="com.smart.bracelet.model.po.user.PubDoc">
-    select
-    <include refid="Base_Column_List" />
-    from pub_doc
-  </select>
-  <select id="selectNo" resultType="java.lang.String">
+    <resultMap id="BaseResultMap" type="com.smart.bracelet.model.po.user.PubDoc">
+        <id column="doc_id" jdbcType="BIGINT" property="docId"/>
+        <result column="doc_path" jdbcType="VARCHAR" property="docPath"/>
+        <result column="note" jdbcType="VARCHAR" property="note"/>
+        <result column="doc_name" jdbcType="VARCHAR" property="docName"/>
+        <result column="contract" jdbcType="VARCHAR" property="contract"/>
+        <result column="report_id" jdbcType="BIGINT" property="reportId"/>
+        <result column="debt_id" jdbcType="BIGINT" property="debtId"/>
+        <result column="propert_id" jdbcType="BIGINT" property="propertId"/>
+        <result column="doc_type" jdbcType="VARCHAR" property="docType"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    doc_id, doc_path, note,doc_name,contract,report_id,debt_id,propert_id,doc_type
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from pub_doc
+        where doc_id = #{docId,jdbcType=BIGINT}
+    </select>
+    <select id="queryDoc" resultType="com.smart.bracelet.model.po.user.PubDoc">
+        select
+        <include refid="Base_Column_List"/>
+        from pub_doc
+        <where>
+            <if test="reportId != null and reportId != ''">
+                and report_id =#{reportId}
+            </if>
+            <if test="docType != null and docType != ''">
+                and doc_type =#{docType}
+            </if>
+        </where>
+    </select>
+    <select id="selectNo" resultType="java.lang.String">
     SELECT   pub_doc.contract  FROM  pub_doc    ORDER   BY   pub_doc.doc_id   DESC   LIMIT   1
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from pub_doc
     where doc_id = #{docId,jdbcType=BIGINT}
   </delete>
     <delete id="delDocList">
-      delete from pub_doc where doc_id in
-      <foreach item="item" collection="array" open="(" separator="," close=")">
-        #{item}
-      </foreach>
+        delete from pub_doc where doc_id in
+        <foreach item="item" collection="array" open="(" separator="," close=")">
+            #{item}
+        </foreach>
     </delete>
 
     <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.user.PubDoc">
-    insert into pub_doc
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="docId != null">
-        doc_id,
-      </if>
-      <if test="docPath != null">
-        doc_path,
-      </if>
-      <if test="note != null">
-        note,
-      </if>
-
-      <if test="docName != null">
-        doc_name,
-      </if>
-      <if test="contract != null">
-        contract,
-      </if>
-      <if test="reportId != null">
-        report_id,
-      </if>
-      <if test="debtId != null">
-        debt_id,
-      </if>
-      <if test="propertId != null">
-        propert_id,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="docId != null">
-        #{docId,jdbcType=BIGINT},
-      </if>
-      <if test="docPath != null">
-        #{docPath,jdbcType=VARCHAR},
-      </if>
-      <if test="note != null">
-        #{note,jdbcType=VARCHAR},
-      </if>
-      <if test="docName != null">
-        #{docName,jdbcType=VARCHAR},
-      </if>
-      <if test="contract != null">
-        #{contract,jdbcType=VARCHAR},
-      </if>
-      <if test="reportId != null">
-        #{reportId,jdbcType=BIGINT},
-      </if>
-      <if test="debtId != null">
-        #{debtId,jdbcType=BIGINT},
-      </if>
-      <if test="propertId != null">
-        #{propertId,jdbcType=BIGINT},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.vo.user.PubDocVo">
-    update pub_doc
-    <set>
-      <if test="docPath != null">
-        doc_path = #{docPath,jdbcType=VARCHAR},
-      </if>
-      <if test="note != null">
-        note = #{note,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where doc_id = #{docId,jdbcType=BIGINT}
-  </update>
+        insert into pub_doc
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="docId != null">
+                doc_id,
+            </if>
+            <if test="docType != null">
+                doc_type,
+            </if>
+            <if test="docPath != null">
+                doc_path,
+            </if>
+            <if test="note != null">
+                note,
+            </if>
+            <if test="docName != null">
+                doc_name,
+            </if>
+            <if test="contract != null">
+                contract,
+            </if>
+            <if test="reportId != null">
+                report_id,
+            </if>
+            <if test="debtId != null">
+                debt_id,
+            </if>
+            <if test="propertId != null">
+                propert_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="docId != null">
+                #{docId,jdbcType=BIGINT},
+            </if>
+            <if test="docType != null">
+                #{docType,jdbcType=VARCHAR},
+            </if>
+            <if test="docPath != null">
+                #{docPath,jdbcType=VARCHAR},
+            </if>
+            <if test="note != null">
+                #{note,jdbcType=VARCHAR},
+            </if>
+            <if test="docName != null">
+                #{docName,jdbcType=VARCHAR},
+            </if>
+            <if test="contract != null">
+                #{contract,jdbcType=VARCHAR},
+            </if>
+            <if test="reportId != null">
+                #{reportId,jdbcType=BIGINT},
+            </if>
+            <if test="debtId != null">
+                #{debtId,jdbcType=BIGINT},
+            </if>
+            <if test="propertId != null">
+                #{propertId,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.vo.user.PubDocVo">
+        update pub_doc
+        <set>
+            <if test="docPath != null">
+                doc_path = #{docPath,jdbcType=VARCHAR},
+            </if>
+            <if test="note != null">
+                note = #{note,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where doc_id = #{docId,jdbcType=BIGINT}
+    </update>
 
 </mapper>

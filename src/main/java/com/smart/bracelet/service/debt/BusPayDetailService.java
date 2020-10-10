@@ -4,7 +4,9 @@ import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.debt.BusPayDetail;
 import com.smart.bracelet.model.vo.debt.BusPayDetailInfo;
 import com.smart.bracelet.model.vo.debt.BusPayDetailVo;
+import com.smart.bracelet.model.vo.debt.ReportFee;
 
+import java.text.ParseException;
 import java.util.List;
 
 public interface BusPayDetailService {
@@ -49,4 +51,13 @@ public interface BusPayDetailService {
      * @return
      */
     List<BusPayDetail> selectByReportIdAndPropertId(Long reportId,Long propertId);
+
+
+    /**
+     * 发票生成信息
+     * @param reportId
+     * @return
+     */
+     ReportFee selectByRepId(Long reportId, String flag) throws ParseException;
+
 }

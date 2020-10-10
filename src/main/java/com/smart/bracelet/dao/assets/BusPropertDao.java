@@ -38,9 +38,6 @@ public interface BusPropertDao {
 
     int updateStage(String stage,Long propertId);
 
-    /**
-     * 支付明细
-     */
 
 
 }

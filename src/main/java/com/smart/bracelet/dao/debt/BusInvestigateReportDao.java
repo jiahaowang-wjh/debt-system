@@ -13,6 +13,8 @@ public interface BusInvestigateReportDao {
 
     BusInvestigateReport selectByPrimaryKey(Long reportId);
 
+    BusInvestigateReport selectByDebtId(Long debtId);
+
     int updateByPrimaryKeySelective(BusInvestigateReport record);
 
     int updateByPrimaryKey(BusInvestigateReport record);

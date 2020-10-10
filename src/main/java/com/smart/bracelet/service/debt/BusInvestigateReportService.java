@@ -16,4 +16,7 @@ public interface BusInvestigateReportService {
     int updateByPrimaryKeySelective(BusInvestigateReport record);
 
     int updateByPrimaryKey(BusInvestigateReport record);
+
+
+    BusInvestigateReport selectByDebtId(Long debtId);
 }

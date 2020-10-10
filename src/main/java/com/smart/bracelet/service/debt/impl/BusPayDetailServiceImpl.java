@@ -5,6 +5,7 @@ import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.debt.BusPayDetail;
 import com.smart.bracelet.model.vo.debt.BusPayDetailInfo;
 import com.smart.bracelet.model.vo.debt.BusPayDetailVo;
+import com.smart.bracelet.model.vo.debt.ReportFee;
 import com.smart.bracelet.service.debt.BusPayDetailService;
 import com.smart.bracelet.utils.IdUtils;
 import com.smart.bracelet.utils.RepNoUtils;
@@ -14,6 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -138,6 +142,13 @@ public class BusPayDetailServiceImpl implements BusPayDetailService {
     @Override
     public List<BusPayDetail> selectByReportIdAndPropertId(Long reportId, Long propertId) {
         return busPayDetailDao.selectByReportIdAndPropertId(reportId, propertId);
+    }
+
+    @Override
+    public ReportFee selectByRepId(Long reportId, String flag) throws ParseException {
+        ReportFee reportFees = busPayDetailDao.selectByRepId(reportId, flag);
+        reportFees.setThisTime(new SimpleDateFormat("yyyy-MM-dd").parse(new SimpleDateFormat("yyyy-MM-dd").format(new Date())));
+        return reportFees;
     }
 
 

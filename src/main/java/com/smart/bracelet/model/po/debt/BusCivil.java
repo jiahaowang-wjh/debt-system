@@ -186,8 +186,8 @@ public class BusCivil implements Serializable {
     String certificate;
 
     /**
-     * 调节人员
+     * 调解人员
      */
-    String userName;
+    List<String> userName;
 
 }

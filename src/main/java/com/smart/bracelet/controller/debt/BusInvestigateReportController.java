@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 @RestController
 @RequestMapping("/api/busInvestigateReportController/")
@@ -38,5 +39,14 @@ public class BusInvestigateReportController {
         return Result.success(busInvestigateReport);
     }
 
-
+    /**
+     * 通过解债Id查询调查报告
+     * @param debtId
+     * @return
+     */
+    @RequestMapping("/selectByDebtId")
+    public  Result<BusInvestigateReport >selectByDebtId(@NotNull(message = "解债ID不能为空") Long debtId){
+        BusInvestigateReport busInvestigateReport = busInvestigateReportService.selectByDebtId(debtId);
+        return Result.success(busInvestigateReport);
+    }
 }

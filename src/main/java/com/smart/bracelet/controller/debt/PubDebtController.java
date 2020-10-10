@@ -83,13 +83,16 @@ public class PubDebtController {
     public Result<PageInfo> selectDebtListShow(@NotNull(message = "页码不能为空") Integer pageNum,
                                                         @NotNull(message = "当前显示条数不能为空") Integer pageSize,
                                                @Valid DebtInfoQuery debtInfoQuery){
-        if (!StringUtils.isBlank(debtInfoQuery.getBeginDate())) {
+        if (!StringUtils.isBlank(debtInfoQuery.getBeginDate()) && !debtInfoQuery.getBeginDate().equals("null")) {
             debtInfoQuery.setBeginDate(debtInfoQuery.getBeginDate() + " 00:00:00");
+        }else{
+            debtInfoQuery.setBeginDate(null);
         }
-        if (!StringUtils.isBlank(debtInfoQuery.getEndDate())) {
+        if (!StringUtils.isBlank(debtInfoQuery.getEndDate()) && !debtInfoQuery.getEndDate().equals("null")) {
             debtInfoQuery.setEndDate(debtInfoQuery.getEndDate() + " 23:59:00");
+        }else{
+            debtInfoQuery.setEndDate(null);
         }
-
         PageHelper.startPage(pageNum, pageSize);
         List<PubDebtInfo> pubDebtInfos = pubDebtService.selectDebtListShow(debtInfoQuery);
         PageInfo<PubDebtInfo> pubDebtInfoPageInfo = new PageInfo<>(pubDebtInfos);

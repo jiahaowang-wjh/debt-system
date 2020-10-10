@@ -38,6 +38,7 @@ public class BusAssignmentConfirmShow {
      */
     List<String> authName;
 
+    Long reportId;
     /**
      * 编号
      */

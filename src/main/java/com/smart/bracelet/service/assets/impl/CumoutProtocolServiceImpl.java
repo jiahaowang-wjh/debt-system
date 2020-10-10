@@ -12,6 +12,7 @@ import com.smart.bracelet.model.po.user.PubCompany;
 import com.smart.bracelet.model.vo.assets.CommissionOnLine;
 import com.smart.bracelet.service.assets.CumoutProtocolService;
 import com.smart.bracelet.utils.BigDecimalUtil;
+import com.smart.bracelet.utils.ConvertUpMoney;
 import com.smart.bracelet.utils.IdUtils;
 import com.smart.bracelet.utils.RepNoUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -98,6 +99,7 @@ public class CumoutProtocolServiceImpl implements CumoutProtocolService {
                 money = BigDecimalUtil.add(item.getMoneyNum1(),money,2);
             }
             money = BigDecimalUtil.sub(money,"1",2);
+            initialize.setAmountThisMax(ConvertUpMoney.toChinese(initialize.getAmountThis().toString()));
             initialize.setAllCommodityMoney(money);
             initialize.setBusAgentSalesContractModities(list);
             Date createTime = initialize.getCreateTime();
