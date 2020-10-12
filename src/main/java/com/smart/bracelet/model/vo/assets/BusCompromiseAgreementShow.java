@@ -97,6 +97,10 @@ public class BusCompromiseAgreementShow {
     String debtReportPropert;
 
     /**
+     * 债务人身份证
+     */
+    String idCard;
+    /**
      * 相对人性质
      */
     String personReportPropert;

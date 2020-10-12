@@ -627,7 +627,7 @@ public class SignHelper {
 			orgInfo = OrgInfo.ELEC_AA;
 			// 签署方信息
 			// 平台方
-			PosBeanInfo posBean1 = new PosBeanInfo("2", 357F, 150F); // 签署位置
+			PosBeanInfo posBean1 = new PosBeanInfo("1", 357F, 150F); // 签署位置
 			SignfieldInfo signfield1 = new SignfieldInfo(true, "2", fileId, null, null, null, posBean1, null,orgInfo.getSealId()); // 签署区
 			SignerAccount signAccount1 = new SignerAccount(orgInfo.getAccountId(), orgInfo.getOrgid());//签署方账号
 			Signer signer1 = new Signer(false, 1, signAccount1, Lists.newArrayList(signfield1), null); // 签署方

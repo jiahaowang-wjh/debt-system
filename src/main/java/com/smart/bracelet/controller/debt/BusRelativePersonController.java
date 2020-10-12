@@ -188,42 +188,7 @@ public class BusRelativePersonController {
         return Result.success(auxiliaryDownloadPageInfo);
     }
 
-    /**
-     * 下载财务
-     */
-    @RequestMapping("/downSelectDow")
-    public void downSelectDow( HttpServletRequest request, HttpServletResponse response) throws ParseException {
-        String debtName = request.getParameter("debtName");
-        String time = request.getParameter("time");
-        List<AuxiliaryDownload> auxiliaryDownloads = busRelativePersonService.selectDow(debtName, time);
-        try {
-            ExportHelper exportHelper = new ExportHelper();
-            exportHelper.WriteResponse("财务信息", exportHelper.ExportExcel2(auxiliaryDownloads),
-                    request, response);
-        } catch (Exception e) {
-            e.printStackTrace();
-            //Result.fail(FailResultCode.FAIL);
-        }
-        //return Result.success();
-    }
-    /**
-     * 下载债务
-     */
-    @RequestMapping("/downSelectDebtDow")
-    public void downSelectDebtDow(HttpServletRequest request, HttpServletResponse response) throws ParseException {
-        try{
-            String debtName = request.getParameter("debtName");
-            String time = request.getParameter("time");
-            List<DowLod> dowLods = busRelativePersonService.selectDebtDow(debtName, time);
-            ExportHelper exportHelper=new ExportHelper();
-            exportHelper.WriteResponse("债务信息", exportHelper.ExportExcel1(dowLods),
-                    request,response);
-        }catch (Exception e){
-            e.printStackTrace();
-            //Result.fail(FailResultCode.FAIL);
-        }
-        //return Result.success();
-    }
+
 
     /**
      * 根据报备ID查询相对人信息并验证是否符合解债申请

@@ -97,7 +97,7 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
      * @throws ParseException
      */
     @Override
-    public Long fillInWordAndSaveAsSpecifyFormatCumOut(Long reportId, Long comId,String parta,String partaCard,String partaTel) throws ParseException, CustomerException {
+    public Long fillInWordAndSaveAsSpecifyFormatCumOut(Long reportId, Long comId) throws ParseException, CustomerException {
         try {
             //设置模板读取路径
             String readPath = DocumentPath.WORD_TEMPLATE_CUMOUT.getPath() + DocumentPath.WORD_TEMPLATE_CUMOUT.getFileName();
@@ -129,9 +129,13 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
             busElectronSeal.setDocType("4");
             busElectronSeal.setFilePath(savePath);
             busElectronSeal.setDocId(nextId);
-            busElectronSeal.setParta(parta);
-            busElectronSeal.setPartaCard(partaCard);
-            busElectronSeal.setPartaTel(partaTel);
+            busElectronSeal.setParta(initialize.getDebtName());
+            busElectronSeal.setPartaCard(initialize.getIdCard());
+            if(initialize.getReportPropert().equals("1")){
+                busElectronSeal.setPartaTel(initialize.getPriPhone());
+            }else{
+                busElectronSeal.setPartaTel(initialize.getCorBankPhone());
+            }
             busElectronSealController.addPubUser(busElectronSeal);
             return nextId;
         } catch (ParseException e) {
@@ -149,7 +153,7 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
      * @date 2020/9/20
      */
     @Override
-    public void fillInWordAndSaveAsSpecifyFormatPlan(Long reportId, Long comId,String parta,String partaCard,String partaTel) throws CustomerException {
+    public void fillInWordAndSaveAsSpecifyFormatPlan(Long reportId, Long comId) throws CustomerException {
         //设置模板读取路径
         String readPath = DocumentPath.WORD_TEMPLATE.getPath() + DocumentPath.WORD_TEMPLATE.getFileName();
         //设置pdf文件保存路径
@@ -195,9 +199,13 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         busElectronSeal.setDocType("5");
         busElectronSeal.setFilePath(savePath);
         busElectronSeal.setDocId(nextId);
-        busElectronSeal.setParta(parta);
-        busElectronSeal.setPartaCard(partaCard);
-        busElectronSeal.setPartaTel(partaTel);
+        busElectronSeal.setParta(planServiceInfo.getDebtName());
+        busElectronSeal.setPartaCard(planServiceInfo.getPersonCard());
+        if(planServiceInfo.getReportPropert().equals("1")){
+            busElectronSeal.setPartaTel(planServiceInfo.getPriPhone());
+        }else {
+            busElectronSeal.setPartaTel(planServiceInfo.getCorBankPhone());
+        }
         busElectronSealController.addPubUser(busElectronSeal);
     }
 
@@ -208,7 +216,7 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
      * @param comId
      */
     @Override
-    public void fillInWordAndSaveAsSpecifyFormatTransfer(Long propertId, Long comId,String parta,String partaCard,String partaTel) throws CustomerException, ParseException {
+    public void fillInWordAndSaveAsSpecifyFormatTransfer(Long propertId, Long comId) throws CustomerException, ParseException {
         //设置模板读取路径
         String readPath = DocumentPath.WORD_TEMPLATE_TRANSFER.getPath() + DocumentPath.WORD_TEMPLATE_TRANSFER.getFileName();
         //设置pdf文件保存路径
@@ -263,9 +271,14 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         busElectronSeal.setDocType("6");
         busElectronSeal.setFilePath(savePath);
         busElectronSeal.setDocId(nextId);
-        busElectronSeal.setParta(parta);
-        busElectronSeal.setPartaCard(partaCard);
-        busElectronSeal.setPartaTel(partaTel);
+        busElectronSeal.setParta(initialize.getDebtName());
+        busElectronSeal.setPartaCard(initialize.getIdCard());
+        if(initialize.getReportPropert().equals("1")){
+            busElectronSeal.setPartaTel(initialize.getPriPhone());
+        }else {
+            busElectronSeal.setPartaTel(initialize.getCorBankPhone());
+        }
+
         busElectronSealController.addPubUser(busElectronSeal);
     }
 
@@ -360,7 +373,7 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
      * @throws ParseException
      */
     @Override
-    public void fillInWordAndSaveAsSpecifyFormatProve(Long propertId,String parta,String partaCard,String partaTel) throws CustomerException, ParseException {
+    public void fillInWordAndSaveAsSpecifyFormatProve(Long propertId) throws CustomerException, ParseException {
         //设置模板读取路径
         String readPath = DocumentPath.WORD_TEMPLATE_PROVE.getPath() + DocumentPath.WORD_TEMPLATE_PROVE.getFileName();
         //设置pdf文件保存路径
@@ -399,12 +412,14 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         busElectronSeal.setDocType("9");
         busElectronSeal.setFilePath(savePath);
         busElectronSeal.setDocId(nextId);
-        busElectronSeal.setParta(parta);
-        busElectronSeal.setPartaCard(partaCard);
-        busElectronSeal.setPartaTel(partaTel);
+        busElectronSeal.setParta(initialize.getPersonName());
+        busElectronSeal.setPartaCard(initialize.getPersonCard());
+        if(initialize.getReportPropert().equals("1")){
+            busElectronSeal.setPartaTel(initialize.getPriPhone());
+        }else {
+            busElectronSeal.setPartaTel(initialize.getCorBackPhone());
+        }
         busElectronSealController.addPubUser(busElectronSeal);
-
-
     }
 
     /**
@@ -415,7 +430,7 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
      * @throws ParseException
      */
     @Override
-    public void fillInWordAndSaveAsSpecifyFormatLetter(Long propertId,Long comId,String parta,String partaCard,String partaTel) throws CustomerException, ParseException {
+    public void fillInWordAndSaveAsSpecifyFormatLetter(Long propertId,Long comId) throws CustomerException, ParseException {
         //设置模板读取路径
         String readPath = DocumentPath.WORD_TEMPLATE_LETTER.getPath() + DocumentPath.WORD_TEMPLATE_LETTER.getFileName();
         //设置pdf文件保存路径
@@ -450,9 +465,13 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         busElectronSeal.setDocType("10");
         busElectronSeal.setFilePath(savePath);
         busElectronSeal.setDocId(nextId);
-        busElectronSeal.setParta(parta);
-        busElectronSeal.setPartaCard(partaCard);
-        busElectronSeal.setPartaTel(partaTel);
+        busElectronSeal.setParta(initialize.getPersonName());
+        busElectronSeal.setPartaCard(initialize.getIdCard());
+        if(initialize.getReportPropert().equals("1")){
+            busElectronSeal.setPartaTel(initialize.getPriPhone());
+        }else {
+            busElectronSeal.setPartaTel(initialize.getCorBackPhone());
+        }
         busElectronSealController.addPubUser(busElectronSeal);
     }
 
@@ -464,7 +483,7 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
      * @throws ParseException
      */
     @Override
-    public void fillInWordAndSaveAsSpecifyFormatConsignment(Long propertId,Long comId,String parta,String partaCard,String partaTel) throws CustomerException, ParseException {
+    public void fillInWordAndSaveAsSpecifyFormatConsignment(Long propertId,Long comId) throws CustomerException, ParseException {
         //设置模板读取路径
         String readPath = DocumentPath.WORD_TEMPLATE_CONSIG.getPath() + DocumentPath.WORD_TEMPLATE_CONSIG.getFileName();
         //设置pdf文件保存路径
@@ -537,9 +556,14 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         busElectronSeal.setDocType("11");
         busElectronSeal.setFilePath(savePath);
         busElectronSeal.setDocId(nextId);
-        busElectronSeal.setParta(parta);
-        busElectronSeal.setPartaCard(partaCard);
-        busElectronSeal.setPartaTel(partaTel);
+        busElectronSeal.setParta(initialize.getDebtName());
+        busElectronSeal.setPartaCard(initialize.getDebtIdCard());
+        if(initialize.getReportPropert().equals("1")){
+            busElectronSeal.setPartaTel(initialize.getPriPhone());
+        }else {
+            busElectronSeal.setPartaTel(initialize.getCorBankPhone());
+        }
+
         busElectronSealController.addPubUser(busElectronSeal);
     }
 
@@ -551,7 +575,7 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
      * @throws ParseException
      */
     @Override
-    public void fillInWordAndSaveAsSpecifyFormatReconciliation(Long propertId, Long comId,String parta,String partaCard,String partaTel) throws CustomerException, ParseException {
+    public void fillInWordAndSaveAsSpecifyFormatReconciliation(Long propertId, Long comId) throws CustomerException, ParseException {
         //设置模板读取路径
         String readPath = DocumentPath.WORD_TEMPLATE_RECILIATION.getPath() + DocumentPath.WORD_TEMPLATE_RECILIATION.getFileName();
         //设置pdf文件保存路径
@@ -586,9 +610,14 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         busElectronSeal.setDocType("12");
         busElectronSeal.setFilePath(savePath);
         busElectronSeal.setDocId(nextId);
-        busElectronSeal.setParta(parta);
-        busElectronSeal.setPartaCard(partaCard);
-        busElectronSeal.setPartaTel(partaTel);
+        busElectronSeal.setParta(initialize.getPersonName());
+        busElectronSeal.setPartaCard(initialize.getIdCard());
+        if(initialize.getPersonReportPropert().equals("1")){
+            busElectronSeal.setPartaTel(initialize.getPersonPriPhone());
+        }else {
+            busElectronSeal.setPartaTel(initialize.getPersonCorPhone());
+        }
+
         busElectronSealController.addPubUser(busElectronSeal);
     }
 

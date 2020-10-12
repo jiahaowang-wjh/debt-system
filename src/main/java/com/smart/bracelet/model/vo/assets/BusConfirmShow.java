@@ -12,11 +12,16 @@ import java.util.Date;
 public class BusConfirmShow {
 
     /**
-     * 债务人姓名
+     * 债权人姓名
      */
     String debtName;
+
     /**
-     * 债权人姓名
+     * 债务人身份证
+     */
+    String personCard;
+    /**
+     * 债务人姓名
      */
     String personName;
     /**
@@ -26,7 +31,7 @@ public class BusConfirmShow {
     /**
      * 解债日期
      */
-    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
     Date createTime;
     /**
      * 本金
@@ -45,7 +50,7 @@ public class BusConfirmShow {
     /**
      * 合同日期
      */
-    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
     Date contractTime;
 
     /**
@@ -56,4 +61,18 @@ public class BusConfirmShow {
 
     Long reportId;
 
+    /**
+     * 债事人电话（企业或银行）
+     */
+    String corBackPhone;
+
+    /**
+     * 债事人电话（私人）
+     */
+    String priPhone;
+
+    /**
+     * 类型
+     */
+    String reportPropert;
 }

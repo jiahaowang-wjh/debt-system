@@ -444,9 +444,10 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
     public List<BusRelativePersonPrivateVo> selectByreportId(Long reportId) throws CustomerException {
         try {
             List<BusRelativePerson> busRelativePeople = busRelativePersonDao.selectByreportId(reportId);
+            BusReport busReport = busReportDao.selectByPrimaryKey(reportId);
             List<BusRelativePersonPrivateVo> listVos = new ArrayList<>();
             for (BusRelativePerson item : busRelativePeople) {
-                if (!item.getReportType().equals("1")) {
+                if (!busReport.getReportType().equals("2") && !item.getReportType().equals("1")) {
                     //判断是否符合民事调解关系
                     Boolean verification = busCivilService.verification(item.getRelativePerId());
                     if (verification) {

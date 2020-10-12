@@ -4,6 +4,7 @@ import com.smart.bracelet.controller.publicmethod.Formula;
 import com.smart.bracelet.dao.assets.BusAgentSalesContractDao;
 import com.smart.bracelet.dao.assets.BusAgentSalesContractModityDao;
 import com.smart.bracelet.dao.assets.BusPropertDao;
+import com.smart.bracelet.dao.debt.BusRealAuthDao;
 import com.smart.bracelet.dao.debt.PubDebtDao;
 import com.smart.bracelet.dao.user.PubCompanyDao;
 import com.smart.bracelet.exception.CustomerException;
@@ -38,6 +39,7 @@ public class BusAgentSalesContractServiceImpl implements BusAgentSalesContractSe
 
     @Autowired
     private BusAgentSalesContractDao busAgentSalesContractDao;
+
 
     @Autowired
     private BusAgentSalesContractModityDao busAgentSalesContractModityDao;

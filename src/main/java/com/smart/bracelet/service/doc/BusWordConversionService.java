@@ -16,18 +16,18 @@ public interface BusWordConversionService {
     /**
      * 填充Word并保存为指定格式（暨尽协议）
      */
-    Long fillInWordAndSaveAsSpecifyFormatCumOut(Long reportId, Long comId,String parta,String partaCard,String partaTel) throws CustomerException, ParseException;
+    Long fillInWordAndSaveAsSpecifyFormatCumOut(Long reportId, Long comId) throws CustomerException, ParseException;
 
 
     /**
      * 填充Word并保存为指定格式（策划方案）
      */
-    void fillInWordAndSaveAsSpecifyFormatPlan(Long debtId,Long comId,String parta,String partaCard,String partaTel) throws CustomerException;
+    void fillInWordAndSaveAsSpecifyFormatPlan(Long debtId,Long comId) throws CustomerException;
 
     /**
      * 填充Word并保存为指定格式（债权转让协议）
      */
-    void fillInWordAndSaveAsSpecifyFormatTransfer(Long propertId,Long comId,String parta,String partaCard,String partaTel) throws CustomerException, ParseException;
+    void fillInWordAndSaveAsSpecifyFormatTransfer(Long propertId,Long comId) throws CustomerException, ParseException;
 
 
     /**
@@ -43,24 +43,24 @@ public interface BusWordConversionService {
     /**
      * 填充Word并保存为指定格式（债权确认书）
      */
-    void fillInWordAndSaveAsSpecifyFormatProve(Long propertId,String parta,String partaCard,String partaTel) throws CustomerException, ParseException;
+    void fillInWordAndSaveAsSpecifyFormatProve(Long propertId) throws CustomerException, ParseException;
 
 
     /**
      * 填充Word并保存为指定格式（催款函）
      */
-    void fillInWordAndSaveAsSpecifyFormatLetter(Long propertId,Long comId,String parta,String partaCard,String partaTel) throws CustomerException, ParseException;
+    void fillInWordAndSaveAsSpecifyFormatLetter(Long propertId,Long comId) throws CustomerException, ParseException;
 
     /**
      * 填充Word并保存为指定格式（委托代理销售合同）
      */
-    void fillInWordAndSaveAsSpecifyFormatConsignment(Long propertId,Long comId,String parta,String partaCard,String partaTel) throws CustomerException, ParseException;
+    void fillInWordAndSaveAsSpecifyFormatConsignment(Long propertId,Long comId) throws CustomerException, ParseException;
 
 
     /**
      * 填充Word并保存为指定格式（和解协议）
      */
-    void fillInWordAndSaveAsSpecifyFormatReconciliation(Long propertId,Long comId,String parta,String partaCard,String partaTel) throws CustomerException, ParseException;
+    void fillInWordAndSaveAsSpecifyFormatReconciliation(Long propertId,Long comId) throws CustomerException, ParseException;
 
     /**
      * 填充Word并保存为指定格式（委托线上代理销售合同）

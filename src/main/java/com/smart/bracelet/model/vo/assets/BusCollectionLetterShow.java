@@ -49,5 +49,23 @@ public class BusCollectionLetterShow {
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     Date contractDate;
 
+    /**
+     * 债务人手机号（私人）
+     */
+    String priPhone;
 
+    /**
+     * 债务人手机号（私人）
+     */
+    String corBackPhone;
+
+    /**
+     * 债务人身份证
+     */
+    String idCard;
+
+    /**
+     * 债务人性质
+     */
+    String reportPropert;
 }
