@@ -43,7 +43,7 @@ public class PubDiction implements Serializable {
     /**
      * 字典显示
      */
-    @NotBlank(message = "字典类型不能为空")
+    @NotBlank(message = "字典显示不能为空")
     private String dictionDis;
 
     /**

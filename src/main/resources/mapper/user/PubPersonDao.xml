@@ -25,6 +25,18 @@
     LEFT JOIN pub_person pp ON pu.person_id = pp.person_id
     WHERE pp.person_type = #{personType,jdbcType=VARCHAR}
     </select>
+    <select id="queryPer" resultType="com.smart.bracelet.model.po.user.PubPerson"
+            parameterType="java.lang.String">
+      select
+      <include refid="Base_Column_List" />
+      from pub_person
+    </select>
+    <select id="selectByPrimaryName" resultType="com.smart.bracelet.model.po.user.PubPerson"
+            parameterType="java.lang.String">
+      select
+      <include refid="Base_Column_List" />
+      from pub_person where pub_person.person_name=#{name}
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from pub_person
     where person_id = #{personId,jdbcType=BIGINT}

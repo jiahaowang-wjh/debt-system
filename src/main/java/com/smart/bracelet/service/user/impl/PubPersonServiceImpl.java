@@ -41,7 +41,6 @@ public class PubPersonServiceImpl implements PubPersonService {
     @Transactional(noRollbackFor = Exception.class)
     public int insertSelective(PubPerson record) throws CustomerException {
         try {
-            record.setPersonId(IdUtils.nextId());
             int insertSelective = pubPerson.insertSelective(record);
             log.info("人员信息添加成功,受影响行数:{}", insertSelective);
             return insertSelective;
@@ -73,5 +72,15 @@ public class PubPersonServiceImpl implements PubPersonService {
     @Override
     public List<PubPerson> selectByType(String personType) {
         return pubPerson.selectByType(personType);
+    }
+
+    @Override
+    public PubPerson selectByPrimaryName(String name) {
+        return pubPerson.selectByPrimaryName(name);
+    }
+
+    @Override
+    public List<PubPerson> queryPer() {
+        return pubPerson.queryPer();
     }
 }

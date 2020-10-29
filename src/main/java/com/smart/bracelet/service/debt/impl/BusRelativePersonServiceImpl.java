@@ -534,7 +534,12 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
 
     @Override
     public List<AuxiliaryDownload> selectDow(String debtName, String time) throws ParseException {
+        int num = 0;
         List<AuxiliaryDownload> auxiliaryDownloads = busRelativePersonDao.selectDow(debtName, time);
+        for (AuxiliaryDownload item : auxiliaryDownloads) {
+            num += 1;
+            item.setNumBer(num);
+        }
         return auxiliaryDownloads;
     }
 
@@ -556,8 +561,11 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
 
     @Override
     public List<DowLod> selectDebtDow(String debtName, String time) {
+        int num=0;
         List<DowLod> dowLods = busRelativePersonDao.selectDebtDow(debtName, time);
         for (DowLod item : dowLods) {
+            num+=1;
+            item.setNumBer(num);
             if (item.getType().equals("1")) {
                 item.setCroBankPhone(null);
             } else {

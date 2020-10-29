@@ -13,6 +13,11 @@ public class BusCivilInfo {
     Long civilId;
 
     /**
+     * 审核原因
+     */
+    String checkReason;
+
+    /**
      * 相对人ID
      */
     @JsonSerialize(using = ToStringSerializer.class)

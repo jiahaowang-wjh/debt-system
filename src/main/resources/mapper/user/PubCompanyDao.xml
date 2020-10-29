@@ -1,106 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.smart.bracelet.dao.user.PubCompanyDao">
-  <resultMap id="BaseResultMap" type="com.smart.bracelet.model.po.user.PubCompany">
-    <id column="company_id" jdbcType="BIGINT" property="companyId" />
-    <result column="area_id" jdbcType="BIGINT" property="areaId" />
-    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
-    <result column="company_type" jdbcType="VARCHAR" property="companyType" />
-    <result column="company_leperson" jdbcType="VARCHAR" property="companyLeperson" />
-    <result column="company_tel" jdbcType="VARCHAR" property="companyTel" />
-    <result column="company_name_max" jdbcType="VARCHAR" property="companyNameMax" />
-  </resultMap>
-  <sql id="Base_Column_List">
+    <resultMap id="BaseResultMap" type="com.smart.bracelet.model.po.user.PubCompany">
+        <id column="company_id" jdbcType="BIGINT" property="companyId"/>
+        <result column="area_id" jdbcType="BIGINT" property="areaId"/>
+        <result column="company_name" jdbcType="VARCHAR" property="companyName"/>
+        <result column="company_type" jdbcType="VARCHAR" property="companyType"/>
+        <result column="company_leperson" jdbcType="VARCHAR" property="companyLeperson"/>
+        <result column="company_tel" jdbcType="VARCHAR" property="companyTel"/>
+        <result column="company_name_max" jdbcType="VARCHAR" property="companyNameMax"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     company_id, area_id, company_name, company_type, company_leperson, company_tel,company_name_max
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from pub_company
-    where company_id = #{companyId,jdbcType=BIGINT}
-  </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from pub_company
+        where company_id = #{companyId,jdbcType=BIGINT}
+    </select>
     <select id="queryList" resultType="com.smart.bracelet.model.po.user.PubCompany">
-      select
-      <include refid="Base_Column_List" />
-      from pub_company
+        select
+        <include refid="Base_Column_List"/>
+        from pub_company
+    </select>
+    <select id="selectByNameMax" resultType="com.smart.bracelet.model.po.user.PubCompany"
+            parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from pub_company where pub_company.company_name_max = #{nameMax}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from pub_company
     where company_id = #{companyId,jdbcType=BIGINT}
   </delete>
 
-  <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.user.PubCompany">
-    insert into pub_company
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="companyId != null">
-        company_id,
-      </if>
-      <if test="areaId != null">
-        area_id,
-      </if>
-      <if test="companyName != null">
-        company_name,
-      </if>
-      <if test="companyType != null">
-        company_type,
-      </if>
-      <if test="companyLeperson != null">
-        company_leperson,
-      </if>
-      <if test="companyTel != null">
-        company_tel,
-      </if>
-      <if test="companyNameMax != null">
-        company_name_max,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="companyId != null">
-        #{companyId,jdbcType=BIGINT},
-      </if>
-      <if test="areaId != null">
-        #{areaId,jdbcType=BIGINT},
-      </if>
-      <if test="companyName != null">
-        #{companyName,jdbcType=VARCHAR},
-      </if>
-      <if test="companyType != null">
-        #{companyType,jdbcType=VARCHAR},
-      </if>
-      <if test="companyLeperson != null">
-        #{companyLeperson,jdbcType=VARCHAR},
-      </if>
-      <if test="companyTel != null">
-        #{companyTel,jdbcType=VARCHAR},
-      </if>
-      <if test="companyNameMax != null">
-        #{companyNameMax,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective">
-    update pub_company
-    <set>
-      <if test="areaId != null">
-        area_id = #{areaId,jdbcType=BIGINT},
-      </if>
-      <if test="companyName != null">
-        company_name = #{companyName,jdbcType=VARCHAR},
-      </if>
-      <if test="companyType != null">
-        company_type = #{companyType,jdbcType=VARCHAR},
-      </if>
-      <if test="companyLeperson != null">
-        company_leperson = #{companyLeperson,jdbcType=VARCHAR},
-      </if>
-      <if test="companyTel != null">
-        company_tel = #{companyTel,jdbcType=VARCHAR},
-      </if>
-      <if test="companyNameMax != null">
-        company_name_max = #{companyNameMax,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where company_id = #{companyId,jdbcType=BIGINT}
-  </update>
+    <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.user.PubCompany">
+        insert into pub_company
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="companyId != null">
+                company_id,
+            </if>
+            <if test="areaId != null">
+                area_id,
+            </if>
+            <if test="companyName != null">
+                company_name,
+            </if>
+            <if test="companyType != null">
+                company_type,
+            </if>
+            <if test="companyLeperson != null">
+                company_leperson,
+            </if>
+            <if test="companyTel != null">
+                company_tel,
+            </if>
+            <if test="companyNameMax != null">
+                company_name_max,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="companyId != null">
+                #{companyId,jdbcType=BIGINT},
+            </if>
+            <if test="areaId != null">
+                #{areaId,jdbcType=BIGINT},
+            </if>
+            <if test="companyName != null">
+                #{companyName,jdbcType=VARCHAR},
+            </if>
+            <if test="companyType != null">
+                #{companyType,jdbcType=VARCHAR},
+            </if>
+            <if test="companyLeperson != null">
+                #{companyLeperson,jdbcType=VARCHAR},
+            </if>
+            <if test="companyTel != null">
+                #{companyTel,jdbcType=VARCHAR},
+            </if>
+            <if test="companyNameMax != null">
+                #{companyNameMax,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective">
+        update pub_company
+        <set>
+            <if test="areaId != null">
+                area_id = #{areaId,jdbcType=BIGINT},
+            </if>
+            <if test="companyName != null">
+                company_name = #{companyName,jdbcType=VARCHAR},
+            </if>
+            <if test="companyType != null">
+                company_type = #{companyType,jdbcType=VARCHAR},
+            </if>
+            <if test="companyLeperson != null">
+                company_leperson = #{companyLeperson,jdbcType=VARCHAR},
+            </if>
+            <if test="companyTel != null">
+                company_tel = #{companyTel,jdbcType=VARCHAR},
+            </if>
+            <if test="companyNameMax != null">
+                company_name_max = #{companyNameMax,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where company_id = #{companyId,jdbcType=BIGINT}
+    </update>
 
 </mapper>

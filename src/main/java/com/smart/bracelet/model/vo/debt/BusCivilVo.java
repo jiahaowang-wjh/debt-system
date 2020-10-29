@@ -1,5 +1,6 @@
 package com.smart.bracelet.model.vo.debt;
 
+import com.smart.bracelet.model.po.debt.BusGuarantee;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -35,7 +36,6 @@ public class BusCivilVo {
     /**
      * 化解方式
      */
-    @NotBlank(message = "化解方式不能为空")
     private String solutions;
 
     /**
@@ -134,7 +134,6 @@ public class BusCivilVo {
     /**
      * 债务处理方式
      */
-    @NotBlank(message = "债务处理方式不能为空")
     private String treatmentMethod;
 
     /**
@@ -158,4 +157,24 @@ public class BusCivilVo {
      */
     @NotBlank(message = "审核原因不能为空")
     private String checkReason;
+
+    /**
+     * 债务形成原因
+     */
+    String debtReason;
+
+    /**
+     * 凭证
+     */
+    String certificate;
+
+    /**
+     * 用户Id
+     */
+    Long[] longs;
+
+    /**
+     * 担保人集合
+     */
+    BusGuarantee[] busGuarantee;
 }

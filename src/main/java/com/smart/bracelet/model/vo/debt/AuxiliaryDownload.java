@@ -81,4 +81,8 @@ public class AuxiliaryDownload {
      */
     String companyName;
 
+    /**
+     * 序号
+     */
+    int numBer;
 }

@@ -73,10 +73,12 @@ public class BusPayDetail implements Serializable {
     /**
      * 解借Id
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long debtId;
 
     /**
      * 资产ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long propertId;
 }

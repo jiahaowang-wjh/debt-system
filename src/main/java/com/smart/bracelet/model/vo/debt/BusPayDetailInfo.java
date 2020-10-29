@@ -42,6 +42,7 @@ public class BusPayDetailInfo {
     /**
      * 支付金额
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     Float cost;
     /**
      * 支付凭证
@@ -61,4 +62,8 @@ public class BusPayDetailInfo {
      * 合同人
      */
     String contractName;
+    /**
+     * 审核原因
+     */
+    String checkReason;
 }

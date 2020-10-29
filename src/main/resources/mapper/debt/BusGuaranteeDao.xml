@@ -19,11 +19,21 @@
     from bus_guarantee
     where civil_id = #{civilId,jdbcType=BIGINT}
   </select>
+  <select id="selectByPrimaryKey1" parameterType="java.lang.Long"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from bus_guarantee
+    where civil_id = #{civilId,jdbcType=BIGINT}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from bus_guarantee
     where guarantee_id = #{guaranteeId,jdbcType=BIGINT}
   </delete>
-  <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.debt.BusGuarantee">
+    <delete id="deleteByCiviId" parameterType="java.lang.Long">
+        delete from bus_guarantee
+     where civil_id = #{civilId,jdbcType=BIGINT}
+    </delete>
+    <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.debt.BusGuarantee">
     insert into bus_guarantee
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="guaranteeId != null">

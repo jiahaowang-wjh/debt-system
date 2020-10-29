@@ -1,10 +1,7 @@
 package com.smart.bracelet.service.user;
 
 import com.smart.bracelet.exception.CustomerException;
-import com.smart.bracelet.model.po.user.PubAuth;
-import com.smart.bracelet.model.po.user.PubMenu;
-import com.smart.bracelet.model.po.user.PubUser;
-import com.smart.bracelet.model.po.user.PersonOnUserOnCom;
+import com.smart.bracelet.model.po.user.*;
 import com.smart.bracelet.model.vo.user.PersonOnUserOnComVo;
 import com.smart.bracelet.model.vo.user.PubUserVo;
 import com.smart.bracelet.model.vo.user.UserMenu;
@@ -118,4 +115,12 @@ public interface PubUserService {
      */
     int updatePerson(PersonOnUserOnComVo personOnUserOnComVo) throws CustomerException;
 
+    /**
+     * 新增商品
+     * @param commodity
+     * @return
+     */
+    int addComm(Commodity commodity,String note) throws CustomerException;
+
+    int insertPort(ComPerUserInfo comPerUserInfo) throws CustomerException;
 }

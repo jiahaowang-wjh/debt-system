@@ -1,9 +1,6 @@
 package com.smart.bracelet.dao.user;
 
-import com.smart.bracelet.model.po.user.PubAuth;
-import com.smart.bracelet.model.po.user.PubMenu;
-import com.smart.bracelet.model.po.user.PubUser;
-import com.smart.bracelet.model.po.user.PersonOnUserOnCom;
+import com.smart.bracelet.model.po.user.*;
 import com.smart.bracelet.model.vo.user.PersonOnUserOnComVo;
 import com.smart.bracelet.model.vo.user.PubUserVo;
 import com.smart.bracelet.model.vo.user.UserMenu;
@@ -114,5 +111,6 @@ public interface PubUserDao {
      * 更新人员信息
      */
     int updatePerson(PersonOnUserOnComVo personOnUserOnComVo);
+
 
 }

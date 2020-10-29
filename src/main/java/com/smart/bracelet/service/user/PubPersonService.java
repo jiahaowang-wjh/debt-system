@@ -40,4 +40,9 @@ public interface PubPersonService {
      * 查询用户推荐人
      */
     List<PubPerson> selectByType(String personType);
+
+    PubPerson selectByPrimaryName(String name);
+
+
+    List<PubPerson> queryPer();
 }

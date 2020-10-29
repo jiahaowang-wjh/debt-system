@@ -58,6 +58,6 @@ public interface BusPayDetailService {
      * @param reportId
      * @return
      */
-     ReportFee selectByRepId(Long reportId, String flag) throws ParseException;
+     ReportFee selectByRepId(Long reportId, String flag,Long debtId,Long propertId) throws ParseException;
 
 }

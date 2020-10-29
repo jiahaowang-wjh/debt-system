@@ -11,7 +11,10 @@ public class PubDebtInfo {
      */
     @JsonSerialize(using = ToStringSerializer.class)
     Long reportId;
-
+    /**
+     * 审批原因
+     */
+    String checkReason;
     /**
      * 报备编号
      */

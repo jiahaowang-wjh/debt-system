@@ -99,5 +99,13 @@ public interface BusCivilDao {
      * @param civId
      * @return
      */
-     List<String> selectUser(Long civId);
+     CiviliVo[] selectUser(Long civId);
+
+    /**
+     * 删除调解员
+     * @param civilId
+     * @return
+     */
+    int delUser(Long civilId);
+
 }

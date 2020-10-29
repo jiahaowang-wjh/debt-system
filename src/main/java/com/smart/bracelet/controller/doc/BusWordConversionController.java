@@ -34,7 +34,6 @@ public class BusWordConversionController {
     @Autowired
     private BusWordConversionService busWordConversionService;
 
-
     @Autowired
     private BusRelativePersonService busRelativePersonService;
 
@@ -143,8 +142,8 @@ public class BusWordConversionController {
      */
     @RequestMapping("/fillInWordAndSaveAsSpecifyFormatReportFee")
     public Result fillInWordAndSaveAsSpecifyFormatReportFee(@NotNull(message = "报备ID") Long reportId, @NotBlank(message = "人员姓名不能为空") String parta, @NotBlank(message = "人员身份证不能为空") String partaCard,
-                                                            @NotBlank(message = "人员电话不能为空") String partaTel) throws CustomerException, ParseException {
-        busWordConversionService.fillInWordAndSaveAsSpecifyFormatReportFee(reportId, parta, partaCard, partaTel);
+                                                            @NotBlank(message = "人员电话不能为空") String partaTel,Long debtId,Long propertId) throws CustomerException, ParseException {
+        busWordConversionService.fillInWordAndSaveAsSpecifyFormatReportFee(reportId, parta, partaCard, partaTel,debtId,propertId);
         return Result.success();
     }
 
@@ -153,8 +152,8 @@ public class BusWordConversionController {
      */
     @RequestMapping("/fillInWordAndSaveAsSpecifyFormatdvisory")
     public Result fillInWordAndSaveAsSpecifyFormatdvisory(@NotNull(message = "报备ID") Long reportId, @NotBlank(message = "人员姓名不能为空") String parta, @NotBlank(message = "人员身份证不能为空") String partaCard,
-                                                          @NotBlank(message = "人员电话不能为空") String partaTel) throws CustomerException, ParseException {
-        busWordConversionService.fillInWordAndSaveAsSpecifyFormatdvisory(reportId, parta, partaCard, partaTel);
+                                                          @NotBlank(message = "人员电话不能为空") String partaTel,Long debtId,Long propertId) throws CustomerException, ParseException {
+        busWordConversionService.fillInWordAndSaveAsSpecifyFormatdvisory(reportId, parta, partaCard, partaTel,debtId,propertId);
         return Result.success();
     }
 
@@ -163,8 +162,8 @@ public class BusWordConversionController {
      */
     @RequestMapping("/fillInWordAndSaveAsSpecifyPayment")
     public Result fillInWordAndSaveAsSpecifyPayment(@NotNull(message = "报备ID") Long reportId, @NotBlank(message = "人员姓名不能为空") String parta, @NotBlank(message = "人员身份证不能为空") String partaCard,
-                                                    @NotBlank(message = "人员电话不能为空") String partaTel) throws CustomerException, ParseException{
-        busWordConversionService.fillInWordAndSaveAsSpecifyPayment(reportId,parta,partaCard,partaTel);
+                                                    @NotBlank(message = "人员电话不能为空") String partaTel,Long debtId,Long propertId) throws CustomerException, ParseException{
+        busWordConversionService.fillInWordAndSaveAsSpecifyPayment(reportId,parta,partaCard,partaTel,debtId,propertId);
         return Result.success();
     }
 

@@ -65,6 +65,6 @@ public interface BusPayDetailDao {
      * @param reportId
      * @return
      */
-    ReportFee selectByRepId(Long reportId,String flag);
+    ReportFee selectByRepId(Long reportId,String flag,Long debtId,Long propertId);
 
 }

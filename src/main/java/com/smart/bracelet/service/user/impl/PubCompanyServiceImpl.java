@@ -37,7 +37,6 @@ public class PubCompanyServiceImpl implements PubCompanyService {
     @Transactional(noRollbackFor = Exception.class)
     public int insertSelective(PubCompany record) throws CustomerException {
         try {
-            record.setCompanyId(IdUtils.nextId());
             int insertSelective = pubCompanyDao.insertSelective(record);
             log.info("新增公司信息成功,受影响行数:{}", insertSelective);
             return insertSelective;
@@ -63,6 +62,11 @@ public class PubCompanyServiceImpl implements PubCompanyService {
             log.error("更新公司信息失败,异常信息:{}", e.getMessage());
             throw new CustomerException("新更新公司信息失败");
         }
+    }
+
+    @Override
+    public PubCompany selectByNameMax(String nameMax) {
+        return pubCompanyDao.selectByNameMax(nameMax);
     }
 
     @Override

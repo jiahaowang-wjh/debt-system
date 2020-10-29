@@ -75,21 +75,24 @@ public class BusAgentSalesContractServiceImpl implements BusAgentSalesContractSe
             log.info("新增委托合同成功");
             BusAgentSalesContractModity[] busAgentSalesContractModity = record.getBusAgentSalesContractModity();
             List<BusAgentSalesContractModity> list = new ArrayList<>();
-            for (BusAgentSalesContractModity item: busAgentSalesContractModity) {
-                BusAgentSalesContractModity modity = new BusAgentSalesContractModity();
-                modity.setSalesContractModityId(IdUtils.nextId());
-                modity.setSalesContractId(l);
-                modity.setModityPlace(item.getModityPlace());
-                modity.setModityName(item.getModityName());
-                modity.setModitySpecificat(item.getModitySpecificat());
-                modity.setPartyaSeal(item.getPartyaSeal());
-                modity.setPartybSeal(item.getPartybSeal());
-                modity.setPartybTime(item.getPartybTime());
-                modity.setMoneyNum1(item.getMoneyNum1());
-                list.add(modity);
+            if (busAgentSalesContractModity!=null && busAgentSalesContractModity.length!=0) {
+                for (BusAgentSalesContractModity item : busAgentSalesContractModity) {
+                    BusAgentSalesContractModity modity = new BusAgentSalesContractModity();
+                    modity.setSalesContractModityId(IdUtils.nextId());
+                    modity.setSalesContractId(l);
+                    modity.setModityPlace(item.getModityPlace());
+                    modity.setModityName(item.getModityName());
+                    modity.setModitySpecificat(item.getModitySpecificat());
+                    modity.setPartyaSeal(item.getPartyaSeal());
+                    modity.setPartybSeal(item.getPartybSeal());
+                    modity.setPartybTime(item.getPartybTime());
+                    modity.setMoneyNum1(item.getMoneyNum1());
+                    list.add(modity);
+                }
+                int i = busAgentSalesContractModityDao.insertSelectives(list);
+                log.info("新增委托合同商品成功,受影响行数：{}", i);
             }
-            int i = busAgentSalesContractModityDao.insertSelectives(list);
-            log.info("新增委托合同商品成功,受影响行数：{}", i);
+
             return l;
         } catch (Exception e) {
             log.error("新增失败,异常信息:{}", e.getMessage());
@@ -114,12 +117,18 @@ public class BusAgentSalesContractServiceImpl implements BusAgentSalesContractSe
     }
 
     @Override
-    public BusAgentSalesContractShow initialize(Long propertId,Long comId) throws CustomerException {
+    public BusAgentSalesContractShow initialize(Long propertId, Long comId) throws CustomerException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
             BusPropert busPropert = busPropertDao.selectByPrimaryKey(propertId);
-            PubDebt pubDebt = pubDebtDao.selectByRelativePerId(busPropert.getRelativePerId());
+            PubDebt pubDebt = pubDebtDao.selectByPrimaryKey(busPropert.getDebtId());
             Formula formula = new Formula();
+            if (pubDebt.getDebtType().equals("1") || pubDebt.getDebtType().equals("2")) {
+                pubDebt.setDebtType("2");
+            }
+            if (pubDebt.getDebtType().equals("3")) {
+                pubDebt.setDebtType("1");
+            }
             FormulaVo calculation = formula.Calculation(pubDebt.getDebtType(), Integer.parseInt(pubDebt.getDebtYaer()), pubDebt.getAmountThis());
             BusAgentSalesContractShow initialize = busAgentSalesContractDao.initialize(propertId);
             Date createTime = initialize.getCreateTime();
@@ -135,13 +144,13 @@ public class BusAgentSalesContractServiceImpl implements BusAgentSalesContractSe
             initialize.setAmountThisMax(ConvertUpMoney.toChinese(initialize.getAmountThis().toString()));
             List<BusAgentSalesContractModity> list = busAgentSalesContractModityDao.selectBySalesContractId(initialize.getSalesContractId());
             String money = "1";
-            for (BusAgentSalesContractModity item: list) {
-                money = BigDecimalUtil.add(item.getMoneyNum1(),money,2);
+            for (BusAgentSalesContractModity item : list) {
+                money = BigDecimalUtil.add(item.getMoneyNum1(), money, 2);
             }
-            money = BigDecimalUtil.sub(money,"1",2);
+            money = BigDecimalUtil.sub(money, "1", 2);
             initialize.setAllCommodityMoney(money);
             initialize.setBusAgentSalesContractModity(list);
-            if(StringUtils.isEmpty(initialize.getSalesNo())){
+            if (StringUtils.isEmpty(initialize.getSalesNo())) {
                 PubCompany pubCompany = pubCompanyDao.selectByPrimaryKey(comId);
                 String a = busAgentSalesContractDao.selectNo();
                 initialize.setSalesNo(RepNoUtils.createRepNo("FB", pubCompany.getCompanyNameMax(), a));

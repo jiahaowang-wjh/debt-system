@@ -1,5 +1,6 @@
 package com.smart.bracelet.service.assets.impl;
 
+import com.smart.bracelet.controller.publicmethod.Formula;
 import com.smart.bracelet.dao.assets.BusAssignmentAgreementDao;
 import com.smart.bracelet.dao.user.PubCompanyDao;
 import com.smart.bracelet.exception.CustomerException;
@@ -7,6 +8,7 @@ import com.smart.bracelet.model.po.assets.BusAssignmentAgreement;
 import com.smart.bracelet.model.po.user.PubCompany;
 import com.smart.bracelet.model.vo.assets.BusAssignmentAgreementShow;
 import com.smart.bracelet.model.vo.assets.BusAssignmentAgreementVo;
+import com.smart.bracelet.model.vo.assets.FormulaVo;
 import com.smart.bracelet.service.assets.BusAssignmentAgreementService;
 import com.smart.bracelet.utils.BigDecimalUtil;
 import com.smart.bracelet.utils.IdUtils;
@@ -17,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -101,17 +104,15 @@ public class BusAssignmentAgreementServiceImpl implements BusAssignmentAgreement
             }
             agreementShow.setThisTime(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
             int debtYaer = Integer.parseInt(agreementShow.getDebtYaer());
-            switch (debtYaer) {
-                case 1:
-                    agreementShow.setMoney(Float.parseFloat(BigDecimalUtil.mul(agreementShow.getAmountThis().toString(), "0.2", 2)));
-                    break;
-                case 2:
-                    agreementShow.setMoney(Float.parseFloat(BigDecimalUtil.mul(agreementShow.getAmountThis().toString(), "0.3", 2)));
-                    break;
-                case 3:
-                    agreementShow.setMoney(Float.parseFloat(BigDecimalUtil.mul(agreementShow.getAmountThis().toString(), "0.5", 2)));
-                    break;
+            Formula formula = new Formula();
+            if(agreementShow.getDebtType().equals("1")){
+                agreementShow.setDebtType("2");
             }
+            if(agreementShow.getDebtType().equals("3")){
+                agreementShow.setDebtType("1");
+            }
+            FormulaVo calculation = formula.Calculation(agreementShow.getDebtType(), debtYaer, agreementShow.getAmountThis());
+            agreementShow.setMoney(calculation.getLoan());
             if (agreementShow.getReportPropert().equals("1")) {
                 agreementShow.setCorBankAdd(null);
                 agreementShow.setCorBankPhone(null);

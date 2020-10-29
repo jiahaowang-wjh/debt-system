@@ -14,7 +14,11 @@ public interface BusGuaranteeDao {
 
     List<BusGuarantee> selectByPrimaryKey(Long civilId);
 
+    BusGuarantee[] selectByPrimaryKey1(Long civilId);
+
     int updateByPrimaryKeySelective(BusGuaranteeVo record);
+
+    int deleteByCiviId(Long civilId);
 
     /**
      * 批量新增

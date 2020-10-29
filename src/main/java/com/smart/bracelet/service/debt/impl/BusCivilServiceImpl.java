@@ -112,17 +112,55 @@ public class BusCivilServiceImpl implements BusCivilService {
     @Transactional(noRollbackFor = Exception.class)
     public BusCivil selectByPrimaryKey(Long civilId) {
         BusCivil busCivil = busCivilDao.selectByPrimaryKey(civilId);
-        List<String> stringList = busCivilDao.selectUser(civilId);
-        busCivil.setUserName(stringList);
+        BusGuarantee[] busGuarantees = busGuaranteeDao.selectByPrimaryKey1(civilId);
+        CiviliVo[] civiliVos = busCivilDao.selectUser(civilId);
+        if(civiliVos!=null){
+            busCivil.setCiviliVos(civiliVos);
+        }
+        if(busGuarantees!=null){
+            busCivil.setBusGuarantee(busGuarantees);
+        }
         return busCivil;
     }
 
     @Override
-    @Transactional(noRollbackFor = Exception.class)
     public int updateByPrimaryKeySelective(BusCivilVo record) throws CustomerException {
         try {
+            if (record.getCivilId() != null) {
+                int i = busGuaranteeDao.deleteByCiviId(record.getCivilId());
+                int i1 = busCivilDao.delUser(record.getCivilId());
+                log.info("删除担保人成功:{}", i);
+                log.info("删除调解员成功:{}", i1);
+            }
             int updateByPrimaryKeySelective = busCivilDao.updateByPrimaryKeySelective(record);
-            log.info("更新民事调解信息成功,受影响行数:{}", updateByPrimaryKeySelective);
+            BusGuarantee[] busGuarantee = record.getBusGuarantee();
+            if (busGuarantee != null) {
+                for (BusGuarantee item : busGuarantee) {
+                    if (!StringUtils.isBlank(item.getAuthname()) && !StringUtils.isBlank(item.getCard())) {
+                        item.setCivilId(record.getCivilId());
+                        item.setGuaranteeId(IdUtils.nextId());
+                    }
+                    record.setBusGuarantee(busGuarantee);
+                }
+                //批量新增担保人
+                int i = busGuaranteeDao.insertList(record.getBusGuarantee());
+                log.info("新增担保人成功受影响行数：{}", i);
+            }
+            Long[] longs = record.getLongs();
+            if (longs != null && longs.length != 0) {
+                //新增调解员
+                List<BusMediatePerson> list = new ArrayList<>();
+                for (Long item : longs) {
+                    BusMediatePerson busMediatePerson = new BusMediatePerson();
+                    busMediatePerson.setMediatePersonId(IdUtils.nextId());
+                    busMediatePerson.setCivilId(record.getCivilId());
+                    busMediatePerson.setUserId(item);
+                    list.add(busMediatePerson);
+                }
+                int i1 = busCivilDao.inertList(list);
+                log.info("批量新增调解员成功，受影响行数：{}", i1);
+                log.info("更新民事调解信息成功,受影响行数:{}", updateByPrimaryKeySelective);
+            }
             return updateByPrimaryKeySelective;
         } catch (Exception e) {
             log.error("更新民事调解信息失败,异常信息:{}", e.getMessage());
@@ -256,9 +294,9 @@ public class BusCivilServiceImpl implements BusCivilService {
 
     @Override
     @Transactional(noRollbackFor = Exception.class)
-    public AgreementInfoShow initialize(Long reportId,Long comId) throws ParseException {
+    public AgreementInfoShow initialize(Long reportId, Long comId) throws ParseException {
         AgreementInfoShow initialize = busCivilDao.initialize(reportId);
-        if(StringUtils.isEmpty(initialize.getAgreementNo())){
+        if (StringUtils.isEmpty(initialize.getAgreementNo())) {
             initialize.setAgreementNo(agreementNo(comId));
             initialize.setAgreementDate(new SimpleDateFormat("yyyy-MM-dd").parse(new SimpleDateFormat("yyyy-MM-dd").format(new Date())));
         }

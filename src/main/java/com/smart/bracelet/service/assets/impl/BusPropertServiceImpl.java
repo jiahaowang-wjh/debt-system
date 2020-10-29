@@ -121,11 +121,11 @@ public class BusPropertServiceImpl implements BusPropertService {
                 item.setPersonName(item.getPersonData1());
             }
             Formula formula = new Formula();
-            if (item.getDebtType().equals("2")) {
-                item.setDebtType("1");
+            if (item.getDebtType().equals("1") || item.getDebtType().equals("2")) {
+                item.setDebtType("2");
             }
             if (item.getDebtType().equals("3")) {
-                item.setDebtType("2");
+                item.setDebtType("1");
             }
             FormulaVo calculation = formula.Calculation(item.getDebtType(), Integer.parseInt(item.getDebtYaer()), item.getAmountThis());
             item.setHuoKuanMoney(calculation.getLoan());

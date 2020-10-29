@@ -61,4 +61,11 @@ public class PubPersonController {
         List<PubPerson> pubUsers = pubPersonService.selectByType(personType);
         return Result.success(pubUsers);
     }
+
+
+    @RequestMapping("/queryPer")
+    public Result<List<PubPerson>> queryPer() {
+        List<PubPerson> pubPeople = pubPersonService.queryPer();
+        return Result.success(pubPeople);
+    }
 }

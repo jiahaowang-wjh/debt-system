@@ -1,9 +1,11 @@
 package com.smart.bracelet.model.po.debt;
 
 import cn.hutool.json.JSONObject;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.google.gson.JsonArray;
+import com.smart.bracelet.model.vo.debt.CiviliVo;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -92,6 +94,7 @@ public class BusCivil implements Serializable {
      */
     @NotNull(message = "时间段-开始不能为空")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date starDate;
 
     /**
@@ -99,6 +102,7 @@ public class BusCivil implements Serializable {
      */
     @NotNull(message = "时间段-结束不能为空")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date endDate;
 
     /**
@@ -118,6 +122,7 @@ public class BusCivil implements Serializable {
      */
     @NotNull(message = "违约截止时间不能为空")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date breachDate;
 
     /**
@@ -152,11 +157,13 @@ public class BusCivil implements Serializable {
     /**
      * 创建时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date createTime;
 
     /**
      * 更新时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date updateTime;
 
     /**
@@ -177,17 +184,23 @@ public class BusCivil implements Serializable {
    BusGuarantee[] busGuarantee;
 
     /**
-     * 用户Id
+     * 用户Id（调解员）
      */
     Long[] longs;
+
     /**
      * 凭证
      */
     String certificate;
 
     /**
-     * 调解人员
+     * 调解人员集合
      */
-    List<String> userName;
+    CiviliVo[] civiliVos;
+
+    /**
+     * 债务形成原因
+     */
+    String debtReason;
 
 }

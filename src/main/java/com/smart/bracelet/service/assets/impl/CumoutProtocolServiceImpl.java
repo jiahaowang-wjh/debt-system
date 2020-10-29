@@ -52,27 +52,29 @@ public class CumoutProtocolServiceImpl implements CumoutProtocolService {
             long protocolId = IdUtils.nextId();
             BusAgentSalesContractModity[] busAgentSalesContractModity = record.getBusAgentSalesContractModity();
             List<BusAgentSalesContractModity> list = new ArrayList<>();
-            for (BusAgentSalesContractModity item: busAgentSalesContractModity) {
-                BusAgentSalesContractModity modity = new BusAgentSalesContractModity();
-                modity.setSalesContractModityId(IdUtils.nextId());
-                modity.setProtocolId(protocolId);
-                modity.setModityName(item.getModityName());
-                modity.setModityPlace(item.getModityPlace());
-                modity.setModitySpecificat(item.getModitySpecificat());
-                modity.setPartyaSeal(item.getPartyaSeal());
-                modity.setPartybSeal(item.getPartybSeal());
-                modity.setPartybTime(item.getPartybTime());
-                modity.setMoneyNum1(item.getMoneyNum1());
-                list.add(modity);
+            if (busAgentSalesContractModity != null && busAgentSalesContractModity.length != 0) {
+                for (BusAgentSalesContractModity item : busAgentSalesContractModity) {
+                    BusAgentSalesContractModity modity = new BusAgentSalesContractModity();
+                    modity.setSalesContractModityId(IdUtils.nextId());
+                    modity.setProtocolId(protocolId);
+                    modity.setModityName(item.getModityName());
+                    modity.setModityPlace(item.getModityPlace());
+                    modity.setModitySpecificat(item.getModitySpecificat());
+                    modity.setPartyaSeal(item.getPartyaSeal());
+                    modity.setPartybSeal(item.getPartybSeal());
+                    modity.setPartybTime(item.getPartybTime());
+                    modity.setMoneyNum1(item.getMoneyNum1());
+                    list.add(modity);
+                }
             }
             record.setProtocolId(protocolId);
             int i = cumoutProtocolDao.insertSelective(record);
-            log.info("新增委托线上代理销售合同成功，受影响行数：{}",i);
+            log.info("新增委托线上代理销售合同成功，受影响行数：{}", i);
             int i1 = busAgentSalesContractModityDao.insertSelectives(list);
-            log.info("新增商品寄售成功，受影响行数：{}",i1);
+            log.info("新增商品寄售成功，受影响行数：{}", i1);
             return protocolId;
         } catch (Exception e) {
-            log.error("新增商品寄售失败,异常信息：{}",e.getMessage());
+            log.error("新增商品寄售失败,异常信息：{}", e.getMessage());
             throw new CustomerException("新增商品寄售失败");
         }
     }
@@ -95,10 +97,10 @@ public class CumoutProtocolServiceImpl implements CumoutProtocolService {
             CommissionOnLine initialize = cumoutProtocolDao.initialize(propertId);
             List<BusAgentSalesContractModity> list = busAgentSalesContractModityDao.selectBySalesProtocolId(initialize.getProtocolId());
             String money = "1";
-            for (BusAgentSalesContractModity item: list) {
-                money = BigDecimalUtil.add(item.getMoneyNum1(),money,2);
+            for (BusAgentSalesContractModity item : list) {
+                money = BigDecimalUtil.add(item.getMoneyNum1(), money, 2);
             }
-            money = BigDecimalUtil.sub(money,"1",2);
+            money = BigDecimalUtil.sub(money, "1", 2);
             initialize.setAmountThisMax(ConvertUpMoney.toChinese(initialize.getAmountThis().toString()));
             initialize.setAllCommodityMoney(money);
             initialize.setBusAgentSalesContractModities(list);
@@ -112,15 +114,15 @@ public class CumoutProtocolServiceImpl implements CumoutProtocolService {
             String format = simpleDateFormat.format(date);
             switch (initialize.getDebtYaer()) {
                 case "1":
-                    String div1 = BigDecimalUtil.div(initialize.getAmountThis().toString(), "12", 0);
+                    String div1 = BigDecimalUtil.div(initialize.getAmountThis().toString(), "12", 2);
                     initialize.setIntegral(div1);
                     break;
                 case "2":
-                    String div2 = BigDecimalUtil.div(initialize.getAmountThis().toString(), "24", 0);
+                    String div2 = BigDecimalUtil.div(initialize.getAmountThis().toString(), "24", 2);
                     initialize.setIntegral(div2);
                     break;
                 case "3":
-                    String div3 = BigDecimalUtil.div(initialize.getAmountThis().toString(), "36", 0);
+                    String div3 = BigDecimalUtil.div(initialize.getAmountThis().toString(), "36", 2);
                     initialize.setIntegral(div3);
                     break;
             }

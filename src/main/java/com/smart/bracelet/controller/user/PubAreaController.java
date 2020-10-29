@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/pubAreaController/")
@@ -45,5 +46,9 @@ public class PubAreaController {
         PubArea pubArea = pubAreaService.selectByPrimaryKey(areaId);
         return Result.success(pubArea);
     }
-
+    @RequestMapping("/selectByArName")
+    public Result<List<PubArea>> selectByArName(String name){
+        List<PubArea> pubAreas = pubAreaService.selectByArName(name);
+        return Result.success(pubAreas);
+    }
 }

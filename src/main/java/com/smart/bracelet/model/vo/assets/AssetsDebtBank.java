@@ -16,6 +16,10 @@ public class AssetsDebtBank {
     @JsonSerialize(using = ToStringSerializer.class)
     Long relativePerId;
     /**
+     * 审核原因
+     */
+    String checkReason;
+    /**
      * 报备ID
      */
     @JsonSerialize(using = ToStringSerializer.class)

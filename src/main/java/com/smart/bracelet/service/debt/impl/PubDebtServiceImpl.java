@@ -161,4 +161,9 @@ public class PubDebtServiceImpl implements PubDebtService {
             throw new CustomerException("新增策划方案协议失败");
         }
     }
+
+    @Override
+    public PubDebt selectMoney(Long reportId) {
+        return pubDebtDao.selectMoney(reportId);
+    }
 }

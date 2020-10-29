@@ -21,9 +21,16 @@ public interface PubPersonDao {
 
     int updateByPrimaryKeySelective(PubPersonVo record);
 
+
+    PubPerson selectByPrimaryName(String name);
+
     /**
      * 查询用户推荐人
      */
     List<PubPerson> selectByType(String personType);
 
+    /**
+     * 查询用户推荐人
+     */
+    List<PubPerson> queryPer();
 }

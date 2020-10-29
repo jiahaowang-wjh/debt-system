@@ -145,8 +145,8 @@ public class BusPayDetailServiceImpl implements BusPayDetailService {
     }
 
     @Override
-    public ReportFee selectByRepId(Long reportId, String flag) throws ParseException {
-        ReportFee reportFees = busPayDetailDao.selectByRepId(reportId, flag);
+    public ReportFee selectByRepId(Long reportId, String flag,Long debtId,Long propertId) throws ParseException {
+        ReportFee reportFees = busPayDetailDao.selectByRepId(reportId, flag,debtId,propertId);
         reportFees.setThisTime(new SimpleDateFormat("yyyy-MM-dd").parse(new SimpleDateFormat("yyyy-MM-dd").format(new Date())));
         return reportFees;
     }

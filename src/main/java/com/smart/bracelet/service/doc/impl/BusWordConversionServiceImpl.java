@@ -35,10 +35,7 @@ import org.springframework.stereotype.Service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author liuzq
@@ -100,7 +97,7 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
     public Long fillInWordAndSaveAsSpecifyFormatCumOut(Long reportId, Long comId) throws ParseException, CustomerException {
         try {
             //设置模板读取路径
-            String readPath = DocumentPath.WORD_TEMPLATE_CUMOUT.getPath() + DocumentPath.WORD_TEMPLATE_CUMOUT.getFileName();
+            String readPath = DocumentPath.WORD_TEMPLATE_CUMOUT.getPath()+DocumentPath.WORD_TEMPLATE_CUMOUT.getFileName();
             //设置pdf文件保存路径
             String savePath = DocumentPath.PDF_SAVE_CUMOUT.getPath() + DocumentPath.PDF_SAVE_CUMOUT.getName() + IdUtils.nextId() + ".pdf";
             AgreementInfoShow initialize = busCivilService.initialize(reportId, comId);
@@ -118,8 +115,8 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
             long nextId = IdUtils.nextId();
             pubDoc.setDocId(nextId);
             pubDoc.setContract(initialize.getAgreementNo());
-            pubDoc.setDocName(DocumentPath.PDF_SAVE_CUMOUT.getName());
-            pubDoc.setDocPath(readPath);
+            pubDoc.setDocName(DocumentPath.WORD_TEMPLATE_CUMOUT.getName());
+            pubDoc.setDocPath(savePath);
             pubDoc.setReportId(initialize.getReportId());
             pubDoc.setDocType("1");
             pubDocDao.insertSelective(pubDoc);
@@ -188,8 +185,8 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         long nextId = IdUtils.nextId();
         pubDoc.setDocId(nextId);
         pubDoc.setContract(planServiceInfo.getServiceNo());
-        pubDoc.setDocName(DocumentPath.PDF_SAVE.getName());
-        pubDoc.setDocPath(readPath);
+        pubDoc.setDocName(DocumentPath.WORD_TEMPLATE.getName());
+        pubDoc.setDocPath(savePath);
         pubDoc.setReportId(planServiceInfo.getReportId());
         pubDoc.setDocType("1");
         pubDocDao.insertSelective(pubDoc);
@@ -218,7 +215,7 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
     @Override
     public void fillInWordAndSaveAsSpecifyFormatTransfer(Long propertId, Long comId) throws CustomerException, ParseException {
         //设置模板读取路径
-        String readPath = DocumentPath.WORD_TEMPLATE_TRANSFER.getPath() + DocumentPath.WORD_TEMPLATE_TRANSFER.getFileName();
+        String readPath = DocumentPath.WORD_TEMPLATE_TRANSFER.getPath() +DocumentPath.WORD_TEMPLATE_TRANSFER.getFileName();
         //设置pdf文件保存路径
         String savePath = DocumentPath.PDF_SAVE_TRANSFER.getPath() + DocumentPath.PDF_SAVE_TRANSFER.getName() + IdUtils.nextId() + ".pdf";
         Map<String, String> map = new HashMap<>(20);
@@ -260,8 +257,8 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         long nextId = IdUtils.nextId();
         pubDoc.setDocId(nextId);
         pubDoc.setContract(initialize.getAssignmentAgreementNo());
-        pubDoc.setDocName(DocumentPath.PDF_SAVE_TRANSFER.getName());
-        pubDoc.setDocPath(readPath);
+        pubDoc.setDocName(DocumentPath.WORD_TEMPLATE_TRANSFER.getName());
+        pubDoc.setDocPath(savePath);
         pubDoc.setReportId(initialize.getReportId());
         pubDoc.setDocType("2");
         pubDocDao.insertSelective(pubDoc);
@@ -291,7 +288,7 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
     @Override
     public void fillInWordAndSaveAsSpecifyFormatConfrim(Long propertId) throws CustomerException, ParseException {
         //设置模板读取路径
-        String readPath = DocumentPath.WORD_TEMPLATE_CONFIRM.getPath() + DocumentPath.WORD_TEMPLATE_CONFIRM.getFileName();
+        String readPath = DocumentPath.WORD_TEMPLATE_CONFIRM.getPath() +DocumentPath.WORD_TEMPLATE_CONFIRM.getFileName();
         //设置pdf文件保存路径
         String savePath = DocumentPath.PDF_SAVE_CONFIRM.getPath() + DocumentPath.PDF_SAVE_CONFIRM.getName() + IdUtils.nextId() + ".pdf";
         BusAssignmentConfirmShow initialize = busAssignmentConfirmService.initialize(propertId);
@@ -323,8 +320,8 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         pubDoc.setDocId(nextId);
         pubDoc.setDocType("2");
         pubDoc.setContract(initialize.getConfirmNo());
-        pubDoc.setDocName(DocumentPath.PDF_SAVE_CONFIRM.getName());
-        pubDoc.setDocPath(readPath);
+        pubDoc.setDocName(DocumentPath.WORD_TEMPLATE_CONFIRM.getName());
+        pubDoc.setDocPath(savePath);
         pubDoc.setReportId(initialize.getReportId());
         pubDocDao.insertSelective(pubDoc);
     }
@@ -359,9 +356,9 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         long nextId = IdUtils.nextId();
         pubDoc.setDocId(nextId);
         pubDoc.setContract(initialize.getNoticeNo());
-        pubDoc.setDocName(DocumentPath.PDF_SAVE_NOTICE.getName());
+        pubDoc.setDocName(DocumentPath.WORD_TEMPLATE_NOTICE.getName());
         pubDoc.setDocType("2");
-        pubDoc.setDocPath(readPath);
+        pubDoc.setDocPath(savePath);
         pubDoc.setReportId(initialize.getReportId());
         pubDocDao.insertSelective(pubDoc);
     }
@@ -375,7 +372,7 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
     @Override
     public void fillInWordAndSaveAsSpecifyFormatProve(Long propertId) throws CustomerException, ParseException {
         //设置模板读取路径
-        String readPath = DocumentPath.WORD_TEMPLATE_PROVE.getPath() + DocumentPath.WORD_TEMPLATE_PROVE.getFileName();
+        String readPath = DocumentPath.WORD_TEMPLATE_PROVE.getPath()+DocumentPath.WORD_TEMPLATE_PROVE.getFileName();
         //设置pdf文件保存路径
         String savePath = DocumentPath.PDF_SAVE_PROVE.getPath() + DocumentPath.PDF_SAVE_PROVE.getName() + IdUtils.nextId() + ".pdf";
         BusConfirmShow initialize = busConfirmService.initialize(propertId);
@@ -401,8 +398,8 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         long nextId = IdUtils.nextId();
         pubDoc.setDocId(nextId);
         pubDoc.setContract(initialize.getConfirmNo());
-        pubDoc.setDocName(DocumentPath.PDF_SAVE_PROVE.getName());
-        pubDoc.setDocPath(readPath);
+        pubDoc.setDocName(DocumentPath.WORD_TEMPLATE_PROVE.getName());
+        pubDoc.setDocPath(savePath);
         pubDoc.setReportId(initialize.getReportId());
         pubDoc.setDocType("2");
         pubDocDao.insertSelective(pubDoc);
@@ -454,8 +451,8 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         long nextId = IdUtils.nextId();
         pubDoc.setDocId(nextId);
         pubDoc.setContract(initialize.getCollectionLettertNo());
-        pubDoc.setDocName(DocumentPath.PDF_SAVE_LETTER.getName());
-        pubDoc.setDocPath(readPath);
+        pubDoc.setDocName(DocumentPath.WORD_TEMPLATE_LETTER.getName());
+        pubDoc.setDocPath(savePath);
         pubDoc.setReportId(initialize.getReportId());
         pubDoc.setDocType("2");
         pubDocDao.insertSelective(pubDoc);
@@ -485,7 +482,7 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
     @Override
     public void fillInWordAndSaveAsSpecifyFormatConsignment(Long propertId,Long comId) throws CustomerException, ParseException {
         //设置模板读取路径
-        String readPath = DocumentPath.WORD_TEMPLATE_CONSIG.getPath() + DocumentPath.WORD_TEMPLATE_CONSIG.getFileName();
+        String readPath = DocumentPath.WORD_TEMPLATE_CONSIG.getPath() +DocumentPath.WORD_TEMPLATE_CONSIG.getFileName();
         //设置pdf文件保存路径
         String savePath = DocumentPath.PDF_SAVE_CONSIG.getPath() + DocumentPath.PDF_SAVE_CONSIG.getName() + IdUtils.nextId() + ".pdf";
         BusAgentSalesContractShow initialize = busAgentSalesContractService.initialize(propertId, comId);
@@ -503,9 +500,9 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         map.put(DocConsignment.DAIXIAO_YAER.getName(),String.format("%tY",initialize.getCreateTime()));
         map.put(DocConsignment.DAIXIAO_MOON.getName(),String.format("%tm",initialize.getCreateTime()));
         map.put(DocConsignment.DAIXIAO_DAY.getName(),String.format("%td",initialize.getCreateTime()));
-        map.put(DocConsignment.DAIXIAO_JIESHU_YAER.getName(),String.format("%tY",new SimpleDateFormat("yyyy-mm-dd").parse(initialize.getEndTime())));
-        map.put(DocConsignment.DAIXIAO_JIESHU_MOON.getName(),String.format("%tm",new SimpleDateFormat("yyyy-mm-dd").parse(initialize.getEndTime())));
-        map.put(DocConsignment.DAIXIAO_JIESHU_DAY.getName(),String.format("%td",new SimpleDateFormat("yyyy-mm-dd").parse(initialize.getEndTime())));
+        map.put(DocConsignment.DAIXIAO_JIESHU_YAER.getName(),String.format("%tY",new SimpleDateFormat("yyyy-MM-dd").parse(initialize.getEndTime())));
+        map.put(DocConsignment.DAIXIAO_JIESHU_MOON.getName(),String.format("%tm",new SimpleDateFormat("yyyy-MM-dd").parse(initialize.getEndTime())));
+        map.put(DocConsignment.DAIXIAO_JIESHU_DAY.getName(),String.format("%td",new SimpleDateFormat("yyyy-MM-dd").parse(initialize.getEndTime())));
 
         map.put(DocConsignment.THIS_MONEY.getName(),initialize.getAmountThis().toString());
         map.put(DocConsignment.THIS_MONEY_MAX.getName(),initialize.getAmountThisMax());
@@ -545,8 +542,8 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         long nextId = IdUtils.nextId();
         pubDoc.setDocId(nextId);
         pubDoc.setContract(initialize.getSalesNo());
-        pubDoc.setDocName(DocumentPath.PDF_SAVE_CONSIG.getName());
-        pubDoc.setDocPath(readPath);
+        pubDoc.setDocName(DocumentPath.WORD_TEMPLATE_CONSIG.getName());
+        pubDoc.setDocPath(savePath);
         pubDoc.setReportId(initialize.getReportId());
         pubDoc.setDocType("2");
         pubDocDao.insertSelective(pubDoc);
@@ -577,7 +574,7 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
     @Override
     public void fillInWordAndSaveAsSpecifyFormatReconciliation(Long propertId, Long comId) throws CustomerException, ParseException {
         //设置模板读取路径
-        String readPath = DocumentPath.WORD_TEMPLATE_RECILIATION.getPath() + DocumentPath.WORD_TEMPLATE_RECILIATION.getFileName();
+        String readPath = DocumentPath.WORD_TEMPLATE_RECILIATION.getPath()+ DocumentPath.WORD_TEMPLATE_RECILIATION.getFileName();
         //设置pdf文件保存路径
         String savePath = DocumentPath.PDF_SAVE_RECILIATION.getPath() + DocumentPath.PDF_SAVE_RECILIATION.getName() + IdUtils.nextId() + ".pdf";
         BusCompromiseAgreementShow initialize = busCompromiseAgreementService.initialize(propertId, comId);
@@ -589,6 +586,7 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         map.put(DocReconciliation.XUANZE.getName(),initialize.getPartybMode());
         map.put(DocReconciliation.AVG.getName(),initialize.getAverage());
         map.put(DocReconciliation.DEBT_DAY.getName(),initialize.getDay());
+        map.put(DocReconciliation.QISHU.getName(),initialize.getNumber());
         map.put(DocReconciliation.CONT_YAER.getName(),String.format("%tY",initialize.getContractDate()));
         map.put(DocReconciliation.CONT_MOON.getName(),String.format("%tm",initialize.getContractDate()));
         map.put(DocReconciliation.DEBT_DAY.getName(),String.format("%td",initialize.getContractDate()));
@@ -599,8 +597,8 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         long nextId = IdUtils.nextId();
         pubDoc.setDocId(nextId);
         pubDoc.setContract(initialize.getCompromiseAgreementNo());
-        pubDoc.setDocName(DocumentPath.PDF_SAVE_RECILIATION.getName());
-        pubDoc.setDocPath(readPath);
+        pubDoc.setDocName(DocumentPath.WORD_TEMPLATE_RECILIATION.getName());
+        pubDoc.setDocPath(savePath);
         pubDoc.setDocType("2");
         pubDoc.setReportId(initialize.getReportId());
         pubDocDao.insertSelective(pubDoc);
@@ -691,9 +689,9 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         long nextId = IdUtils.nextId();
         pubDoc.setDocId(nextId);
         pubDoc.setContract(initialize.getProtocolNo());
-        pubDoc.setDocName(DocumentPath.PDF_SAVE_ONLINECONSIG.getName());
+        pubDoc.setDocName(DocumentPath.WORD_TEMPLATE_ONLINECONSIG.getName());
         pubDoc.setDocType("2");
-        pubDoc.setDocPath(readPath);
+        pubDoc.setDocPath(savePath);
         pubDoc.setReportId(initialize.getReportId());
         pubDocDao.insertSelective(pubDoc);
     }
@@ -709,12 +707,12 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
      * @throws ParseException
      */
     @Override
-    public void fillInWordAndSaveAsSpecifyFormatReportFee(Long reportId,String parta,String partaCard,String partaTel) throws CustomerException, ParseException {
+    public void fillInWordAndSaveAsSpecifyFormatReportFee(Long reportId,String parta,String partaCard,String partaTel,Long debtId,Long propertId) throws CustomerException, ParseException {
         //设置模板读取路径
         String readPath = DocumentPath.WORD_TEMPLATE_REPORT.getPath() + DocumentPath.WORD_TEMPLATE_REPORT.getFileName();
         //设置pdf文件保存路径
         String savePath = DocumentPath.PDF_SAVE_REPORT.getPath() + DocumentPath.PDF_SAVE_REPORT.getName() + IdUtils.nextId() + ".pdf";
-        ReportFee reportFee = busPayDetailService.selectByRepId(reportId, "1");
+        ReportFee reportFee = busPayDetailService.selectByRepId(reportId, "1",debtId,propertId);
         Map<String, String> map = new HashMap<>(20);
         map.put(DocReportFee.DEBT_NAME.getName(),reportFee.getDebtName());
         map.put(DocReportFee.DEBT_NO.getName(),reportFee.getPayNo());
@@ -728,8 +726,8 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         long nextId = IdUtils.nextId();
         pubDoc.setDocId(nextId);
         pubDoc.setContract(reportFee.getPayNo());
-        pubDoc.setDocName(DocumentPath.PDF_SAVE_REPORT.getName());
-        pubDoc.setDocPath(readPath);
+        pubDoc.setDocName(DocumentPath.WORD_TEMPLATE_REPORT.getName());
+        pubDoc.setDocPath(savePath);
         pubDoc.setReportId(reportFee.getReportId());
         pubDoc.setDocType("1");
         pubDocDao.insertSelective(pubDoc);
@@ -755,13 +753,13 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
      * @throws ParseException
      */
     @Override
-    public void fillInWordAndSaveAsSpecifyFormatdvisory(Long reportId, String parta, String partaCard, String partaTel) throws CustomerException, ParseException {
+    public void fillInWordAndSaveAsSpecifyFormatdvisory(Long reportId, String parta, String partaCard, String partaTel,Long debtId,Long propertId) throws CustomerException, ParseException {
         //设置模板读取路径
-        String readPath = DocumentPath.WORD_TEMPLATE_ADVISORY.getPath() + DocumentPath.WORD_TEMPLATE_ADVISORY.getFileName();
+        String readPath = DocumentPath.WORD_TEMPLATE_ADVISORY.getPath() +DocumentPath.WORD_TEMPLATE_ADVISORY.getFileName();
         //设置pdf文件保存路径
         String savePath = DocumentPath.PDF_SAVE_ADVISORY.getPath() + DocumentPath.PDF_SAVE_ADVISORY.getName() + IdUtils.nextId() + ".pdf";
         Map<String, String> map = new HashMap<>(20);
-        ReportFee reportFee = busPayDetailService.selectByRepId(reportId, "3");
+        ReportFee reportFee = busPayDetailService.selectByRepId(reportId, "3",debtId,propertId);
         map.put(DocReportFee.DEBT_NAME.getName(),reportFee.getDebtName());
         map.put(DocReportFee.DEBT_NO.getName(),reportFee.getPayNo());
         map.put(DocReportFee.COM_NAME.getName(),reportFee.getCompanyName());
@@ -777,8 +775,8 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         long nextId = IdUtils.nextId();
         pubDoc.setDocId(nextId);
         pubDoc.setContract(reportFee.getPayNo());
-        pubDoc.setDocName(DocumentPath.PDF_SAVE_ADVISORY.getName());
-        pubDoc.setDocPath(readPath);
+        pubDoc.setDocName(DocumentPath.WORD_TEMPLATE_ADVISORY.getName());
+        pubDoc.setDocPath(savePath);
         pubDoc.setReportId(reportFee.getReportId());
         pubDoc.setDocType("1");
         pubDocDao.insertSelective(pubDoc);
@@ -804,13 +802,13 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
      * @throws ParseException
      */
     @Override
-    public void fillInWordAndSaveAsSpecifyPayment(Long reportId, String parta, String partaCard, String partaTel) throws CustomerException, ParseException {
+    public void fillInWordAndSaveAsSpecifyPayment(Long reportId, String parta, String partaCard, String partaTel,Long debtId,Long propertId) throws CustomerException, ParseException {
         //设置模板读取路径
-        String readPath = DocumentPath.WORD_TEMPLATE_PAYMENT.getPath() + DocumentPath.WORD_TEMPLATE_PAYMENT.getFileName();
+        String readPath = DocumentPath.WORD_TEMPLATE_PAYMENT.getPath()+DocumentPath.WORD_TEMPLATE_PAYMENT.getFileName();
         //设置pdf文件保存路径
         String savePath = DocumentPath.PDF_SAVE_PAYMENT.getPath() + DocumentPath.PDF_SAVE_PAYMENT.getName() + IdUtils.nextId() + ".pdf";
         Map<String, String> map = new HashMap<>(20);
-        ReportFee reportFee = busPayDetailService.selectByRepId(reportId, "4");
+        ReportFee reportFee = busPayDetailService.selectByRepId(reportId, "4",debtId,propertId);
         map.put(DocReportFee.DEBT_NAME.getName(),reportFee.getDebtName());
         map.put(DocReportFee.MONEY.getName(),reportFee.getCost().toString());
         map.put(DocReportFee.MONEY_MAX.getName(),ConvertUpMoney.toChinese(reportFee.getCost().toString()));
@@ -826,8 +824,8 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         long nextId = IdUtils.nextId();
         pubDoc.setDocId(nextId);
         pubDoc.setContract(reportFee.getPayNo());
-        pubDoc.setDocName(DocumentPath.PDF_SAVE_PAYMENT.getName());
-        pubDoc.setDocPath(readPath);
+        pubDoc.setDocName(DocumentPath.WORD_TEMPLATE_PAYMENT.getName());
+        pubDoc.setDocPath(savePath);
         pubDoc.setReportId(reportFee.getReportId());
         pubDoc.setDocType("2");
         pubDocDao.insertSelective(pubDoc);

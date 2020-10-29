@@ -160,7 +160,7 @@
   </select>
     <select id="selectPayInfoList" resultType="com.smart.bracelet.model.vo.debt.BusPayDetailInfo">
         SELECT pd.amount_this,pd.this_plan_money,bpd.contract_name,bpd.propert_id,br.stage,bpd.pay_id,br.`report_id`,br.`report_no`,bpd.payert_name,
-        bpd.flag AS 'payType',bpd.pay_no,bpd.cost,bpd.voucher,bpd.status,pd.`debt_id`,bp.`propert_id`
+        bpd.flag AS 'payType',bpd.pay_no,bpd.cost,bpd.voucher,bpd.status,pd.`debt_id`,bp.`propert_id`,bpd.check_reason
         FROM bus_pay_detail bpd
         LEFT JOIN bus_report br ON br.`report_id` = bpd.`report_id`
         LEFT JOIN pub_debt pd ON bpd.`debt_id` = pd.`debt_id`
@@ -189,9 +189,18 @@
     </select>
     <select id="selectByRepId" resultType="com.smart.bracelet.model.vo.debt.ReportFee">
         SELECT br.report_id,br.`data1` AS 'debtName',pad.`pay_no`,pc.`company_name`,pad.`flag`,pad.cost
-        FROM bus_report br
-        LEFT JOIN bus_pay_detail pad ON br.`report_id` = pad.`report_id`
+        FROM bus_pay_detail pad
+        LEFT JOIN bus_report br ON br.`report_id` = pad.`report_id`
         LEFT JOIN pub_company pc ON br.`company_id` = pc.`company_id`
-        WHERE br.`report_id` = #{reportId} AND pad.`flag` = #{flag}
+        LEFT JOIN pub_debt pd ON pad.`debt_id` = pd.debt_id
+        <where>
+            br.`report_id` = #{reportId} AND pad.`flag` = #{flag}
+            <if test="debtId !=null and debtId != ''">
+                and pad.debt_id = #{debtId}
+            </if>
+            <if test="propertId !=null and propertId != ''">
+                and pad.propert_id = #{propertId}
+            </if>
+        </where>
     </select>
 </mapper>

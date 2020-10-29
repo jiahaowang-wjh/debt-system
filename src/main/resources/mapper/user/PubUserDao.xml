@@ -142,6 +142,7 @@
 
         </trim>
     </insert>
+
     <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.vo.user.PubUserVo">
         update pub_user
         <set>

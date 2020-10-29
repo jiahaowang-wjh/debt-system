@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Slf4j
 public class PubAreaServiceImpl implements PubAreaService {
@@ -62,6 +64,11 @@ public class PubAreaServiceImpl implements PubAreaService {
             log.error("更新区域信息失败,异常信息:{}", e.getMessage());
             throw new CustomerException("更新区域信息失败");
         }
+    }
+
+    @Override
+    public List<PubArea> selectByArName(String name) {
+        return pubAreaDao.selectByArName(name);
     }
 
 }

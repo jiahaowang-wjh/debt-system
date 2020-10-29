@@ -26,9 +26,10 @@
         from bus_assignment_notice
     </select>
     <select id="initialize" resultType="com.smart.bracelet.model.vo.assets.BusAssignmentNoticeShow">
-        SELECT br.report_id,br.`data1` AS 'debtName',brp.`data1` AS 'personName',pd.`amount_this`,brp.`data2` AS 'idCard',baa.assignment_agreement_no,ban.`contract_time`,ban.notice_no
+        SELECT br.report_id,br.`data1` AS 'debtName',brp.`data1` AS 'personName',pd.`amount_this`,brp.`data2` AS 'idCard',baa.assignment_agreement_no,ban.`contract_time`,ban.notice_no,bc.`debt_reason` as  'personReason'
         FROM bus_propert bp
         LEFT JOIN bus_report br ON bp.`report_id` = br.`report_id`
+        LEFT JOIN bus_civil bc ON bc.`civil_id` = bp.`civil_id`
         LEFT JOIN bus_relative_person brp ON bp.`relative_per_id` = brp.`relative_per_id`
         LEFT JOIN pub_debt pd ON bp.`debt_id` = pd.`debt_id`
         LEFT JOIN bus_assignment_agreement baa ON baa.`propert_id` = bp.`propert_id`

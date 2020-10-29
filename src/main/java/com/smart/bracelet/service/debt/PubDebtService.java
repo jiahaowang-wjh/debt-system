@@ -66,4 +66,12 @@ public interface PubDebtService {
      * @return
      */
     int updatePlanInfo(String matters, String serviceNo, Float servicePrincipal, Float serviceInterest, Date contractDate, Long debtId) throws CustomerException;
+
+
+    /**
+     * 查询累计解债信息
+     * @param reportId
+     * @return
+     */
+    PubDebt selectMoney(Long reportId);
 }

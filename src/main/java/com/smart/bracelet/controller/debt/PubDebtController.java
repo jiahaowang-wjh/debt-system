@@ -142,4 +142,16 @@ public class PubDebtController {
         return Result.success(i);
    }
 
+
+    /**
+     * 查询累计解债信息
+     * @param reportId
+     * @return
+     */
+    @RequestMapping("/selectMoney")
+    public Result<PubDebt> selectMoney(@NotNull(message = "报备Id不能为空") Long reportId){
+        PubDebt pubDebt = pubDebtService.selectMoney(reportId);
+        return Result.success(pubDebt);
+    }
+
 }

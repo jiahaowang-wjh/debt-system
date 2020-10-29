@@ -16,6 +16,7 @@ import com.smart.bracelet.utils.IdUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,7 +28,7 @@ import javax.validation.constraints.NotNull;
  * 电子章
  */
 @RestController
-@RequestMapping("/api/BusElectron/")
+@RequestMapping("api/BusElectron/")
 @Validated
 public class BusElectronSealController {
 
@@ -121,6 +122,7 @@ public class BusElectronSealController {
             String fileUrl = DocUtils.getFile(busElectronSeal.getFlowId());
             return Result.success(fileUrl);
         }
-        throw new CustomerException("未盖章文件不可下载");
+        PubDoc pubDoc = pubDocService.selectByPrimaryKey(docId);
+        return Result.success(pubDoc.getDocPath());
     }
 }

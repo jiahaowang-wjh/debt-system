@@ -16,7 +16,7 @@ public class Formula {
     /**
      * 公式计算
      *
-     * @param type  解债类型 (1.寄售2.一次性提走资产包计算)
+     * @param type  解债类型
      * @param years 解债年限
      * @param money 解债金额
      * @return
@@ -41,6 +41,7 @@ public class Formula {
         //13
         String payBack;
 
+        //线上商城分期
         if (type.equals("1")) {
 
             switch (years) {
@@ -137,6 +138,7 @@ public class Formula {
             }
 
         }
+        //一次性提走和寄售
         if(type.equals("2")){
             switch (years) {
                 //共12个月

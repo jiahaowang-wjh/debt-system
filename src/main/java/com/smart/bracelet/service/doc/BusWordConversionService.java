@@ -72,17 +72,17 @@ public interface BusWordConversionService {
     /**
      * 填充Word并保存为指定格式（报备费发票）
      */
-    void fillInWordAndSaveAsSpecifyFormatReportFee(Long reportId,String parta,String partaCard,String partaTel) throws CustomerException, ParseException;
+    void fillInWordAndSaveAsSpecifyFormatReportFee(Long reportId,String parta,String partaCard,String partaTel,Long debtId,Long propertId) throws CustomerException, ParseException;
 
 
     /**
      * 填充Word并保存为指定格式（咨询服务费发票）
      */
-    void fillInWordAndSaveAsSpecifyFormatdvisory(Long reportId,String parta,String partaCard,String partaTel) throws CustomerException, ParseException;
+    void fillInWordAndSaveAsSpecifyFormatdvisory(Long reportId,String parta,String partaCard,String partaTel,Long debtId,Long propertId) throws CustomerException, ParseException;
 
     /**
      * 填充Word并保存为指定格式（货款务费发票）
      */
-    void fillInWordAndSaveAsSpecifyPayment(Long reportId,String parta,String partaCard,String partaTel) throws CustomerException, ParseException;
+    void fillInWordAndSaveAsSpecifyPayment(Long reportId,String parta,String partaCard,String partaTel,Long debtId,Long propertId) throws CustomerException, ParseException;
 
 }

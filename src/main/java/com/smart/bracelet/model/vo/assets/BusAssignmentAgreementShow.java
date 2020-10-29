@@ -14,6 +14,10 @@ import java.util.Date;
 public class BusAssignmentAgreementShow {
 
     /**
+     * 解债类型
+     */
+    String debtType;
+    /**
      * 债权人姓名
      */
     String debtName;
@@ -85,7 +89,7 @@ public class BusAssignmentAgreementShow {
     /**
      * 甲方支付现金
      */
-    Float money;
+    String money;
     /**
      * 性质
      */

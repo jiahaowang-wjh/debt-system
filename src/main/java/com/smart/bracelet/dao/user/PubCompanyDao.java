@@ -19,4 +19,5 @@ public interface PubCompanyDao {
 
     List<PubCompany> queryList();
 
+    PubCompany selectByNameMax(String nameMax);
 }

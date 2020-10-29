@@ -28,12 +28,13 @@
         <result column="status" jdbcType="VARCHAR" property="status"/>
         <result column="check_reason" jdbcType="VARCHAR" property="checkReason"/>
         <result column="certificate" jdbcType="VARCHAR" property="certificate"/>
+        <result column="debt_reason" jdbcType="VARCHAR" property="debtReason"/>
     </resultMap>
     <sql id="Base_Column_List">
     civil_id, report_id, relative_per_id, civilno, solutions, civil_type, amount_total, 
     amount_principal, amount_interest, amount_breach, month_interest, star_date, end_date, 
     interest, interest_payment, breach_date, breach_money, guarantee_meth, interest_all, 
-    abandon_content, treatment_method, create_time, update_time, `status`, check_reason,certificate
+    abandon_content, treatment_method, create_time, update_time, `status`, check_reason,certificate,debt_reason
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
@@ -66,7 +67,7 @@
     </select>
     <select id="selectBusList" resultType="com.smart.bracelet.model.vo.debt.BusCivilInfo">
         SELECT br.`report_id`,bc.civil_id,brp.data1 AS
-        'personName',brp.`relative_per_id`,br.`report_no`,bc.civilno,br.`data1` AS 'debtName',bc.status
+        'personName',brp.`relative_per_id`,br.`report_no`,bc.civilno,br.`data1` AS 'debtName',bc.status,bc.check_reason
         FROM bus_civil bc
         LEFT JOIN bus_relative_person brp ON brp.`relative_per_id`=bc.`relative_per_id`
         LEFT JOIN bus_report br ON brp.`report_id` = br.`report_id`
@@ -136,8 +137,8 @@
         LEFT JOIN bus_relative_person brp ON brp.`relative_per_id` = bc.`relative_per_id`
         WHERE br.`report_id` = #{reportId,jdbcType=BIGINT}
     </select>
-    <select id="selectUser" resultType="java.lang.String" parameterType="java.lang.Long">
-        SELECT pp.`person_name` FROM bus_civil bc
+    <select id="selectUser" parameterType="java.lang.Long" resultType="com.smart.bracelet.model.vo.debt.CiviliVo">
+          SELECT pp.`person_name` as 'userName',pu.user_id FROM bus_civil bc
         LEFT JOIN bus_mediate_person bmp ON bc.`civil_id` = bmp.`civil_id`
         LEFT JOIN pub_user pu ON  pu.`user_id` = bmp.`user_id`
         LEFT JOIN pub_person pp ON pu.`person_id` = pp.`person_id`
@@ -149,12 +150,18 @@
     delete from bus_civil
     where civil_id = #{civilId,jdbcType=BIGINT}
     </delete>
+    <delete id="delUser" parameterType="java.lang.Long">
+        delete from bus_mediate_person where civil_id =#{civilId}
+    </delete>
 
     <insert id="insertSelective" parameterType="com.smart.bracelet.model.po.debt.BusCivil">
         insert into bus_civil
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="civilId != null">
                 civil_id,
+            </if>
+            <if test="debtReason != null">
+                debt_reason,
             </if>
             <if test="certificate != null">
                 certificate,
@@ -235,6 +242,9 @@
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="civilId != null">
                 #{civilId,jdbcType=BIGINT},
+            </if>
+            <if test="debtReason != null">
+                #{debtReason,jdbcType=VARCHAR},
             </if>
             <if test="certificate != null">
                 #{certificate,jdbcType=VARCHAR},
@@ -325,79 +335,82 @@
     <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.vo.debt.BusCivilVo">
         update bus_civil
         <set>
-            <if test="reportId != null">
+            <if test="reportId != null and reportId !=null">
                 report_id = #{reportId,jdbcType=BIGINT},
             </if>
-            <if test="certificate != null">
-                certificate = #{reportId,jdbcType=VARCHAR},
+            <if test="debtReason != null and debtReason !=null">
+                debt_reason = #{debtReason,jdbcType=VARCHAR},
             </if>
-            <if test="relativePerId != null">
+            <if test="certificate != null and certificate !=null">
+                certificate = #{certificate,jdbcType=VARCHAR},
+            </if>
+            <if test="relativePerId != null and relativePerId !=null">
                 relative_per_id = #{relativePerId,jdbcType=BIGINT},
             </if>
-            <if test="civilno != null">
+            <if test="civilno != null and civilno !=null">
                 civilno = #{civilno,jdbcType=VARCHAR},
             </if>
-            <if test="solutions != null">
+            <if test="solutions != null and solutions !=null">
                 solutions = #{solutions,jdbcType=VARCHAR},
             </if>
-            <if test="civilType != null">
+            <if test="civilType != null and civilType !=null">
                 civil_type = #{civilType,jdbcType=VARCHAR},
             </if>
-            <if test="amountTotal != null">
+            <if test="amountTotal != null and amountTotal !=null">
                 amount_total = #{amountTotal,jdbcType=REAL},
             </if>
-            <if test="amountPrincipal != null">
+            <if test="amountPrincipal != null and amountPrincipal !=null">
                 amount_principal = #{amountPrincipal,jdbcType=REAL},
             </if>
-            <if test="amountInterest != null">
+            <if test="amountInterest != null and amountInterest !=null">
                 amount_interest = #{amountInterest,jdbcType=REAL},
             </if>
-            <if test="amountBreach != null">
+            <if test="amountBreach != null and amountBreach !=null">
                 amount_breach = #{amountBreach,jdbcType=REAL},
             </if>
-            <if test="monthInterest != null">
+            <if test="monthInterest != null and monthInterest !=null">
                 month_interest = #{monthInterest,jdbcType=REAL},
             </if>
-            <if test="starDate != null">
+            <if test="starDate != null and starDate !=null">
                 star_date = #{starDate,jdbcType=TIMESTAMP},
             </if>
-            <if test="endDate != null">
+            <if test="endDate != null and endDate !=null">
                 end_date = #{endDate,jdbcType=TIMESTAMP},
             </if>
-            <if test="interest != null">
+            <if test="interest != null  and interest !=null">
                 interest = #{interest,jdbcType=REAL},
             </if>
-            <if test="interestPayment != null">
+            <if test="interestPayment != null and interestPayment !=null">
                 interest_payment = #{interestPayment,jdbcType=REAL},
             </if>
-            <if test="breachDate != null">
+            <if test="breachDate != null and breachDate !=null">
                 breach_date = #{breachDate,jdbcType=TIMESTAMP},
             </if>
-            <if test="breachMoney != null">
+            <if test="breachMoney != null  and breachMoney !=null">
                 breach_money = #{breachMoney,jdbcType=REAL},
             </if>
-            <if test="guaranteeMeth != null">
+            <if test="guaranteeMeth != null  and guaranteeMeth !=null">
                 guarantee_meth = #{guaranteeMeth,jdbcType=VARCHAR},
             </if>
-            <if test="interestAll != null">
+            <if test="interestAll != null and interestAll !=null">
                 interest_all = #{interestAll,jdbcType=REAL},
             </if>
-            <if test="abandonContent != null">
+            <if test="abandonContent != null and abandonContent !=null">
                 abandon_content = #{abandonContent,jdbcType=VARCHAR},
             </if>
-            <if test="treatmentMethod != null">
+            <if test="treatmentMethod != null and treatmentMethod !=null">
                 treatment_method = #{treatmentMethod,jdbcType=VARCHAR},
             </if>
-            <if test="createTime != null">
+            <if test="createTime != null and createTime !=null">
                 create_time = #{createTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="updateTime != null">
+            <if test="updateTime != null and updateTime !=null">
                 update_time = #{updateTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="status != null">
+            <if test="status != null and status !=null">
                 `status` = #{status,jdbcType=VARCHAR},
             </if>
-            <if test="checkReason != null">
+            <if test="checkReason != null and checkReason !=null">
                 check_reason = #{checkReason,jdbcType=VARCHAR},
             </if>
         </set>

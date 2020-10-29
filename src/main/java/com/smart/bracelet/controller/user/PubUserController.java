@@ -4,10 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
-import com.smart.bracelet.model.po.user.PubAuth;
-import com.smart.bracelet.model.po.user.PubMenu;
-import com.smart.bracelet.model.po.user.PubUser;
-import com.smart.bracelet.model.po.user.PersonOnUserOnCom;
+import com.smart.bracelet.model.po.user.*;
 import com.smart.bracelet.model.vo.user.PersonOnUserOnComVo;
 import com.smart.bracelet.model.vo.user.PubUserVo;
 import com.smart.bracelet.model.vo.user.UserMenu;
@@ -120,8 +117,8 @@ public class PubUserController {
      * @return
      */
     @RequestMapping("/selectAuthByRoleId")
-    public Result<List<PubAuth>> selectAuthByRoleId(@NotNull(message = "角色Id不能为空") Long roleId,@NotNull(message = "菜单Id不能为空") Long menuId) {
-        List<PubAuth> pubauths = userInfoService.selectAuthByRoleId(roleId,menuId);
+    public Result<List<PubAuth>> selectAuthByRoleId(@NotNull(message = "角色Id不能为空") Long roleId, @NotNull(message = "菜单Id不能为空") Long menuId) {
+        List<PubAuth> pubauths = userInfoService.selectAuthByRoleId(roleId, menuId);
         return Result.success(pubauths);
     }
 
@@ -190,5 +187,28 @@ public class PubUserController {
         return Result.success(i);
     }
 
+    /**
+     * 新增商品
+     *
+     * @param commodity
+     * @return
+     */
+    @RequestMapping("/addComm")
+    public Result addComm(@Valid Commodity commodity, String note) throws CustomerException {
+        int i = userInfoService.addComm(commodity, note);
+        return Result.success(i);
+    }
 
+
+    /**
+     * 端口新增
+     * @param comPerUserInfo
+     * @return
+     * @throws CustomerException
+     */
+    @RequestMapping("/insertPort")
+    public Result insertPort(@Valid ComPerUserInfo comPerUserInfo) throws CustomerException {
+        int i = userInfoService.insertPort(comPerUserInfo);
+        return Result.success(i);
+    }
 }

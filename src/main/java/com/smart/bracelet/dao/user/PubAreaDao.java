@@ -4,6 +4,8 @@ import com.smart.bracelet.model.po.user.PubArea;
 import com.smart.bracelet.model.vo.user.PubAreaVo;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface PubAreaDao {
 
@@ -15,4 +17,5 @@ public interface PubAreaDao {
 
     int updateByPrimaryKeySelective(PubAreaVo record);
 
+    List<PubArea> selectByArName(String name);
 }

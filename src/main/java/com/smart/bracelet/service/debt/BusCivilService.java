@@ -61,7 +61,6 @@ public interface BusCivilService {
      */
     AgreementInfoShow initialize(Long reportId,Long comId) throws ParseException;
 
-
     /**
      * 通过报备ID查询民事调解协议
      * @param reportId

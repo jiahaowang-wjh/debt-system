@@ -19,6 +19,7 @@ public enum  DocReconciliation {
     CONT_YAER("yyy1"),
     CONT_MOON("M1"),
     CONT_DAY("d1"),
+    QISHU("qishu"),
     ;
 
 

@@ -16,5 +16,7 @@ public interface PubCompanyService {
 
     int updateByPrimaryKeySelective(PubCompanyVo record) throws CustomerException;
 
+    PubCompany selectByNameMax(String nameMax);
+
     List<PubCompany> queryList();
 }

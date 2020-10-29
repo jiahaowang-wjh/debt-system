@@ -1,17 +1,19 @@
 package com.smart.bracelet.service.user.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.smart.bracelet.dao.user.PubUserDao;
 import com.smart.bracelet.exception.CustomerException;
-import com.smart.bracelet.model.po.user.PubAuth;
-import com.smart.bracelet.model.po.user.PubMenu;
-import com.smart.bracelet.model.po.user.PubUser;
-import com.smart.bracelet.model.po.user.PersonOnUserOnCom;
+import com.smart.bracelet.model.po.user.*;
 import com.smart.bracelet.model.vo.user.PersonOnUserOnComVo;
 import com.smart.bracelet.model.vo.user.PubUserVo;
 import com.smart.bracelet.model.vo.user.UserMenu;
+import com.smart.bracelet.service.user.PubCompanyService;
+import com.smart.bracelet.service.user.PubDictionService;
+import com.smart.bracelet.service.user.PubPersonService;
 import com.smart.bracelet.service.user.PubUserService;
 import com.smart.bracelet.utils.IdUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,15 @@ public class PubUserServiceImpl implements PubUserService {
 
     @Autowired
     private PubUserDao pubUserDao;
+
+    @Autowired
+    private PubDictionService pubDictionService;
+
+    @Autowired
+    private PubCompanyService pubCompanyService;
+
+    @Autowired
+    private PubPersonService pubPersonService;
 
     /**
      * 通过ID删除用户信息
@@ -135,8 +146,8 @@ public class PubUserServiceImpl implements PubUserService {
     }
 
     @Override
-    public List<PubAuth> selectAuthByRoleId(Long roleId,Long menuId) {
-        return pubUserDao.selectAuthByRoleId(roleId,menuId);
+    public List<PubAuth> selectAuthByRoleId(Long roleId, Long menuId) {
+        return pubUserDao.selectAuthByRoleId(roleId, menuId);
     }
 
     /**
@@ -230,4 +241,82 @@ public class PubUserServiceImpl implements PubUserService {
         }
     }
 
+    @Override
+    public int addComm(Commodity commodity, String note) throws CustomerException {
+        try {
+            String comm = JSON.toJSONString(commodity);
+            PubDiction pubDiction = new PubDiction();
+            pubDiction.setDictionId(IdUtils.nextId());
+            pubDiction.setDictionDis(comm);
+            pubDiction.setNote(note);
+            pubDiction.setDictionType("COMMODITY");
+            int i = pubDictionService.insertSelective(pubDiction);
+            log.info("新增商品成功，受影响行数：{}", i);
+            return i;
+        } catch (CustomerException e) {
+            log.error("新增商品失败,异常信息：{}", e.getMessage());
+            throw new CustomerException("新增商品失败");
+        }
+    }
+
+    @Override
+    public int insertPort(ComPerUserInfo comPerUserInfo) throws CustomerException {
+        Long comId = IdUtils.nextId();
+        Long perId = IdUtils.nextId();
+        int insertSelective = 0;
+        int insertSelective1 = 0;
+        try {
+
+            PubCompany pubCompany = pubCompanyService.selectByNameMax(comPerUserInfo.getCompanyNameMax());
+            if (pubCompany == null) {
+                //新增公司信息
+                PubCompany company = new PubCompany();
+                company.setCompanyId(comId);
+                company.setAreaId(comPerUserInfo.getAreaId());
+                company.setCompanyName(comPerUserInfo.getCompanyName());
+                company.setCompanyNameMax(comPerUserInfo.getCompanyNameMax());
+                company.setCompanyType(comPerUserInfo.getCompanyType());
+                company.setCompanyLeperson(comPerUserInfo.getCompanyLeperson());
+                company.setCompanyTel(comPerUserInfo.getCompanyTel());
+                insertSelective = pubCompanyService.insertSelective(company);
+                log.info("新增公司信息成功,受影响行数：{}", insertSelective);
+            }
+            PubPerson pubPerson = new PubPerson();
+            if (pubCompany != null) {
+                pubPerson.setCompanyId(pubCompany.getCompanyId());
+            } else {
+                pubPerson.setCompanyId(comId);
+            }
+            PubPerson pubPerson1 = pubPersonService.selectByPrimaryName(comPerUserInfo.getPersonName());
+            if (pubPerson1 == null) {
+                pubPerson.setPersonId(perId);
+                pubPerson.setPersonName(comPerUserInfo.getPersonName());
+                pubPerson.setPersonType(comPerUserInfo.getPersonType());
+                pubPerson.setSex(comPerUserInfo.getSex());
+                pubPerson.setAge(comPerUserInfo.getAge());
+                pubPerson.setTel(comPerUserInfo.getTel());
+                pubPerson.setNote(comPerUserInfo.getPerNote());
+                insertSelective1 = pubPersonService.insertSelective(pubPerson);
+                log.info("新增人员信息成功，受影响行数：{}", insertSelective1);
+            }
+            PubUser pubUser = new PubUser();
+            if (pubPerson1 == null) {
+                pubUser.setPersonId(perId);
+            } else {
+                pubUser.setPersonId(pubPerson1.getPersonId());
+            }
+            pubUser.setRoleId(comPerUserInfo.getRoleId());
+            pubUser.setLoginName(comPerUserInfo.getLoginName());
+            pubUser.setPasswordMd5(comPerUserInfo.getPasswordMd5());
+            pubUser.setIsenable(comPerUserInfo.getIsenable());
+            pubUser.setUserType(comPerUserInfo.getUserType());
+            pubUser.setNote(comPerUserInfo.getUserNote());
+            int insertSelective2 = insertSelective(pubUser);
+            log.info("新增用户信息成功，受影响行数：{}", insertSelective2);
+            return insertSelective + insertSelective1 + insertSelective2;
+        } catch (Exception e) {
+            log.error("端口新增失败，异常信息：{}", e.getMessage());
+            throw new CustomerException("端口新增失败");
+        }
+    }
 }

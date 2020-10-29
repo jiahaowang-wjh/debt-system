@@ -79,4 +79,11 @@ public interface PubDebtDao {
      */
     Float selectAmountCumulative(Long relativePerId);
 
+    /**
+     * 查询累计解债信息
+     * @param reportId
+     * @return
+     */
+    PubDebt selectMoney(Long reportId);
+
 }

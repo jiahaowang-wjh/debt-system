@@ -35,7 +35,8 @@
         ,brp.`relative_per_id`,bp.`propert_id`,br.`report_no`,pd.`debt_no`,ba.`assessment_no`,bp.`stage`,br.`create_time`,bp.`status`,
         pd.amount_this,
         pd.debt_yaer,
-        pd.debt_type
+        pd.debt_type,
+        bp.check_reason
         FROM bus_propert bp
         LEFT JOIN bus_report br ON bp.`report_id` = br.`report_id`
         LEFT JOIN bus_relative_person brp ON brp.`relative_per_id` = bp.`relative_per_id`

@@ -243,13 +243,13 @@ public class BusCompromiseAgreementServiceImpl implements BusCompromiseAgreement
             initialize.setContractDate(new SimpleDateFormat("yyyy-MM-dd").parse(new SimpleDateFormat("yyyy-MM-dd").format(new Date())));
         }
         String debtType = initialize.getDebtType();
-        if(debtType.equals("2")){
-            debtType = "1";
+        if (debtType.equals("1") || debtType.equals("2")) {
+            initialize.setDebtType("2");
         }
-        if(debtType.equals("3")){
-            debtType = "2";
+        if (debtType.equals("3")) {
+            initialize.setDebtType("1");
         }
-        FormulaVo calculation = formula.Calculation(debtType, Integer.parseInt(initialize.getDebtYaer()), initialize.getAmountThis());
+        FormulaVo calculation = formula.Calculation(initialize.getDebtType(), Integer.parseInt(initialize.getDebtYaer()), initialize.getAmountThis());
         initialize.setAverage(calculation.getAverage());
         initialize.setNumber(calculation.getDeadline());
         String format = simpleDateFormat.format(initialize.getCreateTime());

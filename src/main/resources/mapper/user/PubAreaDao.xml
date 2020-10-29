@@ -17,7 +17,14 @@
     from pub_area
     where area_id = #{areaId,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <select id="selectByArName" resultType="com.smart.bracelet.model.po.user.PubArea"
+            parameterType="java.lang.String">
+      select
+      <include refid="Base_Column_List" />
+      from pub_area
+      where pub_area.area_name like concat('%',#{name},'%')
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from pub_area
     where area_id = #{areaId,jdbcType=BIGINT}
   </delete>
