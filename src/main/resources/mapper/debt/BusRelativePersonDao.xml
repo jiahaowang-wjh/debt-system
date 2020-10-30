@@ -71,9 +71,9 @@
   </select>
     <select id="selectDow" resultType="com.smart.bracelet.model.vo.debt.AuxiliaryDownload">
         SELECT br.`report_id`,brp.relative_per_id,br.`create_time`,br.`data1` AS 'debtName',brp.data1 AS
-        'personName',froma.assignment_agreement_no
+        'personName',br.report_no as 'assignment_agreement_no'
         ,fromb.cost AS 'bb_cost',fromc.cost AS 'zx_cost',fromd.cost AS 'hc_cost',
-        pd.amount_cumulative,pd.debt_yaer,pd.debt_type,pc.company_name
+        pd.amount_cumulative,pd.debt_yaer,pd.debt_type,pc.company_name,pd.amount_this
         FROM bus_report br
         LEFT JOIN `bus_relative_person` brp ON br.`report_id` = brp.`report_id`
         LEFT JOIN

@@ -19,6 +19,10 @@ public class AuxiliaryDownload {
     Long reportId;
 
     /**
+     * 本次解债金额
+     */
+    Float amountThis;
+    /**
      * 相对人Id
      */
     Long relativePerId;
@@ -27,7 +31,7 @@ public class AuxiliaryDownload {
      * 创建时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
-    Date createTime;
+    String createTime;
 
     /**
      * 债事人
