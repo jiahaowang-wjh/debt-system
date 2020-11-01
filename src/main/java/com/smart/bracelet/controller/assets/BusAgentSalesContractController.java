@@ -1,16 +1,19 @@
 package com.smart.bracelet.controller.assets;
 
+import com.alibaba.fastjson.JSON;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.assets.BusAgentSalesContract;
+import com.smart.bracelet.model.po.assets.BusAgentSalesContractModity;
 import com.smart.bracelet.model.vo.assets.BusAgentSalesContractShow;
 import com.smart.bracelet.model.vo.assets.BusAgentSalesContractVo;
 import com.smart.bracelet.service.assets.BusAgentSalesContractService;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -29,11 +32,14 @@ public class BusAgentSalesContractController {
         return Result.success(i);
     }
 
+
     @RequestMapping("/insertSelective")
-    public Result insertSelective(@Valid BusAgentSalesContract record) throws CustomerException {
-        Long i = busAgentSalesContractService.insertSelective(record);
-        return Result.success(i + "");
+    public Result insertSelective(String jsonData) throws CustomerException {
+        Long aLong = busAgentSalesContractService.insertSelective(jsonData);
+        return Result.success(aLong+"");
     }
+
+
 
     @RequestMapping("/selectByPrimaryKey")
     public Result<BusAgentSalesContract> selectByPrimaryKey(@NotNull(message = "代理销售合同ID不能为空") Long salesContractId) {

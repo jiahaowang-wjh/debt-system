@@ -2,6 +2,7 @@ package com.smart.bracelet.dao.assets;
 
 import com.smart.bracelet.model.po.assets.CumoutProtocol;
 import com.smart.bracelet.model.vo.assets.CommissionOnLine;
+import com.smart.bracelet.model.vo.assets.CumoutProtocolVo;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -14,7 +15,7 @@ public interface CumoutProtocolDao {
 
     CumoutProtocol selectByPrimaryKey(Long protocolId);
 
-    int updateByPrimaryKeySelective(CumoutProtocol record);
+    int updateByPrimaryKeySelective(CumoutProtocolVo record);
 
     int updateByPrimaryKey(CumoutProtocol record);
 

@@ -1,5 +1,6 @@
 package com.smart.bracelet.model.vo.assets;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -39,6 +40,7 @@ public class BusAssessmentVo implements Serializable {
      */
     @NotNull(message = "评估日期不能为空")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date assessmentDate;
 
     /**
@@ -72,18 +74,24 @@ public class BusAssessmentVo implements Serializable {
     /**
      * 审核时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date checkDate;
 
     /**
      * 更新时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date updateTime;
 
     /**
      * 创建时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date createTime;
 
-
+    /**
+     * 凭证说明
+     */
+    String credentialsText;
 }

@@ -5,7 +5,7 @@
         <id column="protocol_id" jdbcType="BIGINT" property="protocolId"/>
         <result column="protocol_no" jdbcType="VARCHAR" property="protocolNo"/>
         <result column="propert_id" jdbcType="BIGINT" property="propertId"/>
-        <result column="contract_date" jdbcType="DATE" property="contractDate"/>
+        <result column="contract_date" jdbcType="VARCHAR" property="contractDate"/>
     </resultMap>
     <sql id="Base_Column_List">
     protocol_id, protocol_no, propert_id, contract_date
@@ -66,11 +66,11 @@
                 #{propertId,jdbcType=BIGINT},
             </if>
             <if test="contractDate != null">
-                #{contractDate,jdbcType=DATE},
+                #{contractDate,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.po.assets.CumoutProtocol">
+    <update id="updateByPrimaryKeySelective" parameterType="com.smart.bracelet.model.vo.assets.CumoutProtocolVo">
         update cumout_protocol
         <set>
             <if test="protocolNo != null">
@@ -80,7 +80,7 @@
                 propert_id = #{propertId,jdbcType=BIGINT},
             </if>
             <if test="contractDate != null">
-                contract_date = #{contractDate,jdbcType=DATE},
+                contract_date = #{contractDate,jdbcType=VARCHAR},
             </if>
         </set>
         where protocol_id = #{protocolId,jdbcType=BIGINT}
@@ -89,7 +89,7 @@
     update cumout_protocol
     set protocol_no = #{protocolNo,jdbcType=VARCHAR},
       propert_id = #{propertId,jdbcType=BIGINT},
-      contract_date = #{contractDate,jdbcType=DATE}
+      contract_date = #{contractDate,jdbcType=VARCHAR}
     where protocol_id = #{protocolId,jdbcType=BIGINT}
   </update>
 </mapper>

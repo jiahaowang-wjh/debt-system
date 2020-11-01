@@ -469,14 +469,11 @@
         br.check_reason,
         br.`status`,
         bc.`status` AS 'ciStatus',
-        pd.`status` AS 'puStatus',
-        pc.company_type,
-        pd.debt_no
+        pc.company_type
         FROM bus_report br
         LEFT JOIN pub_user pu ON br.user_id=pu.`user_id`
         LEFT JOIN pub_person pp ON pu.`person_id`=pp.`person_id`
         LEFT JOIN bus_civil bc ON bc.`report_id` = br.`report_id`
-        LEFT JOIN pub_debt pd ON pd.`report_id` = br.`report_id`
         LEFT JOIN pub_company pc ON pc.`company_id` = br.`company_id`
         LEFT JOIN (SELECT report_id, COUNT(0) AS 'busRelativeCount' FROM bus_relative_person GROUP BY report_id ) froma
         ON br.report_id= froma.report_id

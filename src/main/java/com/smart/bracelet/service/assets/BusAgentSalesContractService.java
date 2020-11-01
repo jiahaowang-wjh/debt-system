@@ -9,7 +9,7 @@ public interface BusAgentSalesContractService {
 
     int deleteByPrimaryKey(Long salesContractId) throws CustomerException;
 
-    Long insertSelective(BusAgentSalesContract record) throws CustomerException;
+    Long insertSelective(String jsonData) throws CustomerException;
 
     BusAgentSalesContract selectByPrimaryKey(Long salesContractId);
 

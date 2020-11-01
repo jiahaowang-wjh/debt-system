@@ -30,7 +30,7 @@ public class BusAgentSalesContract implements Serializable {
      */
     @JsonSerialize(using = ToStringSerializer.class)
     @NotNull(message = "资产ID不能为空")
-    private Long propertId;
+    private String propertId;
 
 
     /**
@@ -39,9 +39,7 @@ public class BusAgentSalesContract implements Serializable {
     @NotBlank(message = "编号不能为空")
     private String salesNo;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @NotNull(message = "合同日期不能为空")
-    Date contractDate;
+    String contractDate;
 
     /**
      * 代销时间开始

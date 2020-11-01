@@ -10,12 +10,14 @@ import com.smart.bracelet.model.po.assets.BusAgentSalesContractModity;
 import com.smart.bracelet.model.po.assets.CumoutProtocol;
 import com.smart.bracelet.model.po.user.PubCompany;
 import com.smart.bracelet.model.vo.assets.CommissionOnLine;
+import com.smart.bracelet.model.vo.assets.CumoutProtocolVo;
 import com.smart.bracelet.service.assets.CumoutProtocolService;
 import com.smart.bracelet.utils.BigDecimalUtil;
 import com.smart.bracelet.utils.ConvertUpMoney;
 import com.smart.bracelet.utils.IdUtils;
 import com.smart.bracelet.utils.RepNoUtils;
 import lombok.extern.slf4j.Slf4j;
+import net.sf.json.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,8 +49,10 @@ public class CumoutProtocolServiceImpl implements CumoutProtocolService {
     }
 
     @Override
-    public Long insertSelective(CumoutProtocol record) throws CustomerException {
+    public Long insertSelective(String jsonData) throws CustomerException {
         try {
+            JSONObject obj = new JSONObject().fromObject(jsonData);
+            CumoutProtocol record = (CumoutProtocol) JSONObject.toBean(obj,CumoutProtocol.class);
             long protocolId = IdUtils.nextId();
             BusAgentSalesContractModity[] busAgentSalesContractModity = record.getBusAgentSalesContractModity();
             List<BusAgentSalesContractModity> list = new ArrayList<>();
@@ -81,12 +85,47 @@ public class CumoutProtocolServiceImpl implements CumoutProtocolService {
 
     @Override
     public CumoutProtocol selectByPrimaryKey(Long protocolId) {
-        return null;
+        CumoutProtocol cumoutProtocol = cumoutProtocolDao.selectByPrimaryKey(protocolId);
+        List<BusAgentSalesContractModity> list = busAgentSalesContractModityDao.selectBySalesProtocolId(protocolId);
+        BusAgentSalesContractModity[] busAgentSalesContractModities = new BusAgentSalesContractModity[list.size()];
+        for (int i=0;i<list.size();i++){
+            busAgentSalesContractModities[i]=list.get(i);
+        }
+        cumoutProtocol.setBusAgentSalesContractModity(busAgentSalesContractModities);
+        return cumoutProtocol;
     }
 
     @Override
-    public int updateByPrimaryKeySelective(CumoutProtocol record) {
-        return 0;
+    public int updateByPrimaryKeySelective(CumoutProtocolVo record) throws CustomerException {
+        try {
+            int i1 = busAgentSalesContractModityDao.deleteByContractId(record.getProtocolId());
+            log.info("删除线上委托销售商品成功："+i1);
+            int i = cumoutProtocolDao.updateByPrimaryKeySelective(record);
+            log.info("更新线上委托销销售合同成功："+i);
+            BusAgentSalesContractModity[] busAgentSalesContractModity = record.getBusAgentSalesContractModity();
+            List<BusAgentSalesContractModity> list = new ArrayList<>();
+            if (busAgentSalesContractModity != null && busAgentSalesContractModity.length != 0) {
+                for (BusAgentSalesContractModity item : busAgentSalesContractModity) {
+                    BusAgentSalesContractModity modity = new BusAgentSalesContractModity();
+                    modity.setSalesContractModityId(IdUtils.nextId());
+                    modity.setProtocolId(record.getProtocolId());
+                    modity.setModityName(item.getModityName());
+                    modity.setModityPlace(item.getModityPlace());
+                    modity.setModitySpecificat(item.getModitySpecificat());
+                    modity.setPartyaSeal(item.getPartyaSeal());
+                    modity.setPartybSeal(item.getPartybSeal());
+                    modity.setPartybTime(item.getPartybTime());
+                    modity.setMoneyNum1(item.getMoneyNum1());
+                    list.add(modity);
+                }
+            }
+            int i2 = busAgentSalesContractModityDao.insertSelectives(list);
+            log.info("新增线上委托销售商品成功："+i2);
+            return 0;
+        } catch (Exception e) {
+            log.error("更新线上销售合同失败，异常信息：{}",e.getMessage());
+            throw new CustomerException("更新线上销售合同失败");
+        }
     }
 
     @Override

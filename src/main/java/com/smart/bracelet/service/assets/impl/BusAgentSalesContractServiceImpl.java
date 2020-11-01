@@ -22,6 +22,7 @@ import com.smart.bracelet.utils.ConvertUpMoney;
 import com.smart.bracelet.utils.IdUtils;
 import com.smart.bracelet.utils.RepNoUtils;
 import lombok.extern.slf4j.Slf4j;
+import net.sf.json.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -67,8 +68,10 @@ public class BusAgentSalesContractServiceImpl implements BusAgentSalesContractSe
 
     @Override
     @Transactional(rollbackFor = CustomerException.class)
-    public Long insertSelective(BusAgentSalesContract record) throws CustomerException {
+    public Long insertSelective(String jsonData) throws CustomerException {
         try {
+            JSONObject obj = new JSONObject().fromObject(jsonData);
+            BusAgentSalesContract record = (BusAgentSalesContract) JSONObject.toBean(obj,BusAgentSalesContract.class);
             long l = IdUtils.nextId();
             record.setSalesContractId(l);
             busAgentSalesContractDao.insertSelective(record);
@@ -92,7 +95,6 @@ public class BusAgentSalesContractServiceImpl implements BusAgentSalesContractSe
                 int i = busAgentSalesContractModityDao.insertSelectives(list);
                 log.info("新增委托合同商品成功,受影响行数：{}", i);
             }
-
             return l;
         } catch (Exception e) {
             log.error("新增失败,异常信息:{}", e.getMessage());

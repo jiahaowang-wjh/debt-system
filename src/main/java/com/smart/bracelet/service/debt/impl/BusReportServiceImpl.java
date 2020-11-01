@@ -19,10 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -134,12 +131,12 @@ public class BusReportServiceImpl implements BusReportService {
     }
 
     @Override
-    public List<DateAndDays> selectDaysCount(String type,Long comId) {
-        if(type.equals("1")){
+    public List<DateAndDays> selectDaysCount(String type, Long comId) {
+        if (type.equals("1")) {
             type = null;
             comId = null;
         }
-        return busReportDao.selectDaysCount(type,comId);
+        return busReportDao.selectDaysCount(type, comId);
     }
 
     /**
@@ -595,7 +592,8 @@ public class BusReportServiceImpl implements BusReportService {
             debtInfoQuery.setCompanyType(null);
             debtInfoQuery.setComId(null);
         }
-        return busReportDao.selectDebtInofs(debtInfoQuery);
+        List<DebtInfo> debtInfos = busReportDao.selectDebtInofs(debtInfoQuery);
+        return debtInfos;
     }
 
     @Override
@@ -624,12 +622,11 @@ public class BusReportServiceImpl implements BusReportService {
     }
 
 
-
     @Override
     @Transactional(noRollbackFor = Exception.class)
-    public int addAgreementNo(String partyA, String partyB, Long reportId, Date agreementDate,String agreementNo) throws CustomerException {
+    public int addAgreementNo(String partyA, String partyB, Long reportId, Date agreementDate, String agreementNo) throws CustomerException {
         try {
-            return busReportDao.addANO(partyA, partyB, reportId,agreementDate,agreementNo);
+            return busReportDao.addANO(partyA, partyB, reportId, agreementDate, agreementNo);
         } catch (Exception e) {
             log.error("异常信息:{}", e.getMessage());
             throw new CustomerException("新增失败");

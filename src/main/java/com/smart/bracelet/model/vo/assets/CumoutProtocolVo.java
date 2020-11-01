@@ -1,7 +1,6 @@
-package com.smart.bracelet.model.po.assets;
+package com.smart.bracelet.model.vo.assets;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.smart.bracelet.model.po.assets.BusAgentSalesContractModity;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -15,10 +14,11 @@ import java.util.Date;
  * @author 
  */
 @Data
-public class CumoutProtocol implements Serializable {
+public class CumoutProtocolVo implements Serializable {
     /**
      * 委托线上代理销售合同ID
      */
+    @NotNull(message = "委托线上代理销售合同ID不能为空")
     private Long protocolId;
 
     /**
@@ -30,13 +30,15 @@ public class CumoutProtocol implements Serializable {
     /**
      * 资产id
      */
-    @NotBlank(message = "资产ID不能为空")
-    private String propertId;
+    @NotNull(message = "资产ID不能为空")
+    private Long propertId;
 
     /**
      * 签约时间
      */
-    private String contractDate;
+    @NotNull(message = "签约时间不能为空")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date contractDate;
 
     BusAgentSalesContractModity[] busAgentSalesContractModity;
 }
