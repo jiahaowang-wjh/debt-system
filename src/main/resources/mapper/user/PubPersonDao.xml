@@ -27,9 +27,8 @@
     </select>
     <select id="queryPer" resultType="com.smart.bracelet.model.po.user.PubPerson"
             parameterType="java.lang.String">
-      select
-      <include refid="Base_Column_List" />
-      from pub_person
+    SELECT pc.`company_name`,pp.person_id, pp.company_id, pp.person_name, pp.person_type, pp.sex, pp.age, pp.tel, pp.note FROM pub_person pp
+    LEFT JOIN pub_company pc ON pp.`company_id` = pc.`company_id`
     </select>
     <select id="selectByPrimaryName" resultType="com.smart.bracelet.model.po.user.PubPerson"
             parameterType="java.lang.String">

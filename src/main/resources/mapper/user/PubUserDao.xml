@@ -25,7 +25,7 @@
         select
         <include refid="Base_Column_List"/>
         from pub_user
-        where login_name = #{loginName,jdbcType=VARCHAR}
+        where login_name = #{loginName,jdbcType=VARCHAR} and isenable = 1
     </select>
     <select id="selectUserAuth" resultType="java.lang.String">
     SELECT pa.`authname` FROM pub_user pu

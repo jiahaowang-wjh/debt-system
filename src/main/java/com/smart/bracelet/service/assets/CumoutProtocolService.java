@@ -12,11 +12,13 @@ public interface CumoutProtocolService {
 
     int deleteByPrimaryKey(Long protocolId);
 
-    Long insertSelective(String jsonData) throws CustomerException;
+    Long insertSelectiveJson(String jsonData) throws CustomerException;
+
+    Long insertSelective(CumoutProtocol record) throws CustomerException;
 
     CumoutProtocol selectByPrimaryKey(Long protocolId);
 
-    int updateByPrimaryKeySelective(CumoutProtocolVo record) throws CustomerException;
+    int updateByPrimaryKeySelective(String jsonData) throws CustomerException;
     /**
      * 初始化线上委托销售哦合同
      * @param propertId

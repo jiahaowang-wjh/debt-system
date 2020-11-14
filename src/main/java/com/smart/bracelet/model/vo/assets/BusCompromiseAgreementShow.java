@@ -1,6 +1,8 @@
 package com.smart.bracelet.model.vo.assets;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 import java.util.Date;
@@ -10,6 +12,9 @@ import java.util.Date;
  */
 @Data
 public class BusCompromiseAgreementShow {
+
+    @JsonSerialize(using = ToStringSerializer.class)
+    Long propertId;
 
     /**
      * 债务人姓名
@@ -25,16 +30,16 @@ public class BusCompromiseAgreementShow {
     String priDebtPhone;
 
     /**
-     *债权人电话号码（企业银行）
+     * 债权人电话号码（企业银行）
      */
     String corBackDebtPhone;
     /**
-     *相对人电话(私人)
+     * 相对人电话(私人)
      */
     String personPriPhone;
 
     /**
-     *相对人电话（企业银行）
+     * 相对人电话（企业银行）
      */
     String personCorPhone;
 
@@ -53,7 +58,7 @@ public class BusCompromiseAgreementShow {
     /**
      * 解债日期
      */
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     Date createTime;
     /**
      * 解债类型
@@ -78,7 +83,7 @@ public class BusCompromiseAgreementShow {
     /**
      * 签约日期
      */
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     Date contractDate;
 
     /**

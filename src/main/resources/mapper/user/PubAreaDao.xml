@@ -24,7 +24,20 @@
       from pub_area
       where pub_area.area_name like concat('%',#{name},'%')
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <select id="queryParent" resultType="com.smart.bracelet.model.po.user.PubArea">
+      select
+      <include refid="Base_Column_List" />
+      from pub_area
+      where pub_area.parent_id = 0
+    </select>
+  <select id="querySubset" resultType="com.smart.bracelet.model.po.user.PubArea"
+          parameterType="java.lang.Long">
+    select
+    <include refid="Base_Column_List" />
+    from pub_area
+    where pub_area.parent_id = #{parentId}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from pub_area
     where area_id = #{areaId,jdbcType=BIGINT}
   </delete>

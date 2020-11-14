@@ -115,18 +115,26 @@ public class BusPayDetailServiceImpl implements BusPayDetailService {
     }
 
     @Override
-    public List<BusPayDetailInfo> selectPayInfoList(String debtNo, String companyType,String status) {
+    public List<BusPayDetailInfo> selectPayInfoList(String debtNo, String companyType, String status) {
         if (companyType.equals("1")) {
             companyType = null;
         }
-        return busPayDetailDao.selectPayInfoList(debtNo, companyType,status);
+        return busPayDetailDao.selectPayInfoList(debtNo, companyType, status);
+    }
+
+    @Override
+    public List<BusPayDetailInfo> selectPayInfoListZc(String debtNo, String companyType, String status) {
+        if (companyType.equals("1")) {
+            companyType = null;
+        }
+        return busPayDetailDao.selectPayInfoListZc(debtNo, companyType, status);
     }
 
     @Override
     @Transactional(noRollbackFor = Exception.class)
-    public int updateStatus(String status, Long payId,String checkReason) throws CustomerException {
+    public int updateStatus(String status, Long payId, String checkReason) throws CustomerException {
         try {
-            int i = busPayDetailDao.updateStatus(status, payId,checkReason);
+            int i = busPayDetailDao.updateStatus(status, payId, checkReason);
             return i;
         } catch (Exception e) {
             log.error("更新支付信息失败,异常信息:{}", e.getMessage());
@@ -140,13 +148,13 @@ public class BusPayDetailServiceImpl implements BusPayDetailService {
     }
 
     @Override
-    public List<BusPayDetail> selectByReportIdAndPropertId(Long reportId, Long propertId) {
-        return busPayDetailDao.selectByReportIdAndPropertId(reportId, propertId);
+    public BusPayDetail selectByPropertId(Long propertId) {
+        return busPayDetailDao.selectByReportIdAndPropertId(propertId);
     }
 
     @Override
-    public ReportFee selectByRepId(Long reportId, String flag,Long debtId,Long propertId) throws ParseException {
-        ReportFee reportFees = busPayDetailDao.selectByRepId(reportId, flag,debtId,propertId);
+    public ReportFee selectByRepId(Long reportId, String flag, Long debtId, Long propertId) throws ParseException {
+        ReportFee reportFees = busPayDetailDao.selectByRepId(reportId, flag, debtId, propertId);
         reportFees.setThisTime(new SimpleDateFormat("yyyy-MM-dd").parse(new SimpleDateFormat("yyyy-MM-dd").format(new Date())));
         return reportFees;
     }

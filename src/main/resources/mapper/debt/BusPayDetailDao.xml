@@ -153,28 +153,55 @@
                 check_reason=#{checkReason,jdbcType=VARCHAR},
             </if>
         </set>
-         where pay_id = #{payId,jdbcType=BIGINT}
+        where pay_id = #{payId,jdbcType=BIGINT}
     </update>
+    <update id="updateGenerateTime">
+        update bus_pay_detail set generate_time = #{generateTime} where pay_id = #{payId,jdbcType=BIGINT}
+    </update>
+
     <select id="selectRepNo" resultType="java.lang.String">
     SELECT  bus_pay_detail.pay_no  FROM   bus_pay_detail   ORDER   BY   bus_pay_detail.pay_id  DESC   LIMIT   1
   </select>
     <select id="selectPayInfoList" resultType="com.smart.bracelet.model.vo.debt.BusPayDetailInfo">
-        SELECT pd.amount_this,pd.this_plan_money,bpd.contract_name,bpd.propert_id,br.stage,bpd.pay_id,br.`report_id`,br.`report_no`,bpd.payert_name,
+        SELECT
+        pd.amount_this,pd.this_plan_money,bpd.contract_name,bpd.propert_id,br.stage,bpd.pay_id,br.`report_id`,br.`report_no`,bpd.payert_name,
         bpd.flag AS 'payType',bpd.pay_no,bpd.cost,bpd.voucher,bpd.status,pd.`debt_id`,bp.`propert_id`,bpd.check_reason
         FROM bus_pay_detail bpd
         LEFT JOIN bus_report br ON br.`report_id` = bpd.`report_id`
         LEFT JOIN pub_debt pd ON bpd.`debt_id` = pd.`debt_id`
         LEFT JOIN bus_propert bp ON bpd.`propert_id` = bp.`propert_id`
         <where>
+            bpd.`flag`='1' OR bpd.`flag`='3'
             <if test="reportNo != '' and reportNo != null">
-                br.report_no = #{reportNo,jdbcType=VARCHAR}
+                and br.report_no = #{reportNo,jdbcType=VARCHAR}
             </if>
             <if test="status != '' and status != null">
-                bpd.status = #{status,jdbcType=VARCHAR}
+                and bpd.status = #{status,jdbcType=VARCHAR}
             </if>
         </where>
         order by bpd.pay_id desc
     </select>
+
+    <select id="selectPayInfoListZc" resultType="com.smart.bracelet.model.vo.debt.BusPayDetailInfo">
+        SELECT
+        pd.amount_this,pd.this_plan_money,bpd.contract_name,bpd.propert_id,br.stage,bpd.pay_id,br.`report_id`,br.`report_no`,bpd.payert_name,
+        bpd.flag AS 'payType',bpd.pay_no,bpd.cost,bpd.voucher,bpd.status,pd.`debt_id`,bp.`propert_id`,bpd.check_reason
+        FROM bus_pay_detail bpd
+        LEFT JOIN bus_report br ON br.`report_id` = bpd.`report_id`
+        LEFT JOIN pub_debt pd ON bpd.`debt_id` = pd.`debt_id`
+        LEFT JOIN bus_propert bp ON bpd.`propert_id` = bp.`propert_id`
+        <where>
+            bpd.`flag`='4'
+            <if test="reportNo != '' and reportNo != null">
+                and br.report_no = #{reportNo,jdbcType=VARCHAR}
+            </if>
+            <if test="status != '' and status != null">
+                and bpd.status = #{status,jdbcType=VARCHAR}
+            </if>
+        </where>
+        order by bpd.pay_id desc
+    </select>
+
     <select id="selectByReportIdAndDebtId" resultType="com.smart.bracelet.model.po.debt.BusPayDetail">
         select
         <include refid="Base_Column_List"/>
@@ -185,10 +212,10 @@
         select
         <include refid="Base_Column_List"/>
         from bus_pay_detail
-        where report_id = #{reportId,jdbcType=BIGINT} and propert_id = #{propertId,jdbcType=BIGINT}
+        where propert_id = #{propertId,jdbcType=BIGINT}
     </select>
     <select id="selectByRepId" resultType="com.smart.bracelet.model.vo.debt.ReportFee">
-        SELECT br.report_id,br.`data1` AS 'debtName',pad.`pay_no`,pc.`company_name`,pad.`flag`,pad.cost
+        SELECT br.report_id,br.`data1` AS 'debtName',pad.`pay_no`,pc.`company_name`,pad.`flag`,pad.cost,pad.pay_id,pad.create_time
         FROM bus_pay_detail pad
         LEFT JOIN bus_report br ON br.`report_id` = pad.`report_id`
         LEFT JOIN pub_company pc ON br.`company_id` = pc.`company_id`

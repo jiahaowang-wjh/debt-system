@@ -94,4 +94,7 @@ public class AssetsDebtBank {
     String debtData1;
 
     String personData1;
+
+    @JsonSerialize(using = ToStringSerializer.class)
+    Long payId;
 }

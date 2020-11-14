@@ -49,10 +49,43 @@ public class CumoutProtocolServiceImpl implements CumoutProtocolService {
     }
 
     @Override
-    public Long insertSelective(String jsonData) throws CustomerException {
+    public Long insertSelectiveJson(String jsonData) throws CustomerException {
         try {
             JSONObject obj = new JSONObject().fromObject(jsonData);
             CumoutProtocol record = (CumoutProtocol) JSONObject.toBean(obj,CumoutProtocol.class);
+            long protocolId = IdUtils.nextId();
+            BusAgentSalesContractModity[] busAgentSalesContractModity = record.getBusAgentSalesContractModity();
+            List<BusAgentSalesContractModity> list = new ArrayList<>();
+            if (busAgentSalesContractModity != null && busAgentSalesContractModity.length != 0) {
+                for (BusAgentSalesContractModity item : busAgentSalesContractModity) {
+                    BusAgentSalesContractModity modity = new BusAgentSalesContractModity();
+                    modity.setSalesContractModityId(IdUtils.nextId());
+                    modity.setProtocolId(protocolId);
+                    modity.setModityName(item.getModityName());
+                    modity.setModityPlace(item.getModityPlace());
+                    modity.setModitySpecificat(item.getModitySpecificat());
+                    modity.setPartyaSeal(item.getPartyaSeal());
+                    modity.setPartybSeal(item.getPartybSeal());
+                    modity.setPartybTime(item.getPartybTime());
+                    modity.setMoneyNum1(item.getMoneyNum1());
+                    list.add(modity);
+                }
+            }
+            record.setProtocolId(protocolId);
+            int i = cumoutProtocolDao.insertSelective(record);
+            log.info("新增委托线上代理销售合同成功，受影响行数：{}", i);
+            int i1 = busAgentSalesContractModityDao.insertSelectives(list);
+            log.info("新增商品寄售成功，受影响行数：{}", i1);
+            return protocolId;
+        } catch (Exception e) {
+            log.error("新增商品寄售失败,异常信息：{}", e.getMessage());
+            throw new CustomerException("新增商品寄售失败");
+        }
+    }
+
+    @Override
+    public Long insertSelective(CumoutProtocol record) throws CustomerException {
+        try {
             long protocolId = IdUtils.nextId();
             BusAgentSalesContractModity[] busAgentSalesContractModity = record.getBusAgentSalesContractModity();
             List<BusAgentSalesContractModity> list = new ArrayList<>();
@@ -96,8 +129,11 @@ public class CumoutProtocolServiceImpl implements CumoutProtocolService {
     }
 
     @Override
-    public int updateByPrimaryKeySelective(CumoutProtocolVo record) throws CustomerException {
+    public int updateByPrimaryKeySelective(String jsonData) throws CustomerException {
         try {
+            JSONObject obj = new JSONObject().fromObject(jsonData);
+            CumoutProtocolVo record = (CumoutProtocolVo) JSONObject.toBean(obj,CumoutProtocolVo.class);
+            System.out.println(record.getContractDate());
             int i1 = busAgentSalesContractModityDao.deleteByContractId(record.getProtocolId());
             log.info("删除线上委托销售商品成功："+i1);
             int i = cumoutProtocolDao.updateByPrimaryKeySelective(record);
@@ -143,7 +179,13 @@ public class CumoutProtocolServiceImpl implements CumoutProtocolService {
             initialize.setAmountThisMax(ConvertUpMoney.toChinese(initialize.getAmountThis().toString()));
             initialize.setAllCommodityMoney(money);
             initialize.setBusAgentSalesContractModities(list);
-            Date createTime = initialize.getCreateTime();
+            Date createTime =  null;
+            if(initialize.getContractDate()==null){
+                createTime = new Date();
+            }else{
+                createTime = initialize.getContractDate();
+            }
+            initialize.setCreateTime(createTime);
             String format1 = simpleDateFormat.format(createTime);
             Date parse = simpleDateFormat.parse(format1);
             Calendar rightNow = Calendar.getInstance();
@@ -151,6 +193,7 @@ public class CumoutProtocolServiceImpl implements CumoutProtocolService {
             rightNow.add(Calendar.YEAR, +Integer.parseInt(initialize.getDebtYaer()));
             Date date = rightNow.getTime();
             String format = simpleDateFormat.format(date);
+            initialize.setEndTime(format);
             switch (initialize.getDebtYaer()) {
                 case "1":
                     String div1 = BigDecimalUtil.div(initialize.getAmountThis().toString(), "12", 2);
@@ -167,9 +210,8 @@ public class CumoutProtocolServiceImpl implements CumoutProtocolService {
             }
             if (StringUtils.isEmpty(initialize.getProtocolNo())) {
                 initialize.setProtocolNo(RepNoUtils.createRepNo("SW", a.getCompanyNameMax(), cumoutProtocolDao.selectNo()));
-                initialize.setContractDate(new SimpleDateFormat("yyyy-MM-dd").parse(new SimpleDateFormat("yyyy-MM-dd").format(new Date())));
+                initialize.setContractDate(createTime);
             }
-            initialize.setEndTime(format);
             if (initialize.getReportPropert().equals("1")) {
                 initialize.setCorBankAdd(null);
                 initialize.setCorBankPhone(null);

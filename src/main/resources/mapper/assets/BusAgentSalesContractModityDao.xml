@@ -51,6 +51,10 @@
            delete from bus_agent_sales_contract_modity
             where protocol_id  = #{salesContractId,jdbcType=BIGINT}
     </delete>
+    <delete id="deleteBySaId" parameterType="java.lang.Long">
+         delete from bus_agent_sales_contract_modity
+            where sales_contract_id  = #{salesContractId,jdbcType=BIGINT}
+    </delete>
     <insert id="insertSelectives" parameterType="com.smart.bracelet.model.po.assets.BusAgentSalesContractModity">
         insert into bus_agent_sales_contract_modity (sales_contract_modity_id, sales_contract_id,
         modity_name, modity_place, modity_specificat,

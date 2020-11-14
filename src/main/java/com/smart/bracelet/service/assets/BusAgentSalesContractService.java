@@ -9,11 +9,13 @@ public interface BusAgentSalesContractService {
 
     int deleteByPrimaryKey(Long salesContractId) throws CustomerException;
 
-    Long insertSelective(String jsonData) throws CustomerException;
+    Long insertSelectiveJson(String jsonData) throws CustomerException;
+
+    Long insertSelective(BusAgentSalesContract busAgentSalesContract) throws CustomerException;
 
     BusAgentSalesContract selectByPrimaryKey(Long salesContractId);
 
-    int updateByPrimaryKeySelective(BusAgentSalesContractVo record) throws CustomerException;
+    int updateByPrimaryKeySelective(String jsonData) throws CustomerException;
 
     /**
      * 委托代理销售合同初始化

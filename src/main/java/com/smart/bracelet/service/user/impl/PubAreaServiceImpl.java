@@ -71,4 +71,14 @@ public class PubAreaServiceImpl implements PubAreaService {
         return pubAreaDao.selectByArName(name);
     }
 
+    @Override
+    public List<PubArea> queryParent() {
+        return pubAreaDao.queryParent();
+    }
+
+    @Override
+    public List<PubArea> querySubset(Long parentId) {
+        return pubAreaDao.querySubset(parentId);
+    }
+
 }

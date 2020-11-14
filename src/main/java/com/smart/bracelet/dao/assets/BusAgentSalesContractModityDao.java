@@ -14,6 +14,8 @@ public interface BusAgentSalesContractModityDao {
 
     int deleteByContractId(Long salesContractId);
 
+    int deleteBySaId(Long salesContractId);
+
     int insertSelectives(List<BusAgentSalesContractModity> record);
 
     BusAgentSalesContractModity selectByPrimaryKey(Long salesContractModityId);

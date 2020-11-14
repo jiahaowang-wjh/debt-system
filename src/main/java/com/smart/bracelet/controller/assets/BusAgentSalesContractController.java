@@ -33,12 +33,17 @@ public class BusAgentSalesContractController {
     }
 
 
-    @RequestMapping("/insertSelective")
-    public Result insertSelective(String jsonData) throws CustomerException {
-        Long aLong = busAgentSalesContractService.insertSelective(jsonData);
+    @RequestMapping("/insertSelectiveJson")
+    public Result insertSelectiveJson(String jsonData) throws CustomerException {
+        Long aLong = busAgentSalesContractService.insertSelectiveJson(jsonData);
         return Result.success(aLong+"");
     }
 
+    @RequestMapping("/insertSelective")
+    public Result insertSelective(@Valid BusAgentSalesContract busAgentSalesContract) throws CustomerException {
+        Long aLong = busAgentSalesContractService.insertSelective(busAgentSalesContract);
+        return Result.success(aLong+"");
+    }
 
 
     @RequestMapping("/selectByPrimaryKey")
@@ -48,8 +53,8 @@ public class BusAgentSalesContractController {
     }
 
     @RequestMapping("/updateByPrimaryKeySelective")
-    public Result updateByPrimaryKeySelective(@Valid BusAgentSalesContractVo record) throws CustomerException {
-        int i = busAgentSalesContractService.updateByPrimaryKeySelective(record);
+    public Result updateByPrimaryKeySelective(String jsonData) throws CustomerException {
+        int i = busAgentSalesContractService.updateByPrimaryKeySelective(jsonData);
         return Result.success(i);
     }
 

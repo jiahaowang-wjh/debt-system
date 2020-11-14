@@ -77,7 +77,7 @@ public interface PubDebtDao {
     /**
      * 获取累计解债金额
      */
-    Float selectAmountCumulative(Long relativePerId);
+    PubDebt selectAmountCumulative(Long relativePerId);
 
     /**
      * 查询累计解债信息

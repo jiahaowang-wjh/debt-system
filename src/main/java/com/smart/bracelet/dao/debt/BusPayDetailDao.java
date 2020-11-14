@@ -6,6 +6,8 @@ import com.smart.bracelet.model.vo.debt.BusPayDetailVo;
 import com.smart.bracelet.model.vo.debt.ReportFee;
 import org.springframework.stereotype.Repository;
 
+import javax.xml.crypto.Data;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -40,12 +42,16 @@ public interface BusPayDetailDao {
     String selectRepNo();
 
     /**
-     * 页面支付信息展示
+     * 页面支付信息展示天泽
      * @return reportNo
      */
     List<BusPayDetailInfo> selectPayInfoList(String reportNo,String companyType,String status);
 
-
+    /**
+     * 页面支付信息展示资产
+     * @return reportNo
+     */
+    List<BusPayDetailInfo> selectPayInfoListZc(String reportNo,String companyType,String status);
     /**
      *通过报备Id和解债id查询支付信息
      * @param reportId
@@ -55,10 +61,10 @@ public interface BusPayDetailDao {
 
     /**
      *通过报备Id和资产id查询支付信息
-     * @param reportId
+     * @param propertId
      * @return
      */
-    List<BusPayDetail> selectByReportIdAndPropertId(Long reportId,Long propertId);
+    BusPayDetail selectByReportIdAndPropertId(Long propertId);
 
     /**
      * 发票生成信息
@@ -67,4 +73,10 @@ public interface BusPayDetailDao {
      */
     ReportFee selectByRepId(Long reportId,String flag,Long debtId,Long propertId);
 
+    /**
+     * 更新发票生成日期
+     * @param generateTime
+     * @return
+     */
+    int updateGenerateTime(Date generateTime,Long payId);
 }

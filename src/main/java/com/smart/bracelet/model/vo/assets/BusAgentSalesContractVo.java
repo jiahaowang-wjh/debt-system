@@ -1,5 +1,8 @@
 package com.smart.bracelet.model.vo.assets;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.smart.bracelet.model.po.assets.BusAgentSalesContractModity;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -19,21 +22,17 @@ public class BusAgentSalesContractVo implements Serializable {
     /**
      * 代理销售合同ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     @NotNull(message = "代理销售合同ID不能为空")
     private Long salesContractId;
 
     /**
      * 资产ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     @NotNull(message = "资产ID不能为空")
-    private Long propertId;
+    private String propertId;
 
-    /**
-     * 代销时间开始
-     */
-    @NotNull(message = "代销时间开始不能为空")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date dateStart;
 
     /**
      * 编号
@@ -41,42 +40,45 @@ public class BusAgentSalesContractVo implements Serializable {
     @NotBlank(message = "编号不能为空")
     private String salesNo;
 
+    String contractDate;
+
+    /**
+     * 代销时间开始
+     */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date dateStart;
+
+
     /**
      * 代销时间结束
      */
-    @NotNull(message = "代销时间结束不能为空")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateEnd;
 
     /**
      * 附议
      */
-    @NotBlank(message = "附议不能为空")
     private String second;
 
     /**
      * 甲方盖章
      */
-    @NotBlank(message = "甲方盖章不能为空")
     private String partyaSeal;
 
     /**
      * 甲方时间
      */
-    @NotNull(message = "甲方时间不能为空")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date partyaTime;
 
     /**
      * 乙方盖章
      */
-    @NotBlank(message = "乙方盖章不能为空")
     private String partybSeal;
 
     /**
      * 乙方时间
      */
-    @NotNull(message = "乙方时间不能为空")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date partybTime;
 
@@ -90,5 +92,11 @@ public class BusAgentSalesContractVo implements Serializable {
      */
     private Date updateTime;
 
+    /**
+     * 附件
+     */
+    String annex;
 
+
+    BusAgentSalesContractModity[] busAgentSalesContractModity;
 }

@@ -29,7 +29,7 @@
         from bus_propert
     </select>
     <select id="querys" resultType="com.smart.bracelet.model.vo.assets.AssetsDebtBank">
-        SELECT br.report_id,br.data1 AS 'debtData1',brp.data1 AS
+        SELECT pad.`pay_id`,br.report_id,br.data1 AS 'debtData1',brp.data1 AS
         'personData1',
         brp.report_type
         ,brp.`relative_per_id`,bp.`propert_id`,br.`report_no`,pd.`debt_no`,ba.`assessment_no`,bp.`stage`,br.`create_time`,bp.`status`,
@@ -43,6 +43,7 @@
         LEFT JOIN pub_debt pd ON pd.`debt_id` = bp.`debt_id`
         LEFT JOIN bus_assessment ba ON ba.`propert_id` = bp.`propert_id`
         LEFT JOIN pub_company pc ON pc.`company_id` = br.`company_id`
+        LEFT JOIN bus_pay_detail pad ON pad.`propert_id`=bp.`propert_id`
         <where>
             pd.`status` = '9'
             <if test="companyType != null and companyType!='' ">
@@ -64,6 +65,7 @@
                 and br.create_time BETWEEN #{beginDate} AND #{endDate}
             </if>
         </where>
+        order by br.create_time desc
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from bus_propert

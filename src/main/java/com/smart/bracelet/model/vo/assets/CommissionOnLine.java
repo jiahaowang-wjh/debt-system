@@ -11,7 +11,7 @@ import java.util.List;
 
 @Data
 public class CommissionOnLine {
-
+    @JsonSerialize(using = ToStringSerializer.class)
     Long reportId;
     /**
      * 性质
@@ -84,6 +84,7 @@ public class CommissionOnLine {
     /**
      * 委托线上代理销售合同ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     Long protocolId;
 
     /**

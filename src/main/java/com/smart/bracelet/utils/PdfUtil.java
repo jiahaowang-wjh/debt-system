@@ -69,7 +69,7 @@ public class PdfUtil {
                     //取得文本
                     XWPFRun run = runs.get(i);
                     runString = run.toString().trim();
-                    //log.info("runStringTrim:{}", runString);
+                    log.info("runStringTrim:{}", runString);
                     entryIterator = map.entrySet().iterator();
                     while (entryIterator.hasNext()) {
                         entry = entryIterator.next();

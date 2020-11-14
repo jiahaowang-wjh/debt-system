@@ -104,6 +104,7 @@ public class BusAgentSalesContractShow {
     /**
      * 报备ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     Long reportId;
 
     /**

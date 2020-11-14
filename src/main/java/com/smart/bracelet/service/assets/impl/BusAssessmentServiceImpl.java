@@ -80,15 +80,12 @@ public class BusAssessmentServiceImpl implements BusAssessmentService {
 
     @Override
     public BusAssessmentInit initialize(Long propertId) {
-
         BusAssessmentInit initialize = busAssessmentDao.initialize(propertId);
-
         if (initialize.getDebtPropert().equals("1")) {
             initialize.setDebtCorPhone(null);
         } else {
             initialize.setDebtPhnoe(null);
         }
-
         if(initialize.getPersonPeropert().equals("1")){
             initialize.setPersonCorPhone(null);
         }else {

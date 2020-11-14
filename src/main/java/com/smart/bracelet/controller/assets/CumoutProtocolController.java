@@ -2,6 +2,7 @@ package com.smart.bracelet.controller.assets;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.google.gson.JsonObject;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.assets.CumoutProtocol;
@@ -32,22 +33,23 @@ public class CumoutProtocolController {
      * @param record
      * @return
      */
-//    @RequestMapping("/insertSelective")
-//    public Result insertSelective(@Valid CumoutProtocol record) throws CustomerException {
-//        String comm = JSON.toJSONString(record);
-//        System.out.println(comm);
-//        return Result.success();
-//    }
+    @RequestMapping("/insertSelective")
+    public Result insertSelective(@Valid CumoutProtocol record) throws CustomerException {
+        String string = JSON.toJSONString(record);
+        System.out.println(string);
+        //   Long aLong = cumoutProtocolService.insertSelective(record);
+        return Result.success(string);
+    }
 
 
     /**
      * 新增线上委托销售合同
-     * @param record
+     * @param jsonData
      * @return
      */
-    @RequestMapping("/insertSelective")
-    public Result insertSelective(String jsonData) throws CustomerException {
-        Long aLong = cumoutProtocolService.insertSelective(jsonData);
+    @RequestMapping("/insertSelectiveJson")
+    public Result insertSelectiveJson(String jsonData) throws CustomerException {
+        Long aLong = cumoutProtocolService.insertSelectiveJson(jsonData);
         return Result.success(aLong+"");
     }
 
@@ -74,8 +76,8 @@ public class CumoutProtocolController {
     }
 
     @RequestMapping("/updateByPrimaryKeySelective")
-    public Result updateByPrimaryKeySelective(@Valid CumoutProtocolVo record) throws CustomerException {
-        int i = cumoutProtocolService.updateByPrimaryKeySelective(record);
+    public Result updateByPrimaryKeySelective(String jsonData) throws CustomerException {
+        int i = cumoutProtocolService.updateByPrimaryKeySelective(jsonData);
         return Result.success(i);
     }
 

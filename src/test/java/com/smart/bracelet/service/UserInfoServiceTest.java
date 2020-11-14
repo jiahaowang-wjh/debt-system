@@ -75,10 +75,9 @@ public class UserInfoServiceTest {
     private BusRelativePersonService busRelativePersonService;
     @Test
     public void testA() throws Exception {
-        List<AuxiliaryDownload> list = busRelativePersonService.selectDow(null, null);
-        for (AuxiliaryDownload item: list) {
-            System.out.println(item.toString());
-        }
+        Date createTime = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        System.out.println(simpleDateFormat.format(createTime));
     }
 
 }

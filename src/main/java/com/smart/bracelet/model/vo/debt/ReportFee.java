@@ -34,4 +34,8 @@ public class ReportFee {
     Long reportId;
 
     Float cost;
+
+    Long payId;
+
+    Date createTime;
 }

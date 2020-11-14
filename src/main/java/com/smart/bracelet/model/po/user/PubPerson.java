@@ -69,5 +69,8 @@ public class PubPerson implements Serializable {
      */
     @JsonSerialize(using = ToStringSerializer.class)
     Long userId;
-
+    /**
+     * 公司名称
+     */
+    String companyName;
 }

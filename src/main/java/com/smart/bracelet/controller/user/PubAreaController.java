@@ -51,4 +51,26 @@ public class PubAreaController {
         List<PubArea> pubAreas = pubAreaService.selectByArName(name);
         return Result.success(pubAreas);
     }
+
+    /**
+     * 获取省级数据（一级）
+     * @return
+     */
+    @RequestMapping("/queryParent")
+    public Result<List<PubArea>> queryParent(){
+        List<PubArea> pubAreas = pubAreaService.queryParent();
+        return Result.success(pubAreas);
+    }
+
+
+    /**
+     * 获取市县级数据（二级级）
+     * @return
+     */
+    @RequestMapping("/querySubset")
+    public Result<List<PubArea>> querySubset(@NotNull(message = "父级Id不能为空") Long parentId){
+        List<PubArea> pubAreas = pubAreaService.querySubset(parentId);
+        return Result.success(pubAreas);
+    }
+
 }

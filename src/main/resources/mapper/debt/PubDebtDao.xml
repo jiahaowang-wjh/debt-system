@@ -128,11 +128,9 @@
     <select id="selectServiiceNo" resultType="java.lang.String">
               SELECT  pub_debt.service_no  FROM   pub_debt   ORDER   BY   pub_debt.service_no   DESC   LIMIT   1
     </select>
-    <select id="selectAmountCumulative" resultType="java.lang.Float">
-        SELECT pd.amount_cumulative FROM pub_debt pd
-        LEFT JOIN bus_report br ON pd.`report_id` = br.`report_id`
-        LEFT JOIN bus_relative_person brp ON pd.`relative_per_id` = brp.`relative_per_id`
-        WHERE brp.`relative_per_id` = #{relativePerId}
+    <select id="selectAmountCumulative" resultType="com.smart.bracelet.model.po.debt.PubDebt">
+        SELECT * FROM pub_debt pd
+        WHERE pd.`relative_per_id` = #{relativePerId}
         ORDER  BY  pd.`debt_id` DESC  LIMIT 1
     </select>
     <select id="selectMoney" resultType="com.smart.bracelet.model.po.debt.PubDebt"

@@ -111,6 +111,7 @@ public class BusPropertServiceImpl implements BusPropertService {
             assetsMyDebt.setComId(null);
         }
         List<AssetsDebtBank> querys = busPropertDao.querys(assetsMyDebt);
+        String type = null;
         for (AssetsDebtBank item : querys) {
             if(item.getReportType().equals("1")){
                 item.setDebtName(item.getPersonData1());
@@ -122,12 +123,12 @@ public class BusPropertServiceImpl implements BusPropertService {
             }
             Formula formula = new Formula();
             if (item.getDebtType().equals("1") || item.getDebtType().equals("2")) {
-                item.setDebtType("2");
+                type="2";
             }
             if (item.getDebtType().equals("3")) {
-                item.setDebtType("1");
+                type="1";
             }
-            FormulaVo calculation = formula.Calculation(item.getDebtType(), Integer.parseInt(item.getDebtYaer()), item.getAmountThis());
+            FormulaVo calculation = formula.Calculation(type, Integer.parseInt(item.getDebtYaer()), item.getAmountThis());
             item.setHuoKuanMoney(calculation.getLoan());
         }
         return querys;

@@ -6,6 +6,7 @@ import com.smart.bracelet.dao.debt.PubDebtDao;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.debt.BusRelativePerson;
 import com.smart.bracelet.model.po.debt.BusReport;
+import com.smart.bracelet.model.po.debt.PubDebt;
 import com.smart.bracelet.model.vo.debt.*;
 import com.smart.bracelet.service.debt.BusCivilService;
 import com.smart.bracelet.service.debt.BusRelativePersonService;
@@ -485,16 +486,15 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
         try {
             ReportAndRelativePerson reportAndRelativePerson = busRelativePersonDao.selectByRelativePerId(relativePerId);
             ReportAndRelativePersonShow show = new ReportAndRelativePersonShow();
-            Float aFloat = pubDebtDao.selectAmountCumulative(relativePerId);
-            if (aFloat == null) {
-                show.setAmountCumulative("0.00");
-            } else {
-                show.setAmountCumulative(String.format("%.2f", aFloat));
-            }
-            if (reportAndRelativePerson.getAmountTotal() == null) {
-                show.setAmountTotal("0.00");
-            } else {
-                show.setAmountTotal(String.format("%.2f", reportAndRelativePerson.getAmountTotal()));
+            PubDebt pubDebt = pubDebtDao.selectAmountCumulative(relativePerId);
+            if(pubDebt!=null){
+                show.setAmountCumulative(pubDebt.getAmountCumulative().toString());
+                show.setAmountTotal(pubDebt.getAmountTotal().toString());
+            }else{
+                if(reportAndRelativePerson.getAmountTotal()!=null){
+                    show.setAmountCumulative("0.00");
+                    show.setAmountTotal(reportAndRelativePerson.getAmountTotal().toString());
+                }
             }
             show.setReportId(reportAndRelativePerson.getReportId());
             show.setRelativeperId(reportAndRelativePerson.getRelativeperId());

@@ -47,7 +47,7 @@
     </select>
     <select id="initialize" resultType="com.smart.bracelet.model.vo.assets.BusAssessmentInit"
             parameterType="java.lang.Long">
- SELECT
+     SELECT
       br.`report_id`,br.`data1` AS 'debtName',br.data2 AS 'debtIdCard',br.`data3` AS 'debtPhnoe',br.`data5` AS 'debtCorPhone',br.report_propert AS 'debtPropert',brp.`report_propert` AS 'personPeropert',
       brp.`data1` AS 'personName',brp.`data2` AS 'personIdCard',brp.`data3` AS 'personPhnoe',brp.`data5` AS 'personCorPhone',
       pd.`amount_this`,ba.credentials,ba.card,ba.company_manag

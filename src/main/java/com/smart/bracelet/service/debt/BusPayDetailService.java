@@ -30,6 +30,13 @@ public interface BusPayDetailService {
      */
     List<BusPayDetailInfo> selectPayInfoList(String debtNo,String companyType,String status);
 
+
+    /**
+     * 页面支付信息展示资产
+     * @return reportNo
+     */
+    List<BusPayDetailInfo> selectPayInfoListZc(String reportNo,String companyType,String status);
+
     /**
      *更新状态
      * @param status
@@ -46,11 +53,11 @@ public interface BusPayDetailService {
     List<BusPayDetail> selectByReportIdAndDebtId(Long reportId,Long debtId);
 
     /**
-     *通过报备Id和解债id查询支付信息
-     * @param reportId
+     *通过资产id查询支付信息
+     * @param propertId
      * @return
      */
-    List<BusPayDetail> selectByReportIdAndPropertId(Long reportId,Long propertId);
+    BusPayDetail selectByPropertId(Long propertId);
 
 
     /**

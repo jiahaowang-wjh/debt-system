@@ -2,6 +2,7 @@ package com.smart.bracelet.model.po.assets;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -19,6 +20,7 @@ public class CumoutProtocol implements Serializable {
     /**
      * 委托线上代理销售合同ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long protocolId;
 
     /**

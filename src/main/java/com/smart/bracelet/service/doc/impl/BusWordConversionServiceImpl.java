@@ -86,6 +86,8 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
     @Autowired
     private PubDocDao pubDocDao;
 
+
+
     /**
      * 暨尽协议
      *
@@ -578,6 +580,7 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         //设置pdf文件保存路径
         String savePath = DocumentPath.PDF_SAVE_RECILIATION.getPath() + DocumentPath.PDF_SAVE_RECILIATION.getName() + IdUtils.nextId() + ".pdf";
         BusCompromiseAgreementShow initialize = busCompromiseAgreementService.initialize(propertId, comId);
+
         Map<String, String> map = new HashMap<>(20);
         map.put(DocReconciliation.REC_NO.getName(),initialize.getCompromiseAgreementNo());
         map.put(DocReconciliation.PERSON_NAME.getName(),initialize.getPersonName());
@@ -589,9 +592,8 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         map.put(DocReconciliation.QISHU.getName(),initialize.getNumber());
         map.put(DocReconciliation.CONT_YAER.getName(),String.format("%tY",initialize.getContractDate()));
         map.put(DocReconciliation.CONT_MOON.getName(),String.format("%tm",initialize.getContractDate()));
-        map.put(DocReconciliation.DEBT_DAY.getName(),String.format("%td",initialize.getContractDate()));
+        map.put(DocReconciliation.CONT_DAY.getName(),String.format("%td",initialize.getContractDate()));
         PdfUtil.fillInWordAndSaveAsPdf(readPath, savePath, map);
-
         //创建文档
         PubDoc pubDoc = new PubDoc();
         long nextId = IdUtils.nextId();
@@ -615,7 +617,6 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         }else {
             busElectronSeal.setPartaTel(initialize.getPersonCorPhone());
         }
-
         busElectronSealController.addPubUser(busElectronSeal);
     }
 
@@ -814,9 +815,9 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         map.put(DocReportFee.MONEY_MAX.getName(),ConvertUpMoney.toChinese(reportFee.getCost().toString()));
         map.put(DocReportFee.DEBT_NO.getName(),reportFee.getPayNo());
         map.put(DocReportFee.COM_NAME.getName(),reportFee.getCompanyName());
-        map.put(DocReportFee.THIS_YAER.getName(),String.format("%tY",reportFee.getThisTime()));
-        map.put(DocReportFee.THIS_MOON.getName(),String.format("%tm",reportFee.getThisTime()));
-        map.put(DocReportFee.THIS_DAY.getName(),String.format("%td",reportFee.getThisTime()));
+        map.put(DocReportFee.THIS_YAER.getName(),String.format("%tY",reportFee.getCreateTime()));
+        map.put(DocReportFee.THIS_MOON.getName(),String.format("%tm",reportFee.getCreateTime()));
+        map.put(DocReportFee.THIS_DAY.getName(),String.format("%td",reportFee.getCreateTime()));
         PdfUtil.fillInWordAndSaveAsPdf(readPath, savePath, map);
 
         //创建文档

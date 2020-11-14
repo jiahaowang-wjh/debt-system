@@ -1,9 +1,12 @@
 package com.smart.bracelet.controller.user;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.user.PubPerson;
 import com.smart.bracelet.model.po.user.PubUser;
+import com.smart.bracelet.model.vo.debt.DebtInfo;
 import com.smart.bracelet.model.vo.user.PubPersonVo;
 import com.smart.bracelet.service.user.PubPersonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,8 +67,11 @@ public class PubPersonController {
 
 
     @RequestMapping("/queryPer")
-    public Result<List<PubPerson>> queryPer() {
+    public Result<PageInfo> queryPer(@NotNull(message = "页码不能为空") Integer pageNum,
+                                     @NotNull(message = "当前显示条数不能为空") Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         List<PubPerson> pubPeople = pubPersonService.queryPer();
-        return Result.success(pubPeople);
+        PageInfo pageInfo = new PageInfo<>(pubPeople);
+        return Result.success(pageInfo);
     }
 }

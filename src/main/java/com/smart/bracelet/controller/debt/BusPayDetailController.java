@@ -78,6 +78,21 @@ public class BusPayDetailController {
         return Result.success(busPayDetailInfoPageInfo);
     }
 
+
+    /**
+     * 页面支付信息展示
+     */
+    @RequestMapping("/selectPayInfoListZc")
+    public Result<PageInfo> selectPayInfoListZc(@NotNull(message = "页码不能为空") Integer pageNum,
+                                              @NotNull(message = "当前显示条数不能为空") Integer pageSize,
+                                              String debtNo,@NotBlank(message = "公司类型不能为空") String companyType,String status) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<BusPayDetailInfo> busPayDetailInfos = busPayDetailService.selectPayInfoListZc(debtNo,companyType,status);
+        PageInfo<BusPayDetailInfo> busPayDetailInfoPageInfo = new PageInfo<>(busPayDetailInfos);
+        return Result.success(busPayDetailInfoPageInfo);
+    }
+
+
     /**
      * 更新状态
      *
@@ -106,12 +121,12 @@ public class BusPayDetailController {
     /**
      * 通过报备Id和资产Id查询支付信息
      *
-     * @param reportId
+     * @param propertId
      * @return
      */
     @RequestMapping("/selectByReportIdAndPropertId")
-    public Result<List<BusPayDetail>> selectByReportIdAndPropertId(@NotNull(message = "报备Id不能为空") Long reportId, @NotNull(message = "资产Id不能为空") Long propertId) {
-        List<BusPayDetail> busPayDetails = busPayDetailService.selectByReportIdAndPropertId(reportId, propertId);
+    public Result<BusPayDetail> selectByReportIdAndPropertId(@NotNull(message = "资产Id不能为空") Long propertId) {
+        BusPayDetail busPayDetails = busPayDetailService.selectByPropertId(propertId);
         return Result.success(busPayDetails);
     }
 

@@ -36,7 +36,7 @@
       SELECT  bus_compromise_agreement.compromise_agreement_no  FROM   `bus_compromise_agreement`   ORDER   BY  bus_compromise_agreement.compromise_agreement_id  DESC   LIMIT   1
     </select>
     <select id="initialize" resultType="com.smart.bracelet.model.vo.assets.BusCompromiseAgreementShow">
-        SELECT br.report_propert as 'debtReportPropert',br.data3 as 'priDebtPhone',br.data5 as 'corBackDebtPhone',br.report_id,br.`data1` AS 'debtName',
+        SELECT bp.propert_id,br.report_propert as 'debtReportPropert',br.data3 as 'priDebtPhone',br.data5 as 'corBackDebtPhone',br.report_id,br.`data1` AS 'debtName',
         brp.data2 as 'idCard',brp.data3 as  'personPriPhone',brp.data5 as 'personCorPhone',brp.report_propert as 'personReportPropert'
         ,brp.`data1` AS 'personName',pd.`amount_this`,
         pd.`create_time`,pd.debt_type,pd.`debt_yaer`,

@@ -18,4 +18,19 @@ public interface PubAreaService {
 
 
     List<PubArea> selectByArName(String name);
+
+
+
+    /**
+     * 获取省级数据（一级）
+     * @return
+     */
+    List<PubArea> queryParent();
+
+
+    /**
+     * 获取市县级数据（二级级）
+     * @return
+     */
+    List<PubArea> querySubset(Long parentId);
 }
