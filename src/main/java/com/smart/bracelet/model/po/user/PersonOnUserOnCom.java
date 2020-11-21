@@ -1,5 +1,7 @@
 package com.smart.bracelet.model.po.user;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
@@ -13,6 +15,7 @@ public class PersonOnUserOnCom {
     /**
      * 人员ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long personId;
 
     /**
@@ -34,6 +37,7 @@ public class PersonOnUserOnCom {
     /**
      * 公司ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long companyId;
     /**
      * 年龄
@@ -52,6 +56,18 @@ public class PersonOnUserOnCom {
      * 联系电话
      */
     private String tel;
+    /**
+     * 登录名
+     */
+    String loginName;
+    /**
+     * 账号类型
+     */
+    String userType;
 
-
+    /**
+     * 用户ID
+     */
+    @JsonSerialize(using = ToStringSerializer.class)
+    Long userId;
 }

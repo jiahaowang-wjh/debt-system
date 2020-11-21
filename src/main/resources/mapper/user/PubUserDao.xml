@@ -57,15 +57,29 @@
   </select>
 
     <select id="queryList" resultType="com.smart.bracelet.model.po.user.PersonOnUserOnCom">
-        SELECT pp.note,pp.person_id,pp.person_name,pp.age,pp.person_type,pp.tel,pc.company_id,pc.company_name,pc.company_type,pp.sex
-        from pub_person pp
-        left JOIN pub_company pc ON pp.company_id = pc.company_id
+        SELECT pu.`login_name`,pu.`user_type`,pu.`user_id`,pp.note,pp.person_id,pp.person_name,pp.age,pp.person_type,pp.tel,pc.company_id,pc.company_name,pc.company_type,pp.sex
+        FROM pub_person pp
+        LEFT JOIN pub_company pc ON pp.company_id = pc.company_id
+        LEFT JOIN pub_user pu ON pp.`person_id`=pu.`person_id`
     </select>
     <select id="selectUserComId" resultType="java.lang.Long">
         SELECT  pc.`company_id` FROM pub_user pu
         INNER JOIN pub_person pp ON pu.`person_id`=pp.`person_id`
         INNER JOIN pub_company pc ON pp.`company_id`=pc.`company_id`
         WHERE pu.`user_id` = #{userId,jdbcType=BIGINT}
+    </select>
+    <select id="selectByPerIdAndUserType" resultType="com.smart.bracelet.model.po.user.PubUser">
+        select
+        <include refid="Base_Column_List"/>
+        from pub_user
+        where person_id =#{perId} and user_type=#{userType}
+    </select>
+    <select id="selectByUserName" resultType="com.smart.bracelet.model.po.user.PubUser"
+            parameterType="java.lang.String">
+        select
+         *
+        from pub_user
+        where login_name=#{loginName}
     </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
@@ -81,6 +95,12 @@
     </delete>
     <delete id="delListPerson">
         delete from pub_person where person_id in
+        <foreach item="item" collection="array" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+    <delete id="delUserByPerId">
+        delete from pub_user where person_id in
         <foreach item="item" collection="array" open="(" separator="," close=")">
             #{item}
         </foreach>
@@ -164,12 +184,8 @@
             <if test="note != null and note != ''">
                 note = #{note,jdbcType=VARCHAR},
             </if>
-            <if test="note != null and note != ''">
+            <if test="userType != null and userType != ''">
                 user_type = #{userType,jdbcType=VARCHAR},
-            </if>
-
-            <if test="userId != null and userId != ''">
-                user_id = #{userId,jdbcType=VARCHAR},
             </if>
         </set>
         where user_id = #{userId,jdbcType=BIGINT}

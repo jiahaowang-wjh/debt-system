@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smart.bracelet.dao.debt.TestDao">
+
+    <delete id="delBusReport" parameterType="java.lang.Long">
+        DELETE FROM `bus_report` WHERE bus_report.`report_id` = #{id}
+    </delete>
+    <delete id="delBusRelativePerson" parameterType="java.lang.Long">
+        DELETE FROM  `bus_relative_person` WHERE `report_id` = #{id}
+    </delete>
+    <delete id="delBusCivil" parameterType="java.lang.Long">
+        DELETE FROM `bus_civil` WHERE `report_id` = #{id}
+    </delete>
+    <delete id="delPubDebt" parameterType="java.lang.Long">
+         DELETE FROM `pub_debt` WHERE `report_id` = #{id}
+    </delete>
+    <delete id="delBusPropert" parameterType="java.lang.Long">
+DELETE FROM  `bus_propert` WHERE `report_id` = #{id}
+    </delete>
+    <delete id="delBusAssessment" parameterType="java.lang.Long">
+        DELETE FROM bus_assessment WHERE `propert_id`=#{id}
+    </delete>
+    <delete id="delBusAssignmentAgreement" parameterType="java.lang.Long">
+        DELETE FROM bus_assignment_agreement WHERE `propert_id`=#{id}
+    </delete>
+    <delete id="delBusAssignmentConfirm" parameterType="java.lang.Long">
+        DELETE FROM bus_assignment_confirm WHERE `propert_id`=#{id}
+    </delete>
+    <delete id="delBusConfirm" parameterType="java.lang.Long">
+        DELETE FROM bus_confirm WHERE `propert_id`=#{id}
+    </delete>
+    <delete id="delBusAssignmentNotice" parameterType="java.lang.Long">
+        DELETE FROM bus_assignment_notice WHERE `propert_id`=#{id}
+    </delete>
+    <delete id="delBusAgentSalesContract" parameterType="java.lang.Long">
+        DELETE FROM bus_agent_sales_contract WHERE `propert_id`=#{id}
+    </delete>
+    <delete id="delBusCollectionLetter" parameterType="java.lang.Long">
+        DELETE FROM bus_collection_letter WHERE `propert_id`=#{id}
+    </delete>
+    <delete id="delCumoutProtocol" parameterType="java.lang.Long">
+        DELETE FROM cumout_protocol WHERE `propert_id`=#{id}
+    </delete>
+</mapper>

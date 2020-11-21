@@ -40,5 +40,11 @@ public class CumoutProtocolVo implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private String contractDate;
 
+    String priPhone;
+    String bankCard;
+    String priAdd;
+    String bank;
+    String corBankAdd;
+
     BusAgentSalesContractModity[] busAgentSalesContractModity;
 }

@@ -24,7 +24,7 @@ public enum DocumentPath {
 //    WORD_TEMPLATE_CONSIG("委托代理销售合同1 （资产系统）","D:/doc/","proxyAgent.docx"),
 //    WORD_TEMPLATE_RECILIATION("和解协议 （资产系统）","D:/doc/","reconciliation.docx"),
 //    WORD_TEMPLATE_ONLINECONSIG("委托线上代理销售合同","D:/doc/","proxyAgentOnline.docx"),
-//    WORD_TEMPLATE_REPORT("收据（报备费）","D:/doc/","report.docx"),
+//    WORD_TEMPLATE_REPORT("收据（录入费）","D:/doc/","report.docx"),
 //    WORD_TEMPLATE_ADVISORY("收据（咨询服务费）","D:/doc/","advisory.docx"),
 //    WORD_TEMPLATE_PAYMENT("收据（预付款）","D:/doc/","prepaid.docx"),
 
@@ -39,7 +39,7 @@ public enum DocumentPath {
     WORD_TEMPLATE_CONSIG("委托代理销售合同","/root/upload/docFile/","proxyAgent.docx"),
     WORD_TEMPLATE_RECILIATION("和解协议","/root/upload/docFile/","reconciliation.docx"),
     WORD_TEMPLATE_ONLINECONSIG("委托线上代理销售合同","/root/upload/docFile/","proxyAgentOnline.docx"),
-    WORD_TEMPLATE_REPORT("收据（报备费）","/root/upload/docFile/","report.docx"),
+    WORD_TEMPLATE_REPORT("收据（录入费）","/root/upload/docFile/","report.docx"),
     WORD_TEMPLATE_ADVISORY("收据（咨询服务费）","/root/upload/docFile/","advisory.docx"),
     WORD_TEMPLATE_PAYMENT("收据（资产补偿金 ）","/root/upload/docFile/","prepaid.docx"),
 
@@ -56,7 +56,7 @@ public enum DocumentPath {
 //    PDF_SAVE_CONSIG("委托代理销售合同1 （资产系统）","D:/doc/",""),
 //    PDF_SAVE_RECILIATION("和解协议 （资产系统）","D:/doc/",""),
 //    PDF_SAVE_ONLINECONSIG("委托线上代理销售合同","D:/doc/",""),
-//    PDF_SAVE_REPORT("收据（报备费）","D:/doc/",""),
+//    PDF_SAVE_REPORT("收据（录入费）","D:/doc/",""),
 //    PDF_SAVE_ADVISORY("收据（咨询服务费）","D:/doc/",""),
 //    PDF_SAVE_PAYMENT("收据（资产补偿金）","D:/doc/",""),
 

@@ -12,6 +12,7 @@ import com.smart.bracelet.dao.assets.BusAgentSalesContractModityDao;
 import com.smart.bracelet.dao.debt.BusCivilDao;
 import com.smart.bracelet.dao.debt.BusRelativePersonDao;
 import com.smart.bracelet.dao.debt.PubDebtDao;
+import com.smart.bracelet.dao.debt.TestDao;
 import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.message.Result;
 import com.smart.bracelet.model.po.debt.BusMediatePerson;
@@ -73,6 +74,10 @@ public class UserInfoServiceTest {
 
     @Autowired
     private BusRelativePersonService busRelativePersonService;
+
+    @Autowired
+    private TestDao testDao;
+
     @Test
     public void testA() throws Exception {
         Date createTime = new Date();

@@ -7,6 +7,7 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * pub_company
@@ -59,6 +60,10 @@ public class PubCompany implements Serializable {
     @NotBlank(message = "公司名称缩写不能为空")
     private String companyNameMax;
 
+    /**
+     * 地区信息集合
+     */
+    String areas;
 
 
 }

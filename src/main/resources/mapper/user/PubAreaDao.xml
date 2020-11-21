@@ -37,7 +37,11 @@
     from pub_area
     where pub_area.parent_id = #{parentId}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <select id="selectByArId" resultType="com.smart.bracelet.model.po.user.PubArea"
+            parameterType="java.lang.Long">
+      SELECT * FROM `pub_area` WHERE pub_area.`area_id` = #{areaId}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from pub_area
     where area_id = #{areaId,jdbcType=BIGINT}
   </delete>

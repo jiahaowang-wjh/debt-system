@@ -69,16 +69,22 @@ public class PubUserServiceImpl implements PubUserService {
     @Transactional(noRollbackFor = Exception.class)
     public int insertSelective(PubUser record) throws CustomerException {
         try {
+            PubUser pubUser = pubUserDao.selectByPerIdAndUserType(record.getPersonId(), record.getUserType());
+            if(pubUser!=null){
+                throw new CustomerException("该人员已分配此系统账号，勿重复添加");
+            }
+            PubUser pubUser1 = pubUserDao.selectByUserName(record.getLoginName());
+            if(pubUser1!=null){
+                throw new CustomerException("此账号已存在");
+            }
             record.setUserId(IdUtils.nextId());
             record.setPasswordMd5(new BCryptPasswordEncoder().encode(record.getPasswordMd5()));
-            //是否有效,0无效,1有效,默认有效
-            record.setIsenable("1");
             int i = pubUserDao.insertSelective(record);
             log.info("用户信息添加成功,受影响行数:{}", i);
             return i;
         } catch (Exception e) {
             log.error("用户信息添加失败,异常信息:{}", e.getMessage());
-            throw new CustomerException("用户信息添加失败");
+            throw new CustomerException("用户信息添加失败:"+e.getMessage());
         }
     }
 
@@ -104,6 +110,7 @@ public class PubUserServiceImpl implements PubUserService {
     @Transactional(noRollbackFor = Exception.class)
     public int updateByPrimaryKeySelective(PubUserVo record) throws CustomerException {
         try {
+            record.setPasswordMd5(new BCryptPasswordEncoder().encode(record.getPasswordMd5()));
             int i = pubUserDao.updateByPrimaryKeySelective(record);
             log.info("修改用户信息成功,受影响行数:{}", i);
             return i;
@@ -221,7 +228,10 @@ public class PubUserServiceImpl implements PubUserService {
     @Transactional(noRollbackFor = Exception.class)
     public int delListPerson(Long[] ids) throws CustomerException {
         try {
+            int i1 = pubUserDao.delUserByPerId(ids);
+            log.info("删除用户信息成功，受影响行数：{}",i1);
             int i = pubUserDao.delListPerson(ids);
+            log.info("删除人员信息成功，受影响行数：{}",i);
             return i;
         } catch (Exception e) {
             log.error("异常信息:{}", e.getMessage());

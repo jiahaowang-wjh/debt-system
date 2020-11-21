@@ -41,6 +41,9 @@ public class PubPersonServiceImpl implements PubPersonService {
     @Transactional(noRollbackFor = Exception.class)
     public int insertSelective(PubPerson record) throws CustomerException {
         try {
+            if(record.getPersonId()==null){
+                record.setPersonId(IdUtils.nextId());
+            }
             int insertSelective = pubPerson.insertSelective(record);
             log.info("人员信息添加成功,受影响行数:{}", insertSelective);
             return insertSelective;
@@ -83,4 +86,6 @@ public class PubPersonServiceImpl implements PubPersonService {
     public List<PubPerson> queryPer() {
         return pubPerson.queryPer();
     }
+
+
 }

@@ -56,10 +56,18 @@ public interface BusCivilDao {
     DebtAndPerson selectDebtAndPer(Long relativePerId);
 
     /**
-     * 通过身份信息获取相对人作为债事人的报备ID
+     * 通过身份信息获取相对人作为债事人的报备ID企业
      * @return
      */
-    List<Long> selectReportId(String personIdcard);
+    List<Long> selectReportIdCor(String phone);
+
+
+    /**
+     * 通过身份信息获取相对人作为债事人的报备ID私人
+     * @return
+     */
+    List<Long> selectReportIdPri(String phone);
+
 
     /**
      * 通过相对人作为债事人的报备ID查询相对人

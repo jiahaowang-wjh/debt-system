@@ -31,4 +31,12 @@ public interface PubAreaDao {
      * @return
      */
     List<PubArea> querySubset(Long parentId);
+
+    /**
+     * 通过区域Id查询区域信息
+     * @param areaId
+     * @return
+     */
+    List<PubArea> selectByArId(Long areaId);
+
 }

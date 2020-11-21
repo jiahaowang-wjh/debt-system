@@ -12,7 +12,10 @@ public interface PubAreaService {
 
     int insertSelective(PubArea record) throws CustomerException;
 
-    PubArea selectByPrimaryKey(Long areaId);
+    /**
+     * 通过区域ID获取区县市省信息
+     */
+    String selectByPrimaryKey(Long areaId);
 
     int updateByPrimaryKeySelective(PubAreaVo record) throws CustomerException;
 
@@ -33,4 +36,5 @@ public interface PubAreaService {
      * @return
      */
     List<PubArea> querySubset(Long parentId);
+
 }

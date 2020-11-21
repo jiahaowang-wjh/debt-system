@@ -42,8 +42,8 @@ public class PubAreaController {
     }
 
     @RequestMapping("/selectByPrimaryKey")
-    public Result<PubArea> selectByPrimaryKey(@NotNull(message = "区域Id不能为空") Long areaId) {
-        PubArea pubArea = pubAreaService.selectByPrimaryKey(areaId);
+    public Result<String> selectByPrimaryKey(@NotNull(message = "区域Id不能为空") Long areaId) {
+        String pubArea= pubAreaService.selectByPrimaryKey(areaId);
         return Result.success(pubArea);
     }
     @RequestMapping("/selectByArName")
@@ -72,5 +72,8 @@ public class PubAreaController {
         List<PubArea> pubAreas = pubAreaService.querySubset(parentId);
         return Result.success(pubAreas);
     }
+
+
+
 
 }

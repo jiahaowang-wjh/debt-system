@@ -7,10 +7,12 @@ import com.smart.bracelet.model.vo.user.PubAreaVo;
 import com.smart.bracelet.service.user.PubAreaService;
 import com.smart.bracelet.utils.IdUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -48,8 +50,19 @@ public class PubAreaServiceImpl implements PubAreaService {
     }
 
     @Override
-    public PubArea selectByPrimaryKey(Long areaId) {
-        return pubAreaDao.selectByPrimaryKey(areaId);
+    public String selectByPrimaryKey(Long areaId) {
+        String arName;
+        PubArea pubArea = pubAreaDao.selectByPrimaryKey(areaId);
+        arName = pubArea.getAreaName();
+        if (pubArea.getParentId() != 0) {
+            PubArea pubArea1 = pubAreaDao.selectByPrimaryKey(pubArea.getParentId());
+            arName = pubArea1.getAreaName() + "," + arName;
+            if (pubArea1.getParentId() != 0) {
+                PubArea pubArea2 = pubAreaDao.selectByPrimaryKey(pubArea1.getParentId());
+                arName = pubArea2.getAreaName() + "," + arName;
+            }
+        }
+        return arName;
     }
 
 

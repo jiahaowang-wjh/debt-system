@@ -10,6 +10,7 @@ import com.smart.bracelet.model.po.debt.PubDebt;
 import com.smart.bracelet.model.vo.debt.*;
 import com.smart.bracelet.service.debt.BusCivilService;
 import com.smart.bracelet.service.debt.BusRelativePersonService;
+import com.smart.bracelet.utils.BigDecimalUtil;
 import com.smart.bracelet.utils.IdUtils;
 import com.smart.bracelet.utils.RepNoUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -454,6 +455,7 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
                     if (verification) {
                         BusRelativePerson busRelativePerson = busRelativePersonDao.selectByPrimaryKey(item.getRelativePerId());
                         BusRelativePersonPrivateVo privateVo = new BusRelativePersonPrivateVo();
+                        //判断相对人是否做过民事调解
                         if (busRelativePerson.getStatus().equals("0")) {
                             privateVo.setPersonalName(busRelativePerson.getData1());
                             privateVo.setRelativePerId(busRelativePerson.getRelativePerId());

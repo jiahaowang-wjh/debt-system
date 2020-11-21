@@ -80,7 +80,7 @@ public class DocUtils {
         //设置静默签署
         AccountHelper.setAutoSign(acctId,"2121-09-07 23:59:59");
         //通过上传方式创建文件
-        String fileName = docCode.getDocName()+"-"+busElectronSeal.getParta()+".pdf";
+        String fileName = docCode.getDocName()+".pdf";
         String filePath = busElectronSeal.getFilePath();
         JSONObject uploadJson = FileTemplateHelper.createFileByUpload(filePath, fileName, acctId);
         String uploadUrl = uploadJson.getString("uploadUrl");

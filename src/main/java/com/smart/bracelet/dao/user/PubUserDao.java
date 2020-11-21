@@ -108,9 +108,30 @@ public interface PubUserDao {
     int delListPerson(Long[] ids);
 
     /**
+     * 通过人员id批量删除账号
+     */
+    int delUserByPerId(Long[] perIds);
+
+    /**
      * 更新人员信息
      */
     int updatePerson(PersonOnUserOnComVo personOnUserOnComVo);
+
+    /**
+     * 通过人员信息查询用户
+     * @param perId
+     * @param userType
+     * @return
+     */
+    PubUser selectByPerIdAndUserType(Long perId,String userType);
+
+    /**
+     * 通过登录名查询账号
+     * @param loginName
+     * @return
+     */
+    PubUser selectByUserName(String loginName);
+
 
 
 }

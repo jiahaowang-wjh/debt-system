@@ -47,7 +47,7 @@ public class PubPersonVo implements Serializable {
     /**
      * 年龄
      */
-    @NotBlank(message = "年龄不能为空")
+    @NotNull(message = "年龄不能为空")
     private Integer age;
 
     /**

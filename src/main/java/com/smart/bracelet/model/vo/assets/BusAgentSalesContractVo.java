@@ -99,4 +99,10 @@ public class BusAgentSalesContractVo implements Serializable {
 
 
     BusAgentSalesContractModity[] busAgentSalesContractModity;
+
+    String priPhone;
+    String bankCard;
+    String priAdd;
+    String bank;
+    String corBankAdd;
 }

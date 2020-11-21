@@ -43,5 +43,6 @@ public class PubCompanyVo implements Serializable {
      */
     private String companyTel;
 
+    private String companyNameMax;
 
 }

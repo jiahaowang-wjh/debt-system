@@ -114,10 +114,10 @@ public class BusCivilServiceImpl implements BusCivilService {
         BusCivil busCivil = busCivilDao.selectByPrimaryKey(civilId);
         BusGuarantee[] busGuarantees = busGuaranteeDao.selectByPrimaryKey1(civilId);
         CiviliVo[] civiliVos = busCivilDao.selectUser(civilId);
-        if(civiliVos!=null){
+        if (civiliVos != null) {
             busCivil.setCiviliVos(civiliVos);
         }
-        if(busGuarantees!=null){
+        if (busGuarantees != null) {
             busCivil.setBusGuarantee(busGuarantees);
         }
         return busCivil;
@@ -233,19 +233,40 @@ public class BusCivilServiceImpl implements BusCivilService {
     @Override
     @Transactional(noRollbackFor = Exception.class)
     public Boolean verification(Long relativePerId) {
+        List<Long> aLong = new ArrayList<>();
         Boolean ok = false;
         //1.通过相对人ID获取债事人相对人身份信息
         DebtAndPerson debtAndPerson = busCivilDao.selectDebtAndPer(relativePerId);
-        //2.通过相对人信息去债事人表中验证,若有此人则获取当前报备ID
-        List<Long> aLong = busCivilDao.selectReportId(debtAndPerson.getPersonIdcard());
-        //查询相对人是否债事报备
+        if (debtAndPerson.getReportPropert().equals("1")) {
+            //2.通过相对人信息去债事人表中验证,若有此人则获取当前报备ID
+            aLong = busCivilDao.selectReportIdPri(debtAndPerson.getPriPhone());
+        } else {
+            aLong = busCivilDao.selectReportIdCor(debtAndPerson.getCorPhone());
+        }
+        //3.查询相对人是否债事报备
         if (org.springframework.util.StringUtils.isEmpty(aLong)) {
             return false;
         }
+        //4.遍历债事表中，该属于该相对人的报备ID
         for (Long item : aLong) {
+            //5.通过报备id查询相对人
             List<BusRelativePerson> busRelativePeople = busRelativePersonDao.selectByreportId(item);
+            //6.遍历相对人集合
             for (BusRelativePerson item1 : busRelativePeople) {
-                if (item1.getData2().equals(debtAndPerson.getDebtIdcard())) {
+                //7.判断此债事人中是否存在
+                String phoneA;
+                String phoneB;
+                if(item1.getReportPropert().equals("1")){
+                    phoneA = item1.getData3();
+                }else {
+                    phoneA = item1.getData5();
+                }
+                if(debtAndPerson.getReportPropert().equals("1")){
+                    phoneB = debtAndPerson.getPerPhonePri();
+                }else {
+                    phoneB = debtAndPerson.getPerPhoneCor();
+                }
+                if (phoneA.equals(phoneB)) {
                     ok = true;
                 }
             }

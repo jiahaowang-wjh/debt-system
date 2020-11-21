@@ -33,4 +33,5 @@ public interface PubPersonDao {
      * 查询用户推荐人
      */
     List<PubPerson> queryPer();
+
 }

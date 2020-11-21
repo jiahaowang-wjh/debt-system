@@ -8,6 +8,7 @@ import com.smart.bracelet.model.po.debt.DateAndDays;
 import com.smart.bracelet.model.po.debt.PubDebt;
 import com.smart.bracelet.model.vo.debt.*;
 import com.smart.bracelet.service.debt.PubDebtService;
+import com.smart.bracelet.utils.BigDecimalUtil;
 import com.smart.bracelet.utils.ConvertUpMoney;
 import com.smart.bracelet.utils.IdUtils;
 import com.smart.bracelet.utils.RepNoUtils;
@@ -63,7 +64,10 @@ public class PubDebtServiceImpl implements PubDebtService {
 
     @Override
     public PubDebt selectByPrimaryKey(Long debtId) {
-        return pubDebtDao.selectByPrimaryKey(debtId);
+        PubDebt pubDebt = pubDebtDao.selectByPrimaryKey(debtId);
+        String sub = BigDecimalUtil.sub(pubDebt.getAmountCumulative().toString(), pubDebt.getAmountThis().toString(), 2);
+        pubDebt.setAmountCumulative(Float.parseFloat(sub));
+        return pubDebt;
     }
 
     @Override

@@ -43,6 +43,7 @@ public interface PubPersonService {
 
     PubPerson selectByPrimaryName(String name);
 
-
     List<PubPerson> queryPer();
+
+
 }

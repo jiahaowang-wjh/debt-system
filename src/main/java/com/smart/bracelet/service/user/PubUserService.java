@@ -4,7 +4,6 @@ import com.smart.bracelet.exception.CustomerException;
 import com.smart.bracelet.model.po.user.*;
 import com.smart.bracelet.model.vo.user.PersonOnUserOnComVo;
 import com.smart.bracelet.model.vo.user.PubUserVo;
-import com.smart.bracelet.model.vo.user.UserMenu;
 
 import java.util.List;
 
