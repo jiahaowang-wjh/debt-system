@@ -41,4 +41,13 @@ DELETE FROM  `bus_propert` WHERE `report_id` = #{id}
     <delete id="delCumoutProtocol" parameterType="java.lang.Long">
         DELETE FROM cumout_protocol WHERE `propert_id`=#{id}
     </delete>
+    <delete id="delbusPayDetail" parameterType="java.lang.Long">
+        DELETE FROM bus_pay_detail WHERE bus_pay_detail.report_id=#{id}
+    </delete>
+    <delete id="delBusRealAuth" parameterType="java.lang.Long">
+         DELETE FROM bus_real_auth WHERE bus_real_auth.report_id=#{id}
+    </delete>
+    <delete id="busCompromiseAgreement" parameterType="java.lang.Long">
+        DELETE FROM bus_compromise_agreement WHERE `propert_id`=#{id}
+    </delete>
 </mapper>

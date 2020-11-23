@@ -10,6 +10,7 @@ public interface TestDao {
     int delBusCivil(Long id);
     int delPubDebt(Long id);
     int delBusPropert(Long id);
+
     int delBusAssessment(Long id);
     int delBusAssignmentAgreement(Long id);
     int delBusAssignmentConfirm(Long id);
@@ -18,5 +19,8 @@ public interface TestDao {
     int delBusAgentSalesContract(Long id);
     int delBusCollectionLetter(Long id);
     int delCumoutProtocol(Long id);
+    int delbusPayDetail(Long id);
+    int delBusRealAuth(Long id);
+    int busCompromiseAgreement(Long id);
 
 }

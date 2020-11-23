@@ -237,7 +237,10 @@ public class BusCivilServiceImpl implements BusCivilService {
         Boolean ok = false;
         //1.通过相对人ID获取债事人相对人身份信息
         DebtAndPerson debtAndPerson = busCivilDao.selectDebtAndPer(relativePerId);
-        if (debtAndPerson.getReportPropert().equals("1")) {
+        if(debtAndPerson.getStatus().equals("1")){
+            return ok;
+        }
+        if (debtAndPerson.getPriReportPropert().equals("1")) {
             //2.通过相对人信息去债事人表中验证,若有此人则获取当前报备ID
             aLong = busCivilDao.selectReportIdPri(debtAndPerson.getPriPhone());
         } else {
@@ -256,14 +259,14 @@ public class BusCivilServiceImpl implements BusCivilService {
                 //7.判断此债事人中是否存在
                 String phoneA;
                 String phoneB;
-                if(item1.getReportPropert().equals("1")){
+                if (item1.getReportPropert().equals("1")) {
                     phoneA = item1.getData3();
-                }else {
+                } else {
                     phoneA = item1.getData5();
                 }
-                if(debtAndPerson.getReportPropert().equals("1")){
+                if (debtAndPerson.getReportPropert().equals("1")) {
                     phoneB = debtAndPerson.getPerPhonePri();
-                }else {
+                } else {
                     phoneB = debtAndPerson.getPerPhoneCor();
                 }
                 if (phoneA.equals(phoneB)) {

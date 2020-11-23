@@ -67,6 +67,13 @@
         </where>
         order by br.create_time desc
     </select>
+    <select id="selectByProId" resultType="com.smart.bracelet.model.po.debt.BusPropert"
+            parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from bus_propert
+        where bus_propert.report_id = #{id,jdbcType=BIGINT}
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from bus_propert
     where propert_id = #{propertId,jdbcType=BIGINT}

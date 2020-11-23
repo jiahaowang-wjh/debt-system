@@ -145,6 +145,12 @@ public class BusPropertServiceImpl implements BusPropertService {
             log.error("更新资产评估失败,异常信息:{}", e.getMessage());
             throw new CustomerException("更新资产阶段失败");
         }
-
     }
+
+    @Override
+    public BusPropert selectByProId(Long id){
+        BusPropert busPropert = busPropertDao.selectByProId(id);
+        return busPropert;
+    }
+
 }

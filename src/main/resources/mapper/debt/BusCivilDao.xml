@@ -101,7 +101,7 @@
     <select id="selectDebtAndPer" resultType="com.smart.bracelet.model.vo.debt.DebtAndPerson">
         SELECT
         br.data3 as 'perPhonePri',br.data5 as 'perPhoneCor',
-        brp.report_propert,br.report_id,br.`data2` AS 'debt_idcard',brp.data2 AS 'person_idcard',brp.data5 as 'corPhone',brp.data3 as 'priPhone' FROM bus_report br
+        brp.status,brp.report_propert as 'priReportPropert',br.report_propert,br.report_id,br.`data2` AS 'debt_idcard',brp.data2 AS 'person_idcard',brp.data5 as 'corPhone',brp.data3 as 'priPhone' FROM bus_report br
         LEFT JOIN bus_relative_person brp ON br.`report_id` = brp.report_id
         WHERE brp.`relative_per_id` = #{relativePerId,jdbcType=BIGINT}
     </select>

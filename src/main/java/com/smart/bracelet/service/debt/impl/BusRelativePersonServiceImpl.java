@@ -445,21 +445,23 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
     @Override
     public List<BusRelativePersonPrivateVo> selectByreportId(Long reportId) throws CustomerException {
         try {
-            List<BusRelativePerson> busRelativePeople = busRelativePersonDao.selectByreportId(reportId);
             BusReport busReport = busReportDao.selectByPrimaryKey(reportId);
+            List<BusRelativePerson> busRelativePeople = busRelativePersonDao.selectByreportId(reportId);
             List<BusRelativePersonPrivateVo> listVos = new ArrayList<>();
             for (BusRelativePerson item : busRelativePeople) {
                 if (!busReport.getReportType().equals("2") && !item.getReportType().equals("1")) {
                     //判断是否符合民事调解关系
-                    Boolean verification = busCivilService.verification(item.getRelativePerId());
-                    if (verification) {
-                        BusRelativePerson busRelativePerson = busRelativePersonDao.selectByPrimaryKey(item.getRelativePerId());
-                        BusRelativePersonPrivateVo privateVo = new BusRelativePersonPrivateVo();
-                        //判断相对人是否做过民事调解
-                        if (busRelativePerson.getStatus().equals("0")) {
-                            privateVo.setPersonalName(busRelativePerson.getData1());
-                            privateVo.setRelativePerId(busRelativePerson.getRelativePerId());
-                            listVos.add(privateVo);
+                    if (item.getStatus().equals("0")) {
+                        Boolean verification = busCivilService.verification(item.getRelativePerId());
+                        if (verification) {
+                            BusRelativePerson busRelativePerson = busRelativePersonDao.selectByPrimaryKey(item.getRelativePerId());
+                            BusRelativePersonPrivateVo privateVo = new BusRelativePersonPrivateVo();
+                            //判断相对人是否做过民事调解
+                            if (busRelativePerson.getStatus().equals("0")) {
+                                privateVo.setPersonalName(busRelativePerson.getData1());
+                                privateVo.setRelativePerId(busRelativePerson.getRelativePerId());
+                                listVos.add(privateVo);
+                            }
                         }
                     }
                 }
@@ -489,11 +491,11 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
             ReportAndRelativePerson reportAndRelativePerson = busRelativePersonDao.selectByRelativePerId(relativePerId);
             ReportAndRelativePersonShow show = new ReportAndRelativePersonShow();
             PubDebt pubDebt = pubDebtDao.selectAmountCumulative(relativePerId);
-            if(pubDebt!=null){
+            if (pubDebt != null) {
                 show.setAmountCumulative(pubDebt.getAmountCumulative().toString());
                 show.setAmountTotal(pubDebt.getAmountTotal().toString());
-            }else{
-                if(reportAndRelativePerson.getAmountTotal()!=null){
+            } else {
+                if (reportAndRelativePerson.getAmountTotal() != null) {
                     show.setAmountCumulative("0.00");
                     show.setAmountTotal(reportAndRelativePerson.getAmountTotal().toString());
                 }
@@ -563,10 +565,10 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
 
     @Override
     public List<DowLod> selectDebtDow(String debtName, String time) {
-        int num=0;
+        int num = 0;
         List<DowLod> dowLods = busRelativePersonDao.selectDebtDow(debtName, time);
         for (DowLod item : dowLods) {
-            num+=1;
+            num += 1;
             item.setNumBer(num);
             if (item.getType().equals("1")) {
                 item.setCroBankPhone(null);

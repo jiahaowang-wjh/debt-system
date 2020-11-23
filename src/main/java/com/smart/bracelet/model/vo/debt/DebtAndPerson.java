@@ -35,7 +35,16 @@ public class DebtAndPerson {
      */
     String priPhone;
     /**
-     * 相对人性质
+     * 相对人状态
+     */
+    String status;
+
+    /**
+     * 债事人性质
+     */
+    String priReportPropert;
+    /**
+     * 债事人性质
      */
     String reportPropert;
     /**
