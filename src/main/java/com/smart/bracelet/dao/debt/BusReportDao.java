@@ -40,13 +40,13 @@ public interface BusReportDao {
      *查询债事人
      * @return
      */
-    DebtChain queryLisyDebtor(String personIdCad);
+    List<DebtChain> queryLisyDebtor(String personIdCad);
 
     /**
      *查询相对人
      * @return
      */
-    List<DebtChain> queryLisyRelativePerson(BigInteger personId);
+    List<DebtChain> queryLisyRelativePerson(String personName);
 
     /**
      * 更新审核状态
@@ -91,4 +91,6 @@ public interface BusReportDao {
     CumOutInfo selectJiJin(Long reportId);
 
     int updateCheckDate(Date checkDate);
+
+
 }

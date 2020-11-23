@@ -67,7 +67,7 @@ public class UserInfoServiceTest {
     @Test
     public void testA() throws Exception {
 
-        Long reportId = 8018375383950884864L;
+        Long reportId = 8019052418102525952L;
         BusPropert busPropert = busPropertService.selectByProId(reportId);
         if(busPropert!=null){
             testDao.delBusAssessment(busPropert.getPropertId());

@@ -248,7 +248,7 @@ public class BusCivilServiceImpl implements BusCivilService {
         }
         //3.查询相对人是否债事报备
         if (org.springframework.util.StringUtils.isEmpty(aLong)) {
-            return false;
+            return ok;
         }
         //4.遍历债事表中，该属于该相对人的报备ID
         for (Long item : aLong) {

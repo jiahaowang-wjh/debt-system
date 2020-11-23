@@ -80,13 +80,13 @@
     </select>
 
     <select id="queryLisyDebtor" resultType="com.smart.bracelet.model.vo.debt.DebtChain">
-        SELECT MIN(br.report_id) AS father_Id,br.data1 AS Report,br.data3 AS RelativePersonIdCad FROM bus_report br
+        SELECT br.report_id AS 'fatherId',br.data1 AS Report,br.data3 AS RelativePersonIdCad FROM bus_report br
         WHERE br.data1=#{personIdCad,jdbcType=VARCHAR}
-        GROUP BY br.`data1`,br.`data3`
     </select>
     <select id="queryLisyRelativePerson" resultType="com.smart.bracelet.model.vo.debt.DebtChain">
-        SELECT brp.data1 AS Report,brp.data3 AS RelativePersonIdCad,brp.`obligat_right` FROM  bus_relative_person brp
-        WHERE brp.report_id=#{personId,jdbcType=BIGINT} and brp.report_type != '1'
+    SELECT brp.data1 AS Report,MIN(brp.data3) AS RelativePersonIdCad,SUM(brp.`obligat_right`) AS `obligat_right`,brp.`report_type` FROM  bus_relative_person brp
+    WHERE brp.report_id in (#{personName,jdbcType=VARCHAR})
+    GROUP BY brp.data1,brp.`report_type`
     </select>
     <select id="selectRepNo" resultType="java.lang.String">
         SELECT   bus_report.`report_no`  FROM   bus_report   ORDER   BY   bus_report.`report_id`   DESC   LIMIT   1

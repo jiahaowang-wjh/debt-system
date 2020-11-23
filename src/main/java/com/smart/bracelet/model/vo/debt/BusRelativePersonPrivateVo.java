@@ -67,7 +67,6 @@ public class BusRelativePersonPrivateVo {
     /**
      * 身份证号码
      */
-    @NotBlank(message = "身份证号码不能为空")
     private String idCard;
 
     /**
@@ -85,7 +84,6 @@ public class BusRelativePersonPrivateVo {
     /**
      * 电子邮箱
      */
-    @NotBlank(message = "电子邮箱不能为空")
     private String email;
 
     /**
@@ -110,13 +108,11 @@ public class BusRelativePersonPrivateVo {
     /**
      * 身份证正
      */
-    @NotBlank(message = "身份证正不能为空")
     private String cardJust;
 
     /**
      * 身份证反
      */
-    @NotBlank(message = "身份证反不能为空")
     private String cardBack;
 
     /**

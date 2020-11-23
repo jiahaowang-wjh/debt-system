@@ -474,6 +474,63 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         busElectronSealController.addPubUser(busElectronSeal);
     }
 
+
+
+    /**
+     * 和解协议
+     * @param propertId
+     * @param comId
+     * @throws CustomerException
+     * @throws ParseException
+     */
+    @Override
+    public void fillInWordAndSaveAsSpecifyFormatReconciliation(Long propertId, Long comId) throws CustomerException, ParseException {
+        //设置模板读取路径
+        String readPath = DocumentPath.WORD_TEMPLATE_RECILIATION.getPath()+ DocumentPath.WORD_TEMPLATE_RECILIATION.getFileName();
+        //设置pdf文件保存路径
+        String savePath = DocumentPath.PDF_SAVE_RECILIATION.getPath() + DocumentPath.PDF_SAVE_RECILIATION.getName() + IdUtils.nextId() + ".pdf";
+        BusCompromiseAgreementShow initialize = busCompromiseAgreementService.initialize(propertId, comId);
+
+        Map<String, String> map = new HashMap<>(20);
+        map.put(DocReconciliation.REC_NO.getName(),initialize.getCompromiseAgreementNo());
+        map.put(DocReconciliation.PERSON_NAME.getName(),initialize.getPersonName());
+        map.put(DocReconciliation.DEBT_NAME.getName(),initialize.getDebtName());
+        map.put(DocReconciliation.THIS_MONEY.getName(),initialize.getAmountThis().toString());
+        map.put(DocReconciliation.XUANZE.getName(),initialize.getPartybMode());
+        map.put(DocReconciliation.AVG.getName(),initialize.getAverage());
+        map.put(DocReconciliation.DEBT_DAY.getName(),initialize.getDay());
+        map.put(DocReconciliation.QISHU.getName(),initialize.getNumber());
+        map.put(DocReconciliation.CONT_YAER.getName(),String.format("%tY",initialize.getContractDate()));
+        map.put(DocReconciliation.CONT_MOON.getName(),String.format("%tm",initialize.getContractDate()));
+        map.put(DocReconciliation.CONT_DAY.getName(),String.format("%td",initialize.getContractDate()));
+        PdfUtil.fillInWordAndSaveAsPdf(readPath, savePath, map);
+        //创建文档
+        PubDoc pubDoc = new PubDoc();
+        long nextId = IdUtils.nextId();
+        pubDoc.setDocId(nextId);
+        pubDoc.setContract(initialize.getCompromiseAgreementNo());
+        pubDoc.setDocName(DocumentPath.WORD_TEMPLATE_RECILIATION.getName());
+        pubDoc.setDocPath(savePath);
+        pubDoc.setDocType("2");
+        pubDoc.setReportId(initialize.getReportId());
+        pubDocDao.insertSelective(pubDoc);
+        //创建电子章
+        BusElectronSeal busElectronSeal = new BusElectronSeal();
+        //信息分析暨尽调协议
+        busElectronSeal.setDocType("12");
+        busElectronSeal.setFilePath(savePath);
+        busElectronSeal.setDocId(nextId);
+        busElectronSeal.setParta(initialize.getPersonName());
+        busElectronSeal.setPartaCard(initialize.getIdCard());
+        if(initialize.getPersonReportPropert().equals("1")){
+            busElectronSeal.setPartaTel(initialize.getPersonPriPhone());
+        }else {
+            busElectronSeal.setPartaTel(initialize.getPersonCorPhone());
+        }
+        busElectronSealController.addPubUser(busElectronSeal);
+    }
+
+
     /**
      * 委托代理销售
      * @param propertId
@@ -538,6 +595,7 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
                 map.put("remarks" + i, busAgentSalesContractModity.get(i-1).getPartybTime());
             }
         }
+        map.put("total",initialize.getAllCommodityMoney());
         PdfUtil.fillInWordAndSaveAsPdf(readPath, savePath, map);
         //创建文档
         PubDoc pubDoc = new PubDoc();
@@ -561,61 +619,6 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
             busElectronSeal.setPartaTel(initialize.getPriPhone());
         }else {
             busElectronSeal.setPartaTel(initialize.getCorBankPhone());
-        }
-
-        busElectronSealController.addPubUser(busElectronSeal);
-    }
-
-    /**
-     * 和解协议
-     * @param propertId
-     * @param comId
-     * @throws CustomerException
-     * @throws ParseException
-     */
-    @Override
-    public void fillInWordAndSaveAsSpecifyFormatReconciliation(Long propertId, Long comId) throws CustomerException, ParseException {
-        //设置模板读取路径
-        String readPath = DocumentPath.WORD_TEMPLATE_RECILIATION.getPath()+ DocumentPath.WORD_TEMPLATE_RECILIATION.getFileName();
-        //设置pdf文件保存路径
-        String savePath = DocumentPath.PDF_SAVE_RECILIATION.getPath() + DocumentPath.PDF_SAVE_RECILIATION.getName() + IdUtils.nextId() + ".pdf";
-        BusCompromiseAgreementShow initialize = busCompromiseAgreementService.initialize(propertId, comId);
-
-        Map<String, String> map = new HashMap<>(20);
-        map.put(DocReconciliation.REC_NO.getName(),initialize.getCompromiseAgreementNo());
-        map.put(DocReconciliation.PERSON_NAME.getName(),initialize.getPersonName());
-        map.put(DocReconciliation.DEBT_NAME.getName(),initialize.getDebtName());
-        map.put(DocReconciliation.THIS_MONEY.getName(),initialize.getAmountThis().toString());
-        map.put(DocReconciliation.XUANZE.getName(),initialize.getPartybMode());
-        map.put(DocReconciliation.AVG.getName(),initialize.getAverage());
-        map.put(DocReconciliation.DEBT_DAY.getName(),initialize.getDay());
-        map.put(DocReconciliation.QISHU.getName(),initialize.getNumber());
-        map.put(DocReconciliation.CONT_YAER.getName(),String.format("%tY",initialize.getContractDate()));
-        map.put(DocReconciliation.CONT_MOON.getName(),String.format("%tm",initialize.getContractDate()));
-        map.put(DocReconciliation.CONT_DAY.getName(),String.format("%td",initialize.getContractDate()));
-        PdfUtil.fillInWordAndSaveAsPdf(readPath, savePath, map);
-        //创建文档
-        PubDoc pubDoc = new PubDoc();
-        long nextId = IdUtils.nextId();
-        pubDoc.setDocId(nextId);
-        pubDoc.setContract(initialize.getCompromiseAgreementNo());
-        pubDoc.setDocName(DocumentPath.WORD_TEMPLATE_RECILIATION.getName());
-        pubDoc.setDocPath(savePath);
-        pubDoc.setDocType("2");
-        pubDoc.setReportId(initialize.getReportId());
-        pubDocDao.insertSelective(pubDoc);
-        //创建电子章
-        BusElectronSeal busElectronSeal = new BusElectronSeal();
-        //信息分析暨尽调协议
-        busElectronSeal.setDocType("12");
-        busElectronSeal.setFilePath(savePath);
-        busElectronSeal.setDocId(nextId);
-        busElectronSeal.setParta(initialize.getPersonName());
-        busElectronSeal.setPartaCard(initialize.getIdCard());
-        if(initialize.getPersonReportPropert().equals("1")){
-            busElectronSeal.setPartaTel(initialize.getPersonPriPhone());
-        }else {
-            busElectronSeal.setPartaTel(initialize.getPersonCorPhone());
         }
         busElectronSealController.addPubUser(busElectronSeal);
     }

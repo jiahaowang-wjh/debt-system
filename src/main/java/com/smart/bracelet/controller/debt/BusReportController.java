@@ -113,7 +113,7 @@ public class BusReportController {
     }
 
     /**
-     * 更新个人报备信息
+     * 更新银行报备信息
      *
      * @param busPrivateReportVo
      * @return

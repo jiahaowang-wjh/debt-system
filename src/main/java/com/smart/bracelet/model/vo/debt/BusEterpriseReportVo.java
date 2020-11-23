@@ -53,60 +53,49 @@ public class BusEterpriseReportVo {
     /**
      * 企业名称
      */
-    @NotBlank(message = "企业名称不能为空")
     private String companyName;
 
     /**
      * 社会统一信用代码
      */
-    @NotBlank(message = "社会统一信用代码不能为空")
     private String creditCode;
     /**
      * 行业属性
      */
-    @NotBlank(message = "行业属性不能为空")
     private String industryAttributes;
     /**
      * 法定代表人名称
      */
-    @NotBlank(message = "法定代表人名称不能为空")
     private String legalName;
     /**
      * 法定代表人联系电话
      */
-    @NotBlank(message = "法定代表人联系电话不能为空")
     private String legalPhone;
     /**
      * 法定代表人身份证号
      */
-    @NotBlank(message = "法定代表人身份证号不能为空")
     private String legalIdCard;
     /**
      * 注册地址
      */
-    @NotBlank(message = "注册地址不能为空")
     private String address;
     /**
      * 企业联系人
      */
-    @NotBlank(message = "企业联系人不能为空")
     private String contactPerson;
     /**
      * 联系电话
      */
-    @NotBlank(message = "联系电话不能为空")
     private String contactPhone;
 
     /**
      * 身份证正
      */
-    @NotBlank(message = "身份证正不能为空")
     private String cardJust;
 
     /**
      * 身份证反
      */
-    @NotBlank(message = "身份证反不能为空")
     private String cardBack;
 
     /**

@@ -31,4 +31,6 @@ public class DebtChain {
     //相对人
     List<DebtChain> debtChain;
 
+
+    String reportType;
 }
