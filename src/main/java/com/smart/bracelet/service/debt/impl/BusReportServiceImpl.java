@@ -567,7 +567,7 @@ public class BusReportServiceImpl implements BusReportService {
             List<DebtChain> lista = new ArrayList<>();
             DebtChain debtChain1 = list.get(i);
             List<DebtChain> debtChainList = busReportDao.queryLisyDebtor(debtChain1.getReport());
-            if (debtChainList != null && no<2) {
+            if (debtChainList != null && no<2 && "2".equals(debtChain1.getReportType())) {
                 String fatherIds = "";
                 for (int j = 0; j < debtChainList.size(); j++) {
                     if(i+1==debtChainList.size()){
