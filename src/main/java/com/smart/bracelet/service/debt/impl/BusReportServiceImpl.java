@@ -534,21 +534,13 @@ public class BusReportServiceImpl implements BusReportService {
         List<DebtChain> debtChainList;
         DebtChain debtChain = new DebtChain();
         debtChainList = busReportDao.queryLisyDebtor(personIdCad);
-        if (org.springframework.util.StringUtils.isEmpty(debtChainList)) {
+        if (org.springframework.util.StringUtils.isEmpty(debtChainList)||debtChainList.size()==0) {
             return null;
         }
         debtChain = debtChainList.get(0);
-        String fatherIds = "";
-        for (int i = 0; i < debtChainList.size(); i++) {
-            if(i+1==debtChainList.size()){
-                fatherIds += debtChainList.get(i).getFatherId();
-            }else{
-                fatherIds += debtChainList.get(i).getFatherId()+",";
-            }
-        }
         //查询相对人
         List<DebtChain> list = new ArrayList<>();
-        list = busReportDao.queryLisyRelativePerson(fatherIds);
+        list = busReportDao.queryLisyRelativePerson(personIdCad);
         if (list != null && list.size() > 0) {
             debtChain.setDebtChain(list);
             debtChain = lisyChain(debtChain,1);
@@ -568,15 +560,7 @@ public class BusReportServiceImpl implements BusReportService {
             DebtChain debtChain1 = list.get(i);
             List<DebtChain> debtChainList = busReportDao.queryLisyDebtor(debtChain1.getReport());
             if (debtChainList != null && no<2 && "2".equals(debtChain1.getReportType())) {
-                String fatherIds = "";
-                for (int j = 0; j < debtChainList.size(); j++) {
-                    if(i+1==debtChainList.size()){
-                        fatherIds += debtChainList.get(j).getFatherId();
-                    }else{
-                        fatherIds += debtChainList.get(j).getFatherId()+",";
-                    }
-                }
-                lista = busReportDao.queryLisyRelativePerson(fatherIds);
+                lista = busReportDao.queryLisyRelativePerson(debtChain1.getReport());
                 if (lista != null && lista.size() > 0) {
                     debtChain.getDebtChain().get(i).setDebtChain(lista);
                     debtChain1.setDebtChain(lista);
