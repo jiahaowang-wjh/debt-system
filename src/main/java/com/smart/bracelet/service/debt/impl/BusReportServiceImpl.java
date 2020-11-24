@@ -510,26 +510,7 @@ public class BusReportServiceImpl implements BusReportService {
      */
     @Override
     public DebtChain queryListChain(String personIdCad) {
-//        List<DebtChain> list = new ArrayList<>();
-//        DebtChain debtChain;
-//        int i = 0;
-//        boolean ok = true;
-//        while (ok) {
-//            if(i==0){
-//                 debtChain = busReportDao.queryLisyChain(personIdCad);
-//                 i++;
-//            }else{
-//                debtChain = busReportDao.queryLisyChain(list.get(list.size() - 1).getRelativePersonIdCad());
-//            }
-//            if (debtChain != null) {
-//                if (debtChain.getRelativePersonIdCad() != null && !debtChain.getRelativePersonIdCad().equals("")) {
-//                    list.add(debtChain);
-//                }
-//            } else {
-//                ok = false;
-//            }
-//        }
-//        return list;
+
         //查询债事人
         List<DebtChain> debtChainList;
         DebtChain debtChain = new DebtChain();

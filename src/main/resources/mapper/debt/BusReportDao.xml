@@ -83,11 +83,7 @@
         SELECT br.report_id AS 'fatherId',br.data1 AS Report,br.data3 AS RelativePersonIdCad FROM bus_report br
         WHERE br.data1=#{personIdCad,jdbcType=VARCHAR}
     </select>
-    <select id="queryLisyRelativePerson" resultType="com.smart.bracelet.model.vo.debt.DebtChain">
-    SELECT brp.data1 AS Report,MIN(brp.data3) AS RelativePersonIdCad,SUM(brp.`obligat_right`) AS `obligat_right`,brp.`report_type` FROM  bus_relative_person brp
-    WHERE brp.report_id in (#{personName,jdbcType=VARCHAR})
-    GROUP BY brp.data1,brp.`report_type`
-    </select>
+
     <select id="selectRepNo" resultType="java.lang.String">
         SELECT   bus_report.`report_no`  FROM   bus_report   ORDER   BY   bus_report.`report_id`   DESC   LIMIT   1
     </select>
@@ -510,10 +506,12 @@
     <select id="selectANO" resultType="java.lang.String">
           SELECT bus_report.`agreement_no` FROM bus_report
     </select>
-
-    <select id="selectJiJin" resultType="com.smart.bracelet.model.vo.debt.CumOutInfo"
-            parameterType="java.lang.Long">
-            SELECT `agreement_no`,party_a,party_b,agreement_date,data1 as 'debtName',data2 as 'idCard' FROM bus_report
-            WHERE bus_report.`report_id` = #{reportId,jdbcType=BIGINT}
+    <select id="queryLisyRelativePerson" resultType="com.smart.bracelet.model.vo.debt.DebtChain"
+            parameterType="java.lang.String">
+    SELECT brp.data1 AS 'report',MIN(brp.data3) AS 'relativePersonIdCad',SUM(brp.`obligat_right`) AS 'obligatRight',brp.`report_type` FROM  bus_relative_person brp
+    WHERE brp.report_id in (SELECT br.`report_id` FROM `bus_report` br WHERE br.`data1` LIKE concat('%',#{personName},'%'))
+    GROUP BY brp.data1,brp.`report_type`
     </select>
+
+
 </mapper>

@@ -8,7 +8,8 @@ import java.util.List;
 
 @Data
 public class DebtChain {
-
+    //相对人
+    List<DebtChain> debtChain;
     /**
      * 债事人
      */
@@ -28,9 +29,6 @@ public class DebtChain {
      */
     BigInteger fatherId;
 
-    //相对人
-    List<DebtChain> debtChain;
-
-
     String reportType;
+
 }

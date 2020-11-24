@@ -4,11 +4,9 @@ import com.smart.bracelet.controller.doc.BusElectronSealController;
 import com.smart.bracelet.controller.doc.BusWordConversionController;
 import com.smart.bracelet.dao.assets.BusAgentSalesContractDao;
 import com.smart.bracelet.dao.assets.BusAgentSalesContractModityDao;
-import com.smart.bracelet.dao.debt.BusCivilDao;
-import com.smart.bracelet.dao.debt.BusRelativePersonDao;
-import com.smart.bracelet.dao.debt.PubDebtDao;
-import com.smart.bracelet.dao.debt.TestDao;
+import com.smart.bracelet.dao.debt.*;
 import com.smart.bracelet.model.po.debt.BusPropert;
+import com.smart.bracelet.model.po.debt.DebtModel;
 import com.smart.bracelet.service.assets.BusPropertService;
 import com.smart.bracelet.service.assets.CumoutProtocolService;
 import com.smart.bracelet.service.debt.BusPayDetailService;
@@ -20,6 +18,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.List;
+
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -30,7 +30,10 @@ public class UserInfoServiceTest {
     private BusAgentSalesContractModityDao busAgentSalesContractModityDao;
 
     @Autowired
-    private BusReportService busReportDao;
+    private BusReportService busReportService;
+
+    @Autowired
+    private BusReportDao busReportDao;
 
     @Autowired
     private BusAgentSalesContractDao busAgentSalesContractDao;
@@ -63,6 +66,16 @@ public class UserInfoServiceTest {
 
     @Autowired
     private BusPropertService busPropertService;
+
+
+
+
+    @Test
+    public void testB() throws Exception {
+
+
+    }
+
 
     @Test
     public void testA() throws Exception {
