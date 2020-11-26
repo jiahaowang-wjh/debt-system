@@ -5,7 +5,7 @@ public enum DocCode {
     /**
      * 录入费发票
      */
-    INPUT_FEE("报备费发票", "01",false,1),
+    INPUT_FEE("录入费发票", "01",false,1),
 
     CONSULTING_SERVICE_FEE("咨询服务费发票", "02",false,1),
 

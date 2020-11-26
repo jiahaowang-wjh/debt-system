@@ -69,32 +69,45 @@ public class BusElectronSealController {
             String partaCard = busElectronSeal.getPartaCard();
 
             BusEletronUser busEletronUser = null;
+            String acctIdStr = "";
+            String acctIdStr2 = "";
             if (StringUtils.isNotEmpty(partaCard)) {
-                busEletronUser = busElectronUserService.selectByPartaCard(partaCard);
-                //判定人是否存储过
-                if (busEletronUser == null) {
-                    busEletronUser = new BusEletronUser();
-                    BusElectronUserno busElectronUserno = busElectronUsernoService.selectByPrimaryNotype("USER_NO");
-                    int acctId = busElectronUserno.getIdno();
-                    acctId += 1;
-                    busElectronUserno.setIdno(acctId);
-                    busElectronUsernoService.updateByPrimaryKey(busElectronUserno);
-                    String acctIdStr = DocUtils.creatUser(DocUtils.creatUserId(acctId), busElectronSeal);
-                    busEletronUser.setUserName(busElectronSeal.getParta());
-                    busEletronUser.setUserCard(busElectronSeal.getPartaCard());
-                    busEletronUser.setUserTel(busElectronSeal.getPartaTel());
-                    //创建个人账号
-                    busEletronUser.setAcctId(acctIdStr);
-                    busElectronUserService.insert(busEletronUser);
+                String [] partaCards = partaCard.split(",");
+
+                for (int i = 0; i < partaCards.length; i++) {
+                    busEletronUser = busElectronUserService.selectByPartaCard(partaCards[i]);
+                    //判定人是否存储过
+                    if (busEletronUser == null) {
+                        busEletronUser = new BusEletronUser();
+                        BusElectronUserno busElectronUserno = busElectronUsernoService.selectByPrimaryNotype("USER_NO");
+                        int acctId = busElectronUserno.getIdno();
+                        acctId += 1;
+                        busElectronUserno.setIdno(acctId);
+                        busElectronUsernoService.updateByPrimaryKey(busElectronUserno);
+                        acctIdStr = DocUtils.creatUser(DocUtils.creatUserId(acctId), busElectronSeal);
+                        busEletronUser.setUserName(busElectronSeal.getParta());
+                        busEletronUser.setUserCard(busElectronSeal.getPartaCard());
+                        busEletronUser.setUserTel(busElectronSeal.getPartaTel());
+                        //创建个人账号
+                        busEletronUser.setAcctId(acctIdStr);
+                        busElectronUserService.insert(busEletronUser);
+                    }
+                    if(i==0){
+                        if (busEletronUser != null) {
+                            acctIdStr = busEletronUser.getAcctId();
+                        }
+                    }else{
+                        if (busEletronUser != null) {
+                            acctIdStr2 = busEletronUser.getAcctId();
+                        }
+                    }
                 }
             }
 
-            String acctId = "";
-            if (busEletronUser != null) {
-                acctId = busEletronUser.getAcctId();
-            }
+
+
             //创建电子章及盖电子章
-            String returnElectronCon = DocUtils.fileCrete(docType, busElectronSeal, acctId);
+            String returnElectronCon = DocUtils.fileCrete(docType, busElectronSeal, acctIdStr,acctIdStr2);
             String[] returnElectronConS = returnElectronCon.split(",");
             busElectronSeal.setElectronSealId(IdUtils.nextId());
             busElectronSeal.setFlowId(returnElectronConS[0]);

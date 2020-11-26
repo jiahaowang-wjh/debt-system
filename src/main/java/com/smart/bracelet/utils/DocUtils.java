@@ -34,7 +34,7 @@ public class DocUtils {
      * @param docType
      * @param busElectronSeal
      */
-    public static String fileCrete(String docType,BusElectronSeal busElectronSeal,String acctId)throws Exception {
+    public static String fileCrete(String docType,BusElectronSeal busElectronSeal,String acctId,String acctId2)throws Exception {
         //token start
         TokenHelper.getTokenData();
 
@@ -58,8 +58,12 @@ public class DocUtils {
             AccountHelper.setAutoSign(OrgInfo.ELEC_AA.getAccountId(),"2121-09-07 23:59:59");
         }else if ("7".equals(docType)){//债权转让确认书
             docCode = DocCode.ASSIGNMENT_CONFIRMATION;
+            //设置静默签署
+            AccountHelper.setAutoSign(OrgInfo.ELEC_AA.getAccountId(),"2121-09-07 23:59:59");
         }else if ("8".equals(docType)){//债权转让通知书
             docCode = DocCode.ASSIGNMENT_NOTICE;
+            //设置静默签署
+            AccountHelper.setAutoSign(acctId2,"2121-09-07 23:59:59");
         }else if ("9".equals(docType)){//债权确认书
             docCode = DocCode.ASSIGNMENT_CONFIRM;
             //设置静默签署
@@ -88,7 +92,7 @@ public class DocUtils {
         //文件流上传文件
         FileTemplateHelper.streamUpload(filePath, uploadUrl);
         //一步发起签署
-        JSONObject flowJson = SignHelper.oneStepFlow(acctId, fileId, fileName, acctId,docType);
+        JSONObject flowJson = SignHelper.oneStepFlow(acctId, fileId, fileName, acctId,acctId2,docType);
         String flowId = flowJson.getString("flowId");
         //签署流程开启
         SignHelper.startSignFlow(flowId);

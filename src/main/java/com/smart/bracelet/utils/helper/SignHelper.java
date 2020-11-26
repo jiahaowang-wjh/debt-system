@@ -127,7 +127,7 @@ public class SignHelper {
 	 * 
 	 *              组装参数：
 	 *              <p>
-	 *              {@link SignParamUtil#addFlowDocParam(String, Integer, String, String)}
+	 *              {@link SignParamUtil#addFlowDocParam(String)}
 	 *
 	 * @param flowId 创建签署流程时返回的签署流程ID
 	 * @throws DefineException
@@ -169,7 +169,6 @@ public class SignHelper {
 	 *              流程归档后，查询和下载签署后的文件
 	 *
 	 * @param flowId  创建签署流程时返回的签署流程ID
-	 * @param fileIds 文档id列表,多个id使用英文“，”分隔
 	 * @throws DefineException
 	 * @author 宫清
 	 * @date 2019年7月21日 下午5:59:45
@@ -211,7 +210,7 @@ public class SignHelper {
 	 *
 	 *              组装参数：
 	 *              <p>
-	 *              {@link SignParamUtil#addFlowAttachParam(String, String)}
+	 *              {@link SignParamUtil#addFlowAttachParam(String)}
 	 *
 	 * @param flowId  创建签署流程时返回的签署流程ID
 	 * @param fileIds 附件Id，英文","拼接
@@ -471,11 +470,11 @@ public class SignHelper {
 	 * @date 2019年11月20日 下午4:56:35
 	 * @author  宫清
 	 */
-	public static JSONObject oneStepFlow(String copierAccountId, String fileId, String fileName, String signerAccountId,String docType)
+	public static JSONObject oneStepFlow(String copierAccountId, String fileId, String fileName, String signerAccountId,String acctId2,String docType)
 			throws DefineException {
 
 		JSONObject json = HttpHelper.doCommHttp(RequestType.POST, ConfigConstant.ONE_STEP_FLOW,
-				buildParam(copierAccountId, fileId, fileName, signerAccountId,docType));
+				buildParam(copierAccountId, fileId, fileName, signerAccountId,acctId2,docType));
 		return JSONHelper.castDataJson(json, JSONObject.class);
 	}
 
@@ -508,7 +507,7 @@ public class SignHelper {
 	 * @date 2019年11月20日 下午4:48:39
 	 * @author 宫清
 	 */
-	private static String buildParam(String copierAccountId, String fileId, String fileName, String signerAccountId,String docType) {
+	private static String buildParam(String copierAccountId, String fileId, String fileName, String signerAccountId,String acctId2,String docType) {
 
 		List<Signer> signers = new ArrayList<Signer>();
 
@@ -604,8 +603,38 @@ public class SignHelper {
 			signers = Lists.newArrayList(signer1, signer2,signer3);
 		}else if ("7".equals(docType)){//债权转让确认书
 			docCode = DocCode.ASSIGNMENT_CONFIRMATION;
+			orgInfo = OrgInfo.ELEC_AA;
+			// 签署方信息
+			// 平台方
+			PosBeanInfo posBean1 = new PosBeanInfo("1", 179F, 198F); // 签署位置
+			SignfieldInfo signfield1 = new SignfieldInfo(true, "2", fileId, null, null, null, posBean1, null,orgInfo.getSealId()); // 签署区
+			SignerAccount signAccount1 = new SignerAccount(orgInfo.getAccountId(), orgInfo.getOrgid());//签署方账号
+			Signer signer1 = new Signer(false, 1, signAccount1, Lists.newArrayList(signfield1), null); // 签署方
+			// 用户方1
+			PosBeanInfo posBean2 = new PosBeanInfo("1", 390F, 165F); // 签署位置
+			SignfieldInfo signfield2 = new SignfieldInfo(true, null, fileId, null, null, null, posBean2, null,null); // 签署区
+			SignerAccount signAccount = new SignerAccount(copierAccountId, signerAccountId);//签署方账号
+			Signer signer2 = new Signer(false, 1, signAccount, Lists.newArrayList(signfield2), null); // 签署方
+			signers = Lists.newArrayList(signer1, signer2);
 		}else if ("8".equals(docType)){//债权转让通知书
 			docCode = DocCode.ASSIGNMENT_NOTICE;
+			// 用户方1
+			PosBeanInfo posBean1 = new PosBeanInfo("1", 60F, 412F); // 签署位置
+			SignfieldInfo signfield1 = new SignfieldInfo(true, null, fileId, null, null, null, posBean1, null,null); // 签署区
+			SignerAccount signAccount1 = new SignerAccount(copierAccountId, signerAccountId);//签署方账号
+			Signer signer1 = new Signer(false, 1, signAccount1, Lists.newArrayList(signfield1), null); // 签署方
+			// 用户方2
+			PosBeanInfo posBean2 = new PosBeanInfo("1", 520F, 252F); // 签署位置
+			SignfieldInfo signfield2 = new SignfieldInfo(true, null, fileId, null, null, null, posBean2, null,null); // 签署区
+			SignerAccount signAccount2 = new SignerAccount(copierAccountId, signerAccountId);//签署方账号
+			Signer signer2 = new Signer(false, 1, signAccount2, Lists.newArrayList(signfield2), null); // 签署方
+			// 用户方3
+			PosBeanInfo posBean3 = new PosBeanInfo("1", 201F, 416F); // 签署位置
+			SignfieldInfo signfield3 = new SignfieldInfo(true, null, fileId, null, null, null, posBean3, null,null); // 签署区
+			SignerAccount signAccount3 = new SignerAccount(acctId2, acctId2);//签署方账号
+			Signer signer3 = new Signer(false, 1, signAccount3, Lists.newArrayList(signfield3), null); // 签署方
+			signers = Lists.newArrayList(signer1, signer2,signer3);
+
 		}else if ("9".equals(docType)){//债权确认书
 			docCode = DocCode.ASSIGNMENT_CONFIRM;
 			orgInfo = OrgInfo.ELEC_AA;
