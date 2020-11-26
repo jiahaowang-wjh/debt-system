@@ -603,18 +603,18 @@ public class SignHelper {
 			signers = Lists.newArrayList(signer1, signer2,signer3);
 		}else if ("7".equals(docType)){//债权转让确认书
 			docCode = DocCode.ASSIGNMENT_CONFIRMATION;
-			orgInfo = OrgInfo.ELEC_AA;
 			// 签署方信息
 			// 平台方
-			PosBeanInfo posBean1 = new PosBeanInfo("1", 179F, 198F); // 签署位置
-			SignfieldInfo signfield1 = new SignfieldInfo(true, "2", fileId, null, null, null, posBean1, null,orgInfo.getSealId()); // 签署区
-			SignerAccount signAccount1 = new SignerAccount(orgInfo.getAccountId(), orgInfo.getOrgid());//签署方账号
-			Signer signer1 = new Signer(false, 1, signAccount1, Lists.newArrayList(signfield1), null); // 签署方
 			// 用户方1
-			PosBeanInfo posBean2 = new PosBeanInfo("1", 390F, 165F); // 签署位置
+			PosBeanInfo posBean1 = new PosBeanInfo("1", 484F, 266F); // 签署位置
+			SignfieldInfo signfield1 = new SignfieldInfo(true, null, fileId, null, null, null, posBean1, null,null); // 签署区
+			SignerAccount signAccount1 = new SignerAccount(copierAccountId, signerAccountId);//签署方账号
+			Signer signer1 = new Signer(false, 1, signAccount1, Lists.newArrayList(signfield1), null); // 签署方
+			// 用户方2
+			PosBeanInfo posBean2 = new PosBeanInfo("1", 160F, 261F); // 签署位置
 			SignfieldInfo signfield2 = new SignfieldInfo(true, null, fileId, null, null, null, posBean2, null,null); // 签署区
-			SignerAccount signAccount = new SignerAccount(copierAccountId, signerAccountId);//签署方账号
-			Signer signer2 = new Signer(false, 1, signAccount, Lists.newArrayList(signfield2), null); // 签署方
+			SignerAccount signAccount2 = new SignerAccount(acctId2, acctId2);//签署方账号
+			Signer signer2 = new Signer(false, 1, signAccount2, Lists.newArrayList(signfield2), null); // 签署方
 			signers = Lists.newArrayList(signer1, signer2);
 		}else if ("8".equals(docType)){//债权转让通知书
 			docCode = DocCode.ASSIGNMENT_NOTICE;
