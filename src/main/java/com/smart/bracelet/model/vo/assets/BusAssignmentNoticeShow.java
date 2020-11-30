@@ -16,14 +16,49 @@ public class BusAssignmentNoticeShow {
      * 债务人姓名
      */
     String personName;
+
     /**
      *债权人姓名
      */
     String debtName;
     /**
+     * 债权人性质
+     */
+    String debtPropert;
+
+    /**
+     * 债权人身份证号
+     */
+    String debtIdCard;
+
+    /**
+     * 债权人手机号私人
+     */
+    String debtPhonePri;
+
+    /**
+     * 债权人手机号企业或银行
+     */
+    String debtPhoneCor;
+
+    /**
      *债务人身份证号
      */
     String idCard;
+
+    /**
+     * 债务人性质
+     */
+    String perPropert;
+
+    /**
+     * 债务人手机号私人
+     */
+    String perPhonePri;
+    /**
+     * 债务人手机号 企业或银行
+     */
+    String perPhoneCor;
     /**
      *债事原因
      */

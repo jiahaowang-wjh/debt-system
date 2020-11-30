@@ -22,5 +22,5 @@ public interface TestDao {
     int delbusPayDetail(Long id);
     int delBusRealAuth(Long id);
     int busCompromiseAgreement(Long id);
-
+    int delBusAgentSalesContractModity(Long id);
 }

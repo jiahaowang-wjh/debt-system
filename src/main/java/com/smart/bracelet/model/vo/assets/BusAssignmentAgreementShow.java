@@ -115,4 +115,18 @@ public class BusAssignmentAgreementShow {
      * 报备ID
      */
     Long reportId;
+
+    /**
+     * 债权人电话企业或银行
+     */
+    String debtPhoneCor;
+
+    /**
+     * 债权人电话私人
+     */
+    String debtPhonePri;
+    /**
+     * 债权人性质
+     */
+    String debtPropert;
 }

@@ -20,6 +20,27 @@ public class BusAssignmentConfirmShow {
      * 债权人姓名
      */
     String debtName;
+
+    /**
+     * 债权人身份证
+     */
+    String debtIdCard;
+
+    /**
+     * 债权人手机号（企业或银行）
+     */
+    String debtPhoneCor;
+
+    /**
+     * 债权人手机号（私人）
+     */
+    String debtPhonePri;
+
+    /**
+     * 债权人性质
+     */
+    String debtPropert;
+
     /**
      *债权转让协议编号
      */
@@ -33,6 +54,24 @@ public class BusAssignmentConfirmShow {
      *债务人姓名
      */
     String personName;
+    /**
+     * 债务人性质
+     */
+    String perPropert;
+    /**
+     * 债务人身份证
+     */
+    String perIdCard;
+    /**
+     * 债务人手机号私人
+     */
+    String perPhonePri;
+
+    /**
+     * 债务人手机号（企业或银行）
+     */
+    String perPhoneCor;
+
     /**
      *担保人姓名
      */

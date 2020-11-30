@@ -50,4 +50,7 @@ DELETE FROM  `bus_propert` WHERE `report_id` = #{id}
     <delete id="busCompromiseAgreement" parameterType="java.lang.Long">
         DELETE FROM bus_compromise_agreement WHERE `propert_id`=#{id}
     </delete>
+    <delete id="delBusAgentSalesContractModity" parameterType="java.lang.Long">
+       DELETE FROM  bus_agent_sales_contract_modity WHERE `propert_id`=#{id}
+    </delete>
 </mapper>

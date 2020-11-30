@@ -21,7 +21,7 @@ public interface BusPropertService {
 
     List<BusPropert> queryList();
 
-    BusPropert selectByProId(Long id);
+    List<BusPropert> selectByProId(Long id);
 
     /**
      * 更新资产状态

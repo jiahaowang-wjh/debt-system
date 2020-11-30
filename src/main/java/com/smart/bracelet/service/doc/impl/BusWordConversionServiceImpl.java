@@ -87,7 +87,6 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
     private PubDocDao pubDocDao;
 
 
-
     /**
      * 暨尽协议
      *
@@ -99,7 +98,7 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
     public Long fillInWordAndSaveAsSpecifyFormatCumOut(Long reportId, Long comId) throws ParseException, CustomerException {
         try {
             //设置模板读取路径
-            String readPath = DocumentPath.WORD_TEMPLATE_CUMOUT.getPath()+DocumentPath.WORD_TEMPLATE_CUMOUT.getFileName();
+            String readPath = DocumentPath.WORD_TEMPLATE_CUMOUT.getPath() + DocumentPath.WORD_TEMPLATE_CUMOUT.getFileName();
             //设置pdf文件保存路径
             String savePath = DocumentPath.PDF_SAVE_CUMOUT.getPath() + DocumentPath.PDF_SAVE_CUMOUT.getName() + IdUtils.nextId() + ".pdf";
             AgreementInfoShow initialize = busCivilService.initialize(reportId, comId);
@@ -130,18 +129,17 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
             busElectronSeal.setDocId(nextId);
             busElectronSeal.setParta(initialize.getDebtName());
             busElectronSeal.setPartaCard(initialize.getIdCard());
-            if(initialize.getReportPropert().equals("1")){
+            if (initialize.getReportPropert().equals("1")) {
                 busElectronSeal.setPartaTel(initialize.getPriPhone());
-            }else{
+            } else {
                 busElectronSeal.setPartaTel(initialize.getCorBankPhone());
             }
             busElectronSealController.addPubUser(busElectronSeal);
             return nextId;
         } catch (ParseException e) {
-            throw new CustomerException("盖章失败，异常信息"+e.getMessage());
-        }
-        catch (CustomerException e) {
-            throw new CustomerException("盖章失败,异常信息"+e.getMessage());
+            throw new CustomerException("盖章失败，异常信息" + e.getMessage());
+        } catch (CustomerException e) {
+            throw new CustomerException("盖章失败,异常信息" + e.getMessage());
         }
     }
 
@@ -200,9 +198,9 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         busElectronSeal.setDocId(nextId);
         busElectronSeal.setParta(planServiceInfo.getDebtName());
         busElectronSeal.setPartaCard(planServiceInfo.getPersonCard());
-        if(planServiceInfo.getReportPropert().equals("1")){
+        if (planServiceInfo.getReportPropert().equals("1")) {
             busElectronSeal.setPartaTel(planServiceInfo.getPriPhone());
-        }else {
+        } else {
             busElectronSeal.setPartaTel(planServiceInfo.getCorBankPhone());
         }
         busElectronSealController.addPubUser(busElectronSeal);
@@ -217,7 +215,7 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
     @Override
     public void fillInWordAndSaveAsSpecifyFormatTransfer(Long propertId, Long comId) throws CustomerException, ParseException {
         //设置模板读取路径
-        String readPath = DocumentPath.WORD_TEMPLATE_TRANSFER.getPath() +DocumentPath.WORD_TEMPLATE_TRANSFER.getFileName();
+        String readPath = DocumentPath.WORD_TEMPLATE_TRANSFER.getPath() + DocumentPath.WORD_TEMPLATE_TRANSFER.getFileName();
         //设置pdf文件保存路径
         String savePath = DocumentPath.PDF_SAVE_TRANSFER.getPath() + DocumentPath.PDF_SAVE_TRANSFER.getName() + IdUtils.nextId() + ".pdf";
         Map<String, String> map = new HashMap<>(20);
@@ -225,7 +223,7 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         map.put(DocEransfer.ASSNO.getName(), initialize.getAssignmentAgreementNo());
         map.put(DocEransfer.DEBT_NAME.getName(), initialize.getDebtName());
         map.put(DocEransfer.DEBT_IDCARD.getName(), initialize.getIdCard());
-        log.info("{}",initialize.getDebtName()+"---"+initialize.getCorBankPhone()+"-----"+initialize.getPriPhone());
+        log.info("{}", initialize.getDebtName() + "---" + initialize.getCorBankPhone() + "-----" + initialize.getPriPhone());
         if (initialize.getReportPropert().equals("1")) {
             map.put(DocEransfer.DEBT_ADD.getName(), initialize.getPriAdd());
             map.put(DocEransfer.DEBT_PHONE.getName(), initialize.getPriPhone());
@@ -252,6 +250,72 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         map.put(DocEransfer.CONST_YAER.getName(), String.format("%tY", contractTime));
         map.put(DocEransfer.CONST_MOON.getName(), String.format("%tm", contractTime));
         map.put(DocEransfer.CONST_DAY.getName(), String.format("%td", contractTime));
+        CommissionOnLine initialize1 = cumoutProtocolService.initialize(propertId, comId);
+        BusAgentSalesContractShow initialize2 = busAgentSalesContractService.initialize(propertId, comId);
+        if (initialize2.getBusAgentSalesContractModity().size() != 0) {
+            //这里设置需要填充的表格行数
+            List<BusAgentSalesContractModity> busAgentSalesContractModity = initialize2.getBusAgentSalesContractModity();
+            int size = busAgentSalesContractModity.size();
+            //表格行数默认最多10行
+            for (int i = 1; i < 11; i++) {
+                if (i > size) {
+                    map.put("productName" + i, "");
+                    map.put("model" + i, "");
+                    map.put("unit" + i, "");
+                    map.put("unitPrice" + i, "");
+                    map.put("amount" + i, "");
+                    map.put("total" + i, "");
+                    map.put("remarks" + i, "");
+                } else {
+                    map.put("productName" + i, busAgentSalesContractModity.get(i - 1).getModityName());
+                    map.put("model" + i, busAgentSalesContractModity.get(i - 1).getModitySpecificat());
+                    map.put("unit" + i, busAgentSalesContractModity.get(i - 1).getPartyaSeal());
+                    map.put("unitPrice" + i, busAgentSalesContractModity.get(i - 1).getModityPlace());
+                    map.put("amount" + i, busAgentSalesContractModity.get(i - 1).getPartybSeal().toString());
+                    map.put("total" + i, busAgentSalesContractModity.get(i - 1).getMoneyNum1());
+                    map.put("remarks" + i, busAgentSalesContractModity.get(i - 1).getPartybTime());
+                }
+
+            }
+            map.put("total", initialize2.getAllCommodityMoney());
+        } else if (initialize1.getBusAgentSalesContractModities().size() != 0) {
+            int length = initialize1.getBusAgentSalesContractModities().size();
+            String total = "1";
+            //表格行数默认最多10行
+            for (int i = 1; i < 11; i++) {
+                if (i > length) {
+                    map.put("productName" + i, "");
+                    map.put("model" + i, "");
+                    map.put("unit" + i, "");
+                    map.put("unitPrice" + i, "");
+                    map.put("amount" + i, "");
+                    map.put("total" + i, "");
+                    map.put("remarks" + i, "");
+                } else {
+                    total = BigDecimalUtil.add(total, initialize1.getBusAgentSalesContractModities().get(i - 1).getMoneyNum1(), 2);
+                    map.put("productName" + i, initialize1.getBusAgentSalesContractModities().get(i - 1).getModityName());
+                    map.put("model" + i, initialize1.getBusAgentSalesContractModities().get(i - 1).getModitySpecificat());
+                    map.put("unit" + i, initialize1.getBusAgentSalesContractModities().get(i - 1).getPartyaSeal());
+                    map.put("unitPrice" + i, initialize1.getBusAgentSalesContractModities().get(i - 1).getModityPlace());
+                    map.put("amount" + i, initialize1.getBusAgentSalesContractModities().get(i - 1).getPartybSeal().toString());
+                    map.put("total" + i, initialize1.getBusAgentSalesContractModities().get(i - 1).getMoneyNum1());
+                    map.put("remarks" + i, initialize1.getBusAgentSalesContractModities().get(i - 1).getPartybTime());
+                }
+            }
+            map.put("total", BigDecimalUtil.sub(total, "1", 2));
+        } else {
+            for (int i = 1; i < 11; i++) {
+                map.put("productName" + i, "");
+                map.put("model" + i, "");
+                map.put("unit" + i, "");
+                map.put("unitPrice" + i, "");
+                map.put("amount" + i, "");
+                map.put("total" + i, "");
+                map.put("remarks" + i, "");
+                map.put("total", "");
+            }
+        }
+
         //替换模板并保存为PDF
         PdfUtil.fillInWordAndSaveAsPdf(readPath, savePath, map);
         //创建文档
@@ -272,17 +336,17 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         busElectronSeal.setDocId(nextId);
         busElectronSeal.setParta(initialize.getDebtName());
         busElectronSeal.setPartaCard(initialize.getIdCard());
-        if(initialize.getReportPropert().equals("1")){
+        if (initialize.getReportPropert().equals("1")) {
             busElectronSeal.setPartaTel(initialize.getPriPhone());
-        }else {
+        } else {
             busElectronSeal.setPartaTel(initialize.getCorBankPhone());
         }
-
         busElectronSealController.addPubUser(busElectronSeal);
     }
 
     /**
      * 债权转让确认
+     *
      * @param propertId
      * @throws CustomerException
      * @throws ParseException
@@ -290,7 +354,7 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
     @Override
     public void fillInWordAndSaveAsSpecifyFormatConfrim(Long propertId) throws CustomerException, ParseException {
         //设置模板读取路径
-        String readPath = DocumentPath.WORD_TEMPLATE_CONFIRM.getPath() +DocumentPath.WORD_TEMPLATE_CONFIRM.getFileName();
+        String readPath = DocumentPath.WORD_TEMPLATE_CONFIRM.getPath() + DocumentPath.WORD_TEMPLATE_CONFIRM.getFileName();
         //设置pdf文件保存路径
         String savePath = DocumentPath.PDF_SAVE_CONFIRM.getPath() + DocumentPath.PDF_SAVE_CONFIRM.getName() + IdUtils.nextId() + ".pdf";
         BusAssignmentConfirmShow initialize = busAssignmentConfirmService.initialize(propertId);
@@ -306,15 +370,15 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         map.put(DocTransferConfirm.AMOUNT_MONEY.getName(), initialize.getAmountThis().toString());
         List<String> authName = initialize.getAuthName();
         StringBuffer stringBuffer = new StringBuffer();
-        for (String item: authName) {
-            stringBuffer.append(item+".");
+        for (String item : authName) {
+            stringBuffer.append(item + ".");
         }
         map.put(DocTransferConfirm.AUTHNAME.getName(), stringBuffer.toString());
         Date contractTime = initialize.getContractTime();
-        System.out.println(String.format("%tY",contractTime)+String.format("%tm",contractTime));
-        map.put(DocTransferConfirm.CONT_THIS_YAER.getName(),String.format("%tY",contractTime));
-        map.put(DocTransferConfirm.CONT_THIS_MOON.getName(),String.format("%tm",contractTime));
-        map.put(DocTransferConfirm.CONT_THIS_DAY.getName(), String.format("%td",contractTime));
+        System.out.println(String.format("%tY", contractTime) + String.format("%tm", contractTime));
+        map.put(DocTransferConfirm.CONT_THIS_YAER.getName(), String.format("%tY", contractTime));
+        map.put(DocTransferConfirm.CONT_THIS_MOON.getName(), String.format("%tm", contractTime));
+        map.put(DocTransferConfirm.CONT_THIS_DAY.getName(), String.format("%td", contractTime));
         PdfUtil.fillInWordAndSaveAsPdf(readPath, savePath, map);
         //创建文档
         PubDoc pubDoc = new PubDoc();
@@ -326,10 +390,33 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         pubDoc.setDocPath(savePath);
         pubDoc.setReportId(initialize.getReportId());
         pubDocDao.insertSelective(pubDoc);
+        //创建电子章
+        BusElectronSeal busElectronSeal = new BusElectronSeal();
+        //债权转让确认
+        busElectronSeal.setDocType("7");
+        busElectronSeal.setFilePath(savePath);
+        busElectronSeal.setDocId(nextId);
+        busElectronSeal.setParta(initialize.getPersonName() + "," + initialize.getDebtName());
+        busElectronSeal.setPartaCard(initialize.getPerIdCard() + "," + initialize.getDebtIdCard());
+        if (initialize.getDebtPropert().equals("1")) {
+            if (initialize.getPerPropert().equals("1")) {
+                busElectronSeal.setPartaTel( initialize.getPerPhonePri()+ "," + initialize.getDebtPhonePri());
+            } else {
+                busElectronSeal.setPartaTel(initialize.getPerPhoneCor() + "," + initialize.getDebtPhonePri());
+            }
+        } else {
+            if (initialize.getPerPropert().equals("1")) {
+                busElectronSeal.setPartaTel(initialize.getPerPhonePri() + "," + initialize.getDebtPhoneCor());
+            } else {
+                busElectronSeal.setPartaTel(initialize.getPerPhoneCor() + "," + initialize.getDebtPhoneCor());
+            }
+        }
+        busElectronSealController.addPubUser(busElectronSeal);
     }
 
     /**
      * 资产债权转让通知书
+     *
      * @param propertId
      * @throws CustomerException
      * @throws ParseException
@@ -342,16 +429,16 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         String savePath = DocumentPath.PDF_SAVE_NOTICE.getPath() + DocumentPath.PDF_SAVE_NOTICE.getName() + IdUtils.nextId() + ".pdf";
         Map<String, String> map = new HashMap<>(20);
         BusAssignmentNoticeShow initialize = busAssignmentNoticeService.initialize(propertId);
-        map.put(DocNotice.NOTICE_NO.getName(),initialize.getNoticeNo());
-        map.put(DocNotice.DEBT_DAME.getName(),initialize.getDebtName());
-        map.put(DocNotice.PERSON_NAME.getName(),initialize.getPersonName());
-        map.put(DocNotice.PERSON_IDCARD.getName(),initialize.getIdCard());
-        map.put(DocNotice.NOTICE_NO.DEBT_REASON.getName(),initialize.getPersonReason());//未获取到数据来源
-        map.put(DocNotice.DEBT_AUTHIS_MONEY.getName(),initialize.getAmountThis().toString());
+        map.put(DocNotice.NOTICE_NO.getName(), initialize.getNoticeNo());
+        map.put(DocNotice.DEBT_DAME.getName(), initialize.getDebtName());
+        map.put(DocNotice.PERSON_NAME.getName(), initialize.getPersonName());
+        map.put(DocNotice.PERSON_IDCARD.getName(), initialize.getIdCard());
+        map.put(DocNotice.NOTICE_NO.DEBT_REASON.getName(), initialize.getPersonReason());//未获取到数据来源
+        map.put(DocNotice.DEBT_AUTHIS_MONEY.getName(), initialize.getAmountThis().toString());
         Date contractTime = initialize.getContractTime();
-        map.put(DocNotice.CON_TIME_YAER.getName(),String.format("%tY",contractTime));
-        map.put(DocNotice.CON_TIME_MOON.getName(),String.format("%tm",contractTime));
-        map.put(DocNotice.CON_TIME_DAY.getName(),String.format("%td",contractTime));
+        map.put(DocNotice.CON_TIME_YAER.getName(), String.format("%tY", contractTime));
+        map.put(DocNotice.CON_TIME_MOON.getName(), String.format("%tm", contractTime));
+        map.put(DocNotice.CON_TIME_DAY.getName(), String.format("%td", contractTime));
         PdfUtil.fillInWordAndSaveAsPdf(readPath, savePath, map);
         //创建文档
         PubDoc pubDoc = new PubDoc();
@@ -363,10 +450,33 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         pubDoc.setDocPath(savePath);
         pubDoc.setReportId(initialize.getReportId());
         pubDocDao.insertSelective(pubDoc);
+        //创建电子章
+        BusElectronSeal busElectronSeal = new BusElectronSeal();
+        //资产债权转让通知书
+        busElectronSeal.setDocType("8");
+        busElectronSeal.setFilePath(savePath);
+        busElectronSeal.setDocId(nextId);
+        busElectronSeal.setParta(initialize.getDebtName() + "," + initialize.getPersonName());
+        busElectronSeal.setPartaCard(initialize.getDebtIdCard() + "," + initialize.getIdCard());
+        if (initialize.getDebtPropert().equals("1")) {
+            if (initialize.getPerPropert().equals("1")) {
+                busElectronSeal.setPartaTel(initialize.getDebtPhonePri() + "," + initialize.getPerPhonePri());
+            } else {
+                busElectronSeal.setPartaTel(initialize.getDebtPhonePri() + "," + initialize.getPerPhoneCor());
+            }
+        } else {
+            if (initialize.getPerPropert().equals("1")) {
+                busElectronSeal.setPartaTel(initialize.getDebtPhonePri() + "," + initialize.getPerPhonePri());
+            } else {
+                busElectronSeal.setPartaTel(initialize.getDebtPhonePri() + "," + initialize.getPerPhoneCor());
+            }
+        }
+        busElectronSealController.addPubUser(busElectronSeal);
     }
 
     /**
      * 资产债权确认书
+     *
      * @param propertId
      * @throws CustomerException
      * @throws ParseException
@@ -374,26 +484,26 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
     @Override
     public void fillInWordAndSaveAsSpecifyFormatProve(Long propertId) throws CustomerException, ParseException {
         //设置模板读取路径
-        String readPath = DocumentPath.WORD_TEMPLATE_PROVE.getPath()+DocumentPath.WORD_TEMPLATE_PROVE.getFileName();
+        String readPath = DocumentPath.WORD_TEMPLATE_PROVE.getPath() + DocumentPath.WORD_TEMPLATE_PROVE.getFileName();
         //设置pdf文件保存路径
         String savePath = DocumentPath.PDF_SAVE_PROVE.getPath() + DocumentPath.PDF_SAVE_PROVE.getName() + IdUtils.nextId() + ".pdf";
         BusConfirmShow initialize = busConfirmService.initialize(propertId);
         Map<String, String> map = new HashMap<>(20);
-        map.put(DocProve.CONFIRM_NO.getName(),initialize.getConfirmNo());
-        map.put(DocProve.DEBT_NAME.getName(),initialize.getDebtName());
-        map.put(DocProve.PERSON_NAME.getName(),initialize.getPersonName());
-        map.put(DocProve.ASSAG_NO.getName(),initialize.getAssignmentAgreementNo());
+        map.put(DocProve.CONFIRM_NO.getName(), initialize.getConfirmNo());
+        map.put(DocProve.DEBT_NAME.getName(), initialize.getDebtName());
+        map.put(DocProve.PERSON_NAME.getName(), initialize.getPersonName());
+        map.put(DocProve.ASSAG_NO.getName(), initialize.getAssignmentAgreementNo());
         Date createTime = initialize.getCreateTime();
-        map.put(DocProve.DEBT_YAER.getName(),String.format("%tY",createTime));
-        map.put(DocProve.DEBT_MOON.getName(),String.format("%tm",createTime));
-        map.put(DocProve.DEBT_DAY.getName(),String.format("%td",createTime));
-        map.put(DocProve.THIS_MONEY.getName(),initialize.getAmountThis().toString());
-        map.put(DocProve.SERVICE_BENJIN.getName(),initialize.getServicePrincipal().toString());
-        map.put(DocProve.SERVICE_LIXI.getName(),initialize.getServiceInterest().toString());
+        map.put(DocProve.DEBT_YAER.getName(), String.format("%tY", createTime));
+        map.put(DocProve.DEBT_MOON.getName(), String.format("%tm", createTime));
+        map.put(DocProve.DEBT_DAY.getName(), String.format("%td", createTime));
+        map.put(DocProve.THIS_MONEY.getName(), initialize.getAmountThis().toString());
+        map.put(DocProve.SERVICE_BENJIN.getName(), initialize.getServicePrincipal().toString());
+        map.put(DocProve.SERVICE_LIXI.getName(), initialize.getServiceInterest().toString());
         Date a = initialize.getContractTime();
-        map.put(DocProve.CONT_YAER.getName(),String.format("%tY",a));
-        map.put(DocProve.CONT_MOON.getName(),String.format("%tm",a));
-        map.put(DocProve.CONT_DAY.getName(),String.format("%td",a));
+        map.put(DocProve.CONT_YAER.getName(), String.format("%tY", a));
+        map.put(DocProve.CONT_MOON.getName(), String.format("%tm", a));
+        map.put(DocProve.CONT_DAY.getName(), String.format("%td", a));
         PdfUtil.fillInWordAndSaveAsPdf(readPath, savePath, map);
         //创建文档
         PubDoc pubDoc = new PubDoc();
@@ -413,9 +523,9 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         busElectronSeal.setDocId(nextId);
         busElectronSeal.setParta(initialize.getPersonName());
         busElectronSeal.setPartaCard(initialize.getPersonCard());
-        if(initialize.getReportPropert().equals("1")){
+        if (initialize.getReportPropert().equals("1")) {
             busElectronSeal.setPartaTel(initialize.getPriPhone());
-        }else {
+        } else {
             busElectronSeal.setPartaTel(initialize.getCorBackPhone());
         }
         busElectronSealController.addPubUser(busElectronSeal);
@@ -423,29 +533,30 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
 
     /**
      * 催款函
+     *
      * @param propertId
      * @param comId
      * @throws CustomerException
      * @throws ParseException
      */
     @Override
-    public void fillInWordAndSaveAsSpecifyFormatLetter(Long propertId,Long comId) throws CustomerException, ParseException {
+    public void fillInWordAndSaveAsSpecifyFormatLetter(Long propertId, Long comId) throws CustomerException, ParseException {
         //设置模板读取路径
         String readPath = DocumentPath.WORD_TEMPLATE_LETTER.getPath() + DocumentPath.WORD_TEMPLATE_LETTER.getFileName();
         //设置pdf文件保存路径
         String savePath = DocumentPath.PDF_SAVE_LETTER.getPath() + DocumentPath.PDF_SAVE_LETTER.getName() + IdUtils.nextId() + ".pdf";
-        BusCollectionLetterShow initialize = busCollectionLetterService.initialize(propertId,comId);
+        BusCollectionLetterShow initialize = busCollectionLetterService.initialize(propertId, comId);
         Map<String, String> map = new HashMap<>(20);
-        map.put(DocLetter.LETTER_NO.getName(),initialize.getCollectionLettertNo());
-        map.put(DocLetter.PERSON_NAME.getName(),initialize.getPersonName());
-        map.put(DocLetter.ASSAG_NO.getName(),initialize.getAssignmentAgreementNo());
-        map.put(DocLetter.DEBT_NAME.getName(),initialize.getDebtName());
-        map.put(DocLetter.THIS_MOEY.getName(),initialize.getAmountThis().toString());
-        map.put(DocLetter.THIS_MOEY_MAX.getName(),initialize.getMoneyMax());
+        map.put(DocLetter.LETTER_NO.getName(), initialize.getCollectionLettertNo());
+        map.put(DocLetter.PERSON_NAME.getName(), initialize.getPersonName());
+        map.put(DocLetter.ASSAG_NO.getName(), initialize.getAssignmentAgreementNo());
+        map.put(DocLetter.DEBT_NAME.getName(), initialize.getDebtName());
+        map.put(DocLetter.THIS_MOEY.getName(), initialize.getAmountThis().toString());
+        map.put(DocLetter.THIS_MOEY_MAX.getName(), initialize.getMoneyMax());
         Date contractDate = initialize.getContractDate();
-        map.put(DocLetter.CONT_YAER.getName(),String.format("%tY",contractDate));
-        map.put(DocLetter.CONT_MOON.getName(),String.format("%tm",contractDate));
-        map.put(DocLetter.CONT_DAY.getName(),String.format("%td",contractDate));
+        map.put(DocLetter.CONT_YAER.getName(), String.format("%tY", contractDate));
+        map.put(DocLetter.CONT_MOON.getName(), String.format("%tm", contractDate));
+        map.put(DocLetter.CONT_DAY.getName(), String.format("%td", contractDate));
         PdfUtil.fillInWordAndSaveAsPdf(readPath, savePath, map);
 
         //创建文档
@@ -466,18 +577,18 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         busElectronSeal.setDocId(nextId);
         busElectronSeal.setParta(initialize.getPersonName());
         busElectronSeal.setPartaCard(initialize.getIdCard());
-        if(initialize.getReportPropert().equals("1")){
+        if (initialize.getReportPropert().equals("1")) {
             busElectronSeal.setPartaTel(initialize.getPriPhone());
-        }else {
+        } else {
             busElectronSeal.setPartaTel(initialize.getCorBackPhone());
         }
         busElectronSealController.addPubUser(busElectronSeal);
     }
 
 
-
     /**
      * 和解协议
+     *
      * @param propertId
      * @param comId
      * @throws CustomerException
@@ -486,23 +597,23 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
     @Override
     public void fillInWordAndSaveAsSpecifyFormatReconciliation(Long propertId, Long comId) throws CustomerException, ParseException {
         //设置模板读取路径
-        String readPath = DocumentPath.WORD_TEMPLATE_RECILIATION.getPath()+ DocumentPath.WORD_TEMPLATE_RECILIATION.getFileName();
+        String readPath = DocumentPath.WORD_TEMPLATE_RECILIATION.getPath() + DocumentPath.WORD_TEMPLATE_RECILIATION.getFileName();
         //设置pdf文件保存路径
         String savePath = DocumentPath.PDF_SAVE_RECILIATION.getPath() + DocumentPath.PDF_SAVE_RECILIATION.getName() + IdUtils.nextId() + ".pdf";
         BusCompromiseAgreementShow initialize = busCompromiseAgreementService.initialize(propertId, comId);
 
         Map<String, String> map = new HashMap<>(20);
-        map.put(DocReconciliation.REC_NO.getName(),initialize.getCompromiseAgreementNo());
-        map.put(DocReconciliation.PERSON_NAME.getName(),initialize.getPersonName());
-        map.put(DocReconciliation.DEBT_NAME.getName(),initialize.getDebtName());
-        map.put(DocReconciliation.THIS_MONEY.getName(),initialize.getAmountThis().toString());
-        map.put(DocReconciliation.XUANZE.getName(),initialize.getPartybMode());
-        map.put(DocReconciliation.AVG.getName(),initialize.getAverage());
-        map.put(DocReconciliation.DEBT_DAY.getName(),initialize.getDay());
-        map.put(DocReconciliation.QISHU.getName(),initialize.getNumber());
-        map.put(DocReconciliation.CONT_YAER.getName(),String.format("%tY",initialize.getContractDate()));
-        map.put(DocReconciliation.CONT_MOON.getName(),String.format("%tm",initialize.getContractDate()));
-        map.put(DocReconciliation.CONT_DAY.getName(),String.format("%td",initialize.getContractDate()));
+        map.put(DocReconciliation.REC_NO.getName(), initialize.getCompromiseAgreementNo());
+        map.put(DocReconciliation.PERSON_NAME.getName(), initialize.getPersonName());
+        map.put(DocReconciliation.DEBT_NAME.getName(), initialize.getDebtName());
+        map.put(DocReconciliation.THIS_MONEY.getName(), initialize.getAmountThis().toString());
+        map.put(DocReconciliation.XUANZE.getName(), initialize.getPartybMode());
+        map.put(DocReconciliation.AVG.getName(), initialize.getAverage());
+        map.put(DocReconciliation.DEBT_DAY.getName(), initialize.getDay());
+        map.put(DocReconciliation.QISHU.getName(), initialize.getNumber());
+        map.put(DocReconciliation.CONT_YAER.getName(), String.format("%tY", initialize.getContractDate()));
+        map.put(DocReconciliation.CONT_MOON.getName(), String.format("%tm", initialize.getContractDate()));
+        map.put(DocReconciliation.CONT_DAY.getName(), String.format("%td", initialize.getContractDate()));
         PdfUtil.fillInWordAndSaveAsPdf(readPath, savePath, map);
         //创建文档
         PubDoc pubDoc = new PubDoc();
@@ -522,9 +633,9 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         busElectronSeal.setDocId(nextId);
         busElectronSeal.setParta(initialize.getPersonName());
         busElectronSeal.setPartaCard(initialize.getIdCard());
-        if(initialize.getPersonReportPropert().equals("1")){
+        if (initialize.getPersonReportPropert().equals("1")) {
             busElectronSeal.setPartaTel(initialize.getPersonPriPhone());
-        }else {
+        } else {
             busElectronSeal.setPartaTel(initialize.getPersonCorPhone());
         }
         busElectronSealController.addPubUser(busElectronSeal);
@@ -533,44 +644,45 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
 
     /**
      * 委托代理销售
+     *
      * @param propertId
      * @param comId
      * @throws CustomerException
      * @throws ParseException
      */
     @Override
-    public void fillInWordAndSaveAsSpecifyFormatConsignment(Long propertId,Long comId) throws CustomerException, ParseException {
+    public void fillInWordAndSaveAsSpecifyFormatConsignment(Long propertId, Long comId) throws CustomerException, ParseException {
         //设置模板读取路径
-        String readPath = DocumentPath.WORD_TEMPLATE_CONSIG.getPath() +DocumentPath.WORD_TEMPLATE_CONSIG.getFileName();
+        String readPath = DocumentPath.WORD_TEMPLATE_CONSIG.getPath() + DocumentPath.WORD_TEMPLATE_CONSIG.getFileName();
         //设置pdf文件保存路径
         String savePath = DocumentPath.PDF_SAVE_CONSIG.getPath() + DocumentPath.PDF_SAVE_CONSIG.getName() + IdUtils.nextId() + ".pdf";
         BusAgentSalesContractShow initialize = busAgentSalesContractService.initialize(propertId, comId);
         Map<String, String> map = new HashMap<>(20);
-        map.put(DocConsignment.CONT_NO.getName(),initialize.getSalesNo());
-        map.put(DocConsignment.DEBT_NAME.getName(),initialize.getDebtName());
-        map.put(DocConsignment.DEBT_CARD.getName(),initialize.getDebtIdCard());
-        if(initialize.getReportPropert().equals("1")){
-            map.put(DocConsignment.DEBT_ADD.getName(),initialize.getPriAdd());
-            map.put(DocConsignment.DEBT_PHONE.getName(),initialize.getPriPhone());
-        }else {
-            map.put(DocConsignment.DEBT_ADD.getName(),initialize.getCorBankAdd());
-            map.put(DocConsignment.DEBT_PHONE.getName(),initialize.getCorBankPhone());
+        map.put(DocConsignment.CONT_NO.getName(), initialize.getSalesNo());
+        map.put(DocConsignment.DEBT_NAME.getName(), initialize.getDebtName());
+        map.put(DocConsignment.DEBT_CARD.getName(), initialize.getDebtIdCard());
+        if (initialize.getReportPropert().equals("1")) {
+            map.put(DocConsignment.DEBT_ADD.getName(), initialize.getPriAdd());
+            map.put(DocConsignment.DEBT_PHONE.getName(), initialize.getPriPhone());
+        } else {
+            map.put(DocConsignment.DEBT_ADD.getName(), initialize.getCorBankAdd());
+            map.put(DocConsignment.DEBT_PHONE.getName(), initialize.getCorBankPhone());
         }
-        map.put(DocConsignment.DAIXIAO_YAER.getName(),String.format("%tY",initialize.getCreateTime()));
-        map.put(DocConsignment.DAIXIAO_MOON.getName(),String.format("%tm",initialize.getCreateTime()));
-        map.put(DocConsignment.DAIXIAO_DAY.getName(),String.format("%td",initialize.getCreateTime()));
-        map.put(DocConsignment.DAIXIAO_JIESHU_YAER.getName(),String.format("%tY",new SimpleDateFormat("yyyy-MM-dd").parse(initialize.getEndTime())));
-        map.put(DocConsignment.DAIXIAO_JIESHU_MOON.getName(),String.format("%tm",new SimpleDateFormat("yyyy-MM-dd").parse(initialize.getEndTime())));
-        map.put(DocConsignment.DAIXIAO_JIESHU_DAY.getName(),String.format("%td",new SimpleDateFormat("yyyy-MM-dd").parse(initialize.getEndTime())));
+        map.put(DocConsignment.DAIXIAO_YAER.getName(), String.format("%tY", initialize.getCreateTime()));
+        map.put(DocConsignment.DAIXIAO_MOON.getName(), String.format("%tm", initialize.getCreateTime()));
+        map.put(DocConsignment.DAIXIAO_DAY.getName(), String.format("%td", initialize.getCreateTime()));
+        map.put(DocConsignment.DAIXIAO_JIESHU_YAER.getName(), String.format("%tY", new SimpleDateFormat("yyyy-MM-dd").parse(initialize.getEndTime())));
+        map.put(DocConsignment.DAIXIAO_JIESHU_MOON.getName(), String.format("%tm", new SimpleDateFormat("yyyy-MM-dd").parse(initialize.getEndTime())));
+        map.put(DocConsignment.DAIXIAO_JIESHU_DAY.getName(), String.format("%td", new SimpleDateFormat("yyyy-MM-dd").parse(initialize.getEndTime())));
 
-        map.put(DocConsignment.THIS_MONEY.getName(),initialize.getAmountThis().toString());
-        map.put(DocConsignment.THIS_MONEY_MAX.getName(),initialize.getAmountThisMax());
-        map.put(DocConsignment.AVG_MONEY.getName(),initialize.getAverageMoney());
-        map.put(DocConsignment.DEBT_YINHANGKAHAO.getName(),initialize.getBankCard());
-        map.put(DocConsignment.DEBT_KAIHUHANG.getName(),initialize.getBank());
-        map.put(DocConsignment.CONT_YAER.getName(),String.format("%tY",initialize.getContractDate()));
-        map.put(DocConsignment.CONT_MOON.getName(),String.format("%tm",initialize.getContractDate()));
-        map.put(DocConsignment.CONT_DAY.getName(),String.format("%td",initialize.getContractDate()));
+        map.put(DocConsignment.THIS_MONEY.getName(), initialize.getAmountThis().toString());
+        map.put(DocConsignment.THIS_MONEY_MAX.getName(), initialize.getAmountThisMax());
+        map.put(DocConsignment.AVG_MONEY.getName(), initialize.getAverageMoney());
+        map.put(DocConsignment.DEBT_YINHANGKAHAO.getName(), initialize.getBankCard());
+        map.put(DocConsignment.DEBT_KAIHUHANG.getName(), initialize.getBank());
+        map.put(DocConsignment.CONT_YAER.getName(), String.format("%tY", initialize.getContractDate()));
+        map.put(DocConsignment.CONT_MOON.getName(), String.format("%tm", initialize.getContractDate()));
+        map.put(DocConsignment.CONT_DAY.getName(), String.format("%td", initialize.getContractDate()));
 
         //这里设置需要填充的表格行数
         List<BusAgentSalesContractModity> busAgentSalesContractModity = initialize.getBusAgentSalesContractModity();
@@ -586,16 +698,16 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
                 map.put("total" + i, "");
                 map.put("remarks" + i, "");
             } else {
-                map.put("productName" + i, busAgentSalesContractModity.get(i-1).getModityName());
-                map.put("model" + i, busAgentSalesContractModity.get(i-1).getModitySpecificat());
-                map.put("unit" + i, busAgentSalesContractModity.get(i-1).getPartyaSeal());
-                map.put("unitPrice" + i, busAgentSalesContractModity.get(i-1).getModityPlace());
-                map.put("amount" + i, busAgentSalesContractModity.get(i-1).getPartybSeal().toString());
-                map.put("total" + i,  busAgentSalesContractModity.get(i-1).getMoneyNum1());
-                map.put("remarks" + i, busAgentSalesContractModity.get(i-1).getPartybTime());
+                map.put("productName" + i, busAgentSalesContractModity.get(i - 1).getModityName());
+                map.put("model" + i, busAgentSalesContractModity.get(i - 1).getModitySpecificat());
+                map.put("unit" + i, busAgentSalesContractModity.get(i - 1).getPartyaSeal());
+                map.put("unitPrice" + i, busAgentSalesContractModity.get(i - 1).getModityPlace());
+                map.put("amount" + i, busAgentSalesContractModity.get(i - 1).getPartybSeal().toString());
+                map.put("total" + i, busAgentSalesContractModity.get(i - 1).getMoneyNum1());
+                map.put("remarks" + i, busAgentSalesContractModity.get(i - 1).getPartybTime());
             }
         }
-        map.put("total",initialize.getAllCommodityMoney());
+        map.put("total", initialize.getAllCommodityMoney());
         PdfUtil.fillInWordAndSaveAsPdf(readPath, savePath, map);
         //创建文档
         PubDoc pubDoc = new PubDoc();
@@ -615,9 +727,9 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         busElectronSeal.setDocId(nextId);
         busElectronSeal.setParta(initialize.getDebtName());
         busElectronSeal.setPartaCard(initialize.getDebtIdCard());
-        if(initialize.getReportPropert().equals("1")){
+        if (initialize.getReportPropert().equals("1")) {
             busElectronSeal.setPartaTel(initialize.getPriPhone());
-        }else {
+        } else {
             busElectronSeal.setPartaTel(initialize.getCorBankPhone());
         }
         busElectronSealController.addPubUser(busElectronSeal);
@@ -625,6 +737,7 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
 
     /**
      * 线上委托销售
+     *
      * @param propertId
      * @param comId
      * @throws CustomerException
@@ -638,30 +751,30 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         String savePath = DocumentPath.PDF_SAVE_ONLINECONSIG.getPath() + DocumentPath.PDF_SAVE_ONLINECONSIG.getName() + IdUtils.nextId() + ".pdf";
         CommissionOnLine initialize = cumoutProtocolService.initialize(propertId, comId);
         Map<String, String> map = new HashMap<>(20);
-        map.put(DocOnlineConsignment.ONLINE_NO.getName(),initialize.getProtocolNo());
-        map.put(DocOnlineConsignment.DEBT_NAME.getName(),initialize.getDebtName());
-        map.put(DocOnlineConsignment.DEBT_CARD.getName(),initialize.getDebtIdCard());
-        if(initialize.getReportPropert().equals("1")){
-            map.put(DocOnlineConsignment.DEBT_ADD.getName(),initialize.getPriAdd());
-            map.put(DocOnlineConsignment.DEBT_PHONE.getName(),initialize.getPriPhone());
-        }else{
-            map.put(DocOnlineConsignment.DEBT_ADD.getName(),initialize.getCorBankAdd());
-            map.put(DocOnlineConsignment.DEBT_PHONE.getName(),initialize.getCorBankPhone());
+        map.put(DocOnlineConsignment.ONLINE_NO.getName(), initialize.getProtocolNo());
+        map.put(DocOnlineConsignment.DEBT_NAME.getName(), initialize.getDebtName());
+        map.put(DocOnlineConsignment.DEBT_CARD.getName(), initialize.getDebtIdCard());
+        if (initialize.getReportPropert().equals("1")) {
+            map.put(DocOnlineConsignment.DEBT_ADD.getName(), initialize.getPriAdd());
+            map.put(DocOnlineConsignment.DEBT_PHONE.getName(), initialize.getPriPhone());
+        } else {
+            map.put(DocOnlineConsignment.DEBT_ADD.getName(), initialize.getCorBankAdd());
+            map.put(DocOnlineConsignment.DEBT_PHONE.getName(), initialize.getCorBankPhone());
         }
-        map.put(DocOnlineConsignment.KAISHI_YAER.getName(),String.format("%tY",initialize.getCreateTime()));
-        map.put(DocOnlineConsignment.KAISHI_MOON.getName(),String.format("%tm",initialize.getCreateTime()));
-        map.put(DocOnlineConsignment.KAISHI_DAY.getName(),String.format("%td",initialize.getCreateTime()));
+        map.put(DocOnlineConsignment.KAISHI_YAER.getName(), String.format("%tY", initialize.getCreateTime()));
+        map.put(DocOnlineConsignment.KAISHI_MOON.getName(), String.format("%tm", initialize.getCreateTime()));
+        map.put(DocOnlineConsignment.KAISHI_DAY.getName(), String.format("%td", initialize.getCreateTime()));
 
-        map.put(DocOnlineConsignment.JIESHU_YAER.getName(),String.format("%tY",new SimpleDateFormat("yyyy-MM-dd").parse(initialize.getEndTime())));
-        map.put(DocOnlineConsignment.JIESHU_MOON.getName(),String.format("%tm",new SimpleDateFormat("yyyy-MM-dd").parse(initialize.getEndTime())));
-        map.put(DocOnlineConsignment.JIESHU_DAY.getName(),String.format("%td",new SimpleDateFormat("yyyy-MM-dd").parse(initialize.getEndTime())));
+        map.put(DocOnlineConsignment.JIESHU_YAER.getName(), String.format("%tY", new SimpleDateFormat("yyyy-MM-dd").parse(initialize.getEndTime())));
+        map.put(DocOnlineConsignment.JIESHU_MOON.getName(), String.format("%tm", new SimpleDateFormat("yyyy-MM-dd").parse(initialize.getEndTime())));
+        map.put(DocOnlineConsignment.JIESHU_DAY.getName(), String.format("%td", new SimpleDateFormat("yyyy-MM-dd").parse(initialize.getEndTime())));
 
-        map.put(DocOnlineConsignment.THIS_MONEY.getName(),initialize.getAmountThis().toString());
+        map.put(DocOnlineConsignment.THIS_MONEY.getName(), initialize.getAmountThis().toString());
         map.put(DocOnlineConsignment.THIS_MONEY_MAX.getName(), ConvertUpMoney.toChinese(initialize.getAmountThis().toString()));
-        map.put(DocOnlineConsignment.JIFEN.getName(),initialize.getIntegral());
-        map.put(DocOnlineConsignment.CONT_YAER.getName(),String.format("%tY",initialize.getContractDate()));
-        map.put(DocOnlineConsignment.CONT_MOON.getName(),String.format("%tm",initialize.getContractDate()));
-        map.put(DocOnlineConsignment.CONT_DAY.getName(),String.format("%td",initialize.getContractDate()));
+        map.put(DocOnlineConsignment.JIFEN.getName(), initialize.getIntegral());
+        map.put(DocOnlineConsignment.CONT_YAER.getName(), String.format("%tY", initialize.getContractDate()));
+        map.put(DocOnlineConsignment.CONT_MOON.getName(), String.format("%tm", initialize.getContractDate()));
+        map.put(DocOnlineConsignment.CONT_DAY.getName(), String.format("%td", initialize.getContractDate()));
 
         int length = initialize.getBusAgentSalesContractModities().size();
         String total = "1";
@@ -676,17 +789,17 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
                 map.put("total" + i, "");
                 map.put("remarks" + i, "");
             } else {
-                total = BigDecimalUtil.add(total,initialize.getBusAgentSalesContractModities().get(i-1).getMoneyNum1(),2);
-                map.put("productName" + i, initialize.getBusAgentSalesContractModities().get(i-1).getModityName());
-                map.put("model" + i,initialize.getBusAgentSalesContractModities().get(i-1).getModitySpecificat());
-                map.put("unit" + i, initialize.getBusAgentSalesContractModities().get(i-1).getPartyaSeal());
-                map.put("unitPrice" + i,initialize.getBusAgentSalesContractModities().get(i-1).getModityPlace());
-                map.put("amount" + i, initialize.getBusAgentSalesContractModities().get(i-1).getPartybSeal().toString());
-                map.put("total" + i, initialize.getBusAgentSalesContractModities().get(i-1).getMoneyNum1());
-                map.put("remarks" + i,initialize.getBusAgentSalesContractModities().get(i-1).getPartybTime());
+                total = BigDecimalUtil.add(total, initialize.getBusAgentSalesContractModities().get(i - 1).getMoneyNum1(), 2);
+                map.put("productName" + i, initialize.getBusAgentSalesContractModities().get(i - 1).getModityName());
+                map.put("model" + i, initialize.getBusAgentSalesContractModities().get(i - 1).getModitySpecificat());
+                map.put("unit" + i, initialize.getBusAgentSalesContractModities().get(i - 1).getPartyaSeal());
+                map.put("unitPrice" + i, initialize.getBusAgentSalesContractModities().get(i - 1).getModityPlace());
+                map.put("amount" + i, initialize.getBusAgentSalesContractModities().get(i - 1).getPartybSeal().toString());
+                map.put("total" + i, initialize.getBusAgentSalesContractModities().get(i - 1).getMoneyNum1());
+                map.put("remarks" + i, initialize.getBusAgentSalesContractModities().get(i - 1).getPartybTime());
             }
         }
-        map.put("total",BigDecimalUtil.sub(total,"1",2));
+        map.put("total", BigDecimalUtil.sub(total, "1", 2));
         PdfUtil.fillInWordAndSaveAsPdf(readPath, savePath, map);
         //创建文档
         PubDoc pubDoc = new PubDoc();
@@ -701,8 +814,10 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
     }
 
 
+
     /**
      * 报备费发票
+     *
      * @param reportId
      * @param parta
      * @param partaCard
@@ -711,19 +826,19 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
      * @throws ParseException
      */
     @Override
-    public void fillInWordAndSaveAsSpecifyFormatReportFee(Long reportId,String parta,String partaCard,String partaTel,Long debtId,Long propertId) throws CustomerException, ParseException {
+    public void fillInWordAndSaveAsSpecifyFormatReportFee(Long reportId, String parta, String partaCard, String partaTel, Long debtId, Long propertId) throws CustomerException, ParseException {
         //设置模板读取路径
         String readPath = DocumentPath.WORD_TEMPLATE_REPORT.getPath() + DocumentPath.WORD_TEMPLATE_REPORT.getFileName();
         //设置pdf文件保存路径
         String savePath = DocumentPath.PDF_SAVE_REPORT.getPath() + DocumentPath.PDF_SAVE_REPORT.getName() + IdUtils.nextId() + ".pdf";
-        ReportFee reportFee = busPayDetailService.selectByRepId(reportId, "1",debtId,propertId);
+        ReportFee reportFee = busPayDetailService.selectByRepId(reportId, "1", debtId, propertId);
         Map<String, String> map = new HashMap<>(20);
-        map.put(DocReportFee.DEBT_NAME.getName(),reportFee.getDebtName());
-        map.put(DocReportFee.DEBT_NO.getName(),reportFee.getPayNo());
-        map.put(DocReportFee.COM_NAME.getName(),reportFee.getCompanyName());
-        map.put(DocReportFee.THIS_YAER.getName(),String.format("%tY",reportFee.getThisTime()));
-        map.put(DocReportFee.THIS_MOON.getName(),String.format("%tm",reportFee.getThisTime()));
-        map.put(DocReportFee.THIS_DAY.getName(),String.format("%td",reportFee.getThisTime()));
+        map.put(DocReportFee.DEBT_NAME.getName(), reportFee.getDebtName());
+        map.put(DocReportFee.DEBT_NO.getName(), reportFee.getPayNo());
+        map.put(DocReportFee.COM_NAME.getName(), reportFee.getCompanyName());
+        map.put(DocReportFee.THIS_YAER.getName(), String.format("%tY", reportFee.getThisTime()));
+        map.put(DocReportFee.THIS_MOON.getName(), String.format("%tm", reportFee.getThisTime()));
+        map.put(DocReportFee.THIS_DAY.getName(), String.format("%td", reportFee.getThisTime()));
         PdfUtil.fillInWordAndSaveAsPdf(readPath, savePath, map);
         //创建文档
         PubDoc pubDoc = new PubDoc();
@@ -749,6 +864,7 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
 
     /**
      * 咨询服务费
+     *
      * @param reportId
      * @param parta
      * @param partaCard
@@ -757,21 +873,21 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
      * @throws ParseException
      */
     @Override
-    public void fillInWordAndSaveAsSpecifyFormatdvisory(Long reportId, String parta, String partaCard, String partaTel,Long debtId,Long propertId) throws CustomerException, ParseException {
+    public void fillInWordAndSaveAsSpecifyFormatdvisory(Long reportId, String parta, String partaCard, String partaTel, Long debtId, Long propertId) throws CustomerException, ParseException {
         //设置模板读取路径
-        String readPath = DocumentPath.WORD_TEMPLATE_ADVISORY.getPath() +DocumentPath.WORD_TEMPLATE_ADVISORY.getFileName();
+        String readPath = DocumentPath.WORD_TEMPLATE_ADVISORY.getPath() + DocumentPath.WORD_TEMPLATE_ADVISORY.getFileName();
         //设置pdf文件保存路径
         String savePath = DocumentPath.PDF_SAVE_ADVISORY.getPath() + DocumentPath.PDF_SAVE_ADVISORY.getName() + IdUtils.nextId() + ".pdf";
         Map<String, String> map = new HashMap<>(20);
-        ReportFee reportFee = busPayDetailService.selectByRepId(reportId, "3",debtId,propertId);
-        map.put(DocReportFee.DEBT_NAME.getName(),reportFee.getDebtName());
-        map.put(DocReportFee.DEBT_NO.getName(),reportFee.getPayNo());
-        map.put(DocReportFee.COM_NAME.getName(),reportFee.getCompanyName());
-        map.put(DocReportFee.THIS_YAER.getName(),String.format("%tY",reportFee.getThisTime()));
-        map.put(DocReportFee.MONEY.getName(),reportFee.getCost().toString());
-        map.put(DocReportFee.MONEY_MAX.getName(),ConvertUpMoney.toChinese(reportFee.getCost().toString()));
-        map.put(DocReportFee.THIS_MOON.getName(),String.format("%tm",reportFee.getThisTime()));
-        map.put(DocReportFee.THIS_DAY.getName(),String.format("%td",reportFee.getThisTime()));
+        ReportFee reportFee = busPayDetailService.selectByRepId(reportId, "3", debtId, propertId);
+        map.put(DocReportFee.DEBT_NAME.getName(), reportFee.getDebtName());
+        map.put(DocReportFee.DEBT_NO.getName(), reportFee.getPayNo());
+        map.put(DocReportFee.COM_NAME.getName(), reportFee.getCompanyName());
+        map.put(DocReportFee.THIS_YAER.getName(), String.format("%tY", reportFee.getThisTime()));
+        map.put(DocReportFee.MONEY.getName(), reportFee.getCost().toString());
+        map.put(DocReportFee.MONEY_MAX.getName(), ConvertUpMoney.toChinese(reportFee.getCost().toString()));
+        map.put(DocReportFee.THIS_MOON.getName(), String.format("%tm", reportFee.getThisTime()));
+        map.put(DocReportFee.THIS_DAY.getName(), String.format("%td", reportFee.getThisTime()));
         PdfUtil.fillInWordAndSaveAsPdf(readPath, savePath, map);
 
         //创建文档
@@ -798,6 +914,7 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
 
     /**
      * 货款费发票
+     *
      * @param reportId
      * @param parta
      * @param partaCard
@@ -806,21 +923,21 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
      * @throws ParseException
      */
     @Override
-    public void fillInWordAndSaveAsSpecifyPayment(Long reportId, String parta, String partaCard, String partaTel,Long debtId,Long propertId) throws CustomerException, ParseException {
+    public void fillInWordAndSaveAsSpecifyPayment(Long reportId, String parta, String partaCard, String partaTel, Long debtId, Long propertId) throws CustomerException, ParseException {
         //设置模板读取路径
-        String readPath = DocumentPath.WORD_TEMPLATE_PAYMENT.getPath()+DocumentPath.WORD_TEMPLATE_PAYMENT.getFileName();
+        String readPath = DocumentPath.WORD_TEMPLATE_PAYMENT.getPath() + DocumentPath.WORD_TEMPLATE_PAYMENT.getFileName();
         //设置pdf文件保存路径
         String savePath = DocumentPath.PDF_SAVE_PAYMENT.getPath() + DocumentPath.PDF_SAVE_PAYMENT.getName() + IdUtils.nextId() + ".pdf";
         Map<String, String> map = new HashMap<>(20);
-        ReportFee reportFee = busPayDetailService.selectByRepId(reportId, "4",debtId,propertId);
-        map.put(DocReportFee.DEBT_NAME.getName(),reportFee.getDebtName());
-        map.put(DocReportFee.MONEY.getName(),reportFee.getCost().toString());
-        map.put(DocReportFee.MONEY_MAX.getName(),ConvertUpMoney.toChinese(reportFee.getCost().toString()));
-        map.put(DocReportFee.DEBT_NO.getName(),reportFee.getPayNo());
-        map.put(DocReportFee.COM_NAME.getName(),reportFee.getCompanyName());
-        map.put(DocReportFee.THIS_YAER.getName(),String.format("%tY",reportFee.getCreateTime()));
-        map.put(DocReportFee.THIS_MOON.getName(),String.format("%tm",reportFee.getCreateTime()));
-        map.put(DocReportFee.THIS_DAY.getName(),String.format("%td",reportFee.getCreateTime()));
+        ReportFee reportFee = busPayDetailService.selectByRepId(reportId, "4", debtId, propertId);
+        map.put(DocReportFee.DEBT_NAME.getName(), reportFee.getDebtName());
+        map.put(DocReportFee.MONEY.getName(), reportFee.getCost().toString());
+        map.put(DocReportFee.MONEY_MAX.getName(), ConvertUpMoney.toChinese(reportFee.getCost().toString()));
+        map.put(DocReportFee.DEBT_NO.getName(), reportFee.getPayNo());
+        map.put(DocReportFee.COM_NAME.getName(), reportFee.getCompanyName());
+        map.put(DocReportFee.THIS_YAER.getName(), String.format("%tY", reportFee.getCreateTime()));
+        map.put(DocReportFee.THIS_MOON.getName(), String.format("%tm", reportFee.getCreateTime()));
+        map.put(DocReportFee.THIS_DAY.getName(), String.format("%td", reportFee.getCreateTime()));
         PdfUtil.fillInWordAndSaveAsPdf(readPath, savePath, map);
 
         //创建文档

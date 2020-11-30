@@ -148,8 +148,8 @@ public class BusPropertServiceImpl implements BusPropertService {
     }
 
     @Override
-    public BusPropert selectByProId(Long id){
-        BusPropert busPropert = busPropertDao.selectByProId(id);
+    public List<BusPropert> selectByProId(Long id){
+        List<BusPropert> busPropert = busPropertDao.selectByProId(id);
         return busPropert;
     }
 

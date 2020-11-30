@@ -103,9 +103,6 @@ public class BusElectronSealController {
                     }
                 }
             }
-
-
-
             //创建电子章及盖电子章
             String returnElectronCon = DocUtils.fileCrete(docType, busElectronSeal, acctIdStr,acctIdStr2);
             String[] returnElectronConS = returnElectronCon.split(",");

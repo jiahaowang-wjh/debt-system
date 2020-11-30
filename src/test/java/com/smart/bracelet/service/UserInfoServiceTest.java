@@ -68,8 +68,6 @@ public class UserInfoServiceTest {
     private BusPropertService busPropertService;
 
 
-
-
     @Test
     public void testB() throws Exception {
 
@@ -79,27 +77,30 @@ public class UserInfoServiceTest {
 
     @Test
     public void testA() throws Exception {
-
-        Long reportId = 8019052418102525952L;
-        BusPropert busPropert = busPropertService.selectByProId(reportId);
-        if(busPropert!=null){
-            testDao.delBusAssessment(busPropert.getPropertId());
-            testDao.delBusAssignmentAgreement(busPropert.getPropertId());
-            testDao.delBusAssignmentConfirm(busPropert.getPropertId());
-            testDao.delBusConfirm(busPropert.getPropertId());
-            testDao.delBusAssignmentNotice(busPropert.getPropertId());
-            testDao.delBusAgentSalesContract(busPropert.getPropertId());
-            testDao.delBusCollectionLetter(busPropert.getPropertId());
-            testDao.delCumoutProtocol(busPropert.getPropertId());
-            testDao.busCompromiseAgreement(busPropert.getPropertId());
-            testDao.delBusPropert(reportId);
+        Long[] res = {8018007230683873280L, 8018012226129297408L, 8018019427262726144L, 8018021924983341056L, 8018023999096029184L, 8018026172664053760L
+                , 8018043384703418368L, 8018059807462981632L, 8018061626574569472L, 8019048242362515456L, 8019050374813777920L, 8019051424199278592L
+        };
+        for (Long item : res) {
+            List<BusPropert> busPropert = busPropertService.selectByProId(item);
+            for (BusPropert item1: busPropert) {
+                testDao.delBusAssessment(item1.getPropertId());
+                testDao.delBusAssignmentAgreement(item1.getPropertId());
+                testDao.delBusAssignmentConfirm(item1.getPropertId());
+                testDao.delBusConfirm(item1.getPropertId());
+                testDao.delBusAssignmentNotice(item1.getPropertId());
+                testDao.delBusAgentSalesContract(item1.getPropertId());
+                testDao.delBusCollectionLetter(item1.getPropertId());
+                testDao.delCumoutProtocol(item1.getPropertId());
+                testDao.busCompromiseAgreement(item1.getPropertId());
+            }
+            testDao.delBusPropert(item);
+            testDao.delPubDebt(item);
+            testDao.delBusCivil(item);
+            testDao.delBusRelativePerson(item);
+            testDao.delbusPayDetail(item);
+            testDao.delBusRealAuth(item);
+            testDao.delBusReport(item);
         }
-        testDao.delPubDebt(reportId);
-        testDao.delBusCivil(reportId);
-        testDao.delBusRelativePerson(reportId);
-        testDao.delbusPayDetail(reportId);
-        testDao.delBusRealAuth(reportId);
-        testDao.delBusReport(reportId);
     }
 
 }

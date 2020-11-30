@@ -28,7 +28,7 @@ public enum DocEransfer {
     AMOUNTTHIS("amount"),
     SERVICE_PRIN("principal"),
     SERVICE_INTST("interest"),
-    SERVICE_MONEY("amount2"),
+    SERVICE_MONEY("mount2"),
     ;
 
     private String name;

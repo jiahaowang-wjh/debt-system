@@ -107,7 +107,7 @@
     </select>
     <select id="selectReportIdCor" resultType="java.lang.Long">
         SELECT bus_report.`report_id` FROM bus_report
-        WHERE bus_report.data5 = #{phone} AND bus_report.`stage` = '2' AND bus_report.`status` = '5'
+        WHERE bus_report.data5 = #{phone}
     </select>
 
     <select id="selectPersonIdCardByPrId" resultType="java.lang.String">
@@ -148,7 +148,7 @@
     </select>
     <select id="selectReportIdPri" resultType="java.lang.Long" parameterType="java.lang.String">
         SELECT bus_report.`report_id` FROM bus_report
-        WHERE bus_report.data3 = #{phone} AND bus_report.`stage` = '2' AND bus_report.`status` = '5'
+        WHERE bus_report.data3 = #{phone}
     </select>
 
 
