@@ -80,8 +80,19 @@
     </select>
 
     <select id="queryLisyDebtor" resultType="com.smart.bracelet.model.vo.debt.DebtChain">
-        SELECT br.report_id AS 'fatherId',br.data1 AS Report,br.data3 AS RelativePersonIdCad FROM bus_report br
-        WHERE br.data1=#{personIdCad,jdbcType=VARCHAR}
+        SELECT br.report_id AS 'fatherId',br.data1 AS Report,br.data3 AS
+        RelativePersonIdCad,pc.`company_type`,pc.`company_id`
+        FROM bus_report br
+        LEFT JOIN pub_company pc ON br.`company_id` = pc.`company_id`
+        <where>
+            br.data1=#{personIdCad,jdbcType=VARCHAR}
+            <if test="comId != '' and comId != null">
+                and  pc.company_id = #{comId}
+            </if>
+            <if test="companyType != '' and companyType != null">
+                and pc.company_type = #{companyType}
+            </if>
+        </where>
     </select>
 
     <select id="selectRepNo" resultType="java.lang.String">

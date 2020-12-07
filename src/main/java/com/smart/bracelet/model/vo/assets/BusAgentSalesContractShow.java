@@ -21,6 +21,7 @@ public class BusAgentSalesContractShow {
      * 债权人姓名
      */
     String debtName;
+    String debtIdCardCor;
     /**
      * 债权人身份证号
      */

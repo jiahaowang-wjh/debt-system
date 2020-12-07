@@ -15,7 +15,7 @@ public class BusCompromiseAgreementShow {
 
     @JsonSerialize(using = ToStringSerializer.class)
     Long propertId;
-
+    String idCardCor;
     /**
      * 债务人姓名
      */

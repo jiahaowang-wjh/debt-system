@@ -20,7 +20,8 @@ public class BusAssignmentConfirmShow {
      * 债权人姓名
      */
     String debtName;
-
+    String perIdCardCor;
+    String debtIdCardCor;
     /**
      * 债权人身份证
      */

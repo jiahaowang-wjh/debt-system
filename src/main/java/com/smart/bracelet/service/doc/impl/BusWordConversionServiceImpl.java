@@ -128,11 +128,12 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
             busElectronSeal.setFilePath(savePath);
             busElectronSeal.setDocId(nextId);
             busElectronSeal.setParta(initialize.getDebtName());
-            busElectronSeal.setPartaCard(initialize.getIdCard());
             if (initialize.getReportPropert().equals("1")) {
                 busElectronSeal.setPartaTel(initialize.getPriPhone());
+                busElectronSeal.setPartaCard(initialize.getIdCard());
             } else {
                 busElectronSeal.setPartaTel(initialize.getCorBankPhone());
+                busElectronSeal.setPartaCard(initialize.getIdCardCor());
             }
             busElectronSealController.addPubUser(busElectronSeal);
             return nextId;
@@ -197,11 +198,12 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         busElectronSeal.setFilePath(savePath);
         busElectronSeal.setDocId(nextId);
         busElectronSeal.setParta(planServiceInfo.getDebtName());
-        busElectronSeal.setPartaCard(planServiceInfo.getPersonCard());
         if (planServiceInfo.getReportPropert().equals("1")) {
+            busElectronSeal.setPartaCard(planServiceInfo.getPersonCard());
             busElectronSeal.setPartaTel(planServiceInfo.getPriPhone());
         } else {
             busElectronSeal.setPartaTel(planServiceInfo.getCorBankPhone());
+            busElectronSeal.setPartaCard(planServiceInfo.getIdCardCor());
         }
         busElectronSealController.addPubUser(busElectronSeal);
     }
@@ -335,11 +337,12 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         busElectronSeal.setFilePath(savePath);
         busElectronSeal.setDocId(nextId);
         busElectronSeal.setParta(initialize.getDebtName());
-        busElectronSeal.setPartaCard(initialize.getIdCard());
         if (initialize.getReportPropert().equals("1")) {
             busElectronSeal.setPartaTel(initialize.getPriPhone());
+            busElectronSeal.setPartaCard(initialize.getIdCard());
         } else {
             busElectronSeal.setPartaTel(initialize.getCorBankPhone());
+            busElectronSeal.setPartaCard(initialize.getIdCardCor());
         }
         busElectronSealController.addPubUser(busElectronSeal);
     }
@@ -397,7 +400,20 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         busElectronSeal.setFilePath(savePath);
         busElectronSeal.setDocId(nextId);
         busElectronSeal.setParta(initialize.getPersonName() + "," + initialize.getDebtName());
-        busElectronSeal.setPartaCard(initialize.getPerIdCard() + "," + initialize.getDebtIdCard());
+        String debtCard;
+        String perCard;
+        if(initialize.getDebtPropert().equals("1")){
+            debtCard = initialize.getDebtIdCard();
+        }else {
+            debtCard = initialize.getDebtIdCardCor();
+        }
+        if(initialize.getPerPropert().equals("1")){
+            perCard = initialize.getPerIdCard();
+        }else {
+            perCard = initialize.getPerIdCardCor();
+        }
+        busElectronSeal.setPartaCard(perCard + "," + debtCard);
+
         if (initialize.getDebtPropert().equals("1")) {
             if (initialize.getPerPropert().equals("1")) {
                 busElectronSeal.setPartaTel( initialize.getPerPhonePri()+ "," + initialize.getDebtPhonePri());
@@ -457,7 +473,19 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         busElectronSeal.setFilePath(savePath);
         busElectronSeal.setDocId(nextId);
         busElectronSeal.setParta(initialize.getDebtName() + "," + initialize.getPersonName());
-        busElectronSeal.setPartaCard(initialize.getDebtIdCard() + "," + initialize.getIdCard());
+        String debtCard;
+        String perIdCard;
+        if(initialize.getDebtPropert().equals("1")){
+            debtCard = initialize.getDebtIdCard();
+        }else {
+            debtCard = initialize.getDebtIdCardCor();
+        }
+        if(initialize.getPerPropert().equals("1")){
+            perIdCard = initialize.getIdCard();
+        }else {
+            perIdCard = initialize.getIdCardCor();
+        }
+        busElectronSeal.setPartaCard(debtCard + "," + perIdCard);
         if (initialize.getDebtPropert().equals("1")) {
             if (initialize.getPerPropert().equals("1")) {
                 busElectronSeal.setPartaTel(initialize.getDebtPhonePri() + "," + initialize.getPerPhonePri());
@@ -522,11 +550,12 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         busElectronSeal.setFilePath(savePath);
         busElectronSeal.setDocId(nextId);
         busElectronSeal.setParta(initialize.getPersonName());
-        busElectronSeal.setPartaCard(initialize.getPersonCard());
         if (initialize.getReportPropert().equals("1")) {
             busElectronSeal.setPartaTel(initialize.getPriPhone());
+            busElectronSeal.setPartaCard(initialize.getPersonCard());
         } else {
             busElectronSeal.setPartaTel(initialize.getCorBackPhone());
+            busElectronSeal.setPartaCard(initialize.getPersonCardCor());
         }
         busElectronSealController.addPubUser(busElectronSeal);
     }
@@ -576,10 +605,11 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         busElectronSeal.setFilePath(savePath);
         busElectronSeal.setDocId(nextId);
         busElectronSeal.setParta(initialize.getPersonName());
-        busElectronSeal.setPartaCard(initialize.getIdCard());
         if (initialize.getReportPropert().equals("1")) {
+            busElectronSeal.setPartaCard(initialize.getIdCard());
             busElectronSeal.setPartaTel(initialize.getPriPhone());
         } else {
+            busElectronSeal.setPartaCard(initialize.getIdCardCor());
             busElectronSeal.setPartaTel(initialize.getCorBackPhone());
         }
         busElectronSealController.addPubUser(busElectronSeal);
@@ -632,11 +662,12 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         busElectronSeal.setFilePath(savePath);
         busElectronSeal.setDocId(nextId);
         busElectronSeal.setParta(initialize.getPersonName());
-        busElectronSeal.setPartaCard(initialize.getIdCard());
         if (initialize.getPersonReportPropert().equals("1")) {
             busElectronSeal.setPartaTel(initialize.getPersonPriPhone());
+            busElectronSeal.setPartaCard(initialize.getIdCard());
         } else {
             busElectronSeal.setPartaTel(initialize.getPersonCorPhone());
+            busElectronSeal.setPartaCard(initialize.getIdCardCor());
         }
         busElectronSealController.addPubUser(busElectronSeal);
     }
@@ -721,16 +752,16 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         pubDocDao.insertSelective(pubDoc);
         //创建电子章
         BusElectronSeal busElectronSeal = new BusElectronSeal();
-        //信息分析暨尽调协议
         busElectronSeal.setDocType("11");
         busElectronSeal.setFilePath(savePath);
         busElectronSeal.setDocId(nextId);
         busElectronSeal.setParta(initialize.getDebtName());
-        busElectronSeal.setPartaCard(initialize.getDebtIdCard());
         if (initialize.getReportPropert().equals("1")) {
             busElectronSeal.setPartaTel(initialize.getPriPhone());
+            busElectronSeal.setPartaCard(initialize.getDebtIdCard());
         } else {
             busElectronSeal.setPartaTel(initialize.getCorBankPhone());
+            busElectronSeal.setPartaCard(initialize.getDebtIdCardCor());
         }
         busElectronSealController.addPubUser(busElectronSeal);
     }

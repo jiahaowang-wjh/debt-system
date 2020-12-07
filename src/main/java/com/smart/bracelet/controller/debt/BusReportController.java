@@ -167,8 +167,8 @@ public class BusReportController {
      * @return
      */
     @RequestMapping("/queryListChain")
-    public Result<DebtChain> queryListChain(@NotBlank(message = "姓名不能为空") String personIdCad) {
-        DebtChain list = busReportService.queryListChain(personIdCad);
+    public Result<DebtChain> queryListChain(@NotBlank(message = "姓名不能为空") String personIdCad,@NotNull(message = "公司Id不能为空") Long comId,@NotBlank(message = "公司类型不能为空") String companyType) {
+        DebtChain list = busReportService.queryListChain(personIdCad,comId,companyType);
         return Result.success(list);
     }
 

@@ -40,7 +40,7 @@
           SELECT  `bus_assignment_confirm`.confirm_no  FROM  bus_assignment_confirm  ORDER   BY   `bus_assignment_confirm`.posse_confirmt_id   DESC   LIMIT   1
     </select>
     <select id="initialize" resultType="com.smart.bracelet.model.vo.assets.BusAssignmentConfirmShow">
-    SELECT br.data2 as 'debtIdCard',br.data3 as 'debtPhonePri',br.data5 as 'debtPhoneCor',br.report_propert as 'debtPropert',
+    SELECT brp.data6 as 'perIdCardCor',br.data6 as 'debtIdCardCor',br.data2 as 'debtIdCard',br.data3 as 'debtPhonePri',br.data5 as 'debtPhoneCor',br.report_propert as 'debtPropert',
     brp.data2 as 'perIdCard',brp.data3 as 'perPhonePri',brp.data5 as 'perPhoneCor',brp.report_propert as 'perPropert',
     br.report_id,bc.`civil_id`,br.`data1` AS 'debtName',brp.`data1` AS 'personName',pd.`amount_this`,baa.assignment_agreement_no,bac.`contract_time`,bac.confirm_no
     FROM bus_propert bp

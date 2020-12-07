@@ -27,4 +27,6 @@ public class AgreementInfoShow {
     Date agreementDate;
 
     Long reportId;
+
+    String idCardCor;
 }

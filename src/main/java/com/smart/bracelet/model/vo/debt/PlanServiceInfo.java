@@ -93,5 +93,6 @@ public class PlanServiceInfo {
     @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
     Date contractDate;
 
+    String idCardCor;
 
 }

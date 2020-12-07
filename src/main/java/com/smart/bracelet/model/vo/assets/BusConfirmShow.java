@@ -15,6 +15,7 @@ public class BusConfirmShow {
      * 债权人姓名
      */
     String debtName;
+    String personCardCor;
 
     /**
      * 债务人身份证

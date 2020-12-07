@@ -73,7 +73,7 @@ public interface BusReportService {
      *查询债事人债事链
      * @return
      */
-   DebtChain queryListChain(String personIdCad);
+   DebtChain queryListChain(String personIdCad,Long comId,String comType);
 
 
     /**

@@ -179,13 +179,9 @@ public class BusRelativePersonController {
      * 辅助下载财务
      */
     @RequestMapping("/selectDow")
-    public Result<PageInfo> selectDow(@NotNull(message = "页码不能为空") Integer pageNum,
-                                      @NotNull(message = "当前显示条数不能为空") Integer pageSize,
-                                      String debtName, String time) throws ParseException {
-        PageHelper.startPage(pageNum, pageSize);
+    public Result<List<AuxiliaryDownload>> selectDow(String debtName, String time) throws ParseException {
         List<AuxiliaryDownload> auxiliaryDownloads = busRelativePersonService.selectDow(debtName, time);
-        PageInfo<AuxiliaryDownload> auxiliaryDownloadPageInfo = new PageInfo<>(auxiliaryDownloads);
-        return Result.success(auxiliaryDownloadPageInfo);
+        return Result.success(auxiliaryDownloads);
     }
 
 
@@ -203,14 +199,9 @@ public class BusRelativePersonController {
      * 辅助下载债务
      */
     @RequestMapping("/selectDebtDow")
-    public Result<PageInfo> selectDebtDow(
-            @NotNull(message = "页码不能为空") Integer pageNum,
-            @NotNull(message = "当前显示条数不能为空") Integer pageSize,
-            String debtName, String time) {
-        PageHelper.startPage(pageNum,pageSize);
+    public Result<List<DowLod>> selectDebtDow( String debtName, String time) {
         List<DowLod> dowLods = busRelativePersonService.selectDebtDow(debtName, time);
-        PageInfo<DowLod> dowLodPageInfo = new PageInfo<>(dowLods);
-        return Result.success(dowLodPageInfo);
+        return Result.success(dowLods);
     }
 
 

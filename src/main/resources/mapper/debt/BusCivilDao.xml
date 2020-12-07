@@ -115,7 +115,7 @@
         WHERE bus_relative_person.`report_id` = #{reportId,jdbcType=BIGINT}
     </select>
     <select id="initialize" resultType="com.smart.bracelet.model.vo.debt.AgreementInfoShow">
-       SELECT br.report_id,br.report_propert,br.data3 AS 'priPhone',br.data5 AS 'corBankPhone',br.`data1` AS 'debtName',br.`data2` AS 'idCard', br.`agreement_no`,br.agreement_date FROM bus_report br
+       SELECT br.data6 as 'idCardCor',br.report_id,br.report_propert,br.data3 AS 'priPhone',br.data5 AS 'corBankPhone',br.`data1` AS 'debtName',br.`data2` AS 'idCard', br.`agreement_no`,br.agreement_date FROM bus_report br
         WHERE br.`report_id` = #{reportId,jdbcType=BIGINT}
     </select>
     <select id="initializePlan" resultType="com.smart.bracelet.model.vo.debt.PlanServiceInfo">

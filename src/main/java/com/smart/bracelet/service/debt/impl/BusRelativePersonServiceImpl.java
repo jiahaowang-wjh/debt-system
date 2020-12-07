@@ -491,12 +491,16 @@ public class BusRelativePersonServiceImpl implements BusRelativePersonService {
             ReportAndRelativePerson reportAndRelativePerson = busRelativePersonDao.selectByRelativePerId(relativePerId);
             ReportAndRelativePersonShow show = new ReportAndRelativePersonShow();
             PubDebt pubDebt = pubDebtDao.selectAmountCumulative(relativePerId);
+            String moneyNum = pubDebtDao.queryMoneyNum(pubDebt.getReportId());
+            if(StringUtils.isNotEmpty(moneyNum)){
+                show.setAmountCumulative(moneyNum);
+            }else{
+                show.setAmountCumulative("0.00");
+            }
             if (pubDebt != null) {
-                show.setAmountCumulative(pubDebt.getAmountCumulative().toString());
                 show.setAmountTotal(pubDebt.getAmountTotal().toString());
             } else {
                 if (reportAndRelativePerson.getAmountTotal() != null) {
-                    show.setAmountCumulative("0.00");
                     show.setAmountTotal(reportAndRelativePerson.getAmountTotal().toString());
                 }
             }

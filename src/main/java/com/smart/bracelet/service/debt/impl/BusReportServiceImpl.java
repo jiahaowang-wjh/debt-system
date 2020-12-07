@@ -509,13 +509,18 @@ public class BusReportServiceImpl implements BusReportService {
      * @return
      */
     @Override
-    public DebtChain queryListChain(String personIdCad) {
+    public DebtChain queryListChain(String personIdCad, Long comId, String companyType) {
 
         //查询债事人
         List<DebtChain> debtChainList;
         DebtChain debtChain = new DebtChain();
-        debtChainList = busReportDao.queryLisyDebtor(personIdCad);
-        if (org.springframework.util.StringUtils.isEmpty(debtChainList)||debtChainList.size()==0) {
+        if (companyType.equals("1")) {
+            debtChainList = busReportDao.queryLisyDebtor(personIdCad, null, null);
+        } else {
+            debtChainList = busReportDao.queryLisyDebtor(personIdCad, comId, companyType);
+        }
+
+        if (org.springframework.util.StringUtils.isEmpty(debtChainList) || debtChainList.size() == 0) {
             return null;
         }
         debtChain = debtChainList.get(0);
@@ -524,7 +529,7 @@ public class BusReportServiceImpl implements BusReportService {
         list = busReportDao.queryLisyRelativePerson(personIdCad);
         if (list != null && list.size() > 0) {
             debtChain.setDebtChain(list);
-            debtChain = lisyChain(debtChain,1);
+            debtChain = lisyChain(debtChain, 1);
         }
         return debtChain;
     }
@@ -534,23 +539,29 @@ public class BusReportServiceImpl implements BusReportService {
      *
      * @param debtChain
      */
-    public DebtChain lisyChain(DebtChain debtChain,int no) {
+    public DebtChain lisyChain(DebtChain debtChain, int no) {
         List<DebtChain> list = debtChain.getDebtChain();
         for (int i = 0; i < list.size(); i++) {
             List<DebtChain> lista = new ArrayList<>();
             DebtChain debtChain1 = list.get(i);
-            List<DebtChain> debtChainList = busReportDao.queryLisyDebtor(debtChain1.getReport());
-            if (debtChainList != null && no<2 && "2".equals(debtChain1.getReportType())) {
+            List<DebtChain> debtChainList;
+            if (debtChain1.equals("1")) {
+                debtChainList = busReportDao.queryLisyDebtor(debtChain1.getReport(), null,null);
+            } else {
+                debtChainList = busReportDao.queryLisyDebtor(debtChain1.getReport(), debtChain1.getCompanyId(), debtChain1.getCompanyType());
+            }
+            if (debtChainList != null && no < 2 && "2".equals(debtChain1.getReportType())) {
                 lista = busReportDao.queryLisyRelativePerson(debtChain1.getReport());
                 if (lista != null && lista.size() > 0) {
                     debtChain.getDebtChain().get(i).setDebtChain(lista);
                     debtChain1.setDebtChain(lista);
-                    lisyChain(debtChain1,no+1);
+                    lisyChain(debtChain1, no + 1);
                 }
             }
         }
         return debtChain;
     }
+
     @Override
     public int updateStatus(String status, Long reportId, String checkReason) throws CustomerException {
         try {

@@ -86,4 +86,8 @@ public interface PubDebtDao {
      */
     PubDebt selectMoney(Long reportId);
 
+    /**
+     * 查询累计解债金额
+     */
+    String queryMoneyNum(Long repId);
 }

@@ -41,7 +41,7 @@ public interface BusReportDao {
      *查询债事人
      * @return
      */
-    List<DebtChain> queryLisyDebtor(String personIdCad);
+    List<DebtChain> queryLisyDebtor(String personIdCad,Long comId,String companyType);
 
     /**
      *查询相对人

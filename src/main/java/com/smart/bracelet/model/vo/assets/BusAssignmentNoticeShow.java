@@ -12,6 +12,9 @@ import java.util.Date;
 public class BusAssignmentNoticeShow {
 
     Long reportId;
+
+    String debtIdCardCor;
+    String idCardCor;
     /**
      * 债务人姓名
      */

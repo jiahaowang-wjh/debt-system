@@ -119,7 +119,7 @@
     </select>
     <select id="initializePlan" resultType="com.smart.bracelet.model.vo.debt.PlanServiceInfo"
             parameterType="java.lang.Long">
-        SELECT br.report_id,pd.debt_id,br.`report_propert`,br.`data1` AS 'debtName',br.`data2` AS 'personCard',br.`data5` AS 'priAdd',br.`data7` AS 'corBankAdd',br.data3 AS 'priPhone',br.`data9` AS 'corBankPhone',
+        SELECT br.data6 as 'idCardCor',br.report_id,pd.debt_id,br.`report_propert`,br.`data1` AS 'debtName',br.`data2` AS 'personCard',br.`data5` AS 'priAdd',br.`data7` AS 'corBankAdd',br.data3 AS 'priPhone',br.`data9` AS 'corBankPhone',
         pd.`amount_this`,pd.this_plan_money,pd.`service_principal`,pd.`service_interest`,pd.`matters`,pd.`contract_date`,pd.`service_no`
         FROM bus_report br
         LEFT JOIN pub_debt pd ON br.`report_id` = pd.`report_id`
@@ -136,6 +136,10 @@
     <select id="selectMoney" resultType="com.smart.bracelet.model.po.debt.PubDebt"
             parameterType="java.lang.Long">
         SELECT * FROM pub_debt WHERE pub_debt.`report_id` = #{reportId} ORDER BY create_time DESC LIMIT   1
+    </select>
+    <select id="queryMoneyNum" resultType="java.lang.String" parameterType="java.lang.Long">
+        SELECT SUM(amount_this) AS 'cumulativeSum' FROM pub_debt
+        WHERE pub_debt.`report_id` = #{repId} GROUP BY report_id
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from pub_debt

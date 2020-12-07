@@ -110,7 +110,9 @@ public class PubUserServiceImpl implements PubUserService {
     @Transactional(noRollbackFor = Exception.class)
     public int updateByPrimaryKeySelective(PubUserVo record) throws CustomerException {
         try {
-            record.setPasswordMd5(new BCryptPasswordEncoder().encode(record.getPasswordMd5()));
+            if(StringUtils.isNotEmpty(record.getPasswordMd5())){
+                record.setPasswordMd5(new BCryptPasswordEncoder().encode(record.getPasswordMd5()));
+            }
             int i = pubUserDao.updateByPrimaryKeySelective(record);
             log.info("修改用户信息成功,受影响行数:{}", i);
             return i;

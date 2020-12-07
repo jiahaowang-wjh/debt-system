@@ -129,4 +129,6 @@ public class BusAssignmentAgreementShow {
      * 债权人性质
      */
     String debtPropert;
+
+    String idCardCor;
 }

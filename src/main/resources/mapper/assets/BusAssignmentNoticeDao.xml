@@ -26,7 +26,7 @@
         from bus_assignment_notice
     </select>
     <select id="initialize" resultType="com.smart.bracelet.model.vo.assets.BusAssignmentNoticeShow">
-        SELECT br.report_id,br.`data1` AS 'debtName',br.report_propert as 'debtPropert',
+        SELECT br.data6 as 'debtIdCardCor',brp.data6 as 'idCardCor',br.report_id,br.`data1` AS 'debtName',br.report_propert as 'debtPropert',
         br.data2 as 'debtIdCard',br.data3 as 'debtPhonePri',br.data5 as 'debtPhoneCor',
         brp.`data1` AS 'personName',pd.`amount_this`,brp.`data2` AS 'idCard',
         brp.data3 as 'perPhonePri',brp.data5 as 'perPhoneCor',brp.report_propert as 'perPropert'

@@ -31,4 +31,7 @@ public class DebtChain {
 
     String reportType;
 
+    String companyType;
+
+    Long companyId;
 }

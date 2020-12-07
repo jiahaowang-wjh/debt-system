@@ -15,6 +15,7 @@ public class BusCollectionLetterShow {
      * 债务人姓名
      */
     String personName;
+    String idCardCor;
     /**
      * 报备ID
      */
