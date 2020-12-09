@@ -33,7 +33,7 @@ public class OneStepStart {
 			TokenHelper.getTokenData();
 
 			LOGGER.info("---------------------创建个人账号start-------------------------------");
-			JSONObject personAcctJson = AccountHelper.createPersonAcct("ZS0006", "付世波", null, "500101199102162619", "13274019757", null);
+			JSONObject personAcctJson = AccountHelper.createPersonAcct("ZS0022", "熊长河", null, "500101198909037814", "17830015877", null);
 			String acctId = personAcctJson.getString("accountId");
 //
 //			JSONObject personAcctJson = AccountHelper.createPersonAcct("ZS0008", "邓丽清", null, "440981198801011427", "15218801056", null);
@@ -46,11 +46,11 @@ public class OneStepStart {
 ////			String copierAcctId = copierAcctJson.getString("accountId");
 //
 			LOGGER.info("---------------------创建机构账号start----------------------------------");
-			JSONObject orgAcctJson = AccountHelper.createOrgAcct("ss", acctId, "深圳市方博商贸管理有限公司", null, "91440300MA5G44JB4K");
+			JSONObject orgAcctJson = AccountHelper.createOrgAcct("mama", acctId, "重庆米呀米电子商务有限公司", null, "91500107MA616WHU2M");
 			String orgId = orgAcctJson.getString("orgId");
 
 			LOGGER.info("---------------------创建机构印章start----------------------------------");
-			JSONObject orgSealJson = SealHelper.createOrgTemplateSeal(orgId, "深圳市方博商贸管理有限公司", "RED", null, null, null, "91440300MA5G44JB4K", "TEMPLATE_ROUND", "STAR");
+			JSONObject orgSealJson = SealHelper.createOrgTemplateSeal(orgId, "重庆米呀米电子商务有限公司", "RED", null, null, null, "91500107MA616WHU2M", "TEMPLATE_ROUND", "STAR");
 			String orgSealId = orgSealJson.getString("sealId");
 			System.out.println(orgSealId);
 //

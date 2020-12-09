@@ -27,6 +27,8 @@ public enum DocCode {
 
     SALES_CONTRACT("委托代理销售合同", "11",false,1),
 
+    ONLINE_SALES_CONTRACT("委托线上代理销售合同", "13",false,1),
+
     SETTLEMENT_AGREEMENT("和解协议", "12",false,1);
 
     /**

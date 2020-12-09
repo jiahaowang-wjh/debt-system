@@ -677,18 +677,18 @@ public class SignHelper {
 			SignerAccount signAccount = new SignerAccount(copierAccountId, signerAccountId);//签署方账号
 			Signer signer2 = new Signer(false, 1, signAccount, Lists.newArrayList(signfield2), null); // 签署方
 
-			PosBeanInfo posBean4 = new PosBeanInfo("5", 166F, 351F); // 签署位置
+			PosBeanInfo posBean4 = new PosBeanInfo("6", 166F, 160F); // 签署位置
 			SignfieldInfo signfield4 = new SignfieldInfo(true, "2", fileId, null, null, null, posBean4, null,orgInfo.getSealId()); // 签署区
 			SignerAccount signAccount4 = new SignerAccount(orgInfo.getAccountId(), orgInfo.getOrgid());//签署方账号
 			Signer signer4 = new Signer(false, 1, signAccount4, Lists.newArrayList(signfield4), null); // 签署方
 			// 用户方1
-			PosBeanInfo posBean5 = new PosBeanInfo("5", 166F, 493F); // 签署位置
+			PosBeanInfo posBean5 = new PosBeanInfo("6", 166F, 273F); // 签署位置
 			SignfieldInfo signfield5 = new SignfieldInfo(true, null, fileId, null, null, null, posBean5, null,null); // 签署区
 			SignerAccount signAccoun5 = new SignerAccount(copierAccountId, signerAccountId);//签署方账号
 			Signer signer5 = new Signer(false, 1, signAccoun5, Lists.newArrayList(signfield5), null); // 签署方
 
 			// 平台方-骑缝章
-			PosBeanInfo posBean3 = new PosBeanInfo("1-5", 0F, 500F); // 签署位置
+			PosBeanInfo posBean3 = new PosBeanInfo("1-7", 0F, 500F); // 签署位置
 			SignfieldInfo signfield3 = new SignfieldInfo(true, "2", fileId, null, null, 2, posBean3, null,orgInfo.getSealId()); // 签署区
 			SignerAccount signAccount3 = new SignerAccount(copierAccountId, orgInfo.getOrgid());//签署方账号
 			Signer signer3 = new Signer(false, 1, signAccount3, Lists.newArrayList(signfield3), null); // 签署方
@@ -714,6 +714,31 @@ public class SignHelper {
 			SignerAccount signAccount3 = new SignerAccount(orgInfo.getAccountId(), orgInfo.getOrgid());//签署方账号
 			Signer signer3 = new Signer(false, 1, signAccount3, Lists.newArrayList(signfield3), null); // 签署方
 			signers = Lists.newArrayList(signer1, signer2,signer3);
+		}else if ("13".equals(docType)){//委托线上代理销售合同
+			docCode = DocCode.ONLINE_SALES_CONTRACT;
+			orgInfo = OrgInfo.ELEC_CC;
+			// 签署方信息
+			// 平台方
+			PosBeanInfo posBean1 = new PosBeanInfo("5", 394F, 667F); // 签署位置
+			SignfieldInfo signfield1 = new SignfieldInfo(true, "2", fileId, null, null, null, posBean1, null,orgInfo.getSealId()); // 签署区
+			SignerAccount signAccount1 = new SignerAccount(orgInfo.getAccountId(), orgInfo.getOrgid());//签署方账号
+			Signer signer1 = new Signer(false, 1, signAccount1, Lists.newArrayList(signfield1), null); // 签署方
+			// 用户方1
+			PosBeanInfo posBean2 = new PosBeanInfo("5", 123F, 667F); // 签署位置
+			SignfieldInfo signfield2 = new SignfieldInfo(true, null, fileId, null, null, null, posBean2, null,null); // 签署区
+			SignerAccount signAccount = new SignerAccount(copierAccountId, signerAccountId);//签署方账号
+			Signer signer2 = new Signer(false, 1, signAccount, Lists.newArrayList(signfield2), null); // 签署方
+
+			PosBeanInfo posBean4 = new PosBeanInfo("7", 198F, 706F); // 签署位置
+			SignfieldInfo signfield4 = new SignfieldInfo(true, "2", fileId, null, null, null, posBean4, null,orgInfo.getSealId()); // 签署区
+			SignerAccount signAccount4 = new SignerAccount(orgInfo.getAccountId(), orgInfo.getOrgid());//签署方账号
+			Signer signer4 = new Signer(false, 1, signAccount4, Lists.newArrayList(signfield4), null); // 签署方
+			// 用户方1
+			PosBeanInfo posBean5 = new PosBeanInfo("6", 195F, 203F); // 签署位置
+			SignfieldInfo signfield5 = new SignfieldInfo(true, null, fileId, null, null, null, posBean5, null,null); // 签署区
+			SignerAccount signAccoun5 = new SignerAccount(copierAccountId, signerAccountId);//签署方账号
+			Signer signer5 = new Signer(false, 1, signAccoun5, Lists.newArrayList(signfield5), null); // 签署方
+			signers = Lists.newArrayList(signer1, signer2,signer4,signer5);
 		}
 
 		// 附件信息列表 这里模拟没有附件的情况
@@ -728,7 +753,8 @@ public class SignHelper {
 		List<Doc> docs = Lists.newArrayList(doc);
 
 		// 流程配置，可以不配置，使用默认配置
-		FlowConfigInfo flowConfigInfo = new FlowConfigInfo(null, "1,2", "www.baidu.com", null);
+		//FlowConfigInfo flowConfigInfo = new FlowConfigInfo(null, "1,2", "www.baidu.com", null);
+		FlowConfigInfo flowConfigInfo = new FlowConfigInfo(null, "", "http://www.sstz888.com/tz", null);
 		FlowInfo flowInfo = new FlowInfo(docCode.getDocName()+"一步发起签署",flowConfigInfo);
 
 		//拼接参数

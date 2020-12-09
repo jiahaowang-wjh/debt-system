@@ -842,6 +842,15 @@ public class BusWordConversionServiceImpl implements BusWordConversionService {
         pubDoc.setDocPath(savePath);
         pubDoc.setReportId(initialize.getReportId());
         pubDocDao.insertSelective(pubDoc);
+        //创建电子章
+        BusElectronSeal busElectronSeal = new BusElectronSeal();
+        busElectronSeal.setDocType("13");
+        busElectronSeal.setFilePath(savePath);
+        busElectronSeal.setDocId(nextId);
+        busElectronSeal.setParta(initialize.getDebtName());
+        busElectronSeal.setPartaTel(initialize.getPriPhone());
+        busElectronSeal.setPartaCard(initialize.getDebtIdCard());
+        busElectronSealController.addPubUser(busElectronSeal);
     }
 
 

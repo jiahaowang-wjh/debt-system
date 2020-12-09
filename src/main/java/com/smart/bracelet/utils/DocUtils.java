@@ -78,6 +78,10 @@ public class DocUtils {
             docCode = DocCode.SETTLEMENT_AGREEMENT;
             //设置静默签署
             AccountHelper.setAutoSign(OrgInfo.ELEC_AA.getAccountId(),"2121-09-07 23:59:59");
+        }else if ("13".equals(docType)){//委托线上代理销售合同
+            docCode = DocCode.ONLINE_SALES_CONTRACT;
+            //设置静默签署
+            AccountHelper.setAutoSign(OrgInfo.ELEC_CC.getAccountId(),"2121-09-07 23:59:59");
         }
         //设置静默签署
         AccountHelper.setAutoSign(acctId,"2121-09-07 23:59:59");

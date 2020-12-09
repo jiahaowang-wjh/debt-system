@@ -2,7 +2,8 @@ package com.smart.bracelet.enums;
 
 public enum OrgInfo {
     ELEC_AA("25f2254c6ad441f4939b70ccf696c1f9", "深圳市金隆盛投资管理有限公司","914403003595944902","0abac95475e94b0f917b33eec11628b8","6b985686-6be1-43a7-8443-3c3894eee6e9"),
-    ELEC_BB("e02d0ded00224fe089fa02ab4fe93c84", "深圳市方博商贸管理有限公司","91440300MA5G44JB4K","f832e7ba6803442bb9f00d982e8e7e9d","50fc5c05-3517-475c-a345-0905ab1510ba");
+    ELEC_BB("e02d0ded00224fe089fa02ab4fe93c84", "深圳市方博商贸管理有限公司","91440300MA5G44JB4K","f832e7ba6803442bb9f00d982e8e7e9d","50fc5c05-3517-475c-a345-0905ab1510ba"),
+    ELEC_CC("a61f359867664343a26260c6f79e4a3c", "重庆米呀米电子商务有限公司","91500107MA616WHU2M","813f318a49b54a268f13631700a4ebe6","ed6c2399-51ff-40b8-866e-ada2216f377f");
 
     OrgInfo(String orgid, String orgname, String orgCode, String accountId, String sealId) {
         this.orgid = orgid;
