@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.smart.bracelet.enums.DocCode;
 import com.smart.bracelet.enums.OrgInfo;
 import com.smart.bracelet.model.po.doc.BusElectronSeal;
+import com.smart.bracelet.model.po.doc.BusEletronUser;
 import com.smart.bracelet.utils.exception.DefineException;
 import com.smart.bracelet.utils.helper.AccountHelper;
 import com.smart.bracelet.utils.helper.FileTemplateHelper;
@@ -20,11 +21,11 @@ public class DocUtils {
      * 创建个人账号
      * @return
      */
-    public static String creatUser(String userId, BusElectronSeal busElectronSeal) throws DefineException {
+    public static String creatUser(String userId, BusEletronUser busEletronUser) throws DefineException {
         //token start
         TokenHelper.getTokenData();
         //创建个人账号
-        JSONObject personAcctJson = AccountHelper.createPersonAcct(userId, busElectronSeal.getParta(), null, busElectronSeal.getPartaCard(), busElectronSeal.getPartaTel(), null);
+        JSONObject personAcctJson = AccountHelper.createPersonAcct(userId, busEletronUser.getUserName(), null, busEletronUser.getUserCard(), busEletronUser.getUserTel(), null);
         String acctId = personAcctJson.getString("accountId");
         return acctId;
     }
@@ -47,7 +48,7 @@ public class DocUtils {
         }else if ("3".equals(docType)){//货款费发票
             docCode = DocCode.PAYMENT_FEE;
             //设置静默签署
-            AccountHelper.setAutoSign(OrgInfo.ELEC_AA.getAccountId(),"2121-09-07 23:59:59");
+            AccountHelper.setAutoSign(OrgInfo.ELEC_AA.getOrgid(),"2121-09-07 23:59:59");
         }else if ("4".equals(docType)){//信息分析暨尽调协议
             docCode = DocCode.AGREE_ON;
         }else if ("5".equals(docType)){//策划方案服务协议
@@ -55,9 +56,10 @@ public class DocUtils {
         }else if ("6".equals(docType)){//债权转让协议
             docCode = DocCode.ASSIGNMENT_AGREEMENT;
             //设置静默签署
-            AccountHelper.setAutoSign(OrgInfo.ELEC_AA.getAccountId(),"2121-09-07 23:59:59");
+            AccountHelper.setAutoSign(OrgInfo.ELEC_AA.getOrgid(),"2121-09-07 23:59:59");
         }else if ("7".equals(docType)){//债权转让确认书
             docCode = DocCode.ASSIGNMENT_CONFIRMATION;
+            AccountHelper.setAutoSign(acctId2,"2121-09-07 23:59:59");
         }else if ("8".equals(docType)){//债权转让通知书
             docCode = DocCode.ASSIGNMENT_NOTICE;
             //设置静默签署
@@ -65,23 +67,23 @@ public class DocUtils {
         }else if ("9".equals(docType)){//债权确认书
             docCode = DocCode.ASSIGNMENT_CONFIRM;
             //设置静默签署
-            AccountHelper.setAutoSign(OrgInfo.ELEC_AA.getAccountId(),"2121-09-07 23:59:59");
+            AccountHelper.setAutoSign(OrgInfo.ELEC_AA.getOrgid(),"2121-09-07 23:59:59");
         }else if ("10".equals(docType)){//催款函
             docCode = DocCode.COLLECTION_LETTER;
             //设置静默签署
-            AccountHelper.setAutoSign(OrgInfo.ELEC_AA.getAccountId(),"2121-09-07 23:59:59");
+            AccountHelper.setAutoSign(OrgInfo.ELEC_AA.getOrgid(),"2121-09-07 23:59:59");
         }else if ("11".equals(docType)){//委托代理销售合同
             docCode = DocCode.SALES_CONTRACT;
             //设置静默签署
-            AccountHelper.setAutoSign(OrgInfo.ELEC_BB.getAccountId(),"2121-09-07 23:59:59");
+            AccountHelper.setAutoSign(OrgInfo.ELEC_BB.getOrgid(),"2121-09-07 23:59:59");
         }else if ("12".equals(docType)){//和解协议
             docCode = DocCode.SETTLEMENT_AGREEMENT;
             //设置静默签署
-            AccountHelper.setAutoSign(OrgInfo.ELEC_AA.getAccountId(),"2121-09-07 23:59:59");
+            AccountHelper.setAutoSign(OrgInfo.ELEC_AA.getOrgid(),"2121-09-07 23:59:59");
         }else if ("13".equals(docType)){//委托线上代理销售合同
             docCode = DocCode.ONLINE_SALES_CONTRACT;
             //设置静默签署
-            AccountHelper.setAutoSign(OrgInfo.ELEC_CC.getAccountId(),"2121-09-07 23:59:59");
+            AccountHelper.setAutoSign(OrgInfo.ELEC_CC.getOrgid(),"2121-09-07 23:59:59");
         }
         //设置静默签署
         AccountHelper.setAutoSign(acctId,"2121-09-07 23:59:59");
@@ -98,10 +100,10 @@ public class DocUtils {
         String flowId = flowJson.getString("flowId");
         //签署流程开启
         SignHelper.startSignFlow(flowId);
-        new Thread().sleep(2000);
+        new Thread().sleep(3000);
         //签署完成后，通知回调，平台方进行签署流程归档
         SignHelper.archiveSignFlow(flowId);
-        new Thread().sleep(1000);
+        new Thread().sleep(2000);
         //流程文档下载
         JSONObject json = SignHelper.qryDocuments(flowId,"");
         JSONArray docs = JSONArray.parseArray(json.getString("docs"));

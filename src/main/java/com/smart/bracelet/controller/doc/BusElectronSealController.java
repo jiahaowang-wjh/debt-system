@@ -73,8 +73,11 @@ public class BusElectronSealController {
             String acctIdStr2 = "";
             if (StringUtils.isNotEmpty(partaCard)) {
                 String [] partaCards = partaCard.split(",");
+                String [] partas = busElectronSeal.getParta().split(",");
+                String [] partaTels = busElectronSeal.getPartaTel().split(",");
 
                 for (int i = 0; i < partaCards.length; i++) {
+                    busEletronUser = null;
                     busEletronUser = busElectronUserService.selectByPartaCard(partaCards[i]);
                     //判定人是否存储过
                     if (busEletronUser == null) {
@@ -84,21 +87,21 @@ public class BusElectronSealController {
                         acctId += 1;
                         busElectronUserno.setIdno(acctId);
                         busElectronUsernoService.updateByPrimaryKey(busElectronUserno);
-                        acctIdStr = DocUtils.creatUser(DocUtils.creatUserId(acctId), busElectronSeal);
-                        busEletronUser.setUserName(busElectronSeal.getParta());
-                        busEletronUser.setUserCard(busElectronSeal.getPartaCard());
-                        busEletronUser.setUserTel(busElectronSeal.getPartaTel());
+                        busEletronUser.setUserName(partas[i]);
+                        busEletronUser.setUserCard(partaCards[i]);
+                        busEletronUser.setUserTel(partaTels[i]);
+                        String acctIdStra = DocUtils.creatUser(DocUtils.creatUserId(acctId), busEletronUser);
                         //创建个人账号
-                        busEletronUser.setAcctId(acctIdStr);
+                        busEletronUser.setAcctId(acctIdStra);
                         busElectronUserService.insert(busEletronUser);
                     }
                     if(i==0){
                         if (busEletronUser != null) {
-                            acctIdStr = busEletronUser.getAcctId();
+                            acctIdStr = busEletronUser.getAcctId()+"";
                         }
                     }else{
                         if (busEletronUser != null) {
-                            acctIdStr2 = busEletronUser.getAcctId();
+                            acctIdStr2 = busEletronUser.getAcctId()+"";
                         }
                     }
                 }

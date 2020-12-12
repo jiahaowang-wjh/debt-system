@@ -33,7 +33,9 @@ public class OneStepStart {
 			TokenHelper.getTokenData();
 
 			LOGGER.info("---------------------创建个人账号start-------------------------------");
-			JSONObject personAcctJson = AccountHelper.createPersonAcct("ZS0022", "熊长河", null, "500101198909037814", "17830015877", null);
+//			JSONObject personAcctJson = AccountHelper.createPersonAcct("ZS0003", "熊长河", null, "500101198909037814", "17830015877", null);
+//			JSONObject personAcctJson = AccountHelper.createPersonAcct("ZS0005", "蒋莎莉", null, "500381200010121623", "15113893188", null);
+			JSONObject personAcctJson = AccountHelper.createPersonAcct("ZS0006", "龚长虹", null, "50038119861112167X", "15683946116", null);
 			String acctId = personAcctJson.getString("accountId");
 //
 //			JSONObject personAcctJson = AccountHelper.createPersonAcct("ZS0008", "邓丽清", null, "440981198801011427", "15218801056", null);
@@ -46,11 +48,15 @@ public class OneStepStart {
 ////			String copierAcctId = copierAcctJson.getString("accountId");
 //
 			LOGGER.info("---------------------创建机构账号start----------------------------------");
-			JSONObject orgAcctJson = AccountHelper.createOrgAcct("mama", acctId, "重庆米呀米电子商务有限公司", null, "91500107MA616WHU2M");
+//			JSONObject orgAcctJson = AccountHelper.createOrgAcct("AAAAAA", acctId, "重庆米呀米电子商务有限公司", null, "91500107MA616WHU2M");
+//			JSONObject orgAcctJson = AccountHelper.createOrgAcct("BBBBBB", acctId, "深圳市方博商贸管理有限公司", null, "91440300MA5G44JB4K");
+			JSONObject orgAcctJson = AccountHelper.createOrgAcct("CCCCCC", acctId, "深圳市金隆盛投资管理有限公司", null, "914403003595944902");
 			String orgId = orgAcctJson.getString("orgId");
 
 			LOGGER.info("---------------------创建机构印章start----------------------------------");
-			JSONObject orgSealJson = SealHelper.createOrgTemplateSeal(orgId, "重庆米呀米电子商务有限公司", "RED", null, null, null, "91500107MA616WHU2M", "TEMPLATE_ROUND", "STAR");
+//			JSONObject orgSealJson = SealHelper.createOrgTemplateSeal(orgId, "重庆米呀米电子商务有限公司", "RED", null, null, null, "91500107MA616WHU2M", "TEMPLATE_ROUND", "STAR");
+//			JSONObject orgSealJson = SealHelper.createOrgTemplateSeal(orgId, "深圳市方博商贸管理有限公司", "RED", null, null, null, "91440300MA5G44JB4K", "TEMPLATE_ROUND", "STAR");
+			JSONObject orgSealJson = SealHelper.createOrgTemplateSeal(orgId, "深圳市金隆盛投资管理有限公司", "RED", null, null, null, "914403003595944902", "TEMPLATE_ROUND", "STAR");
 			String orgSealId = orgSealJson.getString("sealId");
 			System.out.println(orgSealId);
 //

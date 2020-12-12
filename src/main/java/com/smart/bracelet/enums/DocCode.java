@@ -15,7 +15,7 @@ public enum DocCode {
 
     PLAN_SERVICE_AGREEMENT("策划方案服务协议", "05",false,7),
 
-    ASSIGNMENT_AGREEMENT("债权转让协议", "06",false,6),
+    ASSIGNMENT_AGREEMENT("债权转让协议", "06",false,9),
 
     ASSIGNMENT_CONFIRMATION("债权转让确认书", "07",false,1),
 

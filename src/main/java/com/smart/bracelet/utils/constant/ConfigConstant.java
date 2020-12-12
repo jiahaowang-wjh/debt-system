@@ -12,14 +12,19 @@ public class ConfigConstant {
 	public static final String PDF_TYPE = "application/pdf";
 	
 	// 模拟环境域名
-	public static final String host = "https://smlopenapi.esign.cn";
+//	public static final String host = "https://smlopenapi.esign.cn";
 	// 生产环境域名
-//	public static final String host = "https://openapi.esign.cn";
+	public static final String host = "https://openapi.esign.cn";
+
+//	// 项目Id(应用Id）
+//	public static final String PROJECT_ID = "7438817967";
+//	// 项目密钥(应用密钥）
+//	public static final String PROJECT_SECRET = "5e90a910d3fa61567cb0aecf0c109adf";
 
 	// 项目Id(应用Id）
-	public static final String PROJECT_ID = "7438817967";
+	public static final String PROJECT_ID = "5111618894";
 	// 项目密钥(应用密钥）
-	public static final String PROJECT_SECRET = "5e90a910d3fa61567cb0aecf0c109adf";
+	public static final String PROJECT_SECRET = "3453d9f2251dfdbffc1a468957dedde2";
 
 	// ------Token相关地址------
 	// 获取Token
